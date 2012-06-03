@@ -6,8 +6,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'atexpc.views.home', name='home'),
-    # url(r'^atexpc/', include('atexpc.foo.urls')),
+    url(r'^', include('atex_frontend.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
