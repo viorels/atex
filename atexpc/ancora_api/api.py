@@ -5,6 +5,8 @@ from urlparse import urlparse, urlunparse
 from urllib2 import urlopen # TODO: try urllib3 with connection pooling
 import xon
 
+mock_data_path = os.path.join(os.path.split(__file__)[0], 'mock_data')
+
 class BaseAdapter(object):
     def __init__(self, base_uri=None):
         if not base_uri.endswith('/'):
@@ -35,8 +37,8 @@ class Ancora(object):
         def post_process(data):
             categories = []
             for category in data.get('tabel', {}).get('records', {}).get('row', []):
-                categories.append({'name': re.sub(r'^[0-9.]+ ', '', category['@den']),
-                                   'id': category['@cod']})
+                categories.append({'id': category['@cod'],
+                                   'name': re.sub(r'^[0-9.]+ ', '', category['@den'])})
             return categories
 
         uri = self.adapter.uri_for('categories')
