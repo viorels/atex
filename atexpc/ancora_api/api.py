@@ -3,6 +3,7 @@ import os
 import re
 from urlparse import urlparse, urlunparse
 from urllib2 import urlopen # TODO: try urllib3 with connection pooling
+from django.template.defaultfilters import slugify
 import xon
 
 mock_data_path = os.path.join(os.path.split(__file__)[0], 'mock_data')
@@ -39,8 +40,8 @@ class Ancora(object):
             for category in data.get('tabel', {}).get('records', {}).get('row', []):
                 categories.append({'id': category['@cod'],
                                    'name': re.sub(r'^[0-9.]+ ', '', category['@den']),
+                                   'slug': slugify(category['@den']),
                                    'parent': re.sub(r'\.?[0-9]+$', '', category['@cod']) or None})
-            print categories
             return categories
 
         uri = self.adapter.uri_for('categories')
