@@ -8,5 +8,6 @@ def home(request):
     return render(request, "home.html", context)
 
 def products(request):
-    context = {'categories': ancora.get_main_categories()}
+    context = {'categories': ancora.get_categories(parent=None)}
     return render(request, "products.html", context)
+

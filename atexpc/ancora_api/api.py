@@ -38,7 +38,9 @@ class Ancora(object):
             categories = []
             for category in data.get('tabel', {}).get('records', {}).get('row', []):
                 categories.append({'id': category['@cod'],
-                                   'name': re.sub(r'^[0-9.]+ ', '', category['@den'])})
+                                   'name': re.sub(r'^[0-9.]+ ', '', category['@den']),
+                                   'parent': re.sub(r'\.?[0-9]+$', '', category['@cod']) or None})
+            print categories
             return categories
 
         uri = self.adapter.uri_for('categories')
