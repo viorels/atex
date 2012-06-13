@@ -1,8 +1,10 @@
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="css/style.css" type="text/css" rel="stylesheet" />
+<link href="{{ STATIC_PREFIX }}css/style.css" type="text/css" rel="stylesheet" />
 <title>ATEX</title>
 </head>
 
@@ -11,7 +13,7 @@
 	<div class="page_wrapper clear">
     	<div class="header">
         	<div class="logo">
-            	<a href="#"><img src="images/atex-logo.png" width="300" height="100" alt="atex logo" title="www.atexpc.ro" name="www.atexpc.ro"/></a>
+            	<a href="#"><img src="{{ STATIC_PREFIX }}images/atex-logo.png" width="300" height="100" alt="atex logo" title="www.atexpc.ro" name="www.atexpc.ro"/></a>
             </div>
             <div class="login_holder">
             	<span class="down_left"></span>
@@ -24,16 +26,16 @@
             </div>
             <div class="advertising_top">
             	<ul>
-                	<li><a href="#"><img src="images/servicii-atex.png" width="190" height="90" alt="Servicii ATEX" title="Servicii ATEX" /></a></li>
-                    <li><a href="#"><img src="images/card-fidelitate-atex.png" width="190" height="90" alt="Card fidelitate ATEX" title="Card fidelitate ATEX" /></a></li>
+                	<li><a href="#"><img src="{{ STATIC_PREFIX }}images/servicii-atex.png" width="190" height="90" alt="Servicii ATEX" title="Servicii ATEX" /></a></li>
+                    <li><a href="#"><img src="{{ STATIC_PREFIX }}images/card-fidelitate-atex.png" width="190" height="90" alt="Card fidelitate ATEX" title="Card fidelitate ATEX" /></a></li>
                 </ul>
             </div>
             <div class="social">
             	<ul>
                 	<li>Ne gasiti si pe:</li>
-                	<li><a href="#"><img src="images/facebook-icon.png" height="22" width="22" alt="Facebook icon" title="Find us on Facebook" /></a></li>
-                    <li><a href="#"><img src="images/twitter-icon.png" height="22" width="22" alt="Twitter icon" title="Follow us on Twitter" /></a></li>
-                    <li><a href="#"><img src="images/google-icon.png" height="22" width="22" alt="Google icon" title="Google" /></a></li>
+                	<li><a href="#"><img src="{{ STATIC_PREFIX }}images/facebook-icon.png" height="22" width="22" alt="Facebook icon" title="Find us on Facebook" /></a></li>
+                    <li><a href="#"><img src="{{ STATIC_PREFIX }}images/twitter-icon.png" height="22" width="22" alt="Twitter icon" title="Follow us on Twitter" /></a></li>
+                    <li><a href="#"><img src="{{ STATIC_PREFIX }}images/google-icon.png" height="22" width="22" alt="Google icon" title="Google" /></a></li>
                 </ul>
             </div>
             <div class="info_cos">
@@ -41,7 +43,7 @@
                 	<p>Bun venit <span class="red_b"> Radu </span>!</p>
                 </div>    
                 <ul>
-                	<li><a href="#"><img src="images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
+                	<li><a href="#"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
                     <li><span class="red_b">2</span> produse</li>
                     <li> | </li>
                     <li><span class="red_b">347.22</span> lei </li>
@@ -51,13 +53,13 @@
         <div class="search_bar">
         	<ul class="search_inputs">
             	<li><input class="search" type="text" value="cauta produsul dorit" /></li>
-                <li><a href="#"><img src="images/search-button.png" height="23" width="23" alt="Cauta" title="Cauta produsul dorit ..." /></a></li>
+                <li><a href="#"><img src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Cauta" title="Cauta produsul dorit ..." /></a></li>
                 <li>
                 	<select class="categorii">
-                    	<option> - Toate Categoriile - </option>
-                        <option> Categoria 1 </option>
-                        <option> Categoria 2 </option>
-                        <option> Categoria 3 </option>
+                        <option value="">- Toate Categoriile -</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
                     </select>
                 </li>    
             </ul>
@@ -67,194 +69,40 @@
             </ul>
             <ul class="configurator">
             	<li>Configureaza-ti propriul calculator : </li>
-                <li><a href="#"><img src="images/config-button.png" width="23" height="23" alt="Configurator calculatoare" title="Configurator calculatoare" /></a></li>
+                <li><a href="#"><img src="{{ STATIC_PREFIX }}images/config-button.png" width="23" height="23" alt="Configurator calculatoare" title="Configurator calculatoare" /></a></li>
             </ul>
         </div> <!-- search bar end -->
         
         <div class="content_wrapper clear">
         	<div class="left_col">
             	<ul class="menu">
-                	<li class="menu-item first">
-                    	<a class="menu-link" href="#"><span class="menu_icon"><img src="images/desktop-icon.png" height="22" width="24" alt="icon" /></span>Laptopuri & desktop</a>
-                        <div class="popup-holder bg-01">
-                        	<h1>Laptopuri & desktop</h1>
+                    {% for cat in menu %}
+                    <li class="menu-item{% if forloop.first %} first{% endif %}">
+                    	<a class="menu-link" href="#"><span class="menu_icon"><img src="{{ STATIC_PREFIX }}{{ cat.icon }}" height="22" width="23" alt="icon" /></span>{{ cat.name }}</a>
+                        <div class="popup-holder {{ cat.background }}">
+                        	<h1>{{ cat.name }}</h1>
+                            {% for column in cat.columns %}
                             <ul>
-                            	<li><a href="#">Laptop <span>(33)</span></a></li>
-                                <li><a href="#">Netbook <span>(20)</span></a></li>
-                                <li><a href="#">Ultrabook <span>(32)</span></a></li>
-                                <li><a href="#">Tablete <span>(8)</span></a></li>
-                                <li><a href="#">E-Book Reader <span>(12)</span></a></li>
-                                <li><a href="#">Unitati centrale <span>(40)</span></a></li>
-                                <li><a href="#">Servere <span>(24)</span></a></li>
-                                <li><a href="#">Barebone <span>(5)</span></a></li>
-                                <li><a href="#">Genti si Huse pt laptop <span>(32)</span></a></li>
-                                <li><a href="#">Baterii si adaptoare pt laptop <span>(20)</span></a></li>
-                                <li><a href="#">Extindere de garantie <span>(2)</span></a></li>
+                                {% for subcat in column %}
+                                <li{% if subcat.level == 3 %} class="subcat"{% endif %}>
+                            	    <a href="#">{{ subcat.name }}<span>({{ subcat.count }})</span></a>
+                                </li>
+                                {% endfor %}
                             </ul>
-                        </div>    
-                    </li>
-                    <li class="menu-item">
-                    	<a class="menu-link" href="#"><span class="menu_icon"><img src="images/tv-icon.png" height="22" width="23" alt="icon" /></span>Monitoare & TV & gaming</a>
-                        <div class="popup-holder bg-02">
-                        	<h1>Monitoare & TV & gaming</h1>
-                            <ul>
-                            	<li><a href="#">Monitoare LCD <span>(33)</span></a></li>
-                                <li><a href="#">Monitoare LED <span>(20)</span></a></li>
-                                <li><a href="#">Proiectoare multimedia <span>(32)</span></a></li>
-                                <li><a href="#">Televizoare LCD <span>(8)</span></a></li>
-                                <li><a href="#">Televizoare cu plasma <span>(12)</span></a></li>
-                                <li><a href="#">Ecrane de proiectie <span>(40)</span></a></li>
-                                <li><a href="#">LCD pentru laptop <span>(24)</span></a></li>
-                                <li><a href="#">Accesorii <span>(5)</span></a></li>
-                                <li class="subcat"><a href="#">Cabluri si adaptoare <span>(20)</span></a></li>
-                                <li class="subcat"><a href="#">Suporti de prindere <span>(20)</span></a></li>
-                                <li class="subcat"><a href="#">Lampi proiector <span>(20)</span></a></li>                                
-                            </ul>
-							<ul>
-                            	<li><a href="#">Gaming <span>(32)</span></a></li>
-                                <li class="subcat"><a href="#">Console <span>(20)</span></a></li>
-                                <li class="subcat"><a href="#">Accesorii console <span>(2)</span></a></li>
-                                <li class="subcat"><a href="#">Tastaturi pt jocuri <span>(20)</span></a></li>
-                                <li class="subcat"><a href="#">Mouse pt jocuri <span>(2)</span></a></li>
-                                <li class="subcat"><a href="#">Pad pt jocuri <span>(20)</span></a></li>
-                                <li class="subcat"><a href="#">Joystick <span>(2)</span></a></li>
-                                <li class="subcat"><a href="#">Gamepad <span>(20)</span></a></li>
-                                <li class="subcat"><a href="#">Volane <span>(2)</span></a></li>
-                                <li class="subcat"><a href="#">Jocuri <span>(2)</span></a></li>
-                            </ul>
+                            {% endfor %}
                         </div>
                     </li>
-                    <li class="menu-item">
-                    	<a class="menu-link" href="#"><span class="menu_icon"><img src="images/hdd-icon.png" height="24" width="23" alt="icon" /></span>Componente IT</a>
-                        <div class="popup-holder bg-03">
-                        	<h1>Componente IT</h1>
-                            <ul>
-                            	<li><a href="#">Laptop <span>(33)</span></a></li>
-                                <li><a href="#">Netbook <span>(20)</span></a></li>
-                                <li><a href="#">Ultrabook <span>(32)</span></a></li>
-                                <li><a href="#">Tablete <span>(8)</span></a></li>
-                                <li><a href="#">E-Book Reader <span>(12)</span></a></li>
-                                <li><a href="#">Unitati centrale <span>(40)</span></a></li>
-                                <li><a href="#">Servere <span>(24)</span></a></li>
-                                <li><a href="#">Barebone <span>(5)</span></a></li>
-                                <li><a href="#">Genti si Huse pt laptop <span>(32)</span></a></li>
-                                <li><a href="#">Baterii si adaptoare pt laptop <span>(20)</span></a></li>
-                                <li><a href="#">Extindere de garantie <span>(2)</span></a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="menu-item">
-                    	<a class="menu-link" href="#"><span class="menu_icon"><img src="images/mouse-icon.png" height="24" width="21" alt="icon" /></span>Periferice</a>
-                    	<div class="popup-holder bg-04">
-                        	<h1>Periferice</h1>
-                            <ul>
-                            	<li><a href="#">Laptop <span>(33)</span></a></li>
-                                <li><a href="#">Netbook <span>(20)</span></a></li>
-                                <li><a href="#">Ultrabook <span>(32)</span></a></li>
-                                <li><a href="#">Tablete <span>(8)</span></a></li>
-                                <li><a href="#">E-Book Reader <span>(12)</span></a></li>
-                                <li><a href="#">Unitati centrale <span>(40)</span></a></li>
-                                <li><a href="#">Servere <span>(24)</span></a></li>
-                                <li><a href="#">Barebone <span>(5)</span></a></li>
-                                <li><a href="#">Genti si Huse pt laptop <span>(32)</span></a></li>
-                                <li><a href="#">Baterii si adaptoare pt laptop <span>(20)</span></a></li>
-                                <li><a href="#">Extindere de garantie <span>(2)</span></a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="menu-item">
-                    	<a class="menu-link" href="#"><span class="menu_icon"><img src="images/printer-icon.png" height="21" width="24" alt="icon" /></span>Birotica & consumabile</a>
-                    	<div class="popup-holder bg-05">
-                        	<h1>Birotica & consumabile</h1>
-                            <ul>
-                            	<li><a href="#">Laptop <span>(33)</span></a></li>
-                                <li><a href="#">Netbook <span>(20)</span></a></li>
-                                <li><a href="#">Ultrabook <span>(32)</span></a></li>
-                                <li><a href="#">Tablete <span>(8)</span></a></li>
-                                <li><a href="#">E-Book Reader <span>(12)</span></a></li>
-                                <li><a href="#">Unitati centrale <span>(40)</span></a></li>
-                                <li><a href="#">Servere <span>(24)</span></a></li>
-                                <li><a href="#">Barebone <span>(5)</span></a></li>
-                                <li><a href="#">Genti si Huse pt laptop <span>(32)</span></a></li>
-                                <li><a href="#">Baterii si adaptoare pt laptop <span>(20)</span></a></li>
-                                <li><a href="#">Extindere de garantie <span>(2)</span></a></li>
-                            </ul>                            
-                        </div>
-                    </li>
-                    <li class="menu-item">
-                        <a class="menu-link" href="#"><span class="menu_icon"><img src="images/network-icon.png" height="23" width="24" alt="icon" /></span>retelistica</a>
-                        <div class="popup-holder bg-06">
-                        	<h1>retelistica</h1>
-                            <ul>
-                            	<li><a href="#">Laptop <span>(33)</span></a></li>
-                                <li><a href="#">Netbook <span>(20)</span></a></li>
-                                <li><a href="#">Ultrabook <span>(32)</span></a></li>
-                                <li><a href="#">Tablete <span>(8)</span></a></li>
-                                <li><a href="#">E-Book Reader <span>(12)</span></a></li>
-                                <li><a href="#">Unitati centrale <span>(40)</span></a></li>
-                                <li><a href="#">Servere <span>(24)</span></a></li>
-                                <li><a href="#">Barebone <span>(5)</span></a></li>
-                                <li><a href="#">Genti si Huse pt laptop <span>(32)</span></a></li>
-                                <li><a href="#">Baterii si adaptoare pt laptop <span>(20)</span></a></li>
-                                <li><a href="#">Extindere de garantie <span>(2)</span></a></li>
-                            </ul>
-                            <ul>
-                            	<li><a href="#">Laptop <span>(33)</span></a></li>
-                                <li><a href="#">Netbook <span>(20)</span></a></li>
-                                <li><a href="#">Ultrabook <span>(32)</span></a></li>
-                                <li><a href="#">Tablete <span>(8)</span></a></li>
-                                <li><a href="#">E-Book Reader <span>(12)</span></a></li>
-                                <li><a href="#">Unitati centrale <span>(40)</span></a></li>
-                                <li><a href="#">Servere <span>(24)</span></a></li>
-                                <li><a href="#">Barebone <span>(5)</span></a></li>
-                                <li><a href="#">Genti si Huse pt laptop <span>(32)</span></a></li>
-                                <li><a href="#">Baterii si adaptoare pt laptop <span>(20)</span></a></li>
-                                <li><a href="#">Extindere de garantie <span>(2)</span></a></li>
-                            </ul>
-                            <ul class="last">
-                            	<li><a href="#">Laptop <span>(33)</span></a></li>
-                                <li><a href="#">Netbook <span>(20)</span></a></li>
-                                <li><a href="#">Ultrabook <span>(32)</span></a></li>
-                                <li><a href="#">Tablete <span>(8)</span></a></li>
-                                <li><a href="#">E-Book Reader <span>(12)</span></a></li>
-                                <li><a href="#">Unitati centrale <span>(40)</span></a></li>
-                                <li><a href="#">Servere <span>(24)</span></a></li>
-                                <li><a href="#">Barebone <span>(5)</span></a></li>
-                                <li><a href="#">Genti si Huse pt laptop <span>(32)</span></a></li>
-                                <li><a href="#">Baterii si adaptoare pt laptop <span>(20)</span></a></li>
-                                <li><a href="#">Extindere de garantie <span>(2)</span></a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="menu-item">
-                        <a class="menu-link" href="#"><span class="menu_icon"><img src="images/cd-icon.png" height="22" width="22" alt="icon" /></span>software</a>
-                        <div class="popup-holder bg-07">
-                        	<h1>software</h1>
-                            <ul>
-                            	<li><a href="#">Laptop <span>(33)</span></a></li>
-                                <li><a href="#">Netbook <span>(20)</span></a></li>
-                                <li><a href="#">Ultrabook <span>(32)</span></a></li>
-                                <li><a href="#">Tablete <span>(8)</span></a></li>
-                                <li><a href="#">E-Book Reader <span>(12)</span></a></li>
-                                <li><a href="#">Unitati centrale <span>(40)</span></a></li>
-                                <li><a href="#">Servere <span>(24)</span></a></li>
-                                <li><a href="#">Barebone <span>(5)</span></a></li>
-                                <li><a href="#">Genti si Huse pt laptop <span>(32)</span></a></li>
-                                <li><a href="#">Baterii si adaptoare pt laptop <span>(20)</span></a></li>
-                                <li><a href="#">Extindere de garantie <span>(2)</span></a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    {% endfor %} 
                 </ul>
                 <ul class="ads-left">
                 	<li>
                     	<a href="#">
-                            <img src="images/produse-apple.png" width="250" height="320" alt="Produse APPLE" title="Vezi produsele APPLE" />
+                            <img src="{{ STATIC_PREFIX }}images/produse-apple.png" width="250" height="320" alt="Produse APPLE" title="Vezi produsele APPLE" />
                         </a>
                     </li>
                     <li>
                     	<a href="#">
-                            <img src="images/produse-apple.png" width="250" height="320" alt="Produse APPLE" title="Vezi produsele APPLE" />
+                            <img src="{{ STATIC_PREFIX }}images/produse-apple.png" width="250" height="320" alt="Produse APPLE" title="Vezi produsele APPLE" />
                         </a>
                     </li>
                 </ul>
@@ -300,7 +148,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-01.jpg" width="91" height="69" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-01.jpg" width="91" height="69" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -315,7 +163,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-02.jpg" width="98" height="84" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-02.jpg" width="98" height="84" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -329,7 +177,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-03.jpg" width="99" height="88" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-03.jpg" width="99" height="88" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -344,7 +192,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-04.jpg" width="71" height="69" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-04.jpg" width="71" height="69" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -371,7 +219,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-05.jpg" width="70" height="76" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-05.jpg" width="70" height="76" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -386,7 +234,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-06.jpg" width="85" height="93" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-06.jpg" width="85" height="93" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -400,7 +248,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-07.jpg" width="87" height="66" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-07.jpg" width="87" height="66" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -415,7 +263,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-08.jpg" width="78" height="69" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-08.jpg" width="78" height="69" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -443,7 +291,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-09.jpg" width="73" height="68" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-09.jpg" width="73" height="68" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -458,7 +306,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-10.jpg" width="74" height="56" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-10.jpg" width="74" height="56" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -472,7 +320,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-11.jpg" width="80" height="61" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-11.jpg" width="80" height="61" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -487,7 +335,7 @@
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="images/produs-12.jpg" width="69" height="70" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-12.jpg" width="69" height="70" alt="product name" title="product name" />
                                         </div>
                                     </div>
                                 </a>
@@ -504,12 +352,12 @@
                 </div>
                 <div class="logo-producatori">
                 	<ul>
-                    	<li><div class="middle"><a class="img-holder" href="#"><img class="center" src="images/windows-icon.jpg" width="109" height="78" alt="windows logo" title="windows"/></a></div></li>
-                        <li><div class="middle"><a href="#"><img src="images/wd-icon.jpg" width="176" height="53" alt="western digital logo" title="western digital"/></a></div></li>
-                        <li><div class="middle"><a href="#"><img src="images/apple-icon.jpg" width="86" height="96" alt="apple logo" title="apple"/></a></div></li>
-                        <li><div class="middle"><a href="#"><img src="images/hp-icon.jpg" width="106" height="70" alt="hp logo" title="hp"/></a></div></li>
-                        <li><div class="middle"><a href="#"><img src="images/nvidia-icon.jpg" width="129" height="84" alt="nvidia logo" title="nvidia"/></a></div></li>
-                        <li><div class="middle"><a href="#"><img src="images/samsung-icon.jpg" width="184" height="70" alt="samsung logo" title="samsung"/></a></div></li>
+                    	<li><div class="middle"><a class="img-holder" href="#"><img class="center" src="{{ STATIC_PREFIX }}images/windows-icon.jpg" width="109" height="78" alt="windows logo" title="windows"/></a></div></li>
+                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/wd-icon.jpg" width="176" height="53" alt="western digital logo" title="western digital"/></a></div></li>
+                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/apple-icon.jpg" width="86" height="96" alt="apple logo" title="apple"/></a></div></li>
+                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/hp-icon.jpg" width="106" height="70" alt="hp logo" title="hp"/></a></div></li>
+                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/nvidia-icon.jpg" width="129" height="84" alt="nvidia logo" title="nvidia"/></a></div></li>
+                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/samsung-icon.jpg" width="184" height="70" alt="samsung logo" title="samsung"/></a></div></li>
                     </ul>
                 </div>
             </div> <!-- right side end -->

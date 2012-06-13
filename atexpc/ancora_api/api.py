@@ -41,6 +41,7 @@ class Ancora(object):
                 categories.append({'id': category['@cod'],
                                    'name': re.sub(r'^[0-9.]+ ', '', category['@den']),
                                    'slug': slugify(category['@den']),
+                                   'count': len(category['@den']),
                                    'parent': re.sub(r'\.?[0-9]+$', '', category['@cod']) or None})
             return categories
 
