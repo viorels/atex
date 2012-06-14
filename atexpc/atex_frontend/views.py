@@ -21,21 +21,24 @@ def home(request):
 
     menu = []
     for cat in ancora.get_categories(parent=None):
+        max_per_column = 12
         columns = [[]]
         for l2cat in ancora.get_categories(parent=cat['id']):
+            l2cat_items = [{'name': l2cat['name'],
+                            'count': l2cat['count'],
+                            'level': 2}]
             for l3cat in ancora.get_categories(parent=l2cat['id']):
-                columns[0].append({'name': l3cat['name'],
-                                   'count': l3cat['count'],
-                                   'level': 3})
-            columns[0].append({'name': l2cat['name'],
-                               'count': l2cat['count'],
-                               'level': 2})
+                l2cat_items.append({'name': l3cat['name'],
+                                    'count': l3cat['count'],
+                                    'level': 3})
+            if len(columns[-1]) + len(l2cat_items) > max_per_column:
+                columns.append([])
+            columns[-1].extend(l2cat_items)
 
         category = {'name': cat['name'],
                     'icon': category_icon(cat['slug']),
                     'background': category_background(cat['slug']),
                     'columns': columns}
-        print category
         menu.append(category)
         
     context['menu'] = menu
