@@ -118,7 +118,8 @@ html, body { height: 100%;  }
     background: -o-linear-gradient(#cd2325, #c62123); 
     background: linear-gradient(#dcd2325, #c62123); 
     -pie-background: linear-gradient(#cd2325, #c62123); 
-    behavior: url(PIE.htc);
+    behavior: url(pie.php);
+	display:block;
 }
 .tab_up {
 	height:20px;
@@ -129,7 +130,8 @@ html, body { height: 100%;  }
     background: -o-linear-gradient(#de3537, #c62123); 
     background: linear-gradient(#de3537, #c62123); 
     -pie-background: linear-gradient(#de3537, #c62123); 
-    behavior: url(PIE.htc);
+    behavior: url(pie.php);
+	display:block;
 }
 ul.tab_down li, .tab_up li, span.tab_up  {
 	float:left;
@@ -206,7 +208,8 @@ ul.tab_down li a:hover {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(pie.php);	
+	display:block;
 }
 ul.search_inputs {
 	float:left;
@@ -222,7 +225,7 @@ ul.search_inputs li {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(pie.php);	
 	height:23px;
 	line-height:23px;
 	color:#999;
@@ -235,7 +238,7 @@ ul.search_inputs li {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(pie.php);	
 	padding:3px 3px 2px 5px;
 	width:160px;
 }
@@ -303,7 +306,7 @@ ul.search_inputs li {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
-	behavior: url(PIE.htc); 
+	behavior: url(pie.php); 
 	float: left;
 	background-color:#fff;
 	
@@ -331,7 +334,7 @@ ul.selector_area {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 	border:1px solid #c62123;	
 	float:left;
 }
@@ -456,9 +459,10 @@ li .price_selector span {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(pie.php);	
 	text-transform:capitalize;
 	font-size:13px;
+	display:block;
 }
 .dd-menu a.menu-link{
 	display:block;
@@ -472,7 +476,7 @@ ul.menu {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 }
 ul.menu li.menu-item {
 	height:40px;
@@ -488,9 +492,10 @@ ul.menu li.menu-item {
 	-moz-border-radius: 0 0 6px 6px;
 	-webkit-border-radius: 0 0 6px 6px;
 	border-radius: 0 0 6px 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(pie.php);	
 	text-transform:capitalize;
 	font-size:13px;
+	display:block;
 }
 ul.menu li.menu-item.active, ul.menu li.menu-item:hover  {
 	background: -moz-linear-gradient(top ,#fff, #fff) !important;
@@ -498,7 +503,7 @@ ul.menu li.menu-item.active, ul.menu li.menu-item:hover  {
 	background: -o-linear-gradient(top ,#fff, #fff) !important;
 	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fff)) !important;
 	-pie-background: linear-gradient(#fff, #fff) !important;
-	behavior: url(PIE.htc);	 
+	behavior: url(pie.php);	 
 }
 ul.menu li.menu-item.first {
 	border-top:1px solid #cecece;
@@ -536,32 +541,32 @@ ul.menu li.menu-item a.menu-link:hover, ul.menu li.menu-item.active a.menu-link 
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 	text-transform:none;
 }
 .bg-01 {
-	background:url(../images/bg-01.png) #fcfcfc bottom right no-repeat;
+	background:url(../images/bg-01.jpg) #fcfcfc bottom right no-repeat;
 }
 .bg-02 {
-	background:url(../images/bg-02.png) #fcfcfc bottom right no-repeat;
+	background:url(../images/bg-02.jpg) #fcfcfc bottom right no-repeat;
 }
 .bg-03 {
-	background:url(../images/bg-03.png) #fcfcfc bottom right no-repeat;
+	background:url(../images/bg-03.jpg) #fcfcfc bottom right no-repeat;
 }
 .bg-04 {
-	background:url(../images/bg-04.png) #fcfcfc bottom right no-repeat;
+	background:url(../images/bg-04.jpg) #fcfcfc bottom right no-repeat;
 }
 .bg-05 {
-	background:url(../images/bg-05.png) #fcfcfc bottom right no-repeat;
+	background:url(../images/bg-05.jpg) #fcfcfc bottom right no-repeat;
 }
 .bg-06 {
-	background:url(../images/bg-06.png) #fcfcfc bottom right no-repeat;
+	background:url(../images/bg-06.jpg) #fcfcfc bottom right no-repeat;
 }
 .bg-07 {
-	background:url(../images/bg-07.png) #fcfcfc bottom right no-repeat;
+	background:url(../images/bg-07.jpg) #fcfcfc bottom right no-repeat;
 }
 .bg-08 {
-	background:url(../images/bg-08.png) #fcfcfc bottom right no-repeat;
+	background:url(../images/bg-08.jpg) #fcfcfc bottom right no-repeat;
 }
 ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	z-index:100;
@@ -616,7 +621,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 	background-color:#fff;
 	border:1px solid #cecece;
 	padding:9px;
@@ -632,7 +637,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	padding:15px 0 0 0;
 }
 .news_email {
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
@@ -684,7 +689,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 .picture_banner {
 	width:630px;
 	height:357px;
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 	border-radius: 6px 0px 0px 6px;     
 	-moz-border-radius: 6px 0px 0px 6px;     
 	-webkit-border-radius: 6px 0px 0px 6px;
@@ -706,22 +711,23 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	border-top:1px solid #c62123;
 	border-right:1px solid #c62123;
 	border-left:4px solid #c62123;
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 	background: -webkit-linear-gradient(#fafafa, #efefef); 
     background: -moz-linear-gradient(#fafafa, #efefef); 
     background: -ms-linear-gradient(#fafafa, #efefef); 
     background: -o-linear-gradient(#fafafa, #efefef); 
     background: linear-gradient(#fafafa, #efefef); 
     -pie-background: linear-gradient(#fafafa, #efefef); 	
+	display:block;
 }
 .banner_right_wrapper li.first {
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 	border-radius:0px 6px 0px 0px;     
 	-moz-border-radius:0px 6px 0px 0px;     
 	-webkit-border-radius:0px 6px 0px 0px;
 }
 .banner_right_wrapper li.last {
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 	border-radius:0px 0px 6px 0px;     
 	-moz-border-radius:0px 0px 6px 0px;     
 	-webkit-border-radius:0px 0px 6px 0px;
@@ -739,7 +745,8 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
     background: -o-linear-gradient(#c62123, #de3537); 
     background: linear-gradient(#c62123, #de3537); 
     -pie-background: linear-gradient(#c62123, #de3537); 	
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
+	display:block;
  }
 
 .banner_wrapper .titlu_top {
@@ -765,7 +772,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	margin-right:20px;
 }
 .produse_top {
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
@@ -796,7 +803,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
-	behavior: url(PIE.htc);	 
+	behavior: url(pie.php);	 
 }
 .middle {
 	overflow:hidden;
@@ -850,7 +857,7 @@ img.center {
 	width:873px;
 	height:100px;
 	background-color:#fff;
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
@@ -1001,7 +1008,7 @@ ul.filtrare li span {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(pie.php);	
 }
 .add_cos_btn span {
 	height:30px;
@@ -1244,6 +1251,7 @@ ul.exposureThumbs li {
 .exposurePaging {
 	height:20px;
 	line-height:20px;
+	display:block;
 	float:left;
 	font-weight:bold;
 	background: -webkit-linear-gradient(#c62123, #de3537); 
@@ -1252,7 +1260,7 @@ ul.exposureThumbs li {
     background: -o-linear-gradient(#c62123, #de3537); 
     background: linear-gradient(#c62123, #de3537); 
     -pie-background: linear-gradient(#c62123, #de3537); 	
-	behavior: url(PIE.htc);
+	behavior: url(pie.php);
 }
 .exposurePaging a, .exposurePaging span {
 	position:relative;
