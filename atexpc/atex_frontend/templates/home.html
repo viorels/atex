@@ -1,10 +1,13 @@
-{% load static %}
-{% get_static_prefix as STATIC_PREFIX %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="{{ STATIC_PREFIX }}css/style.css" type="text/css" rel="stylesheet" />
+<script src="script/jquery-1.7.2.js" type="text/javascript"></script>
+<script src="script/jquery.exposure.js" type="text/javascript"></script>
+<script src="script/all.js" type="text/javascript"></script>
 <title>ATEX</title>
 </head>
 
@@ -79,17 +82,19 @@
                     {% for cat in menu %}
                     <li class="menu-item{% if forloop.first %} first{% endif %}">
                     	<a class="menu-link" href="#"><span class="menu_icon"><img src="{{ STATIC_PREFIX }}{{ cat.icon }}" height="22" width="23" alt="icon" /></span>{{ cat.name }}</a>
-                        <div class="popup-holder {{ cat.background }}">
-                        	<h1>{{ cat.name }}</h1>
-                            {% for column in cat.columns %}
-                            <ul>
-                                {% for subcat in column %}
-                                <li{% if subcat.level == 3 %} class="subcat"{% endif %}>
-                            	    <a href="#">{{ subcat.name }}<span>({{ subcat.count }})</span></a>
-                                </li>
+                        <div class="popup-holder">
+                            <div class="popup {{ cat.background }}">
+                                <h1>{{ cat.name }}</h1>
+                                {% for column in cat.columns %}
+                                <ul>
+                                    {% for subcat in column %}
+                                    <li{% if subcat.level == 3 %} class="subcat"{% endif %}>
+                                        <a href="#">{{ subcat.name }}<span>({{ subcat.count }})</span></a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
                                 {% endfor %}
-                            </ul>
-                            {% endfor %}
+                            </div>
                         </div>
                     </li>
                     {% endfor %} 

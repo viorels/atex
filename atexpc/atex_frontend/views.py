@@ -11,7 +11,8 @@ def home(request):
                    '4': 'images/mouse-icon.png',
                    '5': 'images/printer-icon.png',
                    '6': 'images/network-icon.png',
-                   '7': 'images/cd-icon.png'}
+                   '7': 'images/cd-icon.png',
+                   '8': 'images/phone-icon.png'}
         return mapping.get(slug[0], '')
 
     def category_background(slug):
