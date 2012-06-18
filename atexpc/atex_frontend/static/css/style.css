@@ -558,7 +558,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 }
 .popup-holder ul {
 	float:left;
-	margin-right:40px;	
+	margin-right:35px;	
 }
 .popup-holder ul.last {
 	margin:0 !important;
