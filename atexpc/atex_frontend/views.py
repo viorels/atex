@@ -22,9 +22,10 @@ def home(request):
 
     menu = []
     for cat in ancora.get_categories(parent=None):
-        max_per_column = 12
-        columns = [[]]
-        for l2cat in ancora.get_categories(parent=cat['id']):
+        max_per_column = 11
+        columns = [[], [], []]
+        for l2cat in sorted(ancora.get_categories(parent=cat['id']),
+                            key=lambda x: x.get('name')):
             l2cat_items = [{'name': l2cat['name'],
                             'count': l2cat['count'],
                             'level': 2}]
@@ -32,9 +33,10 @@ def home(request):
                 l2cat_items.append({'name': l3cat['name'],
                                     'count': l3cat['count'],
                                     'level': 3})
-            if len(columns[-1]) + len(l2cat_items) > max_per_column:
-                columns.append([])
-            columns[-1].extend(l2cat_items)
+            for column in columns:
+                if len(column) + len(l2cat_items) <= max_per_column:
+                    column.extend(l2cat_items)
+                    break
 
         category = {'name': cat['name'],
                     'icon': category_icon(cat['slug']),
