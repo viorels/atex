@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'^produs/', views.product, name='product'),
     url(r'^cos/$', views.cart, name='cart'),
     url(r'^cos/comanda/', views.order, name='order'),
+    url(r'^cos/confirma/', views.confirm, name='confirm'),
 )

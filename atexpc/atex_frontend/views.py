@@ -30,6 +30,11 @@ def order(request):
                'menu': _get_menu()}
     return render(request, "order.html", context)
     
+def confirm(request):
+    context = {'categories': ancora.get_categories(parent=None),
+               'menu': _get_menu()}
+    return render(request, "confirm.html", context)
+
 def _get_menu():
     def category_icon(cat_id):
         icons = {'1': 'images/desktop-icon.png',

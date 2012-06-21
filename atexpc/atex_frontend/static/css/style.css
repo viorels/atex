@@ -1622,8 +1622,7 @@ ul.modalitate li {
 .total-cos02 .buttons{	float:right;}
 .total-cos02 .buttons li {	float:left;}
 .pas-03 {
-	background:url(../images/cos-03-active.png) top left no-repeat;
-	padding:25px 0;
+	padding-bottom:25px;
 	width:100%;
 	float:left;
 }
