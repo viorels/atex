@@ -59,10 +59,10 @@
                 <li><a href="#"><img src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Cauta" title="Cauta produsul dorit ..." /></a></li>
                 <li>
                 	<select class="categorii">
-                    	<option> - Toate Categoriile - </option>
-                        <option> Categoria 1 </option>
-                        <option> Categoria 2 </option>
-                        <option> Categoria 3 </option>
+                        <option value="">- Toate Categoriile -</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
                     </select>
                 </li>    
             </ul>
