@@ -16,7 +16,7 @@
 	<div class="page_wrapper clear">
     	<div class="header">
         	<div class="logo">
-            	<a href="#"><img src="{{ STATIC_PREFIX }}images/atex-logo.png" width="300" height="100" alt="atex logo" title="www.atexpc.ro" name="www.atexpc.ro"/></a>
+            	<a href="{% url home %}"><img src="{{ STATIC_PREFIX }}images/atex-logo.png" width="300" height="100" alt="atex logo" title="www.atexpc.ro" name="www.atexpc.ro"/></a>
             </div>
             <div class="login_holder">
             	<span class="down_left"></span>
@@ -46,7 +46,7 @@
                 	<p>Bun venit <span class="red_b"> Radu </span>!</p>
                 </div>    
                 <ul>
-                	<li><a href="#"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
+                	<li><a href="{% url cart %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
                     <li><span class="red_b">2</span> produse</li>
                     <li> | </li>
                     <li><span class="red_b">347.22</span> lei </li>
@@ -54,18 +54,20 @@
             </div>
         </div> <!-- header end -->
         <div class="search_bar">
-        	<ul class="search_inputs">
-            	<li><input class="search" type="text" value="cauta produsul dorit" /></li>
-                <li><a href="#"><img src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Cauta" title="Cauta produsul dorit ..." /></a></li>
-                <li>
-                	<select class="categorii">
-                        <option value="">- Toate Categoriile -</option>
-                        {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.name }}</option>
-                        {% endfor %}
-                    </select>
-                </li>    
-            </ul>
+            <form method="GET" action="{% url search %}">
+                <ul class="search_inputs">
+                    <li><input class="search" type="text" value="cauta produsul dorit" /></li>
+                    <li><a href="{% url search %}"><img src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Cauta" title="Cauta produsul dorit ..." /></a></li>
+                    <li>
+                        <select class="categorii">
+                            <option value="">- Toate Categoriile -</option>
+                            {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>    
+                </ul>
+            </form>
             <ul class="info_orar">
             	<li>ORAR: L-V: 9:30 - 18:00  <span class="spacer">|</span>  S: 10:00 - 13:00</li>
                 <li>TELEFON: 0751 433 284 <span class="spacer">|</span> 0722 577 626</li>
