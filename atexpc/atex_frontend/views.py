@@ -35,6 +35,9 @@ def confirm(request):
                'menu': _get_menu()}
     return render(request, "confirm.html", context)
 
+def pie(request):
+    return render(request, "PIE.htc", content_type="text/x-component")
+
 def _get_menu():
     def category_icon(cat_id):
         icons = {'1': 'images/desktop-icon.png',

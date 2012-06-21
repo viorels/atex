@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, url
+from django.views.generic.simple import direct_to_template
 import views
 
 urlpatterns = patterns('',
@@ -8,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^cos/$', views.cart, name='cart'),
     url(r'^cos/comanda/', views.order, name='order'),
     url(r'^cos/confirma/', views.confirm, name='confirm'),
+    url(r'PIE\.htc$', views.pie),
 )
