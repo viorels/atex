@@ -118,7 +118,7 @@ html, body { height: 100%;  }
     background: -o-linear-gradient(#cd2325, #c62123); 
     background: linear-gradient(#dcd2325, #c62123); 
     -pie-background: linear-gradient(#cd2325, #c62123); 
-    behavior: url(PIE.htc);
+    behavior: url(/static/css/PIE.htc);
 	display:block;
 }
 .tab_up {
@@ -130,7 +130,7 @@ html, body { height: 100%;  }
     background: -o-linear-gradient(#de3537, #c62123); 
     background: linear-gradient(#de3537, #c62123); 
     -pie-background: linear-gradient(#de3537, #c62123); 
-    behavior: url(PIE.htc);
+    behavior: url(/static/css/PIE.htc);
 	display:block;
 }
 
@@ -160,7 +160,7 @@ ul.tab_down li a:hover {
     background: -o-linear-gradient(#9d9c9c, #5c5b5b); 
     background: linear-gradient(#9d9c9c, #5c5b5b); 
     -pie-background: linear-gradient(#9d9c9c, #5c5b5b); 
-    behavior: url(PIE.htc);
+    behavior: url(/static/css/PIE.htc);
 	display:block;
 }
 .up_left_bw {
@@ -233,7 +233,7 @@ ul.tab_down li a:hover {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(/static/css/PIE.htc);	
 	display:block;
 }
 ul.search_inputs {
@@ -250,7 +250,7 @@ ul.search_inputs li {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(/static/css/PIE.htc);	
 	height:23px;
 	line-height:23px;
 	color:#999;
@@ -263,7 +263,7 @@ ul.search_inputs li {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(/static/css/PIE.htc);	
 	padding:3px 3px 2px 5px;
 	width:160px;
 }
@@ -331,7 +331,7 @@ ul.search_inputs li {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
-	behavior: url(PIE.htc); 
+	behavior: url(/static/css/PIE.htc); 
 	float: left;
 	background-color:#fff;
 	
@@ -359,7 +359,7 @@ ul.selector_area {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 	border:1px solid #c62123;	
 	float:left;
 }
@@ -484,7 +484,7 @@ li .price_selector span {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(/static/css/PIE.htc);	
 	text-transform:capitalize;
 	font-size:13px;
 	display:block;
@@ -501,7 +501,7 @@ ul.menu {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 }
 ul.menu li.menu-item {
 	height:40px;
@@ -517,7 +517,7 @@ ul.menu li.menu-item {
 	-moz-border-radius: 0 0 6px 6px;
 	-webkit-border-radius: 0 0 6px 6px;
 	border-radius: 0 0 6px 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(/static/css/PIE.htc);	
 	text-transform:capitalize;
 	font-size:13px;
 	display:block;
@@ -528,7 +528,7 @@ ul.menu li.menu-item.active, ul.menu li.menu-item:hover  {
 	background: -o-linear-gradient(top ,#fff, #fff) !important;
 	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fff)) !important;
 	-pie-background: linear-gradient(#fff, #fff) !important;
-	behavior: url(PIE.htc);	 
+	behavior: url(/static/css/PIE.htc);	 
 }
 ul.menu li.menu-item.first {
 	border-top:1px solid #cecece;
@@ -566,7 +566,7 @@ ul.menu li.menu-item a.menu-link:hover, ul.menu li.menu-item.active a.menu-link 
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 	text-transform:none;
 }
 .bg-01 {
@@ -646,7 +646,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 	background-color:#fff;
 	border:1px solid #cecece;
 	padding:9px;
@@ -662,7 +662,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	padding:15px 0 0 0;
 }
 .news_email {
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
@@ -714,7 +714,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 .picture_banner {
 	width:630px;
 	height:357px;
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 	border-radius: 6px 0px 0px 6px;     
 	-moz-border-radius: 6px 0px 0px 6px;     
 	-webkit-border-radius: 6px 0px 0px 6px;
@@ -736,7 +736,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	border-top:1px solid #c62123;
 	border-right:1px solid #c62123;
 	border-left:4px solid #c62123;
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 	background: -webkit-linear-gradient(#fafafa, #efefef); 
     background: -moz-linear-gradient(#fafafa, #efefef); 
     background: -ms-linear-gradient(#fafafa, #efefef); 
@@ -746,13 +746,13 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	display:block;
 }
 .banner_right_wrapper li.first {
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 	border-radius:0px 6px 0px 0px;     
 	-moz-border-radius:0px 6px 0px 0px;     
 	-webkit-border-radius:0px 6px 0px 0px;
 }
 .banner_right_wrapper li.last {
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 	border-radius:0px 0px 6px 0px;     
 	-moz-border-radius:0px 0px 6px 0px;     
 	-webkit-border-radius:0px 0px 6px 0px;
@@ -770,7 +770,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
     background: -o-linear-gradient(#c62123, #de3537); 
     background: linear-gradient(#c62123, #de3537); 
     -pie-background: linear-gradient(#c62123, #de3537); 	
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 	display:block;
  }
 
@@ -797,7 +797,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	margin-right:20px;
 }
 .produse_top {
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
@@ -828,7 +828,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
-	behavior: url(PIE.htc);	 
+	behavior: url(/static/css/PIE.htc);	 
 }
 .middle {
 	overflow:hidden;
@@ -882,7 +882,7 @@ img.center {
 	width:873px;
 	height:100px;
 	background-color:#fff;
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
@@ -1033,7 +1033,7 @@ ul.filtrare li span {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(/static/css/PIE.htc);	
 }
 .add_cos_btn span {
 	height:30px;
@@ -1211,7 +1211,7 @@ ul.filtrare li span {
     background: -o-linear-gradient(#c62123, #de3537); 
     background: linear-gradient(#c62123, #de3537); 
     -pie-background: linear-gradient(#c62123, #de3537); 	
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 }
 .paginare li {float:left;margin:0 5px}
 .paginare a {
@@ -1324,7 +1324,7 @@ ul.exposureThumbs li {
     background: -o-linear-gradient(#c62123, #de3537); 
     background: linear-gradient(#c62123, #de3537); 
     -pie-background: linear-gradient(#c62123, #de3537); 	
-	behavior: url(PIE.htc);
+	behavior: url(/static/css/PIE.htc);
 }
 .exposurePaging a, .exposurePaging span {
 	position:relative;
@@ -1450,7 +1450,7 @@ p.info a:hover, p.info a:active {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(/static/css/PIE.htc);	
 	font-size:11px;
 	padding:3px;
 	color:#999;
@@ -1611,7 +1611,7 @@ ul.modalitate li {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(/static/css/PIE.htc);	
 }
 .reset span{
 	height:30px;
@@ -1633,7 +1633,7 @@ ul.modalitate li {
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	behavior: url(PIE.htc);	
+	behavior: url(/static/css/PIE.htc);	
 	border:1px solid #c62123;
 	float:left;
 }
