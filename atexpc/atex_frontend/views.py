@@ -46,7 +46,7 @@ def _get_menu():
                     'icon': category_icon(cat['id']),
                     'background_class': category_background_class(cat['id'])}
 
-        max_per_column = 11
+        max_per_column = 10
         columns = [[], [], []]
         l2_categories = ancora.get_categories(parent=cat['id'])
         sorted_l2_categories = sorted(l2_categories, key=itemgetter('name'))
