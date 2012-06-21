@@ -48,7 +48,16 @@ def home(request):
     
     return render(request, "home.html", context)
 
-def products(request):
+def search(request):
     context = {'categories': ancora.get_categories(parent=None)}
-    return render(request, "products.html", context)
+    return render(request, "search.html", context)
+
+
+def product(request):
+    context = {'categories': ancora.get_categories(parent=None)}
+    return render(request, "product.html", context)
+
+def cart(request):
+    context = {'categories': ancora.get_categories(parent=None)}
+    return render(request, "cart.html", context)
 

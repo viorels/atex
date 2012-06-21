@@ -3,5 +3,7 @@ import views
 
 urlpatterns = patterns('',
     url(r'^$', views.home, name='home'),
-    url(r'^produse/', views.products, name='products'),
+    url(r'^cauta/', views.search, name='search'),
+    url(r'^produs/', views.product, name='product'),
+    url(r'^cos/', views.cart, name='cart'),
 )
