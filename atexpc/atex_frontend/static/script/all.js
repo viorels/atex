@@ -59,10 +59,19 @@ function init_gallery() {
 					}
 				});
 }
+function show_rezumat() {
+
+	$(".show_rezumat").hide();
+	$(".tab_rezumat").show();
+	$('.tab_rezumat').click(function(){
+		$(".show_rezumat").slideToggle();
+ 		});
+}
 
 $(document).ready(function() 
 {
 	init_gallery();
 	init_checkbox();
 	init_uncheckall();
+	show_rezumat();
 });
