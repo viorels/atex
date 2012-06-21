@@ -4,10 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="css/style.css" type="text/css" rel="stylesheet" />
-<script src="script/jquery-1.7.2.js" type="text/javascript"></script>
-<script src="script/jquery.exposure.js" type="text/javascript"></script>
-<script src="script/all.js" type="text/javascript"></script>
+<link href="{{ STATIC_PREFIX }}css/style.css" type="text/css" rel="stylesheet" />
+<script src="{{ STATIC_PREFIX }}script/jquery-1.7.2.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.exposure.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/all.js" type="text/javascript"></script>
 <title>{% block title %}ATEX{% endblock %}</title>
 </head>
 
@@ -16,7 +16,7 @@
 	<div class="page_wrapper clear">
     	<div class="header">
         	<div class="logo">
-            	<a href="#"><img src="images/atex-logo.png" width="300" height="100" alt="atex logo" title="www.atexpc.ro" name="www.atexpc.ro"/></a>
+            	<a href="#"><img src="{{ STATIC_PREFIX }}images/atex-logo.png" width="300" height="100" alt="atex logo" title="www.atexpc.ro" name="www.atexpc.ro"/></a>
             </div>
             <div class="login_holder">
             	<span class="down_left"></span>
@@ -29,16 +29,16 @@
             </div>
             <div class="advertising_top">
             	<ul>
-                	<li><a href="#"><img src="images/servicii-atex.png" width="190" height="90" alt="Servicii ATEX" title="Servicii ATEX" /></a></li>
-                    <li><a href="#"><img src="images/card-fidelitate-atex.png" width="190" height="90" alt="Card fidelitate ATEX" title="Card fidelitate ATEX" /></a></li>
+                	<li><a href="#"><img src="{{ STATIC_PREFIX }}images/servicii-atex.png" width="190" height="90" alt="Servicii ATEX" title="Servicii ATEX" /></a></li>
+                    <li><a href="#"><img src="{{ STATIC_PREFIX }}images/card-fidelitate-atex.png" width="190" height="90" alt="Card fidelitate ATEX" title="Card fidelitate ATEX" /></a></li>
                 </ul>
             </div>
             <div class="social">
             	<ul>
                 	<li>Ne gasiti si pe:</li>
-                	<li><a href="#"><img src="images/facebook-icon.png" height="22" width="22" alt="Facebook icon" title="Find us on Facebook" /></a></li>
-                    <li><a href="#"><img src="images/twitter-icon.png" height="22" width="22" alt="Twitter icon" title="Follow us on Twitter" /></a></li>
-                    <li><a href="#"><img src="images/google-icon.png" height="22" width="22" alt="Google icon" title="Google" /></a></li>
+                	<li><a href="#"><img src="{{ STATIC_PREFIX }}images/facebook-icon.png" height="22" width="22" alt="Facebook icon" title="Find us on Facebook" /></a></li>
+                    <li><a href="#"><img src="{{ STATIC_PREFIX }}images/twitter-icon.png" height="22" width="22" alt="Twitter icon" title="Follow us on Twitter" /></a></li>
+                    <li><a href="#"><img src="{{ STATIC_PREFIX }}images/google-icon.png" height="22" width="22" alt="Google icon" title="Google" /></a></li>
                 </ul>
             </div>
             <div class="info_cos">
@@ -46,7 +46,7 @@
                 	<p>Bun venit <span class="red_b"> Radu </span>!</p>
                 </div>    
                 <ul>
-                	<li><a href="#"><img src="images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
+                	<li><a href="#"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
                     <li><span class="red_b">2</span> produse</li>
                     <li> | </li>
                     <li><span class="red_b">347.22</span> lei </li>
@@ -56,7 +56,7 @@
         <div class="search_bar">
         	<ul class="search_inputs">
             	<li><input class="search" type="text" value="cauta produsul dorit" /></li>
-                <li><a href="#"><img src="images/search-button.png" height="23" width="23" alt="Cauta" title="Cauta produsul dorit ..." /></a></li>
+                <li><a href="#"><img src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Cauta" title="Cauta produsul dorit ..." /></a></li>
                 <li>
                 	<select class="categorii">
                     	<option> - Toate Categoriile - </option>
@@ -72,7 +72,7 @@
             </ul>
             <ul class="configurator">
             	<li>Configureaza-ti propriul calculator : </li>
-                <li><a href="#"><img src="images/config-button.png" width="23" height="23" alt="Configurator calculatoare" title="Configurator calculatoare" /></a></li>
+                <li><a href="#"><img src="{{ STATIC_PREFIX }}images/config-button.png" width="23" height="23" alt="Configurator calculatoare" title="Configurator calculatoare" /></a></li>
             </ul>
         </div> <!-- search bar end -->
         
