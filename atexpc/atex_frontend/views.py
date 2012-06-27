@@ -51,7 +51,11 @@ def _get_menu():
         return icons.get(cat_id, '')
 
     def category_background_class(cat_id):
-        return "bg-%02d" % int(cat_id)
+        try:
+            background_class = "bg-%02d" % int(cat_id)
+        except ValueError, e:
+            background_class = ""
+        return background_class
 
     menu = []
     for cat in ancora.get_categories(parent=None):

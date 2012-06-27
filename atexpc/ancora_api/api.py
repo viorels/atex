@@ -1,12 +1,16 @@
 
 import os
 import re
-from urlparse import urlparse, urlunparse
+import json
+from urlparse import urlparse, urlunparse, parse_qsl
+from urllib import urlencode
 from urllib2 import urlopen # TODO: try urllib3 with connection pooling
-from django.template.defaultfilters import slugify
-import xon
 
-mock_data_path = os.path.join(os.path.split(__file__)[0], 'mock_data')
+import logging
+logger = logging.getLogger(__name__)
+
+# TODO: this doesn't work if the lib is packed in an egg
+MOCK_DATA_PATH = os.path.join(os.path.split(__file__)[0], 'mock_data')
 
 class BaseAdapter(object):
     def __init__(self, base_uri=None):
@@ -15,19 +19,49 @@ class BaseAdapter(object):
         self._base_uri = base_uri
 
     def read(self, uri, post_process=None):
-        f = urlopen(uri)
-        data = xon.load(f)
+        logger.debug('>> GET %s', uri)
+        stream = urlopen(uri)
+        data = self.parse(stream)
+        logger.debug('<< %s', data)
         return post_process(data) if post_process else data
 
+    def parse(self, stream):
+        raise Exception('parse(stream) not implemented')
+
 class AncoraAdapter(BaseAdapter):
-    pass
+    def uri_for(self, method_name):
+        args = self.args_for(method_name)
+        return self.uri_with_args(self._base_uri, args)
+
+    def uri_with_args(self, uri, new_args):
+        parsed_uri = urlparse(uri)
+        parsed_args = dict(parse_qsl(parsed_uri.query))
+        parsed_new_args = dict(parse_qsl(new_args))
+        parsed_args.update(parsed_new_args)
+        final_uri = urlunparse((parsed_uri.scheme,
+                                parsed_uri.netloc,
+                                parsed_uri.path,
+                                parsed_uri.params,
+                                urlencode(parsed_args),
+                                parsed_uri.fragment))
+        return final_uri
+
+    def args_for(self, method_name):
+        args = {'categories': '&cod_formular=617&cfm=499'}
+        return args.get(method_name)
+
+    def parse(self, stream):
+        return json.load(stream)
 
 
 class MockAdapter(BaseAdapter):
     def uri_for(self, method_name):
         uri = urlparse(self._base_uri)
-        file_path = os.path.join(uri.path, method_name + '.xml')
+        file_path = os.path.join(uri.path, method_name + '.json')
         return urlunparse((uri.scheme, uri.netloc, file_path, '', '', ''))
+
+    def parse(self, stream):
+        return json.load(stream)
 
 
 class Ancora(object):
@@ -36,13 +70,13 @@ class Ancora(object):
 
     def categories(self):
         def post_process(data):
+            json_root = 'gridIndex_617'
             categories = []
-            for category in data.get('tabel', {}).get('records', {}).get('row', []):
-                categories.append({'id': category['@cod'],
-                                   'name': re.sub(r'^[0-9.]+ ', '', category['@den']),
-                                   'slug': slugify(category['@den']),
-                                   'count': len(category['@den']),
-                                   'parent': re.sub(r'\.?[0-9]+$', '', category['@cod']) or None})
+            for category in data.get(json_root, []):
+                categories.append({'id': category['zcod'],
+                                   'name': category['zname'],
+                                   'count': category['zcount'],
+                                   'parent': category['zparent'] or None})
             return categories
 
         uri = self.adapter.uri_for('categories')
