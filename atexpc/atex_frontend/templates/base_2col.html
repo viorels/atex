@@ -6,7 +6,7 @@
             	<ul class="menu">
                     {% for cat in menu %}
                 	<li class="menu-item{% if forloop.first %} first{% endif %}">
-                    	<a class="menu-link" href="#"><span class="menu_icon"><img src="{{ STATIC_PREFIX }}{{ cat.icon }}" height="22" width="24" alt="icon" /></span>{{ cat.name }}</a>
+                    	<a class="menu-link" href="{{ cat.url|default:'#' }}"><span class="menu_icon"><img src="{{ STATIC_PREFIX }}{{ cat.icon }}" height="22" width="24" alt="icon" /></span>{{ cat.name }}</a>
                         <div class="popup-holder">
                             <div class="popup {{ cat.background_class }}">
                                 <h1>{{ cat.name }}</h1>
@@ -14,7 +14,7 @@
                                 <ul>
                                     {% for subcat in column %}
                                     <li{% if subcat.level == 3 %} class="subcat"{% endif %}>
-                                        <a href="#">{{ subcat.name }} <span>({{ subcat.count }})</span></a>
+                                        <a href="{{ subcat.url|default:'#' }}">{{ subcat.name }} <span>({{ subcat.count }})</span></a>
                                     </li>
                                     {% endfor %}
                                 </ul>

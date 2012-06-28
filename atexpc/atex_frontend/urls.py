@@ -5,6 +5,7 @@ import views
 urlpatterns = patterns('',
     url(r'^$', views.home, name='home'),
     url(r'^cauta/', views.search, name='search'),
+    url(r'^produse/(?P<category_id>[0-9.]+)-(?P<slug>.*)$', views.search, name='category'),
     url(r'^produs/', views.product, name='product'),
     url(r'^cos/$', views.cart, name='cart'),
     url(r'^cos/comanda/', views.order, name='order'),

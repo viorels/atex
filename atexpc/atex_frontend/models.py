@@ -8,6 +8,14 @@ class AncoraBackend(object):
         ancora = AncoraAdapter(settings.ANCORA_URI)
         self._api = Ancora(adapter=ancora)
 
+    def get_category(self, category_id):
+        all_categories = self._api.categories()
+        categories = [c for c in all_categories if c['id'] == category_id]
+        if len(categories) == 1:
+            return categories[0]
+        else:
+            return None
+
     def get_categories(self, parent=None):
         all_categories = self._api.categories()
         categories = [c for c in all_categories if c['parent'] == parent]

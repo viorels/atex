@@ -1,20 +1,25 @@
+import re
 from operator import itemgetter
 
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.core.urlresolvers import reverse
+from django.template.defaultfilters import slugify
 
 from models import ancora
+
+import logging
+logger = logging.getLogger(__name__)
 
 def home(request):
     context = {'categories': ancora.get_categories(parent=None),
                'menu': _get_menu()}
     return render(request, "home.html", context)
 
-def search(request):
+def search(request, category_id=None, slug=None):
     context = {'categories': ancora.get_categories(parent=None),
                'menu': _get_menu()}
     return render(request, "search.html", context)
-
 
 def product(request):
     context = {'categories': ancora.get_categories(parent=None)}
@@ -39,7 +44,7 @@ def pie(request):
     return render(request, "PIE.htc", content_type="text/x-component")
 
 def _get_menu():
-    def category_icon(cat_id):
+    def category_icon(category):
         icons = {'1': 'images/desktop-icon.png',
                  '2': 'images/tv-icon.png',
                  '3': 'images/hdd-icon.png',
@@ -48,39 +53,67 @@ def _get_menu():
                  '6': 'images/network-icon.png',
                  '7': 'images/cd-icon.png',
                  '8': 'images/phone-icon.png'}
-        return icons.get(cat_id, '')
+        return icons.get(category['id'], '')
 
-    def category_background_class(cat_id):
+    def category_background_class(category):
         try:
-            background_class = "bg-%02d" % int(cat_id)
+            background_class = "bg-%02d" % int(category['id'])
         except ValueError, e:
             background_class = ""
         return background_class
 
+    def category_url(category):
+        if re.match(r'^[0-9.]+$', category['id']):
+            category_url = reverse('category', kwargs={'category_id': category['id'],
+                                                       'slug': slugify(category['name'])})
+        else:
+            category_url = None
+        return category_url
+
+    def category_level(category):
+        if category['parent'] is None:
+            return 1
+        else:
+            return 1 + category_level(ancora.get_category(category['parent']))
+
+    def categories_in(category=None):
+        """Return chilid categories for the specified category
+           or top categories if None specified"""
+        if category is None:
+            parent_id = None
+        else:
+            parent_id = category['id']
+        categories = ancora.get_categories(parent=parent_id)
+        sorted_categories = sorted(categories, key=itemgetter('id'))
+        return sorted_categories
+
+    def menu_category(category):
+        """Prepare a category to be displayed in the menu"""
+        menu_category = {'name': category['name'],
+                         'url': category_url(category),
+                         'count': category['count'],
+                         'level': category_level(category)}
+        return menu_category
+
     menu = []
-    for cat in ancora.get_categories(parent=None):
-        category = {'name': cat['name'],
-                    'icon': category_icon(cat['id']),
-                    'background_class': category_background_class(cat['id'])}
-
-        max_per_column = 10
+    max_per_column = 10
+    for top_category in categories_in(None):
         columns = [[], [], []]
-        l2_categories = ancora.get_categories(parent=cat['id'])
-        sorted_l2_categories = sorted(l2_categories, key=itemgetter('name'))
-        for l2cat in sorted_l2_categories:
-            l2cat_items = [{'name': l2cat['name'],
-                            'count': l2cat['count'],
-                            'level': 2}]
-            for l3cat in ancora.get_categories(parent=l2cat['id']):
-                l2cat_items.append({'name': l3cat['name'],
-                                    'count': l3cat['count'],
-                                    'level': 3})
-            for column in columns:
-                if len(column) + len(l2cat_items) <= max_per_column:
-                    column.extend(l2cat_items)
-                    break
-        category['columns'] = columns
+        for level2_category in categories_in(top_category):
+            submenu_items = ([menu_category(level2_category)] + 
+                             [menu_category(level3_category) 
+                              for level3_category in categories_in(level2_category)])
 
+            # insert in first column that has enough space
+            for column in columns:
+                if len(column) + len(submenu_items) <= max_per_column:
+                    column.extend(submenu_items)
+                    break
+
+        category = menu_category(top_category)
+        category.update({'columns': columns,
+                         'icon': category_icon(top_category),
+                         'background_class': category_background_class(top_category)})
         menu.append(category)
 
     return menu
