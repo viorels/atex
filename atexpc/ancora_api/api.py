@@ -62,7 +62,7 @@ class BaseAdapter(object):
     def read(self, uri, post_process=None):
         logger.debug('>> GET %s', uri)
         response = _read_uri(uri)
-        logger.debug('<< %s', response[:80])
+#        logger.debug('<< %s', response[:80])
         data = self.parse(response)
         return post_process(data) if post_process else data
 
@@ -126,7 +126,7 @@ class Ancora(object):
         def post_process(data):
             json_root = 'gridIndex_618'
             products = []
-            for product in data.get(json_root, []):
+            for product in data.get(json_root, [])[0:20]: # TODO: proper paging ...
                 thumbnail = 'images/p%02d.jpg' % (int(product['pidm']) % 4 + 1)
                 products.append({'id': product['pidm'],
                                  'name': "%(zbrand)s %(zmodel)s" % product,
