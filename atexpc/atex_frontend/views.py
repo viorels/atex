@@ -77,10 +77,7 @@ def _get_menu():
         return category_url
 
     def category_level(category):
-        if category['parent'] is None:
-            return 1
-        else:
-            return 1 + category_level(ancora.get_category(category['parent']))
+        return category['id'].count('.') + 1
 
     def categories_in(category=None):
         """Return chilid categories for the specified category
@@ -110,7 +107,7 @@ def _get_menu():
                              [menu_category(level3_category) 
                               for level3_category in categories_in(level2_category)])
 
-            # insert in first column that has enough space
+            # insert into the first column with enough enough space
             for column in columns:
                 if len(column) + len(submenu_items) <= max_per_column:
                     column.extend(submenu_items)
