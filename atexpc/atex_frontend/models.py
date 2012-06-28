@@ -21,4 +21,7 @@ class AncoraBackend(object):
         categories = [c for c in all_categories if c['parent'] == parent]
         return categories
 
+    def get_products(self, category_id=None):
+        return self._api.category_products(category_id)
+
 ancora = AncoraBackend()

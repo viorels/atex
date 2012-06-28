@@ -17,8 +17,14 @@ def home(request):
     return render(request, "home.html", context)
 
 def search(request, category_id=None, slug=None):
+    products = ancora.get_products(category_id=category_id)
+    for i, p in enumerate(products):
+        if i > 0 and (i+1) % 4 == 0:
+            p['fourth'] = True
+
     context = {'categories': ancora.get_categories(parent=None),
-               'menu': _get_menu()}
+               'menu': _get_menu(),
+               'products': products}
     return render(request, "search.html", context)
 
 def product(request):

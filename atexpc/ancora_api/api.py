@@ -72,6 +72,9 @@ class BaseAdapter(object):
 class AncoraAdapter(BaseAdapter):
     def uri_for(self, method_name):
         args = self.args_for(method_name)
+        return self.base_uri_with_args(args)
+
+    def base_uri_with_args(self, args):
         return self.uri_with_args(self._base_uri, args)
 
     def uri_with_args(self, uri, new_args):
@@ -99,7 +102,6 @@ class MockAdapter(BaseAdapter):
         return urlunparse((uri.scheme, uri.netloc, file_path, '', '', ''))
 
 
-
 class Ancora(object):
     def __init__(self, adapter=None):
         self.adapter = adapter
@@ -109,13 +111,36 @@ class Ancora(object):
             json_root = 'gridIndex_617'
             categories = []
             for category in data.get(json_root, []):
+                products_uri = self.adapter.base_uri_with_args(category['link_produse'])
                 categories.append({'id': category['zcod'],
                                    'name': category['zname'],
                                    'count': category['zcount'],
-                                   'parent': category['zparent'] or None})
+                                   'parent': category['zparent'] or None,
+                                   'products_uri': products_uri})
             return categories
 
-        uri = self.adapter.uri_for('categories')
-        return self.adapter.read(uri, post_process)
+        categories_uri = self.adapter.uri_for('categories')
+        return self.adapter.read(categories_uri, post_process)
 
+    def category_products(self, category_id):
+        def post_process(data):
+            json_root = 'gridIndex_618'
+            products = []
+            for product in data.get(json_root, []):
+                thumbnail = 'images/p%02d.jpg' % (int(product['pidm']) % 4 + 1)
+                products.append({'id': product['pidm'],
+                                 'name': "%(zbrand)s %(zmodel)s" % product,
+                                 'price': product.get('pret_catalog', 0),
+                                 'old_price': str(1.1*float(product.get('pret_catalog', 0))),
+                                 'stock': product['zinfo_stoc'] or 'In stoc',
+                                 'thumbnail': thumbnail})
+            return products
 
+        categories = [c for c in self.categories() if c['id'] == category_id]
+        if len(categories) == 1:
+            products_uri = categories[0]['products_uri']
+            products = self.adapter.read(products_uri, post_process)
+        else:
+            products = None
+        return products
+ 
