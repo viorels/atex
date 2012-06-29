@@ -67,7 +67,10 @@ class BaseAdapter(object):
         return post_process(data) if post_process else data
 
     def parse(self, stream):
-        return json.loads(stream)
+        try:
+            return json.loads(stream)
+        except ValueError, e:
+            return {'error': 'failed to parse backend response'}
 
 class AncoraAdapter(BaseAdapter):
     def uri_for(self, method_name):
