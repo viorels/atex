@@ -2,3 +2,5 @@ Django==1.4
 argparse==1.2.1
 distribute==0.6.24
 wsgiref==0.1.2
+pylibmc==1.2.2
+django-pylibmc-sasl==0.2.4

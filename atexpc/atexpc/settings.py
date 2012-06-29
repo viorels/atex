@@ -24,7 +24,7 @@ DATABASES = {
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
         'TIMEOUT': 300,
     }
 }
