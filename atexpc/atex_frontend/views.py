@@ -12,7 +12,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 def home(request):
-    context = {'categories': ancora.get_categories(parent=None),
+    context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu()}
     return render(request, "home.html", context)
 
@@ -22,27 +22,27 @@ def search(request, category_id=None, slug=None):
         if i > 0 and (i+1) % 4 == 0:
             p['fourth'] = True
 
-    context = {'categories': ancora.get_categories(parent=None),
+    context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu(),
                'products': products}
     return render(request, "search.html", context)
 
 def product(request):
-    context = {'categories': ancora.get_categories(parent=None)}
+    context = {'categories': ancora.get_categories_in(parent=None)}
     return render(request, "product.html", context)
 
 def cart(request):
-    context = {'categories': ancora.get_categories(parent=None),
+    context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu()}
     return render(request, "cart.html", context)
 
 def order(request):
-    context = {'categories': ancora.get_categories(parent=None),
+    context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu()}
     return render(request, "order.html", context)
     
 def confirm(request):
-    context = {'categories': ancora.get_categories(parent=None),
+    context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu()}
     return render(request, "confirm.html", context)
 
@@ -79,6 +79,7 @@ def _get_menu():
     def category_level(category):
         return category['id'].count('.') + 1
 
+    all_categories = ancora.get_all_categories()
     def categories_in(category=None):
         """Return chilid categories for the specified category
            or top categories if None specified"""
@@ -86,7 +87,7 @@ def _get_menu():
             parent_id = None
         else:
             parent_id = category['id']
-        categories = ancora.get_categories(parent=parent_id)
+        categories = [c for c in all_categories if c['parent'] == parent_id]
         sorted_categories = sorted(categories, key=itemgetter('id'))
         return sorted_categories
 
