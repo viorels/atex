@@ -100,8 +100,8 @@ class Ancora(object):
                 thumbnail = 'images/p%02d.jpg' % (int(product['pidm']) % 4 + 1)
                 products.append({'id': product['pidm'],
                                  'name': "%(zbrand)s %(zmodel)s" % product,
-                                 'price': product.get('pret_catalog', 0),
-                                 'old_price': str(1.1*float(product.get('pret_catalog', 0))),
+                                 'price': product.get('zpret_catalog', 0),
+                                 'old_price': str(1.1*float(product.get('zpret_catalog', 0))),
                                  'stock': product['zinfo_stoc'] or 'In stoc',
                                  'thumbnail': thumbnail})
             return products
