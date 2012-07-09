@@ -78,15 +78,17 @@ class Ancora(object):
 
     def categories(self):
         def post_process(data):
-            json_root = 'gridIndex_617'
+            json_root = 'categories'
             categories = []
             for category in data.get(json_root, []):
                 products_uri = self.adapter.base_uri_with_args(category['link_produse'])
+                selectors_uri = self.adapter.base_uri_with_args(category['link_selectoare'])
                 categories.append({'id': category['zcod'],
                                    'name': category['zname'],
                                    'count': category['zcount'],
                                    'parent': category['zparent'] or None,
-                                   'products_uri': products_uri})
+                                   'products_uri': products_uri,
+                                   'selectors_uri': selectors_uri})
             return categories
 
         categories_uri = self.adapter.uri_for('categories')
@@ -94,15 +96,16 @@ class Ancora(object):
 
     def category_products(self, category_id):
         def post_process(data):
-            json_root = 'gridIndex_618'
+            json_root = 'products'
             products = []
             for product in data.get(json_root, [])[0:20]: # TODO: proper paging ...
                 thumbnail = 'images/p%02d.jpg' % (int(product['pidm']) % 4 + 1)
                 products.append({'id': product['pidm'],
                                  'name': "%(zbrand)s %(zmodel)s" % product,
-                                 'price': product.get('zpret_catalog', 0),
-                                 'old_price': str(1.1*float(product.get('zpret_catalog', 0))),
-                                 'stock': product['zinfo_stoc'] or 'In stoc',
+                                 'price': product.get('zpecutva'),
+                                 'old_price': str(1.1*float(product.get('zpecutva', 0))),
+                                 'stock': product['zinfo_stoc_site'],
+                                 'warranty': product['zluni_garantie'],
                                  'thumbnail': thumbnail})
             return products
 
