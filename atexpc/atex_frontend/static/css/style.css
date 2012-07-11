@@ -244,7 +244,7 @@ ul.search_inputs li {
 	float:left;
 	margin-right:5px;
 }
-.search {
+ul.search_inputs input.search {
 	border:0;
 	background-color:#fff;
 	border-radius: 6px;     
@@ -253,9 +253,14 @@ ul.search_inputs li {
 	behavior: url(/static/css/PIE.htc);	
 	height:23px;
 	line-height:23px;
-	color:#999;
 	padding:0 5px;
 	width:300px;
+}
+ul.search_inputs input.blurred {
+	color:#999;
+}
+ul.search_inputs button {
+    padding: 0px;
 }
 .categorii {
 	border:0;

@@ -59,6 +59,28 @@ function init_gallery() {
 					}
 				});
 }
+
+function init_search_input() {
+    var search_input = $(".search_inputs .search");
+    var search_hint = search_input.attr("title");
+
+    function show_search_hint_if_empty() {
+        if (!search_input.val()) {
+            search_input.val(search_hint);
+            search_input.addClass("blurred")
+        }
+    }
+    function hide_search_hint() {
+        if (search_input.val() == search_hint) {
+            search_input.removeClass("blurred")
+            search_input.val("");
+        }
+    }
+
+    show_search_hint_if_empty()
+    search_input.focus(hide_search_hint).blur(show_search_hint_if_empty)
+}
+
 function show_rezumat() {
 
 	$(".show_rezumat").hide();
@@ -73,5 +95,6 @@ $(document).ready(function()
 	init_gallery();
 	init_checkbox();
 	init_uncheckall();
+    init_search_input();
 	show_rezumat();
 });

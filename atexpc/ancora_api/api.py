@@ -50,7 +50,7 @@ class AncoraAdapter(BaseAdapter):
     def uri_with_args(self, uri, new_args):
         parsed_uri = urlparse(uri)
         parsed_args = dict(parse_qsl(parsed_uri.query))
-        parsed_new_args = dict(parse_qsl(new_args))
+        parsed_new_args = dict(parse_qsl(new_args)) if isinstance(new_args, basestring) else new_args
         parsed_args.update(parsed_new_args)
         final_uri = urlunparse((parsed_uri.scheme,
                                 parsed_uri.netloc,
@@ -94,7 +94,7 @@ class Ancora(object):
         categories_uri = self.adapter.uri_for('categories')
         return self.adapter.read(categories_uri, post_process)
 
-    def category_products(self, category_id):
+    def search_products(self, category_id=None, keywords=None):
         def post_process(data):
             json_root = 'products'
             products = []
@@ -109,11 +109,21 @@ class Ancora(object):
                                  'thumbnail': thumbnail})
             return products
 
-        categories = [c for c in self.categories() if c['id'] == category_id]
-        if len(categories) == 1:
-            products_uri = categories[0]['products_uri']
-            products = self.adapter.read(products_uri, post_process)
-        else:
-            products = None
+        base_products_uri = None
+        categories = self.categories()
+        if category_id:
+            category = [c for c in self.categories() if c['id'] == category_id]
+            if len(category) == 1:
+                base_products_uri = category[0]['products_uri']
+        if not base_products_uri:
+            any_products_uri = categories[0]['products_uri']
+            base_products_uri = self.adapter.uri_with_args(any_products_uri, {'idgrupa': ''})
+
+        filters = {}
+        if keywords:
+            filters['zmodel'] = keywords
+        products_uri = self.adapter.uri_with_args(base_products_uri, filters)
+
+        products = self.adapter.read(products_uri, post_process)
         return products
  

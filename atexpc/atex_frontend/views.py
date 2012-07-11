@@ -17,13 +17,17 @@ def home(request):
     return render(request, "home.html", context)
 
 def search(request, category_id=None, slug=None):
-    products = ancora.get_products(category_id=category_id)
+    category_id = request.GET.get('categorie') if category_id is None else category_id
+    search_keywords = request.GET.get('cuvinte')
+    products = ancora.get_products(category_id=category_id, keywords=search_keywords)
+
     for i, p in enumerate(products):
         if i > 0 and (i+1) % 4 == 0:
             p['fourth'] = True
 
     context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu(),
+               'search_keywords': search_keywords,
                'products': products}
     return render(request, "search.html", context)
 
@@ -113,6 +117,7 @@ def _get_menu():
                 if len(column) + len(submenu_items) <= max_per_column:
                     column.extend(submenu_items)
                     break
+            # TODO: what if none has enough space ... MISSING CATEGORIES !!!
 
         category = menu_category(top_category)
         category.update({'columns': columns,
