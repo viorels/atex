@@ -61,6 +61,7 @@ function init_gallery() {
 }
 
 function init_search_input() {
+    var search_form = $("form.filters");
     var search_input = $(".search_inputs .search");
     var search_hint = search_input.attr("title");
 
@@ -76,6 +77,13 @@ function init_search_input() {
             search_input.val("");
         }
     }
+
+    search_form.submit(function () {
+        if (search_input.val() == search_hint) {
+            search_input.val("");
+            return true; 
+        }
+    });
 
     show_search_hint_if_empty()
     search_input.focus(hide_search_hint).blur(show_search_hint_if_empty)
