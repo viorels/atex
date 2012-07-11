@@ -28,6 +28,7 @@ def search(request, category_id=None, slug=None):
     context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu(),
                'search_keywords': search_keywords,
+               'category_id': category_id,
                'products': products}
     return render(request, "search.html", context)
 
