@@ -256,7 +256,7 @@ ul.search_inputs input.search {
 	padding:0 5px;
 	width:300px;
 }
-ul.search_inputs input.blurred {
+ul.search_inputs input.hint {
 	color:#999;
 }
 ul.search_inputs button {

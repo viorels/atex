@@ -67,12 +67,12 @@ function init_search_input() {
     function show_search_hint_if_empty() {
         if (!search_input.val()) {
             search_input.val(search_hint);
-            search_input.addClass("blurred")
+            search_input.addClass("hint")
         }
     }
     function hide_search_hint() {
         if (search_input.val() == search_hint) {
-            search_input.removeClass("blurred")
+            search_input.removeClass("hint")
             search_input.val("");
         }
     }
