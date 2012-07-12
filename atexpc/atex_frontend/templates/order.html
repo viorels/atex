@@ -1,0 +1,125 @@
+{% extends "base_2col.html" %}
+
+{% block body_extra %}
+<div class="rezumat">
+    <div class="continut">
+        <div class="tab_rezumat">
+            <p>REZUMAT COMANDA </p><span></span>
+        </div>
+        <div class="show_rezumat">
+            <ul>
+                <li><span class="domiciliu">Livrare la domiciliu</span></li>
+                <li><span class="numerar">Plata numerar</span></li>
+                <li><span class="total">TOTAL PLATA: 1943.75 lei</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock body_extra %}
+
+{% block content_right %}
+            	<div class="breadcrumbs">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li>Cos cumparaturi</li>
+                    </ul>
+                </div>           	
+                <div class="cos_content">                	
+                    <div class="product-section">
+                    	<div class="tab_d_holder_right">
+                            <span class="down_left"></span>
+                                <ul class="tab_down">
+                                    <li><span>cos cumparaturi</span></li>                                
+                                </ul>
+                            <span class="down_right"></span>
+                        </div>
+                        <ul class="pasi">
+                            <li><span class="cos-01" id=""></span>Cosul de cumparaturi</li>
+                            <li><span class="cos-02 active" id=""></span>Date personale de facturare</li>
+                            <li><span class="cos-03" id=""></span>Confirmare comanda</li>
+                        </ul>
+                    </div>
+
+                    <div class="pas-02">
+                    	<div class="product-section">
+                            <div class="tab_u_holder_left">
+                                <span class="up_left"></span>
+                                    <ul class="tab_up">
+                                        <li><span>date de facturare</span></li>                                
+                                    </ul>
+                                <span class="up_right"></span>
+                            </div>
+                        </div>    
+                    	<div class="rand-cos">
+                            <ul class="modalitate">
+                                <li>Va rugam selectati tipul de client:</li>
+                                <li><input type="radio"/> Client nou</li>
+                                <li><input type="radio"/> Client vechi</li>
+                                <li class="last">
+                                	<input type="text" class="input_cos" value="utilizator"/> 
+                                    <input type="password" class="input_cos" value="parola"/> 
+                                    <a href="#" class="login-key"></a>
+                                </li>
+                            </ul>    
+                        </div>
+                        <div class="rand-cos">
+                            <ul class="modalitate">
+                                <li>Informatii utilizator / autentificare:</li>
+                                <li class="last">
+                                	<div class="row">
+                                        <input type="text" class="input_cos" value="nume"/> 
+                                        <input type="text" class="input_cos" value="prenume"/>
+                                        <input type="text" class="input_cos" value="adresa emai"/>
+                                    </div>  
+                                    <div class="row">  
+                                        <input type="text" class="input_cos" value="telefon"/> 
+                                        <input type="text" class="input_cos" value="parola"/>
+                                        <input type="text" class="input_cos" value="repeta parola"/>
+                                    </div>    
+                                </li>
+                            </ul>    
+                        </div>
+                        <div class="rand-cos">
+                            <ul class="modalitate">
+                                <li>Va rugam selectati modul de facturare:</li>
+                                <li><input type="radio" checked="checked" /> Persoana fizica</li>
+                                <li><input type="radio" /> Persoana juridica</li>
+                            </ul>   
+                        </div>
+                        <div class="rand-cos">
+                            <ul class="modalitate">
+                                <li>Informatii facturare:</li>
+                                <li class="last">
+                                	<div class="col">
+                                        <input type="text" class="input_cos" value="localitatea"/> 
+                                        <input type="text" class="input_cos" value="judetul"/>                                        
+                                    </div>  
+                                    <div class="textarea">  
+                                        <textarea class="input_cos">adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)</textarea>
+                                    </div>    
+                                </li>
+                            </ul>    
+                        </div>
+                        <div class="total-cos02">
+                        	<ul class="termeni-newsletter">
+                            	<li>
+                                	<input type="checkbox" class="checkbox" /> 
+                                    <span>Am citit si sunt de acord cu Termenii & Conditii de utilizare </span>
+                                </li>
+                                <li>
+                                	<input type="checkbox" class="checkbox" /> 
+                                    <span> Doresc sa fiu informat, prin email, despre produsele ATEX</span>
+                                </li>    
+                            </ul>
+                            <ul class="buttons">    
+                            	<li><a href="#" class="reset"><span></span>Reset</a></li>                    	
+                                <li><a href="{% url confirm %}" class="continua"><span></span>Continua</a></li>                                
+                            </ul> 
+                        </div>
+                          
+                    </div>
+                    
+                     <!-- end pas 02 -->
+                    
+                </div>
+{% endblock content_right %}

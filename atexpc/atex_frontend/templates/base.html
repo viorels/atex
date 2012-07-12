@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="{{ STATIC_PREFIX }}css/style.css" type="text/css" rel="stylesheet" />
+<script src="{{ STATIC_PREFIX }}script/jquery-1.7.2.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.exposure.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/all.js" type="text/javascript"></script>
+<title>{% block title %}ATEX{% endblock %}</title>
+</head>
+
+<body>
+<div class="wrapper">
+	<div class="page_wrapper clear">
+    	<div class="header">
+        	<div class="logo">
+            	<a href="{% url home %}"><img src="{{ STATIC_PREFIX }}images/atex-logo.png" width="300" height="100" alt="atex logo" title="www.atexpc.ro" name="www.atexpc.ro"/></a>
+            </div>
+            <div class="login_holder">
+            	<span class="down_left"></span>
+                	<ul class="tab_down">
+                    	<li><a href="#">log in</a></li>
+                        <li><span class="spacer">|</span></li>
+                        <li><a href="#">register</a></li>
+                    </ul>
+                <span class="down_right"></span>
+            </div>
+            <div class="advertising_top">
+            	<ul>
+                	<li><a href="#"><img src="{{ STATIC_PREFIX }}images/servicii-atex.png" width="190" height="90" alt="Servicii ATEX" title="Servicii ATEX" /></a></li>
+                    <li><a href="#"><img src="{{ STATIC_PREFIX }}images/card-fidelitate-atex.png" width="190" height="90" alt="Card fidelitate ATEX" title="Card fidelitate ATEX" /></a></li>
+                </ul>
+            </div>
+            <div class="social">
+            	<ul>
+                	<li>Ne gasiti si pe:</li>
+                	<li><a href="#"><img src="{{ STATIC_PREFIX }}images/facebook-icon.png" height="22" width="22" alt="Facebook icon" title="Find us on Facebook" /></a></li>
+                    <li><a href="#"><img src="{{ STATIC_PREFIX }}images/twitter-icon.png" height="22" width="22" alt="Twitter icon" title="Follow us on Twitter" /></a></li>
+                    <li><a href="#"><img src="{{ STATIC_PREFIX }}images/google-icon.png" height="22" width="22" alt="Google icon" title="Google" /></a></li>
+                </ul>
+            </div>
+            <div class="info_cos">
+            	<div class="wellcome">
+                	<p>Bun venit <span class="red_b"> Radu </span>!</p>
+                </div>    
+                <ul>
+                	<li><a href="{% url cart %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
+                    <li><span class="red_b">2</span> produse</li>
+                    <li> | </li>
+                    <li><span class="red_b">347.22</span> lei </li>
+                </ul>
+            </div>
+        </div> <!-- header end -->
+        <div class="search_bar">
+            <form method="GET" action="{% url search %}" class="filters">
+                <ul class="search_inputs">
+                    <li><input class="search" type="text" name="cuvinte" value="{{ search_keywords|default:"" }}" title="Caută produsul dorit ..." /></li>
+                    <li><button type="submit" name="cauta"><img src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Caută" title="Caută produsul dorit ..." /></button></li>
+                    <li>
+                        <select name="categorie" class="categorii" title="Selectează categoria în care cauţi">
+                            <option value="">- Toate Categoriile -</option>
+                            {% for category in categories %}
+                            <option value="{{ category.id }}" {% if category.id == category_id %}selected{% endif %}>{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>    
+                </ul>
+            </form>
+            <ul class="info_orar">
+            	<li>ORAR: L-V: 9:30 - 18:00  <span class="spacer">|</span>  S: 10:00 - 13:00</li>
+                <li>TELEFON: 0751 433 284 <span class="spacer">|</span> 0722 577 626</li>
+            </ul>
+            <ul class="configurator">
+            	<li>Configureaza-ti propriul calculator : </li>
+                <li><a href="#"><img src="{{ STATIC_PREFIX }}images/config-button.png" width="23" height="23" alt="Configurator calculatoare" title="Configurator calculatoare" /></a></li>
+            </ul>
+        </div> <!-- search bar end -->
+        
+        <div class="content_wrapper clear">
+        {% block content %}{% endblock %}
+        </div> <!-- content wrapper end -->
+    </div>
+    <div class="push"></div>
+</div>
+<div class="footer_wrapper">	
+	<div class="footer clear">
+    	<div class="titlu_top">
+             <span class="up_left"></span>
+                  <ul class="tab_up">                                    
+                       <li>quickmenu</li>
+                       <li><span class="spacer">|</span></li>
+                       <li>tags</li>                                    
+                  </ul>
+             <span class="up_right"></span>
+    	</div>   
+    	<div class="tags">
+        	<a href="#">Laptop</a>
+            <a href="#">Notebook</a>
+            <a href="#">Tablete</a>
+            <a href="#">Accesorii Tablete</a>
+            <a href="#">Genti laptop</a>
+            <a href="#">Memorii laptop</a>
+            <a href="#">Hard disk-uri laptop</a>
+            <a href="#">Standuri Coolere laptop</a>
+            <a href="#">Incarcatoare laptop</a>
+            <a href="#">Baterii laptop</a>
+            <a href="#">Alte accesorii laptop</a>
+            <a href="#">Apple PC</a>
+            <a href="#">All in One PC</a>
+            <a href="#">Business PC/Workstation</a>
+            <a href="#">Gaming</a>
+            <a href="#">Home/Home Office</a>
+            <a href="#">Monitoare LCD </a>
+            <a href="#">Monitoare LED</a>
+            <a href="#">Hard Disk-uri</a>
+            <a href="#">Solid-State Drive (SSD)</a>
+            <a href="#">Procesoare</a>
+            <a href="#">Placi video</a>
+            <a href="#">Placi de baza</a>
+            <a href="#">Memorii</a>
+            <a href="#">Carcase</a>
+            <a href="#">Surse</a>
+            <a href="#">Placi de sunet</a>
+            <a href="#">TV Tunere</a>
+            <a href="#">Accesorii carcase</a>
+            <a href="#">DVD Writer</a>
+            <a href="#">Coolere Procesor</a>
+            <a href="#">Coolere Hard disk</a>
+            <a href="#">Coolere VGA</a>
+            <a href="#">Coolere Chipset</a>
+            <a href="#">Coolere Memorii</a>
+            <a href="#">Ventilatoare</a>
+            <a href="#">Rack Hard-disk</a>
+            <a href="#">Paste Termice</a>
+            <a href="#">Cabluri</a>
+            <a href="#">Neoane</a>
+            <a href="#">Silent PC</a>
+            <a href="#">Fan Controllere</a>
+            <a href="#">Hard Disk-uri externe</a>
+            <a href="#">Accesorii hard disk-uri externe</a>
+            <a href="#">Tastaturi</a>
+            <a href="#">Mouse</a>
+            <a href="#">Mousepad</a>
+            <a href="#">Scannere</a>
+            <a href="#">Camere Web</a>
+            <a href="#">Tablete grafice</a>
+            <a href="#">Memorii USB</a>
+            <a href="#">Boxe PC</a>
+            <a href="#">Casti PC</a>
+            <a href="#">Unitati optice externe</a>
+            <a href="#">Periferice Diverse</a>
+            <a href="#">UPS-uri</a>
+            <a href="#">Accesorii UPS-uri</a>
+            <a href="#">Stabilizatoare de tensiune</a>
+            <a href="#">Prize si Prelungitoare</a>
+            <a href="#">Aparate foto</a>
+            <a href="#">Camere video</a>
+            <a href="#">Rame foto digitale</a>
+            <a href="#">Carduri memorie</a>
+            <a href="#">Card reader</a>
+            <a href="#">Obiective</a>
+            <a href="#">Blitzuri</a>
+            <a href="#">Acumulatori si incarcatoare</a>
+            <a href="#">Multifunctionale</a>
+            <a href="#">Imprimante laser alb-negru</a>
+            <a href="#">Imprimante laser color</a>
+            <a href="#">Imprimante cu jet</a>
+            <a href="#">Imprimante matriciale</a>
+            <a href="#">Imprimante foto</a>
+            <a href="#">Plottere</a>
+            <a href="#">Faxuri</a>
+            <a href="#">Cartuse, tonere si alte consumabile</a>
+            <a href="#">Antivirus</a>
+            <a href="#">Editare audio-video</a>
+            <a href="#">Adobe</a>
+            <a href="#">Sisteme de operare OEM</a>
+            <a href="#">Aplicatii desktop OEM</a>
+            <a href="#">Sisteme de operare server OEM</a>
+            <a href="#">Clienti server OEM</a>
+            <a href="#">Sisteme de operare Retail</a>
+            <a href="#">Aplicatii desktop Retail</a>
+            <a href="#">Medii de dezvoltare Retail</a>
+            <a href="#">Sisteme de operare server Retail</a>
+            <a href="#">Console Hardware</a>
+            <a href="#">Console Portabile</a>
+            <a href="#">Accesorii PlayStation</a>
+            <a href="#">Accesorii Xbox 360</a>
+            <a href="#">Accesorii Nintendo</a>
+            <a href="#">JocuriJocuri Consola</a>
+            <a href="#">Jocuri PC</a>
+            <a href="#">Gadgeturi</a>
+            <a href="#">Jocuri Precomanda</a>
+            <a href="#">Aplicatii desktop Retail</a>
+            <a href="#">Medii de dezvoltare Retail</a>
+            <a href="#">Sisteme de operare server Retail </a>
+        </div>
+        <div class="bottom-footer">
+        	<ul class="menu-subsol">
+            	<li class="first"><a href="#">Cariera</a></li>
+                <li><a href="#">Forum</a></li>
+                <li><a href="#">Configurator</a></li>
+                <li><a href="#">Harta site</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <span class="copyright">Copyright &copy; 2008 - 2012 ATEX Computer SRL</span>
+        </div>
+    </div>
+</div>
+{% block body_extra %}{% endblock %}
+</body>
+</html>

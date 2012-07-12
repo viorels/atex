@@ -1,0 +1,1246 @@
+{
+	"gridIndex_617": [
+	{
+		"pidm": "424",
+		"zcod": "1",
+		"zname": "Laptop & Desktop & Servere",
+		"zparent": "",
+		"zslug": "laptop-&-desktop-&-servere",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=424&start=1&stop=20"
+	}
+	,{
+		"pidm": "425",
+		"zcod": "1.01",
+		"zname": "Laptop",
+		"zparent": "1",
+		"zslug": "laptop",
+		"zcount": 785,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=425&start=1&stop=20"
+	}
+	,{
+		"pidm": "426",
+		"zcod": "1.02",
+		"zname": "Netbook",
+		"zparent": "1",
+		"zslug": "netbook",
+		"zcount": 18,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=426&start=1&stop=20"
+	}
+	,{
+		"pidm": "427",
+		"zcod": "1.03",
+		"zname": "Ultrabook",
+		"zparent": "1",
+		"zslug": "ultrabook",
+		"zcount": 1,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=427&start=1&stop=20"
+	}
+	,{
+		"pidm": "428",
+		"zcod": "1.04",
+		"zname": "Tablete",
+		"zparent": "1",
+		"zslug": "tablete",
+		"zcount": 58,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=428&start=1&stop=20"
+	}
+	,{
+		"pidm": "429",
+		"zcod": "1.05",
+		"zname": "E-Book",
+		"zparent": "1",
+		"zslug": "e-book",
+		"zcount": 4,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=429&start=1&stop=20"
+	}
+	,{
+		"pidm": "430",
+		"zcod": "1.06",
+		"zname": "Unitati centrale",
+		"zparent": "1",
+		"zslug": "unitati-centrale",
+		"zcount": 151,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=430&start=1&stop=20"
+	}
+	,{
+		"pidm": "431",
+		"zcod": "1.07",
+		"zname": "Servere",
+		"zparent": "1",
+		"zslug": "servere",
+		"zcount": 65,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=431&start=1&stop=20"
+	}
+	,{
+		"pidm": "535",
+		"zcod": "1.07.1",
+		"zname": "Carcase server",
+		"zparent": "1.07",
+		"zslug": "carcase-server",
+		"zcount": 22,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=535&start=1&stop=20"
+	}
+	,{
+		"pidm": "536",
+		"zcod": "1.07.2",
+		"zname": "Memorii server",
+		"zparent": "1.07",
+		"zslug": "memorii-server",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=536&start=1&stop=20"
+	}
+	,{
+		"pidm": "537",
+		"zcod": "1.07.3",
+		"zname": "Raid controller",
+		"zparent": "1.07",
+		"zslug": "raid-controller",
+		"zcount": 7,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=537&start=1&stop=20"
+	}
+	,{
+		"pidm": "558",
+		"zcod": "1.07.4",
+		"zname": "Accesorii servere",
+		"zparent": "1.07",
+		"zslug": "accesorii-servere",
+		"zcount": 10,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=558&start=1&stop=20"
+	}
+	,{
+		"pidm": "432",
+		"zcod": "1.08",
+		"zname": "Barebone",
+		"zparent": "1",
+		"zslug": "barebone",
+		"zcount": 4,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=432&start=1&stop=20"
+	}
+	,{
+		"pidm": "433",
+		"zcod": "1.09",
+		"zname": "Genti si Huse",
+		"zparent": "1",
+		"zslug": "genti-si-huse",
+		"zcount": 108,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=433&start=1&stop=20"
+	}
+	,{
+		"pidm": "434",
+		"zcod": "1.10",
+		"zname": "Baterii si incarcatoare",
+		"zparent": "1",
+		"zslug": "baterii-si-incarcatoare",
+		"zcount": 60,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=434&start=1&stop=20"
+	}
+	,{
+		"pidm": "540",
+		"zcod": "1.11",
+		"zname": "Coolere&Standuri laptop",
+		"zparent": "1",
+		"zslug": "coolere&standuri-laptop",
+		"zcount": 101,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=540&start=1&stop=20"
+	}
+	,{
+		"pidm": "435",
+		"zcod": "1.12",
+		"zname": "Extindere de garantie",
+		"zparent": "1",
+		"zslug": "extindere-de-garantie",
+		"zcount": 11,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=435&start=1&stop=20"
+	}
+	,{
+		"pidm": "436",
+		"zcod": "2",
+		"zname": "Monitoare & TV & Gaming",
+		"zparent": "",
+		"zslug": "monitoare-&-tv-&-gaming",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=436&start=1&stop=20"
+	}
+	,{
+		"pidm": "437",
+		"zcod": "2.01",
+		"zname": "Monitoare",
+		"zparent": "2",
+		"zslug": "monitoare",
+		"zcount": 269,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=437&start=1&stop=20"
+	}
+	,{
+		"pidm": "439",
+		"zcod": "2.02",
+		"zname": "Proiectoare multimedia",
+		"zparent": "2",
+		"zslug": "proiectoare-multimedia",
+		"zcount": 99,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=439&start=1&stop=20"
+	}
+	,{
+		"pidm": "440",
+		"zcod": "2.03",
+		"zname": "Televizoare",
+		"zparent": "2",
+		"zslug": "televizoare",
+		"zcount": 61,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=440&start=1&stop=20"
+	}
+	,{
+		"pidm": "442",
+		"zcod": "2.04",
+		"zname": "Ecrane de proiectie",
+		"zparent": "2",
+		"zslug": "ecrane-de-proiectie",
+		"zcount": 11,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=442&start=1&stop=20"
+	}
+	,{
+		"pidm": "444",
+		"zcod": "2.05",
+		"zname": "Accesorii",
+		"zparent": "2",
+		"zslug": "accesorii",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=444&start=1&stop=20"
+	}
+	,{
+		"pidm": "445",
+		"zcod": "2.05.1",
+		"zname": "Cabluri si adaptoare",
+		"zparent": "2.05",
+		"zslug": "cabluri-si-adaptoare",
+		"zcount": 153,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=445&start=1&stop=20"
+	}
+	,{
+		"pidm": "446",
+		"zcod": "2.05.2",
+		"zname": "Suporti de prindere",
+		"zparent": "2.05",
+		"zslug": "suporti-de-prindere",
+		"zcount": 1,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=446&start=1&stop=20"
+	}
+	,{
+		"pidm": "447",
+		"zcod": "2.05.3",
+		"zname": "Lampi proiector",
+		"zparent": "2.05",
+		"zslug": "lampi-proiector",
+		"zcount": 5,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=447&start=1&stop=20"
+	}
+	,{
+		"pidm": "560",
+		"zcod": "2.05.4",
+		"zname": "Geanta proiector",
+		"zparent": "2.05",
+		"zslug": "geanta-proiector",
+		"zcount": 3,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=560&start=1&stop=20"
+	}
+	,{
+		"pidm": "556",
+		"zcod": "2.05.5",
+		"zname": "Presenter",
+		"zparent": "2.05",
+		"zslug": "presenter",
+		"zcount": 5,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=556&start=1&stop=20"
+	}
+	,{
+		"pidm": "448",
+		"zcod": "2.06",
+		"zname": "Gaming",
+		"zparent": "2",
+		"zslug": "gaming",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=448&start=1&stop=20"
+	}
+	,{
+		"pidm": "449",
+		"zcod": "2.06.1",
+		"zname": "Console",
+		"zparent": "2.06",
+		"zslug": "console",
+		"zcount": 17,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=449&start=1&stop=20"
+	}
+	,{
+		"pidm": "450",
+		"zcod": "2.06.2",
+		"zname": "Accesorii console",
+		"zparent": "2.06",
+		"zslug": "accesorii-console",
+		"zcount": 36,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=450&start=1&stop=20"
+	}
+	,{
+		"pidm": "451",
+		"zcod": "2.06.3",
+		"zname": "Tastaturi pt jocuri",
+		"zparent": "2.06",
+		"zslug": "tastaturi-pt-jocuri",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=451&start=1&stop=20"
+	}
+	,{
+		"pidm": "452",
+		"zcod": "2.06.4",
+		"zname": "Mouse pt jocuri",
+		"zparent": "2.06",
+		"zslug": "mouse-pt-jocuri",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=452&start=1&stop=20"
+	}
+	,{
+		"pidm": "453",
+		"zcod": "2.06.5",
+		"zname": "Pad pt jocuri",
+		"zparent": "2.06",
+		"zslug": "pad-pt-jocuri",
+		"zcount": 3,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=453&start=1&stop=20"
+	}
+	,{
+		"pidm": "454",
+		"zcod": "2.06.6",
+		"zname": "Joystick",
+		"zparent": "2.06",
+		"zslug": "joystick",
+		"zcount": 5,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=454&start=1&stop=20"
+	}
+	,{
+		"pidm": "455",
+		"zcod": "2.06.7",
+		"zname": "Gamepad",
+		"zparent": "2.06",
+		"zslug": "gamepad",
+		"zcount": 13,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=455&start=1&stop=20"
+	}
+	,{
+		"pidm": "456",
+		"zcod": "2.06.8",
+		"zname": "Volane",
+		"zparent": "2.06",
+		"zslug": "volane",
+		"zcount": 5,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=456&start=1&stop=20"
+	}
+	,{
+		"pidm": "457",
+		"zcod": "2.06.9",
+		"zname": "Jocuri",
+		"zparent": "2.06",
+		"zslug": "jocuri",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=457&start=1&stop=20"
+	}
+	,{
+		"pidm": "541",
+		"zcod": "2.07",
+		"zname": "Entertainment",
+		"zparent": "2",
+		"zslug": "entertainment",
+		"zcount": 1,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=541&start=1&stop=20"
+	}
+	,{
+		"pidm": "542",
+		"zcod": "2.07.1",
+		"zname": "Modulator FM",
+		"zparent": "2.07",
+		"zslug": "modulator-fm",
+		"zcount": 1,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=542&start=1&stop=20"
+	}
+	,{
+		"pidm": "543",
+		"zcod": "2.07.2",
+		"zname": "MP3 / MP4 Player",
+		"zparent": "2.07",
+		"zslug": "mp3-/-mp4-player",
+		"zcount": 48,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=543&start=1&stop=20"
+	}
+	,{
+		"pidm": "544",
+		"zcod": "2.07.3",
+		"zname": "Rame foto",
+		"zparent": "2.07",
+		"zslug": "rame-foto",
+		"zcount": 10,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=544&start=1&stop=20"
+	}
+	,{
+		"pidm": "545",
+		"zcod": "2.07.4",
+		"zname": "Sisteme home cinema",
+		"zparent": "2.07",
+		"zslug": "sisteme-home-cinema",
+		"zcount": 19,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=545&start=1&stop=20"
+	}
+	,{
+		"pidm": "546",
+		"zcod": "2.07.5",
+		"zname": "Media player",
+		"zparent": "2.07",
+		"zslug": "media-player",
+		"zcount": 19,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=546&start=1&stop=20"
+	}
+	,{
+		"pidm": "547",
+		"zcod": "2.07.6",
+		"zname": "Amplificatoare",
+		"zparent": "2.07",
+		"zslug": "amplificatoare",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=547&start=1&stop=20"
+	}
+	,{
+		"pidm": "548",
+		"zcod": "2.07.7",
+		"zname": "DVD Player",
+		"zparent": "2.07",
+		"zslug": "dvd-player",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=548&start=1&stop=20"
+	}
+	,{
+		"pidm": "549",
+		"zcod": "2.07.8",
+		"zname": "BluRay Player",
+		"zparent": "2.07",
+		"zslug": "bluray-player",
+		"zcount": 1,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=549&start=1&stop=20"
+	}
+	,{
+		"pidm": "421",
+		"zcod": "3",
+		"zname": "Componente IT",
+		"zparent": "",
+		"zslug": "componente-it",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=421&start=1&stop=20"
+	}
+	,{
+		"pidm": "422",
+		"zcod": "3.01",
+		"zname": "Placi de baza",
+		"zparent": "3",
+		"zslug": "placi-de-baza",
+		"zcount": 256,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=422&start=1&stop=20"
+	}
+	,{
+		"pidm": "423",
+		"zcod": "3.02",
+		"zname": "Procesoare",
+		"zparent": "3",
+		"zslug": "procesoare",
+		"zcount": 77,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=423&start=1&stop=20"
+	}
+	,{
+		"pidm": "458",
+		"zcod": "3.03",
+		"zname": "Placi video",
+		"zparent": "3",
+		"zslug": "placi-video",
+		"zcount": 348,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=458&start=1&stop=20"
+	}
+	,{
+		"pidm": "459",
+		"zcod": "3.04",
+		"zname": "Memorii interne",
+		"zparent": "3",
+		"zslug": "memorii-interne",
+		"zcount": 187,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=459&start=1&stop=20"
+	}
+	,{
+		"pidm": "460",
+		"zcod": "3.05",
+		"zname": "Memorii externe",
+		"zparent": "3",
+		"zslug": "memorii-externe",
+		"zcount": 218,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=460&start=1&stop=20"
+	}
+	,{
+		"pidm": "461",
+		"zcod": "3.06",
+		"zname": "Hard disk intern",
+		"zparent": "3",
+		"zslug": "hard-disk-intern",
+		"zcount": 97,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=461&start=1&stop=20"
+	}
+	,{
+		"pidm": "462",
+		"zcod": "3.07",
+		"zname": "SSD ( Solid State Drive )",
+		"zparent": "3",
+		"zslug": "ssd-(-solid-state-drive-)",
+		"zcount": 213,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=462&start=1&stop=20"
+	}
+	,{
+		"pidm": "463",
+		"zcod": "3.08",
+		"zname": "Unitati optice",
+		"zparent": "3",
+		"zslug": "unitati-optice",
+		"zcount": 33,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=463&start=1&stop=20"
+	}
+	,{
+		"pidm": "464",
+		"zcod": "3.09",
+		"zname": "Carcase desktop",
+		"zparent": "3",
+		"zslug": "carcase-desktop",
+		"zcount": 261,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=464&start=1&stop=20"
+	}
+	,{
+		"pidm": "465",
+		"zcod": "3.10",
+		"zname": "Surse desktop",
+		"zparent": "3",
+		"zslug": "surse-desktop",
+		"zcount": 258,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=465&start=1&stop=20"
+	}
+	,{
+		"pidm": "466",
+		"zcod": "3.11",
+		"zname": "Placi de sunet",
+		"zparent": "3",
+		"zslug": "placi-de-sunet",
+		"zcount": 32,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=466&start=1&stop=20"
+	}
+	,{
+		"pidm": "467",
+		"zcod": "3.12",
+		"zname": "TV-Tunere",
+		"zparent": "3",
+		"zslug": "tv-tunere",
+		"zcount": 31,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=467&start=1&stop=20"
+	}
+	,{
+		"pidm": "468",
+		"zcod": "3.13",
+		"zname": "Placi de captura",
+		"zparent": "3",
+		"zslug": "placi-de-captura",
+		"zcount": 8,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=468&start=1&stop=20"
+	}
+	,{
+		"pidm": "469",
+		"zcod": "3.14",
+		"zname": "Ventilatoare",
+		"zparent": "3",
+		"zslug": "ventilatoare",
+		"zcount": 269,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=469&start=1&stop=20"
+	}
+	,{
+		"pidm": "470",
+		"zcod": "3.15",
+		"zname": "PC Tuning",
+		"zparent": "3",
+		"zslug": "pc-tuning",
+		"zcount": 16,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=470&start=1&stop=20"
+	}
+	,{
+		"pidm": "471",
+		"zcod": "3.15.1",
+		"zname": "Paste termice",
+		"zparent": "3.15",
+		"zslug": "paste-termice",
+		"zcount": 15,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=471&start=1&stop=20"
+	}
+	,{
+		"pidm": "472",
+		"zcod": "3.15.2",
+		"zname": "Controler pt. ventilatoare",
+		"zparent": "3.15",
+		"zslug": "controler-pt.-ventilatoare",
+		"zcount": 7,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=472&start=1&stop=20"
+	}
+	,{
+		"pidm": "473",
+		"zcod": "3.15.3",
+		"zname": "Neoane",
+		"zparent": "3.15",
+		"zslug": "neoane",
+		"zcount": 6,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=473&start=1&stop=20"
+	}
+	,{
+		"pidm": "538",
+		"zcod": "3.15.4",
+		"zname": "Accesorii ventilatoare",
+		"zparent": "3.15",
+		"zslug": "accesorii-ventilatoare",
+		"zcount": 63,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=538&start=1&stop=20"
+	}
+	,{
+		"pidm": "474",
+		"zcod": "3.16",
+		"zname": "Sertar pt HDD/SSD/ODD",
+		"zparent": "3",
+		"zslug": "sertar-pt-hdd/ssd/odd",
+		"zcount": 107,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=474&start=1&stop=20"
+	}
+	,{
+		"pidm": "559",
+		"zcod": "3.17",
+		"zname": "Card reader & Hub USB",
+		"zparent": "3",
+		"zslug": "card-reader-&-hub-usb",
+		"zcount": 25,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=559&start=1&stop=20"
+	}
+	,{
+		"pidm": "475",
+		"zcod": "4",
+		"zname": "Periferice",
+		"zparent": "",
+		"zslug": "periferice",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=475&start=1&stop=20"
+	}
+	,{
+		"pidm": "476",
+		"zcod": "4.01",
+		"zname": "Imprimante",
+		"zparent": "4",
+		"zslug": "imprimante",
+		"zcount": 192,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=476&start=1&stop=20"
+	}
+	,{
+		"pidm": "477",
+		"zcod": "4.02",
+		"zname": "Multifunctionale",
+		"zparent": "4",
+		"zslug": "multifunctionale",
+		"zcount": 126,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=477&start=1&stop=20"
+	}
+	,{
+		"pidm": "478",
+		"zcod": "4.03",
+		"zname": "Plottere",
+		"zparent": "4",
+		"zslug": "plottere",
+		"zcount": 32,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=478&start=1&stop=20"
+	}
+	,{
+		"pidm": "479",
+		"zcod": "4.04",
+		"zname": "Hard disk extern",
+		"zparent": "4",
+		"zslug": "hard-disk-extern",
+		"zcount": 91,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=479&start=1&stop=20"
+	}
+	,{
+		"pidm": "508",
+		"zcod": "4.05",
+		"zname": "Foto/Video",
+		"zparent": "4",
+		"zslug": "foto/video",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=508&start=1&stop=20"
+	}
+	,{
+		"pidm": "509",
+		"zcod": "4.05.1",
+		"zname": "Aparate foto",
+		"zparent": "4.05",
+		"zslug": "aparate-foto",
+		"zcount": 236,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=509&start=1&stop=20"
+	}
+	,{
+		"pidm": "510",
+		"zcod": "4.05.2",
+		"zname": "Camere video",
+		"zparent": "4.05",
+		"zslug": "camere-video",
+		"zcount": 15,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=510&start=1&stop=20"
+	}
+	,{
+		"pidm": "511",
+		"zcod": "4.05.3",
+		"zname": "Acumulatori",
+		"zparent": "4.05",
+		"zslug": "acumulatori",
+		"zcount": 5,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=511&start=1&stop=20"
+	}
+	,{
+		"pidm": "512",
+		"zcod": "4.05.4",
+		"zname": "Trepiede",
+		"zparent": "4.05",
+		"zslug": "trepiede",
+		"zcount": 50,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=512&start=1&stop=20"
+	}
+	,{
+		"pidm": "513",
+		"zcod": "4.05.5",
+		"zname": "Obiective si filtre DSLR",
+		"zparent": "4.05",
+		"zslug": "obiective-si-filtre-dslr",
+		"zcount": 6,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=513&start=1&stop=20"
+	}
+	,{
+		"pidm": "514",
+		"zcod": "4.05.6",
+		"zname": "Genti si huse",
+		"zparent": "4.05",
+		"zslug": "genti-si-huse",
+		"zcount": 75,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=514&start=1&stop=20"
+	}
+	,{
+		"pidm": "563",
+		"zcod": "4.05.7",
+		"zname": "Blitz",
+		"zparent": "4.05",
+		"zslug": "blitz",
+		"zcount": 2,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=563&start=1&stop=20"
+	}
+	,{
+		"pidm": "515",
+		"zcod": "4.06",
+		"zname": "Camere web",
+		"zparent": "4",
+		"zslug": "camere-web",
+		"zcount": 52,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=515&start=1&stop=20"
+	}
+	,{
+		"pidm": "516",
+		"zcod": "4.07",
+		"zname": "Scanere",
+		"zparent": "4",
+		"zslug": "scanere",
+		"zcount": 85,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=516&start=1&stop=20"
+	}
+	,{
+		"pidm": "517",
+		"zcod": "4.08",
+		"zname": "Tablete grafice",
+		"zparent": "4",
+		"zslug": "tablete-grafice",
+		"zcount": 32,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=517&start=1&stop=20"
+	}
+	,{
+		"pidm": "518",
+		"zcod": "4.09",
+		"zname": "Boxe PC",
+		"zparent": "4",
+		"zslug": "boxe-pc",
+		"zcount": 103,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=518&start=1&stop=20"
+	}
+	,{
+		"pidm": "519",
+		"zcod": "4.10",
+		"zname": "Casti PC",
+		"zparent": "4",
+		"zslug": "casti-pc",
+		"zcount": 217,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=519&start=1&stop=20"
+	}
+	,{
+		"pidm": "520",
+		"zcod": "4.11",
+		"zname": "Home audio",
+		"zparent": "4",
+		"zslug": "home-audio",
+		"zcount": 7,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=520&start=1&stop=20"
+	}
+	,{
+		"pidm": "526",
+		"zcod": "4.12",
+		"zname": "UPS si prize cu protectie",
+		"zparent": "4",
+		"zslug": "ups-si-prize-cu-protectie",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=526&start=1&stop=20"
+	}
+	,{
+		"pidm": "527",
+		"zcod": "4.12.1",
+		"zname": "UPS",
+		"zparent": "4.12",
+		"zslug": "ups",
+		"zcount": 137,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=527&start=1&stop=20"
+	}
+	,{
+		"pidm": "528",
+		"zcod": "4.12.2",
+		"zname": "Baterii UPS",
+		"zparent": "4.12",
+		"zslug": "baterii-ups",
+		"zcount": 22,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=528&start=1&stop=20"
+	}
+	,{
+		"pidm": "529",
+		"zcod": "4.12.3",
+		"zname": "Prize cu protectie",
+		"zparent": "4.12",
+		"zslug": "prize-cu-protectie",
+		"zcount": 10,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=529&start=1&stop=20"
+	}
+	,{
+		"pidm": "530",
+		"zcod": "4.13",
+		"zname": "Tastaturi si Mouse",
+		"zparent": "4",
+		"zslug": "tastaturi-si-mouse",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=530&start=1&stop=20"
+	}
+	,{
+		"pidm": "531",
+		"zcod": "4.13.1",
+		"zname": "Kit tastatura + Mouse",
+		"zparent": "4.13",
+		"zslug": "kit-tastatura-+-mouse",
+		"zcount": 28,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=531&start=1&stop=20"
+	}
+	,{
+		"pidm": "532",
+		"zcod": "4.13.2",
+		"zname": "Tastaturi",
+		"zparent": "4.13",
+		"zslug": "tastaturi",
+		"zcount": 137,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=532&start=1&stop=20"
+	}
+	,{
+		"pidm": "533",
+		"zcod": "4.13.3",
+		"zname": "Mouse",
+		"zparent": "4.13",
+		"zslug": "mouse",
+		"zcount": 320,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=533&start=1&stop=20"
+	}
+	,{
+		"pidm": "534",
+		"zcod": "4.13.4",
+		"zname": "Mouse pad",
+		"zparent": "4.13",
+		"zslug": "mouse-pad",
+		"zcount": 55,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=534&start=1&stop=20"
+	}
+	,{
+		"pidm": "557",
+		"zcod": "4.14",
+		"zname": "GPS",
+		"zparent": "4",
+		"zslug": "gps",
+		"zcount": 65,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=557&start=1&stop=20"
+	}
+	,{
+		"pidm": "480",
+		"zcod": "5",
+		"zname": "Birotica si Consumabile",
+		"zparent": "",
+		"zslug": "birotica-si-consumabile",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=480&start=1&stop=20"
+	}
+	,{
+		"pidm": "481",
+		"zcod": "5.01",
+		"zname": "Cartuse imprimante",
+		"zparent": "5",
+		"zslug": "cartuse-imprimante",
+		"zcount": 993,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=481&start=1&stop=20"
+	}
+	,{
+		"pidm": "482",
+		"zcod": "5.02",
+		"zname": "Hartie",
+		"zparent": "5",
+		"zslug": "hartie",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=482&start=1&stop=20"
+	}
+	,{
+		"pidm": "483",
+		"zcod": "5.03",
+		"zname": "Medii magnetice",
+		"zparent": "5",
+		"zslug": "medii-magnetice",
+		"zcount": 55,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=483&start=1&stop=20"
+	}
+	,{
+		"pidm": "484",
+		"zcod": "5.04",
+		"zname": "Accesorii iPhone",
+		"zparent": "5",
+		"zslug": "accesorii-iphone",
+		"zcount": 13,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=484&start=1&stop=20"
+	}
+	,{
+		"pidm": "485",
+		"zcod": "5.05",
+		"zname": "Accesorii iPAD",
+		"zparent": "5",
+		"zslug": "accesorii-ipad",
+		"zcount": 6,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=485&start=1&stop=20"
+	}
+	,{
+		"pidm": "486",
+		"zcod": "5.06",
+		"zname": "Distrugatoare de documente",
+		"zparent": "5",
+		"zslug": "distrugatoare-de-documente",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=486&start=1&stop=20"
+	}
+	,{
+		"pidm": "487",
+		"zcod": "5.07",
+		"zname": "Reportofoane",
+		"zparent": "5",
+		"zslug": "reportofoane",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=487&start=1&stop=20"
+	}
+	,{
+		"pidm": "564",
+		"zcod": "5.08",
+		"zname": "Produse de curatat",
+		"zparent": "5",
+		"zslug": "produse-de-curatat",
+		"zcount": 23,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=564&start=1&stop=20"
+	}
+	,{
+		"pidm": "566",
+		"zcod": "5.09",
+		"zname": "Produse de birou",
+		"zparent": "5",
+		"zslug": "produse-de-birou",
+		"zcount": 1,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=566&start=1&stop=20"
+	}
+	,{
+		"pidm": "488",
+		"zcod": "6",
+		"zname": "Retelistica",
+		"zparent": "",
+		"zslug": "retelistica",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=488&start=1&stop=20"
+	}
+	,{
+		"pidm": "489",
+		"zcod": "6.01",
+		"zname": "Routere",
+		"zparent": "6",
+		"zslug": "routere",
+		"zcount": 131,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=489&start=1&stop=20"
+	}
+	,{
+		"pidm": "490",
+		"zcod": "6.02",
+		"zname": "Switch",
+		"zparent": "6",
+		"zslug": "switch",
+		"zcount": 151,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=490&start=1&stop=20"
+	}
+	,{
+		"pidm": "491",
+		"zcod": "6.03",
+		"zname": "Placi de retea",
+		"zparent": "6",
+		"zslug": "placi-de-retea",
+		"zcount": 91,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=491&start=1&stop=20"
+	}
+	,{
+		"pidm": "492",
+		"zcod": "6.04",
+		"zname": "NAS ( Network Attached Storage )",
+		"zparent": "6",
+		"zslug": "nas-(-network-attached-storage-)",
+		"zcount": 105,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=492&start=1&stop=20"
+	}
+	,{
+		"pidm": "493",
+		"zcod": "6.05",
+		"zname": "Cabinete de retea",
+		"zparent": "6",
+		"zslug": "cabinete-de-retea",
+		"zcount": 62,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=493&start=1&stop=20"
+	}
+	,{
+		"pidm": "494",
+		"zcod": "6.06",
+		"zname": "Telefoane IP",
+		"zparent": "6",
+		"zslug": "telefoane-ip",
+		"zcount": 1,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=494&start=1&stop=20"
+	}
+	,{
+		"pidm": "495",
+		"zcod": "6.07",
+		"zname": "Camere IP",
+		"zparent": "6",
+		"zslug": "camere-ip",
+		"zcount": 26,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=495&start=1&stop=20"
+	}
+	,{
+		"pidm": "496",
+		"zcod": "6.08",
+		"zname": "Firewall",
+		"zparent": "6",
+		"zslug": "firewall",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=496&start=1&stop=20"
+	}
+	,{
+		"pidm": "497",
+		"zcod": "6.09",
+		"zname": "Print Server",
+		"zparent": "6",
+		"zslug": "print-server",
+		"zcount": 15,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=497&start=1&stop=20"
+	}
+	,{
+		"pidm": "550",
+		"zcod": "6.10",
+		"zname": "KVM Switch",
+		"zparent": "6",
+		"zslug": "kvm-switch",
+		"zcount": 17,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=550&start=1&stop=20"
+	}
+	,{
+		"pidm": "498",
+		"zcod": "6.11",
+		"zname": "Accesorii si conectori",
+		"zparent": "6",
+		"zslug": "accesorii-si-conectori",
+		"zcount": 202,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=498&start=1&stop=20"
+	}
+	,{
+		"pidm": "562",
+		"zcod": "6.12",
+		"zname": "Supraveghere video",
+		"zparent": "6",
+		"zslug": "supraveghere-video",
+		"zcount": 1,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=562&start=1&stop=20"
+	}
+	,{
+		"pidm": "499",
+		"zcod": "7",
+		"zname": "Software",
+		"zparent": "",
+		"zslug": "software",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=499&start=1&stop=20"
+	}
+	,{
+		"pidm": "500",
+		"zcod": "7.01",
+		"zname": "Software ERP",
+		"zparent": "7",
+		"zslug": "software-erp",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=500&start=1&stop=20"
+	}
+	,{
+		"pidm": "501",
+		"zcod": "7.02",
+		"zname": "Antivirus",
+		"zparent": "7",
+		"zslug": "antivirus",
+		"zcount": 158,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=501&start=1&stop=20"
+	}
+	,{
+		"pidm": "502",
+		"zcod": "7.03",
+		"zname": "Sisteme de operare",
+		"zparent": "7",
+		"zslug": "sisteme-de-operare",
+		"zcount": 36,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=502&start=1&stop=20"
+	}
+	,{
+		"pidm": "503",
+		"zcod": "7.04",
+		"zname": "Aplicatii Office",
+		"zparent": "7",
+		"zslug": "aplicatii-office",
+		"zcount": 14,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=503&start=1&stop=20"
+	}
+	,{
+		"pidm": "504",
+		"zcod": "7.05",
+		"zname": "Arhivare",
+		"zparent": "7",
+		"zslug": "arhivare",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=504&start=1&stop=20"
+	}
+	,{
+		"pidm": "505",
+		"zcod": "7.06",
+		"zname": "Prelucrare video",
+		"zparent": "7",
+		"zslug": "prelucrare-video",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=505&start=1&stop=20"
+	}
+	,{
+		"pidm": "506",
+		"zcod": "7.07",
+		"zname": "Prelucrare foto",
+		"zparent": "7",
+		"zslug": "prelucrare-foto",
+		"zcount": 4,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=506&start=1&stop=20"
+	}
+	,{
+		"pidm": "507",
+		"zcod": "7.08",
+		"zname": "Soft pentru programare",
+		"zparent": "7",
+		"zslug": "soft-pentru-programare",
+		"zcount": 1,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=507&start=1&stop=20"
+	}
+	,{
+		"pidm": "565",
+		"zcod": "7.09",
+		"zname": "Alte aplicatii",
+		"zparent": "7",
+		"zslug": "alte-aplicatii",
+		"zcount": 10,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=565&start=1&stop=20"
+	}
+	,{
+		"pidm": "551",
+		"zcod": "8",
+		"zname": "Telefonie",
+		"zparent": "",
+		"zslug": "telefonie",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=551&start=1&stop=20"
+	}
+	,{
+		"pidm": "552",
+		"zcod": "8.01",
+		"zname": "Telefoane",
+		"zparent": "8",
+		"zslug": "telefoane",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=552&start=1&stop=20"
+	}
+	,{
+		"pidm": "553",
+		"zcod": "8.02",
+		"zname": "Centrale telefonice",
+		"zparent": "8",
+		"zslug": "centrale-telefonice",
+		"zcount": 0,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=553&start=1&stop=20"
+	}
+	,{
+		"pidm": "554",
+		"zcod": "8.03",
+		"zname": "Sisteme de teleconferinta",
+		"zparent": "8",
+		"zslug": "sisteme-de-teleconferinta",
+		"zcount": 1,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=554&start=1&stop=20"
+	}
+	,{
+		"pidm": "555",
+		"zcod": "8.04",
+		"zname": "Accesorii telefonie",
+		"zparent": "8",
+		"zslug": "accesorii-telefonie",
+		"zcount": 7,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=555&start=1&stop=20"
+	}
+	,{
+		"pidm": "561",
+		"zcod": "8.05",
+		"zname": "Fax-uri",
+		"zparent": "8",
+		"zslug": "fax-uri",
+		"zcount": 13,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=561&start=1&stop=20"
+	}
+	,{
+		"pidm": "567",
+		"zcod": "XX",
+		"zname": "Diverse !",
+		"zparent": "",
+		"zslug": "diverse-!",
+		"zcount": 75,
+		"link_produse": "&cod_formular=618&cfm=683&idgrupa=567&start=1&stop=20"
+	}
+	]
+}
