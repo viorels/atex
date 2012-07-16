@@ -17,13 +17,15 @@ def home(request):
     return render(request, "home.html", context)
 
 def search(request, category_id=None, slug=None):
-    category_id = request.GET.get('categorie') if category_id is None else category_id
+    if not category_id:
+        category_id = request.GET.get('categorie')
     search_keywords = request.GET.get('cuvinte')
     products = ancora.get_products(category_id=category_id, keywords=search_keywords)
 
-    for i, p in enumerate(products):
-        if i > 0 and (i+1) % 4 == 0:
-            p['fourth'] = True
+    products_per_line = 4
+    for idx, product in enumerate(products):
+        if (idx+1) % products_per_line == 0:
+            product['last_in_line'] = True
 
     context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu(),

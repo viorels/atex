@@ -4,17 +4,17 @@
         	<div class="left_col">
                 {% block menu %}
             	<ul class="menu">
-                    {% for cat in menu %}
+                    {% for category in menu %}
                 	<li class="menu-item{% if forloop.first %} first{% endif %}">
-                    	<a class="menu-link" href="{{ cat.url|default:'#' }}"><span class="menu_icon"><img src="{{ STATIC_PREFIX }}{{ cat.icon }}" height="22" width="24" alt="icon" /></span>{{ cat.name }}</a>
+                    	<a class="menu-link" href="{{ category.url|default:'#' }}"><span class="menu_icon"><img src="{{ STATIC_PREFIX }}{{ category.icon }}" height="22" width="24" alt="icon" /></span>{{ category.name }}</a>
                         <div class="popup-holder">
-                            <div class="popup {{ cat.background_class }}">
-                                <h1>{{ cat.name }}</h1>
-                                {% for column in cat.columns %}
+                            <div class="popup {{ category.background_class }}">
+                                <h1>{{ category.name }}</h1>
+                                {% for column in category.columns %}
                                 <ul>
-                                    {% for subcat in column %}
-                                    <li{% if subcat.level == 3 %} class="subcat"{% endif %}>
-                                        <a href="{{ subcat.url|default:'#' }}">{{ subcat.name }} <span>({{ subcat.count }})</span></a>
+                                    {% for subcategory in column %}
+                                    <li{% if subcategory.level == 3 %} class="subcat"{% endif %}>
+                                        <a href="{{ subcategory.url|default:'#' }}">{{ subcategory.name }} <span>({{ subcategory.count }})</span></a>
                                     </li>
                                     {% endfor %}
                                 </ul>
