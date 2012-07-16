@@ -66,11 +66,11 @@ def _get_menu():
                  '6': 'images/network-icon.png',
                  '7': 'images/cd-icon.png',
                  '8': 'images/phone-icon.png'}
-        return icons.get(category['id'], '')
+        return icons.get(category['code'], '')
 
     def category_background_class(category):
         try:
-            background_class = "bg-%02d" % int(category['id'])
+            background_class = "bg-%02d" % int(category['code'])
         except ValueError, e:
             background_class = ""
         return background_class
@@ -84,7 +84,7 @@ def _get_menu():
         return category_url
 
     def category_level(category):
-        return category['id'].count('.') + 1
+        return category['code'].count('.') + 1
 
     all_categories = ancora.get_all_categories()
     def categories_in(category=None):
@@ -93,9 +93,9 @@ def _get_menu():
         if category is None:
             parent_id = None
         else:
-            parent_id = category['id']
+            parent_id = category['code']
         categories = [c for c in all_categories if c['parent'] == parent_id]
-        sorted_categories = sorted(categories, key=itemgetter('id'))
+        sorted_categories = sorted(categories, key=itemgetter('code'))
         return sorted_categories
 
     def menu_category(category):

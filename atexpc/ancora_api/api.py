@@ -83,7 +83,8 @@ class Ancora(object):
             for category in data.get(json_root, []):
                 products_uri = self.adapter.base_uri_with_args(category['link_produse'])
                 selectors_uri = self.adapter.base_uri_with_args(category['link_selectoare'])
-                categories.append({'id': category['zcod'],
+                categories.append({'id': category['pidm'],
+                                   'code': category['zcod'],
                                    'name': category['zname'],
                                    'count': category['zcount'],
                                    'parent': category['zparent'] or None,
