@@ -13,7 +13,8 @@ logger = logging.getLogger(__name__)
 
 def home(request):
     context = {'categories': ancora.get_categories_in(parent=None),
-               'menu': _get_menu()}
+               'menu': _get_menu(),
+               'footer': _get_footer()}
     return render(request, "home.html", context)
 
 def search(request, category_id=None, slug=None):
@@ -31,26 +32,31 @@ def search(request, category_id=None, slug=None):
                'menu': _get_menu(),
                'search_keywords': search_keywords,
                'category_id': category_id,
-               'products': products}
+               'products': products,
+               'footer': _get_footer()}
     return render(request, "search.html", context)
 
 def product(request):
-    context = {'categories': ancora.get_categories_in(parent=None)}
+    context = {'categories': ancora.get_categories_in(parent=None),
+               'footer': _get_footer()}
     return render(request, "product.html", context)
 
 def cart(request):
     context = {'categories': ancora.get_categories_in(parent=None),
-               'menu': _get_menu()}
+               'menu': _get_menu(),
+               'footer': _get_footer()}
     return render(request, "cart.html", context)
 
 def order(request):
     context = {'categories': ancora.get_categories_in(parent=None),
-               'menu': _get_menu()}
+               'menu': _get_menu(),
+               'footer': _get_footer()}
     return render(request, "order.html", context)
     
 def confirm(request):
     context = {'categories': ancora.get_categories_in(parent=None),
-               'menu': _get_menu()}
+               'menu': _get_menu(),
+               'footer': _get_footer()}
     return render(request, "confirm.html", context)
 
 def pie(request):
@@ -129,4 +135,7 @@ def _get_menu():
         menu.append(category)
 
     return menu
+
+def _get_footer():
+    return ancora.get_all_categories()
 

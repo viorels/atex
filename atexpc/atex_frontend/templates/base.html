@@ -95,7 +95,13 @@
                   </ul>
              <span class="up_right"></span>
     	</div>   
-    	<div class="tags">
+			<div class="tags">
+				{% block footer %}
+					{% for category in footer %}
+				<a href="#">{{ category.name }}</a>
+					{% endfor %}
+				{% endblock footer %}
+				<!--
         	<a href="#">Laptop</a>
             <a href="#">Notebook</a>
             <a href="#">Tablete</a>
@@ -194,7 +200,8 @@
             <a href="#">Jocuri Precomanda</a>
             <a href="#">Aplicatii desktop Retail</a>
             <a href="#">Medii de dezvoltare Retail</a>
-            <a href="#">Sisteme de operare server Retail </a>
+						<a href="#">Sisteme de operare server Retail </a>
+						-->
         </div>
         <div class="bottom-footer">
         	<ul class="menu-subsol">
