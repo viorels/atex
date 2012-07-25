@@ -62,6 +62,8 @@ def confirm(request):
 def pie(request):
     return render(request, "PIE.htc", content_type="text/x-component")
 
+
+
 def _get_menu():
     def category_icon(category):
         icons = {'1': 'images/desktop-icon.png',
@@ -81,14 +83,6 @@ def _get_menu():
             background_class = ""
         return background_class
 
-    def category_url(category):
-        if re.match(r'^[0-9.]+$', category['id']):
-            category_url = reverse('category', kwargs={'category_id': category['id'],
-                                                       'slug': slugify(category['name'])})
-        else:
-            category_url = None
-        return category_url
-
     def category_level(category):
         return category['code'].count('.') + 1
 
@@ -107,7 +101,7 @@ def _get_menu():
     def menu_category(category):
         """Prepare a category to be displayed in the menu"""
         menu_category = {'name': category['name'],
-                         'url': category_url(category),
+                         'url': _category_url(category),
                          'count': category['count'],
                          'level': category_level(category)}
         return menu_category
@@ -137,5 +131,14 @@ def _get_menu():
     return menu
 
 def _get_footer():
-    return ancora.get_all_categories()
+    return [{'name': category['name'],
+             'url': _category_url(category)}
+            for category in ancora.get_all_categories()]
 
+def _category_url(category):
+    if re.match(r'^\d+$', category['id']):
+        category_url = reverse('category', kwargs={'category_id': category['id'],
+                                                   'slug': slugify(category['name'])})
+    else:
+        category_url = None
+    return category_url
