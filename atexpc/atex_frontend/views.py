@@ -30,6 +30,7 @@ def search(request, category_id=None, slug=None):
 
     context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu(),
+               'selectors': _get_selectors(category_id),
                'search_keywords': search_keywords,
                'category_id': category_id,
                'products': products,
@@ -129,6 +130,9 @@ def _get_menu():
         menu.append(category)
 
     return menu
+
+def _get_selectors(category_id):
+    return ancora.get_selectors(category_id)
 
 def _get_footer():
     return [{'name': category['name'],

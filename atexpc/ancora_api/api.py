@@ -95,6 +95,36 @@ class Ancora(object):
         categories_uri = self.adapter.uri_for('categories')
         return self.adapter.read(categories_uri, post_process)
 
+    def selectors(self, category_id):
+        def post_process(data):
+            json_root = 'selectors'
+            selectors = []
+            for selector in data.get(json_root, []):
+                selector_ids = selector['zvalori_posibile_id'].split(';')
+                selector_values = selector['zvalori_posibile_denumire'].split(';')
+                values = dict(zip(selector_ids, selector_values))
+                # XXX: this is a hack for ignoring empty selectors
+                values.pop('')
+                selectors.append({'id': selector['pidm'],
+                                  'name': selector['zdenumire'],
+                                  'values': values,
+                                  'order': selector['znumar_ordine'],
+                                  })
+            return selectors            
+            
+            return data
+
+        categories = self.categories()
+        category = [c for c in categories if c['id'] == category_id]
+        if len(category) == 1:
+            selectors_uri = category[0]['selectors_uri']
+            # XXX: this is a hack to fix bad params provided by Ancora
+            selectors_uri = self.adapter.uri_with_args(selectors_uri, {'stop':'1000'})
+
+        selectors = self.adapter.read(selectors_uri, post_process)
+        print selectors
+        return selectors
+
     def search_products(self, category_id=None, keywords=None):
         def post_process(data):
             json_root = 'products'
@@ -113,7 +143,7 @@ class Ancora(object):
         base_products_uri = None
         categories = self.categories()
         if category_id:
-            category = [c for c in self.categories() if c['id'] == category_id]
+            category = [c for c in categories if c['id'] == category_id]
             if len(category) == 1:
                 base_products_uri = category[0]['products_uri']
         if not base_products_uri:

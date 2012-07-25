@@ -22,6 +22,9 @@ class AncoraBackend(object):
         else:
             return None
 
+    def get_selectors(self, category_id):
+        return self._api.selectors(category_id)
+
     def get_products(self, category_id=None, keywords=None):
         return self._api.search_products(category_id=category_id, keywords=keywords)
 

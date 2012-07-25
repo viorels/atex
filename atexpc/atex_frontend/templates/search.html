@@ -31,156 +31,23 @@
                     	<input class="reset_sel_btn" id="uncheck" type="button" />
                         <span> Anuleaza toate selectiile </span>
                     </div>
+                        {% for selector in selectors %}
                     	<ul class="selector_area">
                         	<li class="title_row">
                             	<div class="sel_title">
                                      <span class="up_left"></span>
-                                     <span class="tab_up">producator</span>
+                                     <span class="tab_up">{{ selector.name }}</span>
                                      <span class="up_right"></span> 
                                 </div>    
                             </li>
+                            {% for key, value in selector.values.items %}
                             <li>
                                  <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">Samsung </a><span>(285)</span>
+                                 <a href="#{{ key }}">{{ value }}</a><span>(0)</span>
                             </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">LG </a><span>(233)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">Philips </a><span>(214)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">Benq </a><span>(97)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">Dell </a><span>(90)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">ASUS </a><span>(79)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">Acer </a><span>(65)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">Apple </a><span>(10)</span>
-                            </li>                            
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">HP </a><span>(25)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">altele </a><span>(25)</span>
-                            </li>
-                        </ul>   
-                        
-                        <ul class="selector_area">
-                        	<li class="title_row">
-                            	<div class="sel_title">
-                                     <span class="up_left"></span>
-                                     <span class="tab_up">diagonala</span>
-                                     <span class="up_right"></span> 
-                                </div>    
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">15" - 17" </a><span>(502)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">18" - 19.5" </a><span>(92)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">20" </a><span>(23)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">21" - 22" </a><span>(5)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">23"  </a><span>(502)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">23.6" - 24.6" </a><span>(92)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">25" - 26" </a><span>(23)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">27" </a><span>(5)</span>
-                            </li>
-                        </ul>                               
-                        
-                        <ul class="selector_area">
-                        	<li class="title_row">
-                            	<div class="sel_title">
-                                     <span class="up_left"></span>
-                                     <span class="tab_up">rezolutie</span>
-                                     <span class="up_right"></span> 
-                                </div>    
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">1024 x 768 </a><span>(15)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">1280 x 1024 </a><span>(20)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">1680 x 1050  </a><span>(23)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">1920 x 1080 </a><span>(15)</span>
-                            </li>                            
-                        </ul> 
-                        <ul class="selector_area">
-                        	<li class="title_row">
-                            	<div class="sel_title">
-                                     <span class="up_left"></span>
-                                     <span class="tab_up">timp raspuns</span>
-                                     <span class="up_right"></span> 
-                                </div>    
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">1ms </a><span>(35)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">2ms </a><span>(25)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">3ms </a><span>(29)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">5ms </a><span>(19)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">6ms </a><span>(27)</span>
-                            </li>
-                            <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#">8ms </a><span>(12)</span>
-                            </li>
-                        </ul>  
+                            {% endfor %}
+                        </ul>
+                        {% endfor %}
                         
                         <ul class="selector_area">
                         	<li class="title_row">
