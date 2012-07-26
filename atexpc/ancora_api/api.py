@@ -49,14 +49,18 @@ class AncoraAdapter(BaseAdapter):
 
     def uri_with_args(self, uri, new_args):
         parsed_uri = urlparse(uri)
+
         parsed_args = dict(parse_qsl(parsed_uri.query))
         parsed_new_args = dict(parse_qsl(new_args)) if isinstance(new_args, basestring) else new_args
         parsed_args.update(parsed_new_args)
+        valid_args = dict((key, value) for key, value in parsed_args.items() if value is not None)
+        encoded_args = urlencode(valid_args)
+
         final_uri = urlunparse((parsed_uri.scheme,
                                 parsed_uri.netloc,
                                 parsed_uri.path,
                                 parsed_uri.params,
-                                urlencode(parsed_args),
+                                encoded_args,
                                 parsed_uri.fragment))
         return final_uri
 
@@ -111,18 +115,15 @@ class Ancora(object):
                                   'order': selector['znumar_ordine'],
                                   })
             return selectors            
-            
-            return data
 
         categories = self.categories()
         category = [c for c in categories if c['id'] == category_id]
         if len(category) == 1:
             selectors_uri = category[0]['selectors_uri']
             # XXX: this is a hack to fix bad params provided by Ancora
-            selectors_uri = self.adapter.uri_with_args(selectors_uri, {'stop':'1000'})
+            selectors_uri = self.adapter.uri_with_args(selectors_uri, {'start':None, 'stop':None})
 
         selectors = self.adapter.read(selectors_uri, post_process)
-        print selectors
         return selectors
 
     def search_products(self, category_id=None, keywords=None):
@@ -148,7 +149,7 @@ class Ancora(object):
                 base_products_uri = category[0]['products_uri']
         if not base_products_uri:
             any_products_uri = categories[0]['products_uri']
-            base_products_uri = self.adapter.uri_with_args(any_products_uri, {'idgrupa': ''})
+            base_products_uri = self.adapter.uri_with_args(any_products_uri, {'idgrupa': None})
 
         filters = {}
         if keywords:
