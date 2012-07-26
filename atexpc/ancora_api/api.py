@@ -22,8 +22,6 @@ def _read_uri(uri):
 
 class BaseAdapter(object):
     def __init__(self, base_uri=None):
-        if not base_uri.endswith('/'):
-            base_uri += '/'
         self._base_uri = base_uri
 
     def read(self, uri, post_process=None):
