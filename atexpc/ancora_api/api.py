@@ -120,11 +120,15 @@ class Ancora(object):
             selectors_uri = category[0]['selectors_uri']
             # XXX: this is a hack to fix bad params provided by Ancora
             selectors_uri = self.adapter.uri_with_args(selectors_uri, {'start':None, 'stop':None})
+            selectors = self.adapter.read(selectors_uri, post_process)
+        else:
+            logger.warn("Found %d categories with id %d", len(category), category_id)
+            selectors = []
 
-        selectors = self.adapter.read(selectors_uri, post_process)
         return selectors
 
-    def search_products(self, category_id=None, keywords=None):
+    def search_products(self, category_id=None, keywords=None,
+                        start=None, stop=None):
         def post_process(data):
             json_root = 'products'
             products = []
@@ -146,13 +150,14 @@ class Ancora(object):
             if len(category) == 1:
                 base_products_uri = category[0]['products_uri']
         if not base_products_uri:
-            any_products_uri = categories[0]['products_uri']
-            base_products_uri = self.adapter.uri_with_args(any_products_uri, {'idgrupa': None})
+            some_products_uri = categories[0]['products_uri']
+            base_products_uri = self.adapter.uri_with_args(some_products_uri, {'idgrupa': None})
 
-        filters = {}
+        args = {'start': start,
+                'stop': stop}
         if keywords:
-            filters['zmodel'] = keywords
-        products_uri = self.adapter.uri_with_args(base_products_uri, filters)
+            args['zmodel'] = keywords
+        products_uri = self.adapter.uri_with_args(base_products_uri, args)
 
         products = self.adapter.read(products_uri, post_process)
         return products

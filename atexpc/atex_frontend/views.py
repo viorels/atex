@@ -21,7 +21,10 @@ def search(request, category_id=None, slug=None):
     if not category_id:
         category_id = request.GET.get('categorie')
     search_keywords = request.GET.get('cuvinte')
-    products = ancora.get_products(category_id=category_id, keywords=search_keywords)
+    start = request.GET.get('start', 0)
+    stop = request.GET.get('stop', 20)
+    products = ancora.get_products(category_id=category_id, keywords=search_keywords,
+                                   start=start, stop=stop)
 
     products_per_line = 4
     for idx, product in enumerate(products):
