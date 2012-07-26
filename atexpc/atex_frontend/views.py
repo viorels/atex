@@ -1,5 +1,7 @@
 import re
 from operator import itemgetter
+from urlparse import urlparse, urlunparse, parse_qsl
+from urllib import urlencode
 
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -21,8 +23,17 @@ def search(request, category_id=None, slug=None):
     if not category_id:
         category_id = request.GET.get('categorie')
     search_keywords = request.GET.get('cuvinte')
-    start = request.GET.get('start', 0)
-    stop = request.GET.get('stop', 20)
+    
+    current_page = (int(request.GET.get('pagina')) if request.GET.get('pagina', '').isdigit()
+                    else 1)
+    per_page = (int(request.GET.get('pe_pagina')) if request.GET.get('pe_pagina', '').isdigit()
+                else 20)
+    pagination = _get_pagination(count=60, per_page=per_page,
+                                 current_page=current_page,
+                                 base_url=request.build_absolute_uri())
+    start = pagination['start']
+    stop = pagination['stop']
+
     products = ancora.get_products(category_id=category_id, keywords=search_keywords,
                                    start=start, stop=stop)
 
@@ -37,6 +48,9 @@ def search(request, category_id=None, slug=None):
                'search_keywords': search_keywords,
                'category_id': category_id,
                'products': products,
+               'range_start': start + 1,
+               'range_stop': stop,
+               'pages': pagination['pages'],
                'footer': _get_footer()}
     return render(request, "search.html", context)
 
@@ -66,7 +80,35 @@ def confirm(request):
 def pie(request):
     return render(request, "PIE.htc", content_type="text/x-component")
 
+def _get_pagination(count, per_page, current_page, base_url):
+    pages_count = count / per_page
+    pages = [{'name': number,
+              'url': _uri_with_args(base_url, pagina=number),
+              'is_current': number==current_page}
+             for number in range(1, pages_count + 1)]
 
+    start = (current_page - 1) * per_page
+    stop = start + per_page
+
+    return {'pages': pages,
+            'start': start,
+            'stop': stop}
+
+def _uri_with_args(base_uri, **new_args):
+    parsed_uri = urlparse(base_uri)
+
+    parsed_args = dict(parse_qsl(parsed_uri.query))
+    parsed_args.update(new_args)
+    valid_args = dict((key, value) for key, value in parsed_args.items() if value is not None)
+    encoded_args = urlencode(valid_args)
+
+    final_uri = urlunparse((parsed_uri.scheme,
+                            parsed_uri.netloc,
+                            parsed_uri.path,
+                            parsed_uri.params,
+                            encoded_args,
+                            parsed_uri.fragment))
+    return final_uri
 
 def _get_menu():
     def category_icon(category):

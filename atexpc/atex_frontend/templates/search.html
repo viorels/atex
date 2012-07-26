@@ -161,13 +161,13 @@
                     {% endfor %}
                     
                     <div class="product-section">
-                    	<span class="produse-gasite">Produsele de la 1 la 20 din 44 produse gasite in categoria <strong>Monitoare LED</strong></span>
+                    	<span class="produse-gasite">Produsele de la {{ range_start }} la {{ range_stop }} din ??? produse {% if category_name %}gasite in categoria <strong>{{ category_name }}</strong>{% endif %}</span>
                     	<div class="tab_d_holder_right">
                         	<a class="prev"></a>
                                 <ul class="paginare">
-                                    <li><a class="active" href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
+                                    {% for page in pages %}
+                                    <li><a {% if page.is_current %}class="active"{% endif %} href="{{ page.url }}">{{ page.name }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             <a class="next"></a>
                         </div>

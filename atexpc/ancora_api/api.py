@@ -122,7 +122,7 @@ class Ancora(object):
             selectors_uri = self.adapter.uri_with_args(selectors_uri, {'start':None, 'stop':None})
             selectors = self.adapter.read(selectors_uri, post_process)
         else:
-            logger.warn("Found %d categories with id %d", len(category), category_id)
+            logger.warn("found %d categories with id '%s'", len(category), category_id)
             selectors = []
 
         return selectors
