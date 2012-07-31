@@ -1,25 +1,4 @@
-// JavaScript Document
-function init_uncheckall() 
-{
-	$('#uncheck').click(function () 
-	{ 		
-		$('.custom_checkbox').each(function(index)
-		{		
-			$(this).attr('class','custom_checkbox');			
-		}); 
-	 });
-}
-function init_checkbox() {
-	$('input[type=checkbox]').each(function() {
-				$(this).wrap(function() {
-					return ($(this).is(':checked')) ? '<div class="custom_checkbox selected" />' : '<div class="custom_checkbox" />';
-				});
-			});
-			
-			$('.custom_checkbox input[type=checkbox]').click(function () {
-				$(this).parent().toggleClass('selected');
-			});
-}
+
 function init_gallery() {
 				var gallery = $('#images');
 				gallery.exposure({controlsTarget : '#controls',
@@ -61,7 +40,7 @@ function init_gallery() {
 }
 
 function init_search_input() {
-    var search_form = $("form.filters");
+    var search_form = $("form.search");
     var search_input = $(".search_inputs .search");
     var search_hint = search_input.attr("title");
 
@@ -89,20 +68,50 @@ function init_search_input() {
     search_input.focus(hide_search_hint).blur(show_search_hint_if_empty)
 }
 
+function init_filters() {
+	var filter_form = $("form.filters");
+	var checkboxes = filter_form.find('input[type=checkbox]')
+
+	checkboxes.each(function() {
+		var checkbox = $(this)
+		checkbox.wrap(function() {
+			return (checkbox.is(':checked')) ? '<div class="custom_checkbox selected" />'
+											 : '<div class="custom_checkbox" />';
+		});
+	});
+	
+	checkboxes.click(function () {
+		$(this).parent().toggleClass('selected');
+		filter_form.submit();
+	});
+
+	$('.reset_sel_btn').click(uncheck_filters);
+}
+
+function uncheck_filters() {
+	var filter_form = $("form.filters");
+	var checkboxes = filter_form.find('input[type=checkbox]')	
+	checkboxes.each(function () {
+		var checkbox = $(this);
+		checkbox.parent().removeClass('selected');
+		checkbox.removeAttr('checked')
+	});
+	filter_form.submit();
+}
+
 function show_rezumat() {
 
 	$(".show_rezumat").hide();
 	$(".tab_rezumat").show();
 	$('.tab_rezumat').click(function(){
 		$(".show_rezumat").slideToggle();
- 		});
+	});
 }
 
 $(document).ready(function() 
 {
 	init_gallery();
-	init_checkbox();
-	init_uncheckall();
     init_search_input();
+	init_filters();
 	show_rezumat();
 });

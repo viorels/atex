@@ -33,7 +33,7 @@ def search(request, category_id=None, slug=None):
                                  base_url=request.build_absolute_uri())
     start = pagination['start']
     stop = pagination['stop']
-    selectors_active = request.GET.get('filtre', '').split(",")
+    selectors_active = request.GET.getlist('filtre')
 
     products = ancora.get_products(category_id=category_id, keywords=search_keywords,
                                    selectors=selectors_active, start=start, stop=stop)
@@ -46,6 +46,7 @@ def search(request, category_id=None, slug=None):
     context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu(),
                'selectors': _get_selectors(category_id),
+               'selectors_active': selectors_active,
                'search_keywords': search_keywords,
                'category_id': category_id,
                'products': products,

@@ -27,6 +27,8 @@
                 
 {% block content_left %}
                 <div class="left_search">
+                    <form method="GET" action="{% url search %}" class="filters">
+                    <input type="hidden" name="categorie" value="{{ category_id }}" />
                 	<div class="reset-sel">
                     	<input class="reset_sel_btn" id="uncheck" type="button" />
                         <span> Anuleaza toate selectiile </span>
@@ -42,8 +44,8 @@
                             </li>
                             {% for key, value in selector.values.items %}
                             <li>
-                                 <input name="" type="checkbox" value="" class="checkbox">
-                                 <a href="#{{ key }}">{{ value }}</a><span>(0)</span>
+                                 <input name="filtre" type="checkbox" value="{{ key }}" class="checkbox" {% if key in selectors_active %}checked{% endif %} />
+                                 <a href="#">{{ value }}</a> <span>(0)</span>
                             </li>
                             {% endfor %}
                         </ul>
@@ -95,7 +97,7 @@
                     		<input class="reset_sel_btn" type="button" />
                         	<span> Anuleaza toate selectiile </span>
                     	</div>
-                         
+                    </form>     
                 </div>
 {% endblock content_left %}
                 
