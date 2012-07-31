@@ -118,8 +118,6 @@ class Ancora(object):
         category = [c for c in categories if c['id'] == category_id]
         if len(category) == 1:
             selectors_uri = category[0]['selectors_uri']
-            # XXX: this is a hack to fix bad params provided by Ancora
-            selectors_uri = self.adapter.uri_with_args(selectors_uri, {'start':None, 'stop':None})
             selectors = self.adapter.read(selectors_uri, post_process)
         else:
             logger.warn("found %d categories with id '%s'", len(category), category_id)
@@ -132,7 +130,7 @@ class Ancora(object):
         def post_process(data):
             json_root = 'products'
             products = []
-            for product in data.get(json_root, [])[0:20]: # TODO: proper paging ...
+            for product in data.get(json_root, []):
                 thumbnail = 'images/p%02d.jpg' % (int(product['pidm']) % 4 + 1)
                 products.append({'id': product['pidm'],
                                  'name': "%(zbrand)s %(zmodel)s" % product,
