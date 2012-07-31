@@ -9,7 +9,9 @@ class AncoraBackend(object):
         self._api = Ancora(adapter=ancora)
 
     def get_all_categories(self):
-        return self._api.categories()
+        all_valid = [category for category in self._api.categories()
+                     if category['code'][0].isdecimal()] # skip "diverse" with code "XX"
+        return all_valid
 
     def get_categories_in(self, parent=None):
         categories = [c for c in self.get_all_categories() if c['parent'] == parent]
