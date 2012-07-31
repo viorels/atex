@@ -33,9 +33,10 @@ def search(request, category_id=None, slug=None):
                                  base_url=request.build_absolute_uri())
     start = pagination['start']
     stop = pagination['stop']
+    selectors_active = request.GET.get('filtre', '').split(",")
 
     products = ancora.get_products(category_id=category_id, keywords=search_keywords,
-                                   start=start, stop=stop)
+                                   selectors=selectors_active, start=start, stop=stop)
 
     products_per_line = 4
     for idx, product in enumerate(products):

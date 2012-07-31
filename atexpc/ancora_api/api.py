@@ -125,7 +125,7 @@ class Ancora(object):
 
         return selectors
 
-    def search_products(self, category_id=None, keywords=None,
+    def search_products(self, category_id=None, keywords=None, selectors=None,
                         start=None, stop=None):
         def post_process(data):
             json_root = 'products'
@@ -153,8 +153,10 @@ class Ancora(object):
 
         args = {'start': start,
                 'stop': stop}
+        if selectors:
+            args['zvalori_selectoare_id'] = ','.join(selectors)
         if keywords:
-            args['zmodel'] = keywords
+            args['zdescriere'] = keywords
         products_uri = self.adapter.uri_with_args(base_products_uri, args)
 
         products = self.adapter.read(products_uri, post_process)
