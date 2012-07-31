@@ -63,7 +63,7 @@ class AncoraAdapter(BaseAdapter):
         return final_uri
 
     def args_for(self, method_name):
-        args = {'categories': '&cod_formular=617&cfm=499'}
+        args = {'categories': '&cod_formular=617'}
         return args.get(method_name)
 
 
@@ -156,9 +156,13 @@ class Ancora(object):
         if selectors:
             args['zvalori_selectoare_id'] = ','.join(selectors)
         if keywords:
-            args['zdescriere'] = keywords
+            args['zdescriere'] = self._full_text_conjunction(keywords)
         products_uri = self.adapter.uri_with_args(base_products_uri, args)
 
         products = self.adapter.read(products_uri, post_process)
         return products
  
+    def _full_text_conjunction(self, keywords):
+        words = re.split(r"\s+", keywords)
+        conjunction = '&'.join(words)
+        return conjunction
