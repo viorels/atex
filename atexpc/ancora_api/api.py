@@ -5,6 +5,7 @@ import json
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 from urllib2 import urlopen # TODO: try urllib3 with connection pooling
+from collections import OrderedDict
 from django.core.cache import cache
 
 import logging
@@ -104,7 +105,7 @@ class Ancora(object):
             for selector in data.get(json_root, []):
                 selector_ids = selector['zvalori_posibile_id'].split(';')
                 selector_values = selector['zvalori_posibile_denumire'].split(';')
-                values = dict(zip(selector_ids, selector_values))
+                values = OrderedDict(zip(selector_ids, selector_values))
                 # XXX: this is a hack for ignoring empty selectors
                 values.pop('')
                 selectors.append({'id': selector['pidm'],
