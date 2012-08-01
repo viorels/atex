@@ -99,10 +99,10 @@ def _get_pagination(count, per_page, current_page, base_url):
 def _uri_with_args(base_uri, **new_args):
     parsed_uri = urlparse(base_uri)
 
-    parsed_args = dict(parse_qsl(parsed_uri.query))
-    parsed_args.update(new_args)
-    valid_args = dict((key, value) for key, value in parsed_args.items() if value is not None)
-    encoded_args = urlencode(valid_args)
+    parsed_args = parse_qsl(parsed_uri.query)
+    parsed_args.extend(new_args.items())
+    valid_args = [(key, value) for key, value in parsed_args if value is not None]
+    encoded_args = urlencode(valid_args, doseq=True)
 
     final_uri = urlunparse((parsed_uri.scheme,
                             parsed_uri.netloc,
