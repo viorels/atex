@@ -25,6 +25,12 @@ DATABASES = {
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
+if not DEBUG:
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = "dev.atexpc.ro"
+
 if 'test' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 
@@ -139,6 +145,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'atex_frontend',
     'gunicorn',
+    'storages',
 )
 
 # A sample logging configuration. The only tangible logging
