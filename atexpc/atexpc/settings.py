@@ -3,7 +3,7 @@ import os
 
 # Django settings for atexpc project.
 
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', True)
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
