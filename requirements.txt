@@ -4,3 +4,4 @@ distribute==0.6.24
 wsgiref==0.1.2
 pylibmc==1.2.2
 django-pylibmc-sasl==0.2.4
+gunicorn==0.14.6

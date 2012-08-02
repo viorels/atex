@@ -1,1 +1,1 @@
-web: python atexpc/manage.py runserver 0:$PORT
+web: python atexpc/manage.py run_gunicorn -b 0.0.0.0:$PORT -w 3
