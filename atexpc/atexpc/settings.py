@@ -3,7 +3,7 @@ import os
 
 # Django settings for atexpc project.
 
-DEBUG = os.environ.get('DEBUG', True)
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -84,7 +84,8 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
+STATIC_URL = 'http://dev.atexpc.ro.s3-website-eu-west-1.amazonaws.com/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
