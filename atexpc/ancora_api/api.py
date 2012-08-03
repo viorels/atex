@@ -140,7 +140,9 @@ class Ancora(object):
                                  'stock': product['zinfo_stoc_site'],
                                  'warranty': product['zluni_garantie'],
                                  'thumbnail': thumbnail})
-            return products
+            total_count = max(data.get('total_count', 0), len(products))
+            return {'products': products,
+                    'total_count': total_count}
 
         base_products_uri = None
         categories = self.categories()

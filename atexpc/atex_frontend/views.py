@@ -1,4 +1,5 @@
 import re
+import math
 from operator import itemgetter
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
@@ -28,15 +29,18 @@ def search(request, category_id=None, slug=None):
                     else 1)
     per_page = (int(request.GET.get('pe_pagina')) if request.GET.get('pe_pagina', '').isdigit()
                 else 20)
-    pagination = _get_pagination(count=60, per_page=per_page,
-                                 current_page=current_page,
-                                 base_url=request.build_absolute_uri())
-    start = pagination['start']
-    stop = pagination['stop']
     selectors_active = request.GET.getlist('filtre')
 
-    products = ancora.get_products(category_id=category_id, keywords=search_keywords,
-                                   selectors=selectors_active, start=start, stop=stop)
+    start = (current_page - 1) * per_page
+    stop = start + per_page
+    products_info = ancora.get_products(category_id=category_id, keywords=search_keywords,
+                                        selectors=selectors_active, start=start, stop=stop)
+    products = products_info.get('products')
+
+    total_count = products_info.get('total_count')
+    pagination = _get_pagination(count=total_count, per_page=per_page,
+                                 current_page=current_page,
+                                 base_url=request.build_absolute_uri())
 
     products_per_line = 4
     for idx, product in enumerate(products):
@@ -86,7 +90,7 @@ def pie(request):
     return render(request, "PIE.htc", content_type="text/x-component")
 
 def _get_pagination(count, per_page, current_page, base_url):
-    pages_count = count / per_page
+    pages_count = int(math.ceil(float(count)/per_page))
     pages = [{'name': number,
               'url': _uri_with_args(base_url, pagina=number),
               'is_current': number==current_page}
