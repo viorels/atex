@@ -56,6 +56,7 @@ def search(request, category_id=None, slug=None):
                'products': products,
                'range_start': start + 1,
                'range_stop': stop,
+               'total_count': total_count,
                'pages': pagination['pages'],
                'footer': _get_footer()}
     return render(request, "search.html", context)
