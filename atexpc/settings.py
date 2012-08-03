@@ -188,11 +188,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'atex_frontend': {
+        'atexpc.atex_frontend': {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
-        'ancora_api': {
+        'atexpc.ancora_api': {
             'handlers': ['console'],
             'level': 'DEBUG',
         }
