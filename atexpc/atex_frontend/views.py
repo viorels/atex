@@ -104,11 +104,14 @@ def _get_pagination(count, per_page, current_page, base_url):
             'stop': stop}
 
 def _uri_with_args(base_uri, **new_args):
+    """Overwrite specified args in base uri. If any other multiple value args
+    are present in base_uri then they must be preserved"""
     parsed_uri = urlparse(base_uri)
 
     parsed_args = parse_qsl(parsed_uri.query)
-    parsed_args.extend(new_args.items())
-    valid_args = [(key, value) for key, value in parsed_args if value is not None]
+    updated_args = [(key, value) for key, value in parsed_args if key not in new_args]
+    updated_args.extend(new_args.items())
+    valid_args = [(key, value) for key, value in updated_args if value is not None]
     encoded_args = urlencode(valid_args, doseq=True)
 
     final_uri = urlunparse((parsed_uri.scheme,
