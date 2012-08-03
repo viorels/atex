@@ -1,5 +1,6 @@
 import sys
 import os
+import imp
 
 # Django settings for atexpc project.
 
@@ -24,12 +25,6 @@ DATABASES = {
 }
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-
-if not DEBUG:
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-    AWS_STORAGE_BUCKET_NAME = "dev.atexpc.ro"
 
 if 'test' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
@@ -85,7 +80,6 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
-#STATIC_URL = 'http://dev.atexpc.ro.s3-website-eu-west-1.amazonaws.com/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -144,9 +138,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'atexpc.atex_frontend',
-    'gunicorn',
-    'storages',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -210,3 +201,18 @@ LOGGING = {
 
 ANCORA_URI = os.environ.get('ANCORA_URI')
 
+# load environment specific settings
+
+def get_environment_file_path(env):
+    return os.path.join(PROJECT_ROOT, 'config', '%s.py' % env)
+
+if 'APP_ENV' in os.environ:
+    ENV = os.environ['APP_ENV']
+else:
+    ENV = 'dev'
+
+try:
+    config = imp.load_source('env_settings', get_environment_file_path(ENV))
+    from env_settings import *
+except IOError:
+    exit("No configuration file found for env '%s'" % ENV)
