@@ -3,7 +3,7 @@ import os
 
 # Django settings for atexpc project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -84,8 +84,8 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-#STATIC_URL = '/static/'
-STATIC_URL = 'http://dev.atexpc.ro.s3-website-eu-west-1.amazonaws.com/'
+STATIC_URL = '/static/'
+#STATIC_URL = 'http://dev.atexpc.ro.s3-website-eu-west-1.amazonaws.com/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -144,7 +144,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'atex_frontend',
+    'atexpc.atex_frontend',
     'gunicorn',
     'storages',
 )

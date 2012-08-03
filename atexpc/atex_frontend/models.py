@@ -1,6 +1,6 @@
 
 from django.conf import settings
-from ancora_api.api import Ancora, AncoraAdapter, MockAdapter, MOCK_DATA_PATH
+from atexpc.ancora_api.api import Ancora, AncoraAdapter, MockAdapter, MOCK_DATA_PATH
 
 class AncoraBackend(object):
     def __init__(self):
