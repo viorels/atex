@@ -40,9 +40,9 @@ class ViewsTest(TestCase):
     	result = views._uri_with_args(uri_with_multiple_values)
     	self.assertEqual(uri_with_multiple_values, result)
 
-    def test_uri_with_args_add_multiple_values(self):
+    def test_uri_with_args_overwrite_multiple_values(self):
     	uri_with_multiple_values = 'http://uri.com/?f=1&f=2'
     	result = views._uri_with_args(uri_with_multiple_values, f=3)
-    	expected = uri_with_multiple_values + '&f=3'
+    	expected = 'http://uri.com/?f=3'
     	self.assertEqual(result, expected)
 
