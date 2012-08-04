@@ -106,13 +106,17 @@ class Ancora(object):
             selectors = []
             for selector in data.get(json_root, []):
                 selector_ids = selector['zvalori_posibile_id'].split(';')
-                selector_values = selector['zvalori_posibile_denumire'].split(';')
-                values = OrderedDict(zip(selector_ids, selector_values))
+                selector_names = selector['zvalori_posibile_denumire'].split(';')
+                selector_counts = selector['zvalori_posibile_count'].split(';')
+                values = OrderedDict((selector_id, {'name': name, 'count': count})
+                                     for selector_id, name, count 
+                                     in zip(selector_ids, selector_names, selector_counts))
                 # XXX: this is a hack for ignoring empty selectors
                 values.pop('')
                 selectors.append({'id': selector['pidm'],
                                   'name': selector['zdenumire'],
                                   'values': values,
+                                  'count'
                                   'order': selector['znumar_ordine'],
                                   })
             return selectors            

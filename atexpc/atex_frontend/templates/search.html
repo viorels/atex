@@ -42,10 +42,10 @@
                                      <span class="up_right"></span> 
                                 </div>    
                             </li>
-                            {% for key, value in selector.values.items %}
+                            {% for key, info in selector.values.items %}
                             <li>
                                  <input name="filtre" type="checkbox" value="{{ key }}" class="checkbox" {% if key in selectors_active %}checked{% endif %} />
-                                 <a href="#">{{ value }}</a> <span>(0)</span>
+                                 <a href="#">{{ info.name }}</a> <span>({{ info.count }})</span>
                             </li>
                             {% endfor %}
                         </ul>
