@@ -116,10 +116,11 @@ class Ancora(object):
         categories = self.categories()
         category = [c for c in categories if c['id'] == category_id]
         if len(category) == 1:
-            base_selectors_uri = category[0]['selectors_uri']
-            selectors_uri = self.adapter.uri_with_args(
-                                base_selectors_uri,
-                                {'zvalori_selectoare_id': ','.join(selectors_active)})
+            selectors_uri = category[0]['selectors_uri']
+            if selectors_active:
+                selectors_uri = self.adapter.uri_with_args(
+                                    selectors_uri,
+                                    {'zvalori_selectoare_id': ','.join(selectors_active)})
             selectors = self.adapter.read(selectors_uri, post_process)
         else:
             logger.warn("found %d categories with id '%s'", len(category), category_id)
