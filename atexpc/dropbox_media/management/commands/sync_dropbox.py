@@ -11,8 +11,7 @@ class Command(NoArgsCommand):
 		dropbox_client = client.DropboxClient(sess)
 
 		delta = dropbox_client.delta()
-		print "%d entries" % len(delta['entries'])
 		for entry in delta['entries']:
 		    path, meta = entry
-		    print path
-
+		    self.stdout.write("%s\n" % path)
+		self.stdout.write("%d entries\n" % len(delta['entries']))
