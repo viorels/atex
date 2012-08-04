@@ -135,11 +135,16 @@ class Ancora(object):
             products = []
             for product in data.get(json_root, []):
                 thumbnail = 'images/p%02d.jpg' % (int(product['pidm']) % 4 + 1)
+                significant_price_decrease = 1.05
+                old_price = (product['zpret_site_old']
+                             if float(product['zpret_site_old'])/float(product['zpret_site']) 
+                                > significant_price_decrease
+                             else None)
                 products.append({'id': product['pidm'],
                                  'model': product['zmodel'],
                                  'name': "%(zbrand)s %(zmodel)s" % product,
                                  'price': product.get('zpret_site'),
-                                 'old_price': str(1.1*float(product.get('zpret_site', 0))),
+                                 'old_price': old_price,
                                  'stock': product['zinfo_stoc_site'],
                                  'warranty': product['zluni_garantie'],
                                  'thumbnail': thumbnail})

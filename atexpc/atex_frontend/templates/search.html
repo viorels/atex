@@ -146,7 +146,9 @@
                             <a href="#"><h2>{{ product.name }}</h2></a>
                             <div class="product_price">
                                 <span class="pret_produs">{{ product.price }} lei</span>
+                                {% if product.old_price %}
                                 <span class="pret_vechi">{{ product.old_price }} lei</span>
+                                {% endif %}
                             </div>
                             <span class="stoc_ok">{{ product.stock }}</span>
                             <a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
