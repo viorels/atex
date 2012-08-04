@@ -31,16 +31,14 @@ def search(request, category_id=None, slug=None):
                 else 20)
     selectors_active = request.GET.getlist('filtre')
 
-    start = (current_page - 1) * per_page
-    stop = start + per_page
-    products_info = ancora.get_products(category_id=category_id, keywords=search_keywords,
-                                        selectors=selectors_active, start=start, stop=stop)
+    get_products_range = (lambda start, stop:
+        ancora.get_products(category_id=category_id, keywords=search_keywords,
+                            selectors=selectors_active, start=start, stop=stop))
+    products_info = _get_page(get_products_range, per_page=per_page, 
+                              current_page=current_page,
+                              base_url=request.build_absolute_uri())
     products = products_info.get('products')
-
-    total_count = products_info.get('total_count')
-    pagination = _get_pagination(count=total_count, per_page=per_page,
-                                 current_page=current_page,
-                                 base_url=request.build_absolute_uri())
+    pagination = products_info.get('pagination')
 
     products_per_line = 4
     for idx, product in enumerate(products):
@@ -55,10 +53,7 @@ def search(request, category_id=None, slug=None):
                'category_id': category_id,
                'top_category_id' : ancora.get_top_category_id(category_id),
                'products': products,
-               'range_start': start + 1,
-               'range_stop': stop,
-               'total_count': total_count,
-               'pages': pagination['pages'],
+               'pagination': pagination,
                'footer': _get_footer()}
     return render(request, "search.html", context)
 
@@ -88,19 +83,26 @@ def confirm(request):
 def pie(request):
     return render(request, "PIE.htc", content_type="text/x-component")
 
-def _get_pagination(count, per_page, current_page, base_url):
-    pages_count = int(math.ceil(float(count)/per_page))
+def _get_page(range_getter, per_page, current_page, base_url):
+    start = (current_page - 1) * per_page
+    stop = start + per_page
+    data = range_getter(start, stop)
+
+    total_count = data.get('total_count')
+    start = min(start + 1, total_count) # humans start counting from 1
+    stop = min(stop, total_count)
+
+    pages_count = int(math.ceil(float(total_count)/per_page))
     pages = [{'name': number,
               'url': _uri_with_args(base_url, pagina=number),
               'is_current': number==current_page}
              for number in range(1, pages_count + 1)]
 
-    start = (current_page - 1) * per_page
-    stop = start + per_page
-
-    return {'pages': pages,
-            'start': start,
-            'stop': stop}
+    data['pagination'] = {'pages': pages,
+                          'start': start,
+                          'stop': stop,
+                          'total_count': total_count}
+    return data
 
 def _uri_with_args(base_uri, **new_args):
     """Overwrite specified args in base uri. If any other multiple value args

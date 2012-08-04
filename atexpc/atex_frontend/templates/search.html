@@ -163,11 +163,11 @@
                     {% endfor %}
                     
                     <div class="product-section">
-                    	<span class="produse-gasite">Produsele de la {{ range_start }} la {{ range_stop }} din {{ total_count }} produse {% if category_name %}gasite in categoria <strong>{{ category_name }}</strong>{% endif %}</span>
+                    	<span class="produse-gasite">Produsele de la {{ pagination.start }} la {{ pagination.stop }} din {{ pagination.total_count }} produse {% if category_name %}gasite in categoria <strong>{{ category_name }}</strong>{% endif %}</span>
                     	<div class="tab_d_holder_right">
                         	<a class="prev"></a>
                                 <ul class="paginare">
-                                    {% for page in pages %}
+                                    {% for page in pagination.pages %}
                                     <li><a {% if page.is_current %}class="active"{% endif %} href="{{ page.url }}">{{ page.name }}</a></li>
                                     {% endfor %}
                                 </ul>
