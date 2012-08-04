@@ -29,8 +29,8 @@ class AncoraBackend(object):
         parent_category_code = category['code'].split('.')[0]
         return [c for c in self.get_all_categories() if c['code'] == parent_category_code][0]['id']
 
-    def get_selectors(self, category_id):
-        return self._api.selectors(category_id)
+    def get_selectors(self, category_id, selectors_active):
+        return self._api.selectors(category_id, selectors_active)
 
     def get_products(self, category_id=None, keywords=None, selectors=None,
                      start=None, stop=None):

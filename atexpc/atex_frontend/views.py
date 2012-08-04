@@ -47,7 +47,8 @@ def search(request, category_id=None, slug=None):
 
     context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu(),
-               'selectors': _get_selectors(category_id),
+               'selectors': _get_selectors(category_id=category_id, 
+                                           selectors_active=selectors_active),
                'selectors_active': selectors_active,
                'search_keywords': search_keywords,
                'category_id': category_id,
@@ -189,8 +190,10 @@ def _get_menu():
 
     return menu
 
-def _get_selectors(category_id):
-    return ancora.get_selectors(category_id)
+def _get_selectors(category_id, selectors_active):
+    selector_groups = ancora.get_selectors(category_id=category_id,
+                                           selectors_active=selectors_active)
+    return selector_groups
 
 def _get_footer():
     return [{'name': category['name'],

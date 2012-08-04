@@ -100,7 +100,7 @@ class Ancora(object):
         categories_uri = self.adapter.uri_for('categories')
         return self.adapter.read(categories_uri, post_process)
 
-    def selectors(self, category_id):
+    def selectors(self, category_id, selectors_active):
         def post_process(data):
             json_root = 'selectors'
             selectors = []
@@ -116,7 +116,10 @@ class Ancora(object):
         categories = self.categories()
         category = [c for c in categories if c['id'] == category_id]
         if len(category) == 1:
-            selectors_uri = category[0]['selectors_uri']
+            base_selectors_uri = category[0]['selectors_uri']
+            selectors_uri = self.adapter.uri_with_args(
+                                base_selectors_uri,
+                                {'zvalori_selectoare_id': ','.join(selectors_active)})
             selectors = self.adapter.read(selectors_uri, post_process)
         else:
             logger.warn("found %d categories with id '%s'", len(category), category_id)

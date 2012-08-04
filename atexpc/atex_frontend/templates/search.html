@@ -44,7 +44,7 @@
                             </li>
                             {% for selector in selector_group.selectors %}
                             <li>
-                                 <input name="filtre" type="checkbox" value="{{ selector.selector_id }}" class="checkbox" {% if selector.id in selectors_active %}checked{% endif %} />
+                                 <input name="filtre" type="checkbox" value="{{ selector.selector_id }}" class="checkbox" {% if selector.selector_id in selectors_active %}checked{% endif %} />
                                  <a href="#">{{ selector.name }}</a> <span>({{ selector.count }})</span>
                             </li>
                             {% endfor %}
