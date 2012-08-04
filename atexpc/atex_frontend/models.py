@@ -24,6 +24,11 @@ class AncoraBackend(object):
         else:
             return None
 
+    def get_top_category_id(self, category_id):
+        category = self.get_category(category_id)
+        parent_category_code = category['code'].split('.')[0]
+        return [c for c in self.get_all_categories() if c['code'] == parent_category_code][0]['id']
+
     def get_selectors(self, category_id):
         return self._api.selectors(category_id)
 
@@ -33,4 +38,5 @@ class AncoraBackend(object):
                                          selectors=selectors, start=start, stop=stop)
 
 ancora = AncoraBackend()
+
 

@@ -43,17 +43,20 @@ def search(request, category_id=None, slug=None):
         if (idx+1) % products_per_line == 0:
             product['last_in_line'] = True
 
-    context = {'categories': ancora.get_categories_in(parent=None),
-               'menu': _get_menu(),
-               'selectors': _get_selectors(category_id),
-               'selectors_active': selectors_active,
-               'search_keywords': search_keywords,
-               'category_id': category_id,
-               'products': products,
-               'range_start': start + 1,
-               'range_stop': stop,
-               'pages': pagination['pages'],
-               'footer': _get_footer()}
+    context = {
+        'categories': ancora.get_categories_in(parent=None),
+        'menu': _get_menu(),
+        'selectors': _get_selectors(category_id),
+        'selectors_active': selectors_active,
+        'search_keywords': search_keywords,
+        'category_id': category_id,
+        'top_category_id' : ancora.get_top_category_id(category_id),
+        'products': products,
+        'range_start': start + 1,
+        'range_stop': stop,
+        'pages': pagination['pages'],
+        'footer': _get_footer()
+    }
     return render(request, "search.html", context)
 
 def product(request):
