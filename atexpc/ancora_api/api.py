@@ -1,6 +1,7 @@
 
 import os
 import re
+import time
 import json
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
@@ -27,8 +28,10 @@ class BaseAdapter(object):
 
     def read(self, uri, post_process=None):
         logger.debug('>> GET %s', uri)
+        start_time = time.clock()
         response = _read_uri(uri)
-#        logger.debug('<< %s', response[:80])
+        elapsed = time.clock() - start_time
+        logger.debug('<< %s bytes in %1.3f seconds', len(response), elapsed)
         data = self.parse(response)
         return post_process(data) if post_process else data
 
