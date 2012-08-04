@@ -138,6 +138,7 @@ class Ancora(object):
             for product in data.get(json_root, []):
                 thumbnail = 'images/p%02d.jpg' % (int(product['pidm']) % 4 + 1)
                 products.append({'id': product['pidm'],
+                                 'model': product['zmodel'],
                                  'name': "%(zbrand)s %(zmodel)s" % product,
                                  'price': product.get('zpret_site'),
                                  'old_price': str(1.1*float(product.get('zpret_site', 0))),
