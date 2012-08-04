@@ -39,6 +39,7 @@ class BaseAdapter(object):
         try:
             return json.loads(stream)
         except ValueError, e:
+            logger.error("failed to parse backend response: %s", e)
             return {'error': 'failed to parse backend response'}
 
 class AncoraAdapter(BaseAdapter):
