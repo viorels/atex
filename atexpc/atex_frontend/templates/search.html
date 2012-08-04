@@ -33,19 +33,19 @@
                     	<input class="reset_sel_btn" id="uncheck" type="button" />
                         <span> Anuleaza toate selectiile </span>
                     </div>
-                        {% for selector in selectors %}
+                        {% for selector_group in selectors %}
                     	<ul class="selector_area">
                         	<li class="title_row">
                             	<div class="sel_title">
                                      <span class="up_left"></span>
-                                     <span class="tab_up">{{ selector.name }}</span>
+                                     <span class="tab_up">{{ selector_group.name }}</span>
                                      <span class="up_right"></span> 
                                 </div>    
                             </li>
-                            {% for key, info in selector.values.items %}
+                            {% for selector in selector_group.selectors %}
                             <li>
-                                 <input name="filtre" type="checkbox" value="{{ key }}" class="checkbox" {% if key in selectors_active %}checked{% endif %} />
-                                 <a href="#">{{ info.name }}</a> <span>({{ info.count }})</span>
+                                 <input name="filtre" type="checkbox" value="{{ selector.selector_id }}" class="checkbox" {% if selector.id in selectors_active %}checked{% endif %} />
+                                 <a href="#">{{ selector.name }}</a> <span>({{ selector.count }})</span>
                             </li>
                             {% endfor %}
                         </ul>
