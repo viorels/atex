@@ -25,6 +25,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     
     'atexpc.atex_frontend',
+    'atexpc.dropbox_media',
     'storages',
     'debug_toolbar',
 )
