@@ -112,10 +112,8 @@ class Ancora(object):
                                   })
             return selectors            
 
-        categories = self.categories()
-        category = [c for c in categories if c['id'] == category_id]
-        if len(category) == 1:
-            selectors_uri = category[0]['selectors_uri']
+        selectors_uri = self._get_category_meta(category_id, 'selectors_uri')
+        if selectors_uri:
             args = {}
             if selectors_active:
                 args['zvalori_selectoare_id'] = ','.join(selectors_active)
@@ -126,7 +124,6 @@ class Ancora(object):
                 selectors_uri = self.adapter.uri_with_args(selectors_uri, args)
             selectors = self.adapter.read(selectors_uri, post_process)
         else:
-            logger.warn("found %d categories with id '%s'", len(category), category_id)
             selectors = []
 
         return selectors
@@ -155,15 +152,12 @@ class Ancora(object):
             return {'products': products,
                     'total_count': total_count}
 
-        base_products_uri = None
-        categories = self.categories()
         if category_id:
-            category = [c for c in categories if c['id'] == category_id]
-            if len(category) == 1:
-                base_products_uri = category[0]['products_uri']
-        if not base_products_uri:
-            some_products_uri = categories[0]['products_uri']
-            base_products_uri = self.adapter.uri_with_args(some_products_uri, {'idgrupa': None})
+            base_products_uri = self._get_category_meta(category_id, 'products_uri')
+        else:
+            some_products_uri = self.categories()[0]['products_uri']
+            base_products_uri = self.adapter.uri_with_args(some_products_uri,
+                                                           {'idgrupa': None})
 
         args = {'start': start,
                 'stop': stop}
@@ -178,7 +172,18 @@ class Ancora(object):
 
         products = self.adapter.read(products_uri, post_process)
         return products
- 
+
+    def _get_category_meta(self, category_id, meta):
+        categories = self.categories()
+        found = [category for category in categories if category['id'] == category_id]
+        meta_value = None
+        if len(found) == 1:
+            meta_value = found[0].get(meta)
+        else:
+            meta_value = None
+            logger.warn("found %d categories with id '%s'", len(category), category_id)
+        return meta_value
+
     def _full_text_conjunction(self, keywords):
         words = re.split(r"\s+", keywords)
         conjunction = '&'.join(words)
