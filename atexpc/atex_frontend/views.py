@@ -29,12 +29,18 @@ def search(request, category_id=None, slug=None):
                     else 1)
     per_page = (int(request.GET.get('pe_pagina')) if request.GET.get('pe_pagina', '').isdigit()
                 else 20)
-    selectors_active = request.GET.getlist('filtre')
     price_min, price_max = request.GET.get('pret_min', ''), request.GET.get('pret_max', '')
+
+    selectors_active = request.GET.getlist('filtre')
+    selectors = _get_selectors(category_id=category_id, 
+                               selectors_active=selectors_active,
+                               price_min=price_min,
+                               price_max=price_max)
 
     get_products_range = (lambda start, stop:
         ancora.get_products(category_id=category_id, keywords=search_keywords,
-                            selectors=selectors_active, start=start, stop=stop))
+                            selectors=selectors_active, price_min=price_min,
+                            price_max=price_max, start=start, stop=stop))
     products_info = _get_page(get_products_range, per_page=per_page, 
                               current_page=current_page,
                               base_url=request.build_absolute_uri())
@@ -48,8 +54,7 @@ def search(request, category_id=None, slug=None):
 
     context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu(),
-               'selectors': _get_selectors(category_id=category_id, 
-                                           selectors_active=selectors_active),
+               'selectors': selectors,
                'selectors_active': selectors_active,
                'search_keywords': search_keywords,
                'price_min': price_min,
@@ -193,9 +198,11 @@ def _get_menu():
 
     return menu
 
-def _get_selectors(category_id, selectors_active):
+def _get_selectors(category_id, selectors_active, price_min, price_max):
     selector_groups = ancora.get_selectors(category_id=category_id,
-                                           selectors_active=selectors_active)
+                                           selectors_active=selectors_active,
+                                           price_min=price_min,
+                                           price_max=price_max)
     useful_selector_groups = []
     for selector_group in selector_groups:
         useful_selectors = [selector for selector in selector_group['selectors']

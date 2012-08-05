@@ -100,7 +100,7 @@ class Ancora(object):
         categories_uri = self.adapter.uri_for('categories')
         return self.adapter.read(categories_uri, post_process)
 
-    def selectors(self, category_id, selectors_active):
+    def selectors(self, category_id, selectors_active, price_min, price_max):
         def post_process(data):
             json_root = 'selectors'
             selectors = []
@@ -117,10 +117,14 @@ class Ancora(object):
         category = [c for c in categories if c['id'] == category_id]
         if len(category) == 1:
             selectors_uri = category[0]['selectors_uri']
+            args = {}
             if selectors_active:
-                selectors_uri = self.adapter.uri_with_args(
-                                    selectors_uri,
-                                    {'zvalori_selectoare_id': ','.join(selectors_active)})
+                args['zvalori_selectoare_id'] = ','.join(selectors_active)
+            if price_min or price_max:
+                args['zpret_site_min'] = price_min
+                args['zpret_site_max'] = price_max
+            if args:
+                selectors_uri = self.adapter.uri_with_args(selectors_uri, args)
             selectors = self.adapter.read(selectors_uri, post_process)
         else:
             logger.warn("found %d categories with id '%s'", len(category), category_id)
@@ -129,7 +133,7 @@ class Ancora(object):
         return selectors
 
     def search_products(self, category_id=None, keywords=None, selectors=None,
-                        start=None, stop=None):
+                        price_min=None, price_max=None, start=None, stop=None):
         def post_process(data):
             json_root = 'products'
             products = []
@@ -168,6 +172,9 @@ class Ancora(object):
             args['zvalori_selectoare_id'] = ','.join(selectors)
         if keywords:
             args['zdescriere'] = self._full_text_conjunction(keywords)
+        if price_min or price_max:
+            args['zpret_site_min'] = price_min
+            args['zpret_site_max'] = price_max
         products_uri = self.adapter.uri_with_args(base_products_uri, args)
 
         products = self.adapter.read(products_uri, post_process)

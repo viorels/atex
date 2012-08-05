@@ -29,13 +29,15 @@ class AncoraBackend(object):
         parent_category_code = category['code'].split('.')[0]
         return [c for c in self.get_all_categories() if c['code'] == parent_category_code][0]['id']
 
-    def get_selectors(self, category_id, selectors_active):
-        return self._api.selectors(category_id, selectors_active)
+    def get_selectors(self, category_id, selectors_active, price_min, price_max):
+        return self._api.selectors(category_id, selectors_active,
+                                   price_min=price_min, price_max=price_max)
 
-    def get_products(self, category_id=None, keywords=None, selectors=None,
-                     start=None, stop=None):
+    def get_products(self, category_id, keywords, selectors,
+                     price_min, price_max, start, stop):
         return self._api.search_products(category_id=category_id, keywords=keywords,
-                                         selectors=selectors, start=start, stop=stop)
+                                         selectors=selectors, price_min=price_min,
+                                         price_max=price_max, start=start, stop=stop)
 
 ancora = AncoraBackend()
 
