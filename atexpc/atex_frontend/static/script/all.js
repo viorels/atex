@@ -72,6 +72,13 @@ function init_filters() {
 	var filter_form = $("form.filters");
 	var checkboxes = filter_form.find('input[type=checkbox]')
 
+	function toggle_price() {
+		var price_checkbox = $('input.checkbox[name="pret"]');
+		var price_enabled = price_checkbox.parent().hasClass('selected');
+		$(".price_selector input").attr("disabled", !price_enabled);
+		return price_enabled;
+	}
+
 	checkboxes.each(function() {
 		var checkbox = $(this)
 		checkbox.wrap(function() {
@@ -82,8 +89,21 @@ function init_filters() {
 	
 	checkboxes.click(function () {
 		$(this).parent().toggleClass('selected');
-		filter_form.submit();
+		if ($(this).hasClass("submit")) {
+			filter_form.submit();
+		}
+		else if ($(this).attr("name") == "pret") {
+			price_enabled = toggle_price();
+			if (!price_enabled) {
+				filter_form.submit();
+			}
+		}
 	});
+
+	toggle_price();
+	$(".price_selector input.price_search").click(function () {
+		filter_form.submit();
+	})
 
 	$('.reset_sel_btn').click(uncheck_filters);
 }

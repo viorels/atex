@@ -30,6 +30,7 @@ def search(request, category_id=None, slug=None):
     per_page = (int(request.GET.get('pe_pagina')) if request.GET.get('pe_pagina', '').isdigit()
                 else 20)
     selectors_active = request.GET.getlist('filtre')
+    price_min, price_max = request.GET.get('pret_min', ''), request.GET.get('pret_max', '')
 
     get_products_range = (lambda start, stop:
         ancora.get_products(category_id=category_id, keywords=search_keywords,
@@ -51,6 +52,8 @@ def search(request, category_id=None, slug=None):
                                            selectors_active=selectors_active),
                'selectors_active': selectors_active,
                'search_keywords': search_keywords,
+               'price_min': price_min,
+               'price_max': price_max,
                'category_id': category_id,
                'top_category_id' : ancora.get_top_category_id(category_id),
                'products': products,
