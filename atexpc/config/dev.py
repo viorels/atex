@@ -19,10 +19,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
     
     'atexpc.atex_frontend',
     'atexpc.dropbox_media',
@@ -30,7 +26,14 @@ INSTALLED_APPS = (
     'debug_toolbar',
 )
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = "dev.atexpc.ro"
+
+CONFIG_PATH = os.path.dirname(os.path.realpath(__file__))
+PROJECT_ROOT = os.path.normpath(os.path.join(CONFIG_PATH, os.pardir))
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'atex_frontend', 'media/')
+MEDIA_URL = '/media/'
