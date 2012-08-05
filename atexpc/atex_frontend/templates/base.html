@@ -62,7 +62,7 @@
                         <select name="categorie" class="categorii" title="Selectează categoria în care cauţi">
                             <option value="">- Toate Categoriile -</option>
                             {% for category in categories %}
-                            <option value="{{ category.id }}" {% if category.id == top_category_id %}selected{% endif %}>{{ category.name }}</option>
+                            <option value="{{ category.id }}" {% if category.id == search_category_id %}selected{% endif %}>{{ category.name }}</option>
                             {% endfor %}
                         </select>
                     </li>    

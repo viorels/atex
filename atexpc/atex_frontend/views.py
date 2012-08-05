@@ -47,6 +47,9 @@ def search(request, category_id=None, slug=None):
     products = products_info.get('products')
     pagination = products_info.get('pagination')
 
+    search_category_id = (ancora.get_top_category_id(category_id)
+                          if category_id else None)
+
     products_per_line = 4
     for idx, product in enumerate(products):
         if (idx+1) % products_per_line == 0:
@@ -60,7 +63,7 @@ def search(request, category_id=None, slug=None):
                'price_min': price_min,
                'price_max': price_max,
                'category_id': category_id,
-               'top_category_id' : ancora.get_top_category_id(category_id),
+               'search_category_id' : search_category_id,
                'products': products,
                'pagination': pagination,
                'footer': _get_footer()}
