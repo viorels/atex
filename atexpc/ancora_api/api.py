@@ -15,23 +15,21 @@ logger = logging.getLogger(__name__)
 # TODO: this doesn't work if the lib is packed in an egg
 MOCK_DATA_PATH = os.path.join(os.path.split(__file__)[0], 'mock_data')
 
-def _read_uri(uri):
-    response = cache.get(uri)
-    if response is None:
-        response = urlopen(uri).read()
-        cache.set(uri, response)
-    return response
 
 class BaseAdapter(object):
     def __init__(self, base_uri=None):
         self._base_uri = base_uri
 
     def read(self, uri, post_process=None):
-        logger.debug('>> GET %s', uri)
-        start_time = time.clock()
-        response = _read_uri(uri)
-        elapsed = time.clock() - start_time
-        logger.debug('<< %s bytes in %1.3f seconds', len(response), elapsed)
+        start_time = time.time()
+        response = cache.get(uri)
+        cache_hit = '(cached)' if response else ''
+        if response is None:
+            response = urlopen(uri).read()
+            cache.set(uri, response)
+        elapsed = time.time() - start_time
+        logger.debug('GET%s %s (%s bytes in %1.3f seconds)', 
+                     cache_hit, uri, len(response), elapsed)
         data = self.parse(response)
         return post_process(data) if post_process else data
 
@@ -41,6 +39,7 @@ class BaseAdapter(object):
         except ValueError, e:
             logger.error("failed to parse backend response: %s", e)
             return {'error': 'failed to parse backend response'}
+
 
 class AncoraAdapter(BaseAdapter):
     def uri_for(self, method_name):
