@@ -15,9 +15,10 @@ import logging
 logger = logging.getLogger(__name__)
 
 def home(request):
+    all_categories = ancora.get_all_categories()
     context = {'categories': ancora.get_categories_in(parent=None),
-               'menu': _get_menu(),
-               'footer': _get_footer()}
+               'menu': _get_menu(all_categories),
+               'footer': _get_footer(all_categories)}
     return render(request, "home.html", context)
 
 def search(request, category_id=None, slug=None):
@@ -47,7 +48,9 @@ def search(request, category_id=None, slug=None):
     products = products_info.get('products')
     pagination = products_info.get('pagination')
 
-    search_category_id = (ancora.get_top_category_id(category_id)
+    all_categories = ancora.get_all_categories()
+
+    search_category_id = (ancora.get_top_category_id(category_id) # TODO: use all_categories ?
                           if category_id else None)
 
     products_per_line = 4
@@ -56,7 +59,7 @@ def search(request, category_id=None, slug=None):
             product['last_in_line'] = True
 
     context = {'categories': ancora.get_categories_in(parent=None),
-               'menu': _get_menu(),
+               'menu': _get_menu(all_categories),
                'selectors': selectors,
                'selectors_active': selectors_active,
                'search_keywords': search_keywords,
@@ -66,30 +69,34 @@ def search(request, category_id=None, slug=None):
                'search_category_id' : search_category_id,
                'products': products,
                'pagination': pagination,
-               'footer': _get_footer()}
+               'footer': _get_footer(all_categories)}
     return render(request, "search.html", context)
 
 def product(request):
+    all_categories = ancora.get_all_categories()
     context = {'categories': ancora.get_categories_in(parent=None),
-               'footer': _get_footer()}
+               'footer': _get_footer(all_categories)}
     return render(request, "product.html", context)
 
 def cart(request):
+    all_categories = ancora.get_all_categories()
     context = {'categories': ancora.get_categories_in(parent=None),
-               'menu': _get_menu(),
-               'footer': _get_footer()}
+               'menu': _get_menu(all_categories),
+               'footer': _get_footer(all_categories)}
     return render(request, "cart.html", context)
 
 def order(request):
+    all_categories = ancora.get_all_categories()
     context = {'categories': ancora.get_categories_in(parent=None),
-               'menu': _get_menu(),
-               'footer': _get_footer()}
+               'menu': _get_menu(all_categories),
+               'footer': _get_footer(all_categories)}
     return render(request, "order.html", context)
     
 def confirm(request):
+    all_categories = ancora.get_all_categories()
     context = {'categories': ancora.get_categories_in(parent=None),
-               'menu': _get_menu(),
-               'footer': _get_footer()}
+               'menu': _get_menu(all_categories),
+               'footer': _get_footer(all_categories)}
     return render(request, "confirm.html", context)
 
 def pie(request):
@@ -135,7 +142,7 @@ def _uri_with_args(base_uri, **new_args):
                             parsed_uri.fragment))
     return final_uri
 
-def _get_menu():
+def _get_menu(all_categories):
     def category_icon(category):
         icons = {'1': 'images/desktop-icon.png',
                  '2': 'images/tv-icon.png',
@@ -157,7 +164,6 @@ def _get_menu():
     def category_level(category):
         return category['code'].count('.') + 1
 
-    all_categories = ancora.get_all_categories()
     def categories_in(category=None):
         """Return chilid categories for the specified category
            or top categories if None specified"""
@@ -215,10 +221,10 @@ def _get_selectors(category_id, selectors_active, price_min, price_max):
                                            'selectors': useful_selectors})
     return useful_selector_groups
 
-def _get_footer():
+def _get_footer(all_categories):
     return [{'name': category['name'],
              'url': _category_url(category)}
-            for category in ancora.get_all_categories()]
+            for category in all_categories]
 
 def _category_url(category):
     if re.match(r'^\d+$', category['id']):
