@@ -20,7 +20,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     #'django.contrib.staticfiles',
 
-    'atexpc.atex_frontend',
+    'atexpc.atex_web',
     'gunicorn',
     'storages',
     'sorl.thumbnail',

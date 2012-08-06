@@ -5,7 +5,7 @@ from django.core.management.base import NoArgsCommand
 from django.core.files import File
 from django.conf import settings
 from dropbox import session, client
-from atexpc.atex_frontend.models import Image
+from atexpc.atex_web.models import Image
 
 USE_LOCAL_DROPBOX = False # relevant for reading
 

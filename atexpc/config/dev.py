@@ -30,7 +30,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'atexpc.atex_frontend',
+    'atexpc.atex_web',
     'storages',
     'sorl.thumbnail',
     'debug_toolbar',
@@ -42,5 +42,5 @@ AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = "dev.atexpc.ro"
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'atex_frontend', 'media/')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'atex_web', 'media/')
 MEDIA_URL = '/media/'

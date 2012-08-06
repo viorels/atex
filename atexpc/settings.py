@@ -196,7 +196,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'atexpc.atex_frontend': {
+        'atexpc.atex_web': {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
