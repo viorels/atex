@@ -21,24 +21,25 @@ class Command(NoArgsCommand):
                        settings.DROPBOX_ACCESS_TOKEN_SECRET)
         self._dropbox = client.DropboxClient(sess)
 
-        if USE_LOCAL_DROPBOX:
-            self._media_cache = self._list_local_media_files()
-
     def handle_noargs(self, *args, **options):
-
-        delta = self._dropbox.delta()
-        for entry in delta['entries'][0:2]:
-            path, meta = entry
-            # if new file
-            self._copy_file(path, meta, self._s3_file_writer)
-
-        self.stdout.write("%d entries\n" % len(delta['entries']))
-
-    def _list_local_media_files(self):
-        pass
+        cursor = None # TODO: get from database !
+        has_more = True
+        while has_more:
+            delta = self._dropbox.delta(cursor)
+            has_more = delta['has_more']
+            cursor = delta['cursor']
+            for entry in delta['entries']:
+                path, meta = entry
+                path_with_case = meta['path']
+                if meta:
+                    if meta['is_dir'] is False:
+                        self._copy_file(path_with_case, meta, self._s3_file_writer)
+                else:
+                    self._s3_file_delete(path_with_case)
+        self.stdout.write("Cursor: %s\n" % cursor)
 
     def _copy_file(self, path, meta, writer):
-        self.stdout.write("Uploading %s: %s\n" % (path, meta))
+        self.stdout.write("Uploading %s: %s\n" % (path, 'meta'))
 
         relative_path = path[1:] if path[0] == '/' else path 
         if USE_LOCAL_DROPBOX:
@@ -47,12 +48,13 @@ class Command(NoArgsCommand):
             self._dropbox_file_reader(relative_path, meta, writer)
 
     def _local_file_reader(self, path, meta, writer):
-        file_path = os.path.join(settings.MEDIA_ROOT, path)
+        file_path = os.path.normpath(settings.MEDIA_ROOT + path)
         with open(file_path) as f:
             writer(path, f)
 
     def _dropbox_file_reader(self, path, meta, writer):
-        dropbox_file = self._dropbox.get_file(path)
+        rev = meta['rev']
+        dropbox_file = self._dropbox.get_file(path, rev)
 
         chunk_size = 1024 ** 2
         with tempfile.NamedTemporaryFile(delete=False) as temp:
@@ -64,7 +66,9 @@ class Command(NoArgsCommand):
         os.unlink(temp.name)
 
     def _s3_file_writer(self, path, f):
-        path_lower = path.lower()
-        image, created = Image.objects.get_or_create(path=path_lower)
+        image, created = Image.objects.get_or_create(path=path)
         django_file = File(f)
-        image.image.save(path_lower, django_file)
+        image.image.save(path, django_file)
+
+    def _s3_file_delete(self, path):
+        Image.objects.filter(path=path).delete()
