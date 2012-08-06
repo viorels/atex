@@ -23,6 +23,7 @@ INSTALLED_APPS = (
     'atexpc.atex_frontend',
     'atexpc.dropbox_media',
     'storages',
+    'sorl.thumbnail',
     'debug_toolbar',
 )
 

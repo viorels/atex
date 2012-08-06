@@ -1,6 +1,15 @@
 
 from django.conf import settings
+from django.db import models
+from sorl.thumbnail import ImageField
 from atexpc.ancora_api.api import Ancora, AncoraAdapter, MockAdapter, MOCK_DATA_PATH
+
+class Product(models.Model):
+    model = models.CharField(max_length=64)
+
+class Image(models.Model):
+    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
+    image = ImageField(upload_to='product-images', max_length=128)
 
 class AncoraBackend(object):
     def __init__(self):
