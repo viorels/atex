@@ -21,7 +21,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     
     'atexpc.atex_frontend',
-    'atexpc.dropbox_media',
     'storages',
     'sorl.thumbnail',
     'debug_toolbar',
