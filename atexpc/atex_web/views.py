@@ -9,7 +9,10 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
-from models import ancora
+from sorl.thumbnail import get_thumbnail
+from django.conf import settings
+
+from models import ancora, Image
 
 import logging
 logger = logging.getLogger(__name__)
@@ -48,9 +51,7 @@ def search(request, category_id=None, slug=None):
     products = products_info.get('products')
     pagination = products_info.get('pagination')
 
-    # thumbnails 185x145
-    for product in products:
-        product['thumbnail'] = "%s.jpg" % product['model']
+    products = _products_with_images(products)
 
     all_categories = ancora.get_all_categories()
 
@@ -105,6 +106,21 @@ def confirm(request):
 
 def pie(request):
     return render(request, "PIE.htc", content_type="text/x-component")
+
+
+def _products_with_images(products):
+    # TODO: return a different array with different objects
+    # instead of doing an in place edit
+    for product in products:
+        images = (Image.objects.filter(path__startswith=product['model'])
+                               .order_by('path'))
+        if images:
+            image = images[0].image
+        else:
+            image = "http://www.atexpc.ro/PozeProduse/NoImage.JPG"
+        thumb = get_thumbnail(image, '185x145', quality=99)
+        product['thumb'] = settings.MEDIA_URL + thumb.name
+    return products
 
 def _get_page(range_getter, per_page, current_page, base_url):
     start = (current_page - 1) * per_page
