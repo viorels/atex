@@ -48,6 +48,10 @@ def search(request, category_id=None, slug=None):
     products = products_info.get('products')
     pagination = products_info.get('pagination')
 
+    # thumbnails 185x145
+    for product in products:
+        product['thumbnail'] = "%s.jpg" % product['model']
+
     all_categories = ancora.get_all_categories()
 
     search_category_id = (ancora.get_top_category_id(category_id) # TODO: use all_categories ?

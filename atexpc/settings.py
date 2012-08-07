@@ -26,6 +26,14 @@ DATABASES = {
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
+ANCORA_URI = os.environ.get('ANCORA_URI')
+
+DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
+DROPBOX_APP_SECRET = os.environ.get('DROPBOX_APP_SECRET')
+DROPBOX_ACCESS_TYPE = os.environ.get('DROPBOX_ACCESS_TYPE', 'app_folder')
+DROPBOX_ACCESS_TOKEN = os.environ.get('DROPBOX_ACCESS_TOKEN')
+DROPBOX_ACCESS_TOKEN_SECRET = os.environ.get('DROPBOX_ACCESS_TOKEN_SECRET')
+
 if 'test' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 
@@ -188,7 +196,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'atexpc.atex_frontend': {
+        'atexpc.atex_web': {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
@@ -198,8 +206,6 @@ LOGGING = {
         }
     }
 }
-
-ANCORA_URI = os.environ.get('ANCORA_URI')
 
 # load environment specific settings
 

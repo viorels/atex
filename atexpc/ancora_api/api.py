@@ -134,7 +134,6 @@ class Ancora(object):
             json_root = 'products'
             products = []
             for product in data.get(json_root, []):
-                thumbnail = 'images/p%02d.jpg' % (int(product['pidm']) % 4 + 1)
                 significant_price_decrease = 1.05
                 old_price = (product['zpret_site_old']
                              if float(product['zpret_site_old'])/float(product['zpret_site']) 
@@ -146,8 +145,7 @@ class Ancora(object):
                                  'price': product.get('zpret_site'),
                                  'old_price': old_price,
                                  'stock': product['zinfo_stoc_site'],
-                                 'warranty': product['zluni_garantie'],
-                                 'thumbnail': thumbnail})
+                                 'warranty': product['zluni_garantie']})
             total_count = max(data.get('total_count', 0), len(products))
             return {'products': products,
                     'total_count': total_count}

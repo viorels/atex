@@ -2,5 +2,4 @@
 gunicorn==0.14.6
 django-storages==1.1.5
 boto==2.5.2
-psycopg2
 django-debug-toolbar==0.9.4

@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
-from django.views.generic.simple import direct_to_template
+from django.conf.urls.static import static
+from django.conf import settings
 import views
 
 urlpatterns = patterns('',
@@ -11,4 +12,4 @@ urlpatterns = patterns('',
     url(r'^cos/comanda/', views.order, name='order'),
     url(r'^cos/confirma/', views.confirm, name='confirm'),
     url(r'PIE\.htc$', views.pie),
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
