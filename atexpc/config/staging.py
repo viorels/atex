@@ -22,6 +22,7 @@ INSTALLED_APPS = (
 
     'atexpc.atex_web',
     'gunicorn',
+    'south',
     'storages',
     'sorl.thumbnail',
     'debug_toolbar',

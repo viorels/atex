@@ -31,6 +31,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     
     'atexpc.atex_web',
+    'south',
     'storages',
     'sorl.thumbnail',
     'debug_toolbar',
