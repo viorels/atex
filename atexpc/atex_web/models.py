@@ -4,6 +4,10 @@ from django.db import models
 from sorl.thumbnail import ImageField
 from atexpc.ancora_api.api import Ancora, AncoraAdapter, MockAdapter, MOCK_DATA_PATH
 
+class Dropbox(models.Model):
+    app_key = models.CharField(primary_key=True, max_length=64)
+    delta_cursor = models.CharField(max_length=255, blank=True, null=True)
+
 class Product(models.Model):
     model = models.CharField(max_length=64)
 

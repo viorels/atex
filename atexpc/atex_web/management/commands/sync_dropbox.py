@@ -5,7 +5,7 @@ from django.core.management.base import NoArgsCommand
 from django.core.files import File
 from django.conf import settings
 from dropbox import session, client
-from atexpc.atex_web.models import Image
+from atexpc.atex_web.models import Dropbox, Image
 
 USE_LOCAL_DROPBOX = False # relevant for reading
 MAX_PATH_LENGTH = 128 # TODO: introspect model
@@ -23,7 +23,8 @@ class Command(NoArgsCommand):
         self._dropbox = client.DropboxClient(sess)
 
     def handle_noargs(self, *args, **options):
-        cursor = None # TODO: get from database !
+        dropbox_state, __ = Dropbox.objects.get_or_create(app_key=settings.DROPBOX_APP_KEY)
+        cursor = dropbox_state.delta_cursor
         has_more = True
         while has_more:
             delta = self._dropbox.delta(cursor)
@@ -41,7 +42,10 @@ class Command(NoArgsCommand):
                         self._copy_file(path_with_case, meta, self._s3_file_writer)
                 else:
                     self._s3_file_delete(path_with_case)
-        self.stdout.write("Cursor: %s\n" % cursor)
+
+            self.stdout.write("Cursor: %s\n" % cursor)
+            dropbox_state.delta_cursor = cursor
+            dropbox_state.save()
 
     def _copy_file(self, path, meta, writer):
         self.stdout.write("Uploading %s: %s\n" % (path, 'meta'))
