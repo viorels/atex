@@ -9,8 +9,8 @@ class Product(models.Model):
 
 class Image(models.Model):
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
-    path = models.CharField(max_length=128)
-    image = ImageField(upload_to='product-images', max_length=128)
+    path = models.CharField(max_length=128, db_index=True)
+    image = ImageField(upload_to='product-images', max_length=255)
 
 class AncoraBackend(object):
     def __init__(self):

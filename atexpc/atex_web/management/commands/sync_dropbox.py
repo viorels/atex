@@ -8,6 +8,7 @@ from dropbox import session, client
 from atexpc.atex_web.models import Image
 
 USE_LOCAL_DROPBOX = False # relevant for reading
+MAX_PATH_LENGTH = 128 # TODO: introspect model
 
 class Command(NoArgsCommand):
 
@@ -31,6 +32,10 @@ class Command(NoArgsCommand):
             for entry in delta['entries']:
                 path, meta = entry
                 path_with_case = meta['path']
+                if len(path) > MAX_PATH_LENGTH:
+                    self.stderr.write("Error: path too long (%d): %s\n"
+                                      % (len(path), path))
+                    continue
                 if meta:
                     if meta['is_dir'] is False:
                         self._copy_file(path_with_case, meta, self._s3_file_writer)
