@@ -32,16 +32,18 @@ class Command(NoArgsCommand):
             cursor = delta['cursor']
             for entry in delta['entries']:
                 path, meta = entry
-                path_with_case = meta['path']
                 if len(path) > MAX_PATH_LENGTH:
                     self.stderr.write("Error: path too long (%d): %s\n"
                                       % (len(path), path))
                     continue
                 if meta:
+                    path_with_case = meta['path']
                     if meta['is_dir'] is False:
                         self._copy_file(path_with_case, meta, self._s3_file_writer)
                 else:
-                    self._s3_file_delete(path_with_case)
+                    meta = self._dropbox.metadata(path, include_deleted=True)
+                    path_with_case = meta['path']
+                    self._delete_file(path_with_case)
 
             self.stdout.write("Cursor: %s\n" % cursor)
             dropbox_state.delta_cursor = cursor
@@ -79,5 +81,10 @@ class Command(NoArgsCommand):
         django_file = File(f)
         image.image.save(path, django_file)
 
-    def _s3_file_delete(self, path):
-        Image.objects.filter(path=path).delete()
+    def _delete_file(self, path):
+        self.stdout.write("Deleting %s\n" % (path,))
+
+        relative_path = path[1:] if path[0] == '/' else path
+        # TODO: this does not delete s3 file !!!
+        Image.objects.filter(path=relative_path).delete()
+
