@@ -269,7 +269,7 @@ ul.search_inputs button {
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);	
-	padding:3px 3px 2px 5px;
+	padding: 0px 3px 2px 5px;
 	width:160px;
 }
 
