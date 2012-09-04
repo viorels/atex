@@ -181,9 +181,6 @@ def _get_menu(all_categories):
             background_class = ""
         return background_class
 
-    def category_level(category):
-        return category['code'].count('.') + 1
-
     def categories_in(category=None):
         """Return chilid categories for the specified category
            or top categories if None specified"""
@@ -200,7 +197,7 @@ def _get_menu(all_categories):
         menu_category = {'name': category['name'],
                          'url': _category_url(category),
                          'count': category['count'],
-                         'level': category_level(category)}
+                         'level': _category_level(category)}
         return menu_category
 
     menu = []
@@ -244,7 +241,8 @@ def _get_selectors(category_id, selectors_active, price_min, price_max):
 def _get_footer(all_categories):
     return [{'name': category['name'],
              'url': _category_url(category)}
-            for category in all_categories]
+            for category in all_categories
+            if _category_level(category) >= 2 and category['count'] > 0]
 
 def _category_url(category):
     if re.match(r'^\d+$', category['id']):
@@ -253,3 +251,6 @@ def _category_url(category):
     else:
         category_url = None
     return category_url
+
+def _category_level(category):
+    return category['code'].count('.') + 1
