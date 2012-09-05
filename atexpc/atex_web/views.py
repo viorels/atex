@@ -229,14 +229,7 @@ def _get_selectors(category_id, selectors_active, price_min, price_max):
                                            selectors_active=selectors_active,
                                            price_min=price_min,
                                            price_max=price_max)
-    useful_selector_groups = []
-    for selector_group in selector_groups:
-        useful_selectors = [selector for selector in selector_group['selectors']
-                            if int(selector['count']) > 0]
-        if len(useful_selectors) > 0:
-            useful_selector_groups.append({'name': selector_group['name'],
-                                           'selectors': useful_selectors})
-    return useful_selector_groups
+    return selector_groups
 
 def _get_footer(all_categories):
     return [{'name': category['name'],
