@@ -32,16 +32,18 @@ INSTALLED_APPS = (
     
     'atexpc.atex_web',
     'south',
-    'storages',
+#    'storages',
     'sorl.thumbnail',
     'debug_toolbar',
 )
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = "dev.atexpc.ro"
+# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# DEFAULT_FILE_STORAGE = STATICFILES_STORAGE
+# AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME = "dev.atexpc.ro"
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'atex_web', 'media/')
+
 MEDIA_URL = '/media/'
+#MEDIA_URL = "http://%s.s3-website-eu-west-1.amazonaws.com/" % AWS_STORAGE_BUCKET_NAME
