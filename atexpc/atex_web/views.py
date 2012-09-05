@@ -115,12 +115,15 @@ def _products_with_images(products):
     for product in products:
         images = (Image.objects.filter(path__startswith=product['model'])
                                .order_by('path'))
-        if images and os.path.exists(images[0].image.path):
+        if len(images):
             image = images[0].image
         else:
             image = "http://www.atexpc.ro/PozeProduse/NoImage.JPG"
-        thumb = get_thumbnail(image, '185x145', quality=99)
-        product['thumb'] = settings.MEDIA_URL + thumb.name
+        try:
+            thumb = get_thumbnail(image, '185x145', quality=99)
+            product['thumb'] = settings.MEDIA_URL + thumb.name
+        except IOError, e:
+            product['thumb'] = '#'
     return products
 
 def _get_page(range_getter, per_page, current_page, base_url):
