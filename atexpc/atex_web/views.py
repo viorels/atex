@@ -1,5 +1,6 @@
 import re
 import math
+import os
 from operator import itemgetter
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
@@ -114,7 +115,7 @@ def _products_with_images(products):
     for product in products:
         images = (Image.objects.filter(path__startswith=product['model'])
                                .order_by('path'))
-        if images:
+        if images and os.path.exists(images[0].image.path):
             image = images[0].image
         else:
             image = "http://www.atexpc.ro/PozeProduse/NoImage.JPG"
