@@ -141,13 +141,15 @@ class Ancora(object):
                     old_price = product['zpret_site_old']
                 else:
                     old_price = None
+                stock_info = 'In stoc' if product['zstoc'] else product['zinfo_stoc_site']
 
                 products.append({'id': product['pidm'],
                                  'model': product['zmodel'],
                                  'name': "%(zbrand)s %(zmodel)s" % product,
                                  'price': product.get('zpret_site'),
                                  'old_price': old_price,
-                                 'stock': product['zinfo_stoc_site'],
+                                 'stock': product['zstoc'],
+                                 'stock_info': stock_info,
                                  'warranty': product['zluni_garantie']})
             total_count = max(data.get('total_count', 0), len(products))
             return {'products': products,
