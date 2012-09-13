@@ -22,7 +22,9 @@ def home(request):
     all_categories = ancora.get_all_categories()
     context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu(all_categories),
-               'footer': _get_footer(all_categories)}
+               'footer': _get_footer(all_categories),
+               'recommended': ancora.get_recommended(),
+               'sales': ancora.get_sales()}
     return render(request, "home.html", context)
 
 def search(request, category_id=None, slug=None):

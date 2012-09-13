@@ -53,6 +53,12 @@ class AncoraBackend(object):
                                          selectors=selectors, price_min=price_min,
                                          price_max=price_max, start=start, stop=stop)
 
+    def get_recommended(self):
+        return self._api.products_recommended()
+
+    def get_sales(self):
+        return self._api.products_sales()
+
 ancora = AncoraBackend()
 
 

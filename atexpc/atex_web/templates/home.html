@@ -100,65 +100,23 @@
                             <span class="up_right"></span>
                          </div>     
                          <ul class="produse_top">
-                         	<li>
+                            {% for product in recommended %}
+                         	<li {% if forloop.last %}class="last"{% endif %}> 
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-05.jpg" width="70" height="76" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-05.jpg" width="70" height="76" alt="{{ product.name }}" title="{{ product.name }}" />
                                         </div>
                                     </div>
                                 </a>
                                 <div class="product-title-mic">
-                                	<a href="#">Sisteme de operare Microsoft 6UA-03561</a>
+                                	<a href="#">{{ product.name }}</a>
                                 </div>   
                                 <div class="pret-mic">
-                                	Pret: <span class="pret">1128.76</span> RON
+                                	Pret: <span class="pret">{{ product.price }}</span> RON
                                 </div> 
                             </li>
-                            <li>
-                            	<a href="#" class="img-wrapper">
-                                    <div class="middle size100x100">
-                                        <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-06.jpg" width="85" height="93" alt="product name" title="product name" />
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="product-title-mic">
-                                	<a href="#">Hard disk extern A-Data ACH94-500GU-CBL</a>
-                                </div>   
-                                <div class="pret-mic">
-                                	Pret: <span class="pret">347.30</span> RON
-                                </div>
-                            <li>
-                            	<a href="#" class="img-wrapper">
-                                    <div class="middle size100x100">
-                                        <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-07.jpg" width="87" height="66" alt="product name" title="product name" />
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="product-title-mic">
-                                	<a href="#">Camere Foto si Web CANON AJ4941B002AA</a>
-                                </div>   
-                                <div class="pret-mic">
-                                	Pret: <span class="pret"> 514.23</span> RON
-                                </div>
-                            </li>
-                            <li class="last">
-                            	<a href="#" class="img-wrapper">
-                                    <div class="middle size100x100">
-                                        <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-08.jpg" width="78" height="69" alt="product name" title="product name" />
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="product-title-mic">
-                                	<a href="#">Imprimante LaserJet HP CE456A </a>
-                                </div>   
-                                <div class="pret-mic">
-                                	Pret: <span class="pret">809.26</span> RON
-                                </div>
-                            </li>
+                            {% endfor %}
                          </ul>
                     </div>       
                          
@@ -172,65 +130,23 @@
                             <span class="up_right"></span>
                          </div>      
                          <ul class="produse_top">
-                         	<li>
+                            {% for product in sales %}
+                         	<li {% if forloop.last %}class="last"{% endif %}>
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-09.jpg" width="73" height="68" alt="product name" title="product name" />
+                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-09.jpg" width="73" height="68" alt="{{ product.name }}" title="{{ product.name }}" />
                                         </div>
                                     </div>
                                 </a>
                                 <div class="product-title-mic">
-                                	<a href="#">MONITOARE TFT AOC N950SW</a>
+                                	<a href="#">{{ product.name }}</a>
                                 </div>   
                                 <div class="pret-mic">
-                                	Pret: <span class="pret">330.62 </span> RON
+                                	Pret: <span class="pret">{{ product.price }}</span> RON
                                 </div> 
                             </li>
-                            <li>
-                            	<a href="#" class="img-wrapper">
-                                    <div class="middle size100x100">
-                                        <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-10.jpg" width="74" height="56" alt="product name" title="product name" />
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="product-title-mic">
-                                	<a href="#">Monitoare TFT Philips 191V2AB </a>
-                                </div>   
-                                <div class="pret-mic">
-                                	Pret: <span class="pret">402.96</span> RON
-                                </div>
-                            <li>
-                            	<a href="#" class="img-wrapper">
-                                    <div class="middle size100x100">
-                                        <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-11.jpg" width="80" height="61" alt="product name" title="product name" />
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="product-title-mic">
-                                	<a href="#">Monitoare TFT Benq G2222HDL   </a>
-                                </div>   
-                                <div class="pret-mic">
-                                	Pret: <span class="pret">499.50</span> RON
-                                </div>
-                            </li>
-                            <li class="last">
-                            	<a href="#" class="img-wrapper">
-                                    <div class="middle size100x100">
-                                        <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-12.jpg" width="69" height="70" alt="product name" title="product name" />
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="product-title-mic">
-                                	<a href="#">Desktop Barebone Brand SYDK-A0001SN-BC01B  </a>
-                                </div>   
-                                <div class="pret-mic">
-                                	Pret: <span class="pret">857.98 </span> RON
-                                </div>
-                            </li>
+                            {% endfor %}
                          </ul>    
                     </div>
                      <!-- end top 3 --> 

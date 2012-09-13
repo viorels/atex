@@ -174,6 +174,36 @@ class Ancora(object):
         products = self.adapter.read(products_uri, post_process)
         return products
 
+    def products_recommended(self):
+        def post_process(data):
+            json_root = 'recommended_products'
+            products = []
+            for product in data.get(json_root, []):
+                products.append({'id': product['zidprodus'],
+                                 'name': product['zdenumire'],
+                                 'price': product.get('zpret')})
+            return products
+
+        recommended_uri = self.adapter.base_uri_with_args({'cod_formular': '740'})
+        recommended = self.adapter.read(recommended_uri, post_process)
+        return recommended
+
+    def products_sales(self):
+        def post_process(data):
+            json_root = 'promo_products'
+            products = []
+            for product in data.get(json_root, []):
+                products.append({'id': product['zidprodus'],
+                                 'name': product['zdenumire'],
+                                 'price': product.get('zpret')})
+            return products
+
+        sales_uri = self.adapter.base_uri_with_args({'cod_formular': '737',
+                                                     'start':0,
+                                                     'stop': 4})
+        sales = self.adapter.read(sales_uri, post_process)
+        return sales
+
     def _get_category_meta(self, category_id, meta):
         categories = self.categories()
         found = [category for category in categories if category['id'] == category_id]
