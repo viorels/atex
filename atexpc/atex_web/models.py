@@ -52,6 +52,8 @@ class AncoraBackend(object):
         return self._api.search_products(category_id=category_id, keywords=keywords,
                                          selectors=selectors, price_min=price_min,
                                          price_max=price_max, start=start, stop=stop)
+    def get_product(self, product_id):
+        return self._api.product(product_id)
 
     def get_recommended(self):
         return self._api.products_recommended()

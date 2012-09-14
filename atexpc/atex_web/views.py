@@ -20,11 +20,20 @@ logger = logging.getLogger(__name__)
 
 def home(request):
     all_categories = ancora.get_all_categories()
+
+    recommended = ancora.get_recommended()
+    for product in recommended:
+        product['url'] = _product_url(product)
+
+    sales = ancora.get_sales()
+    for product in sales:
+        product['url'] = _product_url(product)
+
     context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu(all_categories),
                'footer': _get_footer(all_categories),
-               'recommended': ancora.get_recommended(),
-               'sales': ancora.get_sales()}
+               'recommended': recommended,
+               'sales': sales}
     return render(request, "home.html", context)
 
 def search(request, category_id=None, slug=None):
@@ -54,7 +63,7 @@ def search(request, category_id=None, slug=None):
     products = products_info.get('products')
     pagination = products_info.get('pagination')
 
-    products = _products_with_images(products)
+    products = _products_with_images_and_urls(products)
 
     all_categories = ancora.get_all_categories()
 
@@ -80,10 +89,12 @@ def search(request, category_id=None, slug=None):
                'footer': _get_footer(all_categories)}
     return render(request, "search.html", context)
 
-def product(request):
+def product(request, product_id, slug):
     all_categories = ancora.get_all_categories()
+    product = ancora.get_product(product_id)
     context = {'categories': ancora.get_categories_in(parent=None),
-               'footer': _get_footer(all_categories)}
+               'footer': _get_footer(all_categories),
+               'product': product}
     return render(request, "product.html", context)
 
 def cart(request):
@@ -111,7 +122,7 @@ def pie(request):
     return render(request, "PIE.htc", content_type="text/x-component")
 
 
-def _products_with_images(products):
+def _products_with_images_and_urls(products):
     # TODO: return a different array with different objects
     # instead of doing an in place edit
     for product in products:
@@ -126,6 +137,8 @@ def _products_with_images(products):
             product['thumb'] = settings.MEDIA_URL + thumb.name
         except IOError, e:
             product['thumb'] = '#'
+
+        product['url'] = _product_url(product)
     return products
 
 def _get_page(range_getter, per_page, current_page, base_url):
@@ -242,6 +255,10 @@ def _get_footer(all_categories):
              'url': _category_url(category)}
             for category in all_categories
             if _category_level(category) >= 2 and category['count'] > 0]
+
+def _product_url(product):
+    return reverse('product', kwargs={'product_id': product['id'],
+                                      'slug': slugify(product['name'])})
 
 def _category_url(category):
     if re.match(r'^\d+$', category['id']):

@@ -134,23 +134,7 @@ class Ancora(object):
             json_root = 'products'
             products = []
             for product in data.get(json_root, []):
-                significant_price_decrease = 1.05
-                if (float(product['zpret_site']) > 0
-                    and float(product['zpret_site_old'])/float(product['zpret_site']) 
-                        > significant_price_decrease):
-                    old_price = product['zpret_site_old']
-                else:
-                    old_price = None
-                stock_info = 'In stoc' if product['zstoc'] else product['zinfo_stoc_site']
-
-                products.append({'id': product['pidm'],
-                                 'model': product['zmodel'],
-                                 'name': "%(zbrand)s %(zmodel)s" % product,
-                                 'price': product.get('zpret_site'),
-                                 'old_price': old_price,
-                                 'stock': product['zstoc'],
-                                 'stock_info': stock_info,
-                                 'warranty': product['zluni_garantie']})
+                products.append(self._post_process_product(product))
             total_count = max(data.get('total_count', 0), len(products))
             return {'products': products,
                     'total_count': total_count}
@@ -205,6 +189,38 @@ class Ancora(object):
                                                      'stop': 4})
         sales = self.adapter.read(sales_uri, post_process)
         return sales
+
+    def product(self, product_id):
+        def post_process(data):
+            json_root = 'product_info'
+            product = data[json_root][0]
+            return self._post_process_product(product)
+            
+        product_uri = self.adapter.base_uri_with_args({'cod_formular': '738',
+                                                       'pidm': product_id})
+        product = self.adapter.read(product_uri, post_process)
+        return product
+
+    def _post_process_product(self, product):
+        significant_price_decrease = 1.05
+        if (float(product['zpret_site']) > 0
+            and float(product['zpret_site_old'])/float(product['zpret_site']) 
+                > significant_price_decrease):
+            old_price = product['zpret_site_old']
+        else:
+            old_price = None
+        stock_info = 'In stoc' if product.get('zstoc', 0) else product['zinfo_stoc_site']
+
+        return {'id': product['pidm'],
+                'model': product['zmodel'],
+                #'name': "%(zbrand)s %(zmodel)s" % product,
+                'name': product['zdescriere2'],
+                'description': product.get('zdescriere'),
+                'price': product.get('zpret_site'),
+                'old_price': old_price,
+                'stock': product.get('zstoc', 0),
+                'stock_info': stock_info,
+                'warranty': product['zluni_garantie']}
 
     def _get_category_meta(self, category_id, meta):
         categories = self.categories()
