@@ -17,6 +17,15 @@ import os
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "atexpc.settings")
 
+env_file_name = os.path.join(os.environ.get("HOME", ""), ".env")
+with open(env_file_name) as env_file:
+    for line in env_file:
+        try:
+            key, value = line.rstrip().split("=", 1)
+            os.environ[key] = value
+        except ValueError, e:
+            pass
+
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
