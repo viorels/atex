@@ -6,7 +6,6 @@ import json
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 from urllib2 import urlopen # TODO: try urllib3 with connection pooling
-from collections import OrderedDict
 from django.core.cache import cache
 
 import logging
