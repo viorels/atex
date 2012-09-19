@@ -1,0 +1,2 @@
+-r common.txt
+django-storages==1.1.5
