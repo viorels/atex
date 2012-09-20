@@ -166,7 +166,7 @@ class Ancora(object):
             for product in data.get(json_root, []):
                 products.append({'id': product['zidprodus'],
                                  'name': product['ztitlu'],
-                                 'price': product.get('zpret')})
+                                 'price': product.get('zpret_site')})
             return products
 
         recommended_uri = self.adapter.base_uri_with_args({'cod_formular': '740'})
@@ -180,7 +180,7 @@ class Ancora(object):
             for product in data.get(json_root, []):
                 products.append({'id': product['zidprodus'],
                                  'name': product['ztitlu'],
-                                 'price': product.get('zpret')})
+                                 'price': product.get('zpret_site')})
             return products
 
         sales_uri = self.adapter.base_uri_with_args({'cod_formular': '737',
