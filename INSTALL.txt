@@ -1,0 +1,22 @@
+# sudo adduser atex
+# sudo apt-get update
+# sudo aptitude install memcached libmemcached-dev postgresql libpq-dev python-virtualenv python-dev libjpeg8-dev libapache2-mod-wsgi git
+
+# a2dismod python perl php5
+
+# sudo su - postgres
+$ createdb atex
+
+$ sudo su - atex
+$ git clone https://viorels@bitbucket.org/viorels/atex.git
+$ virtualenv venv
+$ . venv/bin/activate
+$ pip install -r atex/requirements/amazon.txt
+
+$ cat > .env
+APP_ENV=dev
+ANCORA_URI=http://86.35.59.228:8765/ancoraerp/jis.serv?database=atex
+MEMCACHE_SERVERS=localhost
+
+$ env `cat .env | xargs` python manage.py runserver
+
