@@ -130,13 +130,14 @@ def _products_with_images_and_urls(products):
                                .order_by('path'))
         if len(images):
             image = images[0].image
+            try:
+                thumb = get_thumbnail(image, '185x145', quality=99)
+                product['thumb'] = settings.MEDIA_URL + thumb.name
+            except IOError, e:
+                product['thumb'] = '#' # TODO: also no-image ...
         else:
-            image = "http://www.atexpc.ro/PozeProduse/NoImage.JPG"
-        try:
-            thumb = get_thumbnail(image, '185x145', quality=99)
-            product['thumb'] = settings.MEDIA_URL + thumb.name
-        except IOError, e:
-            product['thumb'] = '#'
+            # TODO: move url in template
+            product['thumb'] = settings.STATIC_URL + "images/no-image-185x145.jpg"
 
         product['url'] = _product_url(product)
     return products
