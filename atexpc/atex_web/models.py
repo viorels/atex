@@ -4,6 +4,8 @@ from django.db import models
 from sorl.thumbnail import ImageField
 from atexpc.ancora_api.api import Ancora, AncoraAdapter, MockAdapter, MOCK_DATA_PATH
 
+NO_IMAGE = 'no-image'
+
 class Dropbox(models.Model):
     app_key = models.CharField(primary_key=True, max_length=64)
     delta_cursor = models.CharField(max_length=255, blank=True, null=True)
@@ -11,10 +13,20 @@ class Dropbox(models.Model):
 class Product(models.Model):
     model = models.CharField(max_length=64)
 
+    def images(self):
+        # TODO: fetch related objects instead of filtering by path
+        images = Image.objects.filter(path__startswith=self.model).order_by('path')
+        if len(images):
+            return images
+        else:
+            return [Image(image=NO_IMAGE)]
+
+
 class Image(models.Model):
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     path = models.CharField(max_length=128, db_index=True)
     image = ImageField(upload_to='product-images', max_length=255)
+
 
 class AncoraBackend(object):
     def __init__(self):

@@ -1,4 +1,6 @@
 {% extends "base_2col.html" %}
+{% load atex_tags %}
+
 {% block content_top %}
         	<div class="top-content">
             	<div class="breadcrumbs"><!--breadcrumbs-->
@@ -108,7 +110,7 @@
                             <a href="{{ product.url }}" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
-                                        <img class="center" src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" />
+                                        <img class="center" src="{{ product.images.0|thumbnail:"185x145" }}" alt="{{ product.name }}" title="{{ product.name }}" />
                                     </div>
                                 </div>
                             </a>

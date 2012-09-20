@@ -13,7 +13,7 @@ from django.template.defaultfilters import slugify
 from sorl.thumbnail import get_thumbnail
 from django.conf import settings
 
-from models import ancora, Image
+from models import ancora, Product
 
 import logging
 logger = logging.getLogger(__name__)
@@ -23,10 +23,12 @@ def home(request):
 
     recommended = ancora.get_recommended()
     for product in recommended:
+        product['images'] = Product(model=product['model']).images
         product['url'] = _product_url(product)
 
     sales = ancora.get_sales()
     for product in sales:
+        product['images'] = Product(model=product['model']).images
         product['url'] = _product_url(product)
 
     context = {'categories': ancora.get_categories_in(parent=None),
@@ -63,7 +65,9 @@ def search(request, category_id=None, slug=None):
     products = products_info.get('products')
     pagination = products_info.get('pagination')
 
-    products = _products_with_images_and_urls(products)
+    for product in products:
+        product['images'] = Product(model=product['model']).images
+        product['url'] = _product_url(product)
 
     all_categories = ancora.get_all_categories()
 
@@ -121,26 +125,6 @@ def confirm(request):
 def pie(request):
     return render(request, "PIE.htc", content_type="text/x-component")
 
-
-def _products_with_images_and_urls(products):
-    # TODO: return a different array with different objects
-    # instead of doing an in place edit
-    for product in products:
-        images = (Image.objects.filter(path__startswith=product['model'])
-                               .order_by('path'))
-        if len(images):
-            image = images[0].image
-            try:
-                thumb = get_thumbnail(image, '185x145', quality=99)
-                product['thumb'] = settings.MEDIA_URL + thumb.name
-            except IOError, e:
-                product['thumb'] = '#' # TODO: also no-image ...
-        else:
-            # TODO: move url in template
-            product['thumb'] = settings.STATIC_URL + "images/no-image-185x145.jpg"
-
-        product['url'] = _product_url(product)
-    return products
 
 def _get_page(range_getter, per_page, current_page, base_url):
     start = (current_page - 1) * per_page

@@ -1,4 +1,6 @@
 {% extends "base_2col.html" %}
+{% load atex_tags %}
+
 {% block content_right %}
             	<div class="banner_wrapper">
                     <div class="titlu_top">
@@ -105,7 +107,7 @@
                             	<a href="{{ product.url }}" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-05.jpg" width="70" height="76" alt="{{ product.name }}" title="{{ product.name }}" />
+                                            <img class="center" src="{{ product.images.0|thumbnail:"80x80" }}" width="80" height="80" alt="{{ product.name }}" title="{{ product.name }}" />
                                         </div>
                                     </div>
                                 </a>
@@ -135,7 +137,7 @@
                             	<a href="{{ product.url }}" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-09.jpg" width="73" height="68" alt="{{ product.name }}" title="{{ product.name }}" />
+                                            <img class="center" src="{{ product.images.0|thumbnail:"80x80" }}" width="80" height="80" alt="{{ product.name }}" title="{{ product.name }}" />
                                         </div>
                                     </div>
                                 </a>

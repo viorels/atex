@@ -165,6 +165,7 @@ class Ancora(object):
             products = []
             for product in data.get(json_root, []):
                 products.append({'id': product['zidprodus'],
+                                 'model': product['zmodel'],
                                  'name': product['ztitlu'],
                                  'price': product.get('zpret_site')})
             return products
@@ -179,6 +180,7 @@ class Ancora(object):
             products = []
             for product in data.get(json_root, []):
                 products.append({'id': product['zidprodus'],
+                                 'model': product['zmodel'],
                                  'name': product['ztitlu'],
                                  'price': product.get('zpret_site')})
             return products
