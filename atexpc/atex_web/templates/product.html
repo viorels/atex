@@ -34,9 +34,11 @@
                     	<div class="search-title">
                             <h1>{{ product.name }}</h1>
                         </div>
+                        {% if product.short_description %}
                         <div class="underline-gray">
                         	<p>{{ product.short_description }}</p>
                         </div>
+                        {% endif %}
                         <div class="product-info">
                         	<ul class="info-termeni">
                             	<li><strong>Garantie:</strong> {{ product.warranty }} luni</li>
@@ -44,9 +46,11 @@
                                 <li><strong>Stoc:</strong> <span class="green">{{ product.stock_info }}</span></li>
                             </ul>
                             <ul class="info-pret">
-                            	<li>Pret nou: <span class="pret">{{ product.price }} Lei</span></li>
                                 {% if product.old_price %}
+                            	<li>Pret nou: <span class="pret">{{ product.price }} Lei</span></li>
                                 <li><span class="pret_vechi">Pret vechi: {{ product.old_price }} Lei</span></li>
+                                {% else %}
+                            	<li>Pret: <span class="pret">{{ product.price }} Lei</span></li>
                                 {% endif %}
                                 <li><a href="#" class="add_cos_btn"><span></span>Adauga in cos</a></li>
                             </ul>
