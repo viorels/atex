@@ -96,6 +96,7 @@ def search(request, category_id=None, slug=None):
 def product(request, product_id, slug):
     all_categories = ancora.get_all_categories()
     product = ancora.get_product(product_id)
+    product['images'] = Product(model=product['model']).images
     context = {'categories': ancora.get_categories_in(parent=None),
                'footer': _get_footer(all_categories),
                'product': product}

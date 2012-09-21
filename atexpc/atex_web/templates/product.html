@@ -1,4 +1,6 @@
 {% extends "base_2col.html" %}
+{% load atex_tags %}
+
 {% block title %}{{ block.super }} - {{ product.name }}{% endblock title %}
 
 {% block menu %}{% endblock %}
@@ -71,14 +73,9 @@
                             </div>
                             <div class="panel">
                                 <ul id="images" class="alte-imagini">
-                                    <li><a href="{{ STATIC_PREFIX }}images/gallery-01.jpg"><img src="{{ STATIC_PREFIX }}images/gallery-th-01.jpg" title="product name" /></a></li>
-                                    <li><a href="{{ STATIC_PREFIX }}images/gallery-02.jpg"><img src="{{ STATIC_PREFIX }}images/gallery-th-02.jpg" title="product name" /></a></li>
-                                    <li><a href="{{ STATIC_PREFIX }}images/gallery-03.jpg"><img src="{{ STATIC_PREFIX }}images/gallery-th-03.jpg" title="product name" /></a></li>
-                                    <li><a href="{{ STATIC_PREFIX }}images/gallery-04.jpg"><img src="{{ STATIC_PREFIX }}images/gallery-th-04.jpg" title="product name" /></a></li>
-                                    <li><a href="{{ STATIC_PREFIX }}images/gallery-05.jpg"><img src="{{ STATIC_PREFIX }}images/gallery-th-05.jpg" title="product name" /></a></li>
-                                    <li><a href="{{ STATIC_PREFIX }}images/gallery-06.jpg"><img src="{{ STATIC_PREFIX }}images/gallery-th-06.jpg" title="product name" /></a></li>
-                                    <li><a href="{{ STATIC_PREFIX }}images/gallery-07.jpg"><img src="{{ STATIC_PREFIX }}images/gallery-th-07.jpg" title="product name" /></a></li>
-                                    <li><a href="{{ STATIC_PREFIX }}images/gallery-08.jpg"><img src="{{ STATIC_PREFIX }}images/gallery-th-08.jpg" title="product name" /></a></li>                                                                        
+                                    {% for image in product.images %}
+                                    <li><a href="{{ image|thumbnail:"450x450" }}"><img src="{{ image|thumbnail:"100x100" }}" title="{{ product.name }}" /></a></li>
+                                    {% endfor %}
                                 </ul>
                                 <div class="controls"><div id="controls"></div></div>
                                 <div class="clear"></div>
