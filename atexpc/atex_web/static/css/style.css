@@ -256,14 +256,12 @@ ul.search_inputs input.search {
 	behavior: url(/static/css/PIE.htc);	
 	height:23px;
 	line-height:23px;
+	color:#999;
 	padding:0 5px;
 	width:300px;
 }
 ul.search_inputs input.hint {
 	color:#999;
-}
-ul.search_inputs button {
-    padding: 0px;
 }
 .categorii {
 	border:0;
@@ -272,7 +270,7 @@ ul.search_inputs button {
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);	
-	padding: 2px 3px 2px 5px;
+	padding:3px 3px 2px 5px;
 	width:160px;
 }
 
@@ -613,7 +611,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 }
 .popup-holder ul {
 	float:left;
-	margin-right:30px;	
+	margin-right:40px;	
 }
 .popup-holder ul.last {
 	margin:0 !important;
@@ -712,16 +710,22 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	float:right;
 	padding-top:15px;
 }
-.banner_wrapper {
+.atex_bn_wrapper {
 	width:875px;
 	height:365px;	
 	float:right;	
 	position:relative;
 	margin-top:5px;
 }
-.picture_banner {
+.atex_bn {
+	width:100%;
+	height:100%;
+	float:left;
+}
+.picture_atex_bn {
 	width:630px;
 	height:357px;
+	overflow:hidden;
 	behavior: url(/static/css/PIE.htc);
 	border-radius: 6px 0px 0px 6px;     
 	-moz-border-radius: 6px 0px 0px 6px;     
@@ -729,17 +733,17 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	border-top:4px solid #c62123;
 	border-left:4px solid #c62123;
 	border-bottom:4px solid #c62123;
-	background:url(../images/img-banner-01.jpg) top left no-repeat;
 	float:left;
 }
-.banner_right_wrapper {
+.atex_bn_right_wrapper {
 	width:237px;
 	height:365px;
 	float:left;
 }
-.banner_right_wrapper li {
-	height:90px;
+.atex_bn_right_wrapper li {
+	
 	width:235px;
+	height:90px;
 	float:left;
 	border-top:1px solid #c62123;
 	border-right:1px solid #c62123;
@@ -752,26 +756,28 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
     background: linear-gradient(#fafafa, #efefef); 
     -pie-background: linear-gradient(#fafafa, #efefef); 	
 	display:block;
+	text-align:center;
 }
-.banner_right_wrapper li.first {
+.atex_bn_right_wrapper li.first {
 	behavior: url(/static/css/PIE.htc);
 	border-radius:0px 6px 0px 0px;     
 	-moz-border-radius:0px 6px 0px 0px;     
 	-webkit-border-radius:0px 6px 0px 0px;
 }
-.banner_right_wrapper li.last {
+.atex_bn_right_wrapper li.last {
 	behavior: url(/static/css/PIE.htc);
 	border-radius:0px 0px 6px 0px;     
 	-moz-border-radius:0px 0px 6px 0px;     
 	-webkit-border-radius:0px 0px 6px 0px;
 	border-bottom:1px solid #c62123;
 }
-.banner_right_wrapper li a {
+.atex_bn_right_wrapper li a {
 	display:block;
-	width:235px;
-	height:90px;
+	height:60px;
+	width:195px;
+	padding:15px 20px;
 }
-.banner_right_wrapper li:hover, .banner_right_wrapper li.active {
+.atex_bn_right_wrapper li:hover, .atex_bn_right_wrapper li.active {
  	background: -webkit-linear-gradient(#c62123, #de3537); 
     background: -moz-linear-gradient(#c62123, #de3537); 
     background: -ms-linear-gradient(#c62123, #de3537); 
@@ -781,8 +787,10 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	behavior: url(/static/css/PIE.htc);
 	display:block;
  }
-
-.banner_wrapper .titlu_top {
+.denumire-produs-atex_bn {float:left;width:195px; text-align:center}
+.atex_bn_right_wrapper a .pret-atex_bn {font-size:18px; line-height:36px;float:left;width:195px; text-align:center}
+.small-text {font-size:11px; float:left;float:left;width:195px; text-align:center}
+.atex_bn_wrapper .titlu_top {
 	position:absolute;
 	top:-20px;
 	right:10px;
@@ -958,7 +966,7 @@ ul.filtrare li span {
 .product_holder.last {	
 	margin-right:0 !important;
 }
-.product_holder a h2 {
+.product_holder h2 a  {
 	font-weight:bold;
 	width:195px;
 	height:35px;
@@ -967,7 +975,7 @@ ul.filtrare li span {
 	line-height:16px;
 	float:left;
 }
-.product_holder a:hover h2 { 
+.product_holder h2 a:hover  { 
 	text-decoration:underline;
 }
 .product_picture_holder {
@@ -976,6 +984,7 @@ ul.filtrare li span {
 	float:left;
 	border:1px solid #cecece;
 	background-color:#fff;
+	overflow:hidden;
 }
 .size205x175 {
 	width:205px;
@@ -1575,9 +1584,13 @@ ul.modalitate li {
 	padding:15px 0 0 15px !important;
 }
 .pas-02 {
-	padding-bottom:25px;
+	background:url(../images/cos-02-active.png) top left no-repeat;
+	padding-top:25px;
 	width:100%;
 	float:left;
+}
+.pas-02 .tab_u_holder_left, .pas-03 .tab_u_holder_left {
+	left:90px !important;
 }
 .login-key {
 	width:23px;
@@ -1630,7 +1643,8 @@ ul.modalitate li {
 .total-cos02 .buttons{	float:right;}
 .total-cos02 .buttons li {	float:left;}
 .pas-03 {
-	padding-bottom:25px;
+	background:url(../images/cos-03-active.png) top left no-repeat;
+	padding:25px 0;
 	width:100%;
 	float:left;
 }

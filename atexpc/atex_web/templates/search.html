@@ -110,11 +110,11 @@
                             <a href="{{ product.url }}" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
-                                        <img class="center" src="{{ product.images.0|thumbnail:"185x145" }}" alt="{{ product.name }}" title="{{ product.name }}" />
+                                        <img class="center" src="{{ product.images.0|thumbnail:"185x145" }}" alt="{{ product.name }}" title="{{ product.name }}" name="{{ product.name }}"/>
                                     </div>
                                 </div>
                             </a>
-                            <a href="{{ product.url }}"><h2>{{ product.name }}</h2></a>
+                            <h2><a href="{{ product.url }}">{{ product.name }}</a></h2>
                             <div class="product_price">
                                 <span class="pret_produs">{{ product.price }} lei</span>
                                 {% if product.old_price %}

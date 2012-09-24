@@ -134,4 +134,5 @@ $(document).ready(function()
     init_search_input();
 	init_filters();
 	show_rezumat();
+	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 });
