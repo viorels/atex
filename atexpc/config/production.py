@@ -1,3 +1,6 @@
+from os import path, environ
+from urlparse import urlparse
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -21,6 +24,17 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
 )
 
-STATIC_URL = "/static/"
+STATIC_URL = '/static/'
 MEDIA_URL = STATIC_URL
+MEDIA_ROOT = path.join(environ.get("HOME", ""), "media/")
 
+if environ.has_key('DATABASE_URL'):
+    url = urlparse(environ['DATABASE_URL'])
+    DATABASES = {'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': url.path[1:],
+#        'USER': url.username,
+#        'PASSWORD': url.password,
+#        'HOST': url.hostname,
+#        'PORT': url.port,
+    }}
