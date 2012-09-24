@@ -656,7 +656,6 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	background-color:#fff;
 	border:1px solid #cecece;
 	padding:9px;
-	margin-top:15px;
 	zoom:1;
 }
 .newsletter label {
@@ -904,7 +903,6 @@ img.center {
 	-webkit-border-radius: 6px;
 	border:1px solid #cecece;
 	float:right;
-	margin-bottom:15px;
 }
 .logo-producatori ul li {
 	float:left;
@@ -1785,4 +1783,8 @@ td.center {text-align:center}
 }
 .copyright {
 	float:right;
+}
+.content-bottom {
+	width:100%;
+	float:left
 }
