@@ -74,7 +74,7 @@ def search(request, category_id=None, slug=None):
     search_category_id = (ancora.get_top_category_id(category_id) # TODO: use all_categories ?
                           if category_id else None)
 
-    breadcrumbs = _get_search_breadcrumbs(all_categories, search_keywords, category_id)
+    breadcrumbs = _get_search_breadcrumbs(search_keywords, category_id, all_categories)
 
     products_per_line = 4
     for idx, product in enumerate(products):
@@ -100,7 +100,9 @@ def product(request, product_id, slug):
     all_categories = ancora.get_all_categories()
     product = ancora.get_product(product_id)
     product['images'] = Product(model=product['model']).images
+    breadcrumbs = _get_product_breadcrumbs(product, all_categories)
     context = {'categories': ancora.get_categories_in(parent=None),
+               'breadcrumbs': breadcrumbs, 
                'footer': _get_footer(all_categories),
                'product': product}
     return render(request, "product.html", context)
@@ -232,17 +234,24 @@ def _get_menu(all_categories):
 
     return menu
 
-def _get_search_breadcrumbs(all_categories, search_keywords, category_id):
+def _get_search_breadcrumbs(search_keywords, category_id, all_categories):
     breadcrumbs = []
     if search_keywords:
         breadcrumbs.append({'name': '"%s"' % search_keywords,
                             'url': None})
     elif category_id:
-        breadcrumbs = _get_category_breadcrumbs(all_categories, category_id)
+        breadcrumbs = _get_category_breadcrumbs(category_id, all_categories)
     breadcrumbs[-1]['url'] = None # the current navigation item is not clickable
     return breadcrumbs
 
-def _get_category_breadcrumbs(all_categories, category_id):
+def _get_product_breadcrumbs(product, all_categories):
+    category = ancora.get_category_by_code(product['category_code'], all_categories) 
+    breadcrumbs = _get_category_breadcrumbs(category['id'], all_categories)
+    breadcrumbs.append({'name': product['name'],
+                        'url': None})
+    return breadcrumbs
+
+def _get_category_breadcrumbs(category_id, all_categories):
     breadcrumbs = []
     category = ancora.get_category(category_id, all_categories)
     while category is not None:

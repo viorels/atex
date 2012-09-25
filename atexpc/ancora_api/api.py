@@ -214,6 +214,7 @@ class Ancora(object):
 
         return {'id': product['pidm'],
                 'model': product['zmodel'],
+                'category_code': product.get('zcod_grupa'),
                 'name': product['ztitlu'],
                 'description': product.get('zdescriere'),
                 'short_description': product.get('zdescriere_scurta', ''),

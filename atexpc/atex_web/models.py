@@ -54,6 +54,17 @@ class AncoraBackend(object):
         else:
             return None
 
+    def get_category_by_code(self, category_code, all_categories=None):
+        if category_code is None:
+            return None
+        if all_categories is None:
+            all_categories = self.get_all_categories()
+        categories = [c for c in all_categories if c['code'] == category_code]
+        if len(categories) == 1:
+            return categories[0]
+        else:
+            return None 
+
     def get_parent_category(self, category_id, all_categories=None):
         if category_id is None:
             return None
