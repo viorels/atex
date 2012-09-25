@@ -74,12 +74,15 @@ def search(request, category_id=None, slug=None):
     search_category_id = (ancora.get_top_category_id(category_id) # TODO: use all_categories ?
                           if category_id else None)
 
+    breadcrumbs = _get_search_breadcrumbs(all_categories, search_keywords, category_id)
+
     products_per_line = 4
     for idx, product in enumerate(products):
         if (idx+1) % products_per_line == 0:
             product['last_in_line'] = True
 
     context = {'categories': ancora.get_categories_in(parent=None),
+               'breadcrumbs': breadcrumbs,
                'menu': _get_menu(all_categories),
                'selectors': selectors,
                'selectors_active': selectors_active,
@@ -228,6 +231,26 @@ def _get_menu(all_categories):
         menu.append(category)
 
     return menu
+
+def _get_search_breadcrumbs(all_categories, search_keywords, category_id):
+    breadcrumbs = []
+    if search_keywords:
+        breadcrumbs.append({'name': '"%s"' % search_keywords,
+                            'url': None})
+    elif category_id:
+        breadcrumbs = _get_category_breadcrumbs(all_categories, category_id)
+    breadcrumbs[-1]['url'] = None # the current navigation item is not clickable
+    return breadcrumbs
+
+def _get_category_breadcrumbs(all_categories, category_id):
+    breadcrumbs = []
+    category = ancora.get_category(category_id, all_categories)
+    while category is not None:
+        crumb = {'name': category['name'],
+                 'url': _category_url(category)}
+        breadcrumbs.insert(0, crumb)
+        category = ancora.get_parent_category(category['id'], all_categories)
+    return breadcrumbs
 
 def _get_selectors(category_id, selectors_active, price_min, price_max):
     selector_groups = ancora.get_selectors(category_id=category_id,

@@ -43,12 +43,35 @@ class AncoraBackend(object):
         categories = [c for c in self.get_all_categories() if c['parent'] == parent]
         return categories
 
-    def get_category(self, category_id):
-        categories = [c for c in self.get_all_categories() if c['id'] == category_id]
+    def get_category(self, category_id, all_categories=None):
+        if category_id is None:
+            return None
+        if all_categories is None:
+            all_categories = self.get_all_categories()
+        categories = [c for c in all_categories if c['id'] == category_id]
         if len(categories) == 1:
             return categories[0]
         else:
             return None
+
+    def get_parent_category(self, category_id, all_categories=None):
+        if category_id is None:
+            return None
+        if all_categories is None:
+            all_categories = self.get_all_categories()
+        category = self.get_category(category_id, all_categories)
+        category_code_parts = category['code'].split('.')
+        parent_category_code_parts = category_code_parts[:-1]
+        if parent_category_code_parts:
+            parent_category_code = '.'.join(parent_category_code_parts)
+            parent_categories = [c for c in all_categories if c['code'] == parent_category_code]
+            if len(parent_categories) == 1:
+                parent_category = parent_categories[0]
+            else:
+                parent_category = None
+        else:
+            parent_category = None
+        return parent_category
 
     def get_top_category_id(self, category_id):
         category = self.get_category(category_id)

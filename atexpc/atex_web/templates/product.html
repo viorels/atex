@@ -10,10 +10,14 @@
         	<div class="top-content">
             	<div class="breadcrumbs"><!--breadcrumbs-->
                 	<ul>                   
-                    	<li><a href="#">Home</a></li>
-                        <li><a href="#">Monitoare & TV & Gaming</a></li>
-                        <li><a href="#">Monitoare LED</a></li>
-                        <li>{{ product.name }}</li>
+                    	<li><a href="/">Home</a></li>
+                        {% for crumb in breadcrumbs %}
+                            {% if crumb.url %}
+                                <li><a href="{{ crumb.url }}">{{ crumb.name }}</a></li>
+                            {% else %}
+                                <li>{{ crumb.name }}</li>
+                            {% endif %}
+                        {% endfor %}
                     </ul>
                 </div><!--breadcrumbs_end-->               
             </div>
