@@ -236,6 +236,6 @@ class Ancora(object):
         return meta_value
 
     def _full_text_conjunction(self, keywords):
-        words = re.split(r"\s+", keywords)
+        words = re.split(r"\s+", keywords.strip())
         conjunction = '&'.join(words)
         return conjunction
