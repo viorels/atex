@@ -400,7 +400,7 @@ ul.selector_area li .checkbox {
 	left:10px;
 }
 .selected {
-	background:url(../images/checked.png) top left no-repeat;
+	background:url(../images/checked.png) top left no-repeat !important;
 }
 ul.selector_area li a {
 	height:25px;
