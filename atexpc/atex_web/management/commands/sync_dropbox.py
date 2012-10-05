@@ -1,4 +1,5 @@
 import os
+import re
 from django.core.files import temp as tempfile
 
 from django.core.management.base import NoArgsCommand
@@ -7,7 +8,9 @@ from django.conf import settings
 from dropbox import session, client
 from atexpc.atex_web.models import Dropbox, Image
 
+PRODUCTS_PATH = r"/products/(?P<folder>[^/]+)/(?P<resource>[^/]+)"
 USE_LOCAL_DROPBOX = False # relevant for reading
+LOCAL_DROPBOX_PATH = os.path.join(os.environ.get('HOME'), 'Dropbox')
 MAX_PATH_LENGTH = 128 # TODO: introspect model
 
 class Command(NoArgsCommand):
@@ -32,18 +35,22 @@ class Command(NoArgsCommand):
             cursor = delta['cursor']
             for entry in delta['entries']:
                 path, meta = entry
+                path_match = re.search(PRODUCTS_PATH, path, re.IGNORECASE)
+                if not path_match:
+                    continue
                 if len(path) > MAX_PATH_LENGTH:
                     self.stderr.write("Error: path too long (%d): %s\n"
                                       % (len(path), path))
                     continue
                 if meta:
                     path_with_case = meta['path']
-                    if meta['is_dir'] is False:
-                        self._copy_file(path_with_case, meta, self._s3_file_writer)
+                    if path_match.group('resource') and not meta['is_dir']:
+                        self._copy_file(path_with_case, meta, self._storage_file_writer)
                 else:
                     meta = self._dropbox.metadata(path, include_deleted=True)
-                    path_with_case = meta['path']
-                    self._delete_file(path_with_case)
+                    if not meta['is_dir']:
+                        path_with_case = meta['path']
+                        self._delete_file(path_with_case)
 
             self.stdout.write("Cursor: %s\n" % cursor)
             dropbox_state.delta_cursor = cursor
@@ -59,7 +66,7 @@ class Command(NoArgsCommand):
             self._dropbox_file_reader(relative_path, meta, writer)
 
     def _local_file_reader(self, path, meta, writer):
-        file_path = os.path.normpath(settings.MEDIA_ROOT + path)
+        file_path = os.path.join(LOCAL_DROPBOX_PATH, path)
         with open(file_path) as f:
             writer(path, f)
 
@@ -76,7 +83,7 @@ class Command(NoArgsCommand):
             writer(path, f)
         os.unlink(temp.name)
 
-    def _s3_file_writer(self, path, f):
+    def _storage_file_writer(self, path, f):
         image, created = Image.objects.get_or_create(path=path)
         django_file = File(f)
         image.image.save(path, django_file)
