@@ -62,13 +62,18 @@ html, body { height: 100%;  }
  height: 100%;
  margin: 0 auto -200px;
 }
-.footer_wrapper, .push { height: 220px; }
+.footer_wrapper, .push { height: 200px; }
 .wrapper {
 	border-top:5px solid #cd2325;
+	background:url(../images/bg_dark.png) repeat;
+	/*background-color:#3d97cb;*/
 }
 .page_wrapper {
 	width:1140px;
 	margin:0 auto;
+	background:url(../images/bg-page.png) repeat;
+	padding:0 15px 20px 15px;
+	position:relative;
 }
 .header {
 	width:100%;
@@ -368,6 +373,7 @@ ul.selector_area {
 	behavior: url(/static/css/PIE.htc);
 	border:1px solid #c62123;	
 	float:left;
+	background-color:#fff;
 }
 ul.selector_area li {
 	position:relative;
@@ -401,6 +407,7 @@ ul.selector_area li .checkbox {
 }
 .selected {
 	background:url(../images/checked.png) top left no-repeat !important;
+	display:block;
 }
 ul.selector_area li a {
 	height:25px;
@@ -415,6 +422,7 @@ ul.selector_area li a:hover {
 ul.selector_area li span {
 	color:#aaaaaa;
 }
+.alte-imagini .selected {background-image:none !important;}
 .title_row {
 	position:relative;
 	height:3px;
@@ -819,6 +827,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	border:1px solid #c62123;
 	width:278px;
 	float:left;
+	background-color:#fff;
 }
 .produse_top li {
 	height:110px;
@@ -1061,15 +1070,28 @@ ul.filtrare li span {
 	width:100%;
 	float:left;	
 	line-height:18px;
+	background-color:#fff;
+	border-radius: 0 0 6px 6px;     
+	-moz-border-radius: 0 0 6px 6px;     
+	-webkit-border-radius: 0 0 6px 6px;
+	behavior: url(/static/css/PIE.htc);
+	overflow:hidden;
 }
-.product, .product-section {
+ .product-section {
 	width:100%;
 	float:left;
 	padding:15px 0;	
 	position:relative;
 	border-top:1px solid #c62123;
 }
+.product {
+	width:1110px;
+	float:left;
+	padding:15px;	
+	position:relative;
+	border-top:1px solid #c62123;
 
+}
 .tab_u_holder_right {
 	position:absolute;
 	top:-20px;
@@ -1101,7 +1123,7 @@ ul.filtrare li span {
 	height:450px;
 }
 .product-right-sumar {
-	width:590px;
+	width:575px;
 	float:left;
 }
 .underline-gray {
@@ -1124,7 +1146,7 @@ ul.filtrare li span {
 }
 .info-pret {
 	float:left;
-	width:280px;
+	width:250px;
 	font-size:24px;
 }
 .info-pret li {
@@ -1150,17 +1172,17 @@ ul.filtrare li span {
 	text-align:left;
 }
 .descriere-html .left-html {
-	width:700px;
-	padding-right:10px;
+	width:675px;
+	padding-right:5px;
 	float:left;
 }
 .descriere-html .right-html {
-	width:420px;
-	padding-left:10px;
+	width:395px;
+	padding-left:5px;
 	float:right;
 }
 .specificatii-tehnice {
-	width:370px;
+	width:360px;
 	padding-right:15px;
 	float:left;
 }
@@ -1178,20 +1200,20 @@ ul.filtrare li span {
 	float:left;
 }
 .recomandate li {
-	width:370px;
+	width:360px;
 	float:left;
 	margin-right:15px;
 }
 .recomandate li.last { margin:0 !important }
 .recomandate li ul {
-	width:225px;
+	width:215px;
 	padding-top:15px;
 	float:right;
 }
 .recomandate li .product-title {
 	font-size:14px;
 	padding-top:10px;
-	width:225px;
+	width:215px;
 	float:right;
 	font-weight:bold;
 	height:35px;
@@ -1248,13 +1270,13 @@ ul.filtrare li span {
 	float:left;	
 }
 .controls {
-	width:590px;
+	width:575px;
 	float:left;
 	border-top:1px solid #c62123;
 }
 ul.exposureThumbs {
  	float:left;
-	width:590px;
+	width:575px;
 }
 
 ul.exposureThumbs li {
@@ -1273,7 +1295,7 @@ ul.exposureThumbs li.last {
 }
 
 .exposureTarget {
-	width:550px !important;
+	width:535px !important;
 	height:450px !important;	
 	background-image:url(images/loader.gif);
 	background-repeat:no-repeat;
@@ -1732,7 +1754,7 @@ td.center {text-align:center}
 	background-color:#c62123;
 }
 .footer {
-	width:1140px;
+	width:1170px;
 	margin:0 auto;
 	color:#fff;
 	position:relative;
@@ -1748,6 +1770,25 @@ td.center {text-align:center}
 .footer a:hover {
 	text-decoration:underline;
 }
+.footer-top {
+	width:100%;
+	float:left;
+	height:120px;
+}
+.footer-bottom{
+	width:100%;
+	float:left;
+	background-color:#c62123;	
+}
+
+.content-bottom {
+	float:left;
+	width:1140px;
+	height:120px;
+	position:absolute;
+	left:15px;
+	bottom:0px;
+}
 .tags {
 	float:left;
 	width:100%;
@@ -1755,7 +1796,7 @@ td.center {text-align:center}
 	margin:10px 0;
 }
 .tags a {
-	padding:0 5px;
+	padding:0 5px 0 0;
 	line-height:19px;
 	/*border-left:1px solid #fff;
 	float:left;*/
@@ -1784,7 +1825,4 @@ td.center {text-align:center}
 .copyright {
 	float:right;
 }
-.content-bottom {
-	width:100%;
-	float:left
-}
+#wrap1, #wrap2 {min-height:100%;}

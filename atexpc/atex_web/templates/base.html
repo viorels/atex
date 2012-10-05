@@ -15,8 +15,8 @@
 </head>
 
 <body>
-<div class="wrapper">
-	<div class="page_wrapper clear">
+<div class="wrapper" id="wrap1">
+	<div class="page_wrapper clear" id="wrap2">
     	<div class="header">
         	<div class="logo">
             	<a href="{% url home %}"><img src="{{ STATIC_PREFIX }}images/atex-logo.png" width="300" height="100" alt="atex logo" title="www.atexpc.ro" name="www.atexpc.ro"/></a>
@@ -84,6 +84,29 @@
         <div class="content_wrapper clear">
         {% block content %}{% endblock %}
         </div> <!-- content wrapper end -->
+		<div class="content-bottom">		
+		  {% block newsletter %}
+                <div class="newsletter">
+                	<label for="news_email" >Abonare newsletter</label>
+                    <div class="email-wrapper">
+                        <input class="news_email" type="text" id="news_email" value="email ..." />
+                        <input class="email_btn" type="button" />
+                    </div>    
+                </div>
+                {% endblock newsletter %}
+		  {% block banner_right %}
+                 <div class="logo-producatori">
+                	<ul>
+                    	<li><div class="middle"><a class="img-holder" href="#"><img class="center" src="{{ STATIC_PREFIX }}images/gigabyte-partner-small.png" width="115" height="90" alt="gigabyte logo" title="gigabyte"/></a></div></li>
+                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/wd-icon.jpg" width="176" height="53" alt="western digital logo" title="western digital"/></a></div></li>
+                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/apple-icon.jpg" width="86" height="96" alt="apple logo" title="apple"/></a></div></li>
+                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/hp-icon.jpg" width="106" height="70" alt="hp logo" title="hp"/></a></div></li>
+                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/nvidia-icon.jpg" width="129" height="84" alt="nvidia logo" title="nvidia"/></a></div></li>
+                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/samsung-icon.jpg" width="184" height="70" alt="samsung logo" title="samsung"/></a></div></li>
+                    </ul>
+                  </div>
+                 {% endblock banner_right %}  		
+		</div>	
     </div>
     <div class="push"></div>
 </div>
