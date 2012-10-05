@@ -25,7 +25,7 @@ INSTALLED_APPS = (
 )
 
 STATIC_URL = '/static/'
-MEDIA_URL = STATIC_URL
+MEDIA_URL = '/media/'
 MEDIA_ROOT = path.join(environ.get("HOME", ""), "media/")
 
 if environ.has_key('DATABASE_URL'):
