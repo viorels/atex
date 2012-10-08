@@ -20,20 +20,21 @@ logger = logging.getLogger(__name__)
 
 def home(request):
     all_categories = ancora.get_all_categories()
+    top_limit = 5
 
     hits = []
-    for product_obj in Product.objects.get_top_hits():
+    for product_obj in Product.objects.get_top_hits(limit=top_limit):
         product = ancora.get_product(product_obj.ancora_id)
         product['images'] = product_obj.images
         product['url'] = _product_url(product)
         hits.append(product)
         
-    recommended = ancora.get_recommended()
+    recommended = ancora.get_recommended()[:top_limit]
     for product in recommended:
         product['images'] = Product(model=product['model']).images
         product['url'] = _product_url(product)
 
-    sales = ancora.get_sales()
+    sales = ancora.get_sales()[:top_limit]
     for product in sales:
         product['images'] = Product(model=product['model']).images
         product['url'] = _product_url(product)
