@@ -245,10 +245,13 @@ def _get_search_breadcrumbs(search_keywords, category_id, all_categories):
     return breadcrumbs
 
 def _get_product_breadcrumbs(product, all_categories):
-    category = ancora.get_category_by_code(product['category_code'], all_categories) 
-    breadcrumbs = _get_category_breadcrumbs(category['id'], all_categories)
-    breadcrumbs.append({'name': product['name'],
-                        'url': None})
+    category = ancora.get_category_by_code(product['category_code'], all_categories)
+    if category:
+        breadcrumbs = _get_category_breadcrumbs(category['id'], all_categories)
+        breadcrumbs.append({'name': product['name'],
+                            'url': None})
+    else:
+        breadcrumbs = []
     return breadcrumbs
 
 def _get_category_breadcrumbs(category_id, all_categories):
