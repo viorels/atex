@@ -23,7 +23,7 @@ class ProductManager(models.Manager):
     def get_top_hits(self, limit=5):
         one_month_ago = datetime.now(pytz.utc).date() - timedelta(days=30)
         return (self.filter(hit__count__gte=1,
-                            hit__hit_date__gte=one_month_ago)
+                            hit__date__gte=one_month_ago)
                     .annotate(month_count=models.Sum('hit__count'))
                     .order_by('-month_count')[:limit])
 
@@ -55,7 +55,7 @@ class Product(models.Model):
     def hit(self):
         today = datetime.now(pytz.utc).date()
         hit_info = {'count': 1}
-        hit, created = Hit.objects.get_or_create(product=self, hit_date=today,
+        hit, created = Hit.objects.get_or_create(product=self, date=today,
                                                  defaults=hit_info)
         if not created:
             hit.count = models.F('count') + 1
@@ -76,9 +76,9 @@ class Image(models.Model):
 
 
 class Hit(models.Model):
-    product = models.ForeignKey(Product, unique_for_date="hit_date")
+    product = models.ForeignKey(Product, unique_for_date="date")
     count = models.IntegerField()
-    hit_date = models.DateField()
+    date = models.DateField()
 
 
 class AncoraBackend(object):
