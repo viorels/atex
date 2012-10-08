@@ -134,8 +134,12 @@ function calculate_height (){
   docHeight = $(document).height();
   viewHeight = $(window).height();
   content_wrapper_h = $('.content_wrapper').height();
-  content_h = content_wrapper_h + 300;  
-  viewHeight_new = viewHeight - footerHeight - 20;
+  header_h = $('.header').height();
+  search_bar_h = $('.search_bar').height();
+  content_bottom_h = $('.content-bottom').height();
+  titlu_top_h = $('.titlu_top').height();
+  content_h = content_wrapper_h + header_h + search_bar_h + content_bottom_h;  
+  viewHeight_new = viewHeight - footerHeight - titlu_top_h;
   docHeight_new = docHeight - bottomHeight;
   if (viewHeight >= content_h) {
     $('#wrap1').css('height', getDocHeight);

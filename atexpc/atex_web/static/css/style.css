@@ -125,6 +125,8 @@ html, body { height: 100%;  }
     -pie-background: linear-gradient(#cd2325, #c62123); 
     behavior: url(/static/css/PIE.htc);
 	display:block;
+	background-color:#c62123; 
+
 }
 .tab_up {
 	height:20px;
@@ -137,6 +139,8 @@ html, body { height: 100%;  }
     -pie-background: linear-gradient(#de3537, #c62123); 
     behavior: url(/static/css/PIE.htc);
 	display:block;
+background-color:#c62123; 
+
 }
 
 ul.tab_down li, .tab_up li, .tab_up_bw li, span.tab_up  {
@@ -793,6 +797,8 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
     -pie-background: linear-gradient(#c62123, #de3537); 	
 	behavior: url(/static/css/PIE.htc);
 	display:block;
+background-color:#c62123; 
+
  }
 .denumire-produs-atex_bn {float:left;width:195px; text-align:center}
 .atex_bn_right_wrapper a .pret-atex_bn {font-size:18px; line-height:36px;float:left;width:195px; text-align:center}
@@ -1058,6 +1064,8 @@ ul.filtrare li span {
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);	
+background-color:#c62123; 
+
 }
 .add_cos_btn span {
 	height:30px;
@@ -1249,6 +1257,8 @@ ul.filtrare li span {
     background: linear-gradient(#c62123, #de3537); 
     -pie-background: linear-gradient(#c62123, #de3537); 	
 	behavior: url(/static/css/PIE.htc);
+background-color:#c62123; 
+
 }
 .paginare li {float:left;margin:0 5px}
 .paginare a {
@@ -1280,7 +1290,7 @@ ul.exposureThumbs {
 }
 
 ul.exposureThumbs li {
-	margin:0 20px 0 0;
+	margin:0 18px 0 0;
 	padding:0;
 	text-align:center;
 	display:none;
@@ -1362,6 +1372,8 @@ ul.exposureThumbs li {
     background: linear-gradient(#c62123, #de3537); 
     -pie-background: linear-gradient(#c62123, #de3537); 	
 	behavior: url(/static/css/PIE.htc);
+background-color:#c62123; 
+
 }
 .exposurePaging a, .exposurePaging span {
 	position:relative;
