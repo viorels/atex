@@ -211,12 +211,13 @@ class Ancora(object):
         else:
             old_price = None
 
-        is_available = product.get('zcod_grupa').isdigit()
+        category_code = product.get('zcod_grupa')
+        is_available = category_code.isdigit() if category_code is not None else None
         stock_info = 'In stoc' if product.get('zstoc', 0) else product['zinfo_stoc_site']
 
         return {'id': product['pidm'],
                 'model': product['zmodel'],
-                'category_code': product.get('zcod_grupa'),
+                'category_code': category_code,
                 'name': product['ztitlu'],
                 'description': product.get('zdescriere'),
                 'short_description': product.get('zdescriere_scurta', ''),
