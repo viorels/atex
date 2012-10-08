@@ -44,6 +44,7 @@
                         </div>
                         {% endif %}
                         <div class="product-info">
+                            {% if product.available %}
                         	<ul class="info-termeni">
                             	<li><strong>Garantie:</strong> {{ product.warranty }} luni</li>
                                 <li><strong>Termen livrare:</strong> 24h de la comanda ferma</li>
@@ -58,6 +59,11 @@
                                 {% endif %}
                                 <li><a href="#" class="add_cos_btn"><span></span>Adauga in cos</a></li>
                             </ul>
+                            {% else %}
+                            <ul class="info-termeni">
+                                <li><strong>Acest produs nu mai poate fi aprovizionat !</strong></li>
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="product-section">
                         	<div class="tab_u_holder_left">

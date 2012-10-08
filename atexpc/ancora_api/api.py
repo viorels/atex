@@ -210,6 +210,8 @@ class Ancora(object):
             old_price = product['zpret_site_old']
         else:
             old_price = None
+
+        is_available = product.get('zcod_grupa').isdigit()
         stock_info = 'In stoc' if product.get('zstoc', 0) else product['zinfo_stoc_site']
 
         return {'id': product['pidm'],
@@ -220,6 +222,7 @@ class Ancora(object):
                 'short_description': product.get('zdescriere_scurta', ''),
                 'price': product.get('zpret_site'),
                 'old_price': old_price,
+                'available': is_available,
                 'stock': product.get('zstoc', 0),
                 'stock_info': stock_info,
                 'warranty': product['zluni_garantie']}
