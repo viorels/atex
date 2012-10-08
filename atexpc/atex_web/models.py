@@ -1,22 +1,39 @@
 
 import os
 import re
+from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.db import models
 from django.core.files.storage import DefaultStorage
 from sorl.thumbnail import ImageField
+import pytz
+
 from atexpc.ancora_api.api import Ancora, AncoraAdapter, MockAdapter, MOCK_DATA_PATH
 
 NO_IMAGE = 'no-image'
+
 
 class Dropbox(models.Model):
     app_key = models.CharField(primary_key=True, max_length=64)
     delta_cursor = models.CharField(max_length=255, blank=True, null=True)
 
+
+class ProductManager(models.Manager):
+    def get_top_hits(self, limit=5):
+        one_month_ago = datetime.now(pytz.utc).date() - timedelta(days=30)
+        return (self.filter(hit__count__gte=1,
+                            hit__hit_date__gte=one_month_ago)
+                    .annotate(month_count=models.Sum('hit__count'))
+                    .order_by('-month_count')[:limit])
+
+
 class Product(models.Model):
+    model = models.CharField(max_length=64, unique=True)
+    ancora_id = models.IntegerField(null=True)
+
+    objects = ProductManager()
     MEDIA_FOLDER = "products"
-    model = models.CharField(max_length=64)
 
     def folder_name(self):
         folder = re.sub(r'[<>:"|?*/\\]', "-", self.model)
@@ -35,6 +52,16 @@ class Product(models.Model):
             images = [Image(image=NO_IMAGE)]
         return images
 
+    def hit(self):
+        today = datetime.now(pytz.utc).date()
+        hit_info = {'count': 1}
+        hit, created = Hit.objects.get_or_create(product=self, hit_date=today,
+                                                 defaults=hit_info)
+        if not created:
+            hit.count = models.F('count') + 1
+            hit.save()
+
+
 class Image(models.Model):
     def _media_path(instance, filename):
         if '/' in filename:
@@ -43,10 +70,15 @@ class Image(models.Model):
         else:
             path = os.path.join(Product.MEDIA_FOLDER, filename)
         return path
-
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     path = models.CharField(max_length=128, db_index=True)
     image = ImageField(upload_to=_media_path, max_length=255)
+
+
+class Hit(models.Model):
+    product = models.ForeignKey(Product, unique_for_date="hit_date")
+    count = models.IntegerField()
+    hit_date = models.DateField()
 
 
 class AncoraBackend(object):

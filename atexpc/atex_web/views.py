@@ -21,6 +21,13 @@ logger = logging.getLogger(__name__)
 def home(request):
     all_categories = ancora.get_all_categories()
 
+    hits = []
+    for product_obj in Product.objects.get_top_hits():
+        product = ancora.get_product(product_obj.ancora_id)
+        product['images'] = product_obj.images
+        product['url'] = _product_url(product)
+        hits.append(product)
+        
     recommended = ancora.get_recommended()
     for product in recommended:
         product['images'] = Product(model=product['model']).images
@@ -34,6 +41,7 @@ def home(request):
     context = {'categories': ancora.get_categories_in(parent=None),
                'menu': _get_menu(all_categories),
                'footer': _get_footer(all_categories),
+               'hits': hits,
                'recommended': recommended,
                'sales': sales}
     return render(request, "home.html", context)
@@ -97,9 +105,12 @@ def search(request, category_id=None, slug=None):
     return render(request, "search.html", context)
 
 def product(request, product_id, slug):
-    all_categories = ancora.get_all_categories()
     product = ancora.get_product(product_id)
     product['images'] = Product(model=product['model']).images
+    
+    _product_storage(product).hit()
+
+    all_categories = ancora.get_all_categories()
     breadcrumbs = _get_product_breadcrumbs(product, all_categories)
     context = {'categories': ancora.get_categories_in(parent=None),
                'breadcrumbs': breadcrumbs, 
@@ -291,3 +302,13 @@ def _category_url(category):
 
 def _category_level(category):
     return category['code'].count('.') + 1
+
+def _product_storage(product):
+    ancora_id = int(product['id'])
+    product_info = {'ancora_id': ancora_id}
+    product_obj, created = Product.objects.get_or_create(model=product['model'],
+                                                         defaults=product_info)
+    if not created and not product_obj.ancora_id:
+        product_obj.ancora_id = ancora_id
+        product_obj.save()
+    return product_obj

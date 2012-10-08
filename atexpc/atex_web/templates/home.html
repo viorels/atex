@@ -63,65 +63,23 @@
                             <span class="up_right"></span>
                          </div> 
                          <ul class="produse_top">
-                         	<li>
+                            {% for product in hits %}
+                            <li {% if forloop.last %}class="last"{% endif %}> 
                             	<a href="#" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-01.jpg" width="91" height="69" alt="product name" title="product name" />
+                                            <img class="center" src="{{ product.images.0|thumbnail:"80x80" }}" width="80" height="80" alt="{{ product.name }}" title="{{ product.name }}" />
                                         </div>
                                     </div>
                                 </a>
                                 <div class="product-title-mic">
-                                	<a href="#">Memorii DDR Kingmax KLEE8-DDR2-2G1066</a>
+                                	<a href="{{ product.url }}">{{ product.name }}</a>
                                 </div>   
                                 <div class="pret-mic">
-                                	Pret: <span class="pret">123.95</span> RON
+                                	Pret: <span class="pret">{{ product.price }}</span> RON
                                 </div> 
                             </li>
-                            <li>
-                            	<a href="#" class="img-wrapper">
-                                    <div class="middle size100x100">
-                                        <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-02.jpg" width="98" height="84" alt="product name" title="product name" />
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="product-title-mic">
-                                	<a href="#">Placa de sunet Creative 70SB088600005 Placa de sunet Creative Placa de sunet Creative</a>
-                                </div>   
-                                <div class="pret-mic">
-                                	Pret: <span class="pret">709.57</span> RON
-                                </div>
-                            <li>
-                            	<a href="#" class="img-wrapper">
-                                    <div class="middle size100x100">
-                                        <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-03.jpg" width="99" height="88" alt="product name" title="product name" />
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="product-title-mic">
-                                	<a href="#">Surse Raidmax RMX-500W12  </a>
-                                </div>   
-                                <div class="pret-mic">
-                                	Pret: <span class="pret">105.24</span> RON
-                                </div>
-                            </li>
-                            <li class="last">
-                            	<a href="#" class="img-wrapper">
-                                    <div class="middle size100x100">
-                                        <div class="img-holder">
-                                            <img class="center" src="{{ STATIC_PREFIX }}images/produs-04.jpg" width="71" height="69" alt="product name" title="product name" />
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="product-title-mic">
-                                	<a href="#">Switch si Router DLink DIR-615 </a>
-                                </div>   
-                                <div class="pret-mic">
-                                	Pret: <span class="pret">305.24</span> RON
-                                </div>
-                            </li>
+                            {% endfor %}
                          </ul> 
                     </div>     
                          <!-- end top1 -->
