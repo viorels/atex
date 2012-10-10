@@ -89,8 +89,10 @@
                 <div class="newsletter">
                 	<label for="news_email" >Abonare newsletter</label>
                     <div class="email-wrapper">
-                        <input class="news_email" type="text" id="news_email" value="email ..." />
-                        <input class="email_btn" type="button" />
+                        <form method="GET" action="">
+                            <input class="news_email" type="text" id="news_email" title="email ..." />
+                            <input class="email_btn" type="button" />
+                        </form>
                     </div>    
                 </div>
                 {% endblock newsletter %}

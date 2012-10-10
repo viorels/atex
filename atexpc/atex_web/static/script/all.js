@@ -39,33 +39,29 @@ function init_gallery() {
 				});
 }
 
-function init_search_input() {
-    var search_form = $("form.search");
-    var search_input = $(".search_inputs .search");
-    var search_hint = search_input.attr("title");
-
-    function show_search_hint_if_empty() {
-        if (!search_input.val()) {
-            search_input.val(search_hint);
-            search_input.addClass("hint")
+function init_input_hint(form, input, hint) {
+    function show_hint_if_empty() {
+        if (!input.val()) {
+            input.val(hint);
+            input.addClass("hint")
         }
     }
-    function hide_search_hint() {
-        if (search_input.val() == search_hint) {
-            search_input.removeClass("hint")
-            search_input.val("");
+    function hide_hint() {
+        if (input.val() == hint) {
+            input.removeClass("hint")
+            input.val("");
         }
     }
 
-    search_form.submit(function () {
-        if (search_input.val() == search_hint) {
-            search_input.val("");
+    form.submit(function () {
+        if (input.val() == hint) {
+            input.val("");
             return true; 
         }
     });
 
-    show_search_hint_if_empty()
-    search_input.focus(hide_search_hint).blur(show_search_hint_if_empty)
+    show_hint_if_empty()
+    input.focus(hide_hint).blur(show_hint_if_empty)
 }
 
 function init_filters() {
@@ -153,9 +149,18 @@ function calculate_height (){
 $(document).ready(function() 
 {
 	init_gallery();
-       init_search_input();
 	init_filters();
 	show_rezumat();	
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	calculate_height ();
+
+    var search_form = $("form.search");
+    var search_input = $(".search_inputs .search");
+    var search_hint = search_input.attr("title");
+    init_input_hint(search_form, search_input, search_hint);
+
+    var newsletter_form = $(".newsletter form")
+    var newsletter_input = newsletter_form.find("input.news_email")
+    var newsletter_hint = newsletter_input.attr("title")
+    init_input_hint(newsletter_form, newsletter_input, newsletter_hint);
 });
