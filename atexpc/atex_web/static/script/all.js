@@ -66,7 +66,7 @@ function init_input_hint(form, input, hint) {
 
 function init_filters() {
 	var filter_form = $("form.filters");
-	var checkboxes = filter_form.find('input[type=checkbox]')
+	var checkboxes = $('input[type=checkbox]') // ALL checkbox on the page !!!
 
 	function toggle_price() {
 		var price_checkbox = $('input.checkbox[name="pret"]');
