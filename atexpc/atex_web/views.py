@@ -154,12 +154,18 @@ def _get_page(range_getter, per_page, current_page, base_url):
     stop = min(stop, total_count)
 
     pages_count = int(math.ceil(float(total_count)/per_page))
-    pages = [{'name': number,
-              'url': _uri_with_args(base_url, pagina=number),
-              'is_current': number==current_page}
-             for number in range(1, pages_count + 1)]
+    page_info = lambda number: {
+        'name': number,
+        'url': _uri_with_args(base_url, pagina=number),
+        'is_current': number==current_page}
+    pages = [page_info(number) for number in range(1, pages_count + 1)]
+
+    previous_page = page_info(current_page - 1) if current_page > 1 else None
+    next_page = page_info(current_page + 1) if current_page < pages_count else None
 
     data['pagination'] = {'pages': pages,
+                          'previous': previous_page,
+                          'next': next_page,
                           'start': start,
                           'stop': stop,
                           'total_count': total_count}
