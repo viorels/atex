@@ -92,6 +92,11 @@ class Command(NoArgsCommand):
         self.stdout.write("Deleting %s\n" % (path,))
 
         relative_path = path[1:] if path[0] == '/' else path
-        # TODO: this does not delete s3 file !!!
-        Image.objects.filter(path=relative_path).delete()
+        try:
+            image = Image.objects.get(path=relative_path)
+            image.delete()
 
+            # workaround for bug https://code.djangoproject.com/ticket/6792
+            image.image.storage.delete(image.image.name)
+        except Image.DoesNotExist, e:
+            pass
