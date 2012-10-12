@@ -1,7 +1,8 @@
 import os
 import re
-from django.core.files import temp as tempfile
+import shutil
 
+from django.core.files import temp as tempfile
 from django.core.management.base import NoArgsCommand
 from django.core.files import File
 from django.conf import settings
@@ -76,8 +77,7 @@ class Command(NoArgsCommand):
 
         chunk_size = 1024 ** 2
         with tempfile.NamedTemporaryFile(delete=False) as temp:
-            for chunk in dropbox_file.read(chunk_size):
-                temp.write(chunk)
+            shutil.copyfileobj(dropbox_file, temp)
 
         with open(temp.name) as f:
             writer(path, f)
