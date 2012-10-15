@@ -909,6 +909,7 @@ img.center {
 	font-weight:bold;
 }
 
+
 .logo-producatori {
 	width:873px;
 	height:100px;
@@ -1841,3 +1842,17 @@ td.center {text-align:center}
 #wrap1, #wrap2 {min-height:100%;}
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected, .ui-tabs .ui-tabs-nav li:hover {background-color:#c62123; }
 .ui-tabs .ui-tabs-nav li {background-color:#efefef;}
+.contact-content {width:875px;float:right; padding-top:5px;}
+.red-bottom {
+	width:100%;
+	float:left;
+	padding:15px 0;	
+	position:relative;
+	border-top:1px solid #c62123;
+}
+.map-wrapper {width:490px;float:right}
+.gmap-border {border:1px solid #c62123; float:right; margin-bottom:5px}
+.info-contact {float:left}
+.info-contact ul li { line-height:18px;}
+.info-contact ul li.red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
+.info-contact ul li.orar-pad {padding-left:20px}
