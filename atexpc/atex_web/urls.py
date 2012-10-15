@@ -11,5 +11,6 @@ urlpatterns = patterns('',
     url(r'^cos/$', views.cart, name='cart'),
     url(r'^cos/comanda/', views.order, name='order'),
     url(r'^cos/confirma/', views.confirm, name='confirm'),
+    url(r'^contact/', views.contact, name='contact'),
     url(r'PIE\.htc$', views.pie),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

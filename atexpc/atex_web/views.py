@@ -140,6 +140,13 @@ def confirm(request):
                'footer': _get_footer(all_categories)}
     return render(request, "confirm.html", context)
 
+def contact(request):
+    all_categories = ancora.get_all_categories()
+    context = {'categories': ancora.get_categories_in(parent=None),
+               'menu': _get_menu(all_categories),
+               'footer': _get_footer(all_categories)}
+    return render(request, "contact.html", context)
+
 def pie(request):
     return render(request, "PIE.htc", content_type="text/x-component")
 
