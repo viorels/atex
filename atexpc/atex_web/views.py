@@ -29,12 +29,12 @@ def home(request):
         product['url'] = _product_url(product)
         hits.append(product)
         
-    recommended = ancora.get_recommended()[:top_limit]
+    recommended = ancora.get_recommended(limit=top_limit)
     for product in recommended:
         product['images'] = Product(model=product['model']).images
         product['url'] = _product_url(product)
 
-    sales = ancora.get_sales()[:top_limit]
+    sales = ancora.get_sales(limit=top_limit)
     for product in sales:
         product['images'] = Product(model=product['model']).images
         product['url'] = _product_url(product)

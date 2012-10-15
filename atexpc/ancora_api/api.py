@@ -159,7 +159,7 @@ class Ancora(object):
         products = self.adapter.read(products_uri, post_process)
         return products
 
-    def products_recommended(self):
+    def products_recommended(self, limit):
         def post_process(data):
             json_root = 'recommended_products'
             products = []
@@ -170,11 +170,14 @@ class Ancora(object):
                                  'price': product.get('zpret_site')})
             return products
 
-        recommended_uri = self.adapter.base_uri_with_args({'cod_formular': '740'})
+        recommended_uri = self.adapter.base_uri_with_args({
+            'cod_formular': '740',
+            'start': 0,
+            'stop': limit})
         recommended = self.adapter.read(recommended_uri, post_process)
         return recommended
 
-    def products_sales(self):
+    def products_sales(self, limit):
         def post_process(data):
             json_root = 'promo_products'
             products = []
@@ -186,8 +189,8 @@ class Ancora(object):
             return products
 
         sales_uri = self.adapter.base_uri_with_args({'cod_formular': '737',
-                                                     'start':0,
-                                                     'stop': 4})
+                                                     'start': 0,
+                                                     'stop': limit})
         sales = self.adapter.read(sales_uri, post_process)
         return sales
 

@@ -154,11 +154,11 @@ class AncoraBackend(object):
     def get_product(self, product_id):
         return self._api.product(product_id)
 
-    def get_recommended(self):
-        return self._api.products_recommended()
+    def get_recommended(self, limit):
+        return self._api.products_recommended(limit)
 
-    def get_sales(self):
-        return self._api.products_sales()
+    def get_sales(self, limit):
+        return self._api.products_sales(limit)
 
 ancora = AncoraBackend()
 
