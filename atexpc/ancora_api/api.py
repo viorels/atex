@@ -14,18 +14,21 @@ logger = logging.getLogger(__name__)
 # TODO: this doesn't work if the lib is packed in an egg
 MOCK_DATA_PATH = os.path.join(os.path.split(__file__)[0], 'mock_data')
 
+TIMEOUT_LONG = 86400 # one day
+TIMEOUT_NORMAL = 3600 # one hour
+TIMEOUT_SHORT = 300 # 5 minutes
 
 class BaseAdapter(object):
     def __init__(self, base_uri=None):
         self._base_uri = base_uri
 
-    def read(self, uri, post_process=None):
+    def read(self, uri, post_process=None, timeout=TIMEOUT_SHORT):
         start_time = time.time()
         response = cache.get(uri)
         cache_hit = '(cached)' if response else ''
         if response is None:
             response = urlopen(uri).read()
-            cache.set(uri, response)
+            cache.set(uri, response, timeout)
         elapsed = time.time() - start_time
         logger.debug('GET%s %s (%s bytes in %1.3f seconds)', 
                      cache_hit, uri, len(response), elapsed)
@@ -96,7 +99,7 @@ class Ancora(object):
             return categories
 
         categories_uri = self.adapter.uri_for('categories')
-        return self.adapter.read(categories_uri, post_process)
+        return self.adapter.read(categories_uri, post_process, timeout=TIMEOUT_LONG)
 
     def selectors(self, category_id, selectors_active, price_min, price_max):
         def post_process(data):
@@ -121,7 +124,7 @@ class Ancora(object):
                 args['zpret_site_max'] = price_max
             if args:
                 selectors_uri = self.adapter.uri_with_args(selectors_uri, args)
-            selectors = self.adapter.read(selectors_uri, post_process)
+            selectors = self.adapter.read(selectors_uri, post_process, timeout=TIMEOUT_LONG)
         else:
             selectors = []
 
@@ -156,7 +159,7 @@ class Ancora(object):
             args['zpret_site_max'] = price_max
         products_uri = self.adapter.uri_with_args(base_products_uri, args)
 
-        products = self.adapter.read(products_uri, post_process)
+        products = self.adapter.read(products_uri, post_process, timeout=TIMEOUT_SHORT)
         return products
 
     def products_recommended(self, limit):
@@ -174,7 +177,7 @@ class Ancora(object):
             'cod_formular': '740',
             'start': 0,
             'stop': limit})
-        recommended = self.adapter.read(recommended_uri, post_process)
+        recommended = self.adapter.read(recommended_uri, post_process, timeout=TIMEOUT_NORMAL)
         return recommended
 
     def products_sales(self, limit):
@@ -191,7 +194,7 @@ class Ancora(object):
         sales_uri = self.adapter.base_uri_with_args({'cod_formular': '737',
                                                      'start': 0,
                                                      'stop': limit})
-        sales = self.adapter.read(sales_uri, post_process)
+        sales = self.adapter.read(sales_uri, post_process, timeout=TIMEOUT_NORMAL)
         return sales
 
     def product(self, product_id):
@@ -202,7 +205,7 @@ class Ancora(object):
             
         product_uri = self.adapter.base_uri_with_args({'cod_formular': '738',
                                                        'pidm': product_id})
-        product = self.adapter.read(product_uri, post_process)
+        product = self.adapter.read(product_uri, post_process, timeout=TIMEOUT_SHORT)
         return product
 
     def _post_process_product(self, product):
