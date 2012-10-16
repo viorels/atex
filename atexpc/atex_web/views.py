@@ -10,7 +10,6 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 
-from sorl.thumbnail import get_thumbnail
 from django.conf import settings
 
 from models import ancora, Product
