@@ -87,23 +87,11 @@
                     <ul class="filtrare">
                     	<li>
                         	<span>Ordoneaza dupa: </span>
-                            <select name="ordine" class="filter submit">
-                                <option value="pret_desc"> - pret descrescator - </option>
-                                <option value="pret_asc"> - pret crescator - </option> 
-                                <option value="sold_desc"> - cele mai vandute - </option>
-                            </select>
+                            {{ form.ordine }}
                         </li>
                         <li>
                         	<span>Nr produse pe pagina: </span>
-                            <select name="pe_pagina" class="filter submit">
-                                {% for choice in per_page_choices %}
-                                    {% if choice == per_page %}
-                                        <option value="{{ per_page }}" selected> - {{ per_page }} - </option>
-                                    {% else %}
-                                        <option value="{{ choice }}"> - {{ choice }} - </option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
+                            {{ form.pe_pagina }}
                         </li>
                         <li>
                         	<span>Doar produsele din stoc: </span>

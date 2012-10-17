@@ -13,6 +13,7 @@ from django.template.defaultfilters import slugify
 from django.conf import settings
 
 from models import ancora, Product
+from forms import SearchForm
 
 import logging
 logger = logging.getLogger(__name__)
@@ -50,6 +51,8 @@ def search(request, category_id=None, slug=None):
     if not category_id:
         category_id = request.GET.get('categorie')
 
+    search_form = SearchForm(request.GET)
+
     search_in = request.GET.get('cauta_in') # XXX: search category is ignored
     search_keywords = request.GET.get('cuvinte')
     
@@ -66,8 +69,7 @@ def search(request, category_id=None, slug=None):
                                price_max=price_max)
 
     stock = request.GET.get('stoc')
-    sort_by = None
-    sort_order = 'asc' # or 'desc'
+    sort_by, sort_order = request.GET.get('ordine', 'pret_asc').split('_')
 
     get_products_range = (lambda start, stop:
         ancora.get_products(category_id=category_id, keywords=search_keywords,
@@ -99,6 +101,7 @@ def search(request, category_id=None, slug=None):
     context = {'categories': ancora.get_categories_in(parent=None),
                'breadcrumbs': breadcrumbs,
                'menu': _get_menu(all_categories),
+               'form': search_form,
                'selectors': selectors,
                'selectors_active': selectors_active,
                'search_keywords': search_keywords,
@@ -107,8 +110,6 @@ def search(request, category_id=None, slug=None):
                'category_id': category_id,
                'search_category_id' : search_category_id,
                'stock': stock,
-               'per_page': per_page,
-               'per_page_choices': (20, 40, 60),
                'products': products,
                'pagination': pagination,
                'footer': _get_footer(all_categories)}
