@@ -49,6 +49,8 @@ def home(request):
 def search(request, category_id=None, slug=None):
     if not category_id:
         category_id = request.GET.get('categorie')
+
+    search_in = request.GET.get('cauta_in') # XXX: search category is ignored
     search_keywords = request.GET.get('cuvinte')
     
     current_page = (int(request.GET.get('pagina')) if request.GET.get('pagina', '').isdigit()

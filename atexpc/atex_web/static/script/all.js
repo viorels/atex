@@ -65,8 +65,8 @@ function init_input_hint(form, input, hint) {
 }
 
 function init_filters() {
-	var filter_form = $("form.filters");
-	var checkboxes = $('input[type=checkbox]') // ALL checkbox on the page !!!
+	var filter_form = $("form.search");
+	var checkboxes = filter_form.find('input[type=checkbox]')
 
 	function toggle_price() {
 		var price_checkbox = $('input.checkbox[name="pret"]');
@@ -105,18 +105,17 @@ function init_filters() {
 }
 
 function uncheck_filters() {
-	var filter_form = $("form.filters");
-	var checkboxes = filter_form.find('input[type=checkbox]')	
+	var search_form = $("form.search");
+	var checkboxes = search_form.find('input[type=checkbox]')	
 	checkboxes.each(function () {
 		var checkbox = $(this);
 		checkbox.parent().removeClass('selected');
 		checkbox.removeAttr('checked')
 	});
-	filter_form.submit();
+	search_form.submit();
 }
 
 function show_rezumat() {
-
 	$(".show_rezumat").hide();
 	$(".tab_rezumat").show();
 	$('.tab_rezumat').click(function(){

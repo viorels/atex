@@ -34,46 +34,44 @@
                 
 {% block content_left %}
                 <div class="left_search">
-                    <form method="GET" action="{% url search %}" class="filters">
                     <input type="hidden" name="categorie" value="{{ category_id }}" />
                 	<div class="reset-sel">
                     	<input class="reset_sel_btn" id="uncheck" type="button" />
                         <span> Anuleaza toate selectiile </span>
                     </div>
-                        {% for selector_group in selectors %}
-                    	<ul class="selector_area">
-                        	<li class="title_row">
-                            	<div class="sel_title">
-                                     <span class="up_left"></span>
-                                     <span class="tab_up">{{ selector_group.name }}</span>
-                                     <span class="up_right"></span> 
-                                </div>    
-                            </li>
-                            {% for selector in selector_group.selectors %}
-                            <li>
-                                 <input name="filtre" type="checkbox" value="{{ selector.selector_id }}" class="checkbox submit" {% if selector.selector_id in selectors_active %}checked{% endif %} />
-                                 <a href="#">{{ selector.name }}</a> <span>({{ selector.count }})</span>
-                            </li>
-                            {% endfor %}
-                            {% if "Pret" in selector_group.name %}
-                            <li>
-                                <input name="pret" type="checkbox" value="1" class="checkbox" {% if price_min or price_max %}checked{% endif %}>
-                                <div class="price_selector">
-                                    <input name="pret_min" class="price_input" id="price_min" type="text" value="{{ price_min }}" />
-                                    <span>-</span>
-                                    <input name="pret_max" class="price_input" id="price_max" type="text" value="{{ price_max }}" />
-                                    <input name="price_search" class="price_search" id="price_search" type="button"/>
-                                </div>
-                            </li>
-                            {% endif %}
-                        </ul>
+                    {% for selector_group in selectors %}
+                	<ul class="selector_area">
+                    	<li class="title_row">
+                        	<div class="sel_title">
+                                 <span class="up_left"></span>
+                                 <span class="tab_up">{{ selector_group.name }}</span>
+                                 <span class="up_right"></span> 
+                            </div>    
+                        </li>
+                        {% for selector in selector_group.selectors %}
+                        <li>
+                             <input name="filtre" type="checkbox" value="{{ selector.selector_id }}" class="checkbox submit" {% if selector.selector_id in selectors_active %}checked{% endif %} />
+                             <a href="#">{{ selector.name }}</a> <span>({{ selector.count }})</span>
+                        </li>
                         {% endfor %}
-                        
-                        <div class="reset-sel top15">
-                    		<input class="reset_sel_btn" type="button" />
-                        	<span> Anuleaza toate selectiile </span>
-                    	</div>
-                    </form>     
+                        {% if "Pret" in selector_group.name %}
+                        <li>
+                            <input name="pret" type="checkbox" value="1" class="checkbox" {% if price_min or price_max %}checked{% endif %}>
+                            <div class="price_selector">
+                                <input name="pret_min" class="price_input" id="price_min" type="text" value="{{ price_min }}" />
+                                <span>-</span>
+                                <input name="pret_max" class="price_input" id="price_max" type="text" value="{{ price_max }}" />
+                                <input name="price_search" class="price_search" id="price_search" type="button"/>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    {% endfor %}
+                    
+                    <div class="reset-sel top15">
+                		<input class="reset_sel_btn" type="button" />
+                    	<span> Anuleaza toate selectiile </span>
+                	</div>
                 </div>
 {% endblock content_left %}
                 
