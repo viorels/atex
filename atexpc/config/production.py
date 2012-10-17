@@ -1,6 +1,9 @@
 from os import path, environ
 from urlparse import urlparse
 
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
