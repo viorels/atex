@@ -3,6 +3,7 @@ import os
 import re
 import time
 import json
+import operator
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 from urllib2 import urlopen # TODO: try urllib3 with connection pooling
@@ -23,15 +24,16 @@ class BaseAdapter(object):
         self._base_uri = base_uri
 
     def read(self, uri, post_process=None, timeout=TIMEOUT_SHORT):
+        normalized_uri = self.sort_uri_args(uri)
         start_time = time.time()
-        response = cache.get(uri)
+        response = cache.get(normalized_uri)
         cache_hit = '(cached)' if response else ''
         if response is None:
-            response = urlopen(uri).read()
-            cache.set(uri, response, timeout)
+            response = urlopen(normalized_uri).read()
+            cache.set(normalized_uri, response, timeout)
         elapsed = time.time() - start_time
         logger.debug('GET%s %s (%s bytes in %1.3f seconds)', 
-                     cache_hit, uri, len(response), elapsed)
+                     cache_hit, normalized_uri, len(response), elapsed)
         data = self.parse(response)
         return post_process(data) if post_process else data
 
@@ -42,6 +44,18 @@ class BaseAdapter(object):
             logger.error("failed to parse backend response: %s", e)
             return {'error': 'failed to parse backend response'}
 
+    def sort_uri_args(self, uri):
+        parsed_uri = urlparse(uri)
+        parsed_args = parse_qsl(parsed_uri.query)
+        sorted_parsed_args = sorted(parsed_args, key=operator.itemgetter(0))
+        sorted_args = urlencode(sorted_parsed_args)
+        final_uri = urlunparse((parsed_uri.scheme,
+                                parsed_uri.netloc,
+                                parsed_uri.path,
+                                parsed_uri.params,
+                                sorted_args,
+                                parsed_uri.fragment))
+        return final_uri
 
 class AncoraAdapter(BaseAdapter):
     def uri_for(self, method_name):
