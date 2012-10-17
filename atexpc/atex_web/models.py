@@ -147,10 +147,13 @@ class AncoraBackend(object):
                                    price_min=price_min, price_max=price_max)
 
     def get_products(self, category_id, keywords, selectors,
-                     price_min, price_max, start, stop):
+                     price_min, price_max, start, stop,
+                     stock, sort_by, sort_order):
         return self._api.search_products(category_id=category_id, keywords=keywords,
                                          selectors=selectors, price_min=price_min,
-                                         price_max=price_max, start=start, stop=stop)
+                                         price_max=price_max, start=start, stop=stop,
+                                         stock=stock, sort_by=sort_by, sort_order=sort_order)
+        
     def get_product(self, product_id):
         return self._api.product(product_id)
 

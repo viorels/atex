@@ -65,10 +65,15 @@ def search(request, category_id=None, slug=None):
                                price_min=price_min,
                                price_max=price_max)
 
+    stock = request.GET.get('stoc')
+    sort_by = None
+    sort_order = 'asc' # or 'desc'
+
     get_products_range = (lambda start, stop:
         ancora.get_products(category_id=category_id, keywords=search_keywords,
                             selectors=selectors_active, price_min=price_min,
-                            price_max=price_max, start=start, stop=stop))
+                            price_max=price_max, start=start, stop=stop,
+                            stock=stock, sort_by=sort_by, sort_order=sort_order))
     products_info = _get_page(get_products_range, per_page=per_page, 
                               current_page=current_page,
                               base_url=request.build_absolute_uri())
@@ -101,6 +106,7 @@ def search(request, category_id=None, slug=None):
                'price_max': price_max,
                'category_id': category_id,
                'search_category_id' : search_category_id,
+               'stock': stock,
                'products': products,
                'pagination': pagination,
                'footer': _get_footer(all_categories)}

@@ -87,23 +87,23 @@
                     <ul class="filtrare">
                     	<li>
                         	<span>Ordoneaza dupa: </span>
-                            <select class="filter">
-                                <option> - pret descrescator - </option>
-                                <option> - pret crescator - </option> 
-                                <option> - cele mai vandute - </option>                                 
+                            <select name="ordine" class="filter">
+                                <option value="pret_desc"> - pret descrescator - </option>
+                                <option value="pret_asc"> - pret crescator - </option> 
+                                <option value="sold_desc"> - cele mai vandute - </option>
                             </select>
                         </li>
                         <li>
                         	<span>Nr produse pe pagina: </span>
-                            <select class="filter">
-                                <option> - 20 - </option>
-                                <option> - 40 - </option>  
-                                <option> - 60 - </option>                              
+                            <select name="pe_pagina" class="filter">
+                                <option value="20"> - 20 - </option>
+                                <option value="40"> - 40 - </option>
+                                <option value="60"> - 60 - </option>
                             </select>
                         </li>
                         <li>
                         	<span>Doar produsele din stoc: </span>
-                            <input name="" type="checkbox" value="" class="checkbox">
+                            <input name="stoc" type="checkbox" value="1" class="checkbox submit" {% if stock %}checked{% endif %}>
                         </li>
                     </ul>    
                 </div>

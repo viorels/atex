@@ -145,7 +145,8 @@ class Ancora(object):
         return selectors
 
     def search_products(self, category_id=None, keywords=None, selectors=None,
-                        price_min=None, price_max=None, start=None, stop=None):
+                        price_min=None, price_max=None, start=None, stop=None,
+                        stock=None, sort_by=None, sort_order=None):
         def post_process(data):
             json_root = 'products'
             products = []
@@ -171,6 +172,11 @@ class Ancora(object):
         if price_min or price_max:
             args['zpret_site_min'] = price_min
             args['zpret_site_max'] = price_max
+        if stock:
+            args['zstoc'] = 'D'
+        if sort_by:
+            args['zsort'] = sort_by
+            args['zsort_order'] = sort_order
         products_uri = self.adapter.uri_with_args(base_products_uri, args)
 
         products = self.adapter.read(products_uri, post_process, timeout=TIMEOUT_SHORT)
