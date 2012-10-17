@@ -107,6 +107,8 @@ def search(request, category_id=None, slug=None):
                'category_id': category_id,
                'search_category_id' : search_category_id,
                'stock': stock,
+               'per_page': per_page,
+               'per_page_choices': (20, 40, 60),
                'products': products,
                'pagination': pagination,
                'footer': _get_footer(all_categories)}

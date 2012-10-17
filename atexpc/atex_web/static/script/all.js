@@ -67,6 +67,7 @@ function init_input_hint(form, input, hint) {
 function init_filters() {
 	var filter_form = $("form.search");
 	var checkboxes = filter_form.find('input[type=checkbox]')
+    var dropdowns = filter_form.find('ul.filtrare select')
 
 	function toggle_price() {
 		var price_checkbox = $('input.checkbox[name="pret"]');
@@ -100,6 +101,12 @@ function init_filters() {
 	$(".price_selector input.price_search").click(function () {
 		filter_form.submit();
 	})
+
+    dropdowns.click(function () {
+        if ($(this).hasClass("submit")) {
+            filter_form.submit();
+        }
+    });
 
 	$('.reset_sel_btn').click(uncheck_filters);
 }
