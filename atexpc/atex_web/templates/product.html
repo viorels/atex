@@ -109,7 +109,7 @@
                         {{ product.html_description|safe }}
                         {% endif %}
 
-                        <div class="product-section">
+                        <div {% if product.html_description %} class="product-section" {% endif %}>
                             <div class="tab_u_holder_left">
                                 <span class="up_left"></span>
                                     <ul class="tab_up">
