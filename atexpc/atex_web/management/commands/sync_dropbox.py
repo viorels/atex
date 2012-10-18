@@ -5,11 +5,10 @@ import shutil
 from django.core.files import temp as tempfile
 from django.core.management.base import NoArgsCommand
 from django.core.files import File
-from django.core.files.storage import default_storage
 from django.conf import settings
 
 from dropbox import session, client
-from atexpc.atex_web.models import Dropbox, Image
+from atexpc.atex_web.models import Dropbox, Image, StorageWithOverwrite
 
 PRODUCTS_PATH = r"/products/(?P<folder>[^/]+)/(?P<resource>[^/]+)(?P<other>/.*)?"
 USE_LOCAL_DROPBOX = False # relevant for reading
@@ -101,7 +100,7 @@ class Command(NoArgsCommand):
     def _storage_file_writer(self, path, f):
         media_path = Image()._media_path(path)
         django_file = File(f)
-        default_storage.save(media_path, django_file)
+        StorageWithOverwrite().save(media_path, django_file)
 
     def _delete_file(self, path):
         self.stdout.write("Deleting %s\n" % (path,))
@@ -115,4 +114,4 @@ class Command(NoArgsCommand):
 
         # delete storage file with this name
         media_path = Image()._media_path(path)
-        default_storage.delete(media_path)
+        StorageWithOverwrite().delete(media_path)

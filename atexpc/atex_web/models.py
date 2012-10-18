@@ -5,15 +5,26 @@ from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.db import models
-from django.core.files.storage import default_storage
+from django.core.files.storage import get_storage_class
 from sorl.thumbnail import ImageField
 import pytz
 
 from atexpc.ancora_api.api import Ancora, AncoraAdapter, MockAdapter, MOCK_DATA_PATH
 
+import logging
+logger = logging.getLogger(__name__)
+
 NO_IMAGE = 'no-image'
 IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.gif', '.bmp')
 HTML_EXTENSIONS = ('.html', '.htm')
+
+
+class StorageWithOverwrite(get_storage_class()):
+    """Storage that unconditionally overwrites files"""
+
+    def get_available_name(self, name):
+        self.delete(name)
+        return name
 
 
 class Dropbox(models.Model):
@@ -49,7 +60,7 @@ class Product(models.Model):
 
     def _product_files(self):
         try:
-            folders, files = default_storage.listdir(self.folder_path())
+            folders, files = StorageWithOverwrite().listdir(self.folder_path())
         except OSError, e:
             files = []
         return files
@@ -68,7 +79,7 @@ class Product(models.Model):
         html_files = [name for name in files if name.endswith(HTML_EXTENSIONS)]
         if len(html_files):
             html_path = self._file_path(html_files[0])
-            content = default_storage.open(html_path).read()
+            content = StorageWithOverwrite().open(html_path).read()
         else:
             content = None
         return content
@@ -93,7 +104,7 @@ class Image(models.Model):
         return path
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     path = models.CharField(max_length=128, db_index=True)
-    image = ImageField(upload_to=_media_path, max_length=255)
+    image = ImageField(storage=StorageWithOverwrite(), upload_to=_media_path, max_length=255)
 
 
 class Hit(models.Model):
