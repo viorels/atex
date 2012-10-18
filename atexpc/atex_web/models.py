@@ -5,13 +5,15 @@ from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.db import models
-from django.core.files.storage import DefaultStorage
+from django.core.files.storage import default_storage
 from sorl.thumbnail import ImageField
 import pytz
 
 from atexpc.ancora_api.api import Ancora, AncoraAdapter, MockAdapter, MOCK_DATA_PATH
 
 NO_IMAGE = 'no-image'
+IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.gif', '.bmp')
+HTML_EXTENSIONS = ('.html', '.htm')
 
 
 class Dropbox(models.Model):
@@ -35,22 +37,41 @@ class Product(models.Model):
     objects = ProductManager()
     MEDIA_FOLDER = "products"
 
-    def folder_name(self):
+    def _folder_name(self):
         folder = re.sub(r'[<>:"|?*/\\]', "-", self.model)
         return folder
 
-    def images(self):
-        images_path = os.path.join(self.MEDIA_FOLDER, self.folder_name())
+    def folder_path(self):
+        return os.path.join(self.MEDIA_FOLDER, self._folder_name())
+
+    def _file_path(self, name):
+        return os.path.join(self.folder_path(), name)
+
+    def _product_files(self):
         try:
-            folders, image_files = DefaultStorage().listdir(images_path)
+            folders, files = default_storage.listdir(self.folder_path())
         except OSError, e:
-            image_files = []
+            files = []
+        return files
+
+    def images(self):
+        files = self._product_files()
+        image_files = [name for name in files if name.endswith(IMAGE_EXTENSIONS)]
         if len(image_files):
-            image_object = lambda name: Image(image=os.path.join(images_path, name))
-            images = [image_object(name) for name in sorted(image_files)]
+            images = [Image(image=self._file_path(name)) for name in sorted(image_files)]
         else:
             images = [Image(image=NO_IMAGE)]
         return images
+
+    def html_description(self):
+        files = self._product_files()
+        html_files = [name for name in files if name.endswith(HTML_EXTENSIONS)]
+        if len(html_files):
+            html_path = self._file_path(html_files[0])
+            content = default_storage.open(html_path).read()
+        else:
+            content = None
+        return content
 
     def hit(self):
         today = datetime.now(pytz.utc).date()
@@ -65,8 +86,8 @@ class Product(models.Model):
 class Image(models.Model):
     def _media_path(instance, filename):
         if '/' in filename:
-            path_match = re.search(r"(%s.*)" % Product.MEDIA_FOLDER, filename)
-            path = path_match.group(1)
+            path_match = re.search(Product.MEDIA_FOLDER + '.*', filename)
+            path = path_match.group()
         else:
             path = os.path.join(Product.MEDIA_FOLDER, filename)
         return path
@@ -164,5 +185,4 @@ class AncoraBackend(object):
         return self._api.products_sales(limit)
 
 ancora = AncoraBackend()
-
 

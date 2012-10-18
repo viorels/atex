@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
+from django.template import Context, Template
 
 from django.conf import settings
 
@@ -117,8 +118,14 @@ def search(request, category_id=None, slug=None):
 
 def product(request, product_id, slug):
     product = ancora.get_product(product_id)
-    product['images'] = Product(model=product['model']).images
-    
+    product_obj = Product(model=product['model'])
+    product['images'] = product_obj.images()
+    html_template = product_obj.html_description()
+    if html_template:
+        product_prefix = settings.MEDIA_URL + product_obj.folder_path() + '/'
+        context = Context({'PRODUCT_PREFIX': product_prefix})
+        product['html_description'] = Template(html_template).render(context)
+
     _product_storage(product).hit()
 
     all_categories = ancora.get_all_categories()

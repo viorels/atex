@@ -5,14 +5,18 @@ import shutil
 from django.core.files import temp as tempfile
 from django.core.management.base import NoArgsCommand
 from django.core.files import File
+from django.core.files.storage import default_storage
 from django.conf import settings
+
 from dropbox import session, client
 from atexpc.atex_web.models import Dropbox, Image
 
-PRODUCTS_PATH = r"/products/(?P<folder>[^/]+)/(?P<resource>[^/]+)"
+PRODUCTS_PATH = r"/products/(?P<folder>[^/]+)/(?P<resource>[^/]+)(?P<other>/.*)?"
 USE_LOCAL_DROPBOX = False # relevant for reading
 LOCAL_DROPBOX_PATH = os.path.join(os.environ.get('HOME'), 'Dropbox')
 MAX_PATH_LENGTH = 128 # TODO: introspect model
+IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.gif', '.bmp')
+HTML_EXTENSIONS = ('.html', '.htm')
 
 class Command(NoArgsCommand):
 
@@ -45,8 +49,12 @@ class Command(NoArgsCommand):
                     continue
                 if meta:
                     path_with_case = meta['path']
-                    if path_match.group('resource') and not meta['is_dir']:
-                        self._copy_file(path_with_case, meta, self._storage_file_writer)
+                    if not meta['is_dir'] and path_match.group('resource'):
+                        if not path_match.group('other') and path.endswith(IMAGE_EXTENSIONS):
+                            self._copy_file(path_with_case, meta, self._storage_image_writer)
+                        elif (path_match.group('resource').endswith(HTML_EXTENSIONS)
+                              or path_match.group('other')):
+                            self._copy_file(path_with_case, meta, self._storage_file_writer)
                 else:
                     meta = self._dropbox.metadata(path, include_deleted=True)
                     if not meta['is_dir']:
@@ -57,14 +65,16 @@ class Command(NoArgsCommand):
             dropbox_state.delta_cursor = cursor
             dropbox_state.save()
 
+    def _relative_path(self, path):
+        return path[1:] if path[0] == '/' else path
+
     def _copy_file(self, path, meta, writer):
         self.stdout.write("Uploading %s: %s\n" % (path, 'meta'))
 
-        relative_path = path[1:] if path[0] == '/' else path 
         if USE_LOCAL_DROPBOX:
-            self._local_file_reader(relative_path, meta, writer)
+            self._local_file_reader(self._relative_path(path), meta, writer)
         else:
-            self._dropbox_file_reader(relative_path, meta, writer)
+            self._dropbox_file_reader(self._relative_path(path), meta, writer)
 
     def _local_file_reader(self, path, meta, writer):
         file_path = os.path.join(LOCAL_DROPBOX_PATH, path)
@@ -83,20 +93,26 @@ class Command(NoArgsCommand):
             writer(path, f)
         os.unlink(temp.name)
 
-    def _storage_file_writer(self, path, f):
+    def _storage_image_writer(self, path, f):
         image, created = Image.objects.get_or_create(path=path)
         django_file = File(f)
         image.image.save(path, django_file)
 
+    def _storage_file_writer(self, path, f):
+        media_path = Image()._media_path(path)
+        django_file = File(f)
+        default_storage.save(media_path, django_file)
+
     def _delete_file(self, path):
         self.stdout.write("Deleting %s\n" % (path,))
 
-        relative_path = path[1:] if path[0] == '/' else path
+        # cleanup database image with this name, if any
         try:
-            image = Image.objects.get(path=relative_path)
+            image = Image.objects.get(path=self._relative_path(path))
             image.delete()
-
-            # workaround for bug https://code.djangoproject.com/ticket/6792
-            image.image.storage.delete(image.image.name)
         except Image.DoesNotExist, e:
             pass
+
+        # delete storage file with this name
+        media_path = Image()._media_path(path)
+        default_storage.delete(media_path)

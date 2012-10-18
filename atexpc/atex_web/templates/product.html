@@ -98,6 +98,7 @@
                     </div> <!-- product-right-sumar end -->
                     
                     <div class="product-section">
+                        {% if product.html_description %}
                     	<div class="tab_u_holder_left">
                             <span class="up_left"></span>
                                 <ul class="tab_up">
@@ -105,49 +106,9 @@
                                 </ul>
                             <span class="up_right"></span>
                         </div>
-                        <div class="descriere-html">
-                        	<div class="left-html">
-                            	<p>Un design subţire şi elegant, combinat cu adâncime 3D şi claritate incredibile este un mod sigur de a capta atenţia. 
-                                Monitorul LED 3D SA950 Samsung reuşeşte să facă exact acest lucru. Oferă imagini incredibil de clare, datorită tehnologiei 
-                                bazate pe motorul HyperReal 3D şi vitezei de 120 Hz, creând totodată şi imagini 3D mai luminoase. Printre alte funcţii se 
-                                numără Mega Dynamic Contrast Ratio şi Photo Accuracy 100%, care într-adevăr dau viaţă imaginilor. În timp ce Convertorul 
-                                3D încorporat şi diverse alte intrări asigură o experienţă a monitorului cu adevărat vastă. Adăugaţi şi modurile Eco Saving 
-                                de economisire cu noua caracteristică Energy Tree şi aveţi un monitor din generaţia următoare, perfect funcţional.</p>
-                                <h3>Treceţi la nivelul următor cu motorul HyperReal 3D</h3>
-                                <p>Samsung a atins cel mai înalt standard al imaginilor 3D extreme, datorită motorului intuitiv HyperReal 3D. Este o tehnologie
-                                ce funcţionează asemenea creierului, care permite monitorului 3D LED SA950 Samsung să controleze culoarea, contrastul, efectele 
-                                3D şi mişcarea, oferind rezultate incredibile. Imaginile 3D Full HD sunt atât de reale şi de clare, încât veţi avea o experienţă 
-                                captivantă şi în acelaşi timp confortabilă.</p>
-                                <h3>Vedeţi imaginile 2D într-o nouă dimensiune, cu un convertor 3D</h3>
-                                <img src="{{ STATIC_PREFIX }}images/html-l-01.jpg" height="316" width="646" alt="product picture"  />
-                                <h3>Surprindeţi fiecare detaliu cu Real 120 Hz</h3>
-                                <p>Monitorul 3D LED SA950 Samsung este pregătit să redefinească întregul dvs. univers de divertisment, datorită clarităţii 
-                                îmbunătăţite a imaginii Real 120 Hz. Imaginile vă vor surprinde cu uniformitatea şi claritatea precum cea a cristalului. 
-                                Indiferent că sunt 2D sau 3D, scenele de acţiune sau prim-planurile intime vor fi atât de naturale, încât vor părea reale. 
-                                Tehnologia Real 120 Hz se asigură că imaginile nu se pierd, iar secvenţele sunt foarte clare. Astfel, veţi avea o experienţă mai 
-                                comodă şi mai plăcută. Şi când adăugaţi şi luminozitatea uimitoare, această experienţă 3D vă va fermeca în întregime.</p>
-                                <h3>Percepeţi imaginile aşa cum doriţi cu ajutorul unghiurilor de vizualizare mai largi.</h3>
-                                <img src="{{ STATIC_PREFIX }}images/html-l-02.jpg" height="288" width="681" alt="product picture"  />
-                                <p>Cum vă place să urmăriţi filmele? Vă place să staţi întins pe canapea? Să staţi pe scaunul favorit? Să gătiţi sau să faceţi gimnastică? 
-                                Indiferent dacă staţi în picioare, aşezat sau culcat, Samsung Magic Angle se asigură că filmul se află întotdeauna în centrul atenţiei şi 
-                                că dvs. staţi tot timpul comod. Acest lucru înseamnă că, mulţumită administrării unghiurilor de vizualizare în 5 moduri, din orice unghi 
-                                veţi privi monitorul Samsung, vă veţi bucura de o experienţă vizuală completă şi de o claritate excepţională a imaginilor. Începeţi să 
-                                vizionaţi filmele preferate şi conţinutul multimedia bucurându-vă de un confort total şi fără restricţii, mulţumită Magic Angle.</p>
-                            </div>
-                            <div class="right-html">
-                            	<img src="{{ STATIC_PREFIX }}images/html-r-01.jpg" height="361" width="354" alt="product picture" />
-                                <p>Vizionarea imaginilor 2D în format 3D poate părea de domeniul fantasticului, însă cu Samsung, aceasta este o realitate extraordinară. 
-                                Prin apăsarea unui buton, Convertorul 3D Samsung transformă programele sau filmele dvs. favorite de la TV, adăugându-le o adâncime 3D 
-                                uimitoare. Conţinutul dvs. preferat 2D va fi reinventat. Cu caracteristica de reglare vizuală 3D, puteţi personaliza experienţa dvs. 3D 
-                                conform preferinţelor individuale. Este un nivel nou al confortului vizual.</p>
-                                <h3>Îmbogăţiţi-vă experienţa cu diverse intrări 3D</h3>
-                                <img src="{{ STATIC_PREFIX }}images/html-r-02.jpg" height="207" width="423" alt="product picture" />
-                                <p>De ce să daţi viaţă cu experienţa 3D doar filmelor dvs. preferate? Monitorul 3D LED SA950, cu gama sa variată de intrări, se asigură 
-                                că totul are adâncime 3D uimitoare, de la jocuri la discuţii online cu prietenii. Datorită diverselor intrări, de la conţinut AV la 
-                                conectivitatea 3D, cum ar fi DP, HDMI şi DVI, monitorul asigură compatibilitate mai mare cu orice conţinut.</p>
-                                <img src="{{ STATIC_PREFIX }}images/html-r-03.jpg" height="295" width="411" alt="product picture" />
-                            </div>
-                        </div>
+                        {{ product.html_description|safe }}
+                        {% endif %}
+
                         <div class="product-section">
                             <div class="tab_u_holder_left">
                                 <span class="up_left"></span>
@@ -251,8 +212,8 @@
                                 </ul>
                             </div>
                         </div>	
-                    </div>
+                    </div><!--product_section_end-->
                     
-            	</div><!--product_section_end--> 
-            </div><!--product_end-->    
+            	</div><!--product_end-->
+            </div> 
 {% endblock content_top %} 
