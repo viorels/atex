@@ -64,8 +64,8 @@
                          </div> 
                          <ul class="produse_top">
                             {% for product in hits %}
-                            <li {% if forloop.last %}class="last"{% endif %}> 
-                            	<a href="#" class="img-wrapper">
+                            <li {% if forloop.last %}class="last"{% endif %}>
+                                <a href="{{ product.url }}" class="img-wrapper">
                                     <div class="middle size100x100">
                                         <div class="img-holder">
                                             <img class="center" src="{{ product.images.0|thumbnail:"80x80" }}" width="80" height="80" alt="{{ product.name }}" title="{{ product.name }}" />
