@@ -21,12 +21,21 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'atexpc.atex_web',
+    'compressor',
     'gunicorn',
     'south',
     'storages',
     'sorl.thumbnail',
     'debug_toolbar',
 )
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_ENABLED = True
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 DEFAULT_FILE_STORAGE = STATICFILES_STORAGE

@@ -21,11 +21,20 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'atexpc.atex_web',
+    'compressor',
     'gunicorn',
     'south',
     'storages',
     'sorl.thumbnail',
 )
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_ENABLED = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
