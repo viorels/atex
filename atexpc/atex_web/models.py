@@ -122,6 +122,7 @@ class Dropbox(models.Model):
 
 
 class DropboxMedia(object):
+    products_path = "/Atex-media/products"
     products_path_re = r"/products/(?P<folder>[^/]+)/(?P<resource>[^/]+)(?P<other>/.*)?"
     max_path_length = 128 # TODO: introspect model
     local_dropbox_path = os.path.join(os.path.expanduser("~"), 'Dropbox')
@@ -149,6 +150,14 @@ class DropboxMedia(object):
             state.delta_cursor = new_cursor
             state.save()
         return state.delta_cursor
+
+    def create_product_folder(self, model):
+        name = Product(model=model).folder_name()
+        path = os.path.join(self.products_path, name)
+        try:
+            self._dropbox.file_create_folder(path)
+        except rest.ErrorResponse, e:
+            logger.error(e)
 
     def synchronize(self): # TODO: handle rate limit (503 errors)
         last_cursor = self._delta_cursor()
