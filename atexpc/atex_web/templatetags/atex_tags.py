@@ -1,6 +1,5 @@
 from django import template
 from django.conf import settings
-from atexpc.atex_web.models import NO_IMAGE
 from sorl.thumbnail import get_thumbnail
 
 register = template.Library()
@@ -8,7 +7,7 @@ register = template.Library()
 @register.filter
 def thumbnail(image, size):
     no_image_url = settings.STATIC_URL + "images/no-image-%s.jpg" % size
-    if image.image == NO_IMAGE:
+    if image.is_not_available():
         url = no_image_url
     else:
         try:
