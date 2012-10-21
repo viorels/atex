@@ -64,14 +64,9 @@
         <form method="GET" action="{% url search %}" class="search">
             <div class="search_bar">
                 <ul class="search_inputs">
-                    <li><input class="search" type="text" name="cuvinte" value="{{ search_keywords|default:"" }}" title="Caută produsul dorit ..." /></li>
+                    <li>{{ search_form.cuvinte }}</li>
                     <li class="search_category">
-                        <select name="cauta_in" class="categorii" title="Selectează categoria în care cauţi">
-                            <option value="">- Toate Categoriile -</option>
-                            {% for category in categories %}
-                            <option value="{{ category.id }}" {% if category.id == search_category_id %}selected{% endif %}>{{ category.name }}</option>
-                            {% endfor %}
-                        </select>
+                        {{ search_form.cauta_in }}
                     </li>    
                     <li><input type="image" name="cauta" src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Caută" title="Caută produsul dorit ..." /></li>
                 </ul>

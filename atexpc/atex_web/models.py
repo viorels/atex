@@ -2,6 +2,7 @@ import os
 import re
 import shutil
 from datetime import datetime, timedelta
+import string
 
 import pytz
 from django.conf import settings
@@ -11,10 +12,85 @@ from django.core.files.storage import get_storage_class
 from sorl.thumbnail import ImageField
 from dropbox import rest, session, client
 
-from atexpc.ancora_api.api import Ancora, AncoraAdapter, MockAdapter, MOCK_DATA_PATH
+from atexpc.ancora_api.api import Ancora, AncoraAdapter
 
 import logging
 logger = logging.getLogger(__name__)
+
+
+class AncoraMixin(object):
+    def __init__(self, *args, **kwargs):
+        super(AncoraMixin, self).__init__(*args, **kwargs)
+        self._ancora = Ancora(adapter=AncoraAdapter(settings.ANCORA_URI))
+
+class Categories(AncoraMixin):
+    def get_all(self):
+        if not hasattr(self, '_categories'):
+            # skip categories with code that begin with letters,
+            # e.g. "diverse" with code "XX"
+            self._categories = [category for category in self._ancora.categories()
+                                if category['code'].startswith(tuple(string.digits))]
+        return self._categories
+
+    def get_main(self):
+        return self.get_children(parent=None)
+
+    def get_children(self, parent=None):
+        """Return child categories for the specified category
+           or top categories if None specified"""
+        categories = [c for c in self.get_all() if c['parent'] == parent]
+        return categories
+
+    def get_category(self, category_id):
+        if category_id is None:
+            return None
+        all_categories = self.get_all()
+        categories = [c for c in all_categories if c['id'] == category_id]
+        if len(categories) == 1:
+            return categories[0]
+        else:
+            return None
+
+    def get_category_by_code(self, category_code):
+        if category_code is None:
+            return None
+        all_categories = self.get_all()
+        categories = [c for c in all_categories if c['code'] == category_code]
+        if len(categories) == 1:
+            return categories[0]
+        else:
+            return None 
+
+    def get_parent_category(self, category_id):
+        if category_id is None:
+            return None
+        category = self.get_category(category_id)
+        category_code_parts = category['code'].split('.')
+        parent_category_code_parts = category_code_parts[:-1]
+        if parent_category_code_parts:
+            parent_category_code = '.'.join(parent_category_code_parts)
+            parent_categories = [c for c in self.get_all() if c['code'] == parent_category_code]
+            if len(parent_categories) == 1:
+                parent_category = parent_categories[0]
+            else:
+                parent_category = None
+        else:
+            parent_category = None
+        return parent_category
+
+    def get_main_category_for(self, category_id):
+        """Returns the id of the top category that the argument belongs to"""
+        category = self.get_category(category_id)
+        parent_category_code = category['code'].split('.')[0]
+        return [c for c in self.get_all_categories() if c['code'] == parent_category_code][0]['id']
+
+    def get_selectors(self, category_id, selectors_active, price_min, price_max):
+        if not hasattr(self, '_selectors'):
+            self._selectors = self._ancora.selectors(
+                category_id, selectors_active,
+                price_min=price_min, price_max=price_max)
+        return self._selectors
+
 
 class StorageWithOverwrite(get_storage_class()):
     """Storage that unconditionally overwrites files"""
@@ -24,13 +100,31 @@ class StorageWithOverwrite(get_storage_class()):
         return name
 
 
-class ProductManager(models.Manager):
+class ProductManager(models.Manager, AncoraMixin):
+    def get_products(self, category_id, keywords, selectors,
+                     price_min, price_max, start, stop,
+                     stock, sort_by, sort_order):
+        return self._ancora.search_products(
+            category_id=category_id, keywords=keywords,
+            selectors=selectors, price_min=price_min,
+            price_max=price_max, start=start, stop=stop,
+            stock=stock, sort_by=sort_by, sort_order=sort_order)
+        
+    def get_product(self, product_id):
+        return self._ancora.product(product_id)
+
     def get_top_hits(self, limit=5):
         one_month_ago = datetime.now(pytz.utc).date() - timedelta(days=30)
         return (self.filter(hit__count__gte=1,
                             hit__date__gte=one_month_ago)
                     .annotate(month_count=models.Sum('hit__count'))
                     .order_by('-month_count')[:limit])
+
+    def get_recommended(self, limit):
+        return self._ancora.products_recommended(limit)
+
+    def get_sales(self, limit):
+        return self._ancora.products_sales(limit)
 
 
 class Product(models.Model):
@@ -87,6 +181,11 @@ class Product(models.Model):
         if not created:
             hit.count = models.F('count') + 1
             hit.save()
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('product', (), {'product_id': self.id,
+                                'slug': slugify(self.name)})
 
 
 class Image(models.Model):
@@ -243,89 +342,3 @@ class DropboxMedia(object):
         # delete storage file with this name
         media_path = Image()._media_path(path)
         StorageWithOverwrite().delete(media_path)
-
-
-class AncoraBackend(object):
-    def __init__(self):
-        mock = MockAdapter('file://%s' % MOCK_DATA_PATH)
-        ancora = AncoraAdapter(settings.ANCORA_URI)
-        self._api = Ancora(adapter=ancora)
-
-    def get_all_categories(self):
-        all_valid = [category for category in self._api.categories()
-                     if category['code'][0].isdecimal()] # skip "diverse" with code "XX"
-        return all_valid
-
-    def get_categories_in(self, parent=None):
-        categories = [c for c in self.get_all_categories() if c['parent'] == parent]
-        return categories
-
-    def get_category(self, category_id, all_categories=None):
-        if category_id is None:
-            return None
-        if all_categories is None:
-            all_categories = self.get_all_categories()
-        categories = [c for c in all_categories if c['id'] == category_id]
-        if len(categories) == 1:
-            return categories[0]
-        else:
-            return None
-
-    def get_category_by_code(self, category_code, all_categories=None):
-        if category_code is None:
-            return None
-        if all_categories is None:
-            all_categories = self.get_all_categories()
-        categories = [c for c in all_categories if c['code'] == category_code]
-        if len(categories) == 1:
-            return categories[0]
-        else:
-            return None 
-
-    def get_parent_category(self, category_id, all_categories=None):
-        if category_id is None:
-            return None
-        if all_categories is None:
-            all_categories = self.get_all_categories()
-        category = self.get_category(category_id, all_categories)
-        category_code_parts = category['code'].split('.')
-        parent_category_code_parts = category_code_parts[:-1]
-        if parent_category_code_parts:
-            parent_category_code = '.'.join(parent_category_code_parts)
-            parent_categories = [c for c in all_categories if c['code'] == parent_category_code]
-            if len(parent_categories) == 1:
-                parent_category = parent_categories[0]
-            else:
-                parent_category = None
-        else:
-            parent_category = None
-        return parent_category
-
-    def get_top_category_id(self, category_id):
-        category = self.get_category(category_id)
-        parent_category_code = category['code'].split('.')[0]
-        return [c for c in self.get_all_categories() if c['code'] == parent_category_code][0]['id']
-
-    def get_selectors(self, category_id, selectors_active, price_min, price_max):
-        return self._api.selectors(category_id, selectors_active,
-                                   price_min=price_min, price_max=price_max)
-
-    def get_products(self, category_id, keywords, selectors,
-                     price_min, price_max, start, stop,
-                     stock, sort_by, sort_order):
-        return self._api.search_products(category_id=category_id, keywords=keywords,
-                                         selectors=selectors, price_min=price_min,
-                                         price_max=price_max, start=start, stop=stop,
-                                         stock=stock, sort_by=sort_by, sort_order=sort_order)
-        
-    def get_product(self, product_id):
-        return self._api.product(product_id)
-
-    def get_recommended(self, limit):
-        return self._api.products_recommended(limit)
-
-    def get_sales(self, limit):
-        return self._api.products_sales(limit)
-
-ancora = AncoraBackend()
-

@@ -31,14 +31,16 @@
 {% endblock menu %}
 
 {% block banner_left %}{% endblock %}
-                
+
 {% block content_left %}
                 <div class="left_search">
-                    <input type="hidden" name="categorie" value="{{ category_id }}" />
+                    {{ search_form.categorie }}
+                    {% if selectors %}
                 	<div class="reset-sel">
                     	<input class="reset_sel_btn" id="uncheck" type="button" />
                         <span> Anuleaza toate selectiile </span>
                     </div>
+                    {% endif %}
                     {% for selector_group in selectors %}
                 	<ul class="selector_area">
                     	<li class="title_row">
@@ -67,14 +69,15 @@
                         {% endif %}
                     </ul>
                     {% endfor %}
-                    
+                    {% if selectors %}
                     <div class="reset-sel top15">
                 		<input class="reset_sel_btn" type="button" />
                     	<span> Anuleaza toate selectiile </span>
                 	</div>
+                    {% endif %}
                 </div>
 {% endblock content_left %}
-                
+                dulcikarea
 {% block content_right %}
                 <div class="filtrare_holder">
                     <div class="tab_d_holder">
@@ -87,15 +90,15 @@
                     <ul class="filtrare">
                     	<li>
                         	<span>Ordoneaza dupa: </span>
-                            {{ form.ordine }}
+                            {{ search_form.ordine }}
                         </li>
                         <li>
                         	<span>Nr produse pe pagina: </span>
-                            {{ form.pe_pagina }}
+                            {{ search_form.pe_pagina }}
                         </li>
                         <li>
                         	<span>Doar produsele din stoc: </span>
-                            <input name="stoc" type="checkbox" value="1" class="checkbox submit" {% if stock %}checked{% endif %}>
+                            {{ search_form.stoc }}
                         </li>
                     </ul>    
                 </div>
