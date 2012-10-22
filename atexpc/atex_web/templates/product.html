@@ -158,57 +158,25 @@
                             </div>
                             <div class="flleft">
                             	<ul class="recomandate">
-                                	<li>
-                                        <a href="#" class="img-wrapper">
+                                    {% for product in recommended %}
+                                    <li {% if forloop.last %}class="last"{% endif %}>
+                                        <a href="{{ product.url }}" class="img-wrapper">
                                             <div class="middle size130x130">
                                                 <div class="img-holder">
-                                                    <img class="center" src="{{ STATIC_PREFIX }}images/recomandat-01.jpg" width="108" height="95" alt="product name" title="product name" />
+                                                    <img class="center" src="{{ product.images.0|thumbnail:"100x100" }}" width="100" height="100" alt="{{ product.name }}" title="{{ product.name }}" />
                                                 </div>
                                             </div>
                                         </a>
                                         <div class="product-title">
-                                            <a href="#">Joystick si Gamepad Logitech 940-000111</a>
+                                            <a href="{{ product.url }}">{{ product.name }}</a>
                                         </div>   
                                         <ul>
-                                        	<li>Pret: <span class="pret">123.95 lei </span></li>
-                                            <li>Stoc: Disponibil la comanda</li>
-                                            <li>Garantie: 24 luni</li>
+                                        	<li>Pret: <span class="pret">{{ product.price }} lei</span></li>
+                                            <li>Stoc: {{ product.stock_info }}</li>
+                                            <li>Garantie: {{ product.warranty }} luni</li>
                                         </ul> 
                                     </li>
-                                    <li>
-                                        <a href="#" class="img-wrapper">
-                                            <div class="middle size130x130">
-                                                <div class="img-holder">
-                                                    <img class="center" src="{{ STATIC_PREFIX }}images/recomandat-02.jpg" width="125" height="88" alt="product name" title="product name" />
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <div class="product-title">
-                                            <a href="#">Imprimante LaserJet Samsung CLP-325</a>
-                                        </div>   
-                                        <ul>
-                                        	<li>Pret: <span class="pret">539.09 lei </span></li>
-                                            <li>Stoc: Disponibil in stoc</li>
-                                            <li>Garantie: 24 luni</li>
-                                        </ul> 
-                                    </li>
-                                    <li class="last">
-                                        <a href="#" class="img-wrapper">
-                                            <div class="middle size130x130">
-                                                <div class="img-holder">
-                                                    <img class="center" src="{{ STATIC_PREFIX }}images/recomandat-03.jpg" width="100" height="100" alt="product name" title="product name" />
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <div class="product-title">
-                                            <a href="#">USB Stick Corsair CMFVYGT3-32GB USB Stick Corsair CMFVYGT3-32GB</a>
-                                        </div>   
-                                        <ul>
-                                        	<li>Pret: <span class="pret">188.48 lei</span></li>
-                                            <li>Stoc: Disponibil la comanda</li>
-                                            <li>Garantie: 24 luni</li>
-                                        </ul> 
-                                    </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>	

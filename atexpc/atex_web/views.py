@@ -305,6 +305,7 @@ class SearchView(BreadcrumbsMixin, GenericView):
 
 class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
     template_name = "product.html"
+    recommended_limit = 3
 
     def get_product(self):
         if not hasattr(self, '_product'):
@@ -322,6 +323,13 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
             self._product = product
         return self._product
 
+    def get_recommended(self):
+        recommended = Product.objects.get_recommended(limit=self.recommended_limit)
+        for product in recommended:
+            product['images'] = Product(model=product['model']).images
+            product['url'] = _product_url(product)
+        return recommended
+
     def get_breadcrumbs(self):
         product = self.get_product()
         category = self.categories.get_category_by_code(product['category_code'])
@@ -334,7 +342,8 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
         return breadcrumbs
 
     def get_particular_context(self):
-        return {'product': self.get_product}
+        return {'product': self.get_product,
+                'recommended': self.get_recommended()}
 
 
 def _uri_with_args(base_uri, **new_args):
