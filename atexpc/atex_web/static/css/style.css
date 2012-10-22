@@ -982,13 +982,15 @@ ul.filtrare li span {
 	margin-right:0 !important;
 }
 .product_holder h2 a  {
-	font-weight:bold;
-	width:195px;
-	height:35px;
-	padding-top:5px;
-	overflow:hidden;
+	font-weight:bold;	
 	line-height:16px;
+}
+.product_holder h2 {
+	padding-top:5px;
 	float:left;
+	width:195px;
+	height:35px;	
+	overflow:hidden;
 }
 .product_holder h2 a:hover  { 
 	text-decoration:underline;
