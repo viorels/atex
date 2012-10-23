@@ -163,7 +163,7 @@
                                         <a href="{{ product.url }}" class="img-wrapper">
                                             <div class="middle size130x130">
                                                 <div class="img-holder">
-                                                    <img class="center" src="{{ product.images.0|thumbnail:"100x100" }}" width="100" height="100" alt="{{ product.name }}" title="{{ product.name }}" />
+                                                    <img class="center" src="{{ product.images.0|thumbnail:"100x100" }}" alt="{{ product.name }}" title="{{ product.name }}" />
                                                 </div>
                                             </div>
                                         </a>
@@ -172,7 +172,7 @@
                                         </div>   
                                         <ul>
                                         	<li>Pret: <span class="pret">{{ product.price }} lei</span></li>
-                                            <li>Stoc: {{ product.stock_info }}</li>
+                                            <li>Stoc: {{ product.stock_info|default:"?" }}</li>
                                             <li>Garantie: {{ product.warranty }} luni</li>
                                         </ul> 
                                     </li>
