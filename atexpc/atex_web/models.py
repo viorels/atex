@@ -9,6 +9,7 @@ from django.conf import settings
 from django.db import models
 from django.core.files import File, temp
 from django.core.files.storage import get_storage_class
+from django.template.defaultfilters import slugify
 from sorl.thumbnail import ImageField
 from dropbox import rest, session, client
 
@@ -184,6 +185,7 @@ class Product(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
+        # TODO: copy ancora_id to self.id, and store self.name on object
         return ('product', (), {'product_id': self.id,
                                 'slug': slugify(self.name)})
 
