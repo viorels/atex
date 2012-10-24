@@ -153,11 +153,18 @@ class HomeView(SearchMixin, GenericView):
 
     def get_hits(self):
         hits = []
-        for product_obj in Product.objects.get_top_hits(limit=self.top_limit):
-            product = Product.objects.get_product(product_obj.ancora_id)
-            product['images'] = product_obj.images
-            product['url'] = _product_url(product)
-            hits.append(product)
+        product_objects = Product.objects.get_top_hits(limit=self.top_limit)
+        product_ids = [p.ancora_id for p in product_objects]
+        products = Product.objects.get_product_list(product_ids)
+        print products
+        for product_obj in product_objects:
+            matching_in_backend = [p for p in products
+                                   if int(p['id']) == product_obj.ancora_id]
+            if matching_in_backend:
+                product = matching_in_backend[0]
+                product['images'] = product_obj.images
+                product['url'] = _product_url(product)
+                hits.append(product)
         return hits
     
     def get_recommended(self):

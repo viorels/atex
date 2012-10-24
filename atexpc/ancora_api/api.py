@@ -144,7 +144,7 @@ class Ancora(object):
 
         return selectors
 
-    def _base_products_uri(self, category_id):
+    def _base_products_uri(self, category_id=None):
         if category_id:
             base_products_uri = self._get_category_meta(category_id, 'products_uri')
         else:
@@ -208,6 +208,16 @@ class Ancora(object):
             self._post_process_product_list(json_root='promo_products'),
             timeout=TIMEOUT_NORMAL)
         return promotional
+
+    def product_list(self, product_ids):
+        args = {'zlista_id': ','.join(str(pid) for pid in product_ids)}
+        products_uri = self.adapter.uri_with_args(
+            self._base_products_uri(),
+            args)
+        products = self.adapter.read(products_uri,
+                                     self._post_process_product_list(),
+                                     timeout=TIMEOUT_SHORT)
+        return products
 
     def product(self, product_id):
         def post_process(data):

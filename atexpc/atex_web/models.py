@@ -110,6 +110,9 @@ class ProductManager(models.Manager, AncoraMixin):
             selectors=selectors, price_min=price_min,
             price_max=price_max, start=start, stop=stop,
             stock=stock, sort_by=sort_by, sort_order=sort_order)
+
+    def get_product_list(self, product_ids):
+        return self._ancora.product_list(product_ids).get('products')
         
     def get_product(self, product_id):
         return self._ancora.product(product_id)
