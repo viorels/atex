@@ -122,10 +122,10 @@ class ProductManager(models.Manager, AncoraMixin):
                     .order_by('-month_count')[:limit])
 
     def get_recommended(self, limit):
-        return self._ancora.products_recommended(limit)
+        return self._ancora.products_recommended(limit).get('products')
 
-    def get_sales(self, limit):
-        return self._ancora.products_sales(limit)
+    def get_promotional(self, limit):
+        return self._ancora.products_promotional(limit).get('products')
 
 
 class Product(models.Model):

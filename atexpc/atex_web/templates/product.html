@@ -173,7 +173,7 @@
                                         <ul>
                                         	<li>Pret: <span class="pret">{{ product.price }} lei</span></li>
                                             <li>Stoc: {{ product.stock_info|default:"?" }}</li>
-                                            <li>Garantie: {{ product.warranty }} luni</li>
+                                            <li>Garantie: {{ product.warranty|default_if_none:"?" }} luni</li>
                                         </ul> 
                                     </li>
                                     {% endfor %}

@@ -190,39 +190,24 @@ class Ancora(object):
         return products
 
     def products_recommended(self, limit):
-        def post_process(data):
-            json_root = 'recommended_products'
-            products = []
-            for product in data.get(json_root, []):
-                products.append({'id': product['zidprodus'],
-                                 'model': product['zmodel'],
-                                 'name': product['ztitlu'],
-                                 'price': product.get('zpret_site')})
-            return products
-
         recommended_uri = self.adapter.base_uri_with_args({
             'cod_formular': '740',
-            'start': 0,
-            'stop': limit})
-        recommended = self.adapter.read(recommended_uri, post_process, timeout=TIMEOUT_NORMAL)
+            'start': 0, 'stop': limit})
+        recommended = self.adapter.read(
+            recommended_uri,
+            self._post_process_product_list(json_root='recommended_products'),
+            timeout=TIMEOUT_NORMAL)
         return recommended
 
-    def products_sales(self, limit):
-        def post_process(data):
-            json_root = 'promo_products'
-            products = []
-            for product in data.get(json_root, []):
-                products.append({'id': product['zidprodus'],
-                                 'model': product['zmodel'],
-                                 'name': product['ztitlu'],
-                                 'price': product.get('zpret_site')})
-            return products
-
-        sales_uri = self.adapter.base_uri_with_args({'cod_formular': '737',
-                                                     'start': 0,
-                                                     'stop': limit})
-        sales = self.adapter.read(sales_uri, post_process, timeout=TIMEOUT_NORMAL)
-        return sales
+    def products_promotional(self, limit):
+        promotional_uri = self.adapter.base_uri_with_args({
+            'cod_formular': '737',
+            'start': 0, 'stop': limit})
+        promotional = self.adapter.read(
+            promotional_uri,
+            self._post_process_product_list(json_root='promo_products'),
+            timeout=TIMEOUT_NORMAL)
+        return promotional
 
     def product(self, product_id):
         def post_process(data):

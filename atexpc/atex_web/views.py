@@ -149,7 +149,7 @@ class HomeView(SearchMixin, GenericView):
     def get_particular_context(self):
         return {'hits': self.get_hits,
                 'recommended': self.get_recommended,
-                'sales': self.get_sales}
+                'promotional': self.get_promotional}
 
     def get_hits(self):
         hits = []
@@ -167,12 +167,12 @@ class HomeView(SearchMixin, GenericView):
             product['url'] = _product_url(product)
         return recommended
 
-    def get_sales(self):
-        sales = Product.objects.get_sales(limit=self.top_limit)
-        for product in sales:
+    def get_promotional(self):
+        promotional = Product.objects.get_promotional(limit=self.top_limit)
+        for product in promotional:
             product['images'] = Product(model=product['model']).images
             product['url'] = _product_url(product)
-        return sales
+        return promotional
 
 
 class SearchView(BreadcrumbsMixin, GenericView):
