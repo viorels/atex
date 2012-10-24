@@ -175,7 +175,7 @@ class Ancora(object):
         if stock:
             args['zstoc'] = 'D'
         if sort_by:
-            args['zsort'] = sort_by
+            args['zsort'] = {'pret': 'zpret_site'}.get(sort_by, '')
             args['zsort_order'] = sort_order
         products_uri = self.adapter.uri_with_args(base_products_uri, args)
 
