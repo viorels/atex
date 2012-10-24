@@ -144,25 +144,28 @@ class Ancora(object):
 
         return selectors
 
-    def search_products(self, category_id=None, keywords=None, selectors=None,
-                        price_min=None, price_max=None, start=None, stop=None,
-                        stock=None, sort_by=None, sort_order=None):
-        def post_process(data):
-            json_root = 'products'
-            products = []
-            for product in data.get(json_root, []):
-                products.append(self._post_process_product(product))
-            total_count = max(data.get('total_count', 0), len(products))
-            return {'products': products,
-                    'total_count': total_count}
-
+    def _base_products_uri(self, category_id):
         if category_id:
             base_products_uri = self._get_category_meta(category_id, 'products_uri')
         else:
             some_products_uri = self.categories()[0]['products_uri']
             base_products_uri = self.adapter.uri_with_args(some_products_uri,
                                                            {'idgrupa': None})
+        return base_products_uri
 
+    def _post_process_product_list(self, json_root='products'):
+        def post_process(data):
+            products = []
+            for product in data.get(json_root, []):
+                products.append(self._post_process_product(product))
+            total_count = max(data.get('total_count', 0), len(products))
+            return {'products': products,
+                    'total_count': total_count}
+        return post_process
+
+    def search_products(self, category_id=None, keywords=None, selectors=None,
+                        price_min=None, price_max=None, start=None, stop=None,
+                        stock=None, sort_by=None, sort_order=None):
         args = {'start': start,
                 'stop': stop}
         if selectors:
@@ -177,9 +180,13 @@ class Ancora(object):
         if sort_by:
             args['zsort'] = {'pret': 'zpret_site'}.get(sort_by, '')
             args['zsort_order'] = sort_order
-        products_uri = self.adapter.uri_with_args(base_products_uri, args)
+        products_uri = self.adapter.uri_with_args(
+            self._base_products_uri(category_id),
+            args)
 
-        products = self.adapter.read(products_uri, post_process, timeout=TIMEOUT_SHORT)
+        products = self.adapter.read(products_uri,
+                                     self._post_process_product_list(),
+                                     timeout=TIMEOUT_SHORT)
         return products
 
     def products_recommended(self, limit):
@@ -231,7 +238,7 @@ class Ancora(object):
     def _post_process_product(self, product):
         significant_price_decrease = 1.05
         if (float(product['zpret_site']) > 0
-            and float(product['zpret_site_old'])/float(product['zpret_site']) 
+            and float(product.get('zpret_site_old', 0))/float(product['zpret_site']) 
                 > significant_price_decrease):
             old_price = product['zpret_site_old']
         else:
@@ -239,9 +246,9 @@ class Ancora(object):
 
         category_code = product.get('zcod_grupa') # or zcodp for category listing
         is_available = re.match(r"[0-9.]+$", category_code) if category_code is not None else None
-        stock_info = 'In stoc' if product.get('zstoc', 0) else product['zinfo_stoc_site']
+        stock_info = 'In stoc' if product.get('zstoc', 0) else product.get('zinfo_stoc_site', '')
 
-        return {'id': product['pidm'],
+        return {'id': product.get('pidm') or product.get('zidprodus'),
                 'model': product['zmodel'],
                 'category_code': category_code,
                 'name': product['ztitlu'],
@@ -252,7 +259,7 @@ class Ancora(object):
                 'available': is_available,
                 'stock': product.get('zstoc', 0),
                 'stock_info': stock_info,
-                'warranty': product['zluni_garantie']}
+                'warranty': product.get('zluni_garantie')}
 
     def _get_category_meta(self, category_id, meta):
         categories = self.categories()
