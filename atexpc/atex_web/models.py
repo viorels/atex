@@ -1,8 +1,9 @@
 import os
 import re
 import shutil
-from datetime import datetime, timedelta
 import string
+from datetime import datetime, timedelta
+from operator import itemgetter
 
 import pytz
 from django.conf import settings
@@ -103,13 +104,36 @@ class StorageWithOverwrite(get_storage_class()):
 
 class ProductManager(models.Manager, AncoraMixin):
     def get_products(self, category_id, keywords, selectors,
-                     price_min, price_max, start, stop,
-                     stock, sort_by, sort_order):
+                     price_min, price_max, stock,
+                     start=None, stop=None, sort_by=None, sort_order=None):
         return self._ancora.search_products(
-            category_id=category_id, keywords=keywords,
-            selectors=selectors, price_min=price_min,
-            price_max=price_max, start=start, stop=stop,
-            stock=stock, sort_by=sort_by, sort_order=sort_order)
+            category_id=category_id, keywords=keywords, selectors=selectors,
+            price_min=price_min, price_max=price_max, stock=stock,
+            start=start, stop=stop, sort_by=sort_by, sort_order=sort_order)
+
+    def get_products_with_hits(self, category_id, keywords, selectors,
+                     price_min, price_max, stock,
+                     start=None, stop=None, sort_by=None, sort_order=None):
+        products_info = self._ancora.search_products(
+            category_id=category_id, keywords=keywords, selectors=selectors,
+            price_min=price_min, price_max=price_max, stock=stock)
+        products = products_info.get('products')
+        product_ids = [int(product['id']) for product in products]
+        product_objs = dict((p.ancora_id, p)
+                            for p in self.filter(ancora_id__in=product_ids,
+                                                 hit__date__gte=self._one_month_ago())
+                                         .annotate(month_count=models.Sum('hit__count'))
+                                         .all())
+        # product_objs = (self.filter(hit__date__gte=self._one_month_ago())
+        #             .annotate(month_count=models.Sum('hit__count'))
+        #             .in_bulk(product_ids))
+        for product in products:
+            product_obj = product_objs.get(int(product['id']))
+            product['hits'] = product_obj.month_count if product_obj else 0
+
+        products.sort(key=itemgetter('hits'), reverse=True)
+        return {'products': products[start:stop],
+                'total_count': products_info['total_count']}
 
     def get_product_list(self, product_ids):
         return self._ancora.product_list(product_ids).get('products')
@@ -118,9 +142,8 @@ class ProductManager(models.Manager, AncoraMixin):
         return self._ancora.product(product_id)
 
     def get_top_hits(self, limit=5):
-        one_month_ago = datetime.now(pytz.utc).date() - timedelta(days=30)
         return (self.filter(hit__count__gte=1,
-                            hit__date__gte=one_month_ago)
+                            hit__date__gte=self._one_month_ago())
                     .annotate(month_count=models.Sum('hit__count'))
                     .order_by('-month_count')[:limit])
 
@@ -129,6 +152,9 @@ class ProductManager(models.Manager, AncoraMixin):
 
     def get_promotional(self, limit):
         return self._ancora.products_promotional(limit).get('products')
+
+    def _one_month_ago(self):
+        return datetime.now(pytz.utc).date() - timedelta(days=30)
 
 
 class Product(models.Model):

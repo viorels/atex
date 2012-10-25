@@ -246,13 +246,21 @@ class SearchView(BreadcrumbsMixin, GenericView):
     def get_products_page(self):
         if not hasattr(self, '_products_page'):
             args = self.get_search_args()
-            get_products_range = (lambda start, stop:
-                Product.objects.get_products(
-                    category_id=args['category_id'], keywords=args['keywords'],
-                    selectors=args['selectors_active'], price_min=args['price_min'], 
-                    price_max=args['price_max'], stock=args['stock'],
-                    start=start, stop=stop,
-                    sort_by=args['sort_by'], sort_order=args['sort_order']))
+            if args['sort_by'] == "vanzari":
+                get_products_range = (lambda start, stop:
+                    Product.objects.get_products_with_hits(
+                        category_id=args['category_id'], keywords=args['keywords'],
+                        selectors=args['selectors_active'], price_min=args['price_min'], 
+                        price_max=args['price_max'], stock=args['stock'],
+                        start=start, stop=stop))
+            else:
+                get_products_range = (lambda start, stop:
+                    Product.objects.get_products(
+                        category_id=args['category_id'], keywords=args['keywords'],
+                        selectors=args['selectors_active'], price_min=args['price_min'], 
+                        price_max=args['price_max'], stock=args['stock'],
+                        start=start, stop=stop,
+                        sort_by=args['sort_by'], sort_order=args['sort_order']))
             self._products_page = self._get_page(
                 get_products_range, per_page=args['per_page'],
                 current_page=args['current_page'],
