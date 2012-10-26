@@ -154,12 +154,11 @@ class HomeView(SearchMixin, GenericView):
     def get_hits(self):
         hits = []
         product_objects = Product.objects.get_top_hits(limit=self.top_limit)
-        product_ids = [p.ancora_id for p in product_objects]
+        product_ids = [p.id for p in product_objects]
         products = Product.objects.get_product_list(product_ids)
-        print products
         for product_obj in product_objects:
             matching_in_backend = [p for p in products
-                                   if int(p['id']) == product_obj.ancora_id]
+                                   if int(p['id']) == product_obj.id]
             if matching_in_backend:
                 product = matching_in_backend[0]
                 product['images'] = product_obj.images
@@ -326,7 +325,9 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
         if not hasattr(self, '_product'):
             product_id = self.kwargs['product_id']
             product = Product.objects.get_product(product_id)
-            product_obj = Product(model=product['model'])
+            product_obj, __ = Product.objects.get_or_create(
+                id=int(product['id']),
+                defaults={'model': product['model']})
             product['images'] = product_obj.images()
             html_template = product_obj.html_description()
             if html_template:
@@ -334,7 +335,8 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
                 context = Context({'PRODUCT_PREFIX': product_prefix})
                 product['html_description'] = Template(html_template).render(context)
 
-            _product_storage(product).hit()
+            product_obj.hit()
+
             self._product = product
         return self._product
 
@@ -394,13 +396,3 @@ def _category_url(category):
 
 def _category_level(category):
     return category['code'].count('.') + 1
-
-def _product_storage(product):
-    ancora_id = int(product['id'])
-    product_info = {'ancora_id': ancora_id}
-    product_obj, created = Product.objects.get_or_create(model=product['model'],
-                                                         defaults=product_info)
-    if not created and not product_obj.ancora_id:
-        product_obj.ancora_id = ancora_id
-        product_obj.save()
-    return product_obj

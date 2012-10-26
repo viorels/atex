@@ -119,14 +119,9 @@ class ProductManager(models.Manager, AncoraMixin):
             price_min=price_min, price_max=price_max, stock=stock)
         products = products_info.get('products')
         product_ids = [int(product['id']) for product in products]
-        product_objs = dict((p.ancora_id, p)
-                            for p in self.filter(ancora_id__in=product_ids,
-                                                 hit__date__gte=self._one_month_ago())
-                                         .annotate(month_count=models.Sum('hit__count'))
-                                         .all())
-        # product_objs = (self.filter(hit__date__gte=self._one_month_ago())
-        #             .annotate(month_count=models.Sum('hit__count'))
-        #             .in_bulk(product_ids))
+        product_objs = (self.filter(hit__date__gte=self._one_month_ago())
+                            .annotate(month_count=models.Sum('hit__count'))
+                            .in_bulk(product_ids))
         for product in products:
             product_obj = product_objs.get(int(product['id']))
             product['hits'] = product_obj.month_count if product_obj else 0
@@ -159,7 +154,6 @@ class ProductManager(models.Manager, AncoraMixin):
 
 class Product(models.Model):
     model = models.CharField(max_length=64, unique=True)
-    ancora_id = models.IntegerField(null=True)
 
     objects = ProductManager()
 
@@ -214,7 +208,7 @@ class Product(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        # TODO: copy ancora_id to self.id, and store self.name on object
+        # TODO: store self.name on object
         return ('product', (), {'product_id': self.id,
                                 'slug': slugify(self.name)})
 
