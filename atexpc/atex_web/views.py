@@ -188,6 +188,8 @@ class SearchView(BreadcrumbsMixin, GenericView):
         return {'search_form': self.get_search_form,
                 'selectors': self.get_selectors,
                 'selectors_active': lambda: self.get_search_args()['selectors_active'],
+                'price_min': lambda: self.get_search_args()['price_min'],
+                'price_max': lambda: self.get_search_args()['price_max'],
                 'products': self.get_products(),
                 'pagination': self.get_pagination}
 
