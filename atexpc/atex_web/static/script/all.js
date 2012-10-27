@@ -108,7 +108,10 @@ function init_filters() {
         }
     });
 
-	$('.reset_sel_btn').click(uncheck_filters);
+	$('.reset_sel_btn').click(function () {
+        uncheck_filters();
+        return false
+    });
 }
 
 function uncheck_filters() {

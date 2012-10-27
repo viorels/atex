@@ -359,7 +359,7 @@ ul.search_inputs input.hint {
 	margin-top:15px;
 }
 .reset_sel_btn {
-	width:23px;
+	padding: 6px 30px;
 	height:23px;
 	border:0;
 	outline:none;

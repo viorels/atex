@@ -39,8 +39,7 @@
                     {{ search_form.categorie }}
                     {% if selectors %}
                 	<div class="reset-sel">
-                    	<input class="reset_sel_btn" id="uncheck" type="button" />
-                        <span> Anuleaza toate selectiile </span>
+                    	<a href="#" class="reset_sel_btn" id="uncheck">Anuleaza toate selectiile</a>
                     </div>
                     {% endif %}
                     {% for selector_group in selectors %}
@@ -73,8 +72,7 @@
                     {% endfor %}
                     {% if selectors %}
                     <div class="reset-sel top15">
-                		<input class="reset_sel_btn" type="button" />
-                    	<span> Anuleaza toate selectiile </span>
+                		<a href="#" class="reset_sel_btn" id="uncheck">Anuleaza toate selectiile</a>
                 	</div>
                     {% endif %}
                 </div>
