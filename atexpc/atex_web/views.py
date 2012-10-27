@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.template import Context, Template
 from django.views.generic.base import TemplateView
+from django.contrib.sites.models import get_current_site
 from django.conf import settings
 
 from models import Product, Categories
@@ -26,7 +27,8 @@ class GenericView(TemplateView):
     def get_general_context(self):
         return {'menu': self.get_menu,
                 'categories': self.categories.get_main,
-                'footer': self.get_footer}
+                'footer': self.get_footer,
+                'site_info': self.get_site_info}
 
     def get_particular_context(self):
         return {}
@@ -99,6 +101,22 @@ class GenericView(TemplateView):
                  'url': _category_url(category)}
                 for category in self.categories.get_all()
                 if _category_level(category) >= 2 and category['count'] > 0]
+
+    def get_site_info(self):
+        current_site = get_current_site(self.request)
+        company_name = {
+            'atexpc.ro': "ATEX Computer SRL",
+            'atexsolutions.ro': "ATEX Solutions SRL-D",
+            'atex.nul.ro': "ATEX Test LLC"
+        }
+        site_info = {
+            'name': current_site.name,
+            'domain': current_site.domain,
+            'company': company_name.get(current_site.domain, current_site.name),
+            'web_address': "www.%s" % current_site.domain,
+            'logo_url': "%simages/logo-%s.png" % (settings.STATIC_URL, current_site.domain)
+        }
+        return site_info
 
 
 class BreadcrumbsMixin(object):

@@ -16,7 +16,7 @@
 <script src="{{ STATIC_PREFIX }}script/jquery.exposure.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/all.js" type="text/javascript"></script>
 {% endcompress %}
-<title>{% block title %}ATEX{% endblock %}</title>
+<title>{% block title %}{{ site_info.name }}{% endblock %}</title>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
 	<div class="page_wrapper clear" id="wrap2">
     	<div class="header">
         	<div class="logo">
-            	<a href="{% url home %}"><img src="{{ STATIC_PREFIX }}images/atex-logo.png" width="300" height="100" alt="atex logo" title="www.atexpc.ro" name="www.atexpc.ro"/></a>
+            	<a href="{% url home %}"><img src="{{ site_info.logo_url }}" width="300" height="100" alt="atex logo" title="{{ site_info.web_address }}" name="{{ site_info.web_address }}"/></a>
             </div>
             <div class="login_holder">
             	<span class="down_left"></span>
@@ -136,7 +136,7 @@
                 <li><a href="#">Harta site</a></li>
                 <li><a href="{% url contact %}">Contact</a></li>
             </ul>
-            <span class="copyright">Copyright &copy; 2012 ATEX Solutions SRL-D</span>
+            <span class="copyright">Copyright &copy; {% now "Y" %} {{ site_info.company }}</span>
         </div>
     </div>
 </div>

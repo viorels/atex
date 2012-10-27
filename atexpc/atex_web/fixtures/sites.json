@@ -1,0 +1,24 @@
+[{
+    "pk": 1, 
+    "model": "sites.site", 
+    "fields": {
+        "domain": "atexpc.ro", 
+        "name": "ATEX"
+    }
+},
+{
+    "pk": 2, 
+    "model": "sites.site", 
+    "fields": {
+        "domain": "atexsolutions.ro", 
+        "name": "ATEX Solutions"
+    }
+},
+{
+    "pk": 3, 
+    "model": "sites.site", 
+    "fields": {
+        "domain": "atex.nul.ro", 
+        "name": "ATEX Test"
+    }
+}]
