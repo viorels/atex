@@ -22,6 +22,7 @@ DATABASES = {
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
+    # XXX: overridden in environment specific file in "config" directory
 }
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -102,6 +103,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # XXX: overridden in environment specific file in "config" directory
 )
 
 # Make this unique, and don't share it with anybody.
@@ -122,6 +124,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # XXX: overridden in environment specific file in "config" directory
 )
 
 ROOT_URLCONF = 'atexpc.urls'
@@ -146,6 +149,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    # XXX: overridden in environment specific file in "config" directory
 )
 
 # A sample logging configuration. The only tangible logging

@@ -20,6 +20,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'atexpc.atex_web.tools.dynamicsite.DynamicSiteIDMiddleware'
 )
 
 INSTALLED_APPS = (
