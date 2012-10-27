@@ -69,13 +69,6 @@ function init_filters() {
 	var checkboxes = filter_form.find('input[type=checkbox]')
     var dropdowns = filter_form.find('ul.filtrare select')
 
-	function toggle_price() {
-		var price_checkbox = $('input.checkbox[name="pret"]');
-		var price_enabled = price_checkbox.parent().hasClass('selected');
-		$(".price_selector input").attr("disabled", !price_enabled);
-		return price_enabled;
-	}
-
 	checkboxes.each(function() {
 		var checkbox = $(this)
 		checkbox.wrap(function() {
@@ -114,14 +107,22 @@ function init_filters() {
     });
 }
 
+function toggle_price() {
+    var price_checkbox = $('input.checkbox[name="pret"]');
+    var price_enabled = price_checkbox.parent().hasClass('selected');
+    $(".price_selector input").attr("disabled", !price_enabled);
+    return price_enabled;
+}
+
 function uncheck_filters() {
 	var search_form = $("form.search");
-	var checkboxes = search_form.find('input[type=checkbox]')	
+	var checkboxes = search_form.find('input[type=checkbox]')
 	checkboxes.each(function () {
 		var checkbox = $(this);
 		checkbox.parent().removeClass('selected');
 		checkbox.removeAttr('checked')
 	});
+    toggle_price();
 	search_form.submit();
 }
 
