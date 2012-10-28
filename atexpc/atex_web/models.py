@@ -161,12 +161,12 @@ class Product(models.Model):
     image_extensions = ('.jpg', '.jpeg', '.png', '.gif', '.bmp')
     html_extensions = ('.html', '.htm')
 
-    def _folder_name(self):
+    def folder_name(self):
         folder = re.sub(r'[<>:"|?*/\\]', "-", self.model)
         return folder
 
     def folder_path(self):
-        return os.path.join(self.media_folder, self._folder_name())
+        return os.path.join(self.media_folder, self.folder_name())
 
     def _file_path(self, name):
         return os.path.join(self.folder_path(), name)
@@ -278,8 +278,7 @@ class DropboxMedia(object):
             state.save()
         return state.delta_cursor
 
-    def create_product_folder(self, model):
-        name = Product(model=model).folder_name()
+    def create_product_folder(self, name):
         path = os.path.join(self.products_path, name)
         try:
             self._dropbox.file_create_folder(path)
