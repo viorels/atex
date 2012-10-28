@@ -108,7 +108,7 @@ class GenericView(TemplateView):
         company_name = {
             'atexpc.ro': "ATEX Computer SRL",
             'atexsolutions.ro': "ATEX Solutions SRL-D",
-            'atex.nul.ro': "ATEX Test LLC"
+            'atex.nul.ro': "ATEX Computer SRL"
         }
         site_info = {
             'name': current_site.name,
@@ -393,6 +393,14 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
                 'properties': self.get_properties,
                 'recommended': self.get_recommended}
 
+
+class ContactView(BreadcrumbsMixin, GenericView):
+    def get_template_names(self):
+        domain = get_current_site(self.request).domain
+        return "contact-%s.html" % domain
+
+    def get_breadcrumbs(self):
+        return [{'name': "Contact"}]
 
 def _uri_with_args(base_uri, **new_args):
     """Overwrite specified args in base uri. If any other multiple value args
