@@ -394,7 +394,7 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
                 'recommended': self.get_recommended}
 
 
-class ContactView(BreadcrumbsMixin, GenericView):
+class ContactView(BreadcrumbsMixin, SearchMixin, GenericView):
     def get_template_names(self):
         domain = get_current_site(self.request).domain
         return "contact-%s.html" % domain
