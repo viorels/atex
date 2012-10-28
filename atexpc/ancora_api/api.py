@@ -254,7 +254,14 @@ class Ancora(object):
                 'available': is_available,
                 'stock': product.get('zstoc', 0),
                 'stock_info': stock_info,
-                'warranty': product.get('zluni_garantie')}
+                'warranty': product.get('zluni_garantie'),
+                'properties': self._product_properties(product.get('zselectori', []))}
+
+    def _product_properties(self, selectors):
+        properties = {}
+        for selector in selectors:
+            properties[selector['zdenumire']] = selector['zvalori']
+        return properties
 
     def _get_category_meta(self, category_id, meta):
         categories = self.categories()

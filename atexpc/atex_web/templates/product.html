@@ -118,34 +118,16 @@
                                 <span class="up_right"></span>
                             </div>
                             <div class="flleft">
-                            	<ul class="specificatii-tehnice">
-                                	<li class="title">Ecran</li>
-                                    <li>Dimensiune ecran: 27"</li>
-                                    <li>Luminozitate: 300</li>
-                                    <li>Contrast: MEGA DCR ∞ (Static CR 1000:1)</li>
-                                    <li>Rezoluţie ecran: 1920 x 1080</li>
-                                    <li>Timp de răspuns:  2 ms (GTG) </li>
-                                    <li>Unghi de vizualizare (Orizontal / Vertical):  170° / 160°</li>
-                                    <li>Culoare suport ecran:  16,7 milioane </li>
+                                {% for group in properties %}
+                            	<ul class="specificatii-tehnice {% if forloop.last %}last{% endif %}">
+                                    {% for property, values in group %}
+                                	<li class="title">{{ property }}</li>
+                                        {% for value in values %}
+                                        <li>{{ value }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
                                 </ul>
-                                <ul class="specificatii-tehnice">
-                                	<li class="title">Intrare semnal</li>
-                                    <li>Semnal video: DisplayPort, HDMI, DVI-D (Dual Link) </li>
-                                    <li class="title">Dimensiune</li>
-                                    <li>Dimensiune produs (cu suport, L x H x l): 621 x 474 x 185,5 mm</li>
-                                    <li class="title">General Feature</li>
-                                    <li>DDC 2B Plug&Play  </li>
-                                    <li>Culoare carcasă: Argintiu </li>
-                                </ul>
-                                <ul class="specificatii-tehnice last">
-                                	<li class="title">Design</li>
-                                    <li>Suport înclinat</li>
-                                    <li class="title">Alimentare</li>
-                                    <li>Consum: 56 W </li>
-                                    <li>Adaptor extern pentru tipul de alimentare al monitorului </li>
-                                    <li class="title">Greutate</li>                                   
-                                    <li>Greutate pachet: 9,1 kg</li>
-                                </ul>
+                                {% endfor %}
                             </div>
                         </div>	
                         <div class="product-section">

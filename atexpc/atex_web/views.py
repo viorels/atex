@@ -2,6 +2,7 @@ import re
 import math
 import os
 from operator import itemgetter
+from itertools import groupby
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 
@@ -360,6 +361,15 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
             self._product = product
         return self._product
 
+    def get_properties(self):
+        items = sorted(self.get_product().get('properties', {}).items())
+        def group_in(n):
+            return [[item for i, item in group] for i, group
+                    in groupby(sorted((i%n, item) for i, item 
+                                      in enumerate(items)),
+                               itemgetter(0))]
+        return group_in(3)
+
     def get_recommended(self):
         recommended = Product.objects.get_recommended(limit=self.recommended_limit)
         for product in recommended:
@@ -380,7 +390,8 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
 
     def get_particular_context(self):
         return {'product': self.get_product,
-                'recommended': self.get_recommended()}
+                'properties': self.get_properties,
+                'recommended': self.get_recommended}
 
 
 def _uri_with_args(base_uri, **new_args):
