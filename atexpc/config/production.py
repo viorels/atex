@@ -23,6 +23,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'atexpc.atex_web',
+    'django.contrib.admin',
     'compressor',
     'gunicorn',
     'south',

@@ -212,6 +212,9 @@ class Product(models.Model):
         return ('product', (), {'product_id': self.id,
                                 'slug': slugify(self.name)})
 
+    def __unicode__(self):
+        return self.model
+
 
 class Image(models.Model):
     def _media_path(instance, filename):
