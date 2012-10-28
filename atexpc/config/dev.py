@@ -2,6 +2,8 @@ import os
 
 INTERNAL_IPS = ('127.0.0.1',)
 
+SITE_ID = 1
+
 CONFIG_PATH = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.normpath(os.path.join(CONFIG_PATH, os.pardir))
 
@@ -20,7 +22,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'atexpc.atex_web.tools.dynamicsite.DynamicSiteIDMiddleware'
+#    'atexpc.atex_web.tools.dynamicsite.DynamicSiteIDMiddleware'
 )
 
 INSTALLED_APPS = (
