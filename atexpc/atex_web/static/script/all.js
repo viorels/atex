@@ -133,19 +133,17 @@ function show_rezumat() {
 		$(".show_rezumat").slideToggle();
 	});
 }
-function calculate_height (){
+function calculate_height(){
   getDocHeight = Math.max($(document).height(),$(window).height(),document.documentElement.clientHeight);  
-  bottomHeight = $('.content-bottom').height();
-  footerHeight = $('.footer_wrapper').height();
   docHeight = $(document).height();
-  viewHeight = $(window).height();
+  viewHeight = $(window).height();  
+  bottomHeight = $('.content-bottom').height();
+  footerHeight = $('.footer_wrapper').height(); 
   content_wrapper_h = $('.content_wrapper').height();
   header_h = $('.header').height();
   search_bar_h = $('.search_bar').height();
-  content_bottom_h = $('.content-bottom').height();
-  titlu_top_h = $('.titlu_top').height();
-  content_h = content_wrapper_h + header_h + search_bar_h + content_bottom_h;  
-  viewHeight_new = viewHeight - footerHeight - titlu_top_h;
+  content_h = content_wrapper_h + header_h + search_bar_h + bottomHeight + footerHeight;  
+  viewHeight_new = viewHeight - footerHeight;
   docHeight_new = docHeight - bottomHeight;
   if (viewHeight >= content_h) {
     $('#wrap1').css('height', getDocHeight);
@@ -162,7 +160,7 @@ $(document).ready(function()
 	init_filters();
 	show_rezumat();	
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
-	calculate_height ();
+	if ($(window).width() > 480) {calculate_height();};
 
     var search_form = $("form.search");
     var search_input = $(".search_inputs .search");

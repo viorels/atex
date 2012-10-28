@@ -1178,21 +1178,38 @@ background-color:#c62123;
 }
 .descriere-html h3 {
 	font-size:18px;
-	line-height:50px;
+	line-height:20px;
+	padding:20px 0px;
 	text-align:left;
 }
 .descriere-html p {
 	text-align:left;
+	padding:5px 0px;
 }
 .descriere-html .left-html {
 	width:675px;
 	padding-right:5px;
 	float:left;
 }
+.descriere-html .left-html img {
+	max-width:675px;
+}
 .descriere-html .right-html {
 	width:395px;
 	padding-left:5px;
 	float:right;
+}
+.descriere-html .right-html img {
+	max-width:395px;
+}
+.descriere-html .one_col {
+	width:1080px;
+	float:left;
+}
+.descriere-html .one_col img {
+	max-width:1060px;
+	margin:10px;
+	float:left;
 }
 .specificatii-tehnice {
 	width:360px;
