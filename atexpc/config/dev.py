@@ -37,6 +37,8 @@ INSTALLED_APPS = (
 #    'storages',
     'sorl.thumbnail',
     'debug_toolbar',
+    'django.contrib.admin'
+
 )
 
 STATICFILES_FINDERS = (
