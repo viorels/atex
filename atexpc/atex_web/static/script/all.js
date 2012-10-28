@@ -158,7 +158,8 @@ $(document).ready(function()
 {
 	init_gallery();
 	init_filters();
-	show_rezumat();	
+	show_rezumat();
+    init_beta();
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {calculate_height();};
 
@@ -172,3 +173,14 @@ $(document).ready(function()
     var newsletter_hint = newsletter_input.attr("title")
     init_input_hint(newsletter_form, newsletter_input, newsletter_hint);
 });
+
+function init_beta() {
+    $(".login_holder li, .info_cos li, .search_bar .configurator, " +
+      ".product_holder .add_cos_btn, .email-wrapper .email_btn").click(work_in_progress);
+}
+
+function work_in_progress() {
+    alert("Inca se lucreaza :) . Pentru comenzi apelati 0264-599009 " + 
+          "sau trimiteti mail la office@atexpc.ro. Multumim !");
+    return false;
+}
