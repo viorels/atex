@@ -176,7 +176,7 @@ $(document).ready(function()
 
 function init_beta() {
     $(".login_holder li, .info_cos li, .search_bar .configurator, " +
-      ".product_holder .add_cos_btn, .email-wrapper .email_btn").click(work_in_progress);
+      ".add_cos_btn, .email-wrapper .email_btn").click(work_in_progress);
 }
 
 function work_in_progress() {
