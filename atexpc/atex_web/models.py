@@ -8,6 +8,7 @@ from operator import itemgetter
 import pytz
 from django.conf import settings
 from django.db import models
+from django.db.models.query import QuerySet
 from django.core.files import File, temp
 from django.core.files.storage import get_storage_class
 from django.template.defaultfilters import slugify
@@ -100,6 +101,21 @@ class StorageWithOverwrite(get_storage_class()):
     def get_available_name(self, name):
         self.delete(name)
         return name
+
+
+class CustomQuerySetManager(models.Manager):
+    """A re-usable Manager to access a custom QuerySet
+       !!! Warning: __getattr__ might slow down .only and .defer
+       http://stackoverflow.com/a/5932538
+    """
+    def __getattr__(self, attr, *args):
+        try:
+            return getattr(self.__class__, attr, *args)
+        except AttributeError:
+            return getattr(self.get_query_set(), attr, *args)
+
+    def get_query_set(self):
+        return self.model.QuerySet(self.model)
 
 
 class ProductManager(models.Manager, AncoraMixin):
