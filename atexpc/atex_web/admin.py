@@ -27,7 +27,7 @@ class ImageCountListFilter(SimpleListFilter):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('model', 'folder_name', 'hit_count', 'image_count')
     search_fields = ('^model',)
-    # list_filter = (ImageCountListFilter,)
+    list_filter = (ImageCountListFilter,)
     readonly_fields = ('model',)
     actions = ('create_dropbox_folder',)
 
@@ -49,12 +49,12 @@ class ProductAdmin(admin.ModelAdmin):
     hit_count.admin_order_field = 'hit_count'
 
     def image_count(self, obj):
-        # TODO: use image_count (from database)
-        count = len(obj.image_files())
+        count = obj.image_count
         if count > 0:
             return count
         else:
             return '<span style="color:#DF0101">%d</span>' % count
+    image_count.admin_order_field = 'image_count'
     image_count.allow_tags = True
 admin.site.register(Product, ProductAdmin)
 
