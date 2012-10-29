@@ -138,7 +138,7 @@ class ProductManager(models.Manager, AncoraMixin):
 
     def get_top_hits(self, limit=5):
         return (self.filter(hit__count__gte=1,
-                            hit__date__gte=self._one_month_ago())
+                            hit__date__gte=self.one_month_ago())
                     .annotate(month_count=models.Sum('hit__count'))
                     .order_by('-month_count')[:limit])
 
@@ -148,7 +148,7 @@ class ProductManager(models.Manager, AncoraMixin):
     def get_promotional(self, limit):
         return self._ancora.products_promotional(limit).get('products')
 
-    def _one_month_ago(self):
+    def one_month_ago(self):
         return datetime.now(pytz.utc).date() - timedelta(days=30)
 
 
@@ -178,11 +178,14 @@ class Product(models.Model):
             files = []
         return files
 
-    def images(self):
+    def image_files(self):
         files = self._product_files()
-        image_files = [name for name in files if name.endswith(self.image_extensions)]
+        return [name for name in files if name.endswith(self.image_extensions)]
+
+    def images(self):
+        image_files = sorted(self._image_files())
         if len(image_files):
-            images = [Image(image=self._file_path(name)) for name in sorted(image_files)]
+            images = [Image(image=self._file_path(name)) for name in image_files]
         else:
             images = [Image.not_available()]
         return images
@@ -208,9 +211,9 @@ class Product(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        # TODO: store self.name on object
+        # TODO: store self.name on object and use it in url
         return ('product', (), {'product_id': self.id,
-                                'slug': slugify(self.name)})
+                                'slug': slugify(self.model)})
 
     def __unicode__(self):
         return self.model
