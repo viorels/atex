@@ -2,7 +2,7 @@
     "pk": 1, 
     "model": "sites.site", 
     "fields": {
-        "domain": "atexpc.ro", 
+        "domain": "www.atexpc.ro", 
         "name": "ATEX"
     }
 },
@@ -10,7 +10,7 @@
     "pk": 2, 
     "model": "sites.site", 
     "fields": {
-        "domain": "atexsolutions.ro", 
+        "domain": "www.atexsolutions.ro", 
         "name": "ATEX Solutions"
     }
 },

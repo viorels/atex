@@ -105,19 +105,23 @@ class GenericView(TemplateView):
 
     def get_site_info(self):
         current_site = get_current_site(self.request)
+        base_domain = self._get_base_domain()
         company_name = {
             'atexpc.ro': "ATEX Computer SRL",
             'atexsolutions.ro': "ATEX Solutions SRL-D",
-            'atex.nul.ro': "ATEX Computer SRL"
+            'nul.ro': "ATEX Computer SRL"
         }
         site_info = {
             'name': current_site.name,
             'domain': current_site.domain,
-            'company': company_name.get(current_site.domain, current_site.name),
-            'web_address': "www.%s" % current_site.domain,
-            'logo_url': "%simages/logo-%s.png" % (settings.STATIC_URL, current_site.domain)
+            'company': company_name.get(base_domain, current_site.name),
+            'logo_url': "%simages/logo-%s.png" % (settings.STATIC_URL, base_domain)
         }
         return site_info
+
+    def _get_base_domain(self):
+        domain = get_current_site(self.request).domain
+        return '.'.join(domain.split('.')[-2:])
 
 
 class BreadcrumbsMixin(object):
@@ -396,8 +400,7 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
 
 class ContactView(BreadcrumbsMixin, SearchMixin, GenericView):
     def get_template_names(self):
-        domain = get_current_site(self.request).domain
-        return "contact-%s.html" % domain
+        return "contact-%s.html" % self._get_base_domain()
 
     def get_breadcrumbs(self):
         return [{'name': "Contact"}]
