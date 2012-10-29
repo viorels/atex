@@ -24,6 +24,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 #    'atexpc.atex_web.tools.dynamicsite.DynamicSiteIDMiddleware'
 )
@@ -37,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     
     'django.contrib.admin',
+    'django.contrib.redirects',
     'compressor',
     'south',
 #    'storages',

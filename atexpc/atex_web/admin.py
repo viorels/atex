@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.db.models import Count, Sum
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.admin import SimpleListFilter
+from django.contrib.redirects.models import Redirect
 
 from models import Product, DropboxMedia
 
@@ -55,7 +56,11 @@ class ProductAdmin(admin.ModelAdmin):
         else:
             return '<span style="color:#DF0101">%d</span>' % count
     image_count.allow_tags = True
-
 admin.site.register(Product, ProductAdmin)
+
+class RedirectAdmin(admin.ModelAdmin):
+    actions = ('delete_selected',)
+admin.site.unregister(Redirect)
+admin.site.register(Redirect, RedirectAdmin)
 
 admin.site.disable_action('delete_selected')
