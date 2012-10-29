@@ -163,9 +163,15 @@ class Ancora(object):
                     'total_count': total_count}
         return post_process
 
+    def _no_products(self):
+        return self._post_process_product_list()({})
+
     def search_products(self, category_id=None, keywords=None, selectors=None,
                         price_min=None, price_max=None, start=None, stop=None,
                         stock=None, sort_by=None, sort_order=None):
+        if not (category_id or keywords):
+            return self._no_products()
+
         args = {'start': start,
                 'stop': stop}
         if selectors:
