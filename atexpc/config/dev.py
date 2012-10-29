@@ -36,13 +36,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'atexpc.atex_web',
     'django.contrib.admin',
     'compressor',
     'south',
 #    'storages',
     'sorl.thumbnail',
     'debug_toolbar',
+    'atexpc.atex_web',
 )
 
 STATICFILES_FINDERS = (
