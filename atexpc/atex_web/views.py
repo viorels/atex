@@ -424,6 +424,22 @@ def _uri_with_args(base_uri, **new_args):
                             parsed_uri.fragment))
     return final_uri
 
+class ErrorView(BreadcrumbsMixin, SearchMixin, GenericView):
+    error_code = None
+
+    def get_template_names(self):
+        return "%d.html" % self.error_code
+
+    def render_to_response(self, context):
+        response = super(ErrorView, self).render_to_response(context)
+        response.status_code = self.error_code
+        response.render() # response is not yet rendered during middleware
+        return response
+
+    def get_breadcrumbs(self):
+        return [{'name': "Pagina necunoscuta"}]
+
+
 def _product_url(product):
     return reverse('product', kwargs={'product_id': product['id'],
                                       'slug': slugify(product['name'])})

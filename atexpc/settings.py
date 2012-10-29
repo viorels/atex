@@ -4,7 +4,7 @@ import imp
 
 # Django settings for atexpc project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (

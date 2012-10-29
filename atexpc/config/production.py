@@ -1,7 +1,7 @@
 from os import path, environ
 from urlparse import urlparse
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 MIDDLEWARE_CLASSES = (
