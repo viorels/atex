@@ -183,7 +183,7 @@ class Product(models.Model):
         return [name for name in files if name.endswith(self.image_extensions)]
 
     def images(self):
-        image_files = sorted(self._image_files())
+        image_files = sorted(self.image_files())
         if len(image_files):
             images = [Image(image=self._file_path(name)) for name in image_files]
         else:
