@@ -104,16 +104,7 @@ class StorageWithOverwrite(get_storage_class()):
 
 
 class CustomQuerySetManager(models.Manager):
-    """A re-usable Manager to access a custom QuerySet
-       !!! Warning: __getattr__ might slow down .only and .defer
-       http://stackoverflow.com/a/5932538
-    """
-    def __getattr__(self, attr, *args):
-        try:
-            return getattr(self.__class__, attr, *args)
-        except AttributeError:
-            return getattr(self.get_query_set(), attr, *args)
-
+    """A re-usable Manager to access a custom QuerySet"""
     def get_query_set(self):
         return self.model.QuerySet(self.model)
 
