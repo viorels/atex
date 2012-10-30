@@ -3,6 +3,7 @@ from django.db.models import Count, Sum
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.admin import SimpleListFilter
 from django.contrib.redirects.models import Redirect
+from django.utils.datastructures import SortedDict
 
 from models import Product, DropboxMedia
 
@@ -18,10 +19,11 @@ class ImageCountListFilter(SimpleListFilter):
         )
 
     def queryset(self, request, queryset):
+        qs_image_count = queryset.annotate(image_count=Count('image'))
         if self.value() == '0':
-            return queryset.filter(image_count=0)
+            return qs_image_count.filter(image_count=0)
         elif self.value() == '1':
-            return queryset.filter(image_count__gte=1)
+            return qs_image_count.filter(image_count__gte=1)
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -40,9 +42,28 @@ class ProductAdmin(admin.ModelAdmin):
     create_dropbox_folder.short_description = "Create Dropbox folders for selected products"
 
     def queryset(self, request):
-        return (Product.objects.filter(hit__date__gte=Product.objects.one_month_ago())
-                               .annotate(hit_count=Sum('hit__count'),
-                                         image_count=Count('image')))
+        # info to build subquery
+        # str(Image.objects.extra(select={'count': 'COUNT(*)'}, 
+        #                         where=['atex_web_image.product_id = atex_web_product.id'])
+        #                   .defer('id', 'product', 'path', 'image')
+        #                   .query)
+        # Image._meta.get_field('product').rel.get_related_field()
+        # Product._meta.db_table + Product._meta.get_field('id').column
+        # self.connection.ops.quote_name
+
+        image_subquery = (
+            'SELECT COUNT(*) FROM "atex_web_image" '
+            'WHERE "atex_web_image"."product_id" = "atex_web_product"."id"')
+
+        hit_params = ('2012-09-30',)
+        hit_subquery = (
+            'SELECT SUM(count) FROM "atex_web_hit" '
+            'WHERE "atex_web_hit"."product_id" = "atex_web_product"."id"'
+            'AND "atex_web_hit"."date" >= %s')
+        
+        return (Product.objects.extra(select=SortedDict([('image_count', image_subquery),
+                                                         ('hit_count', hit_subquery)]),
+                                      select_params=(Product.objects.one_month_ago(),)))
 
     def hit_count(self, obj):
         return obj.hit_count
