@@ -32,10 +32,10 @@ body {
 	line-height: 1;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:12px;
-	color:#393939;	
+	color:#393939;
 }
 html {
-	overflow-x:hidden;
+	/*overflow-x:hidden;	*/
 }
 ol, ul {
 	list-style: none;
@@ -56,10 +56,11 @@ table {
 
 html, body { height: 100%;  }
 .wrapper {
- min-height: 100%;
- height: auto !important;
- height: 100%;
- margin: 0 auto -200px;
+  	/*min-height: 100%;
+ 	height: auto !important;
+ 	height: 100%;*/
+ 	margin: 0 auto -200px;
+	min-width:1170px;
 }
 .footer_wrapper, .push { height: 200px; }
 .wrapper {
@@ -71,7 +72,7 @@ html, body { height: 100%;  }
 	width:1140px;
 	margin:0 auto;
 	background:url(../images/bg-page.png) repeat;
-	padding:0 15px 20px 15px;
+	padding:0 15px 120px 15px;
 	position:relative;
 }
 .header {
@@ -1786,6 +1787,7 @@ td.center {text-align:center}
 /* ********************** footer ************************************** */
 .footer_wrapper {
 	background-color:#c62123;
+	min-width:1170px;
 }
 .footer {
 	width:1170px;

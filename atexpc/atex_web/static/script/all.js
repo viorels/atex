@@ -144,13 +144,13 @@ function calculate_height(){
   search_bar_h = $('.search_bar').height();
   content_h = content_wrapper_h + header_h + search_bar_h + bottomHeight + footerHeight;  
   viewHeight_new = viewHeight - footerHeight;
-  docHeight_new = docHeight - bottomHeight;
+  docHeight_new = docHeight - bottomHeight - footerHeight;
   if (viewHeight >= content_h) {
-    $('#wrap1').css('height', getDocHeight);
-    $('#wrap2').css('height', viewHeight_new);
+    $('#wrap1').css('min-height', getDocHeight);
+    $('#wrap2').css('min-height', viewHeight_new);
   } else {
-    $('#wrap1').css('height', getDocHeight);
-    $('#wrap2').css('height', docHeight_new);
+    $('#wrap1').css('min-height', getDocHeight);
+    $('#wrap2').css('min-height', docHeight_new);
   };
 }
 
