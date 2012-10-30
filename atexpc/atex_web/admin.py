@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.db.models import Count, Sum
+from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.admin import SimpleListFilter
 from django.contrib.redirects.models import Redirect
 from django.utils.datastructures import SortedDict
 
-from models import Product, DropboxMedia
+from models import Product, Image, Hit, DropboxMedia
 
 
 class ImageCountListFilter(SimpleListFilter):
@@ -19,11 +20,44 @@ class ImageCountListFilter(SimpleListFilter):
         )
 
     def queryset(self, request, queryset):
-        qs_image_count = queryset.annotate(image_count=Count('image'))
         if self.value() == '0':
-            return qs_image_count.filter(image_count=0)
+            return queryset.extra(where=['(%s) = 0' % queryset.image_subquery()])
         elif self.value() == '1':
-            return qs_image_count.filter(image_count__gte=1)
+            return queryset.extra(where=['(%s) > 0' % queryset.image_subquery()])
+
+
+class ProductQuerySet(QuerySet):
+    def image_subquery(self):
+        return self._aggregate_related_subquery(Image)
+
+    def hit_subquery(self):
+        return (self._aggregate_related_subquery(Hit, aggregate='SUM(count)') +
+                ' AND "atex_web_hit"."date" >= %s')
+
+    def _aggregate_related_subquery(self, related_model, aggregate='COUNT(*)'):
+        # info to build subquery
+        # str(Image.objects.extra(select={'count': 'COUNT(*)'}, 
+        #                         where=['atex_web_image.product_id = atex_web_product.id'])
+        #                   .only()
+        #                   .query)
+        # self.connection.ops.quote_name
+        args = {
+            'aggregate': aggregate,
+            'this_table': self.model._meta.db_table,
+            'this_field': self.model._meta.get_field('id').column,
+            'related_table': related_model._meta.db_table,
+            'related_field': self._get_related_field(related_model).column
+        }
+        query = ('SELECT %(aggregate)s FROM "%(related_table)s" '
+                 'WHERE "%(related_table)s"."%(related_field)s" = "%(this_table)s"."%(this_field)s"'
+                 % args)
+        return query
+
+    def _get_related_field(self, related_model):
+        """ Search the field on the related model that is connecting back to this model."""
+        related_fields = [f for f in related_model._meta.fields
+                          if f.rel and f.rel.to == self.model]
+        return related_fields[0]
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -31,39 +65,22 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('^model',)
     list_filter = (ImageCountListFilter,)
     readonly_fields = ('model',)
-    actions = ('create_dropbox_folder',)
+    actions = ('action_create_dropbox_folder',)
 
-    def create_dropbox_folder(self, request, queryset):
+    def action_create_dropbox_folder(self, request, queryset):
         dropbox = DropboxMedia()
         for product in queryset:
             if len(product.image_files()) == 0:
                 dropbox.create_product_folder(product.folder_name())
         self.message_user(request, "Created %d product folders on Dropbox" % len(queryset))
-    create_dropbox_folder.short_description = "Create Dropbox folders for selected products"
+    action_create_dropbox_folder.short_description = "Create Dropbox folders for selected products"
 
     def queryset(self, request):
-        # info to build subquery
-        # str(Image.objects.extra(select={'count': 'COUNT(*)'}, 
-        #                         where=['atex_web_image.product_id = atex_web_product.id'])
-        #                   .defer('id', 'product', 'path', 'image')
-        #                   .query)
-        # Image._meta.get_field('product').rel.get_related_field()
-        # Product._meta.db_table + Product._meta.get_field('id').column
-        # self.connection.ops.quote_name
-
-        image_subquery = (
-            'SELECT COUNT(*) FROM "atex_web_image" '
-            'WHERE "atex_web_image"."product_id" = "atex_web_product"."id"')
-
+        qs = ProductQuerySet(Product)
         hit_params = ('2012-09-30',)
-        hit_subquery = (
-            'SELECT SUM(count) FROM "atex_web_hit" '
-            'WHERE "atex_web_hit"."product_id" = "atex_web_product"."id"'
-            'AND "atex_web_hit"."date" >= %s')
-        
-        return (Product.objects.extra(select=SortedDict([('image_count', image_subquery),
-                                                         ('hit_count', hit_subquery)]),
-                                      select_params=(Product.objects.one_month_ago(),)))
+        return (qs.extra(select=SortedDict([('image_count', qs.image_subquery()),
+                                            ('hit_count', qs.hit_subquery())]),
+                         select_params=(Product.objects.one_month_ago(),)))
 
     def hit_count(self, obj):
         return obj.hit_count
