@@ -349,10 +349,8 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
     def get_product(self):
         if not hasattr(self, '_product'):
             product_id = self.kwargs['product_id']
-            product = Product.objects.get_product(product_id)
-            product_obj, __ = Product.objects.get_or_create(
-                id=int(product['id']),
-                defaults={'model': product['model']})
+            product_obj = Product.objects.get_and_save(product_id)
+            product = product_obj.raw
             product['images'] = product_obj.images()
             html_template = product_obj.html_description()
             if html_template:

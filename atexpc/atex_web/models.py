@@ -139,9 +139,22 @@ class ProductManager(models.Manager, AncoraMixin):
 
     def get_product_list(self, product_ids):
         return self._ancora.product_list(product_ids).get('products')
-        
+
     def get_product(self, product_id):
         return self._ancora.product(product_id)
+
+    def get_and_save(self, product_id, update=False):
+        """ Fetch product from API and save basic details in database """
+        product_raw = self.get_product(product_id)
+        product_id = int(product_raw['id'])
+        product_fields = dict((field.name, product_raw.get(field.name)) 
+                              for field in Product._meta.fields)
+        product, created = Product.objects.get_or_create(
+            id=product_id, defaults=product_fields)
+        product.raw = product_raw
+        if not created and update:
+            product.update(product_fields)
+        return product
 
     def get_top_hits(self, limit=5):
         return (self.filter(hit__count__gte=1,
@@ -161,12 +174,21 @@ class ProductManager(models.Manager, AncoraMixin):
 
 class Product(models.Model):
     model = models.CharField(max_length=64, unique=True)
+    # name = models.CharField(max_length=255)
+    # has_folder = models.NullBooleanField()
 
     objects = ProductManager()
 
     media_folder = "products"
     image_extensions = ('.jpg', '.jpeg', '.png', '.gif', '.bmp')
     html_extensions = ('.html', '.htm')
+
+    def __init__(self, *args, **kwargs):
+        if kwargs.has_key('raw'):
+            self.raw = kwargs.pop('raw')
+            for field in self._meta.fields:
+                kwargs[field.name] = self.raw.get(field.name)
+        super(Product, self).__init__(*args, **kwargs)
 
     def folder_name(self):
         folder = re.sub(r'[<>:"|?*/\\]', "-", self.model)
