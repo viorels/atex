@@ -152,7 +152,9 @@ class ProductManager(models.Manager, AncoraMixin):
         product, created = Product.objects.get_or_create(
             id=product_id, defaults=product_fields)
         product.raw = product_raw
-        if not created and update:
+        if created:
+            Image.objects.all().assign_product_folder(product)
+        elif update:
             product.update(product_fields)
         return product
 
@@ -267,7 +269,11 @@ class Image(models.Model):
 
         def in_folder(self, folder_name, *args, **kwargs):
             path = "%s/%s/" % (Product.media_folder, folder_name)
-            return self.filter(image__istartswith=path)
+            return self.filter(image__istartswith=path, *args, **kwargs)
+
+        def assign_product_folder(self, product):
+            folder_name = product.folder_name()
+            self.unassigned().in_folder(folder_name).update(product=product)
 
     NO_IMAGE = 'no-image'
     def is_not_available(self):
