@@ -1326,25 +1326,31 @@ ul.exposureThumbs li img {
 ul.exposureThumbs li.last {
 	margin:0;	
 }
-
 .exposureTarget {
 	width:535px !important;
 	height:450px !important;	
 	background-image:url(images/loader.gif);
 	background-repeat:no-repeat;
 	background-position:center center;
-	float:left;	
 	padding:0;
 	margin:0;	
 	position:relative;
-	overflow:hidden; 
-}
-
-.exposureWrapper {
-	text-align:center;
+	overflow:hidden;	
+	text-align:center;	
+	display:table-cell;
 	vertical-align:middle;
 }
-.exposureLoaded {
+.exposureWrapper {
+	position:static; 
+	+position:absolute; 
+	top:50%;	
+}
+.exposureWrapper img {
+	position:static; 
+	+position:relative; 
+	top:-50%;
+	left:-50%;
+}.exposureLoaded {
 	background-image:none;	
 }
 
