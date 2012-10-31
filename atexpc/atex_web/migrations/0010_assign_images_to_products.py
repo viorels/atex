@@ -10,7 +10,7 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         media_folder = 'products'
-        for product in orm['atex_web.product'].objects.all():
+        for product in orm['atex_web.product'].objects.all().iterator():
             folder_name = re.sub(r'[<>:"|?*/\\]', "-", product.model)
             path = "%s/%s/" % (media_folder, folder_name)
             product_images = orm['atex_web.image'].objects.filter(product=None,

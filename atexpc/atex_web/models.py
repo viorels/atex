@@ -110,6 +110,23 @@ class CustomQuerySetManager(models.Manager):
 
 
 class ProductManager(models.Manager, AncoraMixin):
+    def _build_folder_product_map(self):
+        """ Builds a map from lowercase folder name (as found on Dropbox) to product id"""
+        folder_product = {}
+        for product in self.all().iterator():
+            folder_name = product.folder_name().lower()
+            if not folder_product.has_key(folder_name):
+                folder_product[folder_name] = product.id
+            else:
+                logger.warning("Products %d and %d map to the same folder",
+                               folder_product[folder_name], product.id)
+        return folder_product
+
+    def assign_images(self):
+        folder_product_map = self._build_folder_product_map()
+        map_getter = lambda folder_name: folder_product_map.get(folder_name)
+        Image.objects.all().assign_all_unasigned(get_product_id_for_folder=map_getter)
+
     def get_products(self, category_id, keywords, selectors,
                      price_min, price_max, stock,
                      start=None, stop=None, sort_by=None, sort_order=None):
@@ -153,7 +170,7 @@ class ProductManager(models.Manager, AncoraMixin):
             id=product_id, defaults=product_fields)
         product.raw = product_raw
         if created:
-            Image.objects.all().assign_product_folder(product)
+            Image.objects.all().assign_images_folder_to_product(product)
         elif update:
             product.update(product_fields)
         return product
@@ -271,9 +288,23 @@ class Image(models.Model):
             path = "%s/%s/" % (Product.media_folder, folder_name)
             return self.filter(image__istartswith=path, *args, **kwargs)
 
-        def assign_product_folder(self, product):
+        def assign_images_folder_to_product(self, product):
             folder_name = product.folder_name()
             self.unassigned().in_folder(folder_name).update(product=product)
+
+        def assign_all_unasigned(self, get_product_id_for_folder=lambda folder_name: None):
+            for image in self.unassigned().iterator():
+                folder_name = image.folder_name().lower()
+                product_id = get_product_id_for_folder(folder_name)
+                if product_id is not None:
+                    image.product_id = product_id
+                    image.save()
+                    logger.debug("Assigned image %s to product id %d", image, product_id)
+
+    def folder_name(self):
+        path_match = re.match(Product.media_folder + r'/([^/]+)', self.image.name)
+        folder = path_match.group(1) if path_match else None
+        return folder
 
     NO_IMAGE = 'no-image'
     def is_not_available(self):
@@ -282,6 +313,9 @@ class Image(models.Model):
     @classmethod
     def not_available(cls):
         return Image(image=cls.NO_IMAGE)
+
+    def __unicode__(self):
+        return self.image.name
 
 
 class Hit(models.Model):
