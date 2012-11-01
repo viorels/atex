@@ -127,8 +127,8 @@ class ProductManager(models.Manager, AncoraMixin):
         map_getter = lambda folder_name: folder_product_map.get(folder_name)
         Image.objects.all().assign_all_unasigned(get_product_id_for_folder=map_getter)
 
-    def get_products(self, category_id, keywords, selectors,
-                     price_min, price_max, stock,
+    def get_products(self, category_id, keywords, selectors=None,
+                     price_min=None, price_max=None, stock=None,
                      start=None, stop=None, sort_by=None, sort_order=None):
         return self._ancora.search_products(
             category_id=category_id, keywords=keywords, selectors=selectors,
@@ -193,7 +193,9 @@ class ProductManager(models.Manager, AncoraMixin):
 
 class Product(models.Model):
     model = models.CharField(max_length=64, unique=True)
-    # name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    category_id = models.IntegerField(null=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=True)
     # has_folder = models.NullBooleanField()
 
     objects = ProductManager()
