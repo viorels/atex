@@ -1,26 +1,6 @@
 {% extends "base_2col.html" %}
 {% load atex_tags %}
 
-{% block content_top %}
-            <div class="top-content">
-                <div class="breadcrumbs"><!--breadcrumbs-->
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        {% for crumb in breadcrumbs %}
-                            {% if crumb.url %}
-                                <li><a href="{{ crumb.url }}">{{ crumb.name }}</a></li>
-                            {% else %}
-                                <li>{{ crumb.name }}</li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div><!--breadcrumbs_end-->
-                <div class="search-title">
-                    <h1>{% with breadcrumbs|last as current %}{{ current.name }}{% endwith %}</h1>
-                </div>
-            </div>
-{% endblock content_top %}
-
 {% block content_right %}
 <h1>Imi pare rau dar nu recunosc aceasta adresa</h1>
 {% endblock content_right %}

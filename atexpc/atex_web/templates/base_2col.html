@@ -1,6 +1,13 @@
 {% extends "base.html" %}
+
+{% block content_top_right %}
+                {{ block.super }}
+                <div class="search-title">
+                    <h1>{% with breadcrumbs|last as current %}{{ current.name }}{% endwith %}</h1>
+                </div>
+{% endblock content_top_right %}
+
 {% block content %}
-            {% block content_top %}{% endblock %}
         	<div class="left_col">
                 {% block menu %}
             	<ul class="menu">
