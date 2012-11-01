@@ -6,7 +6,7 @@ import json
 import operator
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
-from urllib2 import urlopen # TODO: try urllib3 with connection pooling
+from urllib2 import urlopen, URLError, HTTPError # TODO: try urllib3 with connection pooling
 from django.core.cache import cache
 
 import logging
@@ -19,6 +19,9 @@ TIMEOUT_LONG = 86400 # one day
 TIMEOUT_NORMAL = 3600 # one hour
 TIMEOUT_SHORT = 300 # 5 minutes
 
+class APIError(Exception):
+    pass
+
 class BaseAdapter(object):
     def __init__(self, base_uri=None):
         self._base_uri = base_uri
@@ -27,9 +30,16 @@ class BaseAdapter(object):
         normalized_uri = self.sort_uri_args(uri)
         start_time = time.time()
         response = cache.get(normalized_uri)
-        cache_hit = '(cached)' if response else ''
+        cache_hit = ' (cached)' if response else ''
         if response is None:
-            response = urlopen(normalized_uri).read()
+            try:
+                response = urlopen(normalized_uri).read()
+            except HTTPError as e:
+                raise APIError("The backend couldn't fulfill the request. Error code: %s"
+                               % e.code)
+            except URLError as e:
+                raise APIError("We failed to reach backend. Reason: %s"
+                               % e.reason)
             cache.set(normalized_uri, response, timeout)
         elapsed = time.time() - start_time
         logger.debug('GET%s %s (%s bytes in %1.3f seconds)', 
@@ -40,9 +50,10 @@ class BaseAdapter(object):
     def parse(self, stream):
         try:
             return json.loads(stream)
-        except ValueError, e:
-            logger.error("failed to parse backend response: %s", e)
-            return {'error': 'failed to parse backend response'}
+        except ValueError as e:
+            message = "We failed to parse backend response: %s" % e
+            logger.error(message)
+            raise APIError(message)
 
     def sort_uri_args(self, uri):
         parsed_uri = urlparse(uri)

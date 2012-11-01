@@ -15,6 +15,7 @@ from django.conf import settings
 
 from models import Product, Categories
 from forms import search_form_factory
+from atexpc.ancora_api.api import APIError
 
 import logging
 logger = logging.getLogger(__name__)
@@ -39,6 +40,16 @@ class GenericView(TemplateView):
         context.update(self.get_general_context())
         context.update(self.get_particular_context())
         return context
+
+    def get(self, request, *args, **kwargs):
+        try:
+            response = super(GenericView, self).get(request, *args, **kwargs)
+        except APIError as e:
+            logger.error(e)
+            # context = self.get_context_data(params=kwargs)
+            context = {'error': e}
+            response = self.render_to_response(context)
+        return response
 
     def get_menu(self):
         def category_icon(category):
@@ -170,9 +181,9 @@ class HomeView(SearchMixin, GenericView):
     top_limit = 5
 
     def get_particular_context(self):
-        return {'hits': self.get_hits,
-                'recommended': self.get_recommended,
-                'promotional': self.get_promotional}
+        return {'hits': self.get_hits(),
+                'recommended': self.get_recommended(),
+                'promotional': self.get_promotional()}
 
     def get_hits(self):
         hits = []
@@ -346,6 +357,11 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
     template_name = "product.html"
     recommended_limit = 3
 
+    def get_particular_context(self):
+        return {'product': self.get_product(),
+                'properties': self.get_properties,
+                'recommended': self.get_recommended}
+
     def get_product(self):
         if not hasattr(self, '_product'):
             product_id = self.kwargs['product_id']
@@ -389,11 +405,6 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
         else:
             breadcrumbs = []
         return breadcrumbs
-
-    def get_particular_context(self):
-        return {'product': self.get_product,
-                'properties': self.get_properties,
-                'recommended': self.get_recommended}
 
 
 class ContactView(BreadcrumbsMixin, SearchMixin, GenericView):
