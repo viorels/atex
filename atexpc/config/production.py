@@ -45,6 +45,10 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = path.join(environ.get("HOME", ""), "media/")
 
+SERVER_EMAIL = 'atex@atexsolutions.ro'
+EMAIL_SUBJECT_PREFIX = '[Atex] '
+EMAIL_HOST = 'gmail-smtp-in.l.google.com'
+
 if environ.has_key('DATABASE_URL'):
     url = urlparse(environ['DATABASE_URL'])
     DATABASES = {'default': {
