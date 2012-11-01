@@ -10,12 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Product.name'
         db.add_column('atex_web_product', 'name',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=255),
-                      keep_default=False)
-
-        # Adding field 'Product.category_id'
-        db.add_column('atex_web_product', 'category_id',
-                      self.gf('django.db.models.fields.IntegerField')(null=True),
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=128),
                       keep_default=False)
 
         # Adding field 'Product.updated'
@@ -27,9 +22,6 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         # Deleting field 'Product.name'
         db.delete_column('atex_web_product', 'name')
-
-        # Deleting field 'Product.category_id'
-        db.delete_column('atex_web_product', 'category_id')
 
         # Deleting field 'Product.updated'
         db.delete_column('atex_web_product', 'updated')
@@ -57,10 +49,9 @@ class Migration(SchemaMigration):
         },
         'atex_web.product': {
             'Meta': {'object_name': 'Product'},
-            'category_id': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '64'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'auto_now_add': 'True', 'blank': 'True'})
         }
     }

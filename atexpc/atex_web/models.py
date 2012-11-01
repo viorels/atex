@@ -193,8 +193,7 @@ class ProductManager(models.Manager, AncoraMixin):
 
 class Product(models.Model):
     model = models.CharField(max_length=64, unique=True)
-    name = models.CharField(max_length=255)
-    category_id = models.IntegerField(null=True)
+    name = models.CharField(max_length=128)
     updated = models.DateTimeField(auto_now=True, auto_now_add=True)
     # has_folder = models.NullBooleanField()
 
