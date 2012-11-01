@@ -61,10 +61,10 @@ class ProductQuerySet(QuerySet):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('model', 'folder_name', 'hit_count', 'image_count')
-    search_fields = ('^model',)
+    list_display = ('name', 'folder_name', 'hit_count', 'image_count')
+    search_fields = ('name',)
     list_filter = (ImageCountListFilter,)
-    readonly_fields = ('model',)
+    readonly_fields = ('name', 'model',)
     actions = ('action_create_dropbox_folder',)
 
     def action_create_dropbox_folder(self, request, queryset):
