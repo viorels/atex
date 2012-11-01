@@ -1,0 +1,307 @@
+{
+	"products": [
+	{
+		"pidm": "34933",
+		"zcodp": "3.02",
+		"zbrand": "AMD",
+		"zmodel": "SDX145HBGMBOX",
+		"ztitlu": "Procesor AMD SDX145HBGMBOX",
+		"zbrutto": 0.3,
+		"zstoc": 1,
+		"zinfo_stoc_site": "Order",
+		"zpret_site": 154.53,
+		"zpret_site_old": 155.31,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "40357",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G440",
+		"ztitlu": "Procesor Intel BX80623G440",
+		"zbrutto": 0.3,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 159.09,
+		"zpret_site_old": 159.9,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "45335",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G460",
+		"ztitlu": "Placi video Intel BX80623G460",
+		"zbrutto": 0.5,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 170.5,
+		"zpret_site_old": 171.37,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "40358",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G530",
+		"ztitlu": "Procesor Intel BX80623G530",
+		"zbrutto": 0.3,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 181.37,
+		"zpret_site_old": 182.29,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "48416",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G550",
+		"ztitlu": "Procesor Intel BX80623G550",
+		"zbrutto": 0.5,
+		"zstoc": 21,
+		"zinfo_stoc_site": "Order",
+		"zpret_site": 186.99,
+		"zpret_site_old": 187.91,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "D"
+	}
+	,{
+		"pidm": "40359",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G540",
+		"ztitlu": "Procesor Intel BX80623G540",
+		"zbrutto": 0.3,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 189.34,
+		"zpret_site_old": 190.27,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "32605",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80571E3400",
+		"ztitlu": "Procesor Intel BX80571E3400",
+		"zbrutto": 0.3,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 194.57,
+		"zpret_site_old": 195.56,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "40878",
+		"zcodp": "3.02",
+		"zbrand": "AMD",
+		"zmodel": "AD3300OJGXBOX",
+		"ztitlu": "Procesor AMD AD3300OJGXBOX",
+		"zbrutto": 0.2,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 217.16,
+		"zpret_site_old": 218.26,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "35347",
+		"zcodp": "3.02",
+		"zbrand": "AMD",
+		"zmodel": "ADX250OCGMBOX",
+		"ztitlu": "Procesor AMD ADX250OCGMBOX",
+		"zbrutto": 0.3,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Order",
+		"zpret_site": 219.49,
+		"zpret_site_old": 221.33,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "34510",
+		"zcodp": "3.02",
+		"zbrand": "AMD",
+		"zmodel": "ADX260OCGMBOX",
+		"ztitlu": "Procesor AMD ADX260OCGMBOX",
+		"zbrutto": 0.3,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 227.09,
+		"zpret_site_old": 228.25,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "47966",
+		"zcodp": "3.02",
+		"zbrand": "AMD",
+		"zmodel": "AD3400OJHXBOX",
+		"ztitlu": "Procesor AMD AD3400OJHXBOX",
+		"zbrutto": 0.2,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Order",
+		"zpret_site": 227.23,
+		"zpret_site_old": 228.38,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "40879",
+		"zcodp": "3.02",
+		"zbrand": "AMD",
+		"zmodel": "AD3400OJGXBOX",
+		"ztitlu": "Procesor AMD AD3400OJGXBOX",
+		"zbrutto": 0.2,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 227.23,
+		"zpret_site_old": 228.38,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "49439",
+		"zcodp": "3.02",
+		"zbrand": "AMD",
+		"zmodel": "ADX270OCGMBOX",
+		"ztitlu": "Procesor AMD ADX270OCGMBOX",
+		"zbrutto": 0.5,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Order",
+		"zpret_site": 235.07,
+		"zpret_site_old": 236.26,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "48415",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G555",
+		"ztitlu": "Procesor Intel BX80623G555",
+		"zbrutto": 0.5,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 239.31,
+		"zpret_site_old": 240.52,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "36067",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80571E3500",
+		"ztitlu": "Procesor Intel BX80571E3500",
+		"zbrutto": 0.3,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 239.31,
+		"zpret_site_old": 240.52,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "49147",
+		"zcodp": "3.02",
+		"zbrand": "AMD",
+		"zmodel": "AD5300OKHJBOX",
+		"ztitlu": "Procesor AMD AD5300OKHJBOX",
+		"zbrutto": 0.5,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Order",
+		"zpret_site": 252.46,
+		"zpret_site_old": 253.74,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "49543",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G645",
+		"ztitlu": "Procesor Intel BX80623G645",
+		"zbrutto": 0.2,
+		"zstoc": 4,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 256.36,
+		"zpret_site_old": 258.52,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "D"
+	}
+	,{
+		"pidm": "38738",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G620",
+		"ztitlu": "Procesor Intel BX80623G620",
+		"zbrutto": 0.3,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 267.77,
+		"zpret_site_old": 269.12,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "42910",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G860",
+		"ztitlu": "Procesor Intel BX80623G860",
+		"zbrutto": 0.3,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 284.46,
+		"zpret_site_old": 286.84,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "D"
+	}
+	,{
+		"pidm": "35852",
+		"zcodp": "3.02",
+		"zbrand": "AMD",
+		"zmodel": "ADX450WFGMBOX",
+		"ztitlu": "Procesor AMD ADX450WFGMBOX",
+		"zbrutto": 0.3,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Order",
+		"zpret_site": 285.13,
+		"zpret_site_old": 286.56,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	],
+	"total_count": 100,
+	"start": 0,
+	"stop": 20
+}

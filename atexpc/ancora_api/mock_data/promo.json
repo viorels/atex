@@ -1,0 +1,47 @@
+{
+	"promo_products": [
+	{
+		"zcod_grupa": "6.01",
+		"zbrand": "DLink",
+		"zmodel": "DIR-600",
+		"ztitlu": "Routere DLink DIR-600",
+		"zpret_site": 100.08,
+		"zidprodus": "30707"
+	}
+	,{
+		"zcod_grupa": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G550",
+		"ztitlu": "Procesor Intel BX80623G550",
+		"zpret_site": 186.99,
+		"zidprodus": "48416"
+	}
+	,{
+		"zcod_grupa": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G645",
+		"ztitlu": "Procesor Intel BX80623G645",
+		"zpret_site": 256.36,
+		"zidprodus": "49543"
+	}
+	,{
+		"zcod_grupa": "4.01",
+		"zbrand": "Samsung",
+		"zmodel": "ML-2160",
+		"ztitlu": "Imprimanta Samsung ML-2160",
+		"zpret_site": 267.96,
+		"zidprodus": "45473"
+	}
+	,{
+		"zcod_grupa": "4.01",
+		"zbrand": "Samsung",
+		"zmodel": "ML-2165",
+		"ztitlu": "Imprimanta Samsung ML-2165",
+		"zpret_site": 281.12,
+		"zidprodus": "45461"
+	}
+	],
+	"total_count": 50,
+	"start": 0,
+	"stop": 5
+}

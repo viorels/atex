@@ -1,0 +1,82 @@
+{
+	"products": [
+	{
+		"pidm": "22910",
+		"zcodp": "6.01",
+		"zbrand": "DLink",
+		"zmodel": "DIR-615",
+		"ztitlu": "Router DLink DIR-615",
+		"zbrutto": 1,
+		"zstoc": 1,
+		"zinfo_stoc_site": "Order",
+		"zpret_site": 120.33,
+		"zpret_site_old": 120.53,
+		"ztimbruverde": 1,
+		"zluni_garantie": "24",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "34933",
+		"zcodp": "3.02",
+		"zbrand": "AMD",
+		"zmodel": "SDX145HBGMBOX",
+		"ztitlu": "Procesor AMD SDX145HBGMBOX",
+		"zbrutto": 0.3,
+		"zstoc": 1,
+		"zinfo_stoc_site": "Order",
+		"zpret_site": 154.53,
+		"zpret_site_old": 155.31,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "40357",
+		"zcodp": "3.02",
+		"zbrand": "Intel",
+		"zmodel": "BX80623G440",
+		"ztitlu": "Procesor Intel BX80623G440",
+		"zbrutto": 0.3,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 159.09,
+		"zpret_site_old": 159.9,
+		"ztimbruverde": 0,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "41943",
+		"zcodp": "2.01",
+		"zbrand": "AOC",
+		"zmodel": "N950SW",
+		"ztitlu": "Monitor AOC N950SW",
+		"zbrutto": 5,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 336.56,
+		"zpret_site_old": 339.4,
+		"ztimbruverde": 5,
+		"zluni_garantie": "36",
+		"zispromotie": "N"
+	}
+	,{
+		"pidm": "42505",
+		"zcodp": "2.01",
+		"zbrand": "Samsung",
+		"zmodel": "T27A950",
+		"ztitlu": "Monitor Samsung T27A950",
+		"zbrutto": 9,
+		"zstoc": 0,
+		"zinfo_stoc_site": "Call",
+		"zpret_site": 2450.04,
+		"zpret_site_old": 2661.05,
+		"ztimbruverde": 5,
+		"zluni_garantie": "24",
+		"zispromotie": "N"
+	}
+	],
+	"total_count": 5,
+	"start": 0,
+	"stop": 20
+}

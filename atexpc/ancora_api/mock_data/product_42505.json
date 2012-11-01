@@ -1,0 +1,20 @@
+{
+	"product_info": [
+	{
+		"pidm": "42505",
+		"zcod_grupa": "2.01",
+		"zbrand": "Samsung",
+		"zmodel": "T27A950",
+		"ztitlu": "Monitor Samsung T27A950",
+		"zdescriere_scurta": "",
+		"zdescriere": " Diagonala: 27 * LED 3D * Rezolutie: 1920x1080 * Contrast : 1000:1 (DC 5.000.000:1) * Luminozitate: 300cd/mp * Timp de raspuns: 5 ms G G * Conectare: DVI, HDMI * Culoare: Black+Rose * Extra: TV Tuner",
+		"zhtml": "",
+		"zpret_site": 2450.04,
+		"zpret_site_old": 2661.05,
+		"zluni_garantie": "24",
+		"zinfo_stoc_site": "Call",
+		"zispromotie": "N",
+		"zselectori": [{"zdenumire": "Tehnologie", "zvalori" : ["LED"]}]
+	}
+	]
+}

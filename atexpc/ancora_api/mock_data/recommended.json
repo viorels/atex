@@ -1,0 +1,57 @@
+{
+	"recommended_products": [
+	{
+		"zcod_grupa": "4.06",
+		"zbrand": "Logitech",
+		"zmodel": "960-000635",
+		"ztitlu": "Camere web Logitech 960-000635",
+		"zpret_site": 93.37,
+		"zidprodus": "38008",
+		"zluni_garantie": "24",
+		"zinfo_stoc_site": "Order"
+	}
+	,{
+		"zcod_grupa": "6.01",
+		"zbrand": "DLink",
+		"zmodel": "DIR-615",
+		"ztitlu": "Router DLink DIR-615",
+		"zpret_site": 120.33,
+		"zidprodus": "22910",
+		"zluni_garantie": "24",
+		"zinfo_stoc_site": "Disponibil in stoc"
+	}
+	,{
+		"zcod_grupa": "2.01",
+		"zbrand": "AOC",
+		"zmodel": "e950Swda",
+		"ztitlu": "Monitor AOC e950Swda",
+		"zpret_site": 386,
+		"zidprodus": "48122",
+		"zluni_garantie": "36",
+		"zinfo_stoc_site": "Disponibil in stoc"
+	}
+	,{
+		"zcod_grupa": "1.01",
+		"zbrand": "Lenovo",
+		"zmodel": "59-334778_P",
+		"ztitlu": "Laptop Lenovo 59-334778_P",
+		"zpret_site": 2012.42,
+		"zidprodus": "49401",
+		"zluni_garantie": "12",
+		"zinfo_stoc_site": "Order"
+	}
+	,{
+		"zcod_grupa": "1.01",
+		"zbrand": "Toshiba",
+		"zmodel": "PSKCEE-006005G5",
+		"ztitlu": "Laptop Toshiba PSKCEE-006005G5",
+		"zpret_site": 2335.89,
+		"zidprodus": "46137",
+		"zluni_garantie": "24",
+		"zinfo_stoc_site": "Disponibil in stoc"
+	}
+	],
+	"total_count": 6,
+	"start": 0,
+	"stop": 5
+}

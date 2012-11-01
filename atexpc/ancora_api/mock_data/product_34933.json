@@ -1,0 +1,20 @@
+{
+	"product_info": [
+	{
+		"pidm": "34933",
+		"zcod_grupa": "3.02",
+		"zbrand": "AMD",
+		"zmodel": "SDX145HBGMBOX",
+		"ztitlu": "Procesor AMD SDX145HBGMBOX",
+		"zdescriere_scurta": "",
+		"zdescriere": "Denumire : Sempron  LE-145 * Frecventa reala : 2800 MHz * Socket: AM3 * Consum: 45W * Revizia: G2 * L2 Cache Size (KB) : 512 * Arhitectura: 65 nm * Box: DA",
+		"zhtml": "",
+		"zpret_site": 154.53,
+		"zpret_site_old": 155.31,
+		"zluni_garantie": "36",
+		"zinfo_stoc_site": "Disponibil in stoc",
+		"zispromotie": "N",
+		"zselectori": [{"zdenumire": "Socket", "zvalori" : ["AM3"]},{"zdenumire": "Box", "zvalori" : ["Da"]},{"zdenumire": "Tip procesor", "zvalori" : ["Desktop"]}]
+	}
+	]
+}

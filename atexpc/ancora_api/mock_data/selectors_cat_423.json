@@ -1,0 +1,149 @@
+{
+	"selectors": [
+	{
+		"pidm": "10016",
+		"znumar_ordine": "0",
+		"zdenumire": "Pret ( lei )",
+		"zvalori_posibile": [
+			{
+			"zdenumire": "sub 200",
+			"zid": "-1085",
+			"zcount": 7
+		}
+			,{
+			"zdenumire": "200 - 400",
+			"zid": "-1086",
+			"zcount": 29
+		}
+			,{
+			"zdenumire": "400 - 800",
+			"zid": "-1087",
+			"zcount": 23
+		}
+			,{
+			"zdenumire": "800 - 1200",
+			"zid": "-1088",
+			"zcount": 20
+		}
+			,{
+			"zdenumire": "peste 1200",
+			"zid": "-1089",
+			"zcount": 21
+		}]
+	}
+	,{
+		"pidm": "-1",
+		"znumar_ordine": "1",
+		"zdenumire": "Producatori",
+		"zvalori_posibile": [
+			{
+			"zdenumire": "Amd",
+			"zid": "Amd",
+			"zcount": 37
+		}
+			,{
+			"zdenumire": "Intel",
+			"zid": "Intel",
+			"zcount": 63
+		}]
+	}
+	,{
+		"pidm": "13",
+		"znumar_ordine": "2",
+		"zdenumire": "Socket",
+		"zvalori_posibile": [
+			{
+			"zdenumire": "1155",
+			"zid": "50",
+			"zcount": 43
+		}
+			,{
+			"zdenumire": "775",
+			"zid": "51",
+			"zcount": 5
+		}
+			,{
+			"zdenumire": "1156",
+			"zid": "52",
+			"zcount": 0
+		}
+			,{
+			"zdenumire": "AM2",
+			"zid": "53",
+			"zcount": 0
+		}
+			,{
+			"zdenumire": "AM2+",
+			"zid": "54",
+			"zcount": 0
+		}
+			,{
+			"zdenumire": "AM3",
+			"zid": "55",
+			"zcount": 11
+		}
+			,{
+			"zdenumire": "AM3+",
+			"zid": "56",
+			"zcount": 7
+		}
+			,{
+			"zdenumire": "1366",
+			"zid": "481",
+			"zcount": 4
+		}
+			,{
+			"zdenumire": "2011",
+			"zid": "482",
+			"zcount": 10
+		}
+			,{
+			"zdenumire": "FM1",
+			"zid": "483",
+			"zcount": 13
+		}
+			,{
+			"zdenumire": "FM2",
+			"zid": "1112",
+			"zcount": 6
+		}]
+	}
+	,{
+		"pidm": "30",
+		"znumar_ordine": "3",
+		"zdenumire": "Box",
+		"zvalori_posibile": [
+			{
+			"zdenumire": "Da",
+			"zid": "57",
+			"zcount": 99
+		}
+			,{
+			"zdenumire": "Nu",
+			"zid": "58",
+			"zcount": 0
+		}]
+	}
+	,{
+		"pidm": "10019",
+		"znumar_ordine": "4",
+		"zdenumire": "Tip procesor",
+		"zvalori_posibile": [
+			{
+			"zdenumire": "Desktop",
+			"zid": "1109",
+			"zcount": 87
+		}
+			,{
+			"zdenumire": "Server",
+			"zid": "1110",
+			"zcount": 13
+		}
+			,{
+			"zdenumire": "Mobile",
+			"zid": "1111",
+			"zcount": 0
+		}]
+	}
+	]
+}

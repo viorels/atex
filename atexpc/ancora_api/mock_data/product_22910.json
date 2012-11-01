@@ -1,0 +1,20 @@
+{
+	"product_info": [
+	{
+		"pidm": "22910",
+		"zcod_grupa": "6.01",
+		"zbrand": "DLink",
+		"zmodel": "DIR-615",
+		"ztitlu": "Router DLink DIR-615",
+		"zdescriere_scurta": "Este un router ideal pentru apartamente / case pana in 80 mp. Este foarte usor de configurat. Testat pentru RDS si UPC.",
+		"zdescriere": "Router wireless * Porturi UTP : 1 x 10/100 WAN, 4 x 10/100 MB/s * Antena : 2, externe * Standard : 150 Mb/s Wireless-N (802.11n) * Securitate : WPA wireless encryption and MAC address filtering, WPA2, SPI firewall, NAT * Altele : Compatibil cu Wii, Xbox Live, PS3",
+		"zhtml": "",
+		"zpret_site": 120.33,
+		"zpret_site_old": 120.53,
+		"zluni_garantie": "24",
+		"zinfo_stoc_site": "Disponibil in stoc",
+		"zispromotie": "N",
+		"zselectori": [{"zdenumire": "Conexiune", "zvalori" : ["LAN","Wireless"]},{"zdenumire": "Nr. porturi", "zvalori" : ["4"]},{"zdenumire": "Port USB", "zvalori" : ["Nu"]}]
+	}
+	]
+}

@@ -1,0 +1,63 @@
+
+<!-- saved from url=(0085)http://86.34.208.10:8765/ancoraerp/jis.serv?cod_formular=738&database=atex&pidm=48416 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><style type="text/css"></style></head><body><link rel="stylesheet" type="text/css" href="chrome-extension://chklaanhfefbnpoihckbnefhakgolnmc/jsonview-core.css"><style>body {
+  white-space: pre;
+  font-family: monospace;
+}
+
+.property {
+  font-weight: bold;
+}
+
+.type-null {
+  color: gray;
+}
+
+.type-boolean {
+  color: firebrick;
+}
+
+.type-number {
+  color: blue;
+}
+
+.type-string {
+  color: green;
+}
+
+.callback-function {
+  color: gray;
+}
+
+.collapser:after {
+  content: "-";
+}
+
+.collapsed > .collapser:after {
+  content: "+";
+}
+
+.ellipsis:after {
+  content: " … ";
+}
+
+.collapsible {
+  margin-left: 2em;
+}
+
+.hoverable {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 2px;
+  padding-right: 2px;
+  border-radius: 2px;
+}
+
+.hovered {
+  background-color: rgba(235, 238, 249, 1);  
+}
+
+.collapser {
+  padding-right: 10px;
+  padding-left: 6px;
+}</style><div id="json"><div class="collapser"></div>{<span class="ellipsis"></span><ul class="obj collapsible"><li><div class="hoverable"><span class="property">product_info</span>: <div class="collapser"></div>[<span class="ellipsis"></span><ul class="array collapsible"><li><div class="hoverable"><div class="collapser"></div>{<span class="ellipsis"></span><ul class="obj collapsible"><li><div class="hoverable"><span class="property">pidm</span>: <span class="type-string" id="">"48416"</span>,</div></li><li id=""><div class="hoverable"><span class="property">zcod_grupa</span>: <span class="type-string">"3.02"</span>,</div></li><li id=""><div class="hoverable"><span class="property">zbrand</span>: <span class="type-string">"Intel"</span>,</div></li><li><div class="hoverable"><span class="property">zmodel</span>: <span class="type-string" id="">"BX80623G550"</span>,</div></li><li><div class="hoverable"><span class="property">ztitlu</span>: <span class="type-string">"Procesor Intel BX80623G550"</span>,</div></li><li><div class="hoverable"><span class="property">zdescriere_scurta</span>: <span class="type-string">""</span>,</div></li><li><div class="hoverable"><span class="property">zdescriere</span>: <span class="type-string">"Denumire : Celeron G550 * Frecventa reala : 2600 MHz * Socket : 1155 * Memorie Cache : 2Mb L3 * Arhitectura : 32nm * Tehnologie : 64 biti"</span>,</div></li><li><div class="hoverable"><span class="property">zhtml</span>: <span class="type-string">""</span>,</div></li><li><div class="hoverable"><span class="property">zpret_site</span>: <span class="type-number">186.99</span>,</div></li><li><div class="hoverable"><span class="property">zpret_site_old</span>: <span class="type-number">187.91</span>,</div></li><li><div class="hoverable"><span class="property">zluni_garantie</span>: <span class="type-string">"36"</span>,</div></li><li><div class="hoverable"><span class="property">zinfo_stoc_site</span>: <span class="type-string">"Disponibil in stoc"</span>,</div></li><li id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown"><div class="hoverable"><span class="property">zispromotie</span>: <span class="type-string">"D"</span>,</div></li><li><div class="hoverable"><span class="property">zselectori</span>: <div class="collapser"></div>[<span class="ellipsis"></span><ul class="array collapsible"><li><div class="hoverable"><div class="collapser"></div>{<span class="ellipsis"></span><ul class="obj collapsible"><li><div class="hoverable"><span class="property">zdenumire</span>: <span class="type-string">"Pret ( lei )"</span>,</div></li><li><div class="hoverable"><span class="property">zvalori</span>: <div class="collapser"></div>[<span class="ellipsis"></span><ul class="array collapsible"><li><div class="hoverable"><span class="type-string">"400 - 800"</span></div></li></ul>]</div></li></ul>},</div></li><li><div class="hoverable"><div class="collapser"></div>{<span class="ellipsis"></span><ul class="obj collapsible"><li><div class="hoverable"><span class="property">zdenumire</span>: <span class="type-string">"Socket"</span>,</div></li><li><div class="hoverable"><span class="property">zvalori</span>: <div class="collapser"></div>[<span class="ellipsis"></span><ul class="array collapsible"><li><div class="hoverable"><span class="type-string">"775"</span></div></li></ul>]</div></li></ul>},</div></li><li><div class="hoverable"><div class="collapser"></div>{<span class="ellipsis"></span><ul class="obj collapsible"><li><div class="hoverable"><span class="property">zdenumire</span>: <span class="type-string">"Box"</span>,</div></li><li><div class="hoverable"><span class="property">zvalori</span>: <div class="collapser"></div>[<span class="ellipsis"></span><ul class="array collapsible"><li><div class="hoverable"><span class="type-string">"Da"</span></div></li></ul>]</div></li></ul>},</div></li><li><div class="hoverable"><div class="collapser"></div>{<span class="ellipsis"></span><ul class="obj collapsible"><li><div class="hoverable"><span class="property">zdenumire</span>: <span class="type-string">"Tip procesor"</span>,</div></li><li><div class="hoverable"><span class="property">zvalori</span>: <div class="collapser"></div>[<span class="ellipsis"></span><ul class="array collapsible"><li><div class="hoverable"><span class="type-string">"Desktop"</span></div></li></ul>]</div></li></ul>}</div></li></ul>]</div></li></ul>}</div></li></ul>]</div></li></ul>}</div><div class="status"></div><div class="toolbox"><span title="expand all">+</span><span title="reduce all">-</span><a target="_blank" href="view-source:http://86.34.208.10:8765/ancoraerp/jis.serv?cod_formular=738&database=atex&pidm=48416">View source</a><img title="options" src="chrome-extension://chklaanhfefbnpoihckbnefhakgolnmc/options.png"></div></body><style type="text/css">embed[type*="application/x-shockwave-flash"],embed[src*=".swf"],object[type*="application/x-shockwave-flash"],object[codetype*="application/x-shockwave-flash"],object[src*=".swf"],object[codebase*="swflash.cab"],object[classid*="D27CDB6E-AE6D-11cf-96B8-444553540000"],object[classid*="d27cdb6e-ae6d-11cf-96b8-444553540000"],object[classid*="D27CDB6E-AE6D-11cf-96B8-444553540000"]{	display: none !important;}</style></html>
