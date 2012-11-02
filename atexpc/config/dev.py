@@ -47,7 +47,6 @@ INSTALLED_APPS = (
 #    'storages',
     'sorl.thumbnail',
     'debug_toolbar',
-    'dbsettings',
     'atexpc.atex_web',
 )
 

@@ -27,6 +27,8 @@ DATABASES = {
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
+ANCORA_URI = os.environ.get('ANCORA_URI')
+
 DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
 DROPBOX_APP_SECRET = os.environ.get('DROPBOX_APP_SECRET')
 DROPBOX_ACCESS_TYPE = os.environ.get('DROPBOX_ACCESS_TYPE', 'dropbox')

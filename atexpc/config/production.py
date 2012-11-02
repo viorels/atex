@@ -30,7 +30,6 @@ INSTALLED_APPS = (
     'south',
     'storages',
     'sorl.thumbnail',
-    'dbsettings',
     'atexpc.atex_web',
 )
 

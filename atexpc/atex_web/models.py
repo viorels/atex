@@ -14,7 +14,6 @@ from django.core.files.storage import get_storage_class
 from django.template.defaultfilters import slugify
 from sorl.thumbnail import ImageField
 from dropbox import rest, session, client
-import dbsettings
 
 from atexpc.ancora_api.api import Ancora, AncoraAdapter
 
@@ -22,19 +21,10 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class SiteOptions(dbsettings.Group):
-    ancora_server = dbsettings.StringValue('Ancora server address (or IP)',
-                                           default='ancora.atexpc.ro')
-options = SiteOptions()
-
-
 class AncoraMixin(object):
     def __init__(self, *args, **kwargs):
         super(AncoraMixin, self).__init__(*args, **kwargs)
-        ancora_server = options.ancora_server
-        ancora_url = "http://%s:8765/ancoraerp/jis.serv?database=atex" % ancora_server
-        self._ancora = Ancora(adapter=AncoraAdapter(ancora_url))
-
+        self._ancora = Ancora(adapter=AncoraAdapter(settings.ANCORA_URI))
 
 class Categories(AncoraMixin):
     def get_all(self):
