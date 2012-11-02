@@ -16,6 +16,9 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+
+    # dbsettings
+    url(r'^settings/', include('dbsettings.urls')),
 )
 
 handler404 = ErrorView.as_view(error_code=404)
