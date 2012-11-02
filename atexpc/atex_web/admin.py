@@ -77,10 +77,10 @@ class ProductAdmin(admin.ModelAdmin):
 
     def queryset(self, request):
         qs = ProductQuerySet(Product)
-        hit_params = ('2012-09-30',)
+        hit_params = (Product.objects.one_month_ago(),)
         return (qs.extra(select=SortedDict([('image_count', qs.image_subquery()),
                                             ('hit_count', qs.hit_subquery())]),
-                         select_params=(Product.objects.one_month_ago(),)))
+                         select_params=hit_params))
 
     def hit_count(self, obj):
         return obj.hit_count
