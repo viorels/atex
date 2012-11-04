@@ -37,7 +37,7 @@ class Command(NoArgsCommand):
                     logger.debug("Update %s", updated_product)
                     updated_product.save()
 
-        insert_ids = products.viewkeys() - existing_products.viewkeys()
+        insert_ids = set(products) - set(existing_products)
         if insert_ids:
             insert_list = [Product(**products[i]) for i in insert_ids]
             logger.debug("Insert %s", insert_list)
