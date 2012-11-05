@@ -202,11 +202,11 @@ LOGGING = {
             'propagate': True,
         },
         'atexpc.atex_web': {
-            'handlers': ['console'],
+            'handlers': ['console', 'mail_admins'],
             'level': 'DEBUG',
         },
         'atexpc.ancora_api': {
-            'handlers': ['console'],
+            'handlers': ['console', 'mail_admins'],
             'level': 'DEBUG',
         }
     }
