@@ -68,3 +68,7 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'atex_web', 'media/')
 
 MEDIA_URL = '/media/'
 #MEDIA_URL = "http://%s.s3-website-eu-west-1.amazonaws.com/" % AWS_STORAGE_BUCKET_NAME
+
+SERVER_EMAIL = 'atex@durex.nul.ro'
+EMAIL_SUBJECT_PREFIX = '[Atex dev] '
+EMAIL_HOST = 'gmail-smtp-in.l.google.com'
