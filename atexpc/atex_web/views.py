@@ -45,7 +45,7 @@ class GenericView(TemplateView):
         try:
             response = super(GenericView, self).get(request, *args, **kwargs)
         except APIError as e:
-            logger.error(e)
+            logger.error(e, extra={'request': self.request})
             # context = self.get_context_data(params=kwargs)
             context = {'error': e}
             response = self.render_to_response(context)
