@@ -1,4 +1,3 @@
-
 import os
 import re
 import time
@@ -7,7 +6,7 @@ import operator
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 from urllib2 import urlopen, URLError, HTTPError # TODO: try urllib3 with connection pooling
-from django.core.cache import cache
+from django.core.cache import cache as django_cache
 
 import logging
 logger = logging.getLogger(__name__)
@@ -25,27 +24,54 @@ class APIError(Exception):
 class BaseAdapter(object):
     def __init__(self, base_uri=None):
         self._base_uri = base_uri
+        self._cache = django_cache
 
-    def read(self, uri, post_process=None, timeout=TIMEOUT_SHORT):
-        normalized_uri = self.sort_uri_args(uri)
+    def _read_cache(self, uri):
+        return self._cache.get(self.normalize_uri(uri))
+
+    def _write_cache(self, uri, data, timeout):
+        self._cache.set(self.normalize_uri(uri), data, timeout)
+
+    def _read_backend(self, uri):
+        try:
+            return urlopen(self.normalize_uri(uri)).read()
+        except HTTPError as e:
+            raise APIError("The backend couldn't fulfill the request. Error code: %s"
+                           % e.code)
+        except URLError as e:
+            raise APIError("We failed to reach backend. Reason: %s"
+                           % e.reason)
+
+    def read(self, uri, post_process=None, use_backend=None, cache_timeout=TIMEOUT_SHORT):
+        """ Read data from backend and cache processed data
+            - uri to fetch data from, can be a http url or a file path
+            - use_backend = None: try cache and fallback to backend
+                            True: always use backend
+                            False: never use backend
+        """
         start_time = time.time()
-        response = cache.get(normalized_uri)
-        cache_hit = ' (cached)' if response else ''
-        if response is None:
-            try:
-                response = urlopen(normalized_uri).read()
-            except HTTPError as e:
-                raise APIError("The backend couldn't fulfill the request. Error code: %s"
-                               % e.code)
-            except URLError as e:
-                raise APIError("We failed to reach backend. Reason: %s"
-                               % e.reason)
-            cache.set(normalized_uri, response, timeout)
+
+        if use_backend is not True:
+            # returns None if item not found
+            cache_response = self._read_cache(uri)
+        else:
+            cache_response = None
+        if cache_response is None and use_backend is not False:
+            response = self._read_backend(uri)
+            data = self.parse(response)
+            processed_data = post_process(data) if post_process else data
+            self._write_cache(uri, processed_data, timeout=cache_timeout)
+        else:
+            processed_data = cache_response
+
         elapsed = time.time() - start_time
+        cache_hit = ' (cache)' if cache_response else ''
         logger.debug('GET%s %s (%s bytes in %1.3f seconds)', 
-                     cache_hit, normalized_uri, len(response), elapsed)
-        data = self.parse(response)
-        return post_process(data) if post_process else data
+                     cache_hit, self.normalize_uri(uri),
+                     len(processed_data) if processed_data else 0,
+                     elapsed)
+
+        return processed_data
 
     def parse(self, stream):
         try:
@@ -55,18 +81,19 @@ class BaseAdapter(object):
             logger.error(message)
             raise APIError(message)
 
-    def sort_uri_args(self, uri):
+    def normalize_uri(self, uri):
+        """ Normalize uri by sorting argumenst """
         parsed_uri = urlparse(uri)
         parsed_args = parse_qsl(parsed_uri.query)
         sorted_parsed_args = sorted(parsed_args, key=operator.itemgetter(0))
         sorted_args = urlencode(sorted_parsed_args)
-        final_uri = urlunparse((parsed_uri.scheme,
-                                parsed_uri.netloc,
-                                parsed_uri.path,
-                                parsed_uri.params,
-                                sorted_args,
-                                parsed_uri.fragment))
-        return final_uri
+        return urlunparse((parsed_uri.scheme,
+                           parsed_uri.netloc,
+                           parsed_uri.path,
+                           parsed_uri.params,
+                           sorted_args,
+                           parsed_uri.fragment))
+
 
 class AncoraAdapter(BaseAdapter):
     def uri_for(self, method_name):
@@ -109,7 +136,7 @@ class Ancora(object):
     def __init__(self, adapter=None):
         self.adapter = adapter
 
-    def categories(self):
+    def categories(self, use_backend=None):
         def post_process(data):
             json_root = 'categories'
             categories = []
@@ -124,7 +151,9 @@ class Ancora(object):
             return categories
 
         categories_uri = self.adapter.uri_for('categories')
-        return self.adapter.read(categories_uri, post_process, timeout=TIMEOUT_LONG)
+        return self.adapter.read(categories_uri, post_process,
+                                 use_backend=use_backend,
+                                 cache_timeout=TIMEOUT_LONG) or []
 
     def selectors(self, category_id, selectors_active, price_min, price_max):
         def post_process(data):
@@ -149,7 +178,7 @@ class Ancora(object):
                 args['zpret_site_max'] = price_max
             if args:
                 selectors_uri = self.adapter.uri_with_args(selectors_uri, args)
-            selectors = self.adapter.read(selectors_uri, post_process, timeout=TIMEOUT_LONG)
+            selectors = self.adapter.read(selectors_uri, post_process, cache_timeout=TIMEOUT_LONG)
         else:
             selectors = []
 
@@ -203,7 +232,7 @@ class Ancora(object):
 
         products = self.adapter.read(products_uri,
                                      self._post_process_product_list(),
-                                     timeout=TIMEOUT_SHORT)
+                                     cache_timeout=TIMEOUT_SHORT)
         return products
 
     def products_recommended(self, limit):
@@ -213,7 +242,7 @@ class Ancora(object):
         recommended = self.adapter.read(
             recommended_uri,
             self._post_process_product_list(json_root='recommended_products'),
-            timeout=TIMEOUT_NORMAL)
+            cache_timeout=TIMEOUT_NORMAL)
         return recommended
 
     def products_promotional(self, limit):
@@ -223,7 +252,7 @@ class Ancora(object):
         promotional = self.adapter.read(
             promotional_uri,
             self._post_process_product_list(json_root='promo_products'),
-            timeout=TIMEOUT_NORMAL)
+            cache_timeout=TIMEOUT_NORMAL)
         return promotional
 
     def product_list(self, product_ids):
@@ -233,7 +262,7 @@ class Ancora(object):
             args)
         products = self.adapter.read(products_uri,
                                      self._post_process_product_list(),
-                                     timeout=TIMEOUT_SHORT)
+                                     cache_timeout=TIMEOUT_SHORT)
         return products
 
     def product(self, product_id):
@@ -244,7 +273,7 @@ class Ancora(object):
             
         product_uri = self.adapter.base_uri_with_args({'cod_formular': '738',
                                                        'pidm': product_id})
-        product = self.adapter.read(product_uri, post_process, timeout=TIMEOUT_SHORT)
+        product = self.adapter.read(product_uri, post_process, cache_timeout=TIMEOUT_SHORT)
         return product
 
     def _post_process_product(self, product):
