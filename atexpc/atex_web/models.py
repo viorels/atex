@@ -27,21 +27,22 @@ class AncoraMixin(object):
         self._ancora = Ancora(adapter=AncoraAdapter(settings.ANCORA_URI))
 
 class Categories(AncoraMixin):
-    def get_all(self):
+    def get_all(self, use_backend=None):
         if not hasattr(self, '_categories'):
+            categories = self._ancora.categories(use_backend=use_backend)
             # skip categories with code that begin with letters,
             # e.g. "diverse" with code "XX"
-            self._categories = [category for category in self._ancora.categories()
+            self._categories = [category for category in categories
                                 if category['code'].startswith(tuple(string.digits))]
         return self._categories
 
-    def get_main(self):
-        return self.get_children(parent=None)
+    def get_main(self, use_backend=None):
+        return self.get_children(parent=None, use_backend=use_backend)
 
-    def get_children(self, parent=None):
+    def get_children(self, parent=None, use_backend=None):
         """Return child categories for the specified category
            or top categories if None specified"""
-        categories = [c for c in self.get_all() if c['parent'] == parent]
+        categories = [c for c in self.get_all(use_backend=use_backend) if c['parent'] == parent]
         return categories
 
     def get_category(self, category_id):
