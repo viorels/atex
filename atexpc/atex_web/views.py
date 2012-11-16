@@ -32,6 +32,12 @@ class GenericView(TemplateView):
                 'footer': self.get_footer,
                 'site_info': self.get_site_info}
 
+    def get_minimal_context(self):
+        return {'menu': self.get_menu(use_backend=False),
+                'categories': self.categories.get_main(use_backend=False),
+                'footer': self.get_footer(use_backend=False),
+                'site_info': self.get_site_info()}
+
     def get_particular_context(self):
         return {}
 
@@ -46,12 +52,12 @@ class GenericView(TemplateView):
             response = super(GenericView, self).get(request, *args, **kwargs)
         except APIError as e:
             logger.error(e, extra={'request': self.request})
-            # context = self.get_context_data(params=kwargs)
-            context = {'error': e}
+            context = self.get_minimal_context()
+            context['error'] = e
             response = self.render_to_response(context)
         return response
 
-    def get_menu(self):
+    def get_menu(self, use_backend=None):
         def category_icon(category):
             icons = {'1': 'images/desktop-icon.png',
                      '2': 'images/tv-icon.png',
@@ -72,7 +78,7 @@ class GenericView(TemplateView):
 
         def categories_in(category=None):
             parent_id = category['code'] if category is not None else None
-            categories = self.categories.get_children(parent_id)
+            categories = self.categories.get_children(parent_id, use_backend=use_backend)
             sorted_categories = sorted(categories, key=itemgetter('code'))
             return sorted_categories
 
@@ -108,10 +114,10 @@ class GenericView(TemplateView):
 
         return menu
 
-    def get_footer(self):
+    def get_footer(self, use_backend=None):
         return [{'name': category['name'],
                  'url': _category_url(category)}
-                for category in self.categories.get_all()
+                for category in self.categories.get_all(use_backend=use_backend)
                 if _category_level(category) >= 2 and category['count'] > 0]
 
     def get_site_info(self):
@@ -131,6 +137,7 @@ class GenericView(TemplateView):
         return site_info
 
     def _get_base_domain(self):
+        """Get the last 2 segments of the domain name"""
         domain = get_current_site(self.request).domain
         return '.'.join(domain.split('.')[-2:])
 
@@ -432,6 +439,7 @@ def _uri_with_args(base_uri, **new_args):
                             encoded_args,
                             parsed_uri.fragment))
     return final_uri
+
 
 class ErrorView(BreadcrumbsMixin, SearchMixin, GenericView):
     error_code = None
