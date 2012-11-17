@@ -4,6 +4,7 @@ pylibmc==1.2.2
 django-pylibmc-sasl==0.2.4
 psycopg2==2.4.5
 south==0.7.6
+requests==0.14.2
 sorl-thumbnail==11.12
 PIL==1.1.7
 dropbox==1.4.0
