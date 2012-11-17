@@ -64,14 +64,19 @@ class BaseAdapter(object):
         else:
             processed_data = cache_response
 
-        elapsed = time.time() - start_time
-        cache_hit = ' (cache)' if cache_response else ''
-        logger.debug('GET%s %s (%s bytes in %1.3f seconds)', 
-                     cache_hit, self.normalize_uri(uri),
-                     len(processed_data) if processed_data else 0,
-                     elapsed)
+        self._read_debug(uri, cache_response, locals().get('response'), start_time)
 
         return processed_data
+
+    def _read_debug(self, uri, cache_response, response, start_time):
+        elapsed = time.time() - start_time
+        if cache_response is not None:
+            stats = '(cache)'
+        elif response is not None:
+            stats = '(%s bytes in %1.3f seconds)' % (len(response), elapsed)
+        else:
+            stats = ''
+        logger.debug('GET %s %s', self.normalize_uri(uri), stats)
 
     def parse(self, stream):
         try:
