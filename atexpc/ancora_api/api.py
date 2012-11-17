@@ -96,12 +96,17 @@ class BaseAdapter(object):
 
 
 class AncoraAdapter(BaseAdapter):
-    def uri_for(self, method_name):
-        args = self.args_for(method_name)
-        return self.base_uri_with_args(args)
+    def uri_for(self, method_name, args={}):
+        all_args = self._args_for(method_name)
+        all_args.update(args)
+        return self.uri_with_args(self._base_uri, all_args)
 
-    def base_uri_with_args(self, args):
-        return self.uri_with_args(self._base_uri, args)
+    def _args_for(self, method_name):
+        args = {'categories': {'cod_formular': '617'},
+                'product': {'cod_formular': '738'},
+                'recommended': {'cod_formular': '740', 'start': '0'},
+                'promotional': {'cod_formular': '737', 'start': '0'}}
+        return args.get(method_name, {})
 
     def uri_with_args(self, uri, new_args):
         parsed_uri = urlparse(uri)
@@ -120,16 +125,25 @@ class AncoraAdapter(BaseAdapter):
                                 parsed_uri.fragment))
         return final_uri
 
-    def args_for(self, method_name):
-        args = {'categories': '&cod_formular=617'}
-        return args.get(method_name)
-
 
 class MockAdapter(BaseAdapter):
-    def uri_for(self, method_name):
+    def __init__(self, base_uri=None):
+        base_uri = 'file://' + base_uri
+        super(MockAdapter, self).__init__(base_uri)
+
+    def uri_for(self, method_name, args={}):
         uri = urlparse(self._base_uri)
-        file_path = os.path.join(uri.path, method_name + '.json')
+        file_name = self._file_name_for(method_name, args)
+        file_path = os.path.join(uri.path, file_name)
         return urlunparse((uri.scheme, uri.netloc, file_path, '', '', ''))
+
+    def _file_name_for(self, method_name, args):
+        name_generator = {
+            'product': lambda: "%s_%s" % (method_name, args['pidm'])
+        }
+        default_generator = lambda: method_name
+        name = name_generator.get(method_name, default_generator)()
+        return name + '.json'
 
 
 class Ancora(object):
@@ -236,9 +250,7 @@ class Ancora(object):
         return products
 
     def products_recommended(self, limit):
-        recommended_uri = self.adapter.base_uri_with_args({
-            'cod_formular': '740',
-            'start': 0, 'stop': limit})
+        recommended_uri = self.adapter.uri_for('recommended', {'stop': limit})
         recommended = self.adapter.read(
             recommended_uri,
             self._post_process_product_list(json_root='recommended_products'),
@@ -246,9 +258,7 @@ class Ancora(object):
         return recommended
 
     def products_promotional(self, limit):
-        promotional_uri = self.adapter.base_uri_with_args({
-            'cod_formular': '737',
-            'start': 0, 'stop': limit})
+        promotional_uri = self.adapter.uri_for('promotional', {'stop': limit})
         promotional = self.adapter.read(
             promotional_uri,
             self._post_process_product_list(json_root='promo_products'),
@@ -271,8 +281,7 @@ class Ancora(object):
             product = data[json_root][0] if len(data[json_root]) else None
             return self._post_process_product(product) if product else None
             
-        product_uri = self.adapter.base_uri_with_args({'cod_formular': '738',
-                                                       'pidm': product_id})
+        product_uri = self.adapter.uri_for('product', {'pidm': product_id})
         product = self.adapter.read(product_uri, post_process, cache_timeout=TIMEOUT_SHORT)
         return product
 
@@ -285,9 +294,8 @@ class Ancora(object):
         else:
             old_price = None
 
-        # XXX: inconsistent field name zcodp on category listing
         category_code = product.get('zcod_grupa') or product.get('zcodp')
-        is_available = re.match(r"[0-9.]+$", category_code) if category_code is not None else None
+        is_available = bool(re.match(r"[0-9.]+$", category_code)) if category_code is not None else False
         stock_info = 'In stoc' if product.get('zstoc', 0) else product.get('zinfo_stoc_site', '')
 
         return {'id': product.get('pidm') or product.get('zidprodus'),
