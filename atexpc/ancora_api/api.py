@@ -27,6 +27,7 @@ class BaseAdapter(object):
     def __init__(self, base_uri=None):
         self._base_uri = base_uri
         self._cache = django_cache
+        self._requests = requests.session() # TODO: thread safe ?
 
     def _read_cache(self, uri):
         return self._cache.get(self.normalize_uri(uri))
@@ -36,7 +37,7 @@ class BaseAdapter(object):
 
     def _read_backend(self, uri):
         try:
-            response = requests.get(self.normalize_uri(uri), timeout=10)
+            response = self._requests.get(self.normalize_uri(uri), timeout=10)
             return response.text
         except (ConnectionError, Timeout) as e:
             raise APIError("Failed to reach backend (%s)" % type(e).__name__)
