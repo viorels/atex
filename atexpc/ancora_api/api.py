@@ -5,8 +5,10 @@ import json
 import operator
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
-from urllib2 import urlopen, URLError, HTTPError # TODO: try urllib3 with connection pooling
 from django.core.cache import cache as django_cache
+
+import requests
+from requests.exceptions import ConnectionError, Timeout
 
 import logging
 logger = logging.getLogger(__name__)
@@ -34,13 +36,10 @@ class BaseAdapter(object):
 
     def _read_backend(self, uri):
         try:
-            return urlopen(self.normalize_uri(uri)).read()
-        except HTTPError as e:
-            raise APIError("The backend couldn't fulfill the request. Error code: %s"
-                           % e.code)
-        except URLError as e:
-            raise APIError("We failed to reach backend. Reason: %s"
-                           % e.reason)
+            response = requests.get(self.normalize_uri(uri), timeout=10)
+            return response.text
+        except (ConnectionError, Timeout) as e:
+            raise APIError("Failed to reach backend (%s)" % type(e).__name__)
 
     def read(self, uri, post_process=None, use_backend=None, cache_timeout=TIMEOUT_SHORT):
         """ Read data from backend and cache processed data
