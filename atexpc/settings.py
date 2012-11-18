@@ -222,4 +222,4 @@ LOGGING = {
 
 if os.environ.get('DJANGO_SETTINGS_MODULE').endswith('settings'):
     raise Exception("DJANGO_SETTINGS_MODULE must be set to environment specific value, "
-                "e.g. 'atexpc.config.production'")
+                    "e.g. 'atexpc.config.production'")
