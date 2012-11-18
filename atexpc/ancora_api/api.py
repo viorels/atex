@@ -24,16 +24,18 @@ class APIError(Exception):
     pass
 
 class BaseAdapter(object):
-    def __init__(self, base_uri=None):
+    def __init__(self, base_uri=None, cache=django_cache):
         self._base_uri = base_uri
-        self._cache = django_cache
+        self._cache = cache
         self._requests = requests.session() # TODO: thread safe ?
 
     def _read_cache(self, uri):
-        return self._cache.get(self.normalize_uri(uri))
+        if self._cache:
+            return self._cache.get(self.normalize_uri(uri))
 
     def _write_cache(self, uri, data, timeout):
-        self._cache.set(self.normalize_uri(uri), data, timeout)
+        if self._cache:
+            self._cache.set(self.normalize_uri(uri), data, timeout)
 
     def _read_backend(self, uri):
         try:
