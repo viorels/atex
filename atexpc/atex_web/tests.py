@@ -6,19 +6,21 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from django.test.utils import override_settings
+from django.test.client import Client
+from django.core.urlresolvers import reverse
 
 import views
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
 
-# TODO: disable cache
-@override_settings(DATABASES={'default': {'ENGINE': 'django.db.backends.sqlite3'}})
+class ClientTest(TestCase):
+    def test_home(self):
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.template[0].name, 'home.html')
+        self.assertEqual(len(response.context['recommended']), 5)
+        self.assertContains(response, "Bun venit")
+
+
 class ViewsTest(TestCase): 
     def test_menu_categories_in(self):
         #print getattr(views._get_menu, 'categories_in')() 
