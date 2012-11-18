@@ -13,8 +13,6 @@ class CategoryTest(TestCase):
         """
         Tests that categories.xml file is read correctly
         """
-        mock = MockAdapter('file:///home/vio/work/atex/atexpc/ancora_api/mock_data/categories.xml')
-        ancora = Ancora(adapter=mock)
+        ancora = Ancora(adapter=MockAdapter(cache=None))
         categories = ancora.categories()
-        print categories
-        self.assertEqual(1 + 1, 2)
+        self.assertEqual(categories[0]["name"], "Laptop & Desktop & Servere")
