@@ -22,7 +22,7 @@ DATABASES = {
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
-    # XXX: overridden in environment specific file in "config" directory
+    # XXX: overridden by environment specific file in "config" directory
 }
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -103,7 +103,8 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    # XXX: overridden in environment specific file in "config" directory
+    
+    'compressor.finders.CompressorFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -124,7 +125,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # XXX: overridden in environment specific file in "config" directory
+    
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'atexpc.urls'
@@ -147,10 +149,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    # XXX: overridden in environment specific file in "config" directory
+    
+    'django.contrib.redirects',
+    'compressor',
+    'south',
+    'sorl.thumbnail',
+    'atexpc.atex_web',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -213,18 +220,6 @@ LOGGING = {
     }
 }
 
-# load environment specific settings
-
-def get_environment_file_path(env):
-    return os.path.join(PROJECT_ROOT, 'config', '%s.py' % env)
-
-if 'APP_ENV' in os.environ:
-    ENV = os.environ['APP_ENV']
-else:
-    ENV = 'dev'
-
-try:
-    config = imp.load_source('env_settings', get_environment_file_path(ENV))
-    from env_settings import *
-except IOError:
-    exit("No configuration file found for env '%s'" % ENV)
+if os.environ.get('DJANGO_SETTINGS_MODULE').endswith('settings'):
+    raise Exception("DJANGO_SETTINGS_MODULE must be set to environment specific value, "
+                "e.g. 'atexpc.config.production'")

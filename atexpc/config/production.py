@@ -1,42 +1,18 @@
 from os import path, environ
 from urlparse import urlparse
 
+from atexpc.settings import *
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-
-    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-    'atexpc.atex_web.tools.dynamicsite.DynamicSiteIDMiddleware'
+MIDDLEWARE_CLASSES += (
+    'atexpc.atex_web.tools.dynamicsite.DynamicSiteIDMiddleware',
 )
 
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    'django.contrib.admin',
-    'django.contrib.redirects',
-    'compressor',
+INSTALLED_APPS += (
     'gunicorn',
-    'south',
     'storages',
-    'sorl.thumbnail',
-    'atexpc.atex_web',
-)
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 )
 
 COMPRESS_ENABLED = True
