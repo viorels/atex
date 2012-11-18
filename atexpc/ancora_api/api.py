@@ -38,11 +38,7 @@ class BaseAdapter(object):
             self._cache.set(self.normalize_uri(uri), data, timeout)
 
     def _read_backend(self, uri):
-        try:
-            response = self._requests.get(self.normalize_uri(uri), timeout=10)
-            return response.text
-        except (ConnectionError, Timeout) as e:
-            raise APIError("Failed to reach backend (%s)" % type(e).__name__)
+        raise NotImplemented()
 
     def read(self, uri, post_process=None, use_backend=None, cache_timeout=TIMEOUT_SHORT):
         """ Read data from backend and cache processed data
@@ -103,6 +99,13 @@ class BaseAdapter(object):
 
 
 class AncoraAdapter(BaseAdapter):
+    def _read_backend(self, uri):
+        try:
+            response = self._requests.get(self.normalize_uri(uri), timeout=10)
+            return response.text
+        except (ConnectionError, Timeout) as e:
+            raise APIError("Failed to reach backend (%s)" % type(e).__name__)
+
     def uri_for(self, method_name, args={}):
         all_args = self._args_for(method_name)
         all_args.update(args)
@@ -134,15 +137,15 @@ class AncoraAdapter(BaseAdapter):
 
 
 class MockAdapter(BaseAdapter):
-    def __init__(self, base_uri=None):
-        base_uri = 'file://' + base_uri
-        super(MockAdapter, self).__init__(base_uri)
+    def __init__(self, base_uri=MOCK_DATA_PATH, **kwargs):
+        super(MockAdapter, self).__init__(base_uri, **kwargs)
+
+    def _read_backend(self, uri):
+        return open(uri).read()
 
     def uri_for(self, method_name, args={}):
-        uri = urlparse(self._base_uri)
         file_name = self._file_name_for(method_name, args)
-        file_path = os.path.join(uri.path, file_name)
-        return urlunparse((uri.scheme, uri.netloc, file_path, '', '', ''))
+        return os.path.join(self._base_uri, file_name)
 
     def _file_name_for(self, method_name, args):
         name_generator = {
