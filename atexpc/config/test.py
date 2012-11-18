@@ -2,8 +2,7 @@ import os
 
 from atexpc.settings import *
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = False # test runner always sets this to False
 
 SITE_ID = 3
 
