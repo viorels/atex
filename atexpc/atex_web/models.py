@@ -12,6 +12,8 @@ from django.db.models.query import QuerySet
 from django.core.files import File, temp
 from django.core.files.storage import get_storage_class
 from django.template.defaultfilters import slugify
+from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
 from sorl.thumbnail import ImageField
 from dropbox import rest, session, client
 
@@ -324,6 +326,52 @@ class Hit(models.Model):
     product = models.ForeignKey(Product, unique_for_date="date")
     count = models.IntegerField()
     date = models.DateField()
+
+
+class Cart(models.Model):
+    session = models.ForeignKey(Session, db_index=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True)
+    products = models.ManyToManyField(Product)
+
+
+class BaseCart(object):
+    def __init__(self, cart):
+        self._cart = cart
+
+    def id(self):
+        return self._cart.id
+
+    def count(self):
+        raise NotImplemented()
+
+class DatabaseCart(BaseCart):
+    @classmethod
+    def get(cls, cart_id):
+        try:
+            cart_row = Cart.objects.get(id=cart_id)
+            cart = DatabaseCart(cart_row)
+        except Cart.DoesNotExist:
+            cart = None
+        return cart
+
+    @classmethod
+    def create(cls, session_id):
+        cart_row = Cart.objects.get_or_create(session_id=session_id)
+        cart = DatabaseCart(cart_row)
+        return cart
+
+    def products(self):
+        return self._cart.products.all()
+
+    def count(self):
+        return self._cart.products.count()
+
+    def total(self):
+        # TODO: get prices from backend
+        return -1.0
+
+class AncoraCart(BaseCart):
+    pass
 
 
 class Dropbox(models.Model):

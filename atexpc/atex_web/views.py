@@ -13,7 +13,7 @@ from django.views.generic.base import TemplateView
 from django.contrib.sites.models import get_current_site
 from django.conf import settings
 
-from models import Product, Categories
+from models import Product, Categories, DatabaseCart as Cart
 from forms import search_form_factory
 from atexpc.ancora_api.api import APIError
 
@@ -183,7 +183,43 @@ class SearchMixin(object):
         return search_form
 
 
-class HomeView(SearchMixin, GenericView):
+class ShoppingMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(ShoppingMixin, self).get_context_data(**kwargs)
+        context.update({'cart': self._get_cart_data()})
+        return context
+
+    def _get_cart(self):
+        cart_id = self.request.session.get('cart_id')
+        cart = Cart.get(cart_id) if cart_id else None
+        return cart
+
+    def _create_cart(self):
+        # TODO: are cookies enabled ?
+        self.request.session.save()
+        session_id = self.request.session.session_key
+        cart = Cart.create(session_id)
+        self.request.session['cart_id'] = cart.id()
+        return cart
+
+    def _get_cart_data(self):
+        cart = self._get_cart()
+        if cart:
+            cart_data = {'products': cart.products(),
+                         'count': cart.count(),
+                         'total': cart.total()}
+        else:
+            cart_data = {'products': [], 'count': 0, 'total': 0.0}
+        return cart_data
+
+    def _add_to_cart(self, product):
+        cart = self._get_cart()
+        if cart is None:
+            cart = self._create_cart()
+        cart.add_product(product_id)
+
+
+class HomeView(ShoppingMixin, SearchMixin, GenericView):
     template_name = "home.html"
     top_limit = 5
 
@@ -222,7 +258,7 @@ class HomeView(SearchMixin, GenericView):
         return promotional
 
 
-class SearchView(BreadcrumbsMixin, GenericView):
+class SearchView(ShoppingMixin, BreadcrumbsMixin, GenericView):
     template_name = "search.html"
 
     def get_particular_context(self):
@@ -360,7 +396,7 @@ class SearchView(BreadcrumbsMixin, GenericView):
             price_min=args['price_min'], price_max=args['price_max'])
         return selectors
 
-class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
+class ProductView(ShoppingMixin, SearchMixin, BreadcrumbsMixin, GenericView):
     template_name = "product.html"
     recommended_limit = 3
 
@@ -414,7 +450,7 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
         return breadcrumbs
 
 
-class ContactView(BreadcrumbsMixin, SearchMixin, GenericView):
+class ContactView(ShoppingMixin, BreadcrumbsMixin, SearchMixin, GenericView):
     def get_template_names(self):
         return "contact-%s.html" % self._get_base_domain()
 
