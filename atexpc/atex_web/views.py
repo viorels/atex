@@ -1,6 +1,7 @@
 import re
 import math
 import os
+import json
 from operator import itemgetter
 from itertools import groupby
 from urlparse import urlparse, urlunparse, parse_qsl
@@ -9,7 +10,10 @@ from urllib import urlencode
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.template import Context, Template
+from django.http import HttpResponse
 from django.views.generic.base import TemplateView
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.sites.models import get_current_site
 from django.conf import settings
 
@@ -141,6 +145,9 @@ class GenericView(TemplateView):
         domain = get_current_site(self.request).domain
         return '.'.join(domain.split('.')[-2:])
 
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, *args, **kwargs):
+        return super(GenericView, self).dispatch(*args, **kwargs)
 
 class BreadcrumbsMixin(object):
     def get_context_data(self, **kwargs):
@@ -212,11 +219,48 @@ class ShoppingMixin(object):
             cart_data = {'products': [], 'count': 0, 'total': 0.0}
         return cart_data
 
-    def _add_to_cart(self, product):
+    def _add_to_cart(self, product_id):
         cart = self._get_cart()
         if cart is None:
             cart = self._create_cart()
         cart.add_product(product_id)
+
+
+class JSONResponseMixin(object):
+    """A mixin that can be used to render a JSON response."""
+
+    def render_to_response(self, context, **response_kwargs):
+        response_kwargs['content_type'] = 'application/json'
+        return HttpResponse(
+            self.convert_context_to_json(context),
+            **response_kwargs
+        )
+
+    def convert_context_to_json(self, context):
+        """Naive conversion of the context dictionary into a JSON object"""
+        return json.dumps(context)
+
+
+class HybridGenericView(JSONResponseMixin, GenericView):
+    def render_to_response(self, context):
+        if self.request.is_ajax():
+            return JSONResponseMixin.render_to_response(self, context)
+        else:
+            return GenericView.render_to_response(self, context)
+
+
+class CartView(ShoppingMixin, SearchMixin, HybridGenericView):
+    template_name = "cart.html"
+
+    def get_json_context(self):
+        return {'cart': self._get_cart_data()}
+
+    def post(self, request, *args, **kwargs):
+        method = request.POST.get('method')
+        product_id = request.POST.get('product_id')
+        if method == 'add':
+            self._add_to_cart(product_id)
+        return self.render_to_response(self.get_json_context())
 
 
 class HomeView(ShoppingMixin, SearchMixin, GenericView):

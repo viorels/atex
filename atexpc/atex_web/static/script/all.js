@@ -154,11 +154,85 @@ function calculate_height(){
   };
 }
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function init_csrf() {
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    var csrftoken = getCookie('csrftoken');
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+}
+
+function init_cart() {
+    $(".add_cos_btn").click(function () {
+        product_id = $(this).data("product-id")
+        add_to_cart(product_id)
+        return false;
+    })
+}
+
+function add_to_cart(product_id) {
+    var cart_add_url = '/cos/';
+    $.post(cart_add_url, {"method": "add", "product_id": product_id})
+        .success(add_to_cart_success)
+        .error(add_to_cart_error)
+}
+
+function add_to_cart_success(data, textStatus, jqXHR) {
+    update_cart(data.cart);
+}
+
+function add_to_cart_error(jqXHR, textStatus, errorThrown) {
+
+}
+
+function update_cart(cart) {
+    $('.info_cos .cart_count').html(cart.count);
+    $('.info_cos .cart_total').html(cart.total);
+}
+
+function init_beta() {
+    $(".login_holder li, .info_cos li, .search_bar .configurator, " +
+      ".email-wrapper .email_btn").click(work_in_progress);
+}
+
+function work_in_progress() {
+    alert("Inca se lucreaza :) . Pentru comenzi apelati 0264-599009 " + 
+          "sau trimiteti mail la office@atexpc.ro. Multumim !");
+    return false;
+}
+
 $(document).ready(function() 
 {
 	init_gallery();
 	init_filters();
 	show_rezumat();
+    init_csrf();
+    init_cart();
     init_beta();
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {calculate_height();};
@@ -174,13 +248,3 @@ $(document).ready(function()
     init_input_hint(newsletter_form, newsletter_input, newsletter_hint);
 });
 
-function init_beta() {
-    $(".login_holder li, .info_cos li, .search_bar .configurator, " +
-      ".add_cos_btn, .email-wrapper .email_btn").click(work_in_progress);
-}
-
-function work_in_progress() {
-    alert("Inca se lucreaza :) . Pentru comenzi apelati 0264-599009 " + 
-          "sau trimiteti mail la office@atexpc.ro. Multumim !");
-    return false;
-}
