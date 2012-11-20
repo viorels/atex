@@ -216,7 +216,7 @@ function update_cart(cart) {
 }
 
 function init_beta() {
-    $(".login_holder li, .info_cos li, .search_bar .configurator, " +
+    $(".login_holder li, .search_bar .configurator, " +
       ".email-wrapper .email_btn").click(work_in_progress);
 }
 
