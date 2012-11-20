@@ -331,7 +331,13 @@ class Hit(models.Model):
 class Cart(models.Model):
     session = models.ForeignKey(Session, db_index=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, null=True)
-    products = models.ManyToManyField(Product)
+    products = models.ManyToManyField(Product, through='CartProducts')
+
+
+class CartProducts(models.Model):
+    cart = models.ForeignKey(Cart)
+    product = models.ForeignKey(Product)
+    count = models.IntegerField(default=1)
 
 
 class BaseCart(object):
@@ -343,9 +349,6 @@ class BaseCart(object):
 
     def count(self):
         return len(self.items())
-
-    def remove_item(self, product_id):
-        self.update_item(product_id, 0)
 
 class DatabaseCart(BaseCart):
     @classmethod
@@ -364,20 +367,64 @@ class DatabaseCart(BaseCart):
         return cart
 
     def items(self):
-        return [{'id': p.id, 'name': p.name} for p in self._cart.products.all()]
+        cart_products = CartProducts.objects.filter(cart=self._cart)
+        items = []
+        for cart_product in cart_products:
+            product = cart_product.product
+            product_dict = {'id': product.id,
+                            'name': product.name,
+                            'price': -1.0}
+            item = {'product': product_dict,
+                    'count': cart_product.count,
+                    'price': cart_product.count * product_dict['price']}
+            items.append(item)
+        return items
 
     def price(self):
         # TODO: get prices from backend
         return -1.0
 
+    def _get_product(self, id):
+        try:
+            product = Product.objects.get(id=id)
+        except Product.DoesNotExist as e:
+            logger.error(e)
+        else:
+            return product
+
     def add_item(self, product_id):
-        # TODO: make sure product exists in databast first
-        product = Product.objects.get(id=product_id)
-        # TODO: check if it already exists and increment count
-        self._cart.products.add(product)
+        product = self._get_product(product_id)
+        if product:
+            cart_product, created = CartProducts.objects.get_or_create(cart=self._cart, product=product)
+            if not created:
+                cart_product.count = models.F('count') + 1
+                cart_product.save()
+        return product
+
+    def remove_item(self, product_id):
+        product = self._get_product(product_id)
+        if product:
+            try:
+                cart_product = CartProducts.objects.get(cart=self._cart, product=product)
+            except CartProducts.DoesNotExist as e:
+                logger.error(e)
+                product = None
+            else:
+                cart_product.delete()
+        return product
 
     def update_item(self, product_id, count):
-        pass
+        if count == 0:
+            return self.remove_item(product_id)
+        product = self._get_product(product_id)
+        if product:
+            try:
+                cart_product = CartProducts.objects.get(cart=self._cart, product=product)
+            except CartProducts.DoesNotExist as e:
+                logger.error(e)
+            else:
+                cart_product.count = count
+                cart_product.save()
 
 class AncoraCart(BaseCart):
     pass

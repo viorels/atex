@@ -8,6 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'CartProducts'
+        db.create_table('atex_web_cartproducts', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('cart', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['atex_web.Cart'])),
+            ('product', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['atex_web.Product'])),
+            ('count', self.gf('django.db.models.fields.IntegerField')(default=1)),
+        ))
+        db.send_create_signal('atex_web', ['CartProducts'])
+
         # Adding model 'Cart'
         db.create_table('atex_web_cart', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -16,30 +25,29 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('atex_web', ['Cart'])
 
-        # Adding M2M table for field products on 'Cart'
-        db.create_table('atex_web_cart_products', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('cart', models.ForeignKey(orm['atex_web.cart'], null=False)),
-            ('product', models.ForeignKey(orm['atex_web.product'], null=False))
-        ))
-        db.create_unique('atex_web_cart_products', ['cart_id', 'product_id'])
-
 
     def backwards(self, orm):
+        # Deleting model 'CartProducts'
+        db.delete_table('atex_web_cartproducts')
+
         # Deleting model 'Cart'
         db.delete_table('atex_web_cart')
-
-        # Removing M2M table for field products on 'Cart'
-        db.delete_table('atex_web_cart_products')
 
 
     models = {
         'atex_web.cart': {
             'Meta': {'object_name': 'Cart'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'products': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['atex_web.Product']", 'symmetrical': 'False'}),
+            'products': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['atex_web.Product']", 'through': "orm['atex_web.CartProducts']", 'symmetrical': 'False'}),
             'session': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sessions.Session']"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True'})
+        },
+        'atex_web.cartproducts': {
+            'Meta': {'object_name': 'CartProducts'},
+            'cart': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['atex_web.Cart']"}),
+            'count': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'product': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['atex_web.Product']"})
         },
         'atex_web.dropbox': {
             'Meta': {'object_name': 'Dropbox'},
