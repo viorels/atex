@@ -51,7 +51,7 @@
             </div>
             <div class="info_cos">
             	<div class="wellcome">
-                	<p>Bun venit, <span class="red_b">anonim</span> !</p>
+                	<p>Bun venit, <span class="red_b">{{ user.first_name|default:"anonim" }}</span> !</p>
                 </div>    
                 <ul>
                 	<li><a href="{% url cart %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>

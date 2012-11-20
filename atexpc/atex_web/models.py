@@ -9,6 +9,7 @@ import pytz
 from django.conf import settings
 from django.db import models
 from django.db.models.query import QuerySet
+from django.db.models.signals import post_save
 from django.core.files import File, temp
 from django.core.files.storage import get_storage_class
 from django.template.defaultfilters import slugify
@@ -326,6 +327,22 @@ class Hit(models.Model):
     product = models.ForeignKey(Product, unique_for_date="date")
     count = models.IntegerField()
     date = models.DateField()
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    phone = models.CharField(max_length=15)
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=32)
+    county = models.CharField(max_length=32)
+
+    def __unicode__(self):
+        return u'%s' % self.user
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+post_save.connect(create_user_profile, sender=User)
 
 
 class Cart(models.Model):

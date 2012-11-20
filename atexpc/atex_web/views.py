@@ -212,11 +212,12 @@ class ShoppingMixin(object):
     def _get_cart_data(self):
         cart = self._get_cart()
         if cart:
-            cart_data = {'items': cart.items(),
+            cart_data = {'id': cart.id(),
+                         'items': cart.items(),
                          'count': cart.count(),
                          'price': cart.price()}
         else:
-            cart_data = {'items': [], 'count': 0, 'price': 0.0}
+            cart_data = {'id': None, 'items': [], 'count': 0, 'price': 0.0}
         return cart_data
 
     def _add_to_cart(self, product_id):
@@ -261,6 +262,13 @@ class CartView(ShoppingMixin, SearchMixin, HybridGenericView):
         if method == 'add':
             self._add_to_cart(product_id)
         return self.render_to_response(self.get_json_context())
+
+
+class OrderView(ShoppingMixin, SearchMixin, HybridGenericView):
+    template_name = "order.html"
+
+class ConfirmView(ShoppingMixin, SearchMixin, HybridGenericView):
+    template_name = "confirm.html"
 
 
 class HomeView(ShoppingMixin, SearchMixin, GenericView):

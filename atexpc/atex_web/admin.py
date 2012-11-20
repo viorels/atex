@@ -3,10 +3,12 @@ from django.db.models import Count, Sum
 from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.admin import SimpleListFilter
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 from django.contrib.redirects.models import Redirect
 from django.utils.datastructures import SortedDict
 
-from models import Product, Image, Hit, DropboxMedia
+from models import Product, Image, Hit, DropboxMedia, UserProfile
 
 
 class ImageCountListFilter(SimpleListFilter):
@@ -96,9 +98,26 @@ class ProductAdmin(admin.ModelAdmin):
     image_count.allow_tags = True
 admin.site.register(Product, ProductAdmin)
 
+
 class RedirectAdmin(admin.ModelAdmin):
     actions = ('delete_selected',)
 admin.site.unregister(Redirect)
 admin.site.register(Redirect, RedirectAdmin)
+
+
+class UserProfileInline(admin.StackedInline):
+    model = UserProfile
+    can_delete = False
+    verbose_name_plural = 'profile'
+
+# Define a new User admin
+class UserAdmin(UserAdmin):
+    inlines = (UserProfileInline, )
+    actions = ('delete_selected',)
+
+# Re-register UserAdmin
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
+
 
 admin.site.disable_action('delete_selected')

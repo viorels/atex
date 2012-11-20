@@ -35,8 +35,7 @@ DROPBOX_ACCESS_TYPE = os.environ.get('DROPBOX_ACCESS_TYPE', 'dropbox')
 DROPBOX_ACCESS_TOKEN = os.environ.get('DROPBOX_ACCESS_TOKEN')
 DROPBOX_ACCESS_TOKEN_SECRET = os.environ.get('DROPBOX_ACCESS_TOKEN_SECRET')
 
-if 'test' in sys.argv:
-    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+AUTH_PROFILE_MODULE = 'atex_web.UserProfile'
 
 CACHES = {
     'default': {
