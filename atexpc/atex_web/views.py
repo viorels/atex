@@ -212,18 +212,18 @@ class ShoppingMixin(object):
     def _get_cart_data(self):
         cart = self._get_cart()
         if cart:
-            cart_data = {'products': cart.products(),
+            cart_data = {'items': cart.items(),
                          'count': cart.count(),
-                         'total': cart.total()}
+                         'price': cart.price()}
         else:
-            cart_data = {'products': [], 'count': 0, 'total': 0.0}
+            cart_data = {'items': [], 'count': 0, 'price': 0.0}
         return cart_data
 
     def _add_to_cart(self, product_id):
         cart = self._get_cart()
         if cart is None:
             cart = self._create_cart()
-        cart.add_product(product_id)
+        cart.add_item(product_id)
 
 
 class JSONResponseMixin(object):

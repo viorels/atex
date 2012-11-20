@@ -342,7 +342,10 @@ class BaseCart(object):
         return self._cart.id
 
     def count(self):
-        raise NotImplemented()
+        return len(self.items())
+
+    def remove_item(self, product_id):
+        self.update_item(product_id, 0)
 
 class DatabaseCart(BaseCart):
     @classmethod
@@ -360,26 +363,20 @@ class DatabaseCart(BaseCart):
         cart = DatabaseCart(cart_row)
         return cart
 
-    def products(self):
+    def items(self):
         return [{'id': p.id, 'name': p.name} for p in self._cart.products.all()]
 
-    def count(self):
-        return self._cart.products.count()
-
-    def total(self):
+    def price(self):
         # TODO: get prices from backend
         return -1.0
 
-    def add_product(self, product_id):
+    def add_item(self, product_id):
         # TODO: make sure product exists in databast first
         product = Product.objects.get(id=product_id)
         # TODO: check if it already exists and increment count
         self._cart.products.add(product)
 
-    def remove_product(self, product_id):
-        pass
-
-    def update_product(self, product_id, count):
+    def update_item(self, product_id, count):
         pass
 
 class AncoraCart(BaseCart):

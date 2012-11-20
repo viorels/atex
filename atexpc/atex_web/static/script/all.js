@@ -212,7 +212,7 @@ function add_to_cart_error(jqXHR, textStatus, errorThrown) {
 
 function update_cart(cart) {
     $('.info_cos .cart_count').html(cart.count);
-    $('.info_cos .cart_total').html(cart.total);
+    $('.info_cos .cart_price').html(cart.price);
 }
 
 function init_beta() {
