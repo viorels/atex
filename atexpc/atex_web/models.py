@@ -328,7 +328,8 @@ class Hit(models.Model):
     count = models.IntegerField()
     date = models.DateField()
 
-
+# http://blog.rodger-brown.com/2012/08/djangos-extended-user-profile.html
+# http://www.ryanwest.info/blog/2011/django-tip-5-extending-contrib-auth-models-user/
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     phone = models.CharField(max_length=15)
