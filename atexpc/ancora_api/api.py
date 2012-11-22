@@ -256,11 +256,13 @@ class Ancora(object):
         else:
             old_price = None
 
-        category_code = product.get('zcod_grupa') # or zcodp for category listing
+        # XXX: inconsistent field name zcodp on category listing
+        category_code = product.get('zcod_grupa') or product.get('zcodp')
         is_available = re.match(r"[0-9.]+$", category_code) if category_code is not None else None
         stock_info = 'In stoc' if product.get('zstoc', 0) else product.get('zinfo_stoc_site', '')
 
         return {'id': product.get('pidm') or product.get('zidprodus'),
+                'brand': product.get('zbrand'),
                 'model': product['zmodel'],
                 'category_code': category_code,
                 'name': product['ztitlu'],
