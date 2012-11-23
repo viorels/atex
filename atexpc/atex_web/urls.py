@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.shortcuts import render
+from django.views.generic.simple import redirect_to
 from views import GenericView, HomeView, SearchView, ProductView, ContactView
 
 urlpatterns = patterns('',
@@ -20,6 +21,8 @@ urlpatterns = patterns('',
     url(r'^contact/', ContactView.as_view(), name='contact'),
     url(r'PIE\.htc$',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),
+    # TODO: remove ledacy redirect sm.ashx to MEDIA_URL + SHOPMANIA_FEED_FILE
+    url(r'^sm.ashx$', redirect_to, {'url': '/media/shopmania.csv'}),
 )
 
 if settings.DEBUG:

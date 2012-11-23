@@ -13,8 +13,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 PRODUCT_DB_FIELDS = ('id', 'model', 'name')
-SHOPMANIA_FEED_FILENAME = os.path.join(settings.PROJECT_ROOT,
-    'atex_web', 'media', 'shopmania.csv')
 
 class Command(BaseCommand):
     helf = "Synchronize Ancora products to local database AND (optionally) to Shopmania feed file"
@@ -30,7 +28,8 @@ class Command(BaseCommand):
         writers = [self.create_or_update_products]
 
         if options['shopmania']:
-            temp_feed_filename = SHOPMANIA_FEED_FILENAME + '.tmp'
+            feed_filename = os.path.join(settings.MEDIA_ROOT, settings.SHOPMANIA_FEED_FILE)
+            temp_feed_filename = feed_filename + '.tmp'
             if os.path.exists(temp_feed_filename):
                 os.remove(temp_feed_filename)
             writers.append(partial(self.add_products_to_shopmania_feed, temp_feed_filename))
@@ -38,9 +37,9 @@ class Command(BaseCommand):
         self.synchronize(writers)
 
         if options['shopmania']:
-            if os.path.exists(temp_feed_filename) and os.path.exists(SHOPMANIA_FEED_FILENAME):
-                os.remove(SHOPMANIA_FEED_FILENAME)
-                os.rename(temp_feed_filename, SHOPMANIA_FEED_FILENAME)
+            if os.path.exists(temp_feed_filename) and os.path.exists(feed_filename):
+                os.remove(feed_filename)
+                os.rename(temp_feed_filename, feed_filename)
 
         # Assign existing images for new products
         Product.objects.assign_images()
