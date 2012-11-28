@@ -65,7 +65,7 @@ html, body { height: 100%;  }
 .footer_wrapper, .push { height: 200px; }
 .wrapper {
 	border-top:5px solid #cd2325;
-	background:url(../images/bg_dark.png) repeat;
+	background:url(../images/bg_dark_beta.png) repeat;
 	/*background-color:#3d97cb;*/
 }
 .page_wrapper {
@@ -906,6 +906,7 @@ img.center {
 }
 .pret {
 	color:#c62123;
+
 	font-weight:bold;
 }
 
