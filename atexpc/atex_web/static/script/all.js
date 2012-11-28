@@ -95,7 +95,7 @@ function init_filters() {
 		filter_form.submit();
 	})
 
-    dropdowns.click(function () {
+    dropdowns.change(function () {
         if ($(this).hasClass("submit")) {
             filter_form.submit();
         }
