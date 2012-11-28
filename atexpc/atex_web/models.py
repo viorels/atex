@@ -143,7 +143,7 @@ class ProductManager(models.Manager, AncoraMixin):
             price_min=price_min, price_max=price_max, stock=stock)
         products = products_info.get('products')
         product_ids = [int(product['id']) for product in products]
-        product_objs = (self.filter(hit__date__gte=self._one_month_ago())
+        product_objs = (self.filter(hit__date__gte=self.one_month_ago())
                             .annotate(month_count=models.Sum('hit__count'))
                             .in_bulk(product_ids))
         for product in products:
