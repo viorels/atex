@@ -414,6 +414,14 @@ class ContactView(BreadcrumbsMixin, SearchMixin, GenericView):
     def get_breadcrumbs(self):
         return [{'name': "Contact"}]
 
+
+class ConditionsView(BreadcrumbsMixin, SearchMixin, GenericView):
+    template_name = "conditions.html"
+
+    def get_breadcrumbs(self):
+        return [{'name': "Conditii Vanzare"}]
+
+
 def _uri_with_args(base_uri, **new_args):
     """Overwrite specified args in base uri. If any other multiple value args
     are present in base_uri then they must be preserved"""
