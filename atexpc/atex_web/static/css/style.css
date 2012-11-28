@@ -1871,6 +1871,7 @@ td.center {text-align:center}
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected, .ui-tabs .ui-tabs-nav li:hover {background-color:#c62123; }
 .ui-tabs .ui-tabs-nav li {background-color:#efefef;}
 .contact-content {width:875px;float:right; padding-top:5px;}
+.conditii-content {width:875px;float:right; padding-top:5px;}
 .red-bottom {
 	width:100%;
 	float:left;
@@ -1884,5 +1885,6 @@ td.center {text-align:center}
 .info-contact ul li { line-height:18px;}
 .info-contact ul li.red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
 .info-contact ul li.orar-pad {padding-left:20px}
+.info-conditii ul .red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
 .statistics-info {float:left;}
 .statistics-info a {margin: 10px 10px 5px 0; float:left; height:35px;}
