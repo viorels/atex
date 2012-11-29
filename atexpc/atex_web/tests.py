@@ -6,9 +6,11 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from django.test.client import Client
 from django.core.urlresolvers import reverse
+from django.db import IntegrityError
+from mock import patch
 
+from models import Product, ProductManager
 import views
 
 
@@ -48,3 +50,21 @@ class ViewsTest(TestCase):
     	expected = 'http://uri.com/?f=3'
     	self.assertEqual(result, expected)
 
+
+class ModelsTest(TestCase):
+    def test_add_existing_model_with_new_id(self):
+        product = {'id': 22910, 'model': 'DIR-615', 'name': 'test product'}
+        new_product = product.copy()
+        new_product.update(id=1)
+
+        with patch.object(ProductManager, 'get_product') as mock_get_product:
+            mock_get_product.return_value = product
+            Product.objects.get_and_save(product['id'])
+            mock_get_product.assert_called_with(product['id'])
+            self.assertEqual(Product.objects.get(id=product['id']).model, product['model'])
+
+            mock_get_product.return_value = new_product
+            try:
+                Product.objects.get_and_save(new_product['id'])
+            except IntegrityError as e:
+                self.fail("get_and_save raised %s: %s" % (type(e).__name__, e))
