@@ -30,6 +30,7 @@ INSTALLED_APPS = (
     'south',
     'storages',
     'sorl.thumbnail',
+    'raven.contrib.django',
     'atexpc.atex_web',
 )
 
@@ -40,6 +41,8 @@ STATICFILES_FINDERS = (
 )
 
 COMPRESS_ENABLED = True
+
+SENTRY_DSN = environ.get('SENTRY_DSN')
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'

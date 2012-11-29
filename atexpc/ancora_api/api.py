@@ -290,6 +290,7 @@ class Ancora(object):
             meta_value = found[0].get(meta)
         else:
             meta_value = None
+            print category
             logger.warn("found %d categories with id '%s'", len(category), category_id)
         return meta_value
 
