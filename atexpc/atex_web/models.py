@@ -163,6 +163,8 @@ class ProductManager(models.Manager, AncoraMixin):
     def get_and_save(self, product_id, update=False):
         """ Fetch product from API and save basic details in database """
         product_raw = self.get_product(product_id)
+        if product_raw is None:
+            return None
         product_id = int(product_raw['id'])
         product_fields = dict((field.name, product_raw.get(field.name)) 
                               for field in Product._meta.fields)

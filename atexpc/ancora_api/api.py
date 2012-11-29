@@ -239,8 +239,8 @@ class Ancora(object):
     def product(self, product_id):
         def post_process(data):
             json_root = 'product_info'
-            product = data[json_root][0]
-            return self._post_process_product(product)
+            product = data[json_root][0] if len(data[json_root]) else None
+            return self._post_process_product(product) if product else None
             
         product_uri = self.adapter.base_uri_with_args({'cod_formular': '738',
                                                        'pidm': product_id})
