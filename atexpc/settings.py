@@ -200,16 +200,16 @@ LOGGING = {
             'level':'INFO',
         },
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': [],
             'level': 'ERROR',
             'propagate': True,
         },
         'atexpc.atex_web': {
-            'handlers': ['console', 'mail_admins'],
+            'handlers': ['console'],
             'level': 'DEBUG',
         },
         'atexpc.ancora_api': {
-            'handlers': ['console', 'mail_admins'],
+            'handlers': ['console'],
             'level': 'DEBUG',
         }
     }
