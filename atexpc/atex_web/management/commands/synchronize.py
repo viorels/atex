@@ -45,7 +45,7 @@ class Command(BaseCommand):
         Product.objects.assign_images()
 
     def synchronize(self, writers):
-        self.categories = Categories()
+        self.categories = Categories(api_timeout=300)  # 5 minutes
         for products_dict in self.fetch_products():
             for writer in writers:
                 writer(products_dict)
