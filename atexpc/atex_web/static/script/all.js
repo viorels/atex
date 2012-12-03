@@ -95,7 +95,7 @@ function init_filters() {
 		filter_form.submit();
 	})
 
-    dropdowns.click(function () {
+    dropdowns.change(function () {
         if ($(this).hasClass("submit")) {
             filter_form.submit();
         }
@@ -144,7 +144,7 @@ function calculate_height(){
   search_bar_h = $('.search_bar').height();
   content_h = content_wrapper_h + header_h + search_bar_h + bottomHeight + footerHeight;  
   viewHeight_new = viewHeight - footerHeight;
-  docHeight_new = docHeight - bottomHeight - footerHeight;
+  docHeight_new = docHeight - bottomHeight - footerHeight + 30;
   if (viewHeight >= content_h) {
     $('#wrap1').css('min-height', getDocHeight);
     $('#wrap2').css('min-height', viewHeight_new);

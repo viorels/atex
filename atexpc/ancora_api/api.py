@@ -288,8 +288,8 @@ class Ancora(object):
     def product(self, product_id):
         def post_process(data):
             json_root = 'product_info'
-            product = data[json_root][0]
-            return self._post_process_product(product)
+            product = data[json_root][0] if len(data[json_root]) else None
+            return self._post_process_product(product) if product else None
             
         product_uri = self.adapter.uri_for('product', {'pidm': product_id})
         product = self.adapter.read(product_uri, post_process, cache_timeout=TIMEOUT_SHORT)
@@ -304,11 +304,13 @@ class Ancora(object):
         else:
             old_price = None
 
-        category_code = product.get('zcod_grupa') # or zcodp for category listing
+        # XXX: inconsistent field name zcodp on category listing
+        category_code = product.get('zcod_grupa') or product.get('zcodp')
         is_available = bool(re.match(r"[0-9.]+$", category_code)) if category_code is not None else False
         stock_info = 'In stoc' if product.get('zstoc', 0) else product.get('zinfo_stoc_site', '')
 
         return {'id': product.get('pidm') or product.get('zidprodus'),
+                'brand': product.get('zbrand'),
                 'model': product['zmodel'],
                 'category_code': category_code,
                 'name': product['ztitlu'],
@@ -336,6 +338,7 @@ class Ancora(object):
             meta_value = found[0].get(meta)
         else:
             meta_value = None
+            print category
             logger.warn("found %d categories with id '%s'", len(category), category_id)
         return meta_value
 

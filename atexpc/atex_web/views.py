@@ -11,6 +11,7 @@ from django.template.defaultfilters import slugify
 from django.template import Context, Template
 from django.views.generic.base import TemplateView
 from django.contrib.sites.models import get_current_site
+from django.http import Http404
 from django.conf import settings
 
 from models import Product, Categories
@@ -373,6 +374,8 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
         if not hasattr(self, '_product'):
             product_id = self.kwargs['product_id']
             product_obj = Product.objects.get_and_save(product_id)
+            if product_obj is None:
+                raise Http404()
             product = product_obj.raw
             product['images'] = product_obj.images()
             html_template = product_obj.html_description()
@@ -420,6 +423,14 @@ class ContactView(BreadcrumbsMixin, SearchMixin, GenericView):
 
     def get_breadcrumbs(self):
         return [{'name': "Contact"}]
+
+
+class ConditionsView(BreadcrumbsMixin, SearchMixin, GenericView):
+    template_name = "conditions.html"
+
+    def get_breadcrumbs(self):
+        return [{'name': "Conditii Vanzare"}]
+
 
 def _uri_with_args(base_uri, **new_args):
     """Overwrite specified args in base uri. If any other multiple value args

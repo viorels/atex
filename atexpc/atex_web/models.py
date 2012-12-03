@@ -144,7 +144,7 @@ class ProductManager(models.Manager, AncoraMixin):
             price_min=price_min, price_max=price_max, stock=stock)
         products = products_info.get('products')
         product_ids = [int(product['id']) for product in products]
-        product_objs = (self.filter(hit__date__gte=self._one_month_ago())
+        product_objs = (self.filter(hit__date__gte=self.one_month_ago())
                             .annotate(month_count=models.Sum('hit__count'))
                             .in_bulk(product_ids))
         for product in products:
@@ -164,6 +164,8 @@ class ProductManager(models.Manager, AncoraMixin):
     def get_and_save(self, product_id, update=False):
         """ Fetch product from API and save basic details in database """
         product_raw = self.get_product(product_id)
+        if product_raw is None:
+            return None
         product_id = int(product_raw['id'])
         product_fields = dict((field.name, product_raw.get(field.name)) 
                               for field in Product._meta.fields)
