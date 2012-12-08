@@ -1,6 +1,7 @@
 import os
 import re
 import time
+import hashlib
 import json
 import operator
 from urlparse import urlparse, urlunparse, parse_qsl
@@ -36,13 +37,19 @@ class BaseAdapter(object):
         self._use_backend = use_backend
         self._requests = requests.session()  # TODO: thread safe ?
 
+    def _cache_key(self, uri):
+        cache_key = self.normalize_uri(uri)
+        if len(cache_key) > 250:
+            cache_key = hashlib.sha1(cache_key).hexdigest()
+        return cache_key
+
     def _read_cache(self, uri):
         if self._cache:
-            return self._cache.get(self.normalize_uri(uri))
+            return self._cache.get(self._cache_key(uri))
 
     def _write_cache(self, uri, data, timeout):
         if self._cache:
-            self._cache.set(self.normalize_uri(uri), data, timeout)
+            self._cache.set(self._cache_key(uri), data, timeout)
 
     def _read_backend(self, uri):
         raise NotImplemented()
