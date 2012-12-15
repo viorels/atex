@@ -6,7 +6,8 @@ from django.contrib.admin import SimpleListFilter
 from django.contrib.redirects.models import Redirect
 from django.utils.datastructures import SortedDict
 
-from models import Product, Image, Hit, DropboxMedia
+from models import Product, Image, Hit
+from dropbox_media import DropboxMedia
 
 
 class ImageCountListFilter(SimpleListFilter):

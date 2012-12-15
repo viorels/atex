@@ -16,6 +16,7 @@ from django.conf import settings
 from models import Product
 from forms import search_form_factory
 from atexpc.ancora_api.api import APIError
+from ancora_api import AncoraAPI
 
 import logging
 logger = logging.getLogger(__name__)
@@ -24,18 +25,19 @@ logger = logging.getLogger(__name__)
 class GenericView(TemplateView):
     def __init__(self, *args, **kwargs):
         super(GenericView, self).__init__(*args, **kwargs)
-        self.categories = Categories()
+        self.api = AncoraAPI()
 
     def get_general_context(self):
         return {'menu': self.get_menu,
-                'categories': self.categories.get_main,
+                'categories': self.api.categories.get_main,
                 'footer': self.get_footer,
                 'site_info': self.get_site_info}
 
     def get_minimal_context(self):
-        return {'menu': self.get_menu(use_backend=False),
-                'categories': self.categories.get_main(use_backend=False),
-                'footer': self.get_footer(use_backend=False),
+        self.api = AncoraAPI(use_backend=False)
+        return {'menu': self.get_menu(),
+                'categories': self.api.categories.get_main(),
+                'footer': self.get_footer(),
                 'site_info': self.get_site_info()}
 
     def get_particular_context(self):
@@ -57,7 +59,7 @@ class GenericView(TemplateView):
             response = self.render_to_response(context)
         return response
 
-    def get_menu(self, use_backend=None):
+    def get_menu(self):
         def category_icon(category):
             icons = {'1': 'images/desktop-icon.png',
                      '2': 'images/tv-icon.png',
@@ -78,7 +80,7 @@ class GenericView(TemplateView):
 
         def categories_in(category=None):
             parent_id = category['code'] if category is not None else None
-            categories = self.categories.get_children(parent_id, use_backend=use_backend)
+            categories = self.api.categories.get_children(parent_id)
             sorted_categories = sorted(categories, key=itemgetter('code'))
             return sorted_categories
 
@@ -114,10 +116,10 @@ class GenericView(TemplateView):
 
         return menu
 
-    def get_footer(self, use_backend=None):
+    def get_footer(self):
         return [{'name': category['name'],
                  'url': _category_url(category)}
-                for category in self.categories.get_all(use_backend=use_backend)
+                for category in self.api.categories.get_all()
                 if _category_level(category) >= 2 and category['count'] > 0]
 
     def get_site_info(self):
@@ -161,12 +163,12 @@ class BreadcrumbsMixin(object):
 
     def _get_category_breadcrumbs(self, category_id):
         breadcrumbs = []
-        category = self.categories.get_category(category_id)
+        category = self.api.categories.get_category(category_id)
         while category is not None:
             crumb = {'name': category['name'],
                      'url': _category_url(category)}
             breadcrumbs.insert(0, crumb)
-            category = self.categories.get_parent_category(category['id'])
+            category = self.api.categories.get_parent_category(category['id'])
         return breadcrumbs
 
 
@@ -177,7 +179,7 @@ class SearchMixin(object):
         return context
 
     def get_search_form(self):
-        search_in_choices = tuple((c['id'], c['name']) for c in self.categories.get_main())
+        search_in_choices = tuple((c['id'], c['name']) for c in self.api.categories.get_main())
         search_form_class = search_form_factory(search_in_choices, advanced=False)
         search_form = search_form_class(self.request.GET)
         return search_form
@@ -196,7 +198,7 @@ class HomeView(SearchMixin, GenericView):
         hits = []
         product_objects = Product.objects.get_top_hits(limit=self.top_limit)
         product_ids = [p.id for p in product_objects]
-        products = Product.objects.get_product_list(product_ids)
+        products = self.api.products.get_product_list(product_ids)
         for product_obj in product_objects:
             matching_in_backend = [p for p in products
                                    if int(p['id']) == product_obj.id]
@@ -208,14 +210,14 @@ class HomeView(SearchMixin, GenericView):
         return hits
     
     def get_recommended(self):
-        recommended = Product.objects.get_recommended(limit=self.top_limit)
+        recommended = self.api.products.get_recommended(limit=self.top_limit)
         for product in recommended:
             product['images'] = Product(model=product['model']).images
             product['url'] = _product_url(product)
         return recommended
 
     def get_promotional(self):
-        promotional = Product.objects.get_promotional(limit=self.top_limit)
+        promotional = self.api.products.get_promotional(limit=self.top_limit)
         for product in promotional:
             product['images'] = Product(model=product['model']).images
             product['url'] = _product_url(product)
@@ -243,7 +245,7 @@ class SearchView(BreadcrumbsMixin, GenericView):
             request_GET = self.request.GET.copy()
             if request_GET.get('categorie') is None:
                 request_GET['categorie'] = self.get_category_id()
-            search_in_choices = tuple((c['id'], c['name']) for c in self.categories.get_main())
+            search_in_choices = tuple((c['id'], c['name']) for c in self.api.categories.get_main())
             search_form_class = search_form_factory(search_in_choices, advanced=True)
             self._search_form = search_form_class(request_GET)
             if not self._search_form.is_valid():
@@ -295,12 +297,12 @@ class SearchView(BreadcrumbsMixin, GenericView):
                 'sort_by': args['sort_by'], 'sort_order': args['sort_order']}
             if args['sort_by'] == "vanzari":
                 get_products_range = (lambda start, stop:
-                    Product.objects.get_products_by_hits(start=start, stop=stop,
-                                                         **products_args))
+                    self.api.products.get_products_with_hits(start=start, stop=stop,
+                                                             **products_args))
             else:
                 get_products_range = (lambda start, stop:
-                    Product.objects.get_products(start=start, stop=stop,
-                                                 **products_args))
+                    self.api.products.get_products(start=start, stop=stop,
+                                                   **products_args))
             self._products_page = self._get_page(
                 get_products_range, per_page=args['per_page'],
                 current_page=args['current_page'],
@@ -352,7 +354,7 @@ class SearchView(BreadcrumbsMixin, GenericView):
 
     def get_selectors(self):
         args = self.get_search_args()
-        selectors = self.categories.get_selectors(
+        selectors = self.api.categories.get_selectors(
             category_id=args['category_id'], 
             selectors_active=args['selectors_active'],
             price_min=args['price_min'], price_max=args['price_max'])
@@ -370,7 +372,7 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
     def get_product(self):
         if not hasattr(self, '_product'):
             product_id = self.kwargs['product_id']
-            product_obj = Product.objects.get_and_save(product_id)
+            product_obj = self.api.products.get_and_store(product_id, Product.objects.store)
             if product_obj is None:
                 raise Http404()
             product = product_obj.raw
@@ -396,7 +398,7 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
         return group_in(3)
 
     def get_recommended(self):
-        recommended = Product.objects.get_recommended(limit=self.recommended_limit)
+        recommended = self.api.products.get_recommended(limit=self.recommended_limit)
         for product in recommended:
             product['images'] = Product(model=product['model']).images
             product['url'] = _product_url(product)
@@ -404,7 +406,7 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
 
     def get_breadcrumbs(self):
         product = self.get_product()
-        category = self.categories.get_category_by_code(product['category_code'])
+        category = self.api.categories.get_category_by_code(product['category_code'])
         if category:
             breadcrumbs = self._get_category_breadcrumbs(category['id'])
             breadcrumbs.append({'name': product['name'],
