@@ -7,7 +7,8 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.contrib.sites.models import get_current_site
 from django.conf import settings
-from atexpc.atex_web.models import Product, Categories
+from atexpc.atex_web.models import Product
+from atexpc.atex_web.ancora_api import AncoraAPI
 
 import logging
 logger = logging.getLogger(__name__)
@@ -45,13 +46,13 @@ class Command(BaseCommand):
         Product.objects.assign_images()
 
     def synchronize(self, writers):
-        self.categories = Categories(api_timeout=300)  # 5 minutes
+        self.api = AncoraAPI(api_timeout=300)  # 5 minutes
         for products_dict in self.fetch_products():
             for writer in writers:
                 writer(products_dict)
 
     def fetch_products(self):
-        for category in self.categories.get_all():
+        for category in self.api.categories.get_all():
             category_id = category['id']
             logger.debug("Category %(name)s (%(count)d)", category)
             if category['count'] > 0:
@@ -143,10 +144,10 @@ class Command(BaseCommand):
     def _get_category_path(self, product):
         path = []
         category_code = product['category_code']
-        category = self.categories.get_category_by_code(category_code)
+        category = self.api.categories.get_category_by_code(category_code)
         while category is not None:
             path.insert(0, category['name'])
-            category = self.categories.get_parent_category(category['id'])
+            category = self.api.categories.get_parent_category(category['id'])
         return " > ".join(path)
 
     def _build_absolute_uri(self, relative_uri):

@@ -1,5 +1,5 @@
 from django.core.management.base import NoArgsCommand
-from atexpc.atex_web.models import DropboxMedia
+from dropbox_media import DropboxMedia
 
 class Command(NoArgsCommand):
     def handle_noargs(self, *args, **options):
