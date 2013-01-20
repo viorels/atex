@@ -56,7 +56,7 @@ class Command(BaseCommand):
             category_id = category['id']
             logger.debug("Category %(name)s (%(count)d)", category)
             if category['count'] > 0:
-                products = Product.objects.get_products(
+                products = self.api.products.get_products(
                     category_id=category_id, keywords=None,
                     start=None, stop=None).get('products')
                 products_dict = dict((int(p['id']), p) for p in products)
@@ -86,7 +86,7 @@ class Command(BaseCommand):
 
         insert_ids = set(products) - set(existing_products)
         if insert_ids:
-            insert_list = [Product(**products[i]) for i in insert_ids]
+            insert_list = [Product(raw=products[i]) for i in insert_ids]
             logger.debug("Insert %s", insert_list)
             Product.objects.bulk_create(insert_list)
 
