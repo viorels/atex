@@ -3,10 +3,11 @@ import re
 from datetime import datetime, timedelta
 
 import pytz
-from django.db import models
+from django.db import models, connection
 from django.db.models.query import QuerySet
 from django.core.files.storage import get_storage_class
 from django.template.defaultfilters import slugify
+from django.db.utils import DatabaseError
 from sorl.thumbnail import ImageField
 
 import logging
@@ -75,6 +76,7 @@ class StorageWithOverwrite(get_storage_class()):
 class Product(models.Model):
     model = models.CharField(max_length=64, db_index=True)
     name = models.CharField(max_length=128)
+    specs = models.ManyToManyField('Specification', through='ProductSpecification')
     updated = models.DateTimeField(auto_now=True, auto_now_add=True)
     # has_folder = models.NullBooleanField()
 
@@ -138,6 +140,19 @@ class Product(models.Model):
         if not created:
             hit.count = models.F('count') + 1
             hit.save()
+
+    def update_specs(self, specs):
+        for spec in specs:
+            try:
+                spec_group, _ = SpecificationGroup.objects.get_or_create(name=spec.group)
+                spec_obj, _ = Specification.objects.get_or_create(
+                    name=spec.name, group=spec_group)
+                ProductSpecification.objects.get_or_create(
+                    product=self, spec=spec_obj, value=spec.value)
+            except DatabaseError as e:
+                connection._rollback()
+                logger.error("failed to save spec %s for product %s: %s",
+                    spec, self.model, e)
 
     @models.permalink
     def get_absolute_url(self):
@@ -215,3 +230,20 @@ class Hit(models.Model):
 class Dropbox(models.Model):
     app_key = models.CharField(primary_key=True, max_length=64)
     delta_cursor = models.CharField(max_length=512, blank=True, null=True)
+
+
+class SpecificationGroup(models.Model):
+    name = models.CharField(max_length=64)
+#    category_id = models.IntegerField()
+
+
+class Specification(models.Model):
+    name = models.CharField(max_length=64)
+    group = models.ForeignKey(SpecificationGroup, null=True)
+#    category_id = models.IntegerField()
+
+
+class ProductSpecification(models.Model):
+    product = models.ForeignKey(Product)
+    spec = models.ForeignKey(Specification)
+    value = models.CharField(max_length=255, blank=True)

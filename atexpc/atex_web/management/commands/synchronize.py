@@ -9,11 +9,13 @@ from django.contrib.sites.models import get_current_site
 from django.conf import settings
 from atexpc.atex_web.models import Product
 from atexpc.atex_web.ancora_api import AncoraAPI
+from atexpc.atex_web.scrape import scrape_specs
 
 import logging
 logger = logging.getLogger(__name__)
 
 PRODUCT_DB_FIELDS = ('id', 'model', 'name')
+
 
 class Command(BaseCommand):
     helf = "Synchronize Ancora products to local database AND (optionally) to Shopmania feed file"
@@ -26,7 +28,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        writers = [self.create_or_update_products]
+        writers = [self.create_or_update_products, self.get_and_save_specs]
 
         if options['shopmania']:
             feed_filename = os.path.join(settings.MEDIA_ROOT, settings.SHOPMANIA_FEED_FILE)
@@ -171,7 +173,12 @@ class Command(BaseCommand):
         strip_chars = ('|', '\n', '\r')
         return reduce(lambda s, c: s.replace(c, ''), strip_chars, field)
 
+    # Specifications
 
-
-
-
+    def get_and_save_specs(self, products):
+        for product_meta in products.values():
+            product = Product.objects.get(id=product_meta['id'])
+            existing_specs = product.specs.count()
+            if not existing_specs:
+                specs = scrape_specs(product_meta['model'])
+                product.update_specs(specs)
