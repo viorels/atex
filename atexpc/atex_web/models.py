@@ -7,6 +7,7 @@ from django.db import models, connection
 from django.db.models.query import QuerySet
 from django.core.files.storage import get_storage_class
 from django.template.defaultfilters import slugify
+from django.utils.datastructures import SortedDict
 from django.db.utils import DatabaseError
 from sorl.thumbnail import ImageField
 
@@ -140,6 +141,12 @@ class Product(models.Model):
         if not created:
             hit.count = models.F('count') + 1
             hit.save()
+
+    def specs_list(self):
+        return SortedDict([(prod_spec.spec.name, prod_spec.value) 
+            for prod_spec in ProductSpecification.objects
+                .filter(product=self)
+                .order_by('id')])
 
     def update_specs(self, specs):
         for spec in specs:
