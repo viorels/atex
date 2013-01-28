@@ -378,6 +378,7 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
             if product_obj is None:
                 raise Http404()
             product = product_obj.raw
+            product['specs'] = product_obj.specs_list()
             product['images'] = product_obj.images()
             html_template = product_obj.html_description()
             if html_template:

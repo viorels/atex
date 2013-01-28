@@ -6,6 +6,7 @@ from collections import namedtuple
 def scrape_specs(code):
     specs = []
     Spec = namedtuple('Spec', ['name', 'value', 'group'])
+    EXCLUDE_LIST = ("garage", "garantie", "drivere", "suport tehnic")
     page = get_product_page(code)
     if page:
         soup = BeautifulSoup(page)
@@ -19,7 +20,7 @@ def scrape_specs(code):
                 if len(tds) == 2:
                     spec, value = tds
                     spec_text = spec.text.strip().rstrip(':')
-                    if "garage" in spec_text.lower() or "garantie" in spec_text.lower():
+                    if any(excluded in spec_text.lower() for excluded in EXCLUDE_LIST):
                         continue
                     specs.append(Spec(group=group, name=spec_text, value=value.text.strip()))
     return specs
