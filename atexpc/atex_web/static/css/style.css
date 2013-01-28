@@ -549,6 +549,7 @@ ul.menu li.menu-item.active, ul.menu li.menu-item:hover  {
 	behavior: url(/static/css/PIE.htc);	 
 }
 ul.menu li.menu-item.first {
+
 	border-top:1px solid #cecece;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
@@ -1141,8 +1142,12 @@ background-color:#c62123;
 	width:575px;
 	float:left;
 }
+.product-right-sumar .search-title{
+	padding:10px 0 15px 0;
+	line-height:24px;	
+}
 .underline-gray {
-	border-bottom:1px solid #cecece;
+	border-bottom:1px solid #C62123;
 	width:100%;
 	float:left;
 	padding:10px 0;
@@ -1157,17 +1162,19 @@ background-color:#c62123;
 .info-termeni {
 	width:310px;
 	float:left;
-	font-size:14px;
+	font-size:12px;
 }
 .info-pret {
-	float:left;
-	width:250px;
-	font-size:24px;
+	float:right;
+	width:170px;	
 }
 .info-pret li {
 	float:right;
+	margin-bottom:5px;
+	
 }
-.info-pret .add_cos_btn { position:relative }
+.info-pret li .pret {font-size:20px;}
+.info-pret .add_cos_btn { position:relative; }
 .text {
 	padding-bottom:15px;
 	float:left;
