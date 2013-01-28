@@ -1,9 +1,12 @@
 import os
+import re
 import shutil
 
 from django.conf import settings
 from django.core.files import File, temp
 from dropbox import rest, session, client
+
+from atexpc.atex_web.models import Dropbox, Product, Image, StorageWithOverwrite
 
 import logging
 logger = logging.getLogger(__name__)
