@@ -13,6 +13,7 @@ MIDDLEWARE_CLASSES += (
 INSTALLED_APPS += (
     'gunicorn',
     'storages',
+    'raven.contrib.django',
 )
 
 COMPRESS_ENABLED = True
