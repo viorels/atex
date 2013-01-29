@@ -122,7 +122,6 @@ class AncoraAdapter(BaseAdapter):
 
     def _read_backend(self, uri):
         try:
-            print "TIMEOUT %s" % self._api_timeout
             response = self._requests.get(self.normalize_uri(uri), timeout=self._api_timeout)
             return response.text
         except (ConnectionError, Timeout) as e:
@@ -358,8 +357,7 @@ class Ancora(object):
             meta_value = found[0].get(meta)
         else:
             meta_value = None
-            print category
-            logger.warn("found %d categories with id '%s'", len(category), category_id)
+            logger.warn("found %d categories with id '%s'", len(found), category_id)
         return meta_value
 
     def _full_text_conjunction(self, keywords):
