@@ -297,8 +297,10 @@ class SearchView(BreadcrumbsMixin, GenericView):
                 'sort_by': args['sort_by'], 'sort_order': args['sort_order']}
             if args['sort_by'] == "vanzari":
                 get_products_range = (lambda start, stop:
-                    self.api.products.get_products_with_hits(start=start, stop=stop,
-                                                             **products_args))
+                    self.api.products.get_products_with_hits(
+                        start=start, stop=stop,
+                        augmenter_with_hits=Product.objects.augment_with_hits,
+                        **products_args))
             else:
                 get_products_range = (lambda start, stop:
                     self.api.products.get_products(start=start, stop=stop,
