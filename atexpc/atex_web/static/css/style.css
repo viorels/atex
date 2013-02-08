@@ -550,6 +550,7 @@ ul.menu li.menu-item.active, ul.menu li.menu-item:hover  {
 }
 ul.menu li.menu-item.first {
 
+
 	border-top:1px solid #cecece;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
@@ -973,7 +974,7 @@ ul.filtrare li span {
 	width:207px;
 	float:left;
 	margin-right:15px;
-	padding-bottom:15px;
+	padding-bottom:25px;
 }
 .product_spacer
 {
@@ -1022,11 +1023,11 @@ ul.filtrare li span {
 	line-height:24px;
 }
 .pret_vechi {
-	float:right;
+	float:left;
 	text-decoration:line-through;
-	font-size:14px;
+	font-size:12px;
 	font-weight:bold;
-	line-height:24px;
+	line-height:14px;
 }
 .stoc_ok {
 	display:block;
@@ -1080,6 +1081,42 @@ background-color:#c62123;
 	float:left;
 	background:url(../images/add-icon.png) center center no-repeat;
 }
+.price-add-row {
+	width:100%;
+	float:left;
+	padding:5px 0;
+}
+.price-add-row .product_price {
+	width:90px !important;
+}
+.add_cos_btn_small span {
+	height:25px;
+	width:30px;
+	float:left;
+	background:url(../images/add-icon-small.png) center center no-repeat;
+}
+.add_cos_btn_small {
+	height:25px;
+	line-height:25px;
+	color:#fff;
+	font-size:11px;
+	font-weight:bold;
+	width:115px;
+	float:right;	
+	display:block;
+	background: -moz-linear-gradient(top , #d74949, #d02a2c 50%, #c62123 50%, #c62123);
+	background: -ms-linear-gradient(top , #d74949, #d02a2c 50%, #c62123 50%, #c62123);
+	background: -o-linear-gradient(top , #d74949, #d02a2c 50%, #c62123 50%, #c62123);
+	background: -webkit-gradient(linear, left top, left bottom, from(#d74949), to(#c62123), color-stop(0.5, #d02a2c),  color-stop(0.5, #c62123));
+	-pie-background: linear-gradient(#d74949, #d02a2c 50%, #c62123 50%, #c62123); 
+	border-radius: 6px;     
+	-moz-border-radius: 6px;     
+	-webkit-border-radius: 6px;
+	behavior: url(/static/css/PIE.htc);	
+background-color:#c62123; 
+
+}
+
 /* ********************** produs ************************************** */
 .product-wrapper {
 	width:100%;
@@ -1171,7 +1208,6 @@ background-color:#c62123;
 .info-pret li {
 	float:right;
 	margin-bottom:5px;
-	
 }
 .info-pret li .pret {font-size:20px;}
 .info-pret .add_cos_btn { position:relative; }
