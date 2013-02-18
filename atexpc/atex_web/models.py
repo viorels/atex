@@ -214,4 +214,4 @@ class Hit(models.Model):
 
 class Dropbox(models.Model):
     app_key = models.CharField(primary_key=True, max_length=64)
-    delta_cursor = models.CharField(max_length=255, blank=True, null=True)
+    delta_cursor = models.CharField(max_length=512, blank=True, null=True)
