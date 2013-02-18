@@ -1,10 +1,12 @@
 import os
 import re
 import shutil
+import time
 
 from django.conf import settings
 from django.core.files import File, temp
 from dropbox import rest, session, client
+from dropbox.rest import RESTSocketError
 
 from atexpc.atex_web.models import Dropbox, Product, Image, StorageWithOverwrite
 
@@ -38,6 +40,7 @@ class DropboxMedia(object):
     def _delta_cursor(self, new_cursor=None):
         state, created = Dropbox.objects.get_or_create(app_key=settings.DROPBOX_APP_KEY)
         if new_cursor is not None:
+            logger.debug("Saving cursor: %s", new_cursor)
             state.delta_cursor = new_cursor
             state.save()
         return state.delta_cursor
@@ -100,7 +103,18 @@ class DropboxMedia(object):
 
     def _dropbox_file_reader(self, path, meta, writer):
         rev = meta['rev']
-        dropbox_file = self._dropbox.get_file(path, rev)
+
+        attempts = 0
+        dropbox_file = None
+        while attempts < 3 and not dropbox_file:
+            try:
+                dropbox_file = self._dropbox.get_file(path, rev)
+            except RESTSocketError, e:
+                attempts += 1
+                logger.debug(e)
+                time.sleep(3)
+        if not dropbox_file:
+            return
 
         chunk_size = 1024 ** 2
         with temp.NamedTemporaryFile(delete=False) as tempfile:
