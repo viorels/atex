@@ -381,7 +381,6 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
                 raise Http404()
             product = product_obj.raw
             product['name'] = product_obj.get_best_name()
-            product['specs'] = product_obj.specs_list()
             product['images'] = product_obj.images()
             html_template = product_obj.html_description()
             if html_template:
