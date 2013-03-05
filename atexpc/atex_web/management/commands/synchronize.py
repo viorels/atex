@@ -25,10 +25,15 @@ class Command(BaseCommand):
             dest='shopmania',
             default=False,
             help='Also generate Shopmania data feed'),
+        make_option('--from-pcgarage',
+            action='store_true',
+            dest='pcgarage',
+            default=False,
+            help='Get product details'),
         )
 
     def handle(self, *args, **options):
-        writers = [self.create_or_update_products, self.get_and_save_specs]
+        writers = [self.create_or_update_products]
 
         if options['shopmania']:
             feed_filename = os.path.join(settings.MEDIA_ROOT, settings.SHOPMANIA_FEED_FILE)
@@ -36,6 +41,9 @@ class Command(BaseCommand):
             if os.path.exists(temp_feed_filename):
                 os.remove(temp_feed_filename)
             writers.append(partial(self.add_products_to_shopmania_feed, temp_feed_filename))
+
+        if options['pcgarage']:
+            writers.append(self.get_and_save_specs)
 
         self.synchronize(writers)
 
