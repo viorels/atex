@@ -48,7 +48,7 @@ class Migration(SchemaMigration):
         'atex_web.dropbox': {
             'Meta': {'object_name': 'Dropbox'},
             'app_key': ('django.db.models.fields.CharField', [], {'max_length': '64', 'primary_key': 'True'}),
-            'delta_cursor': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'})
+            'delta_cursor': ('django.db.models.fields.CharField', [], {'max_length': '512', 'null': 'True', 'blank': 'True'})
         },
         'atex_web.hit': {
             'Meta': {'object_name': 'Hit'},
