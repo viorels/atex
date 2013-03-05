@@ -142,6 +142,19 @@ class Product(models.Model):
             hit.count = models.F('count') + 1
             hit.save()
 
+    def get_best_name(self):
+        better_name = self.get_spec('Denumire')
+        return better_name if better_name else self.name
+
+    def get_spec(self, name):
+        spec = Specification.objects.get(name=name);
+        try:
+            prod_spec = ProductSpecification.objects.get(product=self, spec=spec)
+            spec_value = prod_spec.value
+        except ProductSpecification.DoesNotExist:
+            spec_value = None
+        return spec_value
+
     def specs_list(self):
         return SortedDict([(prod_spec.spec.name, prod_spec.value) 
             for prod_spec in ProductSpecification.objects

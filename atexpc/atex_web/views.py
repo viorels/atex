@@ -341,7 +341,9 @@ class SearchView(BreadcrumbsMixin, GenericView):
     def get_products(self):
         products = self.get_products_page().get('products')
         for product in products:
-            product['images'] = Product(model=product['model']).images
+            product_obj = Product(raw=product)
+            product['name'] = product_obj.get_best_name()
+            product['images'] = product_obj.images
             product['url'] = _product_url(product)
 
         products_per_line = 4
@@ -378,6 +380,7 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
             if product_obj is None:
                 raise Http404()
             product = product_obj.raw
+            product['name'] = product_obj.get_best_name()
             product['specs'] = product_obj.specs_list()
             product['images'] = product_obj.images()
             html_template = product_obj.html_description()
