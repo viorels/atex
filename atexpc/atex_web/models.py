@@ -147,11 +147,11 @@ class Product(models.Model):
         return better_name if better_name else self.name
 
     def get_spec(self, name):
-        spec = Specification.objects.get(name=name);
         try:
+            spec = Specification.objects.get(name=name)
             prod_spec = ProductSpecification.objects.get(product=self, spec=spec)
             spec_value = prod_spec.value
-        except ProductSpecification.DoesNotExist:
+        except (Specification.DoesNotExist, ProductSpecification.DoesNotExist):
             spec_value = None
         return spec_value
 
