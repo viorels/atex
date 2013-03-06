@@ -253,7 +253,7 @@ class Ancora(object):
     def search_products(self, category_id=None, keywords=None, selectors=None,
                         price_min=None, price_max=None, start=None, stop=None,
                         stock=None, sort_by=None, sort_order=None):
-        if not (category_id or keywords):
+        if not (keywords or (category_id and self._base_products_uri(category_id))):
             return self._no_products()
 
         args = {'start': start,
