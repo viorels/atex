@@ -204,6 +204,7 @@ class HomeView(SearchMixin, GenericView):
                                    if int(p['id']) == product_obj.id]
             if matching_in_backend:
                 product = matching_in_backend[0]
+                product['name'] = product_obj.get_best_name()
                 product['images'] = product_obj.images
                 product['url'] = _product_url(product)
                 hits.append(product)
@@ -212,14 +213,18 @@ class HomeView(SearchMixin, GenericView):
     def get_recommended(self):
         recommended = self.api.products.get_recommended(limit=self.top_limit)
         for product in recommended:
-            product['images'] = Product(model=product['model']).images
+            product_obj = Product(raw=product)
+            product['name'] = product_obj.get_best_name()
+            product['images'] = product_obj.images
             product['url'] = _product_url(product)
         return recommended
 
     def get_promotional(self):
         promotional = self.api.products.get_promotional(limit=self.top_limit)
         for product in promotional:
-            product['images'] = Product(model=product['model']).images
+            product_obj = Product(raw=product)
+            product['name'] = product_obj.get_best_name()
+            product['images'] = product_obj.images
             product['url'] = _product_url(product)
         return promotional
 
