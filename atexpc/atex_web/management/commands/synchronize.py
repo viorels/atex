@@ -33,7 +33,8 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        writers = [self.create_or_update_products]
+        products_status = {}
+        writers = [self.create_or_update_products_with_status(products_status)]
 
         if options['shopmania']:
             feed_filename = os.path.join(settings.MEDIA_ROOT, settings.SHOPMANIA_FEED_FILE)
@@ -46,6 +47,7 @@ class Command(BaseCommand):
             writers.append(self.get_and_save_specs)
 
         self.synchronize(writers)
+        self.delete_products_other_then(products_status)
 
         if options['shopmania']:
             if os.path.exists(temp_feed_filename) and os.path.exists(feed_filename):
@@ -83,22 +85,36 @@ class Command(BaseCommand):
 
     # Database
 
-    def create_or_update_products(self, products):
-        existing_products = Product.objects.in_bulk(products.keys())
-        for product_id, new_product in products.items():
-            old_product = existing_products.get(product_id)
-            if old_product:
-                new_product_fields = self._model_product_dict(new_product)
-                updated_product = self._updated_product(old_product, new_product_fields)
-                if updated_product:
-                    logger.debug("Update %s", updated_product)
-                    updated_product.save()
+    def create_or_update_products_with_status(self, products_status):
+        def create_or_update_products(products):
+            existing_products = Product.objects.in_bulk(products.keys())
+            for product_id, new_product in products.items():
+                products_status[product_id] = True
 
-        insert_ids = set(products) - set(existing_products)
-        if insert_ids:
-            insert_list = [Product(raw=products[i]) for i in insert_ids]
-            logger.debug("Insert %s", insert_list)
-            Product.objects.bulk_create(insert_list)
+                old_product = existing_products.get(product_id)
+                if old_product:
+                    new_product_fields = self._model_product_dict(new_product)
+                    updated_product = self._updated_product(old_product, new_product_fields)
+                    if updated_product:
+                        logger.debug("Update %s", updated_product)
+                        updated_product.save()
+
+            insert_ids = set(products) - set(existing_products)
+            if insert_ids:
+                insert_list = [Product(raw=products[i]) for i in insert_ids]
+                logger.debug("Insert %s", insert_list)
+                Product.objects.bulk_create(insert_list)
+
+        return create_or_update_products
+
+    def delete_products_other_then(self, products):
+        existing_products = [p['id'] for p in Product.objects.values('id')]
+        delete_ids = set(existing_products) - set(products)
+        if (float(len(delete_ids)) / len(existing_products)) < 0.33:
+            logger.debug("Delete %s", delete_ids)
+            for product_id in delete_ids:
+                Product.objects.get(id=product_id).delete()
+
 
     def _updated_product(self, product, product_update_dict):
         """ Returns updated product if the dict contains new data,
