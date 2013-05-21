@@ -8,7 +8,8 @@ from django.contrib.auth.models import User
 from django.contrib.redirects.models import Redirect
 from django.utils.datastructures import SortedDict
 
-from models import Product, Image, Hit, DropboxMedia, UserProfile
+from models import Product, Image, Hit, UserProfile
+from dropbox_media import DropboxMedia
 
 
 class ImageCountListFilter(SimpleListFilter):

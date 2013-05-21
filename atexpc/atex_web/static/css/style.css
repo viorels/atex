@@ -65,7 +65,7 @@ html, body { height: 100%;  }
 .footer_wrapper, .push { height: 200px; }
 .wrapper {
 	border-top:5px solid #cd2325;
-	background:url(../images/bg_dark.png) repeat;
+	background:url(../images/bg_dark_beta.png) repeat;
 	/*background-color:#3d97cb;*/
 }
 .page_wrapper {
@@ -549,6 +549,8 @@ ul.menu li.menu-item.active, ul.menu li.menu-item:hover  {
 	behavior: url(/static/css/PIE.htc);	 
 }
 ul.menu li.menu-item.first {
+
+
 	border-top:1px solid #cecece;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
@@ -676,7 +678,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 .email-wrapper {
 	width:230px;
 	float:left;
-	padding:15px 0 0 0;
+	padding:5px 0 0 0;
 }
 .news_email {
 	behavior: url(/static/css/PIE.htc);
@@ -906,6 +908,7 @@ img.center {
 }
 .pret {
 	color:#c62123;
+
 	font-weight:bold;
 }
 
@@ -971,7 +974,7 @@ ul.filtrare li span {
 	width:207px;
 	float:left;
 	margin-right:15px;
-	padding-bottom:15px;
+	padding-bottom:25px;
 }
 .product_spacer
 {
@@ -1020,11 +1023,11 @@ ul.filtrare li span {
 	line-height:24px;
 }
 .pret_vechi {
-	float:right;
+	float:left;
 	text-decoration:line-through;
-	font-size:14px;
+	font-size:12px;
 	font-weight:bold;
-	line-height:24px;
+	line-height:14px;
 }
 .stoc_ok {
 	display:block;
@@ -1078,6 +1081,42 @@ background-color:#c62123;
 	float:left;
 	background:url(../images/add-icon.png) center center no-repeat;
 }
+.price-add-row {
+	width:100%;
+	float:left;
+	padding:5px 0;
+}
+.price-add-row .product_price {
+	width:90px !important;
+}
+.add_cos_btn_small span {
+	height:25px;
+	width:30px;
+	float:left;
+	background:url(../images/add-icon-small.png) center center no-repeat;
+}
+.add_cos_btn_small {
+	height:25px;
+	line-height:25px;
+	color:#fff;
+	font-size:11px;
+	font-weight:bold;
+	width:115px;
+	float:right;	
+	display:block;
+	background: -moz-linear-gradient(top , #d74949, #d02a2c 50%, #c62123 50%, #c62123);
+	background: -ms-linear-gradient(top , #d74949, #d02a2c 50%, #c62123 50%, #c62123);
+	background: -o-linear-gradient(top , #d74949, #d02a2c 50%, #c62123 50%, #c62123);
+	background: -webkit-gradient(linear, left top, left bottom, from(#d74949), to(#c62123), color-stop(0.5, #d02a2c),  color-stop(0.5, #c62123));
+	-pie-background: linear-gradient(#d74949, #d02a2c 50%, #c62123 50%, #c62123); 
+	border-radius: 6px;     
+	-moz-border-radius: 6px;     
+	-webkit-border-radius: 6px;
+	behavior: url(/static/css/PIE.htc);	
+background-color:#c62123; 
+
+}
+
 /* ********************** produs ************************************** */
 .product-wrapper {
 	width:100%;
@@ -1140,8 +1179,12 @@ background-color:#c62123;
 	width:575px;
 	float:left;
 }
+.product-right-sumar .search-title{
+	padding:10px 0 15px 0;
+	line-height:24px;	
+}
 .underline-gray {
-	border-bottom:1px solid #cecece;
+	border-bottom:1px solid #C62123;
 	width:100%;
 	float:left;
 	padding:10px 0;
@@ -1156,17 +1199,18 @@ background-color:#c62123;
 .info-termeni {
 	width:310px;
 	float:left;
-	font-size:14px;
+	font-size:12px;
 }
 .info-pret {
-	float:left;
-	width:250px;
-	font-size:24px;
+	float:right;
+	width:170px;	
 }
 .info-pret li {
 	float:right;
+	margin-bottom:5px;
 }
-.info-pret .add_cos_btn { position:relative }
+.info-pret li .pret {font-size:20px;}
+.info-pret .add_cos_btn { position:relative; }
 .text {
 	padding-bottom:15px;
 	float:left;
@@ -1826,7 +1870,7 @@ td.center {text-align:center}
 .content-bottom {
 	float:left;
 	width:1140px;
-	height:120px;
+	height:130px;
 	position:absolute;
 	left:15px;
 	bottom:0px;
@@ -1871,6 +1915,7 @@ td.center {text-align:center}
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected, .ui-tabs .ui-tabs-nav li:hover {background-color:#c62123; }
 .ui-tabs .ui-tabs-nav li {background-color:#efefef;}
 .contact-content {width:875px;float:right; padding-top:5px;}
+.conditii-content {width:875px;float:right; padding-top:5px;}
 .red-bottom {
 	width:100%;
 	float:left;
@@ -1884,3 +1929,6 @@ td.center {text-align:center}
 .info-contact ul li { line-height:18px;}
 .info-contact ul li.red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
 .info-contact ul li.orar-pad {padding-left:20px}
+.info-conditii ul .red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
+.statistics-info {float:left;}
+.statistics-info a {margin: 10px 10px 5px 0; float:left; height:35px;}

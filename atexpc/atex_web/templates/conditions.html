@@ -1,0 +1,161 @@
+{% extends "base_2col.html" %}
+{% block title %}{{ block.super }} - Conditii Vanzare{% endblock title %}
+
+{% block content_right %}
+                <div class="conditii-content">
+                    <div class="red-bottom"> 
+                        <div class="tab_u_holder_left">
+                            <span class="up_left"></span>
+                                <ul class="tab_up">
+                                    <li><span>Conditii generale de vanzare</span></li>                                
+                                </ul>
+                            <span class="up_right"></span>
+                        </div>
+                        <div class="info-conditii">
+                            <ul>
+                                <li class="red-title">Cum aleg?</li>
+                                <li>
+                                    Navigati pe site, studiati produsele, stocurile disponibile si preturile si apoi le adãugati în cosul de cumpãrãturi 
+                                    prin apãsarea butonului "Adauga în cos". 
+                                    Prin click stanga pe denumire puteti afla informatii despre produsul selectat.
+                                    In cosul de cumpãrãturi puteti sã faceti modificãri asupra produselor selectate, sã modificati cantitãtile, 
+                                    sã stergeti un produs, sã goliti cosul. Inainte de a putea comanda produsele din cos trebuie sã vã autentificati 
+                                    in pagina login cu e-mail-ul si parola dumneavoastrã. Dacã nu aveti un cont deschis pe site-ul <a href="http://{{ site_info.domain }}">{{ site_info.domain }}</a> 
+                                    vã puteti deschide unul în pagina <a href="#">Inregistreaza-te</a>. 
+                                </li>
+
+                                <li class="red-title">Drepturile consumatorului :</li>
+                                <li>
+                                    Vanzatorul trebuie sa livreze consumatorului  produse care: <br />
+                                    •   sunt conforme cu descrierea data de vanzator si poseda calitatile oricarei mostre sau model folosit de catre vanzator; <br />
+                                    •   corespund pentru orice scop particular pentru care consumatorul le-a solicitat si pe care le-a facut cunoscute vanzatorului la momentul vanzarii. <br />
+                                    •   corespund pentru scopurile pentru care bunurile de tipul acesta sunt in mod normal utilizate; <br />
+                                    •   prezinta calitatea si performantele care sunt normale pentru produsele de acelasi tip si pe care consumatorul poate in mod rezonabil sa le anticipeze, tinand cont de orice solicitare facuta, referitor la ele, prin publicitate sau etichetare. <br />
+                                    •   Vanzatorul este de asemenea responsabil pentru orice lipsa a conformitatii rezultata dintr-o instalare incorecta daca: <br />
+                                    •   instalarea a constituit parte din contractul de vanzare si bunurile au fost instalate de catre vanzator sau sub raspunderea sa; sau  <br />
+                                    •   produsul a fost instalat de catre consumator dar instalarea incorecta a fost datorita unor omisiuni din instructiunile de instalare. <br />
+                                    Consumatorul trebuie sa informeze agentul economic asupra oricarui defect in cadrul a doua luni de la data la care a fost detectat defectul. Daca nu s-a dovedit acest lucru, orice defect care devine aparent in cadrul a sase luni de la data livrarii se presupune ca a existat la data livrarii.Orice reparare sau inlocuire va fi realizata intr-o perioada rezonabila de timp de comun acord intre agentul economic si consumator si fara nici un inconvenient semnificativ pentru consumator.Agentul economic poate refuza sa repare sau sa inlocuiasca produsul neconform, daca acest lucru este imposibil sau prea costisitor in comparatie cu solutii alternative care sunt disponibile tinand cont de: <br />
+                                    •   valoarea produsului fara defect,  <br />
+                                    •   semnificatia lipsei de conformitate si <br />
+                                    •   daca ar putea fi realizata o reparatie alternativa fara un inconvenient semnificativ pentru consumator. <br />
+                                    Consumatorul poate solicita o reducere de pret corespunzatoare sau  rezolutiunea  contractulului, in urmatoarele cazuri : <br />
+                                    •   daca agentul economic nu poate nici repara si nici inlocui produsul; <br />
+                                    •   daca agentul economic nu a realizat remedierea intr-o perioada rezonabila de timp; <br />
+                                    •   daca agentul economic nu a realizat repararea fara un inconvenient semnificativ pentru consumator.<br />
+                                    •   Consumatorul nu este indreptatit sa solicite rezolutiunea contractului daca lipsa conformitatii este minora.<br />
+                                    Vanzatorul final va fi indreptatit sa realizeze remedierea inaintea altor agenti economici din lantul de distributie care sunt raspunzatoare pentru lipsa conformitatii.<br />
+                                    In completare la drepturile de mai sus ale consumatorului, agentul economic poate de asemenea oferi o garantie. Orice astfel de garantie va fi, in mod legal, obligatorie in cadrul conditiilor stipulate mai jos in conditiile de garantie si orice publicitate asociata.  Garantia trebuie sa prezinte : <br />
+                                    •   identificarea elementelor pentru produs, <br />
+                                    •   durata garantiei, <br />
+                                    •   aranjamentele de mentenanta, reparare sau inlocuire<br />
+                                    •   numele si adresa vanzatorului si a unitatii care asigura service-ul.<br />
+                                    Garantia trebuie sa fie editata intr-un limbaj inteligibil si va fi oferita in scris sau pe orice alt suport durabil, disponibil si accesibil consumatorului.<br />
+                                     IMPORTANT<br />
+                                    Garantia trebuie sa stipuleze daca consumatorul are drepturi legale in cadrul legilor care guverneaza vanzarea produselor si daca acele drepturi nu sunt afectate de garantie.<br />
+                                    Orice clauza contractuala sau acord incheiat intre agentul economic si consumator, inainte ca lipsa de conformitate sa fie cunoscuta de  consumator si adusa la cunostinta agentului economic, care direct sau indirect ignora sau restrictioneaza drepturile consumatorului asa cum sunt prevazute in lege, sunt nule si fara efect.<br />
+                                    NOTA: Aceste prevederi nu acopera produsele second hand vandute la licitatii publice unde consumatorii au oportunitatea sa participle la vanzare.
+                                </li>
+
+                                <li class="red-title">Garantie de satisfactie</li>
+                                <li>
+                                    • Pentru a  fi  sigur ca produsele comercializate corespund  cerintelor si nevoilor dvs., ca va satisfac  in totalitate asteptarile,
+                                    noi, ATEX Computer SRL va oferim  serviciul numit “Garantie de satisfactie”. Prin acesta in timp de 24 ore lucratoare orice produs aflat pe <B>stoc</B>
+                                    achizitionat de dvs. se poate returna, indiferent de motiv, avand posibilitatea de a opta pentru returnarea integrala a sumei achitate. <br />
+                                     • Ca sa puteti beneficia de acest serviciu trebuie ca  produsul sa fie returnat in  <B>starea intacta, ambalajul original  si accesoriile sa fie complete</B>, <br />
+                                    sa se respecte intocmai conditiile de garantie si de utilizare iar produsul sa fie impachetat ca si in momentul achizitionarii. <br />
+                                     • Nu se accepta returul componetelor sau accesoriilor aduse pe comanda  ferma  la cererea explicita a clientului (la care se solicita un avans) . <br />
+                                     • In cazul in care produsule sunt  sigilate in momentul cumpararii si sunt desfacute de catre client el vor fi preluate ca si produse “bulk”, <br />
+                                    ceea ce inseamna ca se va percepe o penalizare , (valoare produselor  “bulk” fiind mai mica decat a celor  retail in momentul achizitionarii) <br />
+                                    aceasta va fi stabilita de catre personalul ATEX Computer SRL de fata cu clientul, valoarea ei fiind cuprinsa intre 5% si 20%.<br />
+                                     “Garantia de satisfactie” nu se acorda  la urmatoarele produse: carcase, consumabilele, monitoare, tastaturi, mouse sau orice componenta adusa pe comanda speciala.<br />
+                                    <B>ATENTIE!</B><br />
+                                     • Returul  nu include trimiterea produsului in sistem ramburs. <br />
+                                     • Plata transportului spre firma noastra cade in sarcina dvs. Orice produs trimis in sistem ramburs va fi returnat fara notificare prealabila.
+                                    Produsul trebuie adus de catre beneficiar la magazinul  din  Str. S. Micu Nr.1a.<br />
+                                </li>
+
+                                <li class="red-title">Retururi in cazul comenzilor efectuate din alte localitati :</li>
+                                <li>
+                                    <B>"Consumatorul are dreptul sa notifice in scris comerciantului ca renunta la cumparare, fara penalitati si fara invocarea unui motiv,
+                                    in termen de 10 zile lucratoare de la primirea produsului sau, in cazul prestarilor de servicii, de la incheierea contractului" </B><br />
+                                    •   Dupa terminarea celor 10 zile si pana la 30 de zile de la data receptionarii produsului veti avea dreptul sa returnati produsul  numai sub urmatoarele conditii: <br />
+                                    •   Pastrati ambalajul produsului intact. Produsele sigilate in momentul cumpararii vor fi preluate ca produse 'BULK' ceea ce inseamna ca veti plati o penalizare de 40% din valoarea actualizata a produsului.<br />
+                                    Produsele care au consumabile, se vor returna fara consumabil iar pretul consumabilelor se va scadea din suma returnata. <br />
+                                    •   Va rugam sa verificati ca produsul returnat  este folosit in conformitate cu specificatiile enuntate in certificatul de garantie al produsului emis de  ATEX Computer SRL si instructiunile date de catre producator .<br />
+                                    •   Va reamintim ca prin semnarea certificatului de garantie ati luat la cunostinta conditiile de utilizare si folosire ale produsului ,orice abatere sau neconformitate , lipsa accesorilor si ambalajului dar si a actelor de achizitie in original duce la imposibilitarea returnarii produsului.<br />
+                                    •   Returnarea se face numai Beneficiarului direct nu altor persoane. In cazul in care produsul este achizitionat de catre o persoana juridica este necesar ca sa se prezinte in momentul returului produsului :<br />
+                                    delegatie, semnata si stampliata de carte respectiva societate (presoana  este angajat permanent al firmei) sau delegatie si imputernicire semnate  si stampilate de catre respectiva societate (persoana nu este angajat permanent al firmei respective)<br />
+                                    Dupa terminarea celor 30 zile, ATEX Computer SRL nu ofera conditii de upgrade. <br /><br />
+                                    <B>ATENTIE!</B><br />
+                                    Returul  nu include trimiterea produsul in sistem ramburs. <br />
+                                    Plata transportului spre firma noastra cade in sarcina dvs.Orice produs trimis in sistem ramburs va fi returnat fara notificare prealabila.<br />
+                                    Produsul trebuie adus de catre beneficiar la magazinul  din  Str. S. Micu Nr.1a.
+                                </li>
+                                
+                                <li class="red-title">Cum cumpar?</li>
+                                <li>
+                                    Când ati terminat de selectat produsele si cantitãtile, selectati detaliile de livrare dorite si modalitatea de plata si dati click pe link-ul "Comanda produsele" din cosul de cumpãrãturi.
+                                    Puteti comanda produsele in calitate de persoana fizica sau firma. Daca nu sunteti logat pe site, aveti posibilitate de a va inregistra (ca persoana fizica sau firma), 
+                                    caz in care datele d-voastra de contact vor fi completate in mod automat, fiind necesara (daca este cazul) doar modificarea adresei de destinatie a comenzii. 
+                                    Daca nu sunteti logat,atunci datele d-voastra urmeaza a fi completate manual. In final, se precizeazã adresa de livrare - dacã e diferitã de adresa de înregistrare 
+                                </li>
+
+                                <li class="red-title">Cum platesc?</li>
+                                <li>
+                                    Ai la dispozitie orice mijloc de plata care ti se potriveste! <br />
+                                    - plata ramburs: platesti în numerar (lei) la livrare, catre comisionarul care efectueaza livrarea.<br />
+                                        Tarife Nemo : 6 lei primul Kg , 0.6 Lei urmatoarele Kg. <br />
+                                        Pentru plata ramburs se mai percepe un comision de 0.01% din valoarea produselor trimise. <br />
+                                    - poti plati cash în unul din magazinele ATEX Computer<br />
+                                    - poti plati cu card de plata în orice magazin ATEX Computer, fara a plati taxe suplimentare.<br />
+                                    - poti plati cu ordin de plata specificând:<br />
+                                    <br />
+                                    Cont: RO71 UGBI 0000 0420 0098 9RON<br />
+                                    Banca: Garanti Bank Cluj-Napoca<br />
+                                    Beneficiar: ATEX Computer SRL<br />
+                                    Adresa beneficiar: Str. Samuil Micu, Nr. 1A, Cluj-Napoca<br />
+                                    <br />  
+                                    Livrarea in aceste cazuri se va face dupa confirmarea intrarii sumei respective in contul nostru. 
+                                    Daca produsul se aduce numai pe comanda , e posibil sa cerem un avans  care poate fi pana la 30% din valoarea totala.
+                                </li>
+
+                                <li class="red-title">Despre livrare</li>
+                                <li>
+                                    Produsele sunt expediate clientului în general în maximum 48 de ore lucrãtoare de la data validãrii comenzii. 
+                                    Dupã expedierea comenzii din "cosul de cumpãrãturi", în scurt timp veti fi contactat de unul dintre operatorii nostri care va stabili cu dumneavoastrã detaliile legate de livrare.
+                                    Livrarea se face prin curierat rapid ( NEMO ) in maxim 48 de ore de la confirmarea comenzii. Nu se percep alte taxe ( KM suplimentari ) in plus fata de cele care sunt evidentiate pe confirmarea care o aveti de la noi.
+                                    </li>
+
+                                <li class="red-title">Vanzarea la distanta a produselor si serviciilor</li>
+                                <li>
+                                        Exista reguli care reglementeaza vanzarea de catre agentul economic consumatorului de bunuri si servicii folosind exclusiv telefonul, televizorul, faxul sau internetul.
+                                    Aceasta practica este cunoscuta ca vanzarea la distanta deaoarece, practic, agentul economic si vanzatorul nu se intalnesc fizic. <br />
+                                       Agentul economic nu trebuie sa utilizeze sistemele automate de comunicare, fax si posta electronica  fara consimtamantul prealabil de la consumator.
+                                    Reguli pentru agentii economici:<br />
+                                    •   Agentul economic trebuie sa-si declare identitatea in mod clar.<br />
+                                    •   Daca sunt solicitate plati in avans agentul economic trebuie sa comunice adresa si detalii de contact inclusiv telefon, fax, email si codul de inregistrare fiscala.<br />
+                                    •   Agentul economic trebuie sa dea informatii clare despre produsele sau serviciile oferite inclusiv pretul sau tariful si taxele ce urmeaza a fi platite. <br />
+                                    •   Alte informatii privind cheltuieli de livrare, modalitati de plata, dreptul la reziliere si durata minima a contractului daca este cazul. <br />
+                                    •   Toate aceste informatii trebuie furnizate inainte de incheierea contractului.<br />
+                                    •   Dupa acordul de incheiere a contractului, agentul economic trebuie sa trimita o confirmare  in scris. <br />
+                                    •   Bunurile sau serviciile trebuie livrate in termen de 30 de zile cu exceptia in care partile au convenit altfel. <br />
+                                    •   Daca produsul sau serviciul nu este disponibil agentul economic are obligatia de a notifica consumatorul asupra acestui lucru si de a returna in termen de 30 de zile toate sumele platite. <br />
+                                    •   Consumatorul are dreptul de a denunta unilateral contractul, in termen de 10 zile lucratoare.Termenul de 10 zile prevazut pentru exercitarea acestui drept incepe sa curga de la data primirii produselor si serviciilor  de catre consumator.<br />
+                                    •   In cazul în care comerciantul a omis sa transmita consumatorului informatiile necesare, termenul de denuntare unilaterala este de 90 de zile de la data primirii produselor sau de la data incheierii contractului pentru prestarea serviciului.  <br />
+                                    •   In cazul exercitarii dreptului de denuntare unilaterala a contractului de catre consumator, comerciantul are obligatia sa ramburseze sumele platite de consumator fara a-i solicita acestuia cheltuielile aferente rambursarii sumelor. <br />
+                                    •   Rambursarea sumelor se va face in cel mult 30 de zile de la data denuntarii contractului de catre consumator.<br />
+                                    •   In cazul in care cartea de credit a unui consumator a fost utilizata in mod fraudulos pentru achitarea pretului unui contract la distanta, consumatorul are dreptul sa ceara anularea platii. Sumele varsate ca plata vor fi recreditate sau restituite consumatorului potrivit reglementarilor specifice acestor sisteme de plata.<br />
+                                    Bunuri nesolicitate:<br />
+                                        Este interzisa livrarea de produse sau prestarea de servicii fara o comanda prealabila din partea consumatorului, daca aceasta livrare implica solicitarea efectuarii unei plati. 
+                                    In cazul livrarilor pentru care nu exista o comanda prealabila, consumatorul nu este obligat sa efectueze plata. 
+                                    Comerciantul poate livra consumatorului un produs sau serviciu de o calitate si pret echivalente cu cele solicitate, 
+                                    numai daca acest lucru a fost prevazut inainte de incheierea contractului si/sau in contract, astfel incat consumatorul sa fie informat in mod clar despre aceasta posibilitate. 
+                                    Cheltuielile de returnare a produselor, in situatia exercitarii dreptului de denuntare unilaterala a contractului, sunt, in acest caz, in sarcina comerciantului, 
+                                    element asupra caruia consumatorul trebuie sa fie informat. Furnizarea unor produse sau servicii similare celor solicitate nu poate fi asimilata cu livrarea fara comanda.<br />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+{% endblock content_right %}

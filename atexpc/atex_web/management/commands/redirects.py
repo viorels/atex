@@ -5,7 +5,8 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.contrib.redirects.models import Redirect
 
-from atexpc.atex_web.models import Categories, Product
+from atexpc.atex_web.models import Product
+from atexpc.atex_web.ancora_api import AncoraAPI
 
 
 class Command(BaseCommand):
@@ -35,7 +36,8 @@ class Command(BaseCommand):
                     Redirect.objects.get_or_create(site_id=1, old_path=old_path, new_path=new_path)
 
     def generate_categories(self):
-        new_categories = dict((c['name'].lower(), c['id']) for c in Categories().get_all())
+        categories = AncoraAPI().categories.get_all()
+        new_categories = dict((c['name'].lower(), c['id']) for c in categories)
         with open('category.csv', 'rb') as category_file:
             old_category_csv = csv.reader(category_file)
             for i, name in old_category_csv:

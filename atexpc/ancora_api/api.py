@@ -1,6 +1,7 @@
 import os
 import re
 import time
+import hashlib
 import json
 import operator
 from urlparse import urlparse, urlunparse, parse_qsl
@@ -16,26 +17,39 @@ logger = logging.getLogger(__name__)
 # TODO: this doesn't work if the lib is packed in an egg
 MOCK_DATA_PATH = os.path.join(os.path.split(__file__)[0], 'mock_data')
 
-TIMEOUT_LONG = 86400 # one day
-TIMEOUT_NORMAL = 3600 # one hour
-TIMEOUT_SHORT = 300 # 5 minutes
+TIMEOUT_LONG = 86400    # one day
+TIMEOUT_NORMAL = 3600   # one hour
+TIMEOUT_SHORT = 300     # 5 minutes
+
 
 class APIError(Exception):
     pass
 
+
 class BaseAdapter(object):
-    def __init__(self, base_uri=None, cache=django_cache):
+    def __init__(self, base_uri=None, cache=django_cache, use_backend=None):
+        """ - base_uri = common part of the API uri
+            - use_backend = None: try cache and fallback to backend
+                            True: always use backend
+                            False: never use backend"""
         self._base_uri = base_uri
         self._cache = cache
-        self._requests = requests.session() # TODO: thread safe ?
+        self._use_backend = use_backend
+        self._requests = requests.session()  # TODO: thread safe ?
+
+    def _cache_key(self, uri):
+        cache_key = self.normalize_uri(uri)
+        if len(cache_key) > 250:
+            cache_key = hashlib.sha1(cache_key).hexdigest()
+        return cache_key
 
     def _read_cache(self, uri):
         if self._cache:
-            return self._cache.get(self.normalize_uri(uri))
+            return self._cache.get(self._cache_key(uri))
 
     def _write_cache(self, uri, data, timeout):
         if self._cache:
-            self._cache.set(self.normalize_uri(uri), data, timeout)
+            self._cache.set(self._cache_key(uri), data, timeout)
 
     def _read_backend(self, uri):
         raise NotImplemented()
@@ -45,8 +59,10 @@ class BaseAdapter(object):
             - uri to fetch data from, can be a http url or a file path
             - use_backend = None: try cache and fallback to backend
                             True: always use backend
-                            False: never use backend
-        """
+                            False: never use backend"""
+        if use_backend is None:
+            use_backend = self._use_backend
+
         start_time = time.time()
 
         if use_backend is not True:
@@ -99,9 +115,14 @@ class BaseAdapter(object):
 
 
 class AncoraAdapter(BaseAdapter):
+    def __init__(self, *args, **kwargs):
+        default_api_timeout = 10  # seconds
+        self._api_timeout = kwargs.pop('api_timeout') if 'api_timeout' in kwargs else default_api_timeout
+        super(AncoraAdapter, self).__init__(*args, **kwargs)
+
     def _read_backend(self, uri):
         try:
-            response = self._requests.get(self.normalize_uri(uri), timeout=10)
+            response = self._requests.get(self.normalize_uri(uri), timeout=self._api_timeout)
             return response.text
         except (ConnectionError, Timeout) as e:
             raise APIError("Failed to reach backend (%s)" % type(e).__name__)
@@ -160,7 +181,7 @@ class Ancora(object):
     def __init__(self, adapter=None):
         self.adapter = adapter
 
-    def categories(self, use_backend=None):
+    def categories(self):
         def post_process(data):
             json_root = 'categories'
             categories = []
@@ -176,7 +197,6 @@ class Ancora(object):
 
         categories_uri = self.adapter.uri_for('categories')
         return self.adapter.read(categories_uri, post_process,
-                                 use_backend=use_backend,
                                  cache_timeout=TIMEOUT_LONG) or []
 
     def selectors(self, category_id, selectors_active, price_min, price_max):
@@ -190,7 +210,7 @@ class Ancora(object):
                 selectors.append({'name': selector_group['zdenumire'],
                                   'selectors': items,
                                   })
-            return selectors            
+            return selectors
 
         selectors_uri = self._get_category_meta(category_id, 'selectors_uri')
         if selectors_uri:
@@ -233,7 +253,7 @@ class Ancora(object):
     def search_products(self, category_id=None, keywords=None, selectors=None,
                         price_min=None, price_max=None, start=None, stop=None,
                         stock=None, sort_by=None, sort_order=None):
-        if not (category_id or keywords):
+        if not (keywords or (category_id and self._base_products_uri(category_id))):
             return self._no_products()
 
         args = {'start': start,
@@ -288,9 +308,9 @@ class Ancora(object):
     def product(self, product_id):
         def post_process(data):
             json_root = 'product_info'
-            product = data[json_root][0]
-            return self._post_process_product(product)
-            
+            product = data[json_root][0] if len(data[json_root]) else None
+            return self._post_process_product(product) if product else None
+
         product_uri = self.adapter.uri_for('product', {'pidm': product_id})
         product = self.adapter.read(product_uri, post_process, cache_timeout=TIMEOUT_SHORT)
         return product
@@ -298,17 +318,18 @@ class Ancora(object):
     def _post_process_product(self, product):
         significant_price_decrease = 1.05
         if (float(product['zpret_site']) > 0
-            and float(product.get('zpret_site_old', 0))/float(product['zpret_site']) 
+            and float(product.get('zpret_site_old', 0)) / float(product['zpret_site'])
                 > significant_price_decrease):
             old_price = product['zpret_site_old']
         else:
             old_price = None
 
-        category_code = product.get('zcod_grupa') # or zcodp for category listing
+        category_code = product.get('zcod_grupa') or product.get('zcodp')
         is_available = bool(re.match(r"[0-9.]+$", category_code)) if category_code is not None else False
         stock_info = 'In stoc' if product.get('zstoc', 0) else product.get('zinfo_stoc_site', '')
 
         return {'id': product.get('pidm') or product.get('zidprodus'),
+                'brand': product.get('zbrand'),
                 'model': product['zmodel'],
                 'category_code': category_code,
                 'name': product['ztitlu'],
@@ -336,7 +357,7 @@ class Ancora(object):
             meta_value = found[0].get(meta)
         else:
             meta_value = None
-            logger.warn("found %d categories with id '%s'", len(category), category_id)
+            logger.warn("found %d categories with id '%s'", len(found), category_id)
         return meta_value
 
     def _full_text_conjunction(self, keywords):

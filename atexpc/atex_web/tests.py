@@ -12,6 +12,7 @@ from django.contrib.sessions.backends.db import SessionStore
 from mock import patch
 
 from models import Product, ProductManager, DatabaseCart
+from ancora_api import AncoraAPI
 import views
 
 
@@ -24,32 +25,32 @@ class ClientTest(TestCase):
         self.assertContains(response, "Bun venit")
 
 
-class ViewsTest(TestCase): 
+class ViewsTest(TestCase):
     def test_menu_categories_in(self):
-        #print getattr(views._get_menu, 'categories_in')() 
+        #print getattr(views._get_menu, 'categories_in')()
         self.assertTrue(True)
 
     def test_uri_with_args_no_change(self):
-    	any_uri = 'http://any.com/uri?with=args&something=else'
-    	result = views._uri_with_args(any_uri)
-    	self.assertEqual(any_uri, result)
+        any_uri = 'http://any.com/uri?with=args&something=else'
+        result = views._uri_with_args(any_uri)
+        self.assertEqual(any_uri, result)
 
     def test_uri_with_args_add_something(self):
-    	any_uri = 'http://any.com/uri?with=args'
-    	result = views._uri_with_args(any_uri, something='new')
-    	expected_result = any_uri + '&something=new'
-    	self.assertEqual(expected_result, result)
+        any_uri = 'http://any.com/uri?with=args'
+        result = views._uri_with_args(any_uri, something='new')
+        expected_result = any_uri + '&something=new'
+        self.assertEqual(expected_result, result)
 
     def test_uri_with_args_preserve_multiple_values(self):
-    	uri_with_multiple_values = 'http://uri.com/?f=1&f=2'
-    	result = views._uri_with_args(uri_with_multiple_values)
-    	self.assertEqual(uri_with_multiple_values, result)
+        uri_with_multiple_values = 'http://uri.com/?f=1&f=2'
+        result = views._uri_with_args(uri_with_multiple_values)
+        self.assertEqual(uri_with_multiple_values, result)
 
     def test_uri_with_args_overwrite_multiple_values(self):
-    	uri_with_multiple_values = 'http://uri.com/?f=1&f=2'
-    	result = views._uri_with_args(uri_with_multiple_values, f=3)
-    	expected = 'http://uri.com/?f=3'
-    	self.assertEqual(result, expected)
+        uri_with_multiple_values = 'http://uri.com/?f=1&f=2'
+        result = views._uri_with_args(uri_with_multiple_values, f=3)
+        expected = 'http://uri.com/?f=3'
+        self.assertEqual(result, expected)
 
 
 class ModelsTest(TestCase):
@@ -69,6 +70,12 @@ class ModelsTest(TestCase):
                 Product.objects.get_and_save(new_product['id'])
             except IntegrityError as e:
                 self.fail("get_and_save raised %s: %s" % (type(e).__name__, e))
+
+
+class AncoraTest(TestCase):
+    def test_categories(self):
+        ancora = AncoraAPI()
+        self.assertTrue(len(ancora.categories.get_all()) > 0)
 
 
 class DatabaseCartTest(TestCase):

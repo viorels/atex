@@ -95,7 +95,7 @@ function init_filters() {
 		filter_form.submit();
 	})
 
-    dropdowns.click(function () {
+    dropdowns.change(function () {
         if ($(this).hasClass("submit")) {
             filter_form.submit();
         }
@@ -144,7 +144,7 @@ function calculate_height(){
   search_bar_h = $('.search_bar').height();
   content_h = content_wrapper_h + header_h + search_bar_h + bottomHeight + footerHeight;  
   viewHeight_new = viewHeight - footerHeight;
-  docHeight_new = docHeight - bottomHeight - footerHeight;
+  docHeight_new = docHeight - bottomHeight - footerHeight + 30;
   if (viewHeight >= content_h) {
     $('#wrap1').css('min-height', getDocHeight);
     $('#wrap2').css('min-height', viewHeight_new);
@@ -188,7 +188,7 @@ function init_csrf() {
 }
 
 function init_cart() {
-    $(".add_cos_btn").click(function () {
+    $(".add_cos_btn, add_cos_btn_small").click(function () {
         product_id = $(this).data("product-id")
         add_to_cart(product_id)
         return false;
@@ -248,3 +248,13 @@ $(document).ready(function()
     init_input_hint(newsletter_form, newsletter_input, newsletter_hint);
 });
 
+function init_beta() {
+    $(".login_holder li, .info_cos li, " +
+      ".add_cos_btn, .add_cos_btn_small, .email-wrapper .email_btn").click(work_in_progress);
+}
+
+function work_in_progress() {
+    alert("Inca se lucreaza :) . Pentru comenzi apelati 0264-599009 " + 
+          "sau trimiteti mail la office@atexpc.ro. Multumim !");
+    return false;
+}

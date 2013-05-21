@@ -13,9 +13,12 @@ MIDDLEWARE_CLASSES += (
 INSTALLED_APPS += (
     'gunicorn',
     'storages',
+    'raven.contrib.django',
 )
 
 COMPRESS_ENABLED = True
+
+SENTRY_DSN = environ.get('SENTRY_DSN')
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'

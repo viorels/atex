@@ -34,9 +34,10 @@
                         <div class="product-info">
                             {% if product.available %}
                         	<ul class="info-termeni">
-                            	<li><strong>Garantie:</strong> {{ product.warranty }} luni</li>
-                                <li><strong>Termen livrare:</strong> 24h de la comanda ferma</li>
-                                <li><strong>Stoc:</strong> <span class="green">{{ product.stock_info }}</span></li>
+                            	<li><strong><span class="green">{{ product.stock_info }}</span></strong></li>
+					<li><strong>Garantie:</strong> {{ product.warranty }} luni</li>
+                               	<li><strong>Termen livrare:</strong> 24h de la comanda ferma</li>                             
+                               	<li><strong>Cod produs:</strong> {{ product.model}}</li>                             
                             </ul>
                             <ul class="info-pret">
                                 {% if product.old_price %}
@@ -121,7 +122,7 @@
                         </div>
                         {% endif %}
 
-                        <div {% if properties %} class="product-section" {% endif %}>
+                        <div class="product-section">
                             <div class="tab_u_holder_left">
                                 <span class="up_left"></span>
                                     <ul class="tab_up">

@@ -37,6 +37,12 @@ DROPBOX_ACCESS_TOKEN_SECRET = os.environ.get('DROPBOX_ACCESS_TOKEN_SECRET')
 
 AUTH_PROFILE_MODULE = 'atex_web.UserProfile'
 
+SHOPMANIA_FEED_FILE = 'shopmania.csv' # in media root
+
+if 'test' in sys.argv:
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+
+
 CACHES = {
     'default': {
         'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
@@ -204,16 +210,16 @@ LOGGING = {
             'level':'INFO',
         },
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': [],
             'level': 'ERROR',
             'propagate': True,
         },
         'atexpc.atex_web': {
-            'handlers': ['console', 'mail_admins'],
+            'handlers': ['console'],
             'level': 'DEBUG',
         },
         'atexpc.ancora_api': {
-            'handlers': ['console', 'mail_admins'],
+            'handlers': ['console'],
             'level': 'DEBUG',
         }
     }

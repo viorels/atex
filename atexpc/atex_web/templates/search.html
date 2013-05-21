@@ -93,22 +93,27 @@
                                 </div>
                             </a>
                             <h2><a href="{{ product.url }}">{{ product.name }}</a></h2>
-                            <div class="product_price">
-                                <span class="pret_produs">{{ product.price }} lei</span>
-                                {% if product.old_price %}
-                                <span class="pret_vechi">{{ product.old_price }} lei</span>
-                                {% endif %}
-                            </div>
-                            <span class="stoc_ok">{{ product.stock_info }}</span>
-                            <a href="#" class="add_cos_btn" data-product-id="{{ product.id }}"><span></span>Adauga in cos</a>
-                            <ul class="info_detalii">
+                            <span class="stoc_ok">{{ product.stock_info }}</span>      
+				<div class="price-add-row">
+					<div class="product_price">
+                                		<span class="pret_produs">{{ product.price }} lei</span>
+                                		{% if product.old_price %}
+                                		<span class="pret_vechi">{{ product.old_price }} lei</span>
+                                		{% endif %}
+                            	</div>
+					<a href="#" class="add_cos_btn_small" data-product-id="{{ product.id }}"><span></span>Adauga in cos</a>
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
                                 <li><span>Garantie: {{ product.warranty }} luni</span></li>
                                 <li><span>Termen livrare: 24h de la comanda</span></li>
                                 <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>    
+                            </ul>  
+				-->  
                         </div>
      
-                        {% if product.fourth %}
+                        {% if product.last_in_line %}
                             <div class="product_spacer"></div>
                         {% endif %}
                     {% endfor %}
