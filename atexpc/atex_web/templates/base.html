@@ -24,7 +24,7 @@
 	<div class="page_wrapper clear" id="wrap2">
     	<div class="header">
             <div class="logo">
-                <a href="{% url home %}"><img src="{{ site_info.logo_url }}" width="300" height="100" alt="atex logo" title="{{ site_info.domain }}" name="{{ site_info.domain }}"/></a>
+                <a href="{% url "home" %}"><img src="{{ site_info.logo_url }}" width="300" height="100" alt="atex logo" title="{{ site_info.domain }}" name="{{ site_info.domain }}"/></a>
             </div>
             <div class="login_holder">
             	<span class="down_left"></span>
@@ -54,14 +54,14 @@
                 	<p>Bun venit, <span class="red_b">{{ user.first_name|default:"anonim" }}</span> !</p>
                 </div>    
                 <ul>
-                	<li><a href="{% url cart %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
+                	<li><a href="{% url "cart" %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
                     <li><span class="red_b cart_count">{{ cart.count }}</span> produs{{ cart.count|pluralize:"e"}}</li>
                     <li> | </li>
                     <li><span class="red_b cart_price">{{ cart.price }}</span> lei </li>
                 </ul>
             </div>
         </div> <!-- header end -->
-        <form method="GET" action="{% url search %}" class="search">
+        <form method="GET" action="{% url "search" %}" class="search">
             <div class="search_bar">
                 {% if search_form %}
                 <ul class="search_inputs">
@@ -179,10 +179,10 @@
         <div class="bottom-footer">
         	<ul class="menu-subsol">
             	<li class="first"><a href="#">Cariera</a></li>
-                <li><a href="{% url conditions %}">Conditii Vanzare</a></li>
+                <li><a href="{% url "conditions" %}">Conditii Vanzare</a></li>
                 <li><a href="#">Configurator</a></li>
                 <li><a href="#">Harta site</a></li>
-                <li><a href="{% url contact %}">Contact</a></li>
+                <li><a href="{% url "contact" %}">Contact</a></li>
             </ul>
             <span class="copyright">Copyright &copy; {% now "Y" %} {{ site_info.company }}</span>
         </div>

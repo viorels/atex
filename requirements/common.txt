@@ -1,4 +1,4 @@
-Django==1.4.2
+Django==1.5.1
 pytz==2012f
 pylibmc==1.2.2
 django-pylibmc-sasl==0.2.4

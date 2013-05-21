@@ -8,7 +8,7 @@ from django.db.models.query import QuerySet
 from django.utils.datastructures import SortedDict
 from django.db.utils import DatabaseError
 from django.core.files.storage import get_storage_class
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save

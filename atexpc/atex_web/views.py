@@ -7,7 +7,7 @@ from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 
 from django.core.urlresolvers import reverse
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 from django.template import Context, Template
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
@@ -17,7 +17,7 @@ from django.contrib.sites.models import get_current_site
 from django.http import Http404
 from django.conf import settings
 
-from models import Product, Categories, DatabaseCart as Cart
+from models import Product, DatabaseCart as Cart
 from forms import search_form_factory
 from atexpc.ancora_api.api import APIError
 from ancora_api import AncoraAPI
