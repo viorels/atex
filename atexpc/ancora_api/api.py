@@ -54,6 +54,9 @@ class BaseAdapter(object):
     def _read_backend(self, uri):
         raise NotImplemented()
 
+    def _write_backend(self, uri, data):
+        raise NotImplemented()
+
     def read(self, uri, post_process=None, use_backend=None, cache_timeout=TIMEOUT_SHORT):
         """ Read data from backend and cache processed data
             - uri to fetch data from, can be a http url or a file path
@@ -81,6 +84,11 @@ class BaseAdapter(object):
         self._read_debug(uri, cache_response, locals().get('response'), start_time)
 
         return processed_data
+
+    def write(self, uri, data):
+        response = self._write_backend(uri, data)
+        data = self.parse(response)
+        return data
 
     def _read_debug(self, uri, cache_response, response, start_time):
         elapsed = time.time() - start_time
@@ -123,6 +131,13 @@ class AncoraAdapter(BaseAdapter):
     def _read_backend(self, uri):
         try:
             response = self._requests.get(self.normalize_uri(uri), timeout=self._api_timeout)
+            return response.text
+        except (ConnectionError, Timeout) as e:
+            raise APIError("Failed to reach backend (%s)" % type(e).__name__)
+
+    def _write_backend(self, uri, data):
+        try:
+            response = self._requests.post(uri, data=data, timeout=self._api_timeout)
             return response.text
         except (ConnectionError, Timeout) as e:
             raise APIError("Failed to reach backend (%s)" % type(e).__name__)
@@ -364,3 +379,8 @@ class Ancora(object):
         words = re.split(r"\s+", keywords.strip())
         conjunction = '&'.join(words)
         return conjunction
+
+    def create_user(self, user):
+        create_user_uri = self.adapter.uri_for('create_user')
+        status = self.adapter.write(create_user_uri, user)
+    
