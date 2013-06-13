@@ -287,9 +287,10 @@ ul.search_inputs input.hint {
 	float:left;
 	margin-left:50px;
 	line-height:19px;
-	color:#3b3b3b;
+	color:#c62123;
 	font-size:11px;
 	text-align:center;
+	font-weight:bold;
 }
 .spacer {
 	font-size:12px;
@@ -540,6 +541,15 @@ ul.menu li.menu-item {
 	font-size:13px;
 	display:block;
 }
+ul.menu li.menu-item.brand {	
+	background: -moz-linear-gradient(top , #d6585a, #cf4243 50%, #c62123 50%, #c62123);
+	background: -ms-linear-gradient(top , #d6585a, #cf4243 50%, #c62123 50%, #c62123);
+	background: -o-linear-gradient(top , #d6585a, #cf4243 50%, #c62123 50%, #c62123);
+	background: -webkit-gradient(linear, left top, left bottom, from(#d6585a), to(#c62123), color-stop(0.5, #cf4243),  color-stop(0.5, #c62123));
+	-pie-background: linear-gradient(#d6585a, #cf4243 50%, #c62123 50%, #c62123); 	
+	behavior: url(/static/css/PIE.htc);	
+}
+ul.menu li.menu-item.brand a {color:#fff} ul.menu li.menu-item.brand a:hover {color:#393939}
 ul.menu li.menu-item.active, ul.menu li.menu-item:hover  {
 	background: -moz-linear-gradient(top ,#fff, #fff) !important;
 	background: -ms-linear-gradient(top ,#fff, #fff) !important;
@@ -549,6 +559,7 @@ ul.menu li.menu-item.active, ul.menu li.menu-item:hover  {
 	behavior: url(/static/css/PIE.htc);	 
 }
 ul.menu li.menu-item.first {
+
 
 
 	border-top:1px solid #cecece;
@@ -1327,6 +1338,7 @@ background-color:#c62123;
 background-color:#c62123; 
 
 }
+
 .paginare li {float:left;margin:0 5px}
 .paginare a {
 	padding:0 3px;
@@ -1542,6 +1554,7 @@ p.info a:hover, p.info a:active {
 	width:100%;
 	float:left;
 	border-bottom:1px solid #484848;
+
 }
 .info-produs-cos {
 	width:400px;
@@ -1932,3 +1945,23 @@ td.center {text-align:center}
 .info-conditii ul .red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
 .statistics-info {float:left;}
 .statistics-info a {margin: 10px 10px 5px 0; float:left; height:35px;}
+
+.brands ul {
+	width:207px;
+	float:left;
+	margin-right:15px;
+	margin-bottom:15px;
+	background-color:#fff;
+	padding-bottom:10px;
+	}
+.brands ul.last {margin-right:0px;}	
+.brands ul li.titlu-brand {
+	background-color:#c62123;
+	color:#fff;
+	padding:10px;
+	font-size:16px;
+	font-weight:bold;
+	}
+.brands ul li {padding:5px 10px 0px 0px}		
+.brands ul li a{display:block;border-bottom:1px solid #fff; padding-left:10px;}
+.brands ul li a:hover {border-color:#999;}
