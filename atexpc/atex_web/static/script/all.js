@@ -188,7 +188,7 @@ function init_csrf() {
 }
 
 function init_cart() {
-    $(".add_cos_btn, add_cos_btn_small").click(function () {
+    $(".add_cos_btn, .add_cos_btn_small").click(function () {
         product_id = $(this).data("product-id")
         add_to_cart(product_id)
         return false;
@@ -250,7 +250,7 @@ $(document).ready(function()
 
 function init_beta() {
     $(".login_holder li, .info_cos li, " +
-      ".add_cos_btn, .add_cos_btn_small, .email-wrapper .email_btn").click(work_in_progress);
+      ".email-wrapper .email_btn").click(work_in_progress);
 }
 
 function work_in_progress() {
