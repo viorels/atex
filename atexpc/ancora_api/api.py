@@ -151,7 +151,8 @@ class AncoraAdapter(BaseAdapter):
         args = {'categories': {'cod_formular': '617'},
                 'product': {'cod_formular': '738'},
                 'recommended': {'cod_formular': '740', 'start': '0'},
-                'promotional': {'cod_formular': '737', 'start': '0'}}
+                'promotional': {'cod_formular': '737', 'start': '0'},
+                'brands': {'cod_formular': '1024', 'start': '0', 'stop': '1000'}}
         return args.get(method_name, {})
 
     def uri_with_args(self, uri, new_args):
@@ -268,7 +269,8 @@ class Ancora(object):
     def search_products(self, category_id=None, keywords=None, selectors=None,
                         price_min=None, price_max=None, start=None, stop=None,
                         stock=None, sort_by=None, sort_order=None):
-        if not (keywords or (category_id and self._base_products_uri(category_id))):
+        if not (keywords or selectors or 
+                (category_id and self._base_products_uri(category_id))):
             return self._no_products()
 
         args = {'start': start,
@@ -379,6 +381,16 @@ class Ancora(object):
         words = re.split(r"\s+", keywords.strip())
         conjunction = '&'.join(words)
         return conjunction
+
+    def brands(self):
+        def post_process(data):
+            json_root = 'brands'
+            brands = [brand['zdenumire'].capitalize() for brand in data.get(json_root, [])]
+            return brands
+
+        brands_uri = self.adapter.uri_for('brands')
+        return self.adapter.read(brands_uri, post_process,
+                                 cache_timeout=TIMEOUT_LONG) or []
 
     def create_user(self, user):
         create_user_uri = self.adapter.uri_for('create_user')

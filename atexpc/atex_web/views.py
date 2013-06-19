@@ -1,7 +1,6 @@
 import re
 import math
 from operator import itemgetter
-from itertools import groupby
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 
@@ -17,6 +16,7 @@ from models import Product
 from forms import search_form_factory
 from atexpc.ancora_api.api import APIError
 from ancora_api import AncoraAPI
+from utils import group_in, grouper
 
 import logging
 logger = logging.getLogger(__name__)
@@ -400,12 +400,7 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
 
     def get_properties(self):
         items = sorted(self.get_product().get('properties', {}).items())
-        def group_in(n):
-            return [[item for i, item in group] for i, group
-                    in groupby(sorted((i%n, item) for i, item 
-                                      in enumerate(items)),
-                               itemgetter(0))]
-        return group_in(3)
+        return group_in(3, items)
 
     def get_recommended(self):
         recommended = self.api.products.get_recommended(limit=self.recommended_limit)
@@ -424,6 +419,25 @@ class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
         else:
             breadcrumbs = []
         return breadcrumbs
+
+
+class BrandsView(BreadcrumbsMixin, SearchMixin, GenericView):
+    template_name = "branduri.html"
+
+    def get_particular_context(self):
+        return {'brand_index': self._brand_index()}
+
+    def get_breadcrumbs(self):
+        return [{'name': "Branduri"}]
+
+    def _brand_index(self):
+        brands = self.api.products.get_brands()
+        index_letters = sorted(set(brand[0].upper() for brand in brands))
+        brand_index = dict((letter, sorted(brand for brand in brands
+                            if brand[0].upper() == letter))
+                           for letter in index_letters)
+        grouped_brand_index = grouper(4, sorted(brand_index.items()))
+        return grouped_brand_index
 
 
 class ContactView(BreadcrumbsMixin, SearchMixin, GenericView):

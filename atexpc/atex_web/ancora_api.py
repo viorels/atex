@@ -136,3 +136,6 @@ class ProductsAPI(BaseAPI):
 
     def get_promotional(self, limit):
         return self._api.products_promotional(limit).get('products')
+
+    def get_brands(self):
+        return self._api.brands()
