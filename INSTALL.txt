@@ -13,10 +13,11 @@ $ virtualenv venv
 $ . venv/bin/activate
 $ pip install -r atex/requirements/amazon.txt
 
-$ cat > .env
-APP_ENV=dev
-ANCORA_URI=http://86.35.59.228:8765/ancoraerp/jis.serv?database=atex
+$ cat << _EOF_ > .env
+ANCORA_URI=http://ancora.atexpc.ro:8765/ancoraerp/jis.serv?database=atex
 MEMCACHE_SERVERS=localhost
+DJANGO_SETTINGS_MODULE=atexpc.config.dev
+_EOF_
 
 $ env `cat .env | xargs` python manage.py runserver
 
