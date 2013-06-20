@@ -276,6 +276,12 @@ $(document).ready(function()
 
     var newsletter_input = $("input.news_email")
     init_input_hint($(".newsletter form"), newsletter_input);
+
+    var order_form = $("#orderform");
+    var order_form_inputs = order_form.find("input[type=text], input[type=password]")
+        .each(function (i, form_input) {
+        init_input_hint(order_form, $(form_input));
+    });
 });
 
 function init_beta() {
