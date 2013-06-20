@@ -15,6 +15,13 @@
 {% block banner_left %}{% endblock %}
 
 {% block content_left %}
+            <form method="GET" action="{% url "search" %}" class="search">
+                <input type="hidden" name="cuvinte" value="{{ search_form.cleaned_data.cuvinte }}">
+                <input type="hidden" name="cauta_in" value="{{ search_form.cleaned_data.cauta_in }}">
+                <input type="hidden" name="ordine" value="{{ search_form.cleaned_data.ordine|default:search_form.fields.ordine.initial }}">
+                <input type="hidden" name="pe_pagina" value="{{ search_form.cleaned_data.pe_pagina|default:search_form.fields.pe_pagina.initial }}">
+                <input type="hidden" name="stoc" value="{{ search_form.cleaned_data.stoc|default:search_form.fields.stoc.initial }}">
+
                 <div class="left_search">
                     {{ search_form.categorie }}
                     {% if selectors %}
@@ -56,8 +63,9 @@
                 	</div>
                     {% endif %}
                 </div>
+            </form>
 {% endblock content_left %}
-                dulcikarea
+
 {% block content_right %}
                 <div class="filtrare_holder">
                     <div class="tab_d_holder">

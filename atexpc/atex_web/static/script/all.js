@@ -66,19 +66,22 @@ function init_input_hint(form, input, hint) {
 
 function init_filters() {
 	var filter_form = $("form.search");
-	var checkboxes = filter_form.find('input[type=checkbox]')
-    var dropdowns = filter_form.find('ul.filtrare select')
+	var all_checkboxes = $('input[type=checkbox]');
+    var left_checkboxes = filter_form.find('input[type=checkbox]');
+    var delegate_filters = $('.delegate_filter');
 
-	checkboxes.each(function() {
+	all_checkboxes.each(function() {
 		var checkbox = $(this)
 		checkbox.wrap(function() {
 			return (checkbox.is(':checked')) ? '<div class="custom_checkbox selected" />'
 											 : '<div class="custom_checkbox" />';
 		});
 	});
-	
-	checkboxes.click(function () {
-		$(this).parent().toggleClass('selected');
+    all_checkboxes.click(function () {
+        $(this).parent().toggleClass('selected');
+    });
+
+	left_checkboxes.click(function () {
 		if ($(this).hasClass("submit")) {
 			filter_form.submit();
 		}
@@ -95,11 +98,30 @@ function init_filters() {
 		filter_form.submit();
 	})
 
-    dropdowns.change(function () {
-        if ($(this).hasClass("submit")) {
+    delegate_filters.change(function (e) {
+        var filter = $(this);
+        var filter_name = filter.attr('name');
+        var filter_value = filter.val();
+        var delegate = filter_form.find('input[name=' + filter_name + ']')
+        delegate.val(filter_value);
+        if (filter.is('input[type=checkbox]') && !filter.is(':checked')) {
+            delegate.val('');
+        }
+        if (filter.hasClass("submit")) {
             filter_form.submit();
         }
     });
+
+
+    $("input#id_cuvinte").keyup(function(event){
+        if(event.keyCode == 13){
+            filter_form.submit();
+        }
+    })
+
+    $("input[name=cauta]").click(function () {
+        filter_form.submit();
+    })
 
 	$('.reset_sel_btn').click(function () {
         uncheck_filters();

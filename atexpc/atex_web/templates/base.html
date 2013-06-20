@@ -61,28 +61,28 @@
                 </ul>
             </div>
         </div> <!-- header end -->
-        <form method="GET" action="{% url "search" %}" class="search">
-            <div class="search_bar">
-                {% if search_form %}
-                <ul class="search_inputs">
-                    <li>{{ search_form.cuvinte }}</li>
-                    <li class="search_category">
-                        {{ search_form.cauta_in }}
-                    </li>    
-                    <li><input type="image" name="cauta" src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Caută" title="Caută produsul dorit ..." /></li>
-                </ul>
-                {% endif %}
-                <ul class="info_orar">
-                	<li>ORAR: L-V: 10:00 - 18:00  <span class="spacer">|</span>  S: 10:00 - 13:00</li>
-                    <li>TELEFON: 0751 433 284 <span class="spacer">|</span> 0735 968 743</li>
-                </ul>
-                <ul class="configurator">
-                	<li>Acces Parteneri : </li>
-                     <li><a href="http://109.102.172.60:8765/profon/" target="_blank"><img src="{{ STATIC_PREFIX }}images/config-button.png" width="23" height="23" alt="Acces Parteneri" title="Acces Parteneri" /></a></li>
-                </ul>
-            </div> <!-- search bar end -->
-            
-            <div class="content_wrapper clear">
+        
+        <div class="search_bar">
+            {% if search_form %}
+            <ul class="search_inputs">
+                <li>{{ search_form.cuvinte }}</li>
+                <li class="search_category">
+                    {{ search_form.cauta_in }}
+                </li>    
+                <li><input type="image" name="cauta" src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Caută" title="Caută produsul dorit ..." /></li>
+            </ul>
+            {% endif %}
+            <ul class="info_orar">
+            	<li>ORAR: L-V: 10:00 - 18:00  <span class="spacer">|</span>  S: 10:00 - 13:00</li>
+                <li>TELEFON: 0751 433 284 <span class="spacer">|</span> 0735 968 743</li>
+            </ul>
+            <ul class="configurator">
+            	<li>Acces Parteneri : </li>
+                 <li><a href="http://109.102.172.60:8765/profon/" target="_blank"><img src="{{ STATIC_PREFIX }}images/config-button.png" width="23" height="23" alt="Acces Parteneri" title="Acces Parteneri" /></a></li>
+            </ul>
+        </div> <!-- search bar end -->
+        
+        <div class="content_wrapper clear">
             
             {% block content_top %}
             <div class="top-content">
@@ -105,8 +105,7 @@
 
             {% block content %}{% endblock %}
 
-            </div> <!-- content wrapper end -->
-        </form>
+        </div> <!-- content wrapper end -->
 		<div class="content-bottom">		
 		  {% block newsletter %}
                 <div class="newsletter">
