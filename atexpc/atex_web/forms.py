@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.forms.widgets import TextInput, HiddenInput, CheckboxInput, Select
+from django.forms.widgets import (TextInput, PasswordInput, HiddenInput, 
+    CheckboxInput, RadioSelect, Select, Textarea)
 
 SORT_CHOICES = (
     ('pret_asc', ' - pret crescator - '),
@@ -49,3 +50,57 @@ def search_form_factory(search_in_choices, advanced=False):
         pret_max = forms.IntegerField(initial='', required=False)
 
     return AdvancedSearchForm if advanced else SearchForm
+
+
+class OrderForm(forms.Form):
+    # logintype
+    user = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "email"}),
+        required=True)
+    password = forms.CharField(
+        widget=PasswordInput(attrs={"class": "input_cos",
+                                    "title": "parola"}),
+        required=False)
+
+    surname = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "nume"}),
+        required=False)
+    firstname = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "prenume"}),
+        required=False)
+    email = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "adresa email"}),
+        required=False)
+    phone = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "telefon"}),
+        required=False)
+    password1 = forms.CharField(
+        widget=PasswordInput(attrs={"class": "input_cos",
+                                "title": "parola"}),
+        required=False)
+    password2 = forms.CharField(
+        widget=PasswordInput(attrs={"class": "input_cos",
+                                "title": "repeta parola"}),
+        required=False)
+    usertype = forms.ChoiceField(
+            widget=RadioSelect(),
+            choices=(('f', 'Persoana fizica'), ('j', 'Persoana juridica')),
+            initial='',
+            required=False)
+    city = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "localitatea"}),
+        required=False)
+    county = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "judetul"}),
+        required=False)
+    address = forms.CharField(
+        widget=Textarea(attrs={"class": "input_cos",
+                               "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
+        required=False)

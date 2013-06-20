@@ -6,11 +6,12 @@ from itertools import groupby
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.text import slugify
 from django.template import Context, Template
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.sites.models import get_current_site
@@ -18,7 +19,7 @@ from django.http import Http404
 from django.conf import settings
 
 from models import Product, DatabaseCart as Cart
-from forms import search_form_factory
+from forms import search_form_factory, OrderForm
 from atexpc.ancora_api.api import APIError
 from ancora_api import AncoraAPI
 
@@ -266,8 +267,16 @@ class CartView(ShoppingMixin, SearchMixin, HybridGenericView):
         return self.render_to_response(self.get_json_context())
 
 
-class OrderView(ShoppingMixin, SearchMixin, HybridGenericView):
+class OrderView(FormView, ShoppingMixin, SearchMixin, HybridGenericView):
     template_name = "order.html"
+    form_class = OrderForm
+    success_url = reverse_lazy('confirm')
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        logger.debug("OrderView.form_valid")
+        return super(OrderView, self).form_valid(form)
 
 class ConfirmView(ShoppingMixin, SearchMixin, HybridGenericView):
     template_name = "confirm.html"

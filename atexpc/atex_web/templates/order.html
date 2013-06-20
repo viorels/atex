@@ -41,6 +41,8 @@
                     </div>
 
                     <form id="orderform" method="post">
+                    {% csrf_token %}
+
                     <div class="pas-02">
                     	<div class="product-section">
                             <div class="tab_u_holder_left">
@@ -70,12 +72,12 @@
                                 	<div class="row">
                                         <input name="surname" type="text" class="input_cos" title="nume"/> 
                                         <input name="firstname" type="text" class="input_cos" title="prenume"/>
-                                        <input name="email" type="text" class="input_cos" title="adresa emai"/>
+                                        <input name="email" type="text" class="input_cos" title="adresa email"/>
                                     </div>  
                                     <div class="row">  
                                         <input name="phone" type="text" class="input_cos" title="telefon"/> 
-                                        <input name="password1" type="text" class="input_cos" title="parola"/>
-                                        <input name="password2" type="text" class="input_cos" title="repeta parola"/>
+                                        <input name="password1" type="password" class="input_cos" title="parola"/>
+                                        <input name="password2" type="password" class="input_cos" title="repeta parola"/>
                                     </div>    
                                 </li>
                             </ul>    
@@ -83,8 +85,8 @@
                         <div class="rand-cos">
                             <ul class="modalitate">
                                 <li>Va rugam selectati modul de facturare:</li>
-                                <li><input name="usertype" type="radio" checked="checked" /> Persoana fizica</li>
-                                <li><input name="usertype" type="radio" /> Persoana juridica</li>
+                                <li><input name="usertype" type="radio" checked="checked" value="f" /> Persoana fizica</li>
+                                <li><input name="usertype" type="radio" value="j" /> Persoana juridica</li>
                             </ul>   
                         </div>
                         <div class="rand-cos">
@@ -92,11 +94,11 @@
                                 <li>Informatii facturare:</li>
                                 <li class="last">
                                 	<div class="col">
-                                        <input name="city" type="text" class="input_cos" value="localitatea"/> 
-                                        <input name="county" type="text" class="input_cos" value="judetul"/>                                        
+                                        <input name="city" type="text" class="input_cos" title="localitatea"/> 
+                                        <input name="county" type="text" class="input_cos" title="judetul"/>                                        
                                     </div>  
                                     <div class="textarea">  
-                                        <textarea name="address" class="input_cos">adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)</textarea>
+                                        <textarea name="address" class="input_cos" title="adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"></textarea>
                                     </div>    
                                 </li>
                             </ul>    
@@ -113,14 +115,13 @@
                                 </li>    
                             </ul>
                             <ul class="buttons">    
-                            	<li><a href="#" class="reset"><span></span>Reset</a></li>                    	
-                                <li><a href="{% url "confirm" %}" class="continua"><span></span>Continua</a></li>                                
+                            	<li><a href="#" class="reset"><span></span>Reset</a></li>
+                                <li><a href="#" class="continua"><span></span>Continua</a></li>                                
                             </ul> 
                         </div>
+                    </div> <!-- end pas 02 -->
                     </form>
-                    </div>
-                    
-                     <!-- end pas 02 -->
+                     
                     
                 </div>
 {% endblock content_right %}

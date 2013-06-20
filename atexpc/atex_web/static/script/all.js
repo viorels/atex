@@ -248,6 +248,18 @@ function update_cart(cart) {
     $('.info_cos .cart_price').html(cart.price);
 }
 
+function init_order() {
+    var order_form = $("#orderform");
+    var order_form_inputs = order_form.find("input[type=text], textarea")
+        .each(function (i, form_input) {
+        init_input_hint(order_form, $(form_input));
+    });
+
+    $("#orderform .continua").click(function () {
+        order_form.submit();
+    })
+}
+
 function init_beta() {
     $(".login_holder li, .search_bar .configurator, " +
       ".email-wrapper .email_btn").click(work_in_progress);
@@ -266,6 +278,7 @@ $(document).ready(function()
 	show_rezumat();
     init_csrf();
     init_cart();
+    init_order();
     init_beta();
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {calculate_height();};
@@ -276,12 +289,6 @@ $(document).ready(function()
 
     var newsletter_input = $("input.news_email")
     init_input_hint($(".newsletter form"), newsletter_input);
-
-    var order_form = $("#orderform");
-    var order_form_inputs = order_form.find("input[type=text], input[type=password]")
-        .each(function (i, form_input) {
-        init_input_hint(order_form, $(form_input));
-    });
 });
 
 function init_beta() {

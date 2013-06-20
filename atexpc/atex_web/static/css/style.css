@@ -268,7 +268,7 @@ ul.search_inputs input.search {
 	padding:0 5px;
 	width:300px;
 }
-input.hint {
+input.hint, textarea.hint {
 	color:#999;
 }
 .categorii {
