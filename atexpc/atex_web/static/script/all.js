@@ -40,12 +40,17 @@ function init_gallery() {
 }
 
 function init_input_hint(form, input, hint) {
+    if (!hint) {
+        hint = input.attr("title");
+    }
+
     function show_hint_if_empty() {
         if (!input.val()) {
             input.val(hint);
             input.addClass("hint")
         }
     }
+
     function hide_hint() {
         if (input.val() == hint) {
             input.removeClass("hint")
@@ -65,7 +70,8 @@ function init_input_hint(form, input, hint) {
 }
 
 function init_filters() {
-	var filter_form = $("form.search");
+    var search_form = $("#search_form");
+	var filter_form = $("#filter_form");
 	var all_checkboxes = $('input[type=checkbox]');
     var left_checkboxes = filter_form.find('input[type=checkbox]');
     var delegate_filters = $('.delegate_filter');
@@ -112,16 +118,21 @@ function init_filters() {
         }
     });
 
-
-    $("input#id_cuvinte").keyup(function(event){
-        if(event.keyCode == 13){
+    function submit_search_filter_form(e) {
+        if (filter_form.length) {
             filter_form.submit();
+        } else {
+            search_form.submit();
         }
-    })
-
-    $("input[name=cauta]").click(function () {
-        filter_form.submit();
-    })
+        return false;
+    }
+    $("input#id_cuvinte").keyup(function(e){
+        var key_enter = 13;
+        if(e.keyCode == key_enter){
+            return submit_search_filter_form(e);
+        }
+    });
+    $("input[name=cauta]").click(submit_search_filter_form);
 
 	$('.reset_sel_btn').click(function () {
         uncheck_filters();
@@ -137,15 +148,15 @@ function toggle_price() {
 }
 
 function uncheck_filters() {
-	var search_form = $("form.search");
-	var checkboxes = search_form.find('input[type=checkbox]')
+	var filter_form = $("#filter_form");
+	var checkboxes = filter_form.find('input[type=checkbox]')
 	checkboxes.each(function () {
 		var checkbox = $(this);
 		checkbox.parent().removeClass('selected');
 		checkbox.removeAttr('checked')
 	});
     toggle_price();
-	search_form.submit();
+	filter_form.submit();
 }
 
 function show_rezumat() {
@@ -259,15 +270,12 @@ $(document).ready(function()
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {calculate_height();};
 
-    var search_form = $("form.search");
     var search_input = $(".search_inputs .search");
-    var search_hint = search_input.attr("title");
-    init_input_hint(search_form, search_input, search_hint);
+    init_input_hint($("#search_form"), search_input);
+    init_input_hint($("#filter_form"), search_input);
 
-    var newsletter_form = $(".newsletter form")
-    var newsletter_input = newsletter_form.find("input.news_email")
-    var newsletter_hint = newsletter_input.attr("title")
-    init_input_hint(newsletter_form, newsletter_input, newsletter_hint);
+    var newsletter_input = $("input.news_email")
+    init_input_hint($(".newsletter form"), newsletter_input);
 });
 
 function init_beta() {
