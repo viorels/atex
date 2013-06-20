@@ -265,11 +265,10 @@ ul.search_inputs input.search {
 	behavior: url(/static/css/PIE.htc);	
 	height:23px;
 	line-height:23px;
-	color:#999;
 	padding:0 5px;
 	width:300px;
 }
-ul.search_inputs input.hint {
+input.hint {
 	color:#999;
 }
 .categorii {
@@ -694,7 +693,6 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
     -pie-background: linear-gradient(#fff, #f2f2f2); 		
 	height:21px;
 	line-height:21px;
-	color:#999;
 	padding:0 5px;
 	width:185px;
 	float:left;
@@ -1575,7 +1573,6 @@ p.info a:hover, p.info a:active {
 	behavior: url(/static/css/PIE.htc);	
 	font-size:11px;
 	padding:3px;
-	color:#999;
 }
 .cantitate .input_cos {
 	width:30px;
