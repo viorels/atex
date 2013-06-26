@@ -257,6 +257,7 @@ function init_order() {
 
     $("#orderform .continua").click(function () {
         order_form.submit();
+        return false;
     })
 }
 

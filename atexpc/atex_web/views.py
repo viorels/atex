@@ -19,7 +19,7 @@ from django.http import Http404
 from django.conf import settings
 
 from models import Product, DatabaseCart as Cart
-from forms import search_form_factory, OrderForm
+from forms import search_form_factory, UserForm
 from atexpc.ancora_api.api import APIError
 from ancora_api import AncoraAPI
 
@@ -269,13 +269,17 @@ class CartView(ShoppingMixin, SearchMixin, HybridGenericView):
 
 class OrderView(FormView, ShoppingMixin, SearchMixin, HybridGenericView):
     template_name = "order.html"
-    form_class = OrderForm
+    form_class = UserForm
     success_url = reverse_lazy('confirm')
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
-        logger.debug("OrderView.form_valid")
+        logger.debug("OrderView.form_valid" + str(form.is_valid()) + str(form.cleaned_data))
+        return super(OrderView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        logger.debug("OrderView.form_invalid" + str(form.errors))
         return super(OrderView, self).form_valid(form)
 
 class ConfirmView(ShoppingMixin, SearchMixin, HybridGenericView):

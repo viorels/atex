@@ -52,8 +52,12 @@ def search_form_factory(search_in_choices, advanced=False):
     return AdvancedSearchForm if advanced else SearchForm
 
 
-class OrderForm(forms.Form):
-    # logintype
+class UserForm(forms.Form):
+    logintype = forms.ChoiceField(
+        widget=RadioSelect(),
+        choices=(('new', 'Client now'), ('old', 'Client vechi')),
+        initial='',
+        required=False)
     user = forms.CharField(
         widget=TextInput(attrs={"class": "input_cos",
                                 "title": "email"}),
@@ -103,4 +107,12 @@ class OrderForm(forms.Form):
     address = forms.CharField(
         widget=Textarea(attrs={"class": "input_cos",
                                "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
+        required=False)
+    terms = forms.BooleanField( # Am citit si sunt de acord cu Termenii & Conditii de utilizare
+        widget=CheckboxInput(),
+        initial="",
+        required=False)
+    newsletter = forms.BooleanField( # Doresc sa fiu informat, prin email, despre produsele ATEX
+        widget=CheckboxInput(),
+        initial="",
         required=False)
