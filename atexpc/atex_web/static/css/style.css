@@ -1686,12 +1686,10 @@ ul.modalitate li {
 	padding:15px 0 0 15px !important;
 }
 .pas-02 {
-	background:url(../images/cos-02-active.png) top left no-repeat;
-	padding-top:25px;
 	width:100%;
 	float:left;
 }
-.pas-02 .tab_u_holder_left, .pas-03 .tab_u_holder_left {
+.pas-03 .tab_u_holder_left {
 	left:90px !important;
 }
 .login-key {
