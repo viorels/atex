@@ -250,6 +250,18 @@ function update_cart(cart) {
 
 function init_order() {
     var order_form = $("#orderform");
+
+    function show_hide_signup() {
+        var login_type = order_form.find("input[name='logintype']:checked").val();
+        if (login_type == 'old') {
+            order_form.find('.signup').hide("fast");
+        }
+        else if (login_type == 'new') {
+            order_form.find('.signup').show("fast");
+        }
+    }
+    order_form.find("input[name='logintype']").click(show_hide_signup);
+    
     var order_form_inputs = order_form.find("input[type=text], textarea")
         .each(function (i, form_input) {
         init_input_hint(order_form, $(form_input));
