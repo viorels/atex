@@ -1,8 +1,5 @@
 """
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
+run "manage.py test --settings=atexpc.config.test atex_web".
 """
 
 from django.test import TestCase

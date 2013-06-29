@@ -145,7 +145,12 @@ class AncoraAdapter(BaseAdapter):
     def uri_for(self, method_name, args={}):
         all_args = self._args_for(method_name)
         all_args.update(args)
-        return self.uri_with_args(self._base_uri, all_args)
+        return self.uri_with_args(self._base_uri, args=all_args)
+
+    def _method_for(self, method_name):
+        default = 'jis.serv'
+        methods = {'create_user': 'saveForm.do'}
+        return methods.get(method_name, default)
 
     def _args_for(self, method_name):
         args = {'categories': {'cod_formular': '617'},
@@ -154,18 +159,25 @@ class AncoraAdapter(BaseAdapter):
                 'promotional': {'cod_formular': '737', 'start': '0'}}
         return args.get(method_name, {})
 
-    def uri_with_args(self, uri, new_args):
+    def uri_with_args(self, uri, method=None, args=None):
         parsed_uri = urlparse(uri)
 
-        parsed_args = dict(parse_qsl(parsed_uri.query))
-        parsed_new_args = dict(parse_qsl(new_args)) if isinstance(new_args, basestring) else new_args
-        parsed_args.update(parsed_new_args)
-        valid_args = dict((key, value) for key, value in parsed_args.items() if value is not None)
+        if method is not None:
+            delimiter = '/'
+            path_parts = parsed_uri.path.split(delimiter)
+            path = delimiter.join(path_parts[:-1] + [method])
+        else:
+            path = parsed_uri.path
+
+        parsed_old_args = dict(parse_qsl(parsed_uri.query))
+        parsed_args = dict(parse_qsl(args)) if isinstance(args, basestring) else args
+        parsed_old_args.update(parsed_args)
+        valid_args = dict((key, value) for key, value in parsed_old_args.items() if value is not None)
         encoded_args = urlencode(valid_args)
 
         final_uri = urlunparse((parsed_uri.scheme,
                                 parsed_uri.netloc,
-                                parsed_uri.path,
+                                path,
                                 parsed_uri.params,
                                 encoded_args,
                                 parsed_uri.fragment))
@@ -236,7 +248,7 @@ class Ancora(object):
                 args['zpret_site_min'] = price_min
                 args['zpret_site_max'] = price_max
             if args:
-                selectors_uri = self.adapter.uri_with_args(selectors_uri, args)
+                selectors_uri = self.adapter.uri_with_args(selectors_uri, args=args)
             selectors = self.adapter.read(selectors_uri, post_process, cache_timeout=TIMEOUT_LONG)
         else:
             selectors = []
@@ -249,7 +261,7 @@ class Ancora(object):
         else:
             some_products_uri = self.categories()[0]['products_uri']
             base_products_uri = self.adapter.uri_with_args(some_products_uri,
-                                                           {'idgrupa': None})
+                                                           args={'idgrupa': None})
         return base_products_uri
 
     def _post_process_product_list(self, json_root='products'):
@@ -287,7 +299,7 @@ class Ancora(object):
             args['zsort_order'] = sort_order
         products_uri = self.adapter.uri_with_args(
             self._base_products_uri(category_id),
-            args)
+            args=args)
 
         products = self.adapter.read(products_uri,
                                      self._post_process_product_list(),
@@ -314,7 +326,7 @@ class Ancora(object):
         args = {'zlista_id': ','.join(str(pid) for pid in product_ids)}
         products_uri = self.adapter.uri_with_args(
             self._base_products_uri(),
-            args)
+            args=args)
         products = self.adapter.read(products_uri,
                                      self._post_process_product_list(),
                                      cache_timeout=TIMEOUT_SHORT)
