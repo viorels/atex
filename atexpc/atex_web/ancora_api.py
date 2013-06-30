@@ -18,6 +18,7 @@ class AncoraAPI(object):
         self._ancora = Ancora(adapter=adapter_class(**adapter_args))
         self.categories = CategoriesAPI(api=self._ancora)
         self.products = ProductsAPI(api=self._ancora, categories=self.categories)
+        self.users = UsersAPI(api=self._ancora)
 
 
 class BaseAPI(object):
@@ -136,3 +137,8 @@ class ProductsAPI(BaseAPI):
 
     def get_promotional(self, limit):
         return self._api.products_promotional(limit).get('products')
+
+
+class UsersAPI(BaseAPI):
+    def create_user(self, **kwargs):
+        self._api.create_user(**kwargs)

@@ -10,3 +10,4 @@ PIL==1.1.7
 dropbox==1.4.0
 django-compressor==1.2
 beautifulsoup4==4.1.3
+py-bcrypt==0.3

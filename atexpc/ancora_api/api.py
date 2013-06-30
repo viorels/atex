@@ -4,6 +4,7 @@ import time
 import hashlib
 import json
 import operator
+import bcrypt
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 from django.core.cache import cache as django_cache
@@ -85,10 +86,9 @@ class BaseAdapter(object):
 
         return processed_data
 
-    def write(self, uri, data):
+    def write(self, uri, data, post_process=None):
         response = self._write_backend(uri, data)
-        data = self.parse(response)
-        return data
+        return post_process(response) if post_process is not None else response
 
     def _read_debug(self, uri, cache_response, response, start_time):
         elapsed = time.time() - start_time
@@ -145,7 +145,9 @@ class AncoraAdapter(BaseAdapter):
     def uri_for(self, method_name, args={}):
         all_args = self._args_for(method_name)
         all_args.update(args)
-        return self.uri_with_args(self._base_uri, args=all_args)
+        return self.uri_with_args(self._base_uri,
+                                  method=self._method_for(method_name),
+                                  args=all_args)
 
     def _method_for(self, method_name):
         default = 'jis.serv'
@@ -156,7 +158,11 @@ class AncoraAdapter(BaseAdapter):
         args = {'categories': {'cod_formular': '617'},
                 'product': {'cod_formular': '738'},
                 'recommended': {'cod_formular': '740', 'start': '0'},
-                'promotional': {'cod_formular': '737', 'start': '0'}}
+                'promotional': {'cod_formular': '737', 'start': '0'},
+                'create_user': {'cod_formular': '1312',
+                                'pid': '0',         # new user
+                                'iduser': '47',     # site user
+                                'actiune': 'SAVE_TAB'}}
         return args.get(method_name, {})
 
     def uri_with_args(self, uri, method=None, args=None):
@@ -392,7 +398,16 @@ class Ancora(object):
         conjunction = '&'.join(words)
         return conjunction
 
-    def create_user(self, user):
+    def create_user(self, email, fname, lname, password):
         create_user_uri = self.adapter.uri_for('create_user')
-        status = self.adapter.write(create_user_uri, user)
+        args = {'email': email,
+                'denumire': "%s %s" % (fname, lname),
+                'parola': self._password_hash(password)}
+        resonse = self.adapter.write(create_user_uri, args)
+        return
     
+    def _password_hash(self, password):
+        return bcrypt.hashpw(password, bcrypt.gensalt())
+
+    def _check_password_hash(self, password, hashed):
+        return bcrypt.hashpw(password, hashed) == hashed
