@@ -273,17 +273,6 @@ function init_order() {
     })
 }
 
-function init_beta() {
-    $(".login_holder li, .search_bar .configurator, " +
-      ".email-wrapper .email_btn").click(work_in_progress);
-}
-
-function work_in_progress() {
-    alert("Inca se lucreaza :) . Pentru comenzi apelati 0264-599009 " + 
-          "sau trimiteti mail la office@atexpc.ro. Multumim !");
-    return false;
-}
-
 $(document).ready(function() 
 {
 	init_gallery();
@@ -292,7 +281,6 @@ $(document).ready(function()
     init_csrf();
     init_cart();
     init_order();
-    init_beta();
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {calculate_height();};
 
@@ -304,13 +292,3 @@ $(document).ready(function()
     init_input_hint($(".newsletter form"), newsletter_input);
 });
 
-function init_beta() {
-    $(".login_holder li, .info_cos li, " +
-      ".email-wrapper .email_btn").click(work_in_progress);
-}
-
-function work_in_progress() {
-    alert("Inca se lucreaza :) . Pentru comenzi apelati 0264-599009 " + 
-          "sau trimiteti mail la office@atexpc.ro. Multumim !");
-    return false;
-}
