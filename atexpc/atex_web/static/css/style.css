@@ -1689,9 +1689,6 @@ ul.modalitate li {
 	width:100%;
 	float:left;
 }
-.pas-03 .tab_u_holder_left {
-	left:90px !important;
-}
 .login-key {
 	width:23px;
 	height:23px;
@@ -1743,8 +1740,6 @@ ul.modalitate li {
 .total-cos02 .buttons{	float:right;}
 .total-cos02 .buttons li {	float:left;}
 .pas-03 {
-	background:url(../images/cos-03-active.png) top left no-repeat;
-	padding:25px 0;
 	width:100%;
 	float:left;
 }
