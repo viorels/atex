@@ -409,6 +409,7 @@ class Ancora(object):
         return response
 
     def get_user(self, email, password, salt=None):
+        """ Returns a user if the password is good, otherwise None """
         def post_process(data):
             json_root = 'useri_site'
             backend_user = data[json_root][0] if len(data[json_root]) else None

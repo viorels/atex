@@ -2,8 +2,34 @@ import string
 from operator import itemgetter
 
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from atexpc.ancora_api.api import Ancora, AncoraAdapter
+
+
+class AncoraAuthBackend(object):
+    """ Authenticate against Ancora user database """
+
+    def authenticate(self, email=None, password=None):
+        api = AncoraAPI()
+        user = api.users.get_user(email, password, salt=settings.PASSWORD_SALT)
+        if user is not None:
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                # Create a new user. Note that we can set password
+                # to anything, because it won't be checked; the password
+                # from settings.py will.
+                user = User(email=email, password=password)
+                user.save()
+            return user
+        return None
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None
 
 
 class AncoraAPI(object):

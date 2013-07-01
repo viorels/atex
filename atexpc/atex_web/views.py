@@ -7,6 +7,7 @@ from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.contrib.auth import authenticate, login
 from django.utils.text import slugify
 from django.template import Context, Template
 from django.http import HttpResponse
@@ -288,10 +289,11 @@ class OrderView(FormView, ShoppingMixin, SearchMixin, HybridGenericView):
                 usertype=form.cleaned_data['usertype'])
             logger.info('Signup %s', result)
         elif form.cleaned_data['logintype'] == 'old':
-            user = self.api.users.get_user(email=form.cleaned_data['user'],
-                                           password=form.cleaned_data['password'])
-            if user:
-                logger.info('Login %s', user['email'])
+            user = authenticate(email=form.cleaned_data['user'],
+                                password=form.cleaned_data['password'])
+            if user is not None:    # user.is_active ?
+                login(self.request, user)
+                logger.info('Login %s', user.email)
         return super(OrderView, self).form_valid(form)
 
     def form_invalid(self, form):
