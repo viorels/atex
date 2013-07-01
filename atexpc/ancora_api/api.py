@@ -399,10 +399,10 @@ class Ancora(object):
         conjunction = '&'.join(words)
         return conjunction
 
-    def create_user(self, email, fname, lname, password, usertype, salt=None):
+    def create_user(self, email, first_name, last_name, password, usertype, salt=None):
         create_user_uri = self.adapter.uri_for('create_user')
         args = {'email': email,
-                'denumire': "%s %s" % (fname, lname),
+                'denumire': "%s %s" % (last_name, first_name),
                 'parola': self._password_hash(password, salt),
                 'fj': usertype}
         response = self.adapter.write(create_user_uri, args)
@@ -414,8 +414,10 @@ class Ancora(object):
             json_root = 'useri_site'
             backend_user = data[json_root][0] if len(data[json_root]) else None
             if backend_user is not None:
+                last_name, first_name = backend_user['zdenumire'].split(" ", 1)
                 user = {'email': backend_user['zemail'],
-                        'name': backend_user['zdenumire'],
+                        'first_name': first_name,
+                        'last_name': last_name,
                         'usertype': backend_user['zfj'],            # F/J
                         'disabled': backend_user['zcol_inactiv']}   # Y/N
             else:

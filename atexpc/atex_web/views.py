@@ -283,17 +283,27 @@ class OrderView(FormView, ShoppingMixin, SearchMixin, HybridGenericView):
         if form.cleaned_data['logintype'] == 'new':
             result = self.api.users.create_user(
                 email=form.cleaned_data['email'],
-                fname=form.cleaned_data['firstname'],
-                lname=form.cleaned_data['surname'],
+                first_name=form.cleaned_data['firstname'],
+                last_name=form.cleaned_data['surname'],
                 password=form.cleaned_data['password1'],
                 usertype=form.cleaned_data['usertype'])
             logger.info('Signup %s', result)
+            user = authenticate(email=form.cleaned_data['email'],
+                                password=form.cleaned_data['password1'])
+            user.first_name = form.cleaned_data['firstname']
+            user.last_name = form.cleaned_data['surname']
+            user.save()
+            user.userprofile.phone = form.cleaned_data['phone']
+            user.userprofile.city = form.cleaned_data['city']
+            user.userprofile.county = form.cleaned_data['county']
+            user.userprofile.address = form.cleaned_data['address']
+            user.userprofile.save()
         elif form.cleaned_data['logintype'] == 'old':
             user = authenticate(email=form.cleaned_data['user'],
                                 password=form.cleaned_data['password'])
-            if user is not None:    # user.is_active ?
-                login(self.request, user)
-                logger.info('Login %s', user.email)
+        if user is not None:    # user.is_active ?
+            login(self.request, user)
+            logger.info('Login %s', user.email)
         return super(OrderView, self).form_valid(form)
 
     def form_invalid(self, form):

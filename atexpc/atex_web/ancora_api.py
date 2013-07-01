@@ -17,9 +17,6 @@ class AncoraAuthBackend(object):
             try:
                 user = User.objects.get(email=email)
             except User.DoesNotExist:
-                # Create a new user. Note that we can set password
-                # to anything, because it won't be checked; the password
-                # from settings.py will.
                 user = User(email=email, password=password)
                 user.save()
             return user
