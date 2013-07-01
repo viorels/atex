@@ -140,5 +140,8 @@ class ProductsAPI(BaseAPI):
 
 
 class UsersAPI(BaseAPI):
-    def create_user(self, **kwargs):
-        self._api.create_user(**kwargs)
+    def create_user(self, salt=settings.PASSWORD_SALT, **kwargs):
+        return self._api.create_user(salt=salt, **kwargs)
+
+    def get_user(self, email, password, salt=settings.PASSWORD_SALT):
+        return self._api.get_user(email, password, salt)

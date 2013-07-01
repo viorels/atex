@@ -39,8 +39,25 @@ class CategoryTest(TestCase):
         adapter = AncoraAdapter(base_uri=base_uri)
         adapter.write = Mock()
         ancora = Ancora(adapter=adapter) 
-        ancora.create_user(email='john@doe.com', fname='John', lname='Doe', password='password')
+        ancora.create_user(email='john@doe.com', fname='John', lname='Doe', password='pass')
 
         called_with = adapter.write.call_args[0]
         expected_args['parola'] = called_with[1]['parola']
         self.assertEqual((expected_uri, expected_args), called_with)
+
+    def test_get_user(self):
+        base_uri = 'http://server.com/path/jis.serv?database=atex'
+        email = 'user@email.com'
+        password = 'pass'
+        expected_uri = ('http://server.com/path/jis.serv?'
+                        'fparola=hashed_pass&cod_formular=1023&femail=user%40email.com&database=atex')
+
+        adapter = AncoraAdapter(base_uri=base_uri)
+        adapter.read = Mock()
+        ancora = Ancora(adapter=adapter)
+        ancora._password_hash = Mock()
+        ancora._password_hash.return_value = 'hashed_pass'
+        user = ancora.get_user(email=email, password=password)
+        called_with = adapter.read.call_args[0]
+        self.assertEqual(expected_uri, called_with[0])
+

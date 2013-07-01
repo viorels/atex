@@ -161,8 +161,9 @@ class AncoraAdapter(BaseAdapter):
                 'promotional': {'cod_formular': '737', 'start': '0'},
                 'create_user': {'cod_formular': '1312',
                                 'pid': '0',         # new user
-                                'iduser': '47',     # site user
-                                'actiune': 'SAVE_TAB'}}
+                                'iduser': '47',     # website user
+                                'actiune': 'SAVE_TAB'},
+                'get_user': {'cod_formular': '1023'}}
         return args.get(method_name, {})
 
     def uri_with_args(self, uri, method=None, args=None):
@@ -398,16 +399,35 @@ class Ancora(object):
         conjunction = '&'.join(words)
         return conjunction
 
-    def create_user(self, email, fname, lname, password):
+    def create_user(self, email, fname, lname, password, usertype, salt=None):
         create_user_uri = self.adapter.uri_for('create_user')
         args = {'email': email,
                 'denumire': "%s %s" % (fname, lname),
-                'parola': self._password_hash(password)}
-        resonse = self.adapter.write(create_user_uri, args)
-        return
-    
-    def _password_hash(self, password):
-        return bcrypt.hashpw(password, bcrypt.gensalt())
+                'parola': self._password_hash(password, salt),
+                'fj': usertype}
+        response = self.adapter.write(create_user_uri, args)
+        return response
 
-    def _check_password_hash(self, password, hashed):
-        return bcrypt.hashpw(password, hashed) == hashed
+    def get_user(self, email, password, salt=None):
+        def post_process(data):
+            json_root = 'useri_site'
+            backend_user = data[json_root][0] if len(data[json_root]) else None
+            if backend_user is not None:
+                user = {'email': backend_user['zemail'],
+                        'name': backend_user['zdenumire'],
+                        'usertype': backend_user['zfj'],            # F/J
+                        'disabled': backend_user['zcol_inactiv']}   # Y/N
+            else:
+                user = None
+            return user
+
+        args = {'femail': email,
+                'fparola': self._password_hash(password, salt)}
+        get_user_uri = self.adapter.uri_for('get_user', args)
+        user = self.adapter.read(get_user_uri, post_process=post_process, cache_timeout=TIMEOUT_SHORT)
+        return user
+    
+    def _password_hash(self, password, salt=None):
+        if salt is None:
+            salt = bcrypt.gensalt()
+        return bcrypt.hashpw(password, salt)

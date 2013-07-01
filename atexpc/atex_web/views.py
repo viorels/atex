@@ -19,7 +19,7 @@ from django.http import Http404
 from django.conf import settings
 
 from models import Product, DatabaseCart as Cart
-from forms import search_form_factory, UserForm
+from forms import search_form_factory, user_form_factory
 from atexpc.ancora_api.api import APIError
 from ancora_api import AncoraAPI
 
@@ -269,13 +269,29 @@ class CartView(ShoppingMixin, SearchMixin, HybridGenericView):
 
 class OrderView(FormView, ShoppingMixin, SearchMixin, HybridGenericView):
     template_name = "order.html"
-    form_class = UserForm
     success_url = reverse_lazy('confirm')
+
+    def get_form_class(self):
+        logintype = self.request.POST.get('logintype', None)
+        return user_form_factory(logintype)
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
-        logger.debug("OrderView.form_valid" + str(form.is_valid()) + str(form.cleaned_data))
+        logger.debug("OrderView.form_valid %s %s", form.is_valid(), form.cleaned_data)
+        if form.cleaned_data['logintype'] == 'new':
+            result = self.api.users.create_user(
+                email=form.cleaned_data['email'],
+                fname=form.cleaned_data['firstname'],
+                lname=form.cleaned_data['surname'],
+                password=form.cleaned_data['password1'],
+                usertype=form.cleaned_data['usertype'])
+            logger.info('Signup %s', result)
+        elif form.cleaned_data['logintype'] == 'old':
+            user = self.api.users.get_user(email=form.cleaned_data['user'],
+                                           password=form.cleaned_data['password'])
+            if user:
+                logger.info('Login %s', user['email'])
         return super(OrderView, self).form_valid(form)
 
     def form_invalid(self, form):

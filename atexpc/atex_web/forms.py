@@ -51,68 +51,76 @@ def search_form_factory(search_in_choices, advanced=False):
 
     return AdvancedSearchForm if advanced else SearchForm
 
+def user_form_factory(logintype):
+    is_signup = logintype == 'new'
 
-class UserForm(forms.Form):
-    logintype = forms.ChoiceField(
-        widget=RadioSelect(),
-        choices=(('new', 'Client now'), ('old', 'Client vechi')),
-        initial='',
-        required=False)
-    user = forms.CharField(
-        widget=TextInput(attrs={"class": "input_cos",
-                                "title": "email"}),
-        required=True)
-    password = forms.CharField(
-        widget=PasswordInput(attrs={"class": "input_cos",
-                                    "title": "parola"}),
-        required=False)
-
-    surname = forms.CharField(
-        widget=TextInput(attrs={"class": "input_cos",
-                                "title": "nume"}),
-        required=False)
-    firstname = forms.CharField(
-        widget=TextInput(attrs={"class": "input_cos",
-                                "title": "prenume"}),
-        required=False)
-    email = forms.CharField(
-        widget=TextInput(attrs={"class": "input_cos",
-                                "title": "adresa email"}),
-        required=False)
-    phone = forms.CharField(
-        widget=TextInput(attrs={"class": "input_cos",
-                                "title": "telefon"}),
-        required=False)
-    password1 = forms.CharField(
-        widget=PasswordInput(attrs={"class": "input_cos",
-                                "title": "parola"}),
-        required=False)
-    password2 = forms.CharField(
-        widget=PasswordInput(attrs={"class": "input_cos",
-                                "title": "repeta parola"}),
-        required=False)
-    usertype = forms.ChoiceField(
+    class LoginForm(forms.Form):
+        logintype = forms.ChoiceField(
             widget=RadioSelect(),
-            choices=(('f', 'Persoana fizica'), ('j', 'Persoana juridica')),
+            choices=(('new', 'Client now'), ('old', 'Client vechi')),
             initial='',
-            required=False)
-    city = forms.CharField(
-        widget=TextInput(attrs={"class": "input_cos",
-                                "title": "localitatea"}),
-        required=False)
-    county = forms.CharField(
-        widget=TextInput(attrs={"class": "input_cos",
-                                "title": "judetul"}),
-        required=False)
-    address = forms.CharField(
-        widget=Textarea(attrs={"class": "input_cos",
-                               "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
-        required=False)
-    terms = forms.BooleanField( # Am citit si sunt de acord cu Termenii & Conditii de utilizare
-        widget=CheckboxInput(),
-        initial="",
-        required=False)
-    newsletter = forms.BooleanField( # Doresc sa fiu informat, prin email, despre produsele ATEX
-        widget=CheckboxInput(),
-        initial="",
-        required=False)
+            required=True)
+        user = forms.CharField(
+            widget=TextInput(attrs={"class": "input_cos",
+                                    "title": "email"}),
+            required=not is_signup)
+        password = forms.CharField(
+            widget=PasswordInput(attrs={"class": "input_cos",
+                                        "title": "parola"}),
+            required=not is_signup)
+
+    class SignupForm(LoginForm):
+        surname = forms.CharField(
+            widget=TextInput(attrs={"class": "input_cos",
+                                    "title": "nume"}),
+            required=True)
+        firstname = forms.CharField(
+            widget=TextInput(attrs={"class": "input_cos",
+                                    "title": "prenume"}),
+            required=True)
+        email = forms.CharField(
+            widget=TextInput(attrs={"class": "input_cos",
+                                    "title": "adresa email"}),
+            required=True)
+        phone = forms.CharField(
+            widget=TextInput(attrs={"class": "input_cos",
+                                    "title": "telefon"}),
+            required=True)
+        password1 = forms.CharField(
+            widget=PasswordInput(attrs={"class": "input_cos",
+                                    "title": "parola"}),
+            required=True)
+        password2 = forms.CharField(
+            widget=PasswordInput(attrs={"class": "input_cos",
+                                    "title": "repeta parola"}),
+            required=True)
+        usertype = forms.ChoiceField(
+                widget=RadioSelect(),
+                choices=(('f', 'Persoana fizica'), ('j', 'Persoana juridica')),
+                initial='',
+                required=True)
+        city = forms.CharField(
+            widget=TextInput(attrs={"class": "input_cos",
+                                    "title": "localitatea"}),
+            required=True)
+        county = forms.CharField(
+            widget=TextInput(attrs={"class": "input_cos",
+                                    "title": "judetul"}),
+            required=True)
+        address = forms.CharField(
+            widget=Textarea(attrs={"class": "input_cos",
+                                   "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
+            required=True)
+        terms = forms.BooleanField( # Am citit si sunt de acord cu Termenii & Conditii de utilizare
+            widget=CheckboxInput(),
+            initial="",
+            required=True)
+        newsletter = forms.BooleanField( # Doresc sa fiu informat, prin email, despre produsele ATEX
+            widget=CheckboxInput(),
+            initial="",
+            required=True)
+
+    if is_signup:
+        return SignupForm
+    else:
+        return LoginForm
