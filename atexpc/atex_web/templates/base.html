@@ -24,7 +24,7 @@
 	<div class="page_wrapper clear" id="wrap2">
     	<div class="header">
             <div class="logo">
-                <a href="{% url home %}"><img src="{{ site_info.logo_url }}" width="300" height="100" alt="atex logo" title="{{ site_info.domain }}" name="{{ site_info.domain }}"/></a>
+                <a href="{% url "home" %}"><img src="{{ site_info.logo_url }}" width="300" height="100" alt="atex logo" title="{{ site_info.domain }}" name="{{ site_info.domain }}"/></a>
             </div>
             <div class="login_holder">
             	<span class="down_left"></span>
@@ -51,19 +51,20 @@
             </div>
             <div class="info_cos">
             	<div class="wellcome">
-                	<p>Bun venit, <span class="red_b">anonim</span> !</p>
+                	<p>Bun venit, <span class="red_b">{{ user.first_name|default:"anonim" }}</span> !</p>
                 </div>    
                 <ul>
-                	<li><a href="{% url cart %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
-                    <li><span class="red_b">0</span> produse</li>
+                	<li><a href="{% url "cart" %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
+                    <li><span class="red_b cart_count">{{ cart.count }}</span> produs{{ cart.count|pluralize:"e"}}</li>
                     <li> | </li>
-                    <li><span class="red_b">0</span> lei </li>
+                    <li><span class="red_b cart_price">{{ cart.price }}</span> lei </li>
                 </ul>
             </div>
         </div> <!-- header end -->
-        <form method="GET" action="{% url search %}" class="search">
+        
             <div class="search_bar">
                 {% if search_form %}
+            <form id="search_form" method="get" action="{% url "search" %}">
                 <ul class="search_inputs">
                     <li>{{ search_form.cuvinte }}</li>
                     <li class="search_category">
@@ -71,6 +72,7 @@
                     </li>    
                     <li><input type="image" name="cauta" src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Caută" title="Caută produsul dorit ..." /></li>
                 </ul>
+            </form>
                 {% endif %}
                 <ul class="info_orar">
                 	<li>ORAR: L-V: 10:00 - 18:00  <span class="spacer">|</span>  S: 10:00 - 13:00</li>
@@ -106,7 +108,6 @@
             {% block content %}{% endblock %}
 
             </div> <!-- content wrapper end -->
-        </form>
 		<div class="content-bottom">		
 		  {% block newsletter %}
                 <div class="newsletter">
@@ -179,10 +180,10 @@
         <div class="bottom-footer">
         	<ul class="menu-subsol">
             	<li class="first"><a href="#">Cariera</a></li>
-                <li><a href="{% url conditions %}">Conditii Vanzare</a></li>
+                <li><a href="{% url "conditions" %}">Conditii Vanzare</a></li>
                 <li><a href="#">Configurator</a></li>
                 <li><a href="#">Harta site</a></li>
-                <li><a href="{% url contact %}">Contact</a></li>
+                <li><a href="{% url "contact" %}">Contact</a></li>
             </ul>
             <span class="copyright">Copyright &copy; {% now "Y" %} {{ site_info.company }}</span>
         </div>

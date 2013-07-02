@@ -5,10 +5,13 @@ from datetime import datetime, timedelta
 import pytz
 from django.db import models, connection
 from django.db.models.query import QuerySet
-from django.core.files.storage import get_storage_class
-from django.template.defaultfilters import slugify
 from django.utils.datastructures import SortedDict
 from django.db.utils import DatabaseError
+from django.core.files.storage import get_storage_class
+from django.utils.text import slugify
+from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 from sorl.thumbnail import ImageField
 
 import logging
@@ -245,6 +248,125 @@ class Hit(models.Model):
     product = models.ForeignKey(Product, unique_for_date="date")
     count = models.IntegerField()
     date = models.DateField()
+
+# http://blog.rodger-brown.com/2012/08/djangos-extended-user-profile.html
+# http://www.ryanwest.info/blog/2011/django-tip-5-extending-contrib-auth-models-user/
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    phone = models.CharField(max_length=15)
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=32)
+    county = models.CharField(max_length=32)
+
+    def __unicode__(self):
+        return u'%s' % self.user
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+post_save.connect(create_user_profile, sender=User)
+
+
+class Cart(models.Model):
+    session = models.ForeignKey(Session, db_index=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True)
+    products = models.ManyToManyField(Product, through='CartProducts')
+
+
+class CartProducts(models.Model):
+    cart = models.ForeignKey(Cart)
+    product = models.ForeignKey(Product)
+    count = models.IntegerField(default=1)
+
+
+class BaseCart(object):
+    def __init__(self, cart):
+        self._cart = cart
+
+    def id(self):
+        return self._cart.id
+
+    def count(self):
+        return len(self.items())
+
+class DatabaseCart(BaseCart):
+    @classmethod
+    def get(cls, cart_id):
+        try:
+            cart_row = Cart.objects.get(id=cart_id)
+            cart = DatabaseCart(cart_row)
+        except Cart.DoesNotExist:
+            cart = None
+        return cart
+
+    @classmethod
+    def create(cls, session_id):
+        cart_row, created = Cart.objects.get_or_create(session_id=session_id)
+        cart = DatabaseCart(cart_row)
+        return cart
+
+    def items(self):
+        cart_products = CartProducts.objects.filter(cart=self._cart)
+        items = []
+        for cart_product in cart_products:
+            product = cart_product.product
+            product_dict = {'id': product.id,
+                            'name': product.name,
+                            'price': -1.0}
+            item = {'product': product_dict,
+                    'count': cart_product.count,
+                    'price': cart_product.count * product_dict['price']}
+            items.append(item)
+        return items
+
+    def price(self):
+        # TODO: get prices from backend
+        return -1.0
+
+    def _get_product(self, id):
+        try:
+            product = Product.objects.get(id=id)
+        except Product.DoesNotExist as e:
+            logger.error(e)
+        else:
+            return product
+
+    def add_item(self, product_id):
+        product = self._get_product(product_id)
+        if product:
+            cart_product, created = CartProducts.objects.get_or_create(cart=self._cart, product=product)
+            if not created:
+                cart_product.count = models.F('count') + 1
+                cart_product.save()
+        return product
+
+    def remove_item(self, product_id):
+        product = self._get_product(product_id)
+        if product:
+            try:
+                cart_product = CartProducts.objects.get(cart=self._cart, product=product)
+            except CartProducts.DoesNotExist as e:
+                logger.error(e)
+                product = None
+            else:
+                cart_product.delete()
+        return product
+
+    def update_item(self, product_id, count):
+        if count == 0:
+            return self.remove_item(product_id)
+        product = self._get_product(product_id)
+        if product:
+            try:
+                cart_product = CartProducts.objects.get(cart=self._cart, product=product)
+            except CartProducts.DoesNotExist as e:
+                logger.error(e)
+            else:
+                cart_product.count = count
+                cart_product.save()
+
+class AncoraCart(BaseCart):
+    pass
 
 
 class Dropbox(models.Model):

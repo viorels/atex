@@ -2,8 +2,31 @@ import string
 from operator import itemgetter
 
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from atexpc.ancora_api.api import Ancora, AncoraAdapter
+
+
+class AncoraAuthBackend(object):
+    """ Authenticate against Ancora user database """
+
+    def authenticate(self, email=None, password=None):
+        api = AncoraAPI()
+        user = api.users.get_user(email, password, salt=settings.PASSWORD_SALT)
+        if user is not None:
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                user = User(email=email, password=password)
+                user.save()
+            return user
+        return None
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None
 
 
 class AncoraAPI(object):
@@ -18,6 +41,7 @@ class AncoraAPI(object):
         self._ancora = Ancora(adapter=adapter_class(**adapter_args))
         self.categories = CategoriesAPI(api=self._ancora)
         self.products = ProductsAPI(api=self._ancora, categories=self.categories)
+        self.users = UsersAPI(api=self._ancora)
 
 
 class BaseAPI(object):
@@ -139,3 +163,11 @@ class ProductsAPI(BaseAPI):
 
     def get_brands(self):
         return self._api.brands()
+
+
+class UsersAPI(BaseAPI):
+    def create_user(self, salt=settings.PASSWORD_SALT, **kwargs):
+        return self._api.create_user(salt=salt, **kwargs)
+
+    def get_user(self, email, password, salt=settings.PASSWORD_SALT):
+        return self._api.get_user(email, password, salt)

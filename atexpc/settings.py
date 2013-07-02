@@ -35,10 +35,13 @@ DROPBOX_ACCESS_TYPE = os.environ.get('DROPBOX_ACCESS_TYPE', 'dropbox')
 DROPBOX_ACCESS_TOKEN = os.environ.get('DROPBOX_ACCESS_TOKEN')
 DROPBOX_ACCESS_TOKEN_SECRET = os.environ.get('DROPBOX_ACCESS_TOKEN_SECRET')
 
+AUTH_PROFILE_MODULE = 'atex_web.UserProfile'
+
 SHOPMANIA_FEED_FILE = 'shopmania.csv' # in media root
 
 if 'test' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+
 
 CACHES = {
     'default': {
@@ -46,6 +49,11 @@ CACHES = {
         'TIMEOUT': 300,
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'atexpc.atex_web.ancora_api.AncoraAuthBackend'
+)
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -111,6 +119,7 @@ STATICFILES_FINDERS = (
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '^phe(gn-&amp;laaufa=o_f90ulmmqd1@6yj7sslxq62z@&amp;m8-(ab*'
+PASSWORD_SALT = '$2a$12$LtYdysZjnWn1w39ydF/bVe'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (

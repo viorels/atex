@@ -10,7 +10,7 @@
             <ul>
                 <li><span class="domiciliu">Livrare la domiciliu</span></li>
                 <li><span class="numerar">Plata numerar</span></li>
-                <li><span class="total">TOTAL PLATA: 1943.75 lei</span></li>
+                <li><span class="total">TOTAL PLATA: {{ cart.price }} lei</span></li>
             </ul>
         </div>
     </div>
@@ -51,14 +51,14 @@
                         </div>
                         <div class="verificare">Va rugam sa verificati corectitudinea datelor de mai jos.</div>
                         <ul class="info-comanda">
-                        	<li class="comanda">Numar comanda: <span class="red_b">0077275</span></li>
+                        	<li class="comanda">Numar comanda: <span class="red_b">{{ cart.id }}</span></li>
                             <li>&nbsp;</li>
-                        	<li><strong>Ionescu David</strong></li>
-                            <li>Principala 36 Bl P2, Sc 2, Ap 9</li>
-                            <li>Gherla, Jud. Cluj</li>
+                        	<li><strong>{{ user.get_full_name }}</strong></li>
+                            <li>{{ user.get_profile.address }}</li>
+                            <li>{{ user.get_profile.city }}, Jud. {{ user.get_profile.county }}</li>
                             <li>&nbsp;</li>
-                            <li>Telefon: <strong>0744993939</strong></li>
-                            <li>Email: <strong>ionescu.david@yahoo.com</strong></li>                        
+                            <li>Telefon: <strong>{{ user.get_profile.phone }}</strong></li>
+                            <li>Email: <strong>{{ user.email }}</strong></li>                        
                         </ul>   
                         <table class="detalii-comanda" width="450px">
                         	<colgroup>
@@ -79,27 +79,17 @@
                                 <td class="center">1</td>
                                 <td class="right">15.00 lei</td>
                             </tr>
+                            {% for item in cart.items %}
                             <tr>
-                            	<td>Monitor TFT Benq G2222HDL </td>
-                                <td class="right">385.75 lei</td>
-                                <td class="center">1</td>
-                                <td class="right">385.75 lei</td>
+                            	<td>{{ item.product.name }}</td>
+                                <td class="right">{{ item.product.price }} lei</td>
+                                <td class="center">{{ item.count }}</td>
+                                <td class="right">{{ item.price }} lei</td>
                             </tr>
-                            <tr>
-                            	<td>Monitor TFT Benq G2222HDL </td>
-                                <td class="right">385.75 lei</td>
-                                <td class="center">2</td>
-                                <td class="right">771.50 lei</td>
-                            </tr>
-                            <tr>
-                            	<td>Monitor TFT Benq G2222HDL </td>
-                                <td class="right">385.75 lei</td>
-                                <td class="center">1</td>
-                                <td class="right">385.75 lei</td>
-                            </tr>
+                            {% endfor %}
                             <tr class="info-total">
                             	<td colspan="2" class="right">TOTAL</td>
-                                <td colspan="2" class="right">1943.75 lei</td>
+                                <td colspan="2" class="right">{{ cart.price }} lei</td>
                             </tr>
                         </table> 
                         <a href="#" class="confirma"><span></span>Confirma</a>

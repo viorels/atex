@@ -6,6 +6,11 @@ from atexpc.settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+ALLOWED_HOSTS = [
+    '.atexpc.ro',
+    '.atexcomputer.ro',
+]
+
 MIDDLEWARE_CLASSES += (
     'atexpc.atex_web.tools.dynamicsite.DynamicSiteIDMiddleware',
 )

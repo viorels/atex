@@ -1,19 +1,25 @@
 import re
 import math
+import json
 from operator import itemgetter
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 
-from django.core.urlresolvers import reverse
-from django.template.defaultfilters import slugify
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.contrib.auth import authenticate, login
+from django.utils.text import slugify
 from django.template import Context, Template
+from django.http import HttpResponse
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.sites.models import get_current_site
 from django.http import Http404
 from django.conf import settings
 
-from models import Product
-from forms import search_form_factory
+from models import Product, DatabaseCart as Cart
+from forms import search_form_factory, user_form_factory
 from atexpc.ancora_api.api import APIError
 from ancora_api import AncoraAPI
 from utils import group_in, grouper
@@ -143,6 +149,9 @@ class GenericView(TemplateView):
         domain = get_current_site(self.request).domain
         return '.'.join(domain.split('.')[-2:])
 
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, *args, **kwargs):
+        return super(GenericView, self).dispatch(*args, **kwargs)
 
 class BreadcrumbsMixin(object):
     def get_context_data(self, **kwargs):
@@ -185,7 +194,127 @@ class SearchMixin(object):
         return search_form
 
 
-class HomeView(SearchMixin, GenericView):
+class ShoppingMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(ShoppingMixin, self).get_context_data(**kwargs)
+        context.update({'cart': self._get_cart_data()})
+        return context
+
+    def _get_cart(self):
+        cart_id = self.request.session.get('cart_id')
+        cart = Cart.get(cart_id) if cart_id else None
+        return cart
+
+    def _create_cart(self):
+        # TODO: are cookies enabled ?
+        self.request.session.save()
+        session_id = self.request.session.session_key
+        cart = Cart.create(session_id)
+        self.request.session['cart_id'] = cart.id()
+        return cart
+
+    def _get_cart_data(self):
+        cart = self._get_cart()
+        if cart:
+            cart_data = {'id': cart.id(),
+                         'items': cart.items(),
+                         'count': cart.count(),
+                         'price': cart.price()}
+        else:
+            cart_data = {'id': None, 'items': [], 'count': 0, 'price': 0.0}
+        return cart_data
+
+    def _add_to_cart(self, product_id):
+        cart = self._get_cart()
+        if cart is None:
+            cart = self._create_cart()
+        cart.add_item(product_id)
+
+
+class JSONResponseMixin(object):
+    """A mixin that can be used to render a JSON response."""
+
+    def render_to_response(self, context, **response_kwargs):
+        response_kwargs['content_type'] = 'application/json'
+        return HttpResponse(
+            self.convert_context_to_json(context),
+            **response_kwargs
+        )
+
+    def convert_context_to_json(self, context):
+        """Naive conversion of the context dictionary into a JSON object"""
+        return json.dumps(context)
+
+
+class HybridGenericView(JSONResponseMixin, GenericView):
+    def render_to_response(self, context):
+        if self.request.is_ajax():
+            return JSONResponseMixin.render_to_response(self, context)
+        else:
+            return GenericView.render_to_response(self, context)
+
+
+class CartView(ShoppingMixin, SearchMixin, HybridGenericView):
+    template_name = "cart.html"
+
+    def get_json_context(self):
+        return {'cart': self._get_cart_data()}
+
+    def post(self, request, *args, **kwargs):
+        method = request.POST.get('method')
+        product_id = request.POST.get('product_id')
+        if method == 'add':
+            self._add_to_cart(product_id)
+        return self.render_to_response(self.get_json_context())
+
+
+class OrderView(FormView, ShoppingMixin, SearchMixin, HybridGenericView):
+    template_name = "order.html"
+    success_url = reverse_lazy('confirm')
+
+    def get_form_class(self):
+        logintype = self.request.POST.get('logintype', None)
+        return user_form_factory(logintype)
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        logger.debug("OrderView.form_valid %s %s", form.is_valid(), form.cleaned_data)
+        if form.cleaned_data['logintype'] == 'new':
+            result = self.api.users.create_user(
+                email=form.cleaned_data['email'],
+                first_name=form.cleaned_data['firstname'],
+                last_name=form.cleaned_data['surname'],
+                password=form.cleaned_data['password1'],
+                usertype=form.cleaned_data['usertype'])
+            logger.info('Signup %s', result)
+            user = authenticate(email=form.cleaned_data['email'],
+                                password=form.cleaned_data['password1'])
+            user.first_name = form.cleaned_data['firstname']
+            user.last_name = form.cleaned_data['surname']
+            user.save()
+            user.userprofile.phone = form.cleaned_data['phone']
+            user.userprofile.city = form.cleaned_data['city']
+            user.userprofile.county = form.cleaned_data['county']
+            user.userprofile.address = form.cleaned_data['address']
+            user.userprofile.save()
+        elif form.cleaned_data['logintype'] == 'old':
+            user = authenticate(email=form.cleaned_data['user'],
+                                password=form.cleaned_data['password'])
+        if user is not None:    # user.is_active ?
+            login(self.request, user)
+            logger.info('Login %s', user.email)
+        return super(OrderView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        logger.debug("OrderView.form_invalid" + str(form.errors))
+        return super(OrderView, self).form_valid(form)
+
+class ConfirmView(ShoppingMixin, SearchMixin, HybridGenericView):
+    template_name = "confirm.html"
+
+
+class HomeView(ShoppingMixin, SearchMixin, GenericView):
     template_name = "home.html"
     top_limit = 5
 
@@ -229,7 +358,7 @@ class HomeView(SearchMixin, GenericView):
         return promotional
 
 
-class SearchView(BreadcrumbsMixin, GenericView):
+class SearchView(ShoppingMixin, BreadcrumbsMixin, GenericView):
     template_name = "search.html"
 
     def get_particular_context(self):
@@ -369,7 +498,7 @@ class SearchView(BreadcrumbsMixin, GenericView):
             price_min=args['price_min'], price_max=args['price_max'])
         return selectors
 
-class ProductView(SearchMixin, BreadcrumbsMixin, GenericView):
+class ProductView(ShoppingMixin, SearchMixin, BreadcrumbsMixin, GenericView):
     template_name = "product.html"
     recommended_limit = 3
 
@@ -440,7 +569,7 @@ class BrandsView(BreadcrumbsMixin, SearchMixin, GenericView):
         return grouped_brand_index
 
 
-class ContactView(BreadcrumbsMixin, SearchMixin, GenericView):
+class ContactView(ShoppingMixin, BreadcrumbsMixin, SearchMixin, GenericView):
     def get_template_names(self):
         return "contact-%s.html" % self._get_base_domain()
 

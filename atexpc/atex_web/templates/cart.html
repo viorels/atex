@@ -1,4 +1,5 @@
 {% extends "base_2col.html" %}
+{% load atex_tags %}
 
 {% block body_extra %}
 <div class="rezumat">
@@ -10,7 +11,7 @@
             <ul>
                 <li><span class="domiciliu">Livrare la domiciliu</span></li>
                 <li><span class="numerar">Plata numerar</span></li>
-                <li><span class="total">TOTAL PLATA: 1943.75 lei</span></li>
+                <li><span class="total">TOTAL PLATA: {{ cart.price }} lei</span></li>
             </ul>
         </div>
     </div>
@@ -68,18 +69,19 @@
                                 </ul>
                             <span class="up_right_bw"></span>
                         </div>
-                        
+
+                        {% for item in cart.items %}
                         <div class="rand-cos">
                             <div class="info-produs-cos">
                                     <a href="#" class="img-wrapper">
                                         <div class="middle size100x100">
                                             <div class="img-holder">
-                                                <img class="center" src="{{ STATIC_PREFIX }}images/produs-11.jpg" width="80" height="61" alt="product name" title="product name" />
+                                                <img class="center" src="{{ item.product.images.0 }}" width="80" height="61" alt="{{ item.product.name }}" title="{{ item.product.name }}" />
                                             </div>
                                         </div>
                                     </a>
                                     <div class="product-title">
-                                        <a href="#">Monitor TFT Benq G2222HDL </a>
+                                        <a href="#">{{ item.product.name }}</a>
                                     </div>   
                                     <div class="descriere-cos">
                                     	Diagonala 21.5, Rezolutie 1920x1080, Luminozitate 250cd/mp 
@@ -93,77 +95,21 @@
                             	<div class="rand first">
                                 	<ul class="detalii_rand">
                                     	<li class="cantitate">
-                                        	<input type="text" class="input_cos" value="1" />
+                                        	<input type="text" class="input_cos"  value="{{ item.count }}"/>
                                             <label> buc. </label>
                                         </li>
                                         <li>
-                                        	385.75 lei
+                                        	{{ item.product.price }} lei
                                         </li>
                                         <li>
-                                        	<strong>385.75 lei</strong>
+                                        	<strong>{{ item.price }} lei</strong>
                                         </li>
                                         <li class="delete">
                                         	<a class="remove_prod" href="#"></a>
                                         </li>
                                     </ul>
-                                </div>	
-                                <div class="rand">
-                                	<ul class="detalii_optionale">
-                                    	<li class="image">
-                                        	<img src="{{ STATIC_PREFIX }}images/garantie2.png" width="29" height="29" alt="Garantie 2 ani" title="Garantie 2 ani" />
-                                        </li>
-                                        <li class="title">
-                                        	Garantie +2 ANI
-                                        </li>
-                                        <li class="pret">
-                                        	220.15 lei
-                                        </li>
-                                        <li>
-                                        	<a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
-                                        </li>
-                                    </ul>
-                                </div>			
-                            </div>
-                   		</div> <!-- rand cos -->
-                        
-                         <div class="rand-cos">
-                            <div class="info-produs-cos">
-                                    <a href="#" class="img-wrapper">
-                                        <div class="middle size100x100">
-                                            <div class="img-holder">
-                                                <img class="center" src="{{ STATIC_PREFIX }}images/produs-11.jpg" width="80" height="61" alt="product name" title="product name" />
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <div class="product-title">
-                                        <a href="#">Monitor TFT Benq G2222HDL </a>
-                                    </div>   
-                                    <div class="descriere-cos">
-                                    	Diagonala 21.5, Rezolutie 1920x1080, Luminozitate 250cd/mp 
-                                    </div>
-                                    <div class="info-stoc-cos">
-                                        <span class="flleft green">In stoc</span>
-                                        <span class="flright">Garantie: 24luni</span>
-                                    </div> 
-                            </div>
-                            <div class="info-cos-pret">
-                            	<div class="rand first">
-                                	<ul class="detalii_rand">
-                                    	<li class="cantitate">
-                                        	<input type="text" class="input_cos"  value="2"/>
-                                            <label> buc. </label>
-                                        </li>
-                                        <li>
-                                        	385.75 lei
-                                        </li>
-                                        <li>
-                                        	<strong>771.50 lei</strong>
-                                        </li>
-                                        <li class="delete">
-                                        	<a class="remove_prod" href="#"></a>
-                                        </li>
-                                    </ul>
-                                </div>	
+                                </div>
+                                <!--
                                 <div class="rand">
                                 	<ul class="detalii_optionale">
                                     	<li class="image">
@@ -195,51 +141,11 @@
                                         	<a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
                                         </li>
                                     </ul>
-                                </div>			
+                                </div>
+                                -->
                             </div>
                    		</div> <!-- rand cos -->
-                        
-                        <div class="rand-cos">
-                            <div class="info-produs-cos">
-                                    <a href="#" class="img-wrapper">
-                                        <div class="middle size100x100">
-                                            <div class="img-holder">
-                                                <img class="center" src="{{ STATIC_PREFIX }}images/produs-11.jpg" width="80" height="61" alt="product name" title="product name" />
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <div class="product-title">
-                                        <a href="#">Monitor TFT Benq G2222HDL </a>
-                                    </div>   
-                                    <div class="descriere-cos">
-                                    	Diagonala 21.5, Rezolutie 1920x1080, Luminozitate 250cd/mp 
-                                    </div>
-                                    <div class="info-stoc-cos">
-                                        <span class="flleft green">In stoc</span>
-                                        <span class="flright">Garantie: 24luni</span>
-                                    </div> 
-                            </div>
-                            <div class="info-cos-pret">
-                            	<div class="rand first">
-                                	<ul class="detalii_rand">
-                                    	<li class="cantitate">
-                                        	<input type="text" class="input_cos"  value="1"/>
-                                            <label> buc. </label>
-                                        </li>
-                                        <li>
-                                        	385.75 lei
-                                        </li>
-                                        <li>
-                                        	<strong>385.75 lei</strong>
-                                        </li>
-                                        <li class="delete">
-                                        	<a class="remove_prod" href="#"></a>
-                                        </li>
-                                    </ul>
-                                </div>	
-                                
-                            </div>
-                   		</div> <!-- rand cos -->
+                        {% endfor %}
                     </div>  
                                                                    
                     <div class="product-section livrare">
@@ -278,12 +184,12 @@
                             <li><span>Taxa Transport</span></li>
                         </ul>
                         <ul class="total">                        	
-                            <li><span class="red_b">1943.75 lei</span></li>
+                            <li><span class="red_b">{{ cart.price }} lei</span></li>
                             <li><span>TOTAL</span></li>
                         </ul>
                         <ul class="buttons">                        	
-                            <li><a href="{% url order %}" class="continua"><span></span>Continua</a></li>
-                            <li><a href="{% url search %}" class="mai_cumpar"><span></span>Mai cumpar</a></li>
+                            <li><a href="{% url "order" %}" class="continua"><span></span>Continua</a></li>
+                            <li><a href="{% url "search" %}" class="mai_cumpar"><span></span>Mai cumpar</a></li>
                         </ul>
                     </div>
                     <!-- end pas 01 -->

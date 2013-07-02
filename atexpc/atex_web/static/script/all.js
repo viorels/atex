@@ -40,12 +40,17 @@ function init_gallery() {
 }
 
 function init_input_hint(form, input, hint) {
+    if (!hint) {
+        hint = input.attr("title");
+    }
+
     function show_hint_if_empty() {
         if (!input.val()) {
             input.val(hint);
             input.addClass("hint")
         }
     }
+
     function hide_hint() {
         if (input.val() == hint) {
             input.removeClass("hint")
@@ -65,20 +70,24 @@ function init_input_hint(form, input, hint) {
 }
 
 function init_filters() {
-	var filter_form = $("form.search");
-	var checkboxes = filter_form.find('input[type=checkbox]')
-    var dropdowns = filter_form.find('ul.filtrare select')
+    var search_form = $("#search_form");
+	var filter_form = $("#filter_form");
+	var all_checkboxes = $('input[type=checkbox]');
+    var left_checkboxes = filter_form.find('input[type=checkbox]');
+    var delegate_filters = $('.delegate_filter');
 
-	checkboxes.each(function() {
+	all_checkboxes.each(function() {
 		var checkbox = $(this)
 		checkbox.wrap(function() {
 			return (checkbox.is(':checked')) ? '<div class="custom_checkbox selected" />'
 											 : '<div class="custom_checkbox" />';
 		});
 	});
-	
-	checkboxes.click(function () {
-		$(this).parent().toggleClass('selected');
+    all_checkboxes.click(function () {
+        $(this).parent().toggleClass('selected');
+    });
+
+	left_checkboxes.click(function () {
 		if ($(this).hasClass("submit")) {
 			filter_form.submit();
 		}
@@ -95,11 +104,35 @@ function init_filters() {
 		filter_form.submit();
 	})
 
-    dropdowns.change(function () {
-        if ($(this).hasClass("submit")) {
+    delegate_filters.change(function (e) {
+        var filter = $(this);
+        var filter_name = filter.attr('name');
+        var filter_value = filter.val();
+        var delegate = filter_form.find('input[name=' + filter_name + ']')
+        delegate.val(filter_value);
+        if (filter.is('input[type=checkbox]') && !filter.is(':checked')) {
+            delegate.val('');
+        }
+        if (filter.hasClass("submit")) {
             filter_form.submit();
         }
     });
+
+    function submit_search_filter_form(e) {
+        if (filter_form.length) {
+            filter_form.submit();
+        } else {
+            search_form.submit();
+        }
+        return false;
+    }
+    $("input#id_cuvinte").keyup(function(e){
+        var key_enter = 13;
+        if(e.keyCode == key_enter){
+            return submit_search_filter_form(e);
+        }
+    });
+    $("input[name=cauta]").click(submit_search_filter_form);
 
 	$('.reset_sel_btn').click(function () {
         uncheck_filters();
@@ -115,15 +148,15 @@ function toggle_price() {
 }
 
 function uncheck_filters() {
-	var search_form = $("form.search");
-	var checkboxes = search_form.find('input[type=checkbox]')
+	var filter_form = $("#filter_form");
+	var checkboxes = filter_form.find('input[type=checkbox]')
 	checkboxes.each(function () {
 		var checkbox = $(this);
 		checkbox.parent().removeClass('selected');
 		checkbox.removeAttr('checked')
 	});
     toggle_price();
-	search_form.submit();
+	filter_form.submit();
 }
 
 function show_rezumat() {
@@ -154,33 +187,112 @@ function calculate_height(){
   };
 }
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function init_csrf() {
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    var csrftoken = getCookie('csrftoken');
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+}
+
+function init_cart() {
+    $(".add_cos_btn, .add_cos_btn_small").click(function () {
+        product_id = $(this).data("product-id")
+        add_to_cart(product_id)
+        return false;
+    })
+}
+
+function add_to_cart(product_id) {
+    var cart_add_url = '/cos/';
+    $.post(cart_add_url, {"method": "add", "product_id": product_id})
+        .success(add_to_cart_success)
+        .error(add_to_cart_error)
+}
+
+function add_to_cart_success(data, textStatus, jqXHR) {
+    update_cart(data.cart);
+}
+
+function add_to_cart_error(jqXHR, textStatus, errorThrown) {
+
+}
+
+function update_cart(cart) {
+    $('.info_cos .cart_count').html(cart.count);
+    $('.info_cos .cart_price').html(cart.price);
+}
+
+function init_order() {
+    var order_form = $("#orderform");
+
+    function show_hide_signup() {
+        var login_type = order_form.find("input[name='logintype']:checked").val();
+        if (login_type == 'old') {
+            order_form.find('.signup').hide("fast");
+            order_form.find('.logininput').show("fast");
+        }
+        else if (login_type == 'new') {
+            order_form.find('.signup').show("fast");
+            order_form.find('.logininput').hide("fast");
+        }
+    }
+    order_form.find("input[name='logintype']").click(show_hide_signup)
+        .filter('[value=old]').prop('checked', true);
+    show_hide_signup();    
+    
+    var order_form_inputs = order_form.find("input[type=text], textarea")
+        .each(function (i, form_input) {
+        init_input_hint(order_form, $(form_input));
+    });
+
+    $("#orderform .continua").click(function () {
+        order_form.submit();
+        return false;
+    })
+}
+
 $(document).ready(function() 
 {
 	init_gallery();
 	init_filters();
 	show_rezumat();
-    init_beta();
+    init_csrf();
+    init_cart();
+    init_order();
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {calculate_height();};
 
-    var search_form = $("form.search");
     var search_input = $(".search_inputs .search");
-    var search_hint = search_input.attr("title");
-    init_input_hint(search_form, search_input, search_hint);
+    init_input_hint($("#search_form"), search_input);
+    init_input_hint($("#filter_form"), search_input);
 
-    var newsletter_form = $(".newsletter form")
-    var newsletter_input = newsletter_form.find("input.news_email")
-    var newsletter_hint = newsletter_input.attr("title")
-    init_input_hint(newsletter_form, newsletter_input, newsletter_hint);
+    var newsletter_input = $("input.news_email")
+    init_input_hint($(".newsletter form"), newsletter_input);
 });
 
-function init_beta() {
-    $(".login_holder li, .info_cos li, " +
-      ".add_cos_btn, .email-wrapper .email_btn").click(work_in_progress);
-}
-
-function work_in_progress() {
-    alert("Inca se lucreaza :) . Pentru comenzi apelati 0264-599009 " + 
-          "sau trimiteti mail la office@atexpc.ro. Multumim !");
-    return false;
-}

@@ -4,6 +4,7 @@ import time
 import hashlib
 import json
 import operator
+import bcrypt
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 from django.core.cache import cache as django_cache
@@ -85,10 +86,9 @@ class BaseAdapter(object):
 
         return processed_data
 
-    def write(self, uri, data):
+    def write(self, uri, data, post_process=None):
         response = self._write_backend(uri, data)
-        data = self.parse(response)
-        return data
+        return post_process(response) if post_process is not None else response
 
     def _read_debug(self, uri, cache_response, response, start_time):
         elapsed = time.time() - start_time
@@ -145,28 +145,47 @@ class AncoraAdapter(BaseAdapter):
     def uri_for(self, method_name, args={}):
         all_args = self._args_for(method_name)
         all_args.update(args)
-        return self.uri_with_args(self._base_uri, all_args)
+        return self.uri_with_args(self._base_uri,
+                                  method=self._method_for(method_name),
+                                  args=all_args)
+
+    def _method_for(self, method_name):
+        default = 'jis.serv'
+        methods = {'create_user': 'saveForm.do'}
+        return methods.get(method_name, default)
 
     def _args_for(self, method_name):
         args = {'categories': {'cod_formular': '617'},
                 'product': {'cod_formular': '738'},
                 'recommended': {'cod_formular': '740', 'start': '0'},
                 'promotional': {'cod_formular': '737', 'start': '0'},
-                'brands': {'cod_formular': '1024', 'start': '0', 'stop': '1000'}}
+                'brands': {'cod_formular': '1024', 'start': '0', 'stop': '1000'},
+                'create_user': {'cod_formular': '1312',
+                                'pid': '0',         # new user
+                                'iduser': '47',     # website user
+                                'actiune': 'SAVE_TAB'},
+                'get_user': {'cod_formular': '1023'}}
         return args.get(method_name, {})
 
-    def uri_with_args(self, uri, new_args):
+    def uri_with_args(self, uri, method=None, args=None):
         parsed_uri = urlparse(uri)
 
-        parsed_args = dict(parse_qsl(parsed_uri.query))
-        parsed_new_args = dict(parse_qsl(new_args)) if isinstance(new_args, basestring) else new_args
-        parsed_args.update(parsed_new_args)
-        valid_args = dict((key, value) for key, value in parsed_args.items() if value is not None)
+        if method is not None:
+            delimiter = '/'
+            path_parts = parsed_uri.path.split(delimiter)
+            path = delimiter.join(path_parts[:-1] + [method])
+        else:
+            path = parsed_uri.path
+
+        parsed_old_args = dict(parse_qsl(parsed_uri.query))
+        parsed_args = dict(parse_qsl(args)) if isinstance(args, basestring) else args
+        parsed_old_args.update(parsed_args)
+        valid_args = dict((key, value) for key, value in parsed_old_args.items() if value is not None)
         encoded_args = urlencode(valid_args)
 
         final_uri = urlunparse((parsed_uri.scheme,
                                 parsed_uri.netloc,
-                                parsed_uri.path,
+                                path,
                                 parsed_uri.params,
                                 encoded_args,
                                 parsed_uri.fragment))
@@ -237,7 +256,7 @@ class Ancora(object):
                 args['zpret_site_min'] = price_min
                 args['zpret_site_max'] = price_max
             if args:
-                selectors_uri = self.adapter.uri_with_args(selectors_uri, args)
+                selectors_uri = self.adapter.uri_with_args(selectors_uri, args=args)
             selectors = self.adapter.read(selectors_uri, post_process, cache_timeout=TIMEOUT_LONG)
         else:
             selectors = []
@@ -250,7 +269,7 @@ class Ancora(object):
         else:
             some_products_uri = self.categories()[0]['products_uri']
             base_products_uri = self.adapter.uri_with_args(some_products_uri,
-                                                           {'idgrupa': None})
+                                                           args={'idgrupa': None})
         return base_products_uri
 
     def _post_process_product_list(self, json_root='products'):
@@ -289,7 +308,7 @@ class Ancora(object):
             args['zsort_order'] = sort_order
         products_uri = self.adapter.uri_with_args(
             self._base_products_uri(category_id),
-            args)
+            args=args)
 
         products = self.adapter.read(products_uri,
                                      self._post_process_product_list(),
@@ -316,7 +335,7 @@ class Ancora(object):
         args = {'zlista_id': ','.join(str(pid) for pid in product_ids)}
         products_uri = self.adapter.uri_with_args(
             self._base_products_uri(),
-            args)
+            args=args)
         products = self.adapter.read(products_uri,
                                      self._post_process_product_list(),
                                      cache_timeout=TIMEOUT_SHORT)
@@ -392,7 +411,38 @@ class Ancora(object):
         return self.adapter.read(brands_uri, post_process,
                                  cache_timeout=TIMEOUT_LONG) or []
 
-    def create_user(self, user):
+    def create_user(self, email, first_name, last_name, password, usertype, salt=None):
         create_user_uri = self.adapter.uri_for('create_user')
-        status = self.adapter.write(create_user_uri, user)
+        args = {'email': email,
+                'denumire': "%s %s" % (last_name, first_name),
+                'parola': self._password_hash(password, salt),
+                'fj': usertype}
+        response = self.adapter.write(create_user_uri, args)
+        return response
+
+    def get_user(self, email, password, salt=None):
+        """ Returns a user if the password is good, otherwise None """
+        def post_process(data):
+            json_root = 'useri_site'
+            backend_user = data[json_root][0] if len(data[json_root]) else None
+            if backend_user is not None:
+                last_name, first_name = backend_user['zdenumire'].split(" ", 1)
+                user = {'email': backend_user['zemail'],
+                        'first_name': first_name,
+                        'last_name': last_name,
+                        'usertype': backend_user['zfj'],            # F/J
+                        'disabled': backend_user['zcol_inactiv']}   # Y/N
+            else:
+                user = None
+            return user
+
+        args = {'femail': email,
+                'fparola': self._password_hash(password, salt)}
+        get_user_uri = self.adapter.uri_for('get_user', args)
+        user = self.adapter.read(get_user_uri, post_process=post_process, cache_timeout=TIMEOUT_SHORT)
+        return user
     
+    def _password_hash(self, password, salt=None):
+        if salt is None:
+            salt = bcrypt.gensalt()
+        return bcrypt.hashpw(password, salt)
