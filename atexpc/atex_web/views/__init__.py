@@ -1,7 +1,7 @@
 from products import (HomeBase, SearchBase, ProductBase, BrandsBase,
-                      SearchMixin, BreadcrumbsMixin)
-from products import CartBase, OrderBase, ConfirmBase, ShoppingMixin
-from products import BaseView, ErrorBase
+                      SearchMixin)
+from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
+from base import BaseView, BreadcrumbsMixin, ErrorBase
 
 # *Base classes (e.g. HomeView must be last on inheritance list as
 # TemplateView.get_context_data breaks the cooperative multiple inheritance chain
