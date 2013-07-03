@@ -18,19 +18,19 @@ from django.contrib.sites.models import get_current_site
 from django.http import Http404
 from django.conf import settings
 
-from models import Product, DatabaseCart as Cart
-from forms import search_form_factory, user_form_factory
+from atexpc.atex_web.models import Product, DatabaseCart as Cart
+from atexpc.atex_web.forms import search_form_factory, user_form_factory
+from atexpc.atex_web.ancora_api import AncoraAPI
+from atexpc.atex_web.utils import group_in, grouper
 from atexpc.ancora_api.api import APIError
-from ancora_api import AncoraAPI
-from utils import group_in, grouper
 
 import logging
 logger = logging.getLogger(__name__)
 
 
-class GenericView(TemplateView):
+class BaseView(TemplateView):
     def __init__(self, *args, **kwargs):
-        super(GenericView, self).__init__(*args, **kwargs)
+        super(BaseView, self).__init__(*args, **kwargs)
         self.api = AncoraAPI()
 
     def get_general_context(self):
@@ -50,14 +50,14 @@ class GenericView(TemplateView):
         return {}
 
     def get_context_data(self, **kwargs):
-        context = super(GenericView, self).get_context_data(**kwargs)
+        context = super(BaseView, self).get_context_data(**kwargs)
         context.update(self.get_general_context())
         context.update(self.get_particular_context())
         return context
 
     def get(self, request, *args, **kwargs):
         try:
-            response = super(GenericView, self).get(request, *args, **kwargs)
+            response = super(BaseView, self).get(request, *args, **kwargs)
         except APIError as e:
             logger.error(e, extra={'request': self.request})
             context = self.get_minimal_context()
@@ -151,7 +151,7 @@ class GenericView(TemplateView):
 
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
-        return super(GenericView, self).dispatch(*args, **kwargs)
+        return super(BaseView, self).dispatch(*args, **kwargs)
 
 class BreadcrumbsMixin(object):
     def get_context_data(self, **kwargs):
@@ -246,15 +246,15 @@ class JSONResponseMixin(object):
         return json.dumps(context)
 
 
-class HybridGenericView(JSONResponseMixin, GenericView):
+class HybridGenericView(JSONResponseMixin, BaseView):
     def render_to_response(self, context):
         if self.request.is_ajax():
             return JSONResponseMixin.render_to_response(self, context)
         else:
-            return GenericView.render_to_response(self, context)
+            return BaseView.render_to_response(self, context)
 
 
-class CartView(ShoppingMixin, SearchMixin, HybridGenericView):
+class CartBase(HybridGenericView):
     template_name = "cart.html"
 
     def get_json_context(self):
@@ -268,7 +268,7 @@ class CartView(ShoppingMixin, SearchMixin, HybridGenericView):
         return self.render_to_response(self.get_json_context())
 
 
-class OrderView(FormView, ShoppingMixin, SearchMixin, HybridGenericView):
+class OrderBase(FormView, HybridGenericView):
     template_name = "order.html"
     success_url = reverse_lazy('confirm')
 
@@ -310,11 +310,12 @@ class OrderView(FormView, ShoppingMixin, SearchMixin, HybridGenericView):
         logger.debug("OrderView.form_invalid" + str(form.errors))
         return super(OrderView, self).form_valid(form)
 
-class ConfirmView(ShoppingMixin, SearchMixin, HybridGenericView):
+
+class ConfirmBase(HybridGenericView):
     template_name = "confirm.html"
 
 
-class HomeView(ShoppingMixin, SearchMixin, GenericView):
+class HomeBase(BaseView):
     template_name = "home.html"
     top_limit = 5
 
@@ -358,7 +359,7 @@ class HomeView(ShoppingMixin, SearchMixin, GenericView):
         return promotional
 
 
-class SearchView(ShoppingMixin, BreadcrumbsMixin, GenericView):
+class SearchBase(BaseView):
     template_name = "search.html"
 
     def get_particular_context(self):
@@ -498,7 +499,8 @@ class SearchView(ShoppingMixin, BreadcrumbsMixin, GenericView):
             price_min=args['price_min'], price_max=args['price_max'])
         return selectors
 
-class ProductView(ShoppingMixin, SearchMixin, BreadcrumbsMixin, GenericView):
+
+class ProductBase(BaseView):
     template_name = "product.html"
     recommended_limit = 3
 
@@ -550,7 +552,7 @@ class ProductView(ShoppingMixin, SearchMixin, BreadcrumbsMixin, GenericView):
         return breadcrumbs
 
 
-class BrandsView(BreadcrumbsMixin, SearchMixin, GenericView):
+class BrandsBase(BaseView):
     template_name = "branduri.html"
 
     def get_particular_context(self):
@@ -569,7 +571,7 @@ class BrandsView(BreadcrumbsMixin, SearchMixin, GenericView):
         return grouped_brand_index
 
 
-class ContactView(ShoppingMixin, BreadcrumbsMixin, SearchMixin, GenericView):
+class ContactBase(BaseView):
     def get_template_names(self):
         return "contact-%s.html" % self._get_base_domain()
 
@@ -577,7 +579,7 @@ class ContactView(ShoppingMixin, BreadcrumbsMixin, SearchMixin, GenericView):
         return [{'name': "Contact"}]
 
 
-class ConditionsView(BreadcrumbsMixin, SearchMixin, GenericView):
+class ConditionsBase(BaseView):
     template_name = "conditions.html"
 
     def get_breadcrumbs(self):
@@ -604,14 +606,14 @@ def _uri_with_args(base_uri, **new_args):
     return final_uri
 
 
-class ErrorView(BreadcrumbsMixin, SearchMixin, GenericView):
+class ErrorBase(BaseView):
     error_code = None
 
     def get_template_names(self):
         return "%d.html" % self.error_code
 
     def render_to_response(self, context):
-        response = super(ErrorView, self).render_to_response(context)
+        response = super(ErrorBase, self).render_to_response(context)
         response.status_code = self.error_code
         response.render() # response is not yet rendered during middleware
         return response
