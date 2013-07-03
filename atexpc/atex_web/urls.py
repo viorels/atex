@@ -3,7 +3,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import RedirectView
-from views import (GenericView, HomeView, SearchView, ProductView, BrandsView, ContactView, ConditionsView,
+from views import (HomeView, SearchView, ProductView, BrandsView,
+                   ContactView, ConditionsView, ServiceView,
                    CartView, OrderView, ConfirmView)
 
 
@@ -20,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^cos/confirma/', ConfirmView.as_view(), name='confirm'),
     url(r'^contact/', ContactView.as_view(), name='contact'),
     url(r'^conditii/', ConditionsView.as_view(), name='conditions'),
-    url(r'^service/', GenericView.as_view(template_name='service.html'), name='service'),
+    url(r'^service/', ServiceView.as_view(), name='service'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'PIE\.htc$',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),

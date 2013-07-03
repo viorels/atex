@@ -1,5 +1,4 @@
 from products import (HomeBase, SearchBase, ProductBase, BrandsBase,
-                      ContactBase, ConditionsBase,
                       SearchMixin, BreadcrumbsMixin)
 from products import CartBase, OrderBase, ConfirmBase, ShoppingMixin
 from products import BaseView, ErrorBase
@@ -7,35 +6,43 @@ from products import BaseView, ErrorBase
 # *Base classes (e.g. HomeView must be last on inheritance list as
 # TemplateView.get_context_data breaks the cooperative multiple inheritance chain
 
-class HomeView(ShoppingMixin, SearchMixin, HomeBase):
+class CommonMixins(SearchMixin, BreadcrumbsMixin, ShoppingMixin):
     pass
 
-class ProductView(ShoppingMixin, SearchMixin, BreadcrumbsMixin, ProductBase):
+class HomeView(CommonMixins, HomeBase):
+    pass
+
+class ProductView(CommonMixins, ProductBase):
     pass
 
 class SearchView(ShoppingMixin, BreadcrumbsMixin, SearchBase):
     pass
 
-class BrandsView(ShoppingMixin, SearchMixin, BreadcrumbsMixin, BrandsBase):
+class BrandsView(CommonMixins, BrandsBase):
     pass
 
-class CartView(ShoppingMixin, SearchMixin, CartBase):
+class CartView(CommonMixins, CartBase):
     pass
 
-class OrderView(ShoppingMixin, SearchMixin, OrderBase):
+class OrderView(CommonMixins, OrderBase):
     pass
 
-class ConfirmView(ShoppingMixin, SearchMixin, ConfirmBase):
-    pass
-
-class ContactView(ShoppingMixin, BreadcrumbsMixin, SearchMixin, ContactBase):
-    pass
-
-class ConditionsView(BreadcrumbsMixin, SearchMixin, ConditionsBase):
-    pass
-
-class GenericView(BaseView):
+class ConfirmView(CommonMixins, ConfirmBase):
     pass
 
 class ErrorView(BreadcrumbsMixin, SearchMixin, ErrorBase):
     pass
+
+class ContactView(CommonMixins, BaseView):
+    breadcrumbs = [{'name': "Contact"}]
+
+    def get_template_names(self):
+        return "contact-%s.html" % self._get_base_domain()
+
+class ConditionsView(CommonMixins, BaseView):
+    template_name = "conditions.html"
+    breadcrumbs = [{'name': "Conditii Vanzare"}]
+
+class ServiceView(CommonMixins, BaseView):
+    template_name = "service.html"
+    breadcrumbs = [{'name': "Servicii"}]

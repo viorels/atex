@@ -46,14 +46,13 @@ class BaseView(TemplateView):
                 'footer': self.get_footer(),
                 'site_info': self.get_site_info()}
 
-    def get_particular_context(self):
+    def get_local_context(self):
         return {}
 
-    def get_context_data(self, **kwargs):
-        context = super(BaseView, self).get_context_data(**kwargs)
+    def get_context_data(self, **context):
         context.update(self.get_general_context())
-        context.update(self.get_particular_context())
-        return context
+        context.update(self.get_local_context())
+        return super(BaseView, self).get_context_data(**context)
 
     def get(self, request, *args, **kwargs):
         try:
@@ -154,10 +153,17 @@ class BaseView(TemplateView):
         return super(BaseView, self).dispatch(*args, **kwargs)
 
 class BreadcrumbsMixin(object):
-    def get_context_data(self, **kwargs):
-        context = super(BreadcrumbsMixin, self).get_context_data(**kwargs)
+    breadcrumbs = []
+
+    def get_context_data(self, **context):
         context.update({'breadcrumbs': self.get_breadcrumbs})
-        return context
+        return super(BreadcrumbsMixin, self).get_context_data(**context)
+
+    def get_breadcrumbs(self):
+        if hasattr(super(BreadcrumbsMixin, self), 'get_breadcrumbs'):
+            return super(BreadcrumbsMixin, self).get_breadcrumbs()
+        else:
+            return self.breadcrumbs
 
     def _get_search_breadcrumbs(self, search_keywords, category_id):
         breadcrumbs = []
@@ -182,10 +188,9 @@ class BreadcrumbsMixin(object):
 
 
 class SearchMixin(object):
-    def get_context_data(self, **kwargs):
-        context = super(SearchMixin, self).get_context_data(**kwargs)
+    def get_context_data(self, **context):
         context.update({'search_form': self.get_search_form})
-        return context
+        return super(SearchMixin, self).get_context_data(**context)
 
     def get_search_form(self):
         search_in_choices = tuple((c['id'], c['name']) for c in self.api.categories.get_main())
@@ -195,10 +200,9 @@ class SearchMixin(object):
 
 
 class ShoppingMixin(object):
-    def get_context_data(self, **kwargs):
-        context = super(ShoppingMixin, self).get_context_data(**kwargs)
+    def get_context_data(self, **context):
         context.update({'cart': self._get_cart_data()})
-        return context
+        return super(ShoppingMixin, self).get_context_data(**context)
 
     def _get_cart(self):
         cart_id = self.request.session.get('cart_id')
@@ -256,6 +260,7 @@ class HybridGenericView(JSONResponseMixin, BaseView):
 
 class CartBase(HybridGenericView):
     template_name = "cart.html"
+    breadcrumbs = [{'name': "Cos cumparaturi"}]
 
     def get_json_context(self):
         return {'cart': self._get_cart_data()}
@@ -270,6 +275,7 @@ class CartBase(HybridGenericView):
 
 class OrderBase(FormView, HybridGenericView):
     template_name = "order.html"
+    breadcrumbs = CartBase.breadcrumbs + [{'name': "Date facturare"}]
     success_url = reverse_lazy('confirm')
 
     def get_form_class(self):
@@ -304,22 +310,23 @@ class OrderBase(FormView, HybridGenericView):
         if user is not None:    # user.is_active ?
             login(self.request, user)
             logger.info('Login %s', user.email)
-        return super(OrderView, self).form_valid(form)
+        return super(OrderBase, self).form_valid(form)
 
     def form_invalid(self, form):
         logger.debug("OrderView.form_invalid" + str(form.errors))
-        return super(OrderView, self).form_valid(form)
+        return super(OrderBase, self).form_valid(form)
 
 
 class ConfirmBase(HybridGenericView):
     template_name = "confirm.html"
+    breadcrumbs = OrderBase.breadcrumbs + [{'name': "Confirmare"}]
 
 
 class HomeBase(BaseView):
     template_name = "home.html"
     top_limit = 5
 
-    def get_particular_context(self):
+    def get_local_context(self):
         return {'hits': self.get_hits(),
                 'recommended': self.get_recommended(),
                 'promotional': self.get_promotional()}
@@ -362,7 +369,7 @@ class HomeBase(BaseView):
 class SearchBase(BaseView):
     template_name = "search.html"
 
-    def get_particular_context(self):
+    def get_local_context(self):
         return {'search_form': self.get_search_form,
                 'selectors': self.get_selectors,
                 'selectors_active': lambda: self.get_search_args()['selectors_active'],
@@ -504,7 +511,7 @@ class ProductBase(BaseView):
     template_name = "product.html"
     recommended_limit = 3
 
-    def get_particular_context(self):
+    def get_local_context(self):
         return {'product': self.get_product(),
                 'properties': self.get_properties,
                 'recommended': self.get_recommended}
@@ -554,12 +561,10 @@ class ProductBase(BaseView):
 
 class BrandsBase(BaseView):
     template_name = "branduri.html"
+    breadcrumbs = [{'name': "Branduri"}]
 
-    def get_particular_context(self):
+    def get_local_context(self):
         return {'brand_index': self._brand_index()}
-
-    def get_breadcrumbs(self):
-        return [{'name': "Branduri"}]
 
     def _brand_index(self):
         brands = self.api.products.get_brands()
@@ -569,21 +574,6 @@ class BrandsBase(BaseView):
                            for letter in index_letters)
         grouped_brand_index = grouper(4, sorted(brand_index.items()))
         return grouped_brand_index
-
-
-class ContactBase(BaseView):
-    def get_template_names(self):
-        return "contact-%s.html" % self._get_base_domain()
-
-    def get_breadcrumbs(self):
-        return [{'name': "Contact"}]
-
-
-class ConditionsBase(BaseView):
-    template_name = "conditions.html"
-
-    def get_breadcrumbs(self):
-        return [{'name': "Conditii Vanzare"}]
 
 
 def _uri_with_args(base_uri, **new_args):
