@@ -5,6 +5,7 @@ from django.views.generic.edit import FormView
 from atexpc.atex_web.views.base import HybridGenericView
 from atexpc.atex_web.models import DatabaseCart as Cart
 from atexpc.atex_web.forms import user_form_factory
+from atexpc.atex_web.utils import FrozenDict
 
 import logging
 logger = logging.getLogger(__name__)
@@ -12,7 +13,8 @@ logger = logging.getLogger(__name__)
 
 class CartBase(HybridGenericView):
     template_name = "cart.html"
-    breadcrumbs = [{'name': "Cos cumparaturi"}]
+    breadcrumbs = [FrozenDict(name="Cos cumparaturi",
+                              url=reverse_lazy('cart'))]
 
     def get_json_context(self):
         return {'cart': self._get_cart_data()}
@@ -27,7 +29,8 @@ class CartBase(HybridGenericView):
 
 class OrderBase(FormView, HybridGenericView):
     template_name = "order.html"
-    breadcrumbs = CartBase.breadcrumbs + [{'name': "Date facturare"}]
+    breadcrumbs = CartBase.breadcrumbs + [FrozenDict(name="Date facturare",
+                                                     url=reverse_lazy('order'))]
     success_url = reverse_lazy('confirm')
 
     def get_form_class(self):
@@ -71,7 +74,8 @@ class OrderBase(FormView, HybridGenericView):
 
 class ConfirmBase(HybridGenericView):
     template_name = "confirm.html"
-    breadcrumbs = OrderBase.breadcrumbs + [{'name': "Confirmare"}]
+    breadcrumbs = OrderBase.breadcrumbs + [FrozenDict(name="Confirmare",
+                                                      url=reverse_lazy('confirm'))]
 
 
 class ShoppingMixin(object):

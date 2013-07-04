@@ -196,17 +196,19 @@ class ErrorBase(BaseView):
 
 
 class BreadcrumbsMixin(object):
-    breadcrumbs = []
-
     def get_context_data(self, **context):
         context.update({'breadcrumbs': self.get_breadcrumbs})
         return super(BreadcrumbsMixin, self).get_context_data(**context)
 
     def get_breadcrumbs(self):
         if hasattr(super(BreadcrumbsMixin, self), 'get_breadcrumbs'):
-            return super(BreadcrumbsMixin, self).get_breadcrumbs()
+            breadcrumbs = super(BreadcrumbsMixin, self).get_breadcrumbs()
         else:
-            return self.breadcrumbs
+            breadcrumbs = getattr(self, 'breadcrumbs', [])
+        if breadcrumbs and 'url' in breadcrumbs[-1]:
+            breadcrumbs[-1] = breadcrumbs[-1].copy()
+            breadcrumbs[-1]['url'] = None   # the current navigation item is not clickable
+        return breadcrumbs
 
     def _get_search_breadcrumbs(self, search_keywords, category_id):
         breadcrumbs = []
@@ -215,8 +217,6 @@ class BreadcrumbsMixin(object):
                                 'url': None})
         elif category_id:
             breadcrumbs = self._get_category_breadcrumbs(category_id)
-        if breadcrumbs:
-            breadcrumbs[-1]['url'] = None   # the current navigation item is not clickable
         return breadcrumbs
 
     def _get_category_breadcrumbs(self, category_id):
