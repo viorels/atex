@@ -314,14 +314,16 @@ class DatabaseCart(BaseCart):
                             'name': product.name,
                             'images': product.images}
             item = {'product': product_dict,
-                    'count': cart_product.count,
-                    'price': lambda: cart_product.count * product_dict['price']}
+                    'count': cart_product.count}
             items.append(item)
         return items
 
-    def price(self):
-        # TODO: get prices from backend
-        return -1.0
+    def price(self, items):
+        return (sum(item['count'] * item['product']['price'] for item in items)
+                + self.transport_price())
+
+    def transport_price(self):
+        return 15   # hardcoded transport price
 
     def _get_product(self, id):
         try:

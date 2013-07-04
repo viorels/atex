@@ -99,10 +99,11 @@ class ShoppingMixin(object):
     def _get_cart_data(self):
         cart = self._get_cart()
         if cart:
+            items = self._augment_cart_items(cart.items())
             cart_data = {'id': cart.id(),
-                         'items': self._augment_cart_items(cart.items()),
+                         'items': items,
                          'count': cart.count(),
-                         'price': cart.price()}
+                         'price': cart.price(items)}
         else:
             cart_data = {'id': None, 'items': [], 'count': 0, 'price': 0.0}
         return cart_data
@@ -116,6 +117,7 @@ class ShoppingMixin(object):
                             'stock_info': api_product['stock_info'],
                             'warranty': api_product['warranty'],
                             'url': self._product_url(product)})
+            item['price'] = item['count'] * product['price']
         return items
 
     def _add_to_cart(self, product_id):
