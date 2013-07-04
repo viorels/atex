@@ -290,8 +290,8 @@ class BaseCart(object):
         return len(self.items())
 
 class DatabaseCart(BaseCart):
-    @classmethod
-    def get(cls, cart_id):
+    @staticmethod
+    def get(cart_id):
         try:
             cart_row = Cart.objects.get(id=cart_id)
             cart = DatabaseCart(cart_row)
@@ -299,8 +299,8 @@ class DatabaseCart(BaseCart):
             cart = None
         return cart
 
-    @classmethod
-    def create(cls, session_id):
+    @staticmethod
+    def create(session_id):
         cart_row, created = Cart.objects.get_or_create(session_id=session_id)
         cart = DatabaseCart(cart_row)
         return cart
@@ -312,11 +312,10 @@ class DatabaseCart(BaseCart):
             product = cart_product.product
             product_dict = {'id': product.id,
                             'name': product.name,
-                            'images': product.images,
-                            'price': -1.0}
+                            'images': product.images}
             item = {'product': product_dict,
                     'count': cart_product.count,
-                    'price': cart_product.count * product_dict['price']}
+                    'price': lambda: cart_product.count * product_dict['price']}
             items.append(item)
         return items
 

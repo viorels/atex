@@ -67,7 +67,7 @@
                         {% for item in cart.items %}
                         <div class="rand-cos">
                             <div class="info-produs-cos">
-                                    <a href="#" class="img-wrapper">
+                                    <a href="{{ item.product.url }}" class="img-wrapper">
                                         <div class="middle size100x100">
                                             <div class="img-holder">
                                                 <img class="center" src="{{ item.product.images.0|thumbnail:"80x80" }}" width="80" height="80" alt="{{ item.product.name }}" title="{{ item.product.name }}" />
@@ -75,14 +75,14 @@
                                         </div>
                                     </a>
                                     <div class="product-title">
-                                        <a href="#">{{ item.product.name }}</a>
+                                        <a href="{{ item.product.url }}">{{ item.product.name }}</a>
                                     </div>   
                                     <div class="descriere-cos">
-                                    	Diagonala 21.5, Rezolutie 1920x1080, Luminozitate 250cd/mp 
+                                    	{{ item.product.description }}
                                     </div>
                                     <div class="info-stoc-cos">
-                                        <span class="flleft green">In stoc</span>
-                                        <span class="flright">Garantie: 24luni</span>
+                                        <span class="flleft green">{{ item.product.stock_info }}</span>
+                                        <span class="flright">Garantie: {{ item.product.warranty }} luni</span>
                                     </div> 
                             </div>
                             <div class="info-cos-pret">
