@@ -312,6 +312,7 @@ class DatabaseCart(BaseCart):
             product = cart_product.product
             product_dict = {'id': product.id,
                             'name': product.name,
+                            'images': product.images,
                             'price': -1.0}
             item = {'product': product_dict,
                     'count': cart_product.count,
