@@ -67,7 +67,7 @@
                             </div>
 
                             {% for item in cart.items %}
-                            <div class="rand-cos">
+                            <div id="product_{{ item.product.id }}" class="rand-cos">
                                 <div class="info-produs-cos">
                                         <a href="{{ item.product.url }}" class="img-wrapper">
                                             <div class="middle size100x100">
@@ -97,8 +97,8 @@
                                             <li>
                                             	{{ item.product.price }} lei
                                             </li>
-                                            <li>
-                                            	<strong>{{ item.price }} lei</strong>
+                                            <li class="quantity_price">
+                                            	{{ item.price }} lei
                                             </li>
                                             <li class="delete">
                                             	<a class="remove_prod" href="#"></a>
@@ -144,7 +144,7 @@
                             {% endfor %}
                         </div>
                                 
-                                                       
+                        {% if cart.count %}                               
                         <div class="product-section livrare">
                         	<div class="tab_u_holder_left">
                                 <span class="up_left"></span>
@@ -174,14 +174,17 @@
                                 <li><input id="payment_bank" name="payment" type="radio" value="bank" /> <label for="payment_bank">Transfer bancar / OP</label></li>
                             </ul>                        
                         </div> 
+                        {% else %}
+                        <div style="margin: 20px; font-size: large;">Nu exista produse in cos</div>
+                        {% endif %}
 
                         <div class="total-cos01">
                         	<ul>                        	
-                                <li><span>15.00 lei</span></li>
+                                <li><span>0.00 lei</span></li>
                                 <li><span>Taxa Transport</span></li>
                             </ul>
                             <ul class="total">
-                                <li><span class="red_b">{{ cart.price }} lei</span></li>
+                                <li><span class="total red_b">{{ cart.price }} lei</span></li>
                                 <li><span>TOTAL</span></li>
                             </ul>
                             <ul class="buttons">

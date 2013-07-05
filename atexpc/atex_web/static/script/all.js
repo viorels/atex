@@ -261,13 +261,16 @@ function update_cart_error(jqXHR, textStatus, errorThrown) {
 
 function on_cart_update(cart) {
     $('.info_cos .cart_count').html(cart.count);
-    $('.info_cos .cart_price').html(cart.price);
+    $('.info_cos .cart_price, span.total').html(cart.price.toFixed(2));
+
 
     cart_form = $("#cart_form");
     if (cart_form.length) {
         for (i=0; i<cart.items.length; i++) {
             item = cart.items[i];
-            // update/create html to display cart content on cart page 
+            product_id = item.product.id;
+            quantity_price_li = $('#product_' + product_id).find('li.quantity_price');
+            quantity_price_li.text(item.price.toFixed(2) + ' lei');
         }
     }
 }

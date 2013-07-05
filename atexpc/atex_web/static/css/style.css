@@ -1554,6 +1554,9 @@ p.info a:hover, p.info a:active {
 	border-bottom:1px solid #484848;
 
 }
+.rand-cos li.quantity_price {
+	font-weight: bold;
+}
 .info-produs-cos {
 	width:400px;
 	float:left;
