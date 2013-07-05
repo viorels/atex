@@ -6,6 +6,7 @@ from atexpc.atex_web.views.base import HybridGenericView
 from atexpc.atex_web.models import DatabaseCart as Cart
 from atexpc.atex_web.forms import user_form_factory
 from atexpc.atex_web.utils import FrozenDict
+from atexpc.atex_web.templatetags import atex_tags
 
 import logging
 logger = logging.getLogger(__name__)
@@ -24,6 +25,14 @@ class CartBase(HybridGenericView):
         product_id = request.POST.get('product_id')
         if method == 'add':
             self._add_to_cart(product_id)
+        elif method == 'update':
+            products_count = {}
+            for key, value in request.POST.iteritems():
+                if key.startswith('id_'):
+                    product_id = int(key.lstrip('id_').rstrip('_count'))
+                    count = int(value)
+                    products_count[product_id] = count
+            self._update_cart(products_count)
         return self.render_to_response(self.get_json_context())
 
 
@@ -103,7 +112,7 @@ class ShoppingMixin(object):
             cart_data = {'id': cart.id(),
                          'items': items,
                          'count': cart.count(),
-                         'price': cart.price(items)}
+                         'price': cart.price(items) + cart.delivery_price(items)}
         else:
             cart_data = {'id': None, 'items': [], 'count': 0, 'price': 0.0}
         return cart_data
@@ -116,7 +125,9 @@ class ShoppingMixin(object):
                             'price': api_product['price'],
                             'stock_info': api_product['stock_info'],
                             'warranty': api_product['warranty'],
-                            'url': self._product_url(product)})
+                            'url': self._product_url(product),
+                            'thumb_80x80_url': atex_tags.thumbnail(product['images'][0], '80x80')})
+            del product['images']   # not serializable
             item['price'] = item['count'] * product['price']
         return items
 
@@ -125,3 +136,16 @@ class ShoppingMixin(object):
         if cart is None:
             cart = self._create_cart()
         cart.add_item(product_id)
+
+    def _update_cart(self, products={}):
+        """ Update produt count or delete products from cart.
+            Argument is a dict with id: count items """
+        cart = self._get_cart()
+        if cart:
+            for item in cart.items():
+                product_id = item['product']['id']
+                if product_id in products:
+                    count = products[product_id]
+                    cart.update_item(product_id, count)
+                else:
+                    cart.remove_item(product_id)

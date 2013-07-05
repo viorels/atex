@@ -1,4 +1,6 @@
 
+var cart_url = '/cos/';
+
 function init_gallery() {
 	var gallery = $('#images');
 	gallery.exposure({controlsTarget : '#controls',
@@ -221,36 +223,53 @@ function init_csrf() {
 }
 
 function init_cart() {
-    cart_form = $("#cart_form");
     $(".add_cos_btn, .add_cos_btn_small").click(function () {
         product_id = $(this).data("product-id");
         add_to_cart(product_id);
         return false;
     });
 
-    $("input.cart_count").change(function () {
-
+    cart_form = $("#cart_form");
+    function update_cart() {
+        $.post(cart_url, cart_form.serialize())
+            .success(function (data) {
+                on_cart_update(data.cart);
+            })
+            .error(update_cart_error);
+    }
+    $("input.cart_count").change(update_cart);
+    $("a.remove_prod").click(function () {
+        cart_row = $(this).closest('div.rand-cos').remove();
+        update_cart();
+        return false;
     });
 }
 
 function add_to_cart(product_id) {
-    var cart_add_url = '/cos/';
-    $.post(cart_add_url, {"method": "add", "product_id": product_id})
+    $.post(cart_url, {"method": "add", "product_id": product_id})
         .success(add_to_cart_success)
-        .error(add_to_cart_error);
+        .error(update_cart_error);
 }
 
 function add_to_cart_success(data, textStatus, jqXHR) {
-    update_cart(data.cart);
+    on_cart_update(data.cart);
 }
 
-function add_to_cart_error(jqXHR, textStatus, errorThrown) {
+function update_cart_error(jqXHR, textStatus, errorThrown) {
 
 }
 
-function update_cart(cart) {
+function on_cart_update(cart) {
     $('.info_cos .cart_count').html(cart.count);
     $('.info_cos .cart_price').html(cart.price);
+
+    cart_form = $("#cart_form");
+    if (cart_form.length) {
+        for (i=0; i<cart.items.length; i++) {
+            item = cart.items[i];
+            // update/create html to display cart content on cart page 
+        }
+    }
 }
 
 function init_order() {

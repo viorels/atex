@@ -312,18 +312,17 @@ class DatabaseCart(BaseCart):
             product = cart_product.product
             product_dict = {'id': product.id,
                             'name': product.name,
-                            'images': product.images}
+                            'images': product.images()}
             item = {'product': product_dict,
                     'count': cart_product.count}
             items.append(item)
         return items
 
     def price(self, items):
-        return (sum(item['count'] * item['product']['price'] for item in items)
-                + self.transport_price())
+        return sum(item['count'] * item['product']['price'] for item in items)
 
-    def transport_price(self):
-        return 15   # hardcoded transport price
+    def delivery_price(self, items):
+        return 15   # TODO: not hardcoded delivery price
 
     def _get_product(self, id):
         try:

@@ -34,158 +34,162 @@
                             <li><span class="cos-03" id=""></span>Confirmare comanda</li>
                         </ul>
                     </div>
-                    <div class="product-section">
-                    	<div class="tab_u_holder_left">
-                            <span class="up_left"></span>
-                                <ul class="tab_up">
-                                    <li><span>produs</span></li>                                
-                                </ul>
-                            <span class="up_right"></span>
-                        </div>
-                        <div class="tab_cantitate">
-                            <span class="up_left_bw"></span>
-                                <ul class="tab_up_bw">
-                                    <li><span>cantitate</span></li>                                
-                                </ul>
-                            <span class="up_right_bw"></span>
-                        </div>
-                        <div class="tab_pret">
-                            <span class="up_left_bw"></span>
-                                <ul class="tab_up_bw">
-                                    <li><span>pret unitar</span></li>                                
-                                </ul>
-                            <span class="up_right_bw"></span>
-                        </div>
-                        <div class="tab_total">
-                            <span class="up_left_bw"></span>
-                                <ul class="tab_up_bw">
-                                    <li><span>pret total</span></li>                                
-                                </ul>
-                            <span class="up_right_bw"></span>
-                        </div>
+                    <form id="cart_form" action="{% url "cart" %}" method="post">
+                        <input type="hidden" name="method" value="update" />
+                        <div class="product-section">
+                        	<div class="tab_u_holder_left">
+                                <span class="up_left"></span>
+                                    <ul class="tab_up">
+                                        <li><span>produs</span></li>                                
+                                    </ul>
+                                <span class="up_right"></span>
+                            </div>
+                            <div class="tab_cantitate">
+                                <span class="up_left_bw"></span>
+                                    <ul class="tab_up_bw">
+                                        <li><span>cantitate</span></li>                                
+                                    </ul>
+                                <span class="up_right_bw"></span>
+                            </div>
+                            <div class="tab_pret">
+                                <span class="up_left_bw"></span>
+                                    <ul class="tab_up_bw">
+                                        <li><span>pret unitar</span></li>                                
+                                    </ul>
+                                <span class="up_right_bw"></span>
+                            </div>
+                            <div class="tab_total">
+                                <span class="up_left_bw"></span>
+                                    <ul class="tab_up_bw">
+                                        <li><span>pret total</span></li>                                
+                                    </ul>
+                                <span class="up_right_bw"></span>
+                            </div>
 
-                        {% for item in cart.items %}
-                        <div class="rand-cos">
-                            <div class="info-produs-cos">
-                                    <a href="{{ item.product.url }}" class="img-wrapper">
-                                        <div class="middle size100x100">
-                                            <div class="img-holder">
-                                                <img class="center" src="{{ item.product.images.0|thumbnail:"80x80" }}" width="80" height="80" alt="{{ item.product.name }}" title="{{ item.product.name }}" />
+                            {% for item in cart.items %}
+                            <div class="rand-cos">
+                                <div class="info-produs-cos">
+                                        <a href="{{ item.product.url }}" class="img-wrapper">
+                                            <div class="middle size100x100">
+                                                <div class="img-holder">
+                                                    <img class="center" src="{{ item.product.thumb_80x80_url }}" width="80" height="80" alt="{{ item.product.name }}" title="{{ item.product.name }}" />
+                                                </div>
                                             </div>
+                                        </a>
+                                        <div class="product-title">
+                                            <a href="{{ item.product.url }}">{{ item.product.name }}</a>
+                                        </div>   
+                                        <div class="descriere-cos">
+                                        	{{ item.product.description }}
                                         </div>
-                                    </a>
-                                    <div class="product-title">
-                                        <a href="{{ item.product.url }}">{{ item.product.name }}</a>
-                                    </div>   
-                                    <div class="descriere-cos">
-                                    	{{ item.product.description }}
+                                        <div class="info-stoc-cos">
+                                            <span class="flleft green">{{ item.product.stock_info }}</span>
+                                            <span class="flright">Garantie: {{ item.product.warranty }} luni</span>
+                                        </div> 
+                                </div>
+                                <div class="info-cos-pret">
+                                	<div class="rand first">
+                                    	<ul class="detalii_rand">
+                                        	<li class="cantitate">
+                                            	<input name="id_{{ item.product.id }}_count" type="text" class="input_cos cart_count" value="{{ item.count }}"/>
+                                                <label> buc. </label>
+                                            </li>
+                                            <li>
+                                            	{{ item.product.price }} lei
+                                            </li>
+                                            <li>
+                                            	<strong>{{ item.price }} lei</strong>
+                                            </li>
+                                            <li class="delete">
+                                            	<a class="remove_prod" href="#"></a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="info-stoc-cos">
-                                        <span class="flleft green">{{ item.product.stock_info }}</span>
-                                        <span class="flright">Garantie: {{ item.product.warranty }} luni</span>
-                                    </div> 
-                            </div>
-                            <div class="info-cos-pret">
-                            	<div class="rand first">
-                                	<ul class="detalii_rand">
-                                    	<li class="cantitate">
-                                        	<input type="text" class="input_cos"  value="{{ item.count }}"/>
-                                            <label> buc. </label>
-                                        </li>
-                                        <li>
-                                        	{{ item.product.price }} lei
-                                        </li>
-                                        <li>
-                                        	<strong>{{ item.price }} lei</strong>
-                                        </li>
-                                        <li class="delete">
-                                        	<a class="remove_prod" href="#"></a>
-                                        </li>
-                                    </ul>
+                                    <!--
+                                    <div class="rand">
+                                    	<ul class="detalii_optionale">
+                                        	<li class="image">
+                                            	<img src="{{ STATIC_PREFIX }}images/garantie1.png" width="29" height="29" alt="Garantie 2 ani" title="Garantie 2 ani" />
+                                            </li>
+                                            <li class="title">
+                                            	Garantie +1 ANI
+                                            </li>
+                                            <li class="pret">
+                                            	130.15 lei
+                                            </li>
+                                            <li>
+                                            	<a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
+                                            </li>
+                                        </ul>
+                                    </div>			
+                                    <div class="rand">
+                                    	<ul class="detalii_optionale">
+                                        	<li class="image">
+                                            	<img src="{{ STATIC_PREFIX }}images/garantie2.png" width="29" height="29" alt="Garantie 2 ani" title="Garantie 2 ani" />
+                                            </li>
+                                            <li class="title">
+                                            	Garantie +2 ANI
+                                            </li>
+                                            <li class="pret">
+                                            	220.15 lei
+                                            </li>
+                                            <li>
+                                            	<a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    -->
                                 </div>
-                                <!--
-                                <div class="rand">
-                                	<ul class="detalii_optionale">
-                                    	<li class="image">
-                                        	<img src="{{ STATIC_PREFIX }}images/garantie1.png" width="29" height="29" alt="Garantie 2 ani" title="Garantie 2 ani" />
-                                        </li>
-                                        <li class="title">
-                                        	Garantie +1 ANI
-                                        </li>
-                                        <li class="pret">
-                                        	130.15 lei
-                                        </li>
-                                        <li>
-                                        	<a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
-                                        </li>
+                       		</div> <!-- rand cos -->
+                            {% endfor %}
+                        </div>
+                                
+                                                       
+                        <div class="product-section livrare">
+                        	<div class="tab_u_holder_left">
+                                <span class="up_left"></span>
+                                    <ul class="tab_up">
+                                        <li><span>modalitate de livrare</span></li>                                
                                     </ul>
-                                </div>			
-                                <div class="rand">
-                                	<ul class="detalii_optionale">
-                                    	<li class="image">
-                                        	<img src="{{ STATIC_PREFIX }}images/garantie2.png" width="29" height="29" alt="Garantie 2 ani" title="Garantie 2 ani" />
-                                        </li>
-                                        <li class="title">
-                                        	Garantie +2 ANI
-                                        </li>
-                                        <li class="pret">
-                                        	220.15 lei
-                                        </li>
-                                        <li>
-                                        	<a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                -->
+                                <span class="up_right"></span>
                             </div>
-                   		</div> <!-- rand cos -->
-                        {% endfor %}
-                    </div>  
-                                                                   
-                    <div class="product-section livrare">
-                    	<div class="tab_u_holder_left">
-                            <span class="up_left"></span>
-                                <ul class="tab_up">
-                                    <li><span>modalitate de livrare</span></li>                                
-                                </ul>
-                            <span class="up_right"></span>
+                            <ul class="modalitate">
+                            	<li>Va rugam selectati varianta preferata:</li>
+                                <li><input id="delivery_self" name="delivery" type="radio" value="self" checked="checked" /> <label for="delivery_self">Ridicare produse de la sediul ATEX</label></li>
+                                <li><input id="delivery_us" name="delivery" type="radio" value="us" /> <label for="delivery_us">Livrare la adresa specificata</label></li>
+                            </ul>
+                        </div> 
+                                            
+                        <div class="product-section plata">
+                        	<div class="tab_u_holder_left">
+                                <span class="up_left"></span>
+                                    <ul class="tab_up">
+                                        <li><span>modalitate de plata</span></li>                                
+                                    </ul>
+                                <span class="up_right"></span>
+                            </div>
+                            <ul class="modalitate">
+                            	<li>Va rugam selectati varianta preferata:</li>
+                                <li><input id="payment_cash" name="payment" type="radio" value="cash" checked="checked" /> <label for="payment_cash">Numerar</label></li>
+                                <li><input id="payment_bank" name="payment" type="radio" value="bank" /> <label for="payment_bank">Transfer bancar / OP</label></li>
+                            </ul>                        
+                        </div> 
+
+                        <div class="total-cos01">
+                        	<ul>                        	
+                                <li><span>15.00 lei</span></li>
+                                <li><span>Taxa Transport</span></li>
+                            </ul>
+                            <ul class="total">
+                                <li><span class="red_b">{{ cart.price }} lei</span></li>
+                                <li><span>TOTAL</span></li>
+                            </ul>
+                            <ul class="buttons">
+                                <li><a href="{% url "order" %}" class="continua"><span></span>Continua</a></li>
+                                <li><a href="{% url "search" %}" class="mai_cumpar"><span></span>Mai cumpar</a></li>
+                            </ul>
                         </div>
-                        <ul class="modalitate">
-                        	<li>Va rugam selectati varianta preferata:</li>
-                            <li><input type="radio" checked="checked" /> Ridicare produse de la sediul ATEX</li>
-                            <li><input type="radio" /> Livrare la adresa specificata</li>
-                        </ul>
-                    </div> 
-                                        
-                    <div class="product-section plata">
-                    	<div class="tab_u_holder_left">
-                            <span class="up_left"></span>
-                                <ul class="tab_up">
-                                    <li><span>modalitate de plata</span></li>                                
-                                </ul>
-                            <span class="up_right"></span>
-                        </div>
-                        <ul class="modalitate">
-                        	<li>Va rugam selectati varianta preferata:</li>
-                            <li><input type="radio" checked="checked" /> Numerar</li>
-                            <li><input type="radio" /> Transfer bancar / OP</li>
-                        </ul>                        
-                    </div> 
-                    
-                    <div class="total-cos01">
-                    	<ul>                        	
-                            <li><span>15.00 lei</span></li>
-                            <li><span>Taxa Transport</span></li>
-                        </ul>
-                        <ul class="total">                        	
-                            <li><span class="red_b">{{ cart.price }} lei</span></li>
-                            <li><span>TOTAL</span></li>
-                        </ul>
-                        <ul class="buttons">                        	
-                            <li><a href="{% url "order" %}" class="continua"><span></span>Continua</a></li>
-                            <li><a href="{% url "search" %}" class="mai_cumpar"><span></span>Mai cumpar</a></li>
-                        </ul>
-                    </div>
+                    </form>
                     <!-- end pas 01 -->
                     
                 </div>
