@@ -222,6 +222,8 @@ function init_csrf() {
     });
 }
 
+// Cart
+
 function init_cart() {
     $(".add_cos_btn, .add_cos_btn_small").click(function () {
         product_id = $(this).data("product-id");
@@ -237,9 +239,19 @@ function init_cart() {
             })
             .error(update_cart_error);
     }
-    $("input.cart_count").change(update_cart);
+    function remove_row_containing(property) {
+        property.closest('div.rand-cos').remove();
+    }
+
+    $("input.cart_count").change(function () {
+        console.log($(this).val());
+        if ($(this).val() === "0") {
+            remove_row_containing($(this));
+        }
+        update_cart();
+    });
     $("a.remove_prod").click(function () {
-        cart_row = $(this).closest('div.rand-cos').remove();
+        remove_row_containing($(this));
         update_cart();
         return false;
     });
@@ -274,6 +286,8 @@ function on_cart_update(cart) {
         }
     }
 }
+
+// Order
 
 function init_order() {
     var order_form = $("#orderform");
