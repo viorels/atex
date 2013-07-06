@@ -322,7 +322,7 @@ class DatabaseCart(BaseCart):
         return sum(item['count'] * item['product']['price'] for item in items)
 
     def delivery_price(self, items):
-        return 0    # TODO: 15 lei for delivery
+        return 15 if items else 0  # TODO: compute price for delivery
 
     def _get_product(self, id):
         try:

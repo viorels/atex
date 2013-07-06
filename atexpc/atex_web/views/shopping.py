@@ -112,7 +112,8 @@ class ShoppingMixin(object):
             cart_data = {'id': cart.id(),
                          'items': items,
                          'count': sum(item['count'] for item in items),
-                         'price': cart.price(items) + cart.delivery_price(items)}
+                         'price': cart.price(items) + cart.delivery_price(items),
+                         'delivery_price': cart.delivery_price(items)}
         else:
             cart_data = {'id': None, 'items': [], 'count': 0, 'price': 0.0}
         return cart_data
