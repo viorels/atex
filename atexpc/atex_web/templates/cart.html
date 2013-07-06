@@ -11,7 +11,7 @@
             <ul>
                 <li><span class="domiciliu">Livrare la domiciliu</span></li>
                 <li><span class="numerar">Plata numerar</span></li>
-                <li><span class="total">TOTAL PLATA: {{ cart.price }} lei</span></li>
+                <li><span class="total">TOTAL PLATA: {{ cart.price|floatformat:2 }} lei</span></li>
             </ul>
         </div>
     </div>
@@ -95,10 +95,10 @@
                                                 <label> buc. </label>
                                             </li>
                                             <li>
-                                            	{{ item.product.price }} lei
+                                            	{{ item.product.price|floatformat:2 }} lei
                                             </li>
                                             <li class="quantity_price">
-                                            	{{ item.price }} lei
+                                            	{{ item.price|floatformat:2 }} lei
                                             </li>
                                             <li class="delete">
                                             	<a class="remove_prod" href="#"></a>
@@ -184,7 +184,7 @@
                                 <li><span>Taxa Transport</span></li>
                             </ul>
                             <ul class="total">
-                                <li><span class="total red_b">{{ cart.price }} lei</span></li>
+                                <li><span class="total red_b">{{ cart.price|floatformat:2 }} lei</span></li>
                                 <li><span>TOTAL</span></li>
                             </ul>
                             <ul class="buttons">

@@ -57,7 +57,7 @@
                 	<li><a href="{% url "cart" %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
                     <li><span class="red_b cart_count">{{ cart.count }}</span> produs{{ cart.count|pluralize:"e"}}</li>
                     <li> | </li>
-                    <li><span class="red_b cart_price">{{ cart.price }}</span> lei </li>
+                    <li><span class="red_b cart_price">{{ cart.price|floatformat:2 }}</span> lei </li>
                 </ul>
             </div>
         </div> <!-- header end -->
