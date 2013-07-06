@@ -111,7 +111,7 @@ class ShoppingMixin(object):
             items = self._augment_cart_items(cart.items())
             cart_data = {'id': cart.id(),
                          'items': items,
-                         'count': cart.count(),
+                         'count': sum(item['count'] for item in items),
                          'price': cart.price(items) + cart.delivery_price(items)}
         else:
             cart_data = {'id': None, 'items': [], 'count': 0, 'price': 0.0}
