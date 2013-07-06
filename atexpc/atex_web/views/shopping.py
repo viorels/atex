@@ -28,8 +28,8 @@ class CartBase(HybridGenericView):
         elif method == 'update':
             products_count = {}
             for key, value in request.POST.iteritems():
-                if key.startswith('id_'):
-                    product_id = int(key.lstrip('id_').rstrip('_count'))
+                if key.startswith('product_'):
+                    product_id = int(key.lstrip('product_').rstrip('_count'))
                     count = int(value)
                     products_count[product_id] = count
             self._update_cart(products_count)

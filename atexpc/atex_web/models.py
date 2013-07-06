@@ -354,6 +354,8 @@ class DatabaseCart(BaseCart):
         return product
 
     def update_item(self, product_id, count):
+        if count < 0:
+            return
         if count == 0:
             return self.remove_item(product_id)
         product = self._get_product(product_id)
@@ -365,6 +367,7 @@ class DatabaseCart(BaseCart):
             else:
                 cart_product.count = count
                 cart_product.save()
+
 
 class AncoraCart(BaseCart):
     pass

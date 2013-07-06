@@ -275,12 +275,16 @@ function on_cart_update(cart) {
     $('.info_cos .cart_count').html(cart.count);
     $('.info_cos .cart_price, span.total').html(cart.price.toFixed(2));
 
-
     cart_form = $("#cart_form");
     if (cart_form.length) {
         for (i=0; i<cart.items.length; i++) {
             item = cart.items[i];
             product_id = item.product.id;
+
+            quantity_input = $('input.cart_count[name="product_' + product_id + '_count"]');
+            console.log(quantity_input);
+            quantity_input.val(item.count);
+
             quantity_price_li = $('#product_' + product_id).find('li.quantity_price');
             quantity_price_li.text(item.price.toFixed(2) + ' lei');
         }
