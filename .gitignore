@@ -1,0 +1,10 @@
+.gitignore
+*.pyc
+*.swp
+venv
+.env
+*.sublime-*
+atexpc/atex_web/media
+atexpc/atex_web/static/CACHE
+backup
+tmp
