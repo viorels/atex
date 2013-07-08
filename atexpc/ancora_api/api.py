@@ -39,7 +39,7 @@ class BaseAdapter(object):
 
     def _cache_key(self, uri):
         cache_key = self.normalize_uri(uri)
-        if len(cache_key) > 250:
+        if len(cache_key) > 247:   # memcached.py: key too long, max is 247
             cache_key = hashlib.sha1(cache_key).hexdigest()
         return cache_key
 
