@@ -249,7 +249,8 @@ class Hit(models.Model):
     count = models.IntegerField()
     date = models.DateField()
 
-    unique_together = ("product", "date")
+    class Meta:
+        unique_together = ("product", "date")
 
 
 # http://blog.rodger-brown.com/2012/08/djangos-extended-user-profile.html
