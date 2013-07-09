@@ -52,7 +52,7 @@ class Migration(SchemaMigration):
         'atex_web.dropbox': {
             'Meta': {'object_name': 'Dropbox'},
             'app_key': ('django.db.models.fields.CharField', [], {'max_length': '64', 'primary_key': 'True'}),
-            'delta_cursor': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'})
+            'delta_cursor': ('django.db.models.fields.CharField', [], {'max_length': '512', 'null': 'True', 'blank': 'True'})
         },
         'atex_web.hit': {
             'Meta': {'object_name': 'Hit'},
@@ -71,9 +71,28 @@ class Migration(SchemaMigration):
         'atex_web.product': {
             'Meta': {'object_name': 'Product'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '64'}),
+            'model': ('django.db.models.fields.CharField', [], {'max_length': '128', 'db_index': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
+            'specs': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['atex_web.Specification']", 'through': "orm['atex_web.ProductSpecification']", 'symmetrical': 'False'}),
             'updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'auto_now_add': 'True', 'blank': 'True'})
+        },
+        'atex_web.productspecification': {
+            'Meta': {'object_name': 'ProductSpecification'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'product': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['atex_web.Product']"}),
+            'spec': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['atex_web.Specification']"}),
+            'value': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'})
+        },
+        'atex_web.specification': {
+            'Meta': {'object_name': 'Specification'},
+            'group': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['atex_web.SpecificationGroup']", 'null': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
+        },
+        'atex_web.specificationgroup': {
+            'Meta': {'object_name': 'SpecificationGroup'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
         },
         'auth.group': {
             'Meta': {'object_name': 'Group'},
