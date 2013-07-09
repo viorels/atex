@@ -245,9 +245,12 @@ class Image(models.Model):
 
 
 class Hit(models.Model):
-    product = models.ForeignKey(Product, unique_for_date="date")
+    product = models.ForeignKey(Product)
     count = models.IntegerField()
     date = models.DateField()
+
+    unique_together = ("product", "date")
+
 
 # http://blog.rodger-brown.com/2012/08/djangos-extended-user-profile.html
 # http://www.ryanwest.info/blog/2011/django-tip-5-extending-contrib-auth-models-user/
