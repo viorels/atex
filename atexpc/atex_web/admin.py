@@ -113,7 +113,7 @@ class UserChangeForm(forms.ModelForm):
         fields = ['email', 'password',
                   'is_active', 'is_staff', 'is_superuser',
                   'groups', 'user_permissions', 'last_login', 'date_joined',
-                  'first_name', 'last_name', 'phone', 'address', 'city', 'county']
+                  'first_name', 'last_name']
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -172,7 +172,7 @@ class CustomUserAdmin(UserAdmin):
     add_form = UserCreationForm
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'phone', 'address', 'city', 'county')}),
+        ('Personal info', {'fields': ('first_name', 'last_name')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
@@ -184,7 +184,7 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
 
-    list_display = ('email', "first_name", "last_name")
+    list_display = ('email', "first_name", "last_name", "is_staff")
     list_filter = ('is_active',)
     search_fields = ('first_name', 'last_name', 'email')
     ordering = ('email',)

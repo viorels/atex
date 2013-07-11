@@ -297,11 +297,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
                     'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
-    phone = models.CharField(max_length=15, blank=True)
-    address = models.CharField(max_length=255, blank=True)
-    city = models.CharField(max_length=32, blank=True)
-    county = models.CharField(max_length=32, blank=True)
-
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
