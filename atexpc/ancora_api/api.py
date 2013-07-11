@@ -431,7 +431,7 @@ class Ancora(object):
                         'first_name': first_name,
                         'last_name': last_name,
                         'usertype': backend_user['zfj'],            # F/J
-                        'disabled': backend_user['zcol_inactiv']}   # Y/N
+                        'disabled': backend_user['zcol_inactiv'] == 'Y'}   # Y/N
             else:
                 user = None
             return user

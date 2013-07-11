@@ -2,7 +2,7 @@ import string
 from operator import itemgetter
 
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from atexpc.ancora_api.api import Ancora, AncoraAdapter
 
@@ -14,18 +14,21 @@ class AncoraAuthBackend(object):
         api = AncoraAPI()
         user = api.users.get_user(email, password, salt=settings.PASSWORD_SALT)
         if user is not None:
+            users_manager = get_user_model().objects
             try:
-                user = User.objects.get(email=email)
-            except User.DoesNotExist:
-                user = User(email=email, password=password)
+                user = users_manager.get(email=email)
+                # TODO: update user info (still active ?)
+            except get_user_model().DoesNotExist:
+                # TODO: is user['disabled'] ?
+                user = users_manager.create_user(email=email, password=password)
                 user.save()
             return user
         return None
 
     def get_user(self, user_id):
         try:
-            return User.objects.get(pk=user_id)
-        except User.DoesNotExist:
+            return get_user_model().objects.get(pk=user_id)
+        except get_user_model().DoesNotExist:
             return None
 
 

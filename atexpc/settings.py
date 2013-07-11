@@ -35,7 +35,7 @@ DROPBOX_ACCESS_TYPE = os.environ.get('DROPBOX_ACCESS_TYPE', 'dropbox')
 DROPBOX_ACCESS_TOKEN = os.environ.get('DROPBOX_ACCESS_TOKEN')
 DROPBOX_ACCESS_TOKEN_SECRET = os.environ.get('DROPBOX_ACCESS_TOKEN_SECRET')
 
-AUTH_PROFILE_MODULE = 'atex_web.UserProfile'
+AUTH_USER_MODEL = 'atex_web.CustomUser'
 
 SHOPMANIA_FEED_FILE = 'shopmania.csv' # in media root
 

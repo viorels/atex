@@ -48,10 +48,10 @@
                         	<li class="comanda">Numar comanda: <span class="red_b">{{ cart.id }}</span></li>
                             <li>&nbsp;</li>
                         	<li><strong>{{ user.get_full_name }}</strong></li>
-                            <li>{{ user.get_profile.address }}</li>
-                            <li>{{ user.get_profile.city }}, Jud. {{ user.get_profile.county }}</li>
+                            <li>{{ user.address }}</li>
+                            <li>{{ user.city }}, Jud. {{ user.county }}</li>
                             <li>&nbsp;</li>
-                            <li>Telefon: <strong>{{ user.get_profile.phone }}</strong></li>
+                            <li>Telefon: <strong>{{ user.phone }}</strong></li>
                             <li>Email: <strong>{{ user.email }}</strong></li>                        
                         </ul>   
                         <table class="detalii-comanda" width="450px">
