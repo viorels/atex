@@ -11,3 +11,4 @@ dropbox==1.4.0
 django-compressor==1.2
 beautifulsoup4==4.1.3
 py-bcrypt==0.3
+django-social-auth==0.7.23

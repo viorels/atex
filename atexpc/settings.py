@@ -1,6 +1,5 @@
+from os import path, environ
 import sys
-import os
-import imp
 
 # Django settings for atexpc project.
 
@@ -25,19 +24,21 @@ DATABASES = {
     # XXX: overridden by environment specific file in "config" directory
 }
 
-PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+PROJECT_ROOT = path.dirname(path.realpath(__file__))
 
-ANCORA_URI = os.environ.get('ANCORA_URI')
+ANCORA_URI = environ.get('ANCORA_URI')
 
-DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
-DROPBOX_APP_SECRET = os.environ.get('DROPBOX_APP_SECRET')
-DROPBOX_ACCESS_TYPE = os.environ.get('DROPBOX_ACCESS_TYPE', 'dropbox')
-DROPBOX_ACCESS_TOKEN = os.environ.get('DROPBOX_ACCESS_TOKEN')
-DROPBOX_ACCESS_TOKEN_SECRET = os.environ.get('DROPBOX_ACCESS_TOKEN_SECRET')
+DROPBOX_APP_KEY = environ.get('DROPBOX_APP_KEY')
+DROPBOX_APP_SECRET = environ.get('DROPBOX_APP_SECRET')
+DROPBOX_ACCESS_TYPE = environ.get('DROPBOX_ACCESS_TYPE', 'dropbox')
+DROPBOX_ACCESS_TOKEN = environ.get('DROPBOX_ACCESS_TOKEN')
+DROPBOX_ACCESS_TOKEN_SECRET = environ.get('DROPBOX_ACCESS_TOKEN_SECRET')
 
 AUTH_USER_MODEL = 'atex_web.CustomUser'
+SOCIAL_AUTH_USER_MODEL = 'atex_web.CustomUser'
+INITIAL_CUSTOM_USER_MIGRATION = '0020_drop_customuser_username.py'
 
-SHOPMANIA_FEED_FILE = 'shopmania.csv' # in media root
+SHOPMANIA_FEED_FILE = 'shopmania.csv'   # in media root
 
 if 'test' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
@@ -51,9 +52,21 @@ CACHES = {
 }
 
 AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.google.GoogleOAuth2Backend',
+    'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
+    'social_auth.backends.facebook.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
     'atexpc.atex_web.ancora_api.AncoraAuthBackend'
 )
+
+LOGIN_REDIRECT_URL = '/'
+
+GOOGLE_OAUTH2_CLIENT_ID = environ.get('GOOGLE_OAUTH2_CLIENT_ID')
+GOOGLE_OAUTH2_CLIENT_SECRET = environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
+YAHOO_CONSUMER_KEY = environ.get('YAHOO_CONSUMER_KEY')
+YAHOO_CONSUMER_SECRET = environ.get('YAHOO_CONSUMER_SECRET')
+FACEBOOK_APP_ID = environ.get('FACEBOOK_APP_ID')
+FACEBOOK_API_SECRET = environ.get('FACEBOOK_API_SECRET')
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -94,7 +107,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'atex_web', 'static/')
+STATIC_ROOT = path.join(PROJECT_ROOT, 'atex_web', 'static/')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -149,7 +162,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_ROOT, 'templates'),
+    path.join(PROJECT_ROOT, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -168,6 +181,7 @@ INSTALLED_APPS = (
     'compressor',
     'south',
     'sorl.thumbnail',
+    'social_auth',
     'atexpc.atex_web',
 )
 
@@ -231,6 +245,6 @@ LOGGING = {
     }
 }
 
-if os.environ.get('DJANGO_SETTINGS_MODULE').endswith('settings'):
+if environ.get('DJANGO_SETTINGS_MODULE').endswith('settings'):
     raise Exception("DJANGO_SETTINGS_MODULE must be set to environment specific value, "
                     "e.g. 'atexpc.config.production'")
