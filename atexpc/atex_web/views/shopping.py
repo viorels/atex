@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.views.generic.edit import FormView
 
 from atexpc.atex_web.views.base import HybridGenericView
-from atexpc.atex_web.models import DatabaseCart as Cart
+from atexpc.atex_web.models import CartFactory
 from atexpc.atex_web.forms import user_form_factory
 from atexpc.atex_web.utils import FrozenDict
 from atexpc.atex_web.templatetags import atex_tags
@@ -94,14 +94,14 @@ class ShoppingMixin(object):
 
     def _get_cart(self):
         cart_id = self.request.session.get('cart_id')
-        cart = Cart.get(cart_id) if cart_id else None
+        cart = CartFactory(api=self.api).get(cart_id) if cart_id else None
         return cart
 
     def _create_cart(self):
         # TODO: are cookies enabled ?
         self.request.session.save()
         session_id = self.request.session.session_key
-        cart = Cart.create(session_id)
+        cart = CartFactory(api=self.api).create(session_id)
         self.request.session['cart_id'] = cart.id()
         return cart
 

@@ -424,14 +424,17 @@ class Ancora(object):
         return self.adapter.read(brands_uri, post_process,
                                  cache_timeout=TIMEOUT_LONG) or []
 
+    @staticmethod
+    def _post_process_write(data):
+        return data.splitlines[1]
+
     def create_user(self, email, first_name, last_name, password, usertype, salt=None):
         create_user_uri = self.adapter.uri_for('create_user')
         args = {'email': email,
                 'denumire': "%s %s" % (last_name, first_name),
                 'parola': self._password_hash(password, salt),
                 'fj': usertype}
-        response = self.adapter.write(create_user_uri, args)
-        return response
+        return self.adapter.write(create_user_uri, args, post_process=self._post_process_write)
 
     def get_user(self, email, password, salt=None):
         """ Returns a user if the password is good, otherwise None """
@@ -463,16 +466,33 @@ class Ancora(object):
     def create_cart(self, user_id):
         create_cart_uri = self.adapter.uri_for('create_cart')
         args = {'iduser_site': user_id}
-        return self.adapter.write(create_cart_uri, args)
+        return self.adapter.write(create_cart_uri, args, post_process=self._post_process_write)
 
-    def add_cart_product(self, cart_id, product_id, quantity):
-        # TODO: invalidate cart content cache !!!
-        # TODO: entry for product exists ?
+    def add_cart_product(self, cart_id, product_id):
+        cart_items = self.list_cart(cart_id)
+        matching_cart_entries = [p for p in cart_items if p['product_id'] == product_id]
+        if matching_cart_entries:
+            quantity = 1 + matching_cart_entries[0]['quantity']
+        else:
+            quantity = 1
+        return self.update_cart_product(cart_id, product_id, quantity)
+
+    def update_cart_product(self, cart_id, product_id, quantity):
+        # TODO: set inactiv = 'D' for deleted products
         create_cart_entry_uri = self.adapter.uri_for('create_cart_entry')
-        args = {'idparinte': cart_id,
+        args = {'pid': self._existing_cart_item_id(cart_id, product_id) or 0,  # 0 for new
+                'idparinte': cart_id,
                 'idprodus': product_id,
                 'cantitate': quantity}
         return self.adapter.write(create_cart_entry_uri, args)
+
+    def _existing_cart_item_id(self, cart_id, product_id):
+        cart_items = self.list_cart(cart_id)
+        matching_cart_entries = [p for p in cart_items if p['product_id'] == product_id]
+        if matching_cart_entries:
+            return matching_cart_entries[0]
+        else:
+            return None
 
     def list_cart(self, cart_id):
         def post_process(data):

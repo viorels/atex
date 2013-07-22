@@ -178,11 +178,18 @@ class UsersAPI(BaseAPI):
 
 
 class CartAPI(BaseAPI):
-    def get_cart(self, create=False):
-        pass
+    def get_cart(self, cart_id):
+        """ Ancora does't tell if the cart exists so we assume it does"""
+        return cart_id
 
-    def list_cart(self, cart_id):
-        pass
+    def create_cart(self):
+        return self._api.create_cart()
 
-    def add_cart_product(self, cart_id, product_id):
-        pass
+    def list(self, cart_id):
+        return self._api.list_cart(cart_id)
+
+    def add_product(self, cart_id, product_id):
+        return self._api.add_cart_product(cart_id, product_id)
+
+    def update_product(self, cart_id, product_id, count):
+        return self._api.update_cart_product(cart_id, product_id, count)

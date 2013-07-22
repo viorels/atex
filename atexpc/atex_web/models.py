@@ -347,49 +347,14 @@ class BaseCart(object):
     def __init__(self, cart):
         self._cart = cart
 
-    def id(self):
-        return self._cart.id
-
     def count(self):
         return len(self.items())
 
-
-class DatabaseCart(BaseCart):
     @staticmethod
-    def get(cart_id):
-        try:
-            cart_row = Cart.objects.get(id=cart_id)
-            cart = DatabaseCart(cart_row)
-        except Cart.DoesNotExist:
-            cart = None
-        return cart
-
-    @staticmethod
-    def create(session_id):
-        cart_row, created = Cart.objects.get_or_create(session_id=session_id)
-        cart = DatabaseCart(cart_row)
-        return cart
-
-    def items(self):
-        cart_products = CartProducts.objects.filter(cart=self._cart)
-        items = []
-        for cart_product in cart_products:
-            product = cart_product.product
-            product_dict = {'id': product.id,
-                            'name': product.name,
-                            'images': product.images()}
-            item = {'product': product_dict,
-                    'count': cart_product.count}
-            items.append(item)
-        return items
-
-    def price(self, items):
+    def price(items):
         return sum(item['count'] * item['product']['price'] for item in items)
 
-    def delivery_price(self, items):
-        return 15 if items else 0  # TODO: compute price for delivery
-
-    def _get_product(self, id):
+    def _get_db_product(self, id):
         try:
             product = Product.objects.get(id=id)
         except Product.DoesNotExist as e:
@@ -397,8 +362,58 @@ class DatabaseCart(BaseCart):
         else:
             return product
 
+
+class CartFactory(object):
+    def __init__(self, database=None, api=None):
+        if not (database or api):
+            raise ValueError("Specify either database (True) or api")
+        self.database = database
+        self.api = api
+
+    def get(self, cart_id):
+        if self.database:
+            try:
+                cart_row = Cart.objects.get(id=cart_id)
+                cart = DatabaseCart(cart_row)
+            except Cart.DoesNotExist:
+                cart = None
+        elif self.api:
+            cart_id = self.api.cart.get_cart(cart_id)
+            cart = AncoraCart(cart=cart_id, api=self.api)
+        return cart
+
+    def create(self, session_id):
+        if self.database:
+            cart_row, created = Cart.objects.get_or_create(session_id=session_id)
+            cart = DatabaseCart(cart_row)
+        elif self.api:
+            cart_id = self.api.cart.create_cart()
+            cart = AncoraCart(cart=cart_id, api=self.api)
+        return cart
+
+
+class DatabaseCart(BaseCart):
+    def id(self):
+        return self._cart.id
+
+    def items(self):
+        cart_items = CartProducts.objects.filter(cart=self._cart)
+        items = []
+        for cart_item in cart_items:
+            product = cart_item.product
+            product_dict = {'id': product.id,
+                            'name': product.get_best_name(),
+                            'images': product.images()}
+            item = {'product': product_dict,
+                    'count': cart_item.count}
+            items.append(item)
+        return items
+
+    def delivery_price(self, items):
+        return 15 if items else 0  # TODO: compute price for delivery
+
     def add_item(self, product_id):
-        product = self._get_product(product_id)
+        product = self._get_db_product(product_id)
         if product:
             cart_product, created = CartProducts.objects.get_or_create(cart=self._cart, product=product)
             if not created:
@@ -407,7 +422,7 @@ class DatabaseCart(BaseCart):
         return product
 
     def remove_item(self, product_id):
-        product = self._get_product(product_id)
+        product = self._get_db_product(product_id)
         if product:
             try:
                 cart_product = CartProducts.objects.get(cart=self._cart, product=product)
@@ -423,7 +438,7 @@ class DatabaseCart(BaseCart):
             return
         if count == 0:
             return self.remove_item(product_id)
-        product = self._get_product(product_id)
+        product = self._get_db_product(product_id)
         if product:
             try:
                 cart_product = CartProducts.objects.get(cart=self._cart, product=product)
@@ -439,51 +454,36 @@ class AncoraCart(BaseCart):
         self._api = api
         super(self, AncoraCart).__init__(cart)
 
-    @staticmethod
-    def get(cart_id, api):
-        return api.cart.get_cart(cart_id)
+    def id(self):
+        return self._cart
 
-    @staticmethod
-    def create(session_id=None):
-        cart_row, created = Cart.objects.get_or_create(session_id=session_id)
-        cart = DatabaseCart(cart_row)
-        return cart
+    def items(self):
+        cart_items = self._api.cart.list_cart(self.id())
+        items = []
+        for cart_item in cart_items:
+            product_id = cart_item['product_id']
+            db_product = self._get_db_product(product_id)
+            product_dict = {'id': product_id,
+                            'name': db_product.get_best_name(),
+                            'images': db_product.images()}
+            item = {'product': product_dict,
+                    'count': cart_item['quantity']}
+            items.append(item)
+        return items
 
     def add_item(self, product_id):
-        product = self._get_product(product_id)
-        if product:
-            cart_product, created = CartProducts.objects.get_or_create(cart=self._cart, product=product)
-            if not created:
-                cart_product.count = models.F('count') + 1
-                cart_product.save()
-        return product
+        return self._api.cart.add_product(self.id(), product_id)
 
     def remove_item(self, product_id):
-        product = self._get_product(product_id)
-        if product:
-            try:
-                cart_product = CartProducts.objects.get(cart=self._cart, product=product)
-            except CartProducts.DoesNotExist as e:
-                logger.error(e)
-                product = None
-            else:
-                cart_product.delete()
-        return product
+        return self._api.cart.update_product(self.id(), product_id, 0)
 
     def update_item(self, product_id, count):
         if count < 0:
             return
         if count == 0:
             return self.remove_item(product_id)
-        product = self._get_product(product_id)
-        if product:
-            try:
-                cart_product = CartProducts.objects.get(cart=self._cart, product=product)
-            except CartProducts.DoesNotExist as e:
-                logger.error(e)
-            else:
-                cart_product.count = count
-                cart_product.save()
+        return self._api.cart.update_product(self.id(), product_id, count)
+
 
 class Dropbox(models.Model):
     app_key = models.CharField(primary_key=True, max_length=64)
