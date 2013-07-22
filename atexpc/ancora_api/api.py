@@ -428,7 +428,9 @@ class Ancora(object):
 
     @staticmethod
     def _post_process_write(data):
-        return data.splitlines[1]
+        lines = data.splitlines()
+        if len(lines) == 2 and lines[0] == '~DQS':  # success
+            return lines[-1]
 
     def create_user(self, email, first_name, last_name, password, usertype, salt=None):
         create_user_uri = self.adapter.uri_for('create_user')
