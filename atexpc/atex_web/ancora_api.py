@@ -20,6 +20,7 @@ class AncoraAuthBackend(object):
             except get_user_model().DoesNotExist:
                 user = users_manager.create_user(email=email, password='')
             user.password = api_user['password']
+            user._ancora_user_id = api_user['id']
             user.save()
             return user
         return None
@@ -181,10 +182,10 @@ class CartAPI(BaseAPI):
         """ Ancora does't tell if the cart exists so we assume it does"""
         return cart_id
 
-    def create_cart(self):
-        return self._api.create_cart()
+    def create_cart(self, user_id):
+        return self._api.create_cart(user_id)
 
-    def list(self, cart_id):
+    def list_cart(self, cart_id):
         return self._api.list_cart(cart_id)
 
     def add_product(self, cart_id, product_id):

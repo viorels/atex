@@ -447,7 +447,8 @@ class Ancora(object):
             backend_user = data[json_root][0] if len(data[json_root]) else None
             if backend_user is not None:
                 last_name, first_name = backend_user['zdenumire'].split(" ", 1)
-                user = {'email': backend_user['zemail'],
+                user = {'id': backend_user['pidm'],
+                        'email': backend_user['zemail'],
                         'first_name': first_name,
                         'last_name': last_name,
                         'usertype': backend_user['zfj'],            # F/J

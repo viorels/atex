@@ -68,6 +68,7 @@ class OrderBase(FormView, HybridGenericView):
                                 password=form.cleaned_data['password'])
         if user is not None:    # user.is_active ?
             login(self.request, user)
+            self.request.session['ancora_user_id'] = getattr(user, '_ancora_user_id')
             logger.info('Login %s', user.email)
         return super(OrderBase, self).form_valid(form)
 
@@ -94,9 +95,8 @@ class ShoppingMixin(object):
 
     def _create_cart(self):
         # TODO: are cookies enabled ?
-        self.request.session.save()
-        session_id = self.request.session.session_key
-        cart = CartFactory(api=self.api).create(session_id)
+        ancora_user_id = self.request.session.get('ancora_user_id')
+        cart = CartFactory(api=self.api).create(ancora_user_id)
         self.request.session['cart_id'] = cart.id()
         return cart
 

@@ -382,12 +382,12 @@ class CartFactory(object):
             cart = AncoraCart(cart=cart_id, api=self.api)
         return cart
 
-    def create(self, session_id):
+    def create(self, user_id=None):
         if self.database:
-            cart_row, created = Cart.objects.get_or_create(session_id=session_id)
-            cart = DatabaseCart(cart_row)
+            cart_row = Cart.objects.create()
+            cart = DatabaseCart(cart=cart_row)
         elif self.api:
-            cart_id = self.api.cart.create_cart()
+            cart_id = self.api.cart.create_cart(user_id)
             cart = AncoraCart(cart=cart_id, api=self.api)
         return cart
 
@@ -452,7 +452,7 @@ class DatabaseCart(BaseCart):
 class AncoraCart(BaseCart):
     def __init__(self, cart, api):
         self._api = api
-        super(self, AncoraCart).__init__(cart)
+        super(AncoraCart, self).__init__(cart)
 
     def id(self):
         return self._cart
@@ -470,6 +470,9 @@ class AncoraCart(BaseCart):
                     'count': cart_item['quantity']}
             items.append(item)
         return items
+
+    def delivery_price(self, items):
+        return 15 if items else 0  # TODO: compute price for delivery
 
     def add_item(self, product_id):
         return self._api.cart.add_product(self.id(), product_id)
