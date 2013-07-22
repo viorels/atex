@@ -89,7 +89,9 @@ class BaseAdapter(object):
 
     def write(self, uri, data, post_process=None):
         response = self._write_backend(uri, data)
-        return post_process(response) if post_process is not None else response
+        processed_response = post_process(response) if post_process else response
+        logger.debug('POST %s %s => %s', uri, data, response)
+        return processed_response
 
     def _read_debug(self, uri, cache_response, response, start_time):
         elapsed = time.time() - start_time
