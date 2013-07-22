@@ -12,16 +12,15 @@ class AncoraAuthBackend(object):
 
     def authenticate(self, email=None, password=None):
         api = AncoraAPI()
-        user = api.users.get_user(email, password, salt=settings.PASSWORD_SALT)
-        if user is not None:
+        api_user = api.users.get_user(email, password, salt=settings.PASSWORD_SALT)
+        if api_user is not None:
             users_manager = get_user_model().objects
             try:
                 user = users_manager.get(email=email)
-                # TODO: update user info (still active ?)
             except get_user_model().DoesNotExist:
-                # TODO: is user['disabled'] ?
-                user = users_manager.create_user(email=email, password=password)
-                user.save()
+                user = users_manager.create_user(email=email, password='')
+            user.password = api_user['password']
+            user.save()
             return user
         return None
 

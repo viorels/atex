@@ -456,6 +456,7 @@ class Ancora(object):
                 'fparola': self._password_hash(password, salt)}
         get_user_uri = self.adapter.uri_for('get_user', args)
         user = self.adapter.read(get_user_uri, post_process=post_process, cache_timeout=TIMEOUT_SHORT)
+        user['password'] = self._password_hash(password, salt)
         return user
 
     def _password_hash(self, password, salt=None):
