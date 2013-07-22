@@ -21,6 +21,7 @@ MOCK_DATA_PATH = os.path.join(os.path.split(__file__)[0], 'mock_data')
 TIMEOUT_LONG = 86400    # one day
 TIMEOUT_NORMAL = 3600   # one hour
 TIMEOUT_SHORT = 300     # 5 minutes
+TIMEOUT_NO_CACHE = 0    # do not cache
 
 
 class APIError(Exception):
@@ -70,15 +71,15 @@ class BaseAdapter(object):
         start_time = time.time()
 
         if use_backend is not True:
-            # returns None if item not found
-            cache_response = self._read_cache(uri)
+            cache_response = self._read_cache(uri)  # returns None if item not found
         else:
             cache_response = None
         if cache_response is None and use_backend is not False:
             response = self._read_backend(uri)
             data = self.parse(response)
             processed_data = post_process(data) if post_process else data
-            self._write_cache(uri, processed_data, timeout=cache_timeout)
+            if cache_timeout != TIMEOUT_NO_CACHE:
+                self._write_cache(uri, processed_data, timeout=cache_timeout)
         else:
             processed_data = cache_response
 
@@ -150,9 +151,13 @@ class AncoraAdapter(BaseAdapter):
                                   args=all_args)
 
     def _method_for(self, method_name):
-        default = 'jis.serv'
-        methods = {'create_user': 'saveForm.do'}
-        return methods.get(method_name, default)
+        default_path = 'jis.serv'
+        post_path = 'saveForm.do'
+        if re.match(r'create|update', method_name):
+            method = post_path
+        else:
+            method = default_path
+        return method
 
     def _args_for(self, method_name):
         args = {'categories': {'cod_formular': '617'},
@@ -164,7 +169,15 @@ class AncoraAdapter(BaseAdapter):
                                 'pid': '0',         # new user
                                 'iduser': '47',     # website user
                                 'actiune': 'SAVE_TAB'},
-                'get_user': {'cod_formular': '1023'}}
+                'get_user': {'cod_formular': '1023'},
+                'list_cart': {'cod_formular': '1078'},
+                'create_cart': {'cod_formular': '1366',
+                                'pid': '0',
+                                'iduser': '47',
+                                'actiune': 'SAVE_TAB'},
+                'create_cart_entry': {'cod_formular': '1367',
+                                      'pid': '0',
+                                      'actiune': 'SAVE_TAB'}}
         return args.get(method_name, {})
 
     def uri_with_args(self, uri, method=None, args=None):
@@ -441,8 +454,37 @@ class Ancora(object):
         get_user_uri = self.adapter.uri_for('get_user', args)
         user = self.adapter.read(get_user_uri, post_process=post_process, cache_timeout=TIMEOUT_SHORT)
         return user
-    
+
     def _password_hash(self, password, salt=None):
         if salt is None:
             salt = bcrypt.gensalt()
         return bcrypt.hashpw(password, salt)
+
+    def create_cart(self, user_id):
+        create_cart_uri = self.adapter.uri_for('create_cart')
+        args = {'iduser_site': user_id}
+        return self.adapter.write(create_cart_uri, args)
+
+    def add_cart_product(self, cart_id, product_id, quantity):
+        # TODO: invalidate cart content cache !!!
+        # TODO: entry for product exists ?
+        create_cart_entry_uri = self.adapter.uri_for('create_cart_entry')
+        args = {'idparinte': cart_id,
+                'idprodus': product_id,
+                'cantitate': quantity}
+        return self.adapter.write(create_cart_entry_uri, args)
+
+    def list_cart(self, cart_id):
+        def post_process(data):
+            cart_items = []
+            json_root = 'cart_site_items'
+            for item in data[json_root]:
+                cart_item = {'cart_item_id': item['pidm'],
+                             'product_id': item['zidprodus'],
+                             'quantity': item['zcantitate'],
+                             'price': item['zpret']}
+                cart_items.append(cart_item)
+            return cart_items
+
+        list_cart_uri = self.adapter.uri_for('list_cart')
+        return self.adapter.read(list_cart_uri, post_process=post_process, cache_timeout=TIMEOUT_NO_CACHE)

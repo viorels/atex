@@ -45,6 +45,7 @@ class AncoraAPI(object):
         self.categories = CategoriesAPI(api=self._ancora)
         self.products = ProductsAPI(api=self._ancora, categories=self.categories)
         self.users = UsersAPI(api=self._ancora)
+        self.cart = CartAPI(api=self._ancora)
 
 
 class BaseAPI(object):
@@ -174,3 +175,14 @@ class UsersAPI(BaseAPI):
 
     def get_user(self, email, password, salt=settings.PASSWORD_SALT):
         return self._api.get_user(email, password, salt)
+
+
+class CartAPI(BaseAPI):
+    def get_cart(self, create=False):
+        pass
+
+    def list_cart(self, cart_id):
+        pass
+
+    def add_cart_product(self, cart_id, product_id):
+        pass

@@ -353,6 +353,7 @@ class BaseCart(object):
     def count(self):
         return len(self.items())
 
+
 class DatabaseCart(BaseCart):
     @staticmethod
     def get(cart_id):
@@ -434,8 +435,55 @@ class DatabaseCart(BaseCart):
 
 
 class AncoraCart(BaseCart):
-    pass
+    def __init__(self, cart, api):
+        self._api = api
+        super(self, AncoraCart).__init__(cart)
 
+    @staticmethod
+    def get(cart_id, api):
+        return api.cart.get_cart(cart_id)
+
+    @staticmethod
+    def create(session_id=None):
+        cart_row, created = Cart.objects.get_or_create(session_id=session_id)
+        cart = DatabaseCart(cart_row)
+        return cart
+
+    def add_item(self, product_id):
+        product = self._get_product(product_id)
+        if product:
+            cart_product, created = CartProducts.objects.get_or_create(cart=self._cart, product=product)
+            if not created:
+                cart_product.count = models.F('count') + 1
+                cart_product.save()
+        return product
+
+    def remove_item(self, product_id):
+        product = self._get_product(product_id)
+        if product:
+            try:
+                cart_product = CartProducts.objects.get(cart=self._cart, product=product)
+            except CartProducts.DoesNotExist as e:
+                logger.error(e)
+                product = None
+            else:
+                cart_product.delete()
+        return product
+
+    def update_item(self, product_id, count):
+        if count < 0:
+            return
+        if count == 0:
+            return self.remove_item(product_id)
+        product = self._get_product(product_id)
+        if product:
+            try:
+                cart_product = CartProducts.objects.get(cart=self._cart, product=product)
+            except CartProducts.DoesNotExist as e:
+                logger.error(e)
+            else:
+                cart_product.count = count
+                cart_product.save()
 
 class Dropbox(models.Model):
     app_key = models.CharField(primary_key=True, max_length=64)
