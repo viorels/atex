@@ -63,11 +63,6 @@ class OrderBase(FormView, HybridGenericView):
             user.first_name = form.cleaned_data['firstname']
             user.last_name = form.cleaned_data['surname']
             user.save()
-            user.userprofile.phone = form.cleaned_data['phone']
-            user.userprofile.city = form.cleaned_data['city']
-            user.userprofile.county = form.cleaned_data['county']
-            user.userprofile.address = form.cleaned_data['address']
-            user.userprofile.save()
         elif form.cleaned_data['logintype'] == 'old':
             user = authenticate(email=form.cleaned_data['user'],
                                 password=form.cleaned_data['password'])

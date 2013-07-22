@@ -8,26 +8,22 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Deleting field 'CustomUser.username'
-        db.delete_column(u'atex_web_customuser', 'username')
+        # Deleting model 'UserProfile'
+        db.delete_table(u'atex_web_userprofile')
 
 
     def backwards(self, orm):
-        # Adding field 'CustomUser.username'
-        db.add_column(u'atex_web_customuser', 'username',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=30),
-                      keep_default=False)
+        # Adding model 'UserProfile'
+        db.create_table(u'atex_web_userprofile', (
+            ('city', self.gf('django.db.models.fields.CharField')(max_length=32)),
+            ('county', self.gf('django.db.models.fields.CharField')(max_length=32)),
+            ('phone', self.gf('django.db.models.fields.CharField')(max_length=15)),
+            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['atex_web.CustomUser'], unique=True)),
+            ('address', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+        ))
+        db.send_create_signal(u'atex_web', ['UserProfile'])
 
-        # generate somewhat unique username
-        for user in orm.CustomUser.objects.all():
-            try:
-                (user.username, domain) = user.email.split('@')
-            except ValueError:
-                user.username = user.email
-            user.save()
-
-        # Adding unique constraint on 'CustomUser', fields ['username']
-        db.create_unique(u'atex_web_customuser', ['username'])
 
     models = {
         u'atex_web.cart': {
@@ -103,15 +99,6 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'SpecificationGroup'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
-        },
-        u'atex_web.userprofile': {
-            'Meta': {'object_name': 'UserProfile'},
-            'address': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
-            'county': ('django.db.models.fields.CharField', [], {'max_length': '32'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'phone': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
-            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['atex_web.CustomUser']", 'unique': 'True'})
         },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},
