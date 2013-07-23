@@ -90,7 +90,7 @@ class BaseAdapter(object):
     def write(self, uri, data, post_process=None):
         response = self._write_backend(uri, data)
         processed_response = post_process(response) if post_process else response
-        logger.debug('POST %s %s => %s', uri, data, response)
+        logger.debug('POST %s %s => %s', uri, data, processed_response)
         return processed_response
 
     def _read_debug(self, uri, cache_response, response, start_time):
@@ -430,7 +430,9 @@ class Ancora(object):
     def _post_process_write(data):
         lines = data.splitlines()
         if len(lines) == 2 and lines[0] == '~DQS':  # success
-            return lines[-1]
+            return lines[1]
+        else:
+            raise APIError(lines[0])
 
     def create_user(self, email, first_name, last_name, password, usertype, salt=None):
         create_user_uri = self.adapter.uri_for('create_user')
