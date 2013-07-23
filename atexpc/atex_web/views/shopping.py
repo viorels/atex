@@ -22,8 +22,8 @@ class CartBase(HybridGenericView):
 
     def post(self, request, *args, **kwargs):
         method = request.POST.get('method')
-        product_id = request.POST.get('product_id')
         if method == 'add':
+            product_id = int(request.POST.get('product_id'))
             self._add_to_cart(product_id)
         elif method == 'update':
             products_count = {}

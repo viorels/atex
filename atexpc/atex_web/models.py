@@ -478,7 +478,7 @@ class AncoraCart(BaseCart):
         return self._api.cart.add_product(self.id(), product_id)
 
     def remove_item(self, product_id):
-        return self._api.cart.update_product(self.id(), product_id, 0)
+        return self._api.cart.remove_product(self.id(), product_id)
 
     def update_item(self, product_id, count):
         if count < 0:

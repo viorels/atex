@@ -155,8 +155,11 @@ class AncoraAdapter(BaseAdapter):
     def _method_for(self, method_name):
         default_path = 'jis.serv'
         post_path = 'saveForm.do'
+        delete_path = 'processActionRecords.do'
         if re.match(r'create|update', method_name):
             method = post_path
+        elif re.match(r'delete', method_name):
+            method = delete_path
         else:
             method = default_path
         return method
@@ -174,12 +177,12 @@ class AncoraAdapter(BaseAdapter):
                 'get_user': {'cod_formular': '1023'},
                 'list_cart': {'cod_formular': '1078'},
                 'create_cart': {'cod_formular': '1366',
-                                'pid': '0',
                                 'iduser': '47',
                                 'actiune': 'SAVE_TAB'},
                 'create_cart_entry': {'cod_formular': '1367',
-                                      'pid': '0',
-                                      'actiune': 'SAVE_TAB'}}
+                                      'actiune': 'SAVE_TAB'},
+                'delete_cart_entry': {'cfi': '1064',
+                                      'actiune': 'DEL'}}
         return args.get(method_name, {})
 
     def uri_with_args(self, uri, method=None, args=None):
@@ -473,7 +476,8 @@ class Ancora(object):
 
     def create_cart(self, user_id):
         create_cart_uri = self.adapter.uri_for('create_cart')
-        args = {'iduser_site': user_id}
+        args = {'pid': '0',     # new cart
+                'iduser_site': user_id}
         return self.adapter.write(create_cart_uri, args, post_process=self._post_process_write)
 
     def add_cart_product(self, cart_id, product_id):
@@ -485,20 +489,26 @@ class Ancora(object):
             quantity = 1
         return self.update_cart_product(cart_id, product_id, quantity)
 
+    def remove_cart_product(self, cart_id, product_id):
+        delete_cart_entry_uri = self.adapter.uri_for('delete_cart_entry')
+        cart_item_id = self._existing_cart_item_id(cart_id, product_id)
+        if cart_item_id:
+            args = {'lista_id': cart_item_id}
+            return self.adapter.write(delete_cart_entry_uri, args)
+
     def update_cart_product(self, cart_id, product_id, quantity):
-        # TODO: set inactiv = 'D' for deleted products
         create_cart_entry_uri = self.adapter.uri_for('create_cart_entry')
         args = {'pid': self._existing_cart_item_id(cart_id, product_id) or 0,  # 0 for new
                 'idparinte': cart_id,
                 'idprodus': product_id,
                 'cantitate': quantity}
-        return self.adapter.write(create_cart_entry_uri, args)
+        return self.adapter.write(create_cart_entry_uri, args, post_process=self._post_process_write)
 
     def _existing_cart_item_id(self, cart_id, product_id):
         cart_items = self.list_cart(cart_id)
         matching_cart_entries = [p for p in cart_items if p['product_id'] == product_id]
         if matching_cart_entries:
-            return matching_cart_entries[0]
+            return matching_cart_entries[0]['cart_item_id']
         else:
             return None
 
@@ -507,10 +517,10 @@ class Ancora(object):
             cart_items = []
             json_root = 'cart_site_items'
             for item in data[json_root]:
-                cart_item = {'cart_item_id': item['pidm'],
-                             'product_id': item['zidprodus'],
-                             'quantity': item['zcantitate'],
-                             'price': item['zpret']}
+                cart_item = {'cart_item_id': int(item['pidm']),
+                             'product_id': int(item['zidprodus']),
+                             'quantity': int(item['zcantitate']),
+                             'price': float(item['zpret'])}
                 cart_items.append(cart_item)
             return cart_items
 

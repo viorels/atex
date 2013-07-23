@@ -191,5 +191,8 @@ class CartAPI(BaseAPI):
     def add_product(self, cart_id, product_id):
         return self._api.add_cart_product(cart_id, product_id)
 
+    def remove_product(self, cart_id, product_id):
+        return self._api.remove_cart_product(cart_id, product_id)
+
     def update_product(self, cart_id, product_id, count):
         return self._api.update_cart_product(cart_id, product_id, count)
