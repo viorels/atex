@@ -273,7 +273,7 @@ function update_cart_error(jqXHR, textStatus, errorThrown) {
 
 function on_cart_update(cart) {
     $('.info_cos .cart_count').html(cart.count);
-    $('.info_cos .cart_price, span.total').html(cart.price.toFixed(2) + " lei");
+    $('.info_cos .cart_price, span.total_price').html(cart.price.toFixed(2));
     $('span.delivery_price').html(cart.delivery_price.toFixed(2) + " lei");
 
     cart_form = $("#cart_form");

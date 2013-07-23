@@ -1,23 +1,6 @@
 {% extends "base_2col.html" %}
 {% load atex_tags %}
 
-{% block body_extra %}
-<div class="rezumat">
-    <div class="continut">
-        <div class="tab_rezumat">
-            <p>REZUMAT COMANDA </p><span></span>
-        </div>
-        <div class="show_rezumat">
-            <ul>
-                <li><span class="domiciliu">Livrare la domiciliu</span></li>
-                <li><span class="numerar">Plata numerar</span></li>
-                <li><span class="total">TOTAL PLATA: {{ cart.price|floatformat:2 }} lei</span></li>
-            </ul>
-        </div>
-    </div>
-</div>
-{% endblock body_extra %}
-
 {% block content_right %}         	
                 <div class="cos_content">                	
                     <div class="product-section">
@@ -180,12 +163,12 @@
 
                         <div class="total-cos01">
                         	<ul>                        	
-                                <li><span class="delivery_price">{{ cart.delivery_price|floatformat:2 }} lei</span></li>
-                                <li><span>Taxa Transport</span></li>
+                                <li><div class="delivery_price">{{ cart.delivery_price|floatformat:2 }} lei</div></li>
+                                <li><div>Taxa Transport</div></li>
                             </ul>
                             <ul class="total">
-                                <li><span class="total red_b">{{ cart.price|floatformat:2 }} lei</span></li>
-                                <li><span>TOTAL</span></li>
+                                <li><div class="red_b"><span class="total_price">{{ cart.price|floatformat:2 }}</span> lei</div></li>
+                                <li><div>TOTAL</div></li>
                             </ul>
                             <ul class="buttons">
                                 <li><a href="{% url "order" %}" class="continua"><span></span>Continua</a></li>

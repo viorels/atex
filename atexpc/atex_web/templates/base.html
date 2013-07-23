@@ -189,6 +189,20 @@
         </div>
     </div>
 </div>
+<div class="rezumat">
+    <div class="continut">
+        <div class="tab_rezumat">
+            <p>REZUMAT COMANDA </p><span></span>
+        </div>
+        <div class="show_rezumat">
+            <ul>
+                <li><div class="domiciliu">Livrare la domiciliu</div></li>
+                <li><div class="numerar">Plata numerar</div></li>
+                <li><div class="total">TOTAL PLATA: <span class="total_price">{{ cart.price|floatformat:2 }}</span> lei</div></li>
+            </ul>
+        </div>
+    </div>
+</div>
 {% block body_extra %}{% endblock %}
 </body>
 </html>

@@ -1675,7 +1675,7 @@ ul.modalitate li {
 	line-height:30px;
 	font-weight:bold;
 }
-.total-cos01 ul li span {
+.total-cos01 ul li div {
 	float:right;
 }
 .total-cos01 ul.total li span { font-size:16px !important; }
@@ -1817,7 +1817,7 @@ td.center {text-align:center}
 }
 .show_rezumat ul { float:right; display:inline; padding-top:15px;}
 .show_rezumat ul li { padding:0 25px;float:left; height: 38px; background:url(../images/spacer-rezumat.jpg) top left no-repeat;color:#fff;font-size:14px}
-.show_rezumat ul li span { line-height:38px; display:block; padding-left:45px; float:left}
+.show_rezumat ul li div { line-height:38px; padding-left:45px; float:left}
 .show_rezumat .domiciliu { background:url(../images/domiciliu-icon.png) bottom left no-repeat;}
 .show_rezumat .total { background:url(../images/total-icon.png) bottom left no-repeat;}
 .show_rezumat .numerar { background:url(../images/numerar-icon.png) bottom left no-repeat;}
