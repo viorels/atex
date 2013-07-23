@@ -95,7 +95,7 @@ class ShoppingMixin(object):
 
     def _create_cart(self):
         # TODO: are cookies enabled ?
-        ancora_user_id = self.request.session.get('ancora_user_id')
+        ancora_user_id = self.request.session.get('ancora_user_id', 0)  # 0 is guest
         cart = CartFactory(api=self.api).create(ancora_user_id)
         self.request.session['cart_id'] = cart.id()
         return cart
