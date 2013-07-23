@@ -161,13 +161,14 @@ function uncheck_filters() {
 	filter_form.submit();
 }
 
-function show_rezumat() {
+function init_rezumat() {
 	$(".show_rezumat").hide();
 	$(".tab_rezumat").show();
 	$('.tab_rezumat').click(function(){
 		$(".show_rezumat").slideToggle();
 	});
 }
+
 function calculate_height(){
   getDocHeight = Math.max($(document).height(),$(window).height(),document.documentElement.clientHeight);
   docHeight = $(document).height();
@@ -276,6 +277,8 @@ function on_cart_update(cart) {
     $('.info_cos .cart_price, span.total_price').html(cart.price.toFixed(2));
     $('span.delivery_price').html(cart.delivery_price.toFixed(2) + " lei");
 
+    $('.show_rezumat').slideDown();
+
     cart_form = $("#cart_form");
     if (cart_form.length) {
         for (i=0; i<cart.items.length; i++) {
@@ -326,7 +329,7 @@ function init_order() {
 $(document).ready(function() {
 	init_gallery();
 	init_filters();
-	show_rezumat();
+	init_rezumat();
     init_csrf();
     init_cart();
     init_order();
