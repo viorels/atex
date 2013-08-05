@@ -1,6 +1,6 @@
 from products import (HomeBase, SearchBase, ProductBase, BrandsBase,
                       SearchMixin)
-from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
+from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin, LoginBase
 from base import BaseView, BreadcrumbsMixin, ErrorBase
 
 # *Base classes (e.g. HomeView must be last on inheritance list as
@@ -28,6 +28,9 @@ class OrderView(CommonMixins, OrderBase):
     pass
 
 class ConfirmView(CommonMixins, ConfirmBase):
+    pass
+
+class LoginView(CommonMixins, LoginBase):
     pass
 
 class ErrorView(BreadcrumbsMixin, SearchMixin, ErrorBase):

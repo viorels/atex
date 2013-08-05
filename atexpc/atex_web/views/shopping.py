@@ -36,11 +36,11 @@ class CartBase(HybridGenericView):
         return self.render_to_response(self.get_json_context())
 
 
-class OrderBase(FormView, HybridGenericView):
-    template_name = "order.html"
-    breadcrumbs = CartBase.breadcrumbs + [FrozenDict(name="Date facturare",
-                                                     url=reverse_lazy('order'))]
-    success_url = reverse_lazy('confirm')
+class LoginBase(FormView, HybridGenericView):
+    template_name = "login.html"
+    breadcrumbs = CartBase.breadcrumbs + [FrozenDict(name="Login/Signup",
+                                                     url=reverse_lazy('login'))]
+    success_url = reverse_lazy('home')
 
     def get_form_class(self):
         logintype = self.request.POST.get('logintype', None)
@@ -70,11 +70,18 @@ class OrderBase(FormView, HybridGenericView):
             login(self.request, user)
             self.request.session['ancora_user_id'] = getattr(user, '_ancora_user_id')
             logger.info('Login %s', user.email)
-        return super(OrderBase, self).form_valid(form)
+        return super(LoginBase, self).form_valid(form)
 
     def form_invalid(self, form):
         logger.debug("OrderView.form_invalid" + str(form.errors))
-        return super(OrderBase, self).form_valid(form)
+        return super(LoginBase, self).form_valid(form)
+
+
+class OrderBase(LoginBase):
+    template_name = "order.html"
+    breadcrumbs = CartBase.breadcrumbs + [FrozenDict(name="Date facturare",
+                                                     url=reverse_lazy('order'))]
+    success_url = reverse_lazy('confirm')
 
 
 class ConfirmBase(HybridGenericView):
