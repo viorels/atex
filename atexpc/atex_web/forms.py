@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
+from django.contrib.auth import forms as auth_forms
 from django.forms.widgets import (TextInput, PasswordInput, HiddenInput, 
     CheckboxInput, RadioSelect, Select, Textarea)
 
@@ -54,13 +55,13 @@ def search_form_factory(search_in_choices, advanced=False):
 def user_form_factory(logintype):
     is_signup = logintype == 'new'
 
-    class LoginForm(forms.Form):
+    class LoginForm(auth_forms.AuthenticationForm):
         logintype = forms.ChoiceField(
             widget=RadioSelect(),
-            choices=(('new', 'Client now'), ('old', 'Client vechi')),
+            choices=(('new', 'Client nou'), ('old', 'Client vechi')),
             initial='',
             required=True)
-        user = forms.CharField(
+        username = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "title": "email"}),
             required=not is_signup)
@@ -120,7 +121,26 @@ def user_form_factory(logintype):
             initial="",
             required=True)
 
+        def clean(self):
+            result = self.api.users.create_user(
+                email=form.cleaned_data['email'],
+                first_name=form.cleaned_data['firstname'],
+                last_name=form.cleaned_data['surname'],
+                password=form.cleaned_data['password1'],
+                usertype=form.cleaned_data['usertype'])
+            user = authenticate(email=form.cleaned_data['email'],
+                                password=form.cleaned_data['password1'])
+            user.first_name = form.cleaned_data['firstname']
+            user.last_name = form.cleaned_data['surname']
+            user.save()
+            self.user_cache = user
+
+        def get_user(self):
+            return self.user_cache
+
+
     if is_signup:
         return SignupForm
     else:
         return LoginForm
+

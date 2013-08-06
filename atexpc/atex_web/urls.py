@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^conditii/', ConditionsView.as_view(), name='conditions'),
     url(r'^service/', ServiceView.as_view(), name='service'),
     url(r'^login/$', LoginView.as_view(), name='login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
     url(r'PIE\.htc$',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),
     # TODO: remove ledacy redirect sm.ashx to MEDIA_URL + SHOPMANIA_FEED_FILE

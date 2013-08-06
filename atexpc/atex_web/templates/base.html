@@ -29,9 +29,13 @@
             <div class="login_holder">
             	<span class="down_left"></span>
                 	<ul class="tab_down">
+                    {% if user.is_authenticated %}
+                    	<li><a href="{% url "logout" %}">log out</a></li>
+                    {% else %}
                     	<li><a href="{% url "login" %}">log in</a></li>
                         <li><span class="spacer">|</span></li>
-                        <li><a href="#">register</a></li>
+                        <li><a href="{% url "login" %}#register">register</a></li>
+                    {% endif %}
                     </ul>
                 <span class="down_right"></span>
             </div>

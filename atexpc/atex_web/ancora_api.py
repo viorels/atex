@@ -10,7 +10,8 @@ from atexpc.ancora_api.api import Ancora, AncoraAdapter
 class AncoraAuthBackend(object):
     """ Authenticate against Ancora user database """
 
-    def authenticate(self, email=None, password=None):
+    def authenticate(self, username=None, password=None):
+        email = username
         api = AncoraAPI()
         api_user = api.users.get_user(email, password, salt=settings.PASSWORD_SALT)
         if api_user is not None:

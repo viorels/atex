@@ -47,33 +47,9 @@ class LoginBase(FormView, HybridGenericView):
         return user_form_factory(logintype)
 
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
-        logger.debug("OrderView.form_valid %s %s", form.is_valid(), form.cleaned_data)
-        if form.cleaned_data['logintype'] == 'new':
-            result = self.api.users.create_user(
-                email=form.cleaned_data['email'],
-                first_name=form.cleaned_data['firstname'],
-                last_name=form.cleaned_data['surname'],
-                password=form.cleaned_data['password1'],
-                usertype=form.cleaned_data['usertype'])
-            logger.info('Signup %s', result)
-            user = authenticate(email=form.cleaned_data['email'],
-                                password=form.cleaned_data['password1'])
-            user.first_name = form.cleaned_data['firstname']
-            user.last_name = form.cleaned_data['surname']
-            user.save()
-        elif form.cleaned_data['logintype'] == 'old':
-            user = authenticate(email=form.cleaned_data['user'],
-                                password=form.cleaned_data['password'])
-        if user is not None:    # user.is_active ?
-            login(self.request, user)
-            self.request.session['ancora_user_id'] = getattr(user, '_ancora_user_id')
-            logger.info('Login %s', user.email)
-        return super(LoginBase, self).form_valid(form)
-
-    def form_invalid(self, form):
-        logger.debug("OrderView.form_invalid" + str(form.errors))
+        login(self.request, form.get_user())
+        self.request.session['ancora_user_id'] = getattr(form.get_user(), '_ancora_user_id', 0)
+        logger.info('Login %s', self.request.user.email)
         return super(LoginBase, self).form_valid(form)
 
 
