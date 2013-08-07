@@ -48,7 +48,6 @@ class LoginBase(FormView, HybridGenericView):
 
     def form_valid(self, form):
         login(self.request, form.get_user())
-        self.request.session['ancora_user_id'] = getattr(form.get_user(), '_ancora_user_id', 0)
         logger.info('Login %s', self.request.user.email)
         return super(LoginBase, self).form_valid(form)
 
@@ -78,7 +77,8 @@ class ShoppingMixin(object):
 
     def _create_cart(self):
         # TODO: are cookies enabled ?
-        ancora_user_id = self.request.session.get('ancora_user_id', 0)  # 0 is guest
+        guest_id = 0
+        ancora_user_id = self.request.user.ancora_id or guest_id
         cart = CartFactory(api=self.api).create(ancora_user_id)
         self.request.session['cart_id'] = cart.id()
         return cart
