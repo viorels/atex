@@ -12,10 +12,16 @@ class Migration(SchemaMigration):
         db.rename_table('auth_user_groups', 'atex_web_customuser_groups')
         db.rename_table('auth_user_user_permissions', 'atex_web_customuser_user_permissions')
 
+        db.rename_column('atex_web_customuser_groups', 'user_id', 'customuser_id')
+        db.rename_column('atex_web_customuser_user_permissions', 'user_id', 'customuser_id')
+
     def backwards(self, orm):
         db.rename_table('atex_web_customuser', 'auth_user')
         db.rename_table('atex_web_customuser_groups', 'auth_user_groups')
         db.rename_table('atex_web_customuser_user_permissions', 'auth_user_user_permissions')
+
+        db.rename_column('auth_user_groups', 'customuser_id', 'user_id')
+        db.rename_column('auth_user_user_permissions', 'customuser_id', 'user_id')
 
     models = {
         u'atex_web.cart': {
