@@ -6,14 +6,48 @@
                     	<div class="tab_d_holder_right">
                             <span class="down_left"></span>
                                 <ul class="tab_down">
-                                    <li><span>login/signup</span></li>                                
+                                    <li><span>login/register</span></li>
                                 </ul>
                             <span class="down_right"></span>
                         </div>
                     </div>
 
                     <div class="pas-02">
-                        {% include "inc/login.html" %}
+
+                    <form id="orderform" method="post">
+                        {% csrf_token %}
+                        <a href="{% url "socialauth_begin" "facebook" %}">log in with Facebook</a>
+                        <div class="rand-cos">
+                            <ul class="modalitate">
+                                <li>Va rugam selectati tipul de client:</li>
+                                <li><input id="logintype_new" name="logintype" type="radio" value="new" /> <label for="logintype_new">Client nou</label></li>
+                                <li><input id="logintype_old" name="logintype" type="radio" value="old" /> <label for="logintype_old">Client vechi</label></li>
+                                <li class="last logininput">
+                                    <input name="username" type="text" class="input_cos" title="utilizator"/> 
+                                    <input name="password" type="password" class="input_cos" title="parola"/> 
+                                    <a href="#" class="login-key"></a>
+                                </li>
+                            </ul>    
+                        </div>
+                        <div class="rand-cos signup">
+                            <ul class="modalitate">
+                                <li>Informatii utilizator / autentificare:</li>
+                                <li class="last">
+                                    <div class="row">
+                                        <input name="surname" type="text" class="input_cos" title="nume"/> 
+                                        <input name="firstname" type="text" class="input_cos" title="prenume"/>
+                                        <input name="email" type="text" class="input_cos" title="adresa email"/>
+                                    </div>  
+                                    <div class="row">  
+                                        <input name="phone" type="text" class="input_cos" title="telefon"/> 
+                                        <input name="password1" type="password" class="input_cos" title="parola"/>
+                                        <input name="password2" type="password" class="input_cos" title="repeta parola"/>
+                                    </div>    
+                                </li>
+                            </ul>    
+                        </div>
+                    </form>
+
                     </div> <!-- end pas 02 -->
                     
                 </div>

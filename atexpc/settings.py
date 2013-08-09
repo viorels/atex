@@ -59,6 +59,7 @@ AUTHENTICATION_BACKENDS = (
     'atexpc.atex_web.ancora_api.AncoraAuthBackend'
 )
 
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 
 GOOGLE_OAUTH2_CLIENT_ID = environ.get('GOOGLE_OAUTH2_CLIENT_ID')
@@ -225,7 +226,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers':['null'],
+            'handlers':['console'],
             'propagate': True,
             'level':'INFO',
         },

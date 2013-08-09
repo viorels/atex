@@ -2,6 +2,15 @@ from operator import itemgetter
 from itertools import groupby, izip, chain, repeat
 from collections import Mapping
 
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
+
+class LoginRequiredMixin(object):
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
+
 
 def group_in(n, items):
     return [[item for i, item in group] for i, group

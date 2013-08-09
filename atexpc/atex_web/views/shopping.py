@@ -5,11 +5,27 @@ from django.views.generic.edit import FormView
 from atexpc.atex_web.views.base import HybridGenericView
 from atexpc.atex_web.models import CartFactory
 from atexpc.atex_web.forms import user_form_factory
-from atexpc.atex_web.utils import FrozenDict
+from atexpc.atex_web.utils import LoginRequiredMixin, FrozenDict
 from atexpc.atex_web.templatetags import atex_tags
 
 import logging
 logger = logging.getLogger(__name__)
+
+
+class LoginBase(FormView, HybridGenericView):
+    template_name = "login.html"
+    breadcrumbs = [FrozenDict(name="Login/Register",
+                              url=reverse_lazy('login'))]
+    success_url = reverse_lazy('home')
+
+    def get_form_class(self):
+        logintype = self.request.POST.get('logintype', None)
+        return user_form_factory(logintype)
+
+    def form_valid(self, form):
+        login(self.request, form.get_user())
+        logger.info('Login %s', self.request.user.email)
+        return super(LoginBase, self).form_valid(form)
 
 
 class CartBase(HybridGenericView):
@@ -36,23 +52,7 @@ class CartBase(HybridGenericView):
         return self.render_to_response(self.get_json_context())
 
 
-class LoginBase(FormView, HybridGenericView):
-    template_name = "login.html"
-    breadcrumbs = CartBase.breadcrumbs + [FrozenDict(name="Login/Signup",
-                                                     url=reverse_lazy('login'))]
-    success_url = reverse_lazy('home')
-
-    def get_form_class(self):
-        logintype = self.request.POST.get('logintype', None)
-        return user_form_factory(logintype)
-
-    def form_valid(self, form):
-        login(self.request, form.get_user())
-        logger.info('Login %s', self.request.user.email)
-        return super(LoginBase, self).form_valid(form)
-
-
-class OrderBase(LoginBase):
+class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
     template_name = "order.html"
     breadcrumbs = CartBase.breadcrumbs + [FrozenDict(name="Date facturare",
                                                      url=reverse_lazy('order'))]
