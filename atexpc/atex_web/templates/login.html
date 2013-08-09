@@ -16,34 +16,34 @@
 
                     <form id="orderform" method="post">
                         {% csrf_token %}
-                        <a href="{% url "socialauth_begin" "facebook" %}">log in with Facebook</a>
                         <div class="rand-cos">
-                            <ul class="modalitate">
-                                <li>Va rugam selectati tipul de client:</li>
-                                <li><input id="logintype_new" name="logintype" type="radio" value="new" /> <label for="logintype_new">Client nou</label></li>
-                                <li><input id="logintype_old" name="logintype" type="radio" value="old" /> <label for="logintype_old">Client vechi</label></li>
-                                <li class="last logininput">
-                                    <input name="username" type="text" class="input_cos" title="utilizator"/> 
-                                    <input name="password" type="password" class="input_cos" title="parola"/> 
-                                    <a href="#" class="login-key"></a>
-                                </li>
-                            </ul>    
-                        </div>
-                        <div class="rand-cos signup">
-                            <ul class="modalitate">
-                                <li>Informatii utilizator / autentificare:</li>
+                            <ul>
+                                <li style="font-size: 18pt">Login sau creeaza un cont Atex</li>
+                                <li>Adresa de email</li>
                                 <li class="last">
                                     <div class="row">
-                                        <input name="surname" type="text" class="input_cos" title="nume"/> 
+                                        <input name="username" type="text" class="input_cos" /> sau contul de 
+                                        <a href="{% url "socialauth_begin" "facebook" %}">Facebook</a>, Yahoo, Google
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="rand-cos">
+                            <ul class="modalitate">
+                                <li><input id="logintype_new" name="logintype" type="radio" value="new" /> <label for="logintype_new">Client nou</label></li>
+                                <li class="signup">
+                                    <div class="row">
                                         <input name="firstname" type="text" class="input_cos" title="prenume"/>
-                                        <input name="email" type="text" class="input_cos" title="adresa email"/>
-                                    </div>  
-                                    <div class="row">  
-                                        <input name="phone" type="text" class="input_cos" title="telefon"/> 
-                                        <input name="password1" type="password" class="input_cos" title="parola"/>
-                                        <input name="password2" type="password" class="input_cos" title="repeta parola"/>
+                                        <input name="surname" type="text" class="input_cos" title="nume"/> 
+                                        <input name="password" type="password" class="input_cos" />
                                     </div>    
                                 </li>
+
+                                <li><input id="logintype_old" name="logintype" type="radio" value="old" /> <label for="logintype_old">Client vechi cu parola</label></li>
+                                <li class="logininput">
+                                    <input name="password" type="password" class="input_cos" title="parola"/> 
+                                </li>
+                                <li><a href="#" class="login-key">Login</a></li>
                             </ul>    
                         </div>
                     </form>
