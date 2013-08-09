@@ -524,5 +524,5 @@ class Ancora(object):
                 cart_items.append(cart_item)
             return cart_items
 
-        list_cart_uri = self.adapter.uri_for('list_cart')
+        list_cart_uri = self.adapter.uri_for('list_cart', {'idparinte': cart_id})
         return self.adapter.read(list_cart_uri, post_process=post_process, cache_timeout=TIMEOUT_NO_CACHE)
