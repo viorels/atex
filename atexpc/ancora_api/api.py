@@ -252,7 +252,7 @@ class Ancora(object):
         return self.adapter.read(categories_uri, post_process,
                                  cache_timeout=TIMEOUT_LONG) or []
 
-    def selectors(self, category_id, selectors_active, price_min, price_max):
+    def selectors(self, category_id, selectors_active, price_min, price_max, stock):
         def post_process(data):
             json_root = 'selectors'
             selectors = []
@@ -273,6 +273,8 @@ class Ancora(object):
             if price_min or price_max:
                 args['zpret_site_min'] = price_min
                 args['zpret_site_max'] = price_max
+            if stock:
+                args['zstoc'] = 'D'
             if args:
                 selectors_uri = self.adapter.uri_with_args(selectors_uri, args=args)
             selectors = self.adapter.read(selectors_uri, post_process, cache_timeout=TIMEOUT_LONG)

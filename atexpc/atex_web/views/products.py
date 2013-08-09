@@ -194,7 +194,8 @@ class SearchBase(BaseView):
         selectors = self.api.categories.get_selectors(
             category_id=args['category_id'],
             selectors_active=args['selectors_active'],
-            price_min=args['price_min'], price_max=args['price_max'])
+            price_min=args['price_min'], price_max=args['price_max'],
+            stock=args['stock'])
         return selectors
 
 

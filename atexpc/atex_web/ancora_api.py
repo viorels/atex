@@ -118,11 +118,11 @@ class CategoriesAPI(BaseAPI):
         parent_category_code = category['code'].split('.')[0]
         return [c for c in self.get_all_categories() if c['code'] == parent_category_code][0]['id']
 
-    def get_selectors(self, category_id, selectors_active, price_min, price_max):
+    def get_selectors(self, category_id, selectors_active, price_min, price_max, stock):
         if not hasattr(self, '_selectors'):
             self._selectors = self._api.selectors(
                 category_id, selectors_active,
-                price_min=price_min, price_max=price_max)
+                price_min=price_min, price_max=price_max, stock=stock)
         return self._selectors
 
 
