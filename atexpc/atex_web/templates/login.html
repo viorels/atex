@@ -12,9 +12,7 @@
                         </div>
                     </div>
 
-                    <div class="pas-02">
-
-                    <form id="orderform" method="post">
+                    <form id="loginform" method="post">
                         {% csrf_token %}
                         <div class="rand-cos">
                             <ul>
@@ -33,8 +31,8 @@
                                 <li><input id="logintype_new" name="logintype" type="radio" value="new" /> <label for="logintype_new">Client nou</label></li>
                                 <li class="signup">
                                     <div class="row">
-                                        <input name="firstname" type="text" class="input_cos" title="prenume"/>
-                                        <input name="surname" type="text" class="input_cos" title="nume"/> 
+                                        <input name="first_name" type="text" class="input_cos" title="prenume"/>
+                                        <input name="last_name" type="text" class="input_cos" title="nume"/>
                                         <input name="password" type="password" class="input_cos" />
                                     </div>    
                                 </li>
@@ -43,12 +41,10 @@
                                 <li class="logininput">
                                     <input name="password" type="password" class="input_cos" title="parola"/> 
                                 </li>
-                                <li><a href="#" class="login-key">Login</a></li>
+                                <li><a href="#" class="login-key"></a></li>
                             </ul>    
                         </div>
                     </form>
 
-                    </div> <!-- end pas 02 -->
-                    
                 </div>
 {% endblock content_right %}

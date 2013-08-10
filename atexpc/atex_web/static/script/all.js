@@ -297,31 +297,31 @@ function on_cart_update(cart) {
 
 // Order
 
-function init_order() {
-    var order_form = $("#orderform");
+function init_login() {
+    var login_form = $("#loginform");
 
     function show_hide_signup() {
-        var login_type = order_form.find("input[name='logintype']:checked").val();
+        var login_type = login_form.find("input[name='logintype']:checked").val();
         if (login_type == 'old') {
-            order_form.find('.signup').hide("fast");
-            order_form.find('.logininput').show("fast");
+            login_form.find('.signup').hide("fast");
+            login_form.find('.logininput').show("fast");
         }
         else if (login_type == 'new') {
-            order_form.find('.signup').show("fast");
-            order_form.find('.logininput').hide("fast");
+            login_form.find('.signup').show("fast");
+            login_form.find('.logininput').hide("fast");
         }
     }
-    order_form.find("input[name='logintype']").click(show_hide_signup)
+    login_form.find("input[name='logintype']").click(show_hide_signup)
         .filter('[value=old]').prop('checked', true);
     show_hide_signup();
 
-    var order_form_inputs = order_form.find("input[type=text], textarea")
+    var login_form_inputs = login_form.find("input[type=text], textarea")
         .each(function (i, form_input) {
-        init_input_hint(order_form, $(form_input));
+        init_input_hint(login_form, $(form_input));
     });
 
-    $("#orderform .continua").click(function () {
-        order_form.submit();
+    login_form.find(".login-key").click(function () {
+        login_form.submit();
         return false;
     });
 }
@@ -332,7 +332,7 @@ $(document).ready(function() {
 	init_rezumat();
     init_csrf();
     init_cart();
-    init_order();
+    init_login();
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {
         calculate_height();

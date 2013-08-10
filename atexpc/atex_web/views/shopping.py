@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.views.generic.edit import FormView
 
 from atexpc.atex_web.views.base import HybridGenericView
@@ -20,7 +20,7 @@ class LoginBase(FormView, HybridGenericView):
 
     def get_form_class(self):
         logintype = self.request.POST.get('logintype', None)
-        return user_form_factory(logintype)
+        return user_form_factory(logintype, self.api)
 
     def form_valid(self, form):
         login(self.request, form.get_user())

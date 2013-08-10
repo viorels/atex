@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.contrib.auth import forms as auth_forms
+from django.contrib.auth import forms as auth_forms, authenticate
 from django.forms.widgets import (TextInput, PasswordInput, HiddenInput, 
     CheckboxInput, RadioSelect, Select, Textarea)
 
@@ -52,7 +52,7 @@ def search_form_factory(search_in_choices, advanced=False):
 
     return AdvancedSearchForm if advanced else SearchForm
 
-def user_form_factory(logintype):
+def user_form_factory(logintype, api):
     is_signup = logintype == 'new'
 
     class LoginForm(auth_forms.AuthenticationForm):
@@ -71,47 +71,19 @@ def user_form_factory(logintype):
             required=not is_signup)
 
     class SignupForm(LoginForm):
-        surname = forms.CharField(
-            widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "nume"}),
-            required=True)
-        firstname = forms.CharField(
+        first_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "title": "prenume"}),
             required=True)
-        email = forms.CharField(
+        last_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "adresa email"}),
-            required=True)
-        phone = forms.CharField(
-            widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "telefon"}),
-            required=True)
-        password1 = forms.CharField(
-            widget=PasswordInput(attrs={"class": "input_cos",
-                                    "title": "parola"}),
-            required=True)
-        password2 = forms.CharField(
-            widget=PasswordInput(attrs={"class": "input_cos",
-                                    "title": "repeta parola"}),
+                                    "title": "nume"}),
             required=True)
         usertype = forms.ChoiceField(
                 widget=RadioSelect(),
                 choices=(('f', 'Persoana fizica'), ('j', 'Persoana juridica')),
                 initial='',
                 required=True)
-        city = forms.CharField(
-            widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "localitatea"}),
-            required=True)
-        county = forms.CharField(
-            widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "judetul"}),
-            required=True)
-        address = forms.CharField(
-            widget=Textarea(attrs={"class": "input_cos",
-                                   "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
-            required=True)
         terms = forms.BooleanField( # Am citit si sunt de acord cu Termenii & Conditii de utilizare
             widget=CheckboxInput(),
             initial="",
@@ -122,16 +94,19 @@ def user_form_factory(logintype):
             required=True)
 
         def clean(self):
-            result = self.api.users.create_user(
-                email=form.cleaned_data['email'],
-                first_name=form.cleaned_data['firstname'],
-                last_name=form.cleaned_data['surname'],
-                password=form.cleaned_data['password1'],
-                usertype=form.cleaned_data['usertype'])
-            user = authenticate(email=form.cleaned_data['email'],
-                                password=form.cleaned_data['password1'])
-            user.first_name = form.cleaned_data['firstname']
-            user.last_name = form.cleaned_data['surname']
+            cleaned_data = super(SignupForm, self).clean()
+            email = cleaned_data['username']
+            password = cleaned_data['password']
+            first_name = cleaned_data['first_name']
+            last_name = cleaned_data['last_name']
+            result = api.users.create_user(email=email,
+                                           first_name=first_name,
+                                           last_name=last_name,
+                                           password=password,
+                                           usertype='F')
+            user = authenticate(email=email, password=password)
+            user.first_name = first_name
+            user.last_name = last_name
             user.save()
             self.user_cache = user
 
@@ -144,3 +119,21 @@ def user_form_factory(logintype):
     else:
         return LoginForm
 
+
+class DeliveryAddressForm(forms.Form):
+    phone = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "telefon"}),
+        required=True)
+    city = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "localitatea"}),
+        required=True)
+    county = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "judetul"}),
+        required=True)
+    address = forms.CharField(
+        widget=Textarea(attrs={"class": "input_cos",
+                               "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
+        required=True)
