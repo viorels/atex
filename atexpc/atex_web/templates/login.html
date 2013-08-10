@@ -1,50 +1,58 @@
 {% extends "base_2col.html" %}
 
 {% block content_right %}          	
-                <div class="cos_content">
-                    <div class="product-section">
-                    	<div class="tab_d_holder_right">
-                            <span class="down_left"></span>
-                                <ul class="tab_down">
-                                    <li><span>login/register</span></li>
-                                </ul>
-                            <span class="down_right"></span>
-                        </div>
+<div class="cos_content">
+    <div class="product-section">
+    	<div class="tab_d_holder_right">
+            <span class="down_left"></span>
+                <ul class="tab_down">
+                    <li><span>login/signup</span></li>
+                </ul>
+            <span class="down_right"></span>
+        </div>
+    </div>
+
+    <form id="loginform" method="post">
+        {% csrf_token %}
+        <div class="rand-cos">
+            <ul>
+                <li style="font-size: 18pt">Login sau creeaza un cont Atex</li>
+                <li style="font-size: 14pt; padding-top:20px">Adresa de email</li>
+                <li class="last">
+                    <div class="row">
+                        <input name="username" type="text" class="input_cos" />
                     </div>
+                </li>
+            </ul>
+        </div>
+        <div class="rand-cos">
+            <ul>
+                <li><input id="logintype_new" name="logintype" type="radio" value="" checked /> <label for="logintype_new">Parola</label></li>
+                <li><input name="password" type="password" class="input_cos" /></li>
+                <li class="signupfield">
+                    Nume
+                    <div class="row">
+                        <input name="first_name" type="text" class="input_cos" title="prenume"/>
+                        <input name="last_name" type="text" class="input_cos" title="nume de familie"/>
+                    </div>    
+                </li>
+                <li>
+                    <input type="submit" name="login" class="logininput" value="Log in">
+                    <input type="submit" name="signup" class="signupfield" value="Sign up">
+                </li>
+            </ul>
+        </div>
+        <div class="rand-cos">
+            <ul>
+                <li><input id="logintype_nopass" name="logintype" type="radio" value="nopass" /> <label for="logintype_nopass">Fără parolă</label></li>
+                <li>
+                    <ul>
+                        <li>Login cu contul <a href="{% url "socialauth_begin" "facebook" %}">Facebook</a></li>
+                    </ul>
+                </li>
+            </ul>    
+        </div>
+    </form>
 
-                    <form id="loginform" method="post">
-                        {% csrf_token %}
-                        <div class="rand-cos">
-                            <ul>
-                                <li style="font-size: 18pt">Login sau creeaza un cont Atex</li>
-                                <li>Adresa de email</li>
-                                <li class="last">
-                                    <div class="row">
-                                        <input name="username" type="text" class="input_cos" /> sau contul de 
-                                        <a href="{% url "socialauth_begin" "facebook" %}">Facebook</a>, Yahoo, Google
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="rand-cos">
-                            <ul class="modalitate">
-                                <li><input id="logintype_new" name="logintype" type="radio" value="new" /> <label for="logintype_new">Client nou</label></li>
-                                <li class="signup">
-                                    <div class="row">
-                                        <input name="first_name" type="text" class="input_cos" title="prenume"/>
-                                        <input name="last_name" type="text" class="input_cos" title="nume"/>
-                                        <input name="password" type="password" class="input_cos" />
-                                    </div>    
-                                </li>
-
-                                <li><input id="logintype_old" name="logintype" type="radio" value="old" /> <label for="logintype_old">Client vechi cu parola</label></li>
-                                <li class="logininput">
-                                    <input name="password" type="password" class="input_cos" title="parola"/> 
-                                </li>
-                                <li><a href="#" class="login-key"></a></li>
-                            </ul>    
-                        </div>
-                    </form>
-
-                </div>
+</div>
 {% endblock content_right %}

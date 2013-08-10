@@ -52,23 +52,9 @@ def search_form_factory(search_in_choices, advanced=False):
 
     return AdvancedSearchForm if advanced else SearchForm
 
-def user_form_factory(logintype, api):
-    is_signup = logintype == 'new'
-
+def user_form_factory(is_signup, api):
     class LoginForm(auth_forms.AuthenticationForm):
-        logintype = forms.ChoiceField(
-            widget=RadioSelect(),
-            choices=(('new', 'Client nou'), ('old', 'Client vechi')),
-            initial='',
-            required=True)
-        username = forms.CharField(
-            widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "email"}),
-            required=not is_signup)
-        password = forms.CharField(
-            widget=PasswordInput(attrs={"class": "input_cos",
-                                        "title": "parola"}),
-            required=not is_signup)
+        pass
 
     class SignupForm(LoginForm):
         first_name = forms.CharField(

@@ -1,6 +1,55 @@
 
 var cart_url = '/cos/';
 
+(function($) {
+    /* Watch for browser autofill events that do not trigger onchange */
+    $.fn.listenForChange = function(options) {
+        settings = $.extend({
+            interval: 200 // in microseconds
+        }, options);
+
+        var jquery_object = this.filter(":input").add(":input",this)
+            .filter('[type="text"],[type="radio"],[type="checkbox"],[type="file"],select,textarea');
+        var current_focus = null;
+
+        jquery_object
+            .focus( function() {
+                current_focus = this;
+            })
+            .blur( function() {
+                current_focus = null;
+            })
+            .change( function () {
+                var element = $(this),
+                elementValue = ((element.type=='checkbox' || element.type=='radio') && this.checked == false) ? null : element.val();
+                element.data('change_listener', elementValue);
+            });
+
+        setInterval(function() {
+            jquery_object.each(function() {
+                var element = $(this),
+                    elementValue = ((element.type=='checkbox' || element.type=='radio') && this.checked == false) ? null : element.val();
+                // set data cache on element to input value if not yet set
+                if (element.data('change_listener') == undefined) {
+                    element.data('change_listener', elementValue);
+                    return;
+                }
+                // return if the value matches the cache
+                if (element.data('change_listener') == elementValue) {
+                    return;
+                }
+                // ignore if element is in focus (since change event will fire on blur)
+                if (this == current_focus) {
+                    return;
+                }
+                // if we make it here, manually fire the change event, which will set the new value
+                element.trigger('change');
+            });
+        }, settings.interval);
+        return this;
+    };
+})(jQuery);
+
 function init_gallery() {
 	var gallery = $('#images');
 	gallery.exposure({controlsTarget : '#controls',
@@ -295,35 +344,100 @@ function on_cart_update(cart) {
     }
 }
 
-// Order
+// Login
+
+known_emails_by_username = {};   // 'user' -> ['user@gmail.com', 'user@yahoo.com']
+
+function get_known_emails(username) {
+    var known_emails = null;
+    if (username !== null && username in known_emails_by_username) {
+        known_emails = known_emails_by_username[username]
+    }
+    return known_emails;
+}
+
+function email_username(partial_email) {
+    var username = null;
+    if (_.contains(partial_email, '@')) {
+        var username_domain = partial_email.split('@');
+        username = username_domain[0]
+    }
+    return username;
+}
+
+function search_customer(partial_email) {
+    console.debug("searching " + partial_email);
+    email_exists = null;
+    username = email_username(partial_email);
+    if (_.isString(username)) {
+        known_emails = get_known_emails(username);
+        if (_.isArray(known_emails)) {
+            if (_.contains(known_emails, partial_email)) {
+                email_exists = true;
+            }
+            if (!_.some(known_emails, function(email) {
+                    return email.indexOf(partial_email) == 0})) {
+                email_exists = false;
+            }
+        }
+        else {
+            fetch_emails_by_username(username, function() {
+                search_customer(partial_email);
+            });
+        }
+    }
+    else {
+        email_exists = null;
+    }
+    update_login_form(email_exists);
+    console.debug("searching " + partial_email + " ... " + email_exists);
+}
+
+function update_login_form(email_exists) {
+    var login_form = $("#loginform");
+
+    password_texts = {
+        null: "Parola",
+        true: "Client vechi cu parola",
+        false: "Client nou cu parola"}
+    login_form.find('label[for="logintype_new"]').text(password_texts[email_exists]);
+
+    if (email_exists === true) {
+        login_form.find('.signupfield').hide("fast");
+        login_form.find('.logininput').show("fast");
+    }
+    else if (email_exists === false) {
+        login_form.find('.signupfield').show("fast");
+        login_form.find('.logininput').hide("fast");
+    }
+    else {
+        login_form.find('.logininput').show("fast");
+        login_form.find('.signupfield').show("fast");
+    }
+}
+
+function fetch_emails_by_username(username, done_callback) {
+    var fetched_emails = [username + '@gmail.com'];
+    known_emails_by_username[username] = fetched_emails;
+    if (done_callback) {
+        done_callback();
+    }
+}
 
 function init_login() {
     var login_form = $("#loginform");
+    if (!login_form.length) return;
 
-    function show_hide_signup() {
-        var login_type = login_form.find("input[name='logintype']:checked").val();
-        if (login_type == 'old') {
-            login_form.find('.signup').hide("fast");
-            login_form.find('.logininput').show("fast");
-        }
-        else if (login_type == 'new') {
-            login_form.find('.signup').show("fast");
-            login_form.find('.logininput').hide("fast");
-        }
-    }
-    login_form.find("input[name='logintype']").click(show_hide_signup)
-        .filter('[value=old]').prop('checked', true);
-    show_hide_signup();
+    login_form.listenForChange();
+    login_form.find("input[name='username']").on("keyup change blur", function(e) {
+        partial_email = $(e.target).val();
+        search_customer(partial_email);
+    }).change();
 
-    var login_form_inputs = login_form.find("input[type=text], textarea")
-        .each(function (i, form_input) {
-        init_input_hint(login_form, $(form_input));
-    });
-
-    login_form.find(".login-key").click(function () {
-        login_form.submit();
-        return false;
-    });
+    var login_form_inputs = login_form.find('input[name*="_name"]')
+                                      .each(function (i, form_input) {
+                                          init_input_hint(login_form, $(form_input));
+                                      });
 }
 
 $(document).ready(function() {

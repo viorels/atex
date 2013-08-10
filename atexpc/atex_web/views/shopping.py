@@ -18,9 +18,18 @@ class LoginBase(FormView, HybridGenericView):
                               url=reverse_lazy('login'))]
     success_url = reverse_lazy('home')
 
+    def is_signup(self):
+        email = self.request.POST.get('username', '')
+        try:
+            CustomUser.objects.get(email=email)
+            is_signup = False
+        except CustomUser.DoesNotExist:
+            is_signup = True
+        return is_signup
+
     def get_form_class(self):
-        logintype = self.request.POST.get('logintype', None)
-        return user_form_factory(logintype, self.api)
+        email = self.request.POST.get('username', '')
+        return user_form_factory(self.is_signup(), self.api)
 
     def form_valid(self, form):
         login(self.request, form.get_user())
