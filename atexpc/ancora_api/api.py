@@ -4,7 +4,6 @@ import time
 import hashlib
 import json
 import operator
-import bcrypt
 from urlparse import urlparse, urlunparse, parse_qsl
 from urllib import urlencode
 from django.core.cache import cache as django_cache
@@ -439,15 +438,15 @@ class Ancora(object):
         else:
             raise APIError(lines[0])
 
-    def create_user(self, email, first_name, last_name, password, usertype, salt=None):
+    def create_user(self, email, first_name, last_name, usertype='F'):
         create_user_uri = self.adapter.uri_for('create_user')
         args = {'email': email,
                 'denumire': "%s %s" % (last_name, first_name),
-                'parola': self._password_hash(password, salt),
+                'parola': '',
                 'fj': usertype}
         return self.adapter.write(create_user_uri, args, post_process=self._post_process_write)
 
-    def get_user(self, email, password, salt=None):
+    def get_user(self, email):
         """ Returns a user if the password is good, otherwise None """
         def post_process(data):
             json_root = 'useri_site'
@@ -458,23 +457,16 @@ class Ancora(object):
                         'email': backend_user['zemail'],
                         'first_name': first_name,
                         'last_name': last_name,
-                        'usertype': backend_user['zfj'],            # F/J
-                        'disabled': backend_user['zcol_inactiv'] == 'Y'}   # Y/N
+                        'usertype': backend_user['zfj'],    # Fizica/Juridica
+                        'disabled': backend_user['zcol_inactiv'] == 'Y'}    # Y/N
             else:
                 user = None
             return user
 
-        args = {'femail': email,
-                'fparola': self._password_hash(password, salt)}
+        args = {'femail': email}
         get_user_uri = self.adapter.uri_for('get_user', args)
         user = self.adapter.read(get_user_uri, post_process=post_process, cache_timeout=TIMEOUT_SHORT)
-        user['password'] = self._password_hash(password, salt)
         return user
-
-    def _password_hash(self, password, salt=None):
-        if salt is None:
-            salt = bcrypt.gensalt()
-        return bcrypt.hashpw(password, salt)
 
     def create_cart(self, user_id):
         create_cart_uri = self.adapter.uri_for('create_cart')

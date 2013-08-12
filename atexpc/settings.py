@@ -56,7 +56,6 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
     'social_auth.backends.facebook.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
-    'atexpc.atex_web.ancora_api.AncoraAuthBackend'
 )
 
 LOGIN_URL = 'login'
@@ -133,7 +132,6 @@ STATICFILES_FINDERS = (
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '^phe(gn-&amp;laaufa=o_f90ulmmqd1@6yj7sslxq62z@&amp;m8-(ab*'
-PASSWORD_SALT = '$2a$12$LtYdysZjnWn1w39ydF/bVe'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (

@@ -7,34 +7,6 @@ from django.contrib.auth import get_user_model
 from atexpc.ancora_api.api import Ancora, AncoraAdapter
 
 
-class AncoraAuthBackend(object):
-    """ Authenticate against Ancora user database """
-
-    def authenticate(self, username=None, password=None):
-        email = username
-        api = AncoraAPI()
-        api_user = api.users.get_user(email, password, salt=settings.PASSWORD_SALT)
-        if api_user is not None:
-            users_manager = get_user_model().objects
-            try:
-                user = users_manager.get(email=email)
-            except get_user_model().DoesNotExist:
-                user = users_manager.create_user(email=email, password='')
-            user.password = api_user['password']
-            user.first_name = api_user['first_name']
-            user.last_name = api_user['last_name']
-            user.ancora_id = api_user['id']
-            user.save()
-            return user
-        return None
-
-    def get_user(self, user_id):
-        try:
-            return get_user_model().objects.get(pk=user_id)
-        except get_user_model().DoesNotExist:
-            return None
-
-
 class AncoraAPI(object):
     def __init__(self, adapter_class=AncoraAdapter,
                        base_uri=settings.ANCORA_URI,
@@ -173,12 +145,21 @@ class ProductsAPI(BaseAPI):
 
 
 class UsersAPI(BaseAPI):
-    def create_user(self, salt=settings.PASSWORD_SALT, **kwargs):
-        return self._api.create_user(salt=salt, **kwargs)
+    def create_user(self, **kwargs):
+        return self._api.create_user(**kwargs)
 
-    def get_user(self, email, password, salt=settings.PASSWORD_SALT):
-        return self._api.get_user(email, password, salt)
+    def get_user(self, email):
+        return self._api.get_user(email)
 
+    def create_or_update_user(self, **kwargs):
+        email = kwargs.get('email')
+        user = self.get_user(email)
+        if user is not None:
+            # TODO: update user
+            return user['id']
+        else:
+            user_id = self.create_user(**kwargs)
+            return user_id
 
 class CartAPI(BaseAPI):
     def get_cart(self, cart_id):
