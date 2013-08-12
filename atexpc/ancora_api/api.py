@@ -446,22 +446,30 @@ class Ancora(object):
                 'fj': usertype}
         return self.adapter.write(create_user_uri, args, post_process=self._post_process_write)
 
-    def get_user(self, email):
+    def _post_process_user(self, user):
+        last_name, first_name = user['zdenumire'].split(" ", 1)
+        return {'id': user['pidm'],
+                'email': user['zemail'],
+                'first_name': first_name,
+                'last_name': last_name,
+                'usertype': user['zfj'],    # Fizica/Juridica
+                'disabled': user['zcol_inactiv'] == 'Y'}    # Y/N
+
+    def get_users(self):
         """ Returns a user if the password is good, otherwise None """
         def post_process(data):
             json_root = 'useri_site'
-            backend_user = data[json_root][0] if len(data[json_root]) else None
-            if backend_user is not None:
-                last_name, first_name = backend_user['zdenumire'].split(" ", 1)
-                user = {'id': backend_user['pidm'],
-                        'email': backend_user['zemail'],
-                        'first_name': first_name,
-                        'last_name': last_name,
-                        'usertype': backend_user['zfj'],    # Fizica/Juridica
-                        'disabled': backend_user['zcol_inactiv'] == 'Y'}    # Y/N
-            else:
-                user = None
-            return user
+            return [self._post_process_user(user) for user in data[json_root]]
+
+        get_user_uri = self.adapter.uri_for('get_user')
+        user = self.adapter.read(get_user_uri, post_process=post_process, cache_timeout=TIMEOUT_SHORT)
+        return user
+
+    def get_user(self, email):
+        """ Returns user information """
+        def post_process(data):
+            json_root = 'useri_site'
+            return self._post_process_user(data[json_root][0]) if len(data[json_root]) else None
 
         args = {'femail': email}
         get_user_uri = self.adapter.uri_for('get_user', args)
