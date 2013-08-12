@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
@@ -6,6 +6,9 @@ from django.views.generic.edit import FormView
 from atexpc.atex_web.views.base import HybridGenericView, JSONResponseMixin
 from atexpc.atex_web.utils import FrozenDict
 from atexpc.atex_web.forms import user_form_factory
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 class LoginBase(FormView, HybridGenericView):
@@ -34,7 +37,7 @@ class LoginBase(FormView, HybridGenericView):
 
 class GetEmails(JSONResponseMixin, ListView):
     """ List user emails that begin with the specified username, e.g. username@anydomain.com """
-    
+
     context_object_name = 'emails'
     json_exclude = ('object_list', 'view', 'paginator', 'page_obj', 'is_paginated')
 

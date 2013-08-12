@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.contrib.auth import forms as auth_forms, authenticate
+from django.contrib.auth import forms as auth_forms, get_user_model
 from django.core.validators import validate_email
 from django.forms.widgets import (TextInput, PasswordInput, HiddenInput, 
     CheckboxInput, RadioSelect, Select, Textarea)
@@ -91,16 +91,14 @@ def user_form_factory(is_signup, api):
             return email
 
         def clean(self):
-            email = self.cleaned_data.get('username')
-            password = self.cleaned_data.get('password')
-            first_name = self.cleaned_data.get('first_name')
-            last_name = self.cleaned_data.get('last_name')
             if (not self._errors):
-                result = api.users.create_user(email=email,
-                                               first_name=first_name,
-                                               last_name=last_name,
-                                               password=password,
-                                               usertype='F')
+                user_info = {'email': self.cleaned_data.get('username'),
+                             'first_name': self.cleaned_data.get('first_name'),
+                             'last_name': self.cleaned_data.get('last_name')}
+                ancora_user_id = api.users.create_or_update_user(**user_info)
+                user_info['ancora_id'] = ancora_user_id
+                user_info['password'] = self.cleaned_data.get('password')
+                user = get_user_model().objects.create_user(**user_info)
             return super(SignupForm, self).clean()
 
         def get_user(self):

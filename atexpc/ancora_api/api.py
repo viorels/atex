@@ -442,7 +442,7 @@ class Ancora(object):
         create_user_uri = self.adapter.uri_for('create_user')
         args = {'email': email,
                 'denumire': "%s %s" % (last_name, first_name),
-                'parola': '',
+                'parola': '',   # legacy
                 'fj': usertype}
         return self.adapter.write(create_user_uri, args, post_process=self._post_process_write)
 
