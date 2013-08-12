@@ -60,16 +60,12 @@ def user_form_factory(is_signup, api):
             widget=TextInput(attrs={"class": "input_cos"}),
             required=True)
         password = forms.CharField(
-            widget=PasswordInput(attrs={"class": "input_cos"}),
+            widget=PasswordInput(attrs={"id": "masked_password",
+                                        "class": "input_cos"}),
             required=True)
-    
-    class SignupForm(forms.Form):
-        username = forms.CharField(
-            widget=TextInput(attrs={"class": "input_cos"}),
-            required=True)
-        password = forms.CharField(
-            widget=PasswordInput(attrs={"class": "input_cos"}),
-            required=True)
+
+
+    class SignupForm(LoginForm):
         first_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "title": "prenume"}),
@@ -95,11 +91,10 @@ def user_form_factory(is_signup, api):
             return email
 
         def clean(self):
-            cleaned_data = super(SignupForm, self).clean()
-            email = cleaned_data.get('username')
-            password = cleaned_data.get('password')
-            first_name = cleaned_data.get('first_name')
-            last_name = cleaned_data.get('last_name')
+            email = self.cleaned_data.get('username')
+            password = self.cleaned_data.get('password')
+            first_name = self.cleaned_data.get('first_name')
+            last_name = self.cleaned_data.get('last_name')
             if (not self._errors):
                 result = api.users.create_user(email=email,
                                                first_name=first_name,
@@ -110,11 +105,7 @@ def user_form_factory(is_signup, api):
                                                first_name=first_name,
                                                last_name=last_name,
                                                password=password)
-                user = authenticate(email=email, password=password)
-                user.first_name = first_name
-                user.last_name = last_name
-                user.save()
-                self.user_cache = user
+            return super(SignupForm, self).clean()
 
         def get_user(self):
             return self.user_cache
