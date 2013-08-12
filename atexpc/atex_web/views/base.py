@@ -242,7 +242,14 @@ class JSONResponseMixin(object):
 
     def convert_context_to_json(self, context):
         """Naive conversion of the context dictionary into a JSON object"""
-        return json.dumps(context)
+        def none_unless_serializable(obj):
+            if type(obj) not in (str, unicode, int, long, float, bool, None):
+                return None
+            return obj
+
+        json_exclude = getattr(self, 'json_exclude', ())
+        json_context = dict((k, v) for k, v in context.items() if k not in json_exclude)
+        return json.dumps(json_context, skipkeys=True, default=none_unless_serializable)
 
 
 class HybridGenericView(JSONResponseMixin, BaseView):

@@ -1,6 +1,7 @@
+from authentication import LoginBase
 from products import (HomeBase, SearchBase, ProductBase, BrandsBase,
                       SearchMixin)
-from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin, LoginBase
+from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
 from base import BaseView, BreadcrumbsMixin, ErrorBase
 
 # *Base classes (e.g. HomeView must be last on inheritance list as

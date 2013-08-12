@@ -6,7 +6,7 @@ from django.views.generic import RedirectView
 from views import (HomeView, SearchView, ProductView, BrandsView,
                    ContactView, ConditionsView, ServiceView,
                    CartView, OrderView, ConfirmView, LoginView)
-
+from views.authentication import GetEmails
 
 urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^conditii/', ConditionsView.as_view(), name='conditions'),
     url(r'^service/', ServiceView.as_view(), name='service'),
     url(r'^login/$', LoginView.as_view(), name='login'),
+    url(r'^login/emails/(?P<username>\w+)$', GetEmails.as_view()),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
     url(r'PIE\.htc$',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),

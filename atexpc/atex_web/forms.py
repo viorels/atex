@@ -72,7 +72,7 @@ def user_form_factory(is_signup, api):
             required=True)
         last_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "nume"}),
+                                    "title": "nume de familie"}),
             required=True)
         terms = forms.BooleanField( # Am citit si sunt de acord cu Termenii & Conditii de utilizare
             widget=CheckboxInput(attrs={"id": "terms_checkbox",

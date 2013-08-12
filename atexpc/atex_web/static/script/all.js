@@ -1,5 +1,6 @@
 
 var cart_url = '/cos/';
+var get_emails_url = '/login/emails/';
 
 (function($) {
     /* Watch for browser autofill events that do not trigger onchange */
@@ -419,11 +420,14 @@ function update_login_form(email_exists, is_final) {
 }
 
 function fetch_emails_by_username(username, done_callback) {
-    var fetched_emails = [username + '@gmail.com'];
-    known_emails_by_username[username] = fetched_emails;
-    if (done_callback) {
-        done_callback();
-    }
+    $.get(get_emails_url + username)
+        .success(function (data) {
+            fetched_emails = data.emails;
+            known_emails_by_username[username] = fetched_emails;
+            if (done_callback) {
+                done_callback();
+            }
+        });
 }
 
 function init_login() {
