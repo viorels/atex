@@ -21,6 +21,8 @@ class AncoraAuthBackend(object):
             except get_user_model().DoesNotExist:
                 user = users_manager.create_user(email=email, password='')
             user.password = api_user['password']
+            user.first_name = api_user['first_name']
+            user.last_name = api_user['last_name']
             user.ancora_id = api_user['id']
             user.save()
             return user

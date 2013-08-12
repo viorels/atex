@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.contrib.auth import forms as auth_forms, authenticate, get_user_model
+from django.contrib.auth import forms as auth_forms, authenticate
 from django.core.validators import validate_email
 from django.forms.widgets import (TextInput, PasswordInput, HiddenInput, 
     CheckboxInput, RadioSelect, Select, Textarea)
@@ -101,10 +101,6 @@ def user_form_factory(is_signup, api):
                                                last_name=last_name,
                                                password=password,
                                                usertype='F')
-                get_user_model().objects.create_user(email=email,
-                                               first_name=first_name,
-                                               last_name=last_name,
-                                               password=password)
             return super(SignupForm, self).clean()
 
         def get_user(self):
