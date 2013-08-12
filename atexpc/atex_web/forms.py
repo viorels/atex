@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.contrib.auth import forms as auth_forms, authenticate
+from django.contrib.auth import forms as auth_forms, authenticate, get_user_model
+from django.core.validators import validate_email
 from django.forms.widgets import (TextInput, PasswordInput, HiddenInput, 
     CheckboxInput, RadioSelect, Select, Textarea)
 
@@ -52,11 +53,23 @@ def search_form_factory(search_in_choices, advanced=False):
 
     return AdvancedSearchForm if advanced else SearchForm
 
+
 def user_form_factory(is_signup, api):
     class LoginForm(auth_forms.AuthenticationForm):
-        pass
-
-    class SignupForm(LoginForm):
+        username = forms.CharField(
+            widget=TextInput(attrs={"class": "input_cos"}),
+            required=True)
+        password = forms.CharField(
+            widget=PasswordInput(attrs={"class": "input_cos"}),
+            required=True)
+    
+    class SignupForm(forms.Form):
+        username = forms.CharField(
+            widget=TextInput(attrs={"class": "input_cos"}),
+            required=True)
+        password = forms.CharField(
+            widget=PasswordInput(attrs={"class": "input_cos"}),
+            required=True)
         first_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "title": "prenume"}),
@@ -65,36 +78,43 @@ def user_form_factory(is_signup, api):
             widget=TextInput(attrs={"class": "input_cos",
                                     "title": "nume"}),
             required=True)
-        usertype = forms.ChoiceField(
-                widget=RadioSelect(),
-                choices=(('f', 'Persoana fizica'), ('j', 'Persoana juridica')),
-                initial='',
-                required=True)
         terms = forms.BooleanField( # Am citit si sunt de acord cu Termenii & Conditii de utilizare
-            widget=CheckboxInput(),
-            initial="",
+            widget=CheckboxInput(attrs={"id": "terms_checkbox",
+                                        "class": "checkbox"}),
+            initial=True,
             required=True)
         newsletter = forms.BooleanField( # Doresc sa fiu informat, prin email, despre produsele ATEX
-            widget=CheckboxInput(),
-            initial="",
-            required=True)
+            widget=CheckboxInput(attrs={"id": "newsletter_checkbox",
+                                        "class": "checkbox"}),
+            initial=False,
+            required=False)
+
+        def clean_username(self):
+            email = self.cleaned_data['username']
+            validate_email(email)
+            return email
 
         def clean(self):
             cleaned_data = super(SignupForm, self).clean()
-            email = cleaned_data['username']
-            password = cleaned_data['password']
-            first_name = cleaned_data['first_name']
-            last_name = cleaned_data['last_name']
-            result = api.users.create_user(email=email,
-                                           first_name=first_name,
-                                           last_name=last_name,
-                                           password=password,
-                                           usertype='F')
-            user = authenticate(email=email, password=password)
-            user.first_name = first_name
-            user.last_name = last_name
-            user.save()
-            self.user_cache = user
+            email = cleaned_data.get('username')
+            password = cleaned_data.get('password')
+            first_name = cleaned_data.get('first_name')
+            last_name = cleaned_data.get('last_name')
+            if (not self._errors):
+                result = api.users.create_user(email=email,
+                                               first_name=first_name,
+                                               last_name=last_name,
+                                               password=password,
+                                               usertype='F')
+                get_user_model().objects.create_user(email=email,
+                                               first_name=first_name,
+                                               last_name=last_name,
+                                               password=password)
+                user = authenticate(email=email, password=password)
+                user.first_name = first_name
+                user.last_name = last_name
+                user.save()
+                self.user_cache = user
 
         def get_user(self):
             return self.user_cache
@@ -104,6 +124,14 @@ def user_form_factory(is_signup, api):
         return SignupForm
     else:
         return LoginForm
+
+
+class CustomerForm(forms.Form):
+    usertype = forms.ChoiceField(
+            widget=RadioSelect(),
+            choices=(('f', 'Persoana fizica'), ('j', 'Persoana juridica')),
+            initial='',
+            required=True)
 
 
 class DeliveryAddressForm(forms.Form):

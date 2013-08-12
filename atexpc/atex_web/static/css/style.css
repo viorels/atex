@@ -1722,9 +1722,9 @@ ul.modalitate li {
 .pas-02 .rand-cos .modalitate .textarea { width:400px; float:left }
 .pas-02 .rand-cos .modalitate .textarea textarea{ width:392px; height:39px; float:right;margin-top:3px; resize:none; }
 .total-cos02 { width:100%; float:left;}
-.termeni-newsletter { float:left; padding: 10px 0 15px 280px; }
-.termeni-newsletter li { padding-bottom:5px;}
-.termeni-newsletter li span{ line-height:18px; padding-left:5px;}
+.login-fields { float:left; padding: 10px 0 15px 10px; }
+.login-fields li { padding-bottom:5px;}
+.login-fields li label { line-height:18px; padding-left:5px;}
 .flleft { float:left }
 .flright { float:right }
 .reset {
@@ -1958,3 +1958,8 @@ td.center {text-align:center}
 .brands ul li {padding:5px 10px 0px 0px}		
 .brands ul li a{display:block;border-bottom:1px solid #fff; padding-left:10px;}
 .brands ul li a:hover {border-color:#999;}
+
+.errorlist {
+    color: red;
+}
+

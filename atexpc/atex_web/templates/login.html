@@ -1,6 +1,6 @@
 {% extends "base_2col.html" %}
 
-{% block content_right %}          	
+{% block content_right %}
 <div class="cos_content">
     <div class="product-section">
     	<div class="tab_d_holder_right">
@@ -15,35 +15,56 @@
     <form id="loginform" method="post">
         {% csrf_token %}
         <div class="rand-cos">
-            <ul>
+            <ul class="login-fields">
                 <li style="font-size: 18pt">Login sau creeaza un cont Atex</li>
+                <li class="errors">{{ form.non_field_errors }}</li>
                 <li style="font-size: 14pt; padding-top:20px">Adresa de email</li>
                 <li class="last">
                     <div class="row">
-                        <input name="username" type="text" class="input_cos" />
+                        {{ form.username.errors }}
+                        {{ form.username }}
                     </div>
                 </li>
             </ul>
         </div>
         <div class="rand-cos">
-            <ul>
-                <li><input id="logintype_new" name="logintype" type="radio" value="" checked /> <label for="logintype_new">Parola</label></li>
-                <li><input name="password" type="password" class="input_cos" /></li>
-                <li class="signupfield">
+            <ul class="login-fields">
+                <li><input id="logintype_new" name="logintype" type="radio" checked /> <label for="logintype_new">Parola</label></li>
+                <li>
+                    {{ form.password.errors }}
+                    <input type="password" name="password" id="masked_password" class="input_cos" />
+                    <input type="text" id="readable_password" class="input_cos" readonly style="display: none" />
+                </li>
+                <li>
+                    <input type="checkbox" id="show_password" class="checkbox" /><label for="show_password">Afișează parola</label>
+                </li>
+                <li class="signupinput">
                     Nume
                     <div class="row">
-                        <input name="first_name" type="text" class="input_cos" title="prenume"/>
-                        <input name="last_name" type="text" class="input_cos" title="nume de familie"/>
-                    </div>    
+                        {{ form.first_name.errors }}
+                        {{ signup_form.first_name }}
+                        {{ form.last_name.errors }}
+                        {{ signup_form.last_name }}
+                    </div>
+                </li>
+                <li class="signupinput">
+                    {{ form.terms.errors }}
+                    {{ signup_form.terms }}
+                    <label for="terms_checkbox">Am citit si sunt de acord cu Termenii &amp; Conditii de utilizare </label>
+                </li>
+                <li class="signupinput">
+                    {{ form.newsletter.errors }}
+                    {{ signup_form.newsletter }}
+                    <label for="newsletter_checkbox"> Doresc sa fiu informat, prin email, despre produsele ATEX</label>
                 </li>
                 <li>
                     <input type="submit" name="login" class="logininput" value="Log in">
-                    <input type="submit" name="signup" class="signupfield" value="Sign up">
+                    <input type="submit" name="signup" class="signupinput" value="Sign up">
                 </li>
             </ul>
         </div>
         <div class="rand-cos">
-            <ul>
+            <ul class="login-fields">
                 <li><input id="logintype_nopass" name="logintype" type="radio" value="nopass" /> <label for="logintype_nopass">Fără parolă</label></li>
                 <li>
                     <ul>

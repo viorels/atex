@@ -365,7 +365,7 @@ function email_username(partial_email) {
     return username;
 }
 
-function search_customer(partial_email) {
+function search_customer(partial_email, is_final) {
     console.debug("searching " + partial_email);
     email_exists = null;
     username = email_username(partial_email);
@@ -389,11 +389,12 @@ function search_customer(partial_email) {
     else {
         email_exists = null;
     }
-    update_login_form(email_exists);
+    update_login_form(email_exists, is_final);
     console.debug("searching " + partial_email + " ... " + email_exists);
 }
 
-function update_login_form(email_exists) {
+function update_login_form(email_exists, is_final) {
+    console.debug("email_exists %s, is_final %s", email_exists, is_final);
     var login_form = $("#loginform");
 
     password_texts = {
@@ -403,16 +404,17 @@ function update_login_form(email_exists) {
     login_form.find('label[for="logintype_new"]').text(password_texts[email_exists]);
 
     if (email_exists === true) {
-        login_form.find('.signupfield').hide("fast");
+        login_form.find('.signupinput').hide("fast");
         login_form.find('.logininput').show("fast");
     }
-    else if (email_exists === false) {
-        login_form.find('.signupfield').show("fast");
+    else if (email_exists === false || email_exists === null && is_final) {
+        login_form.find('.signupinput').show("fast");
         login_form.find('.logininput').hide("fast");
     }
     else {
-        login_form.find('.logininput').show("fast");
-        login_form.find('.signupfield').show("fast");
+        login_form.find('li.signupinput').hide("fast")
+        login_form.find('input[type="submit"].logininput').show("fast");
+        login_form.find('input[type="submit"].signupinput').show("fast");
     }
 }
 
@@ -430,14 +432,35 @@ function init_login() {
 
     login_form.listenForChange();
     login_form.find("input[name='username']").on("keyup change blur", function(e) {
-        partial_email = $(e.target).val();
-        search_customer(partial_email);
+        var partial_email = $(e.target).val();
+        var is_final = e.type == "blur";
+        search_customer(partial_email, is_final);
     }).change();
 
+    // name fields hint
     var login_form_inputs = login_form.find('input[name*="_name"]')
                                       .each(function (i, form_input) {
                                           init_input_hint(login_form, $(form_input));
                                       });
+
+    // visible password
+    $('#show_password').change(function() {
+        var isChecked = $(this).prop('checked');
+        if (isChecked) {
+            $('#masked_password').hide();
+            $('#readable_password').val($('#masked_password').val())
+            $('#readable_password').show();
+        }
+        else {
+            $('#masked_password').show();
+            $('#readable_password').hide();
+        }
+    });
+
+    $('#readable_password').click(function() {
+        $('#show_password').prop('checked', false).change().parent().toggleClass('selected');
+        $('#masked_password').focus();
+    })
 }
 
 $(document).ready(function() {

@@ -3,7 +3,7 @@ from django.contrib.auth import login
 from django.views.generic.edit import FormView
 
 from atexpc.atex_web.views.base import HybridGenericView
-from atexpc.atex_web.models import CartFactory
+from atexpc.atex_web.models import CartFactory, CustomUser
 from atexpc.atex_web.forms import user_form_factory
 from atexpc.atex_web.utils import LoginRequiredMixin, FrozenDict
 from atexpc.atex_web.templatetags import atex_tags
@@ -18,18 +18,17 @@ class LoginBase(FormView, HybridGenericView):
                               url=reverse_lazy('login'))]
     success_url = reverse_lazy('home')
 
-    def is_signup(self):
-        email = self.request.POST.get('username', '')
-        try:
-            CustomUser.objects.get(email=email)
-            is_signup = False
-        except CustomUser.DoesNotExist:
-            is_signup = True
-        return is_signup
+    def get_context_data(self, **kwargs):
+        context = super(LoginBase, self).get_context_data(**kwargs)
+        signup_form = user_form_factory(True, self.api)
+        context['signup_form'] = signup_form(data=self.request.POST or None)
+        if 'form' not in context:   # show full unbound form on first view
+            context['form'] = signup_form()
+        return context
 
     def get_form_class(self):
-        email = self.request.POST.get('username', '')
-        return user_form_factory(self.is_signup(), self.api)
+        is_signup = 'signup' in self.request.POST
+        return user_form_factory(is_signup, self.api)
 
     def form_valid(self, form):
         login(self.request, form.get_user())
