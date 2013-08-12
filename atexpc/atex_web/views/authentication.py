@@ -1,7 +1,13 @@
-from django.contrib.auth import get_user_model, login
+from django.conf import settings
+from django.contrib.auth import get_user_model, login, REDIRECT_FIELD_NAME
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
+from django.utils.decorators import method_decorator
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+from django.utils.http import is_safe_url
 
 from atexpc.atex_web.views.base import HybridGenericView, JSONResponseMixin
 from atexpc.atex_web.utils import FrozenDict
@@ -15,7 +21,6 @@ class LoginBase(FormView, HybridGenericView):
     template_name = "login.html"
     breadcrumbs = [FrozenDict(name="Login/Register",
                               url=reverse_lazy('login'))]
-    success_url = reverse_lazy('home')
 
     def get_context_data(self, **kwargs):
         context = super(LoginBase, self).get_context_data(**kwargs)
@@ -33,6 +38,18 @@ class LoginBase(FormView, HybridGenericView):
         login(self.request, form.get_user())
         logger.info('Login %s', self.request.user.email)
         return super(LoginBase, self).form_valid(form)
+
+    def get_success_url(self):
+        redirect_to = self.request.REQUEST.get(REDIRECT_FIELD_NAME, '')
+        if not is_safe_url(url=redirect_to, host=self.request.get_host()):
+            redirect_to = settings.LOGIN_REDIRECT_URL
+        return redirect_to
+
+    @method_decorator(sensitive_post_parameters())
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self, *args, **kwargs):
+        return super(LoginBase, self).dispatch(*args, **kwargs)
 
 
 class GetEmails(JSONResponseMixin, ListView):
