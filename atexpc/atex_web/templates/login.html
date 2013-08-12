@@ -32,7 +32,7 @@
                 <li><input id="logintype_new" name="logintype" type="radio" checked /> <label for="logintype_new">Parola</label></li>
                 <li>
                     {{ form.password.errors }}
-                    <input type="password" name="password" id="masked_password" class="input_cos" />
+                    <input type="password" name="password" value="{{ form.password.value|default:'' }}" id="masked_password" class="input_cos" />
                     <input type="text" id="readable_password" class="input_cos" readonly style="display: none" />
                 </li>
                 <li>
