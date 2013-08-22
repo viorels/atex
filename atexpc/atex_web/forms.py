@@ -64,7 +64,6 @@ def user_form_factory(is_signup, api):
                                         "class": "input_cos"}),
             required=True)
 
-
     class SignupForm(LoginForm):
         first_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
@@ -104,25 +103,33 @@ def user_form_factory(is_signup, api):
         def get_user(self):
             return self.user_cache
 
-
     if is_signup:
         return SignupForm
     else:
         return LoginForm
 
 
-class CustomerForm(forms.Form):
-    usertype = forms.ChoiceField(
-            widget=RadioSelect(),
-            choices=(('f', 'Persoana fizica'), ('j', 'Persoana juridica')),
-            initial='',
-            required=True)
-
-
 class DeliveryAddressForm(forms.Form):
+    customer_type = forms.ChoiceField(
+        widget=RadioSelect(),
+        choices=(('f', 'Persoana fizica'), ('j', 'Persoana juridica'), ('o', 'ONG')),
+        initial='f',
+        required=True)
+    first_name = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "prenume"}),
+        required=True)
+    last_name = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "nume de familie"}),
+        required=True)
     phone = forms.CharField(
         widget=TextInput(attrs={"class": "input_cos",
                                 "title": "telefon"}),
+        required=True)
+    cnp = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "CNP"}),
         required=True)
     city = forms.CharField(
         widget=TextInput(attrs={"class": "input_cos",

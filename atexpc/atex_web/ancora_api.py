@@ -164,6 +164,10 @@ class UsersAPI(BaseAPI):
     def get_users(self):
         return self._api.get_users()
 
+    def create_customer(self, **kwargs):
+        return self._api.create_customer(**kwargs)
+
+
 class CartAPI(BaseAPI):
     def get_cart(self, cart_id):
         """ Ancora does't tell if the cart exists so we assume it does"""

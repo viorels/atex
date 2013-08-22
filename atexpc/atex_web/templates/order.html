@@ -30,52 +30,58 @@
 
                         <form id="orderform" method="post">
                             {% csrf_token %}
-                            <a href="{% url "socialauth_begin" "facebook" %}">log in with Facebook</a>
-                            <div class="rand-cos">
+                            <!--div class="rand-cos">
                                 <ul class="modalitate">
-                                    <li>Va rugam selectati tipul de client:</li>
-                                    <li><input id="logintype_new" name="logintype" type="radio" value="new" /> <label for="logintype_new">Client nou</label></li>
-                                    <li><input id="logintype_old" name="logintype" type="radio" value="old" /> <label for="logintype_old">Client vechi</label></li>
-                                    <li class="last logininput">
+                                    <li class="logininput">
                                         <input name="username" type="text" class="input_cos" title="utilizator"/> 
-                                        <input name="password" type="password" class="input_cos" title="parola"/> 
+                                        <input name="password" type="password" class="input_cos" title="parola"/>
                                         <a href="#" class="login-key"></a>
                                     </li>
                                 </ul>    
-                            </div>
-                            <div class="rand-cos signup">
+                            </div-->
+                            {{ form.non_field_errors }}
+                            <div class="rand-cos">
                                 <ul class="modalitate">
-                                    <li>Informatii utilizator / autentificare:</li>
-                                    <li class="last">
+                                    <li>Informatii utilizator:</li>
+                                    <li class="">
                                         <div class="row">
-                                            <input name="surname" type="text" class="input_cos" title="nume"/> 
-                                            <input name="firstname" type="text" class="input_cos" title="prenume"/>
-                                            <input name="email" type="text" class="input_cos" title="adresa email"/>
-                                        </div>  
-                                        <div class="row">  
-                                            <input name="phone" type="text" class="input_cos" title="telefon"/> 
-                                            <input name="password1" type="password" class="input_cos" title="parola"/>
-                                            <input name="password2" type="password" class="input_cos" title="repeta parola"/>
+                                            {{ form.first_name.errors }}
+                                            <input name="first_name" type="text" class="input_cos" title="prenume" value="{{ user.first_name }}" />
+                                            {{ form.last_name.errors }}
+                                            <input name="last_name" type="text" class="input_cos" title="nume de familie" value="{{ user.last_name }}"/>
+                                        </div>
+                                        <div class="row">
+                                            {{ form.phone.errors }}
+                                            <input name="phone" type="text" class="input_cos" title="telefon"/>
+                                        </div>
+                                        <div class="row">
+                                            {{ form.cnp.errors }}
+                                            <input name="cnp" type="text" class="input_cos" title="CNP"/>
                                         </div>    
                                     </li>
                                 </ul>    
                             </div>
-                            <div class="rand-cos signup">
+                            <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Va rugam selectati modul de facturare:</li>
-                                    <li><input name="usertype" type="radio" checked="checked" value="f" /> Persoana fizica</li>
-                                    <li><input name="usertype" type="radio" value="j" /> Persoana juridica</li>
+                                    <li><input name="customer_type" type="radio" checked="checked" value="f" /> Persoana fizica</li>
+                                    <li><input name="customer_type" type="radio" value="j" /> Persoana juridica</li>
+                                    <li><input name="customer_type" type="radio" value="o" /> ONG</li>
+                                    <li>{{ form.customer_type.errors }}</li>
                                 </ul>   
                             </div>
-                            <div class="rand-cos signup">
+                            <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Informatii facturare:</li>
                                     <li class="last">
                                         <div class="col">
-                                            <input name="city" type="text" class="input_cos" title="localitatea"/> 
+                                            {{ form.city.errors }}
+                                            <input name="city" type="text" class="input_cos" title="localitatea"/>
+                                            {{ form.county.errors }}
                                             <input name="county" type="text" class="input_cos" title="judetul"/>                                        
                                         </div>  
-                                        <div class="textarea">  
+                                        <div class="textarea">
+                                            {{ form.address.errors }}
                                             <textarea name="address" class="input_cos" title="adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"></textarea>
                                         </div>    
                                     </li>
@@ -88,11 +94,6 @@
                                 </ul> 
                             </div>
                         </form>
-
-                        <ul class="buttons">
-                            <li><a href="#" class="reset"><span></span>Reset</a></li>
-                            <li><a href="#" class="continua"><span></span>Continua</a></li>
-                        </ul>
 
                     </div> <!-- end pas 02 -->
                     

@@ -467,6 +467,22 @@ function init_login() {
     })
 }
 
+function init_order() {
+    var order_form = $("#orderform");
+    if (!order_form.length) return;
+
+    // fields hint
+    var login_form_inputs = order_form.find('input[type="text"], textarea')
+                                      .each(function (i, form_input) {
+                                          init_input_hint(order_form, $(form_input));
+                                      });
+
+    $("a.continua").click(function() {
+        order_form.submit();
+        return false;
+    })
+}
+
 $(document).ready(function() {
 	init_gallery();
 	init_filters();
@@ -474,6 +490,7 @@ $(document).ready(function() {
     init_csrf();
     init_cart();
     init_login();
+    init_order();
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {
         calculate_height();

@@ -170,10 +170,11 @@ class AncoraAdapter(BaseAdapter):
                 'promotional': {'cod_formular': '737', 'start': '0'},
                 'brands': {'cod_formular': '1024', 'start': '0', 'stop': '1000'},
                 'create_user': {'cod_formular': '1312',
-                                'pid': '0',         # new user
                                 'iduser': '47',     # website user
                                 'actiune': 'SAVE_TAB'},
                 'get_user': {'cod_formular': '1023'},
+                'create_customer': {'cod_formular': '1449'
+                                    'actiune': 'SAVE_TAB'},
                 'list_cart': {'cod_formular': '1078'},
                 'create_cart': {'cod_formular': '1366',
                                 'iduser': '47',
@@ -440,7 +441,8 @@ class Ancora(object):
 
     def create_user(self, email, first_name, last_name, usertype='F'):
         create_user_uri = self.adapter.uri_for('create_user')
-        args = {'email': email,
+        args = {'pid': '0',     # new user
+                'email': email,
                 'denumire': "%s %s" % (last_name, first_name),
                 'parola': '',   # legacy
                 'fj': usertype}
@@ -475,6 +477,19 @@ class Ancora(object):
         get_user_uri = self.adapter.uri_for('get_user', args)
         user = self.adapter.read(get_user_uri, post_process=post_process, cache_timeout=TIMEOUT_SHORT)
         return user
+
+    def create_customer(self, email='', customer_type='F', name='', phone='',
+                        address='', city='', county=''):
+        create_customer_uri = self.adapter.uri_for('create_customer')
+        args = {'pid': '0',     # new user
+                'email': email,
+                'denumire': name,
+                'fj': customer_type,
+                'sediu': address,
+                'localitate': city,
+                'judet': county,
+                'fix': phone}
+        return self.adapter.write(create_customer_uri, args, post_process=self._post_process_write)
 
     def create_cart(self, user_id):
         create_cart_uri = self.adapter.uri_for('create_cart')

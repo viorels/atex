@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import login
 from django.views.generic.edit import FormView
 
+from atexpc.atex_web.forms import DeliveryAddressForm
 from atexpc.atex_web.views.base import HybridGenericView
 from atexpc.atex_web.models import CartFactory
 from atexpc.atex_web.utils import LoginRequiredMixin, FrozenDict
@@ -37,9 +38,22 @@ class CartBase(HybridGenericView):
 
 class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
     template_name = "order.html"
+    form_class = DeliveryAddressForm
     breadcrumbs = CartBase.breadcrumbs + [FrozenDict(name="Date facturare",
                                                      url=reverse_lazy('order'))]
     success_url = reverse_lazy('confirm')
+
+    def form_valid(self, form):
+        logger.info('Order %s', form.cleaned_data)
+        new_customer = {email=form.cleaned_data['email'],
+                        customer_type=form.cleaned_data['customer_type'],
+                        name=form.cleaned_data['last_name'] + form.cleaned_data['first_name'],
+                        phone=form.cleaned_data['phone'],
+                        address=form.cleaned_data['address'],
+                        city=form.cleaned_data['city'],
+                        county=form.cleaned_data['county']}
+        customer_id = self.api.users.create_customer(**new_customer)
+        return super(OrderBase, self).form_valid(form)
 
 
 class ConfirmBase(HybridGenericView):
