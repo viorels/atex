@@ -327,6 +327,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         """
         send_mail(subject, message, from_email, [self.email])
 
+    def get_ancora_id(self, api):
+        if self.ancora_id is None:
+            user_info = {'email': self.email,
+                         'first_name': self.first_name,
+                         'last_name': self.last_name}
+            self.ancora_id = api.users.create_or_update_user(**user_info)
+            self.save()
+        return self.ancora_id
+
 
 # class Company(models.Model):
 #     user = models.ForeignKey(settings.AUTH_USER_MODEL)

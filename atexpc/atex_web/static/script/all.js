@@ -483,6 +483,16 @@ function init_order() {
     })
 }
 
+function init_confirm() {
+    var confirm_form = $("#confirmform");
+    if (!confirm_form.length) return;
+
+    $("a.confirma").click(function() {
+        confirm_form.submit();
+        return false;
+    })
+}
+
 $(document).ready(function() {
 	init_gallery();
 	init_filters();
@@ -491,6 +501,7 @@ $(document).ready(function() {
     init_cart();
     init_login();
     init_order();
+    init_confirm();
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {
         calculate_height();

@@ -26,15 +26,23 @@
                                 <span class="up_right"></span>
                             </div>
                         </div>
-                        <div class="verificare">Va rugam sa verificati corectitudinea datelor de mai jos.</div>
+                        <div class="verificare">
+                            {% if done %}
+                            Va multumim pentru comanda dumneavoastra!
+                            {% else %}
+                            Va rugam sa verificati corectitudinea datelor de mai jos.
+                            {% endif %}
+                        </div>
                         <ul class="info-comanda">
-                        	<li class="comanda">Numar comanda: <span class="red_b">{{ cart.id }}</span></li>
+                            {% if done %}
+                        	<li class="comanda">Numar comanda: <span class="red_b">{{ order.id }}</span></li>
+                            {% endif %}
                             <li>&nbsp;</li>
-                        	<li><strong>{{ user.get_full_name }}</strong></li>
-                            <li>{{ user.address }}</li>
-                            <li>{{ user.city }}, Jud. {{ user.county }}</li>
+                        	<li><strong>{{ order.first_name }} {{ order.last_name }}</strong></li>
+                            <li>{{ order.address }}</li>
+                            <li>{{ order.city }}, Jud. {{ order.county }}</li>
                             <li>&nbsp;</li>
-                            <li>Telefon: <strong>{{ user.phone }}</strong></li>
+                            <li>Telefon: <strong>{{ order.phone }}</strong></li>
                             <li>Email: <strong>{{ user.email }}</strong></li>                        
                         </ul>   
                         <table class="detalii-comanda" width="450px">
@@ -69,7 +77,12 @@
                                 <td colspan="2" class="right">{{ cart.price }} lei</td>
                             </tr>
                         </table> 
-                        <a href="#" class="confirma"><span></span>Confirma</a>
+                        {% if not done %}
+                        <form id="confirmform" method="post">
+                            {% csrf_token %}
+                            <a href="#" class="confirma"><span></span>Confirma</a>
+                        </form>
+                        {% endif %}
                     </div>	
                      <!-- end pas 03 -->
                 </div>

@@ -164,9 +164,6 @@ class UsersAPI(BaseAPI):
     def get_users(self):
         return self._api.get_users()
 
-    def create_customer(self, **kwargs):
-        return self._api.create_customer(**kwargs)
-
 
 class CartAPI(BaseAPI):
     def get_cart(self, cart_id):
@@ -187,3 +184,6 @@ class CartAPI(BaseAPI):
 
     def update_product(self, cart_id, product_id, count):
         return self._api.update_cart_product(cart_id, product_id, count)
+
+    def create_order(self, **kwargs):
+        return self._api.create_order(**kwargs)

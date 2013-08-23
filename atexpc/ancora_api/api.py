@@ -173,16 +173,11 @@ class AncoraAdapter(BaseAdapter):
                                 'iduser': '47',     # website user
                                 'actiune': 'SAVE_TAB'},
                 'get_user': {'cod_formular': '1023'},
-                'create_customer': {'cod_formular': '1449'
-                                    'actiune': 'SAVE_TAB'},
                 'list_cart': {'cod_formular': '1078'},
-                'create_cart': {'cod_formular': '1366',
-                                'iduser': '47',
-                                'actiune': 'SAVE_TAB'},
-                'create_cart_entry': {'cod_formular': '1367',
-                                      'actiune': 'SAVE_TAB'},
-                'delete_cart_entry': {'cfi': '1064',
-                                      'actiune': 'DEL'}}
+                'create_cart': {'cod_formular': '1366', 'iduser': '47', 'actiune': 'SAVE_TAB'},
+                'create_cart_entry': {'cod_formular': '1367', 'actiune': 'SAVE_TAB'},
+                'delete_cart_entry': {'cfi': '1064', 'actiune': 'DEL'},
+                'create_order': {'cod_formular': '1456', 'actiune': 'SAVE_TAB'},}
         return args.get(method_name, {})
 
     def uri_with_args(self, uri, method=None, args=None):
@@ -478,19 +473,6 @@ class Ancora(object):
         user = self.adapter.read(get_user_uri, post_process=post_process, cache_timeout=TIMEOUT_SHORT)
         return user
 
-    def create_customer(self, email='', customer_type='F', name='', phone='',
-                        address='', city='', county=''):
-        create_customer_uri = self.adapter.uri_for('create_customer')
-        args = {'pid': '0',     # new user
-                'email': email,
-                'denumire': name,
-                'fj': customer_type,
-                'sediu': address,
-                'localitate': city,
-                'judet': county,
-                'fix': phone}
-        return self.adapter.write(create_customer_uri, args, post_process=self._post_process_write)
-
     def create_cart(self, user_id):
         create_cart_uri = self.adapter.uri_for('create_cart')
         args = {'pid': '0',     # new cart
@@ -543,3 +525,34 @@ class Ancora(object):
 
         list_cart_uri = self.adapter.uri_for('list_cart', {'idparinte': cart_id})
         return self.adapter.read(list_cart_uri, post_process=post_process, cache_timeout=TIMEOUT_NO_CACHE)
+
+    def create_order(self, cart_id, user_id, customer_id=0,
+                     email='', customer_type='F', tax_code='', name='', phone='',
+                     address='', city='', county=''):
+        create_order_uri = self.adapter.uri_for('create_order')
+        args = {'pid': 0,
+                'idcart_site': cart_id,
+                'iduser_site': user_id,
+                'idtert': customer_id,
+                'email': email,
+                'denumire': name,
+                'prefix': '',
+                'sufix': '',
+                'fj': customer_type,
+                'codfiscal': tax_code,
+                'regcom': '',
+                'banca': '',
+                'cont': '',
+                'atributfiscal': '',
+                'sediu_social': address,
+                'localitate': city,
+                'judet': county,
+                'persoana_contact': '',
+                'telefon': phone,
+                # unknown
+                'isadresa_livrare': '',
+                'pl_localitate': '',
+                'pl_judet': '',
+                'pl_adresa': '',
+                'idpunctlucru': 0}
+        return self.adapter.write(create_order_uri, args, post_process=self._post_process_write)

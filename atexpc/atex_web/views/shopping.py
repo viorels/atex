@@ -45,26 +45,44 @@ class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
 
     def form_valid(self, form):
         logger.info('Order %s', form.cleaned_data)
-        new_customer = {email=form.cleaned_data['email'],
-                        customer_type=form.cleaned_data['customer_type'],
-                        name=form.cleaned_data['last_name'] + form.cleaned_data['first_name'],
-                        phone=form.cleaned_data['phone'],
-                        address=form.cleaned_data['address'],
-                        city=form.cleaned_data['city'],
-                        county=form.cleaned_data['county']}
-        customer_id = self.api.users.create_customer(**new_customer)
+        self.request.session['order'] = form.cleaned_data
         return super(OrderBase, self).form_valid(form)
 
 
-class ConfirmBase(HybridGenericView):
+class ConfirmBase(LoginRequiredMixin, HybridGenericView):
     template_name = "confirm.html"
     breadcrumbs = OrderBase.breadcrumbs + [FrozenDict(name="Confirmare",
                                                       url=reverse_lazy('confirm'))]
 
+    def get_local_context(self):
+        return {'order': self.request.session.get('order')}
+
+    def post(self, request, *args, **kwargs):
+        cart_id = self._get_cart_data()['id']
+        ancora_user_id = self.request.user.get_ancora_id(self.api)
+        order_info = request.session.get('order')
+        new_order = dict(cart_id=cart_id,
+                         user_id=ancora_user_id,
+                         email=request.user.email,
+                         customer_type=order_info['customer_type'],
+                         name=order_info['last_name'] + order_info['first_name'],
+                         tax_code=order_info['cnp'],
+                         phone=order_info['phone'],
+                         address=order_info['address'],
+                         city=order_info['city'],
+                         county=order_info['county'])
+        logger.info('Confirm %s', new_order)
+        cart = self._get_cart_data()
+        logger.debug("Cart %s", cart)
+        order_info['id'] = self.api.cart.create_order(**new_order)
+        del request.session['cart_id']  # Ancora cart is deleted after order
+        return self.get(request, cart=cart, order=order_info, done=True)
+
 
 class ShoppingMixin(object):
     def get_context_data(self, **context):
-        context.update({'cart': self._get_cart_data()})
+        if 'cart' not in context:
+            context.update({'cart': self._get_cart_data()})
         return super(ShoppingMixin, self).get_context_data(**context)
 
     def _get_cart(self):
@@ -76,7 +94,7 @@ class ShoppingMixin(object):
         # TODO: are cookies enabled ?
         ancora_user_id = guest_id = 0
         if self.request.user.is_authenticated():
-            ancora_user_id = self.request.user.ancora_id
+            ancora_user_id = self.request.user.get_ancora_id(self.api)
         cart = CartFactory(api=self.api).create(ancora_user_id)
         self.request.session['cart_id'] = cart.id()
         return cart
