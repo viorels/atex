@@ -58,17 +58,17 @@
                     <label for="newsletter_checkbox"> Doresc sa fiu informat, prin email, despre produsele ATEX</label>
                 </li>
                 <li>
-                    <input type="submit" name="login" class="logininput" value="Log in">
-                    <input type="submit" name="signup" class="signupinput" value="Sign up">
+                    <input type="submit" name="login" class="login logininput" value="LOG IN">
+                    <input type="submit" name="signup" class="register signupinput" value="REGISTER">
                 </li>
             </ul>
         </div>
         <div class="rand-cos">
             <ul class="login-fields">
-                <li><input id="logintype_nopass" name="logintype" type="radio" value="nopass" /> <label for="logintype_nopass">Fără parolă</label></li>
+                <li><input id="logintype_nopass" name="logintype" type="radio" value="nopass" /> <label for="logintype_nopass">Fără parolă - Login cu contul de:</label></li>
                 <li>
                     <ul>
-                        <li>Login cu contul <a href="{% url "socialauth_begin" "facebook" %}">Facebook</a></li>
+                        <li><a class="login-facebook" href="{% url "socialauth_begin" "facebook" %}"><span></span>Facebook</a></li>
                     </ul>
                 </li>
             </ul>    
