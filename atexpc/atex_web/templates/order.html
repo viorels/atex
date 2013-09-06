@@ -94,16 +94,16 @@
                                     <li>Informatii facturare:</li>
                                     <li class="last">
                                         <div class="row">
-                                            {{ form.company.errors }}
-                                            <input name="company" type="text" class="input_cos" title="Nume firma"/>
-                                        </div>
-                                        <div class="row">
                                             {{ form.cui.errors }}
-                                            <input name="cui" type="text" class="input_cos info_type_j" title="Cod unic (CUI)"/>
+                                            <input name="cui" type="text" class="input_cos info_type_j company_cif" title="Cod unic (CUI)"/>
                                         </div>
                                         <div class="row">
                                             {{ form.cif.errors }}
-                                            <input name="cif" type="text" class="input_cos info_type_o" title="Cod de identificare fiscală (CIF)"/>
+                                            <input name="cif" type="text" class="input_cos info_type_o company_cif" title="Cod de identificare fiscală (CIF)"/>
+                                        </div>
+                                        <div class="row">
+                                            {{ form.company.errors }}
+                                            <input name="company" type="text" class="input_cos" title="Nume firma"/>
                                         </div>
                                         <div class="row">
                                             {{ form.regcom.errors }}
