@@ -7,6 +7,8 @@ from views import (HomeView, SearchView, ProductView, BrandsView,
                    ContactView, ConditionsView, ServiceView,
                    CartView, OrderView, ConfirmView, LoginView)
 from views.authentication import GetEmails
+from views.shopping import GetCompanyInfo
+
 
 urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
@@ -18,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^branduri/', BrandsView.as_view(), name='brands'),
     url(r'^cos/$', CartView.as_view(), name='cart'),
     url(r'^cos/comanda/', OrderView.as_view(), name='order'),
+    url(r'^company_info/(?P<cif>\w+)$', GetCompanyInfo.as_view(), name='company_info'),
     url(r'^cos/confirma/', ConfirmView.as_view(), name='confirm'),
     url(r'^contact/', ContactView.as_view(), name='contact'),
     url(r'^conditii/', ConditionsView.as_view(), name='conditions'),

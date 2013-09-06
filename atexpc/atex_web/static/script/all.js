@@ -477,19 +477,19 @@ function init_order() {
         $('.info_type_' + customer_type).show("fast");
     });
 
-    cif_input = $('.company_cif:visible')
+    cif_input = $('.company_cif')
     cif_input.change(function (e) {
-        var cif = cif_input.val();
-        if (cif.length > 0) {
+        var cif = cif_input.filter(':visible').val();
+        if (typeof cif !== "undefined" && cif.length > 0) {
             $.ajax({
                 type: 'get',
-                url: 'http://openapi.ro/api/companies/' + cif + '.json',
-                dataType: 'jsonp',
+                url: '/company_info/' + cif,
+                dataType: 'json',
                 success: function(data) {
                     order_form.find('input[name="company"]').val(data['name']);
                     order_form.find('input[name="city"]').val(data['city']);
                     order_form.find('input[name="county"]').val(data['state']);
-                    order_form.find('input[name="address"]').val(data['address']);
+                    order_form.find('textarea[name="address"]').val(data['address']);
                     order_form.find('input[name="regcom"]').val(data['registration_id']);
                     // inregistrat in scopuri TVA: data['vat'] == '1'
                 }

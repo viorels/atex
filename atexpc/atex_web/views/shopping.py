@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import login
 from django.views.generic.edit import FormView
+import requests
 
 from atexpc.atex_web.forms import DeliveryAddressForm
 from atexpc.atex_web.views.base import HybridGenericView
@@ -47,6 +48,18 @@ class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
         logger.info('Order %s', form.cleaned_data)
         self.request.session['order'] = form.cleaned_data
         return super(OrderBase, self).form_valid(form)
+
+
+class GetCompanyInfo(HybridGenericView):
+    """ Get company info by CIF from openapi.ro """
+
+    template_name = None
+    json_exclude = ('object_list', 'view', 'paginator', 'page_obj', 'is_paginated')
+
+    def get_local_context(self):
+        cif = self.kwargs.get('cif')
+        r = requests.get('http://openapi.ro/api/companies/%s.json' % cif)
+        return r.json
 
 
 class ConfirmBase(LoginRequiredMixin, HybridGenericView):
