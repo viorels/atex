@@ -471,6 +471,12 @@ function init_order() {
     var order_form = $("#orderform");
     if (!order_form.length) return;
 
+    order_form.find('input[name="customer_type"]').change(function (e) {
+        customer_type = order_form.find(':checked').val();
+        $('.info_type_f, .info_type_j, .info_type_o').hide();
+        $('.info_type_' + customer_type).show("fast");
+    });
+
     // fields hint
     var login_form_inputs = order_form.find('input[type="text"], textarea')
                                       .each(function (i, form_input) {

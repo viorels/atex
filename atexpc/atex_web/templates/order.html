@@ -45,6 +45,10 @@
                                     <li>Informatii utilizator:</li>
                                     <li class="">
                                         <div class="row">
+                                            {{ form.email.errors }}
+                                            <input name="email" type="text" class="input_cos" title="email" value="{{ user.email }}" />
+                                        </div>
+                                        <div class="row">
                                             {{ form.first_name.errors }}
                                             <input name="first_name" type="text" class="input_cos" title="prenume" value="{{ user.first_name }}" />
                                             {{ form.last_name.errors }}
@@ -54,25 +58,68 @@
                                             {{ form.phone.errors }}
                                             <input name="phone" type="text" class="input_cos" title="telefon"/>
                                         </div>
-                                        <div class="row">
-                                            {{ form.cnp.errors }}
-                                            <input name="cnp" type="text" class="input_cos" title="CNP"/>
-                                        </div>    
                                     </li>
                                 </ul>    
                             </div>
                             <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Va rugam selectati modul de facturare:</li>
-                                    <li><input name="customer_type" type="radio" checked="checked" value="f" /> Persoana fizica</li>
-                                    <li><input name="customer_type" type="radio" value="j" /> Persoana juridica</li>
-                                    <li><input name="customer_type" type="radio" value="o" /> ONG</li>
+                                    <li><input id="customer_type_f" name="customer_type" type="radio" checked="checked" value="f" /><label for="customer_type_f">Persoana fizica</label></li>
+                                    <li><input id="customer_type_j" name="customer_type" type="radio" value="j" /><label for="customer_type_j">Persoana juridica</label></li>
+                                    <li><input id="customer_type_o" name="customer_type" type="radio" value="o" /><label for="customer_type_o">ONG</label></li>
                                     <li>{{ form.customer_type.errors }}</li>
                                 </ul>   
                             </div>
                             <div class="rand-cos">
-                                <ul class="modalitate">
+                                <ul class="modalitate info_type_f">
                                     <li>Informatii facturare:</li>
+                                    <li class="last">
+                                        <div class="row">
+                                            {{ form.cnp.errors }}
+                                            <input name="cnp" type="text" class="input_cos" title="CNP"/>
+                                        </div>
+                                        <div class="col">
+                                            {{ form.city.errors }}
+                                            <input name="city" type="text" class="input_cos" title="localitatea"/>
+                                            {{ form.county.errors }}
+                                            <input name="county" type="text" class="input_cos" title="judetul"/>                                        
+                                        </div>  
+                                        <div class="textarea">
+                                            {{ form.address.errors }}
+                                            <textarea name="address" class="input_cos" title="adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"></textarea>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="modalitate info_type_j info_type_o" style="display: none">
+                                    <li>Informatii facturare:</li>
+                                    <li class="last">
+                                        <div class="row">
+                                            {{ form.company.errors }}
+                                            <input name="company" type="text" class="input_cos" title="Nume firma"/>
+                                        </div>
+                                        <div class="row">
+                                            {{ form.cui.errors }}
+                                            <input name="cui" type="text" class="input_cos info_type_j" title="Cod unic (CUI)"/>
+                                        </div>
+                                        <div class="row">
+                                            {{ form.cif.errors }}
+                                            <input name="cif" type="text" class="input_cos info_type_o" title="Cod de identificare fiscală (CIF)"/>
+                                        </div>
+                                        <div class="row">
+                                            {{ form.regcom.errors }}
+                                            <input name="regcom" type="text" class="input_cos info_type_j" title="Cod înregistrare (Reg. Com.)"/>
+                                        </div>
+                                        <div class="row">
+                                            {{ form.bank.errors }}
+                                            <input name="bank" type="text" class="input_cos" title="Banca"/>
+                                        </div>
+                                        <div class="row">
+                                            {{ form.bank_account.errors }}
+                                            <input name="bank_account" type="text" class="input_cos" title="Cont banca (IBAN)"/>
+                                        </div>
+                                </ul>
+                                <ul class="modalitate info_type_j info_type_o" style="display: none">
+                                    <li>Sediu social:</li>
                                     <li class="last">
                                         <div class="col">
                                             {{ form.city.errors }}
@@ -83,9 +130,40 @@
                                         <div class="textarea">
                                             {{ form.address.errors }}
                                             <textarea name="address" class="input_cos" title="adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"></textarea>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="rand-cos">
+                                <ul class="modalitate">
+                                    <li>Informatii livrare:</li>
+                                    <li>
+                                        Livreaza la
+                                        <input id="different_delivery_no" name="different_delivery" type="radio" value="no" checked="checked" /><label for="different_delivery_no">adresa de facturare</label> 
+                                        sau la
+                                        <input id="different_delivery_yes" name="different_delivery" type="radio" value="yes" /><label for="different_delivery_yes">alta adresa</label>
+                                    </li>
+                                    <li class="last">
+                                        <div class="col">
+                                            {{ form.delivery_city.errors }}
+                                            <input name="delivery_city" type="text" class="input_cos" title="localitatea"/>
+                                            {{ form.delivery_county.errors }}
+                                            <input name="delivery_county" type="text" class="input_cos" title="judetul"/>                                        
+                                        </div>  
+                                        <div class="textarea">
+                                            {{ form.delivery_address.errors }}
+                                            <textarea name="delivery_address" class="input_cos" title="adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"></textarea>
                                         </div>    
                                     </li>
                                 </ul>    
+                            </div>
+                            <div class="rand-cos">
+                                <ul class="modalitate">
+                                    <li>Observatii:</li>
+                                    <li class="last">
+                                        <textarea name="notes" class="input_cos" title="observatii ..."></textarea>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="total-cos02">
                                 <ul class="buttons">    

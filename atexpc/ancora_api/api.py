@@ -528,12 +528,14 @@ class Ancora(object):
 
     def create_order(self, cart_id, user_id, customer_id=0,
                      email='', customer_type='F', tax_code='', name='', phone='',
-                     address='', city='', county=''):
+                     address='', city='', county='',
+                     different_delivery=False, delivery_address='', delivery_city='', delivery_county=''):
         create_order_uri = self.adapter.uri_for('create_order')
         args = {'pid': 0,
                 'idcart_site': cart_id,
                 'iduser_site': user_id,
                 'idtert': customer_id,
+                'idpunctlucru': 0,
                 'email': email,
                 'denumire': name,
                 'prefix': '',
@@ -549,10 +551,8 @@ class Ancora(object):
                 'judet': county,
                 'persoana_contact': '',
                 'telefon': phone,
-                # unknown
-                'isadresa_livrare': '',
-                'pl_localitate': '',
-                'pl_judet': '',
-                'pl_adresa': '',
-                'idpunctlucru': 0}
+                'isadresa_livrare': different_delivery,
+                'pl_localitate': delivery_city,
+                'pl_judet': delivery_county,
+                'pl_adresa': delivery_address}
         return self.adapter.write(create_order_uri, args, post_process=self._post_process_write)

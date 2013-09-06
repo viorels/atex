@@ -143,3 +143,20 @@ class DeliveryAddressForm(forms.Form):
         widget=Textarea(attrs={"class": "input_cos",
                                "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
         required=True)
+    different_delivery = forms.BooleanField(
+        widget=CheckboxInput(attrs={"id": "delivery_checkbox",
+                                    "class": "checkbox"}),
+        initial=True,
+        required=True)
+    delivery_city = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "localitatea"}),
+        required=True)
+    delivery_county = forms.CharField(
+        widget=TextInput(attrs={"class": "input_cos",
+                                "title": "judetul"}),
+        required=True)
+    delivery_address = forms.CharField(
+        widget=Textarea(attrs={"class": "input_cos",
+                               "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
+        required=True)
