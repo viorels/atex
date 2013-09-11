@@ -78,16 +78,6 @@
                                             {{ form.cnp.errors }}
                                             <input name="cnp" type="text" class="input_cos" title="CNP"/>
                                         </div>
-                                        <div class="col">
-                                            {{ form.city.errors }}
-                                            <input name="city" type="text" class="input_cos" title="localitatea"/>
-                                            {{ form.county.errors }}
-                                            <input name="county" type="text" class="input_cos" title="judetul"/>                                        
-                                        </div>  
-                                        <div class="textarea">
-                                            {{ form.address.errors }}
-                                            <textarea name="address" class="input_cos" title="adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"></textarea>
-                                        </div>
                                     </li>
                                 </ul>
                                 <ul class="modalitate info_type_j info_type_o" style="display: none">
@@ -118,8 +108,9 @@
                                             <input name="bank_account" type="text" class="input_cos" title="Cont banca (IBAN)"/>
                                         </div>
                                 </ul>
-                                <ul class="modalitate info_type_j info_type_o" style="display: none">
-                                    <li>Sediu social:</li>
+                                <ul class="modalitate">
+                                    <li class="info_type_f">Domiciliul/resedinta:</li>
+                                    <li class="info_type_j info_type_o" style="display: none">Sediu social:</li>
                                     <li class="last">
                                         <div class="col">
                                             {{ form.city.errors }}
@@ -138,11 +129,11 @@
                                 <ul class="modalitate">
                                     <li>Informatii livrare:</li>
                                     <li>
-                                        <input id="delivery_no" name="different_delivery" type="radio" value="no" checked="checked" /><label for="delivery_no">Ridic de la sediul Atex</label> 
+                                        <input id="delivery_no" name="delivery" type="radio" value="no" checked="checked" /><label for="delivery_no">Ridic de la sediul Atex</label> 
                                         sau livreaza la
-                                        <input id="delivery_same" name="different_delivery" type="radio" value="no" /><label for="delivery_same">adresa de facturare</label> 
+                                        <input id="delivery_same" name="delivery" type="radio" value="same" /><label for="delivery_same">adresa de facturare</label> 
                                         sau la
-                                        <input id="delivery_other" name="different_delivery" type="radio" value="yes" /><label for="delivery_other">alta adresa</label>
+                                        <input id="delivery_other" name="delivery" type="radio" value="other" /><label for="delivery_other">alta adresa</label>
                                     </li>
                                     <li class="last">
                                         <div class="col">

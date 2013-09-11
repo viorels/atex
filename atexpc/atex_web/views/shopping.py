@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from django.views.generic.edit import FormView
 import requests
 
-from atexpc.atex_web.forms import DeliveryAddressForm
+from atexpc.atex_web.forms import order_form_factory
 from atexpc.atex_web.views.base import HybridGenericView
 from atexpc.atex_web.models import CartFactory
 from atexpc.atex_web.utils import LoginRequiredMixin, FrozenDict
@@ -44,16 +44,22 @@ class CartBase(HybridGenericView):
 
 class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
     template_name = "order.html"
-    form_class = DeliveryAddressForm
     breadcrumbs = CartBase.breadcrumbs + [FrozenDict(name="Date facturare",
                                                      url=reverse_lazy('order'))]
     success_url = reverse_lazy('confirm')
+
+    def get_form_class(self):
+        customer_type = self.request.POST.get('customer_type')
+        return order_form_factory(customer_type)
 
     def form_valid(self, form):
         logger.info('Order %s', form.cleaned_data)
         self.request.session['order'] = form.cleaned_data
         return super(OrderBase, self).form_valid(form)
 
+    def form_invalid(self, form):
+        logger.info('Order errors %s', form.errors)
+        return super(OrderBase, self).form_invalid(form)
 
 class GetCompanyInfo(HybridGenericView):
     """ Get company info by CIF from openapi.ro """
