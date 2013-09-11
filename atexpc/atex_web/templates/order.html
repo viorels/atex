@@ -43,21 +43,31 @@
                             <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Informatii utilizator:</li>
-                                    <li class="">
+                                    <li class="last">
+					   <div class="col-cos">
                                         <div class="row">
-                                            {{ form.email.errors }}
+                                            <label for="email">Email</label>
+						  {{ form.email.errors }}						  
                                             <input name="email" type="text" class="input_cos" title="email" value="{{ user.email }}" />
                                         </div>
                                         <div class="row">
+                                            <label for="first_name">Prenume</label>
                                             {{ form.first_name.errors }}
-                                            <input name="first_name" type="text" class="input_cos" title="prenume" value="{{ user.first_name }}" />
-                                            {{ form.last_name.errors }}
-                                            <input name="last_name" type="text" class="input_cos" title="nume de familie" value="{{ user.last_name }}"/>
+                                            <input name="first_name" type="text" class="input_cos" title="prenume" value="{{ user.first_name }}" />                                            
                                         </div>
+					   </div>
+					   <div class="col-cos">
                                         <div class="row">
+						  <label for="phone">Telefon</label>
                                             {{ form.phone.errors }}
                                             <input name="phone" type="text" class="input_cos" title="telefon"/>
                                         </div>
+                                        <div class="row">
+						  <label for="last_name">Nume</label>
+                                            {{ form.last_name.errors }}
+                                            <input name="last_name" type="text" class="input_cos" title="nume de familie" value="{{ user.last_name }}"/>
+					     </div>
+                                      </div>
                                     </li>
                                 </ul>    
                             </div>
@@ -73,52 +83,72 @@
                             <div class="rand-cos">
                                 <ul class="modalitate info_type_f">
                                     <li>Informatii facturare:</li>
-                                    <li class="last">
-                                        <div class="row">
-                                            {{ form.cnp.errors }}
-                                            <input name="cnp" type="text" class="input_cos" title="CNP"/>
+                                    <li class="last">                                        
+                                        <div class="col">
+                    						<div class="row">
+                    						  <label for="cnp">CNP</label>
+                                                {{ form.cnp.errors }}
+                                                <input name="cnp" type="text" class="input_cos" title="CNP"/>
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>
                                 <ul class="modalitate info_type_j info_type_o" style="display: none">
                                     <li>Informatii facturare:</li>
                                     <li class="last">
+					   <div class="col-cos">
                                         <div class="row">
+						  <label for="cui" class="info_type_j">CUI</label>
                                             {{ form.cui.errors }}
                                             <input name="cui" type="text" class="input_cos info_type_j company_cif" title="Cod unic (CUI)"/>
                                         </div>
                                         <div class="row">
+						  <label for="cif" class="info_type_o">CIF</label>
                                             {{ form.cif.errors }}
                                             <input name="cif" type="text" class="input_cos info_type_o company_cif" title="Cod de identificare fiscală (CIF)"/>
                                         </div>
                                         <div class="row">
+						  <label for="company">Nume Firma</label>
                                             {{ form.company.errors }}
                                             <input name="company" type="text" class="input_cos" title="Nume firma"/>
                                         </div>
                                         <div class="row">
+						  <label for="regcom" class="info_type_j">Cod înregistrare (Reg. Com.)</label>
                                             {{ form.regcom.errors }}
                                             <input name="regcom" type="text" class="input_cos info_type_j" title="Cod înregistrare (Reg. Com.)"/>
                                         </div>
+                                      </div>
+					   <div class="col-cos">
                                         <div class="row">
+						  <label for="bank">Banca</label>
                                             {{ form.bank.errors }}
                                             <input name="bank" type="text" class="input_cos" title="Banca"/>
                                         </div>
                                         <div class="row">
+						  <label for="bank_account">Cont bancar (IBAN)</label>
                                             {{ form.bank_account.errors }}
                                             <input name="bank_account" type="text" class="input_cos" title="Cont banca (IBAN)"/>
                                         </div>
+                                      </div>
                                 </ul>
                                 <ul class="modalitate">
                                     <li class="info_type_f">Domiciliul/resedinta:</li>
                                     <li class="info_type_j info_type_o" style="display: none">Sediu social:</li>
                                     <li class="last">
-                                        <div class="col">
+                                        <div class="col">						
+						<div class="row">
+						  <label for="city">Localitatea</label>
                                             {{ form.city.errors }}
                                             <input name="city" type="text" class="input_cos" title="localitatea"/>
+						</div>
+						<div class="row">
+						  <label for="county">Judetul</label>
                                             {{ form.county.errors }}
-                                            <input name="county" type="text" class="input_cos" title="judetul"/>                                        
+                                            <input name="county" type="text" class="input_cos" title="judetul"/>    
+						</div>                                    
                                         </div>  
                                         <div class="textarea">
+						  <label for="address">Adresa</label>
                                             {{ form.address.errors }}
                                             <textarea name="address" class="input_cos" title="adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"></textarea>
                                         </div>
@@ -128,8 +158,8 @@
                             <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Informatii livrare:</li>
-                                    <li>
-                                        <input id="delivery_no" name="delivery" type="radio" value="no" checked="checked" /><label for="delivery_no">Ridic de la sediul Atex</label> 
+                                    <li class="last" style="padding:0;">
+                                        <input id="delivery_no" name="delivery" type="radio" value="no" checked="checked" /><label for="delivery_no">Ridic de la sediul ATEX Computer</label> 
                                         sau livreaza la
                                         <input id="delivery_same" name="delivery" type="radio" value="same" /><label for="delivery_same">adresa de facturare</label> 
                                         sau la
@@ -137,12 +167,19 @@
                                     </li>
                                     <li class="last">
                                         <div class="col">
+						<div class="row">
+						  <label for="delivery_city">Localitatea</label>
                                             {{ form.delivery_city.errors }}
                                             <input name="delivery_city" type="text" class="input_cos" title="localitatea"/>
+						</div>
+						<div class="row">
+						  <label for="delivery_county">Judetul</label>
                                             {{ form.delivery_county.errors }}
-                                            <input name="delivery_county" type="text" class="input_cos" title="judetul"/>                                        
+                                            <input name="delivery_county" type="text" class="input_cos" title="judetul"/>     
+						</div>                               
                                         </div>  
                                         <div class="textarea">
+						  <label for="delivery_address">Addresa</label>
                                             {{ form.delivery_address.errors }}
                                             <textarea name="delivery_address" class="input_cos" title="adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"></textarea>
                                         </div>    
@@ -152,7 +189,7 @@
                             <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Observatii:</li>
-                                    <li class="last">
+                                    <li class="last">					    
                                         <textarea name="notes" class="input_cos" title="observatii ..."></textarea>
                                     </li>
                                 </ul>
