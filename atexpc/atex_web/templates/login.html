@@ -16,9 +16,9 @@
         {% csrf_token %}
         <div class="rand-cos">
             <ul class="login-fields">
-                <li style="font-size: 18pt">Login sau creeaza un cont Atex</li>
+                <li style="font-size: 18pt">Login sau creeaza un cont ATEX Computers</li>
                 <li class="errors">{{ form.non_field_errors }}</li>
-                <li style="font-size: 14pt; padding-top:20px">Adresa de email</li>
+                <li style="padding-top:20px">Adresa de email</li>
                 <li class="last">
                     <div class="row">
                         {{ form.username.errors }}
@@ -39,10 +39,15 @@
                     <input type="checkbox" id="show_password" class="checkbox" /><label for="show_password">Afișează parola</label>
                 </li>
                 <li class="signupinput">
-                    Nume
+		      <br />
+                    Prenume
                     <div class="row">
                         {{ form.first_name.errors }}
                         {{ signup_form.first_name }}
+                    <div class="row">
+			<br />
+			Nume
+		      </div>
                         {{ form.last_name.errors }}
                         {{ signup_form.last_name }}
                     </div>

@@ -294,6 +294,7 @@ input.hint, textarea.hint {
 .spacer {
 	font-size:12px;
 	padding:0 2px;
+	color:#393939;
 }
 .configurator {
 	float:right;
@@ -1748,13 +1749,17 @@ ul.modalitate li {
 	margin-left:3px;
 }
 .pas-02 .rand-cos .modalitate li {padding-right:70px;}
-.pas-02 .rand-cos .modalitate li.last { float:right; padding:0;}
-.pas-02 .rand-cos .modalitate .row {padding-bottom:3px;}
-.pas-02 .rand-cos .modalitate .row .input_cos { width:170px !important;}
-.pas-02 .rand-cos .modalitate .col .input_cos { width:170px !important; margin-top:3px;}
-.pas-02 .rand-cos .modalitate .col { width:182px; float:left }
-.pas-02 .rand-cos .modalitate .textarea { width:400px; float:left }
-.pas-02 .rand-cos .modalitate .textarea textarea{ width:392px; height:39px; float:right;margin-top:3px; resize:none; }
+.pas-02 .rand-cos .modalitate li.last { float:right; padding:10px 0 0 0;width:585px;}
+.pas-02 .rand-cos .modalitate .row {padding-bottom:3px; position:relative;}
+.pas-02 .rand-cos .errorlist {position:absolute; bottom:0px; left:0px; font-size:11px;}
+.pas-02 .rand-cos .modalitate .row label {width:100%; float:left; font-size:11px;line-height:11px}
+.pas-02 .rand-cos .modalitate .row .input_cos { width:170px !important; margin-bottom:15px;}
+.pas-02 .rand-cos .modalitate .col .input_cos { width:170px !important; margin-top:3px; margin-bottom:15px;}
+.pas-02 .rand-cos .modalitate .col { width:185px; float:left;}
+.pas-02 .rand-cos .modalitate .col label, .pas-02 .rand-cos .modalitate .textarea label {font-size:11px;line-height:11px}
+.pas-02 .rand-cos .modalitate .col-cos {width:185px; float:left;}
+.pas-02 .rand-cos .modalitate .textarea { width:400px; float:left; padding-bottom:18px; position:relative; }
+.pas-02 .rand-cos .modalitate textarea{ width:392px; height:68px; float:right;margin-top:3px; resize:none; }
 .total-cos02 { width:100%; float:left;}
 .login-fields { float:left; padding: 10px 0 15px 10px; }
 .login-fields li { padding-bottom:5px;}
@@ -1994,6 +1999,6 @@ td.center {text-align:center}
 .brands ul li a:hover {border-color:#999;}
 
 .errorlist {
-    color: red;
+    color: #c62123;
 }
 
