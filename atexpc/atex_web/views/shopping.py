@@ -36,8 +36,8 @@ class CartBase(HybridGenericView):
                     products_count[product_id] = count
             self._update_cart(products_count)
         if request.POST.get('next'):
-            request.session['delivery'] = request.POST['delivery']
-            request.session['payment'] = request.POST['payment']
+            request.session['delivery'] = request.POST.get('delivery')
+            request.session['payment'] = request.POST.get('payment')
             return HttpResponseRedirect(reverse('order'))
         return self.render_to_response(self.get_json_context())
 
