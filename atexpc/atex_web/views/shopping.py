@@ -1,4 +1,5 @@
-from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import login
 from django.views.generic.edit import FormView
 import requests
@@ -34,6 +35,10 @@ class CartBase(HybridGenericView):
                     count = int(value)
                     products_count[product_id] = count
             self._update_cart(products_count)
+        if request.POST.get('next'):
+            request.session['delivery'] = request.POST['delivery']
+            request.session['payment'] = request.POST['payment']
+            return HttpResponseRedirect(reverse('order'))
         return self.render_to_response(self.get_json_context())
 
 
