@@ -48,8 +48,15 @@ class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
                                                      url=reverse_lazy('order'))]
     success_url = reverse_lazy('confirm')
 
+    def get_context_data(self, **kwargs):
+        context = super(OrderBase, self).get_context_data(**kwargs)
+        if 'form' not in context:   # show full unbound form on first view
+            context['form'] = self.get_form_class()()
+        return context
+
     def get_form_class(self):
         customer_type = self.request.POST.get('customer_type')
+        logger.debug('order form %s' % customer_type)
         return order_form_factory(customer_type)
 
     def form_valid(self, form):

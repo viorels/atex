@@ -480,7 +480,7 @@ function init_order() {
                     order_form.find('input[name="county"]').val(data['state']);
                     order_form.find('textarea[name="address"]').val(data['address']);
                     order_form.find('input[name="regcom"]').val(data['registration_id']);
-                    order_form.find('input[name="vat"]').prop('checked', data['vat'] == '1').change();
+                    // order_form.find('input[name="vat"]').prop('checked', data['vat'] == '1').change();
                 }
             });
         }

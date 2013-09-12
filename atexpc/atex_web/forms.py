@@ -145,6 +145,10 @@ def order_form_factory(form_type):
             widget=Textarea(attrs={"class": "input_cos",
                                    "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
             required=False)
+        notes = forms.CharField(
+            widget=Textarea(attrs={"class": "input_cos",
+                                   "title": "observatii ..."}),
+            required=False)
 
     class PersonOrderForm(BaseOrderForm):
         cnp = forms.CharField(
@@ -169,10 +173,6 @@ def order_form_factory(form_type):
         regcom = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "title": "Cod înregistrare (Reg. Com.)"}))
-        vat = forms.BooleanField(
-            widget=CheckboxInput(attrs={"class": "checkbox"}),
-            initial=False,
-            required=False)
 
     class ONGOrderForm(BaseOrderForm, CompanyInfo):
         cif = forms.CharField(
@@ -182,4 +182,4 @@ def order_form_factory(form_type):
     form_types = {'f': PersonOrderForm,
                   'j': CompanyOrderForm,
                   'o': ONGOrderForm}
-    return form_types[form_type]
+    return form_types.get(form_type, BaseOrderForm)
