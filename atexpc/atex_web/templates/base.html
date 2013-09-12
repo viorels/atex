@@ -14,6 +14,7 @@
 <script src="{{ STATIC_PREFIX }}script/jquery-1.7.2.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery-ui.1.8.16.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery.exposure.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.inputhints.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/underscore-min.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/all.js" type="text/javascript"></script>
 {% endcompress %}
@@ -75,7 +76,7 @@
                     <li class="search_category">
                         {{ search_form.cauta_in }}
                     </li>    
-                    <li><input type="image" name="cauta" src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Caută" title="Caută produsul dorit ..." /></li>
+                    <li><input type="image" name="cauta" src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Caută" placeholder="Caută produsul dorit ..." /></li>
                 </ul>
             </form>
                 {% endif %}
@@ -119,7 +120,7 @@
                 	<label for="news_email" >Abonare newsletter</label>
                     <div class="email-wrapper">
                         <form method="GET" action="">
-                            <input class="news_email" type="text" id="news_email" title="email ..." />
+                            <input class="news_email" type="text" id="news_email" placeholder="email ..." />
                             <input class="email_btn" type="button" />
                         </form>
                     </div>    

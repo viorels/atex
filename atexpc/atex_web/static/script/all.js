@@ -91,36 +91,6 @@ function init_gallery() {
 	});
 }
 
-function init_input_hint(form, input, hint) {
-    if (!hint) {
-        hint = input.attr("title");
-    }
-
-    function show_hint_if_empty() {
-        if (!input.val()) {
-            input.val(hint);
-            input.addClass("hint");
-        }
-    }
-
-    function hide_hint() {
-        if (input.val() == hint) {
-            input.removeClass("hint");
-            input.val("");
-        }
-    }
-
-    form.submit(function () {
-        if (input.val() == hint) {
-            input.val("");
-            return true;
-        }
-    });
-
-    show_hint_if_empty();
-    input.focus(hide_hint).blur(show_hint_if_empty);
-}
-
 function init_filters() {
     var search_form = $("#search_form");
 	var filter_form = $("#filter_form");
@@ -428,12 +398,6 @@ function init_login() {
         search_customer(partial_email, is_final);
     }).change();
 
-    // name fields hint
-    var login_form_inputs = login_form.find('input[name*="_name"]')
-                                      .each(function (i, form_input) {
-                                          init_input_hint(login_form, $(form_input));
-                                      });
-
     // visible password
     $('#show_password').change(function() {
         var isChecked = $(this).prop('checked');
@@ -514,12 +478,6 @@ function init_order() {
         }
     }).change();
 
-    // fields hint
-    var login_form_inputs = order_form.find('input[type="text"], textarea')
-                                      .each(function (i, form_input) {
-                                          init_input_hint(order_form, $(form_input));
-                                      });
-
     $("a.continua").click(function() {
         order_form.submit();
         return false;
@@ -562,16 +520,12 @@ $(document).ready(function() {
     init_order();
     init_confirm();
     init_checkboxes();
+
+    $('input[placeholder], textarea[placeholder]').inputHints();
+
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {
         calculate_height();
     }
-
-    var search_input = $(".search_inputs .search");
-    init_input_hint($("#search_form"), search_input);
-    init_input_hint($("#filter_form"), search_input);
-
-    var newsletter_input = $("input.news_email");
-    init_input_hint($(".newsletter form"), newsletter_input);
 });
 

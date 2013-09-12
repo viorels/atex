@@ -19,12 +19,12 @@ def search_form_factory(search_in_choices, advanced=False):
     class SearchForm(forms.Form):
         cuvinte = forms.CharField(
             widget=TextInput(attrs={"class": "search delegate_filter",
-                                    "title": "Caută produsul dorit ..."}),
+                                    "placeholder": "Caută produsul dorit ..."}),
             initial='',
             required=False)
         cauta_in = forms.TypedChoiceField(
             widget=Select(attrs={"class": "categorii delegate_filter",
-                                 "title": "Selectează categoria în care cauţi"}),
+                                 "placeholder": "Selectează categoria în care cauţi"}),
             choices=SEARCH_IN_CHOICES,
             coerce=int,
             required=False)
@@ -65,10 +65,10 @@ def user_form_factory(is_signup, api):
     class SignupForm(LoginForm):
         first_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "prenume"}))
+                                    "placeholder": "prenume"}))
         last_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "nume de familie"}))
+                                    "placeholder": "nume de familie"}))
         terms = forms.BooleanField( # Am citit si sunt de acord cu Termenii & Conditii de utilizare
             widget=CheckboxInput(attrs={"id": "terms_checkbox",
                                         "class": "checkbox"}),
@@ -115,22 +115,22 @@ def order_form_factory(form_type, delivery=False):
             initial='f')
         first_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "prenume"}))
+                                    "placeholder": "prenume"}))
         last_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "nume de familie"}))
+                                    "placeholder": "nume de familie"}))
         phone = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "telefon"}))
+                                    "placeholder": "telefon"}))
         city = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "localitatea"}))
+                                    "placeholder": "localitatea"}))
         county = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "judetul"}))
+                                    "placeholder": "judetul"}))
         address = forms.CharField(
             widget=Textarea(attrs={"class": "input_cos",
-                                   "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}))
+                                   "placeholder": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}))
         delivery = forms.ChoiceField(
             widget=RadioSelect(),
             choices=(('no', 'Ridic de la sediul Atex Computer'),
@@ -139,49 +139,49 @@ def order_form_factory(form_type, delivery=False):
             initial=delivery_default)
         delivery_city = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "localitatea"}),
+                                    "placeholder": "localitatea"}),
             required=False)
         delivery_county = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "judetul"}),
+                                    "placeholder": "judetul"}),
             required=False)
         delivery_address = forms.CharField(
             widget=Textarea(attrs={"class": "input_cos",
-                                   "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
+                                   "placeholder": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
             required=False)
         notes = forms.CharField(
             widget=Textarea(attrs={"class": "input_cos",
-                                   "title": "observatii ..."}),
+                                   "placeholder": "observatii ..."}),
             required=False)
 
     class PersonOrderForm(BaseOrderForm):
         cnp = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "CNP"}))
+                                    "placeholder": "CNP"}))
 
     class CompanyInfo(forms.Form):
         company = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "Nume firma"}))
+                                    "placeholder": "Nume firma"}))
         bank = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "Banca"}))
+                                    "placeholder": "Banca"}))
         bank_account = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "Cont bana (IBAN)"}))
+                                    "placeholder": "Cont bana (IBAN)"}))
 
     class CompanyOrderForm(BaseOrderForm, CompanyInfo):
         cui = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "Cod unic (CUI)"}))
+                                    "placeholder": "Cod unic (CUI)"}))
         regcom = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "Cod înregistrare (Reg. Com.)"}))
+                                    "placeholder": "Cod înregistrare (Reg. Com.)"}))
 
     class ONGOrderForm(BaseOrderForm, CompanyInfo):
         cif = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "title": "Cod de identificare fiscală (CIF)"}))
+                                    "placeholder": "Cod de identificare fiscală (CIF)"}))
 
     form_types = {'f': PersonOrderForm,
                   'j': CompanyOrderForm,

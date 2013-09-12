@@ -33,8 +33,8 @@
                             <!--div class="rand-cos">
                                 <ul class="modalitate">
                                     <li class="logininput">
-                                        <input name="username" type="text" class="input_cos" title="utilizator"/> 
-                                        <input name="password" type="password" class="input_cos" title="parola"/>
+                                        <input name="username" type="text" class="input_cos" placeholder="utilizator"/> 
+                                        <input name="password" type="password" class="input_cos" placeholder="parola"/>
                                         <a href="#" class="login-key"></a>
                                     </li>
                                 </ul>    
@@ -48,12 +48,12 @@
                                         <div class="row">
                                             <label for="email">Email</label>
 						                    {{ form.email.errors }}					  
-                                            <input name="email" type="text" class="input_cos" title="email" value="{{ user.email }}" />
+                                            <input name="email" type="text" class="input_cos" placeholder="email" value="{{ user.email }}" />
                                         </div>
                                         <div class="row">
                                             <label for="first_name">Prenume</label>
                                             {{ form.first_name.errors }}
-                                            <input name="first_name" type="text" class="input_cos" title="prenume" value="{{ user.first_name }}" />                                            
+                                            <input name="first_name" type="text" class="input_cos" placeholder="prenume" value="{{ user.first_name }}" />                                            
                                         </div>
 					                  </div>
 					                  <div class="col-cos">
@@ -65,7 +65,7 @@
                                         <div class="row">
 						                    <label for="last_name">Nume</label>
                                             {{ form.last_name.errors }}
-                                            <input name="last_name" type="text" class="input_cos" title="nume de familie" value="{{ user.last_name }}"/>
+                                            <input name="last_name" type="text" class="input_cos" placeholder="nume de familie" value="{{ user.last_name }}"/>
 					                    </div>
                                       </div>
                                     </li>
@@ -86,7 +86,7 @@
                     						<div class="row">
                     						  <label for="cnp">CNP</label>
                                                 {{ form.cnp.errors }}
-                                                <input name="cnp" type="text" class="input_cos" title="CNP" value="{{ form.cnp.value }}" />
+                                                <input name="cnp" type="text" class="input_cos" placeholder="CNP" value="{{ form.cnp.value }}" />
                                             </div>
                                         </div>
                                     </li>
@@ -98,34 +98,34 @@
                                         <div class="row">
 						                    <label for="cui" class="info_type_j">CUI</label>
                                             {{ form.cui.errors }}
-                                            <input name="cui" type="text" class="input_cos info_type_j company_cif" title="Cod unic (CUI)" value="{{ form.cui.value }}" />
+                                            <input name="cui" type="text" class="input_cos info_type_j company_cif" placeholder="Cod unic (CUI)" value="{{ form.cui.value }}" />
                                         </div>
                                         <div class="row">
 						                    <label for="cif" class="info_type_o">CIF</label>
                                             {{ form.cif.errors }}
-                                            <input name="cif" type="text" class="input_cos info_type_o company_cif" title="Cod de identificare fiscală (CIF)" value="{{ form.cif.value }}"/>
+                                            <input name="cif" type="text" class="input_cos info_type_o company_cif" placeholder="Cod de identificare fiscală (CIF)" value="{{ form.cif.value }}"/>
                                         </div>
                                         <div class="row">
 						                   <label for="company">Nume Firma</label>
                                             {{ form.company.errors }}
-                                            <input name="company" type="text" class="input_cos" title="Nume firma" value="{{ form.company.value }}" />
+                                            <input name="company" type="text" class="input_cos" placeholder="Nume firma" value="{{ form.company.value }}" />
                                         </div>
                                         <div class="row">
 						                    <label for="regcom" class="info_type_j">Cod înregistrare (Reg. Com.)</label>
                                             {{ form.regcom.errors }}
-                                            <input name="regcom" type="text" class="input_cos info_type_j" title="Cod înregistrare (Reg. Com.)" value="{{ form.regcom.value }}" />
+                                            <input name="regcom" type="text" class="input_cos info_type_j" placeholder="Cod înregistrare (Reg. Com.)" value="{{ form.regcom.value }}" />
                                         </div>
                                       </div>
 				                      <div class="col-cos">
                                         <div class="row">
 						                    <label for="bank">Banca</label>
                                             {{ form.bank.errors }}
-                                            <input name="bank" type="text" class="input_cos" title="Banca"/ value="{{ form.bank.value }}" >
+                                            <input name="bank" type="text" class="input_cos" placeholder="Banca"/ value="{{ form.bank.value }}" >
                                         </div>
                                         <div class="row">
 						                    <label for="bank_account">Cont bancar (IBAN)</label>
                                             {{ form.bank_account.errors }}
-                                            <input name="bank_account" type="text" class="input_cos" title="Cont banca (IBAN)" value="{{ form.bank_account.value }}" />
+                                            <input name="bank_account" type="text" class="input_cos" placeholder="Cont banca (IBAN)" value="{{ form.bank_account.value }}" />
                                         </div>
                                       </div>
                                     </li>
@@ -165,18 +165,18 @@
                     						<div class="row">
                     						    <label for="delivery_city">Localitatea</label>
                                                 {{ form.delivery_city.errors }}
-                                                <input name="delivery_city" type="text" class="input_cos" title="localitatea"/>
+                                                <input name="delivery_city" type="text" class="input_cos" placeholder="localitatea"/>
                     						</div>
                     						<div class="row">
 						                        <label for="delivery_county">Judetul</label>
                                                 {{ form.delivery_county.errors }}
-                                                <input name="delivery_county" type="text" class="input_cos" title="judetul"/>     
+                                                <input name="delivery_county" type="text" class="input_cos" placeholder="judetul"/>     
 						                    </div>                               
                                         </div>  
                                         <div class="textarea">
 						                    <label for="delivery_address">Addresa</label>
                                             {{ form.delivery_address.errors }}
-                                            <textarea name="delivery_address" class="input_cos" title="adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"></textarea>
+                                            <textarea name="delivery_address" class="input_cos" placeholder="adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"></textarea>
                                         </div>    
                                     </li>
                                     <li class="last delivery_no">
@@ -193,8 +193,8 @@
                             <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Observatii:</li>
-                                    <li class="last">					    
-                                        <textarea name="notes" class="input_cos" title="observatii ..."></textarea>
+                                    <li class="last">
+                                        <textarea name="notes" class="input_cos" placeholder="observatii ..."></textarea>
                                     </li>
                                 </ul>
                             </div>
