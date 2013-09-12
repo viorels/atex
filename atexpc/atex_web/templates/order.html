@@ -93,7 +93,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <ul class="modalitate info_type_j info_type_o" style="display: none">
+                                <ul class="modalitate info_type_j info_type_o">
                                     <li>Informatii facturare:</li>
                                     <li class="last">
 					   <div class="col-cos">
@@ -117,8 +117,12 @@
                                             {{ form.regcom.errors }}
                                             <input name="regcom" type="text" class="input_cos info_type_j" title="Cod înregistrare (Reg. Com.)"/>
                                         </div>
+                                        <div class="row">
+                                            <input type="checkbox" name="vat" checked="{{ form.vat.checked }}" class="checkbox input_cos" />
+                                            <label for="vat" class="checkbox_label">Inregistrat in scopuri TVA</label>
+                                        </div>
                                       </div>
-					   <div class="col-cos">
+				                      <div class="col-cos">
                                         <div class="row">
 						  <label for="bank">Banca</label>
                                             {{ form.bank.errors }}
@@ -130,10 +134,11 @@
                                             <input name="bank_account" type="text" class="input_cos" title="Cont banca (IBAN)"/>
                                         </div>
                                       </div>
+                                    </li>
                                 </ul>
                                 <ul class="modalitate">
                                     <li class="info_type_f">Domiciliul/resedinta:</li>
-                                    <li class="info_type_j info_type_o" style="display: none">Sediu social:</li>
+                                    <li class="info_type_j info_type_o">Sediu social:</li>
                                     <li class="last">
                                         <div class="col">						
 						<div class="row">
@@ -165,24 +170,33 @@
                                         sau la
                                         <input id="delivery_other" name="delivery" type="radio" value="other" /><label for="delivery_other">alta adresa</label>
                                     </li>
-                                    <li class="last">
+                                    <li class="last delivery_other">
                                         <div class="col">
-						<div class="row">
-						  <label for="delivery_city">Localitatea</label>
-                                            {{ form.delivery_city.errors }}
-                                            <input name="delivery_city" type="text" class="input_cos" title="localitatea"/>
-						</div>
-						<div class="row">
-						  <label for="delivery_county">Judetul</label>
-                                            {{ form.delivery_county.errors }}
-                                            <input name="delivery_county" type="text" class="input_cos" title="judetul"/>     
-						</div>                               
+                    						<div class="row">
+                    						    <label for="delivery_city">Localitatea</label>
+                                                {{ form.delivery_city.errors }}
+                                                <input name="delivery_city" type="text" class="input_cos" title="localitatea"/>
+                    						</div>
+                    						<div class="row">
+						                        <label for="delivery_county">Judetul</label>
+                                                {{ form.delivery_county.errors }}
+                                                <input name="delivery_county" type="text" class="input_cos" title="judetul"/>     
+						                    </div>                               
                                         </div>  
                                         <div class="textarea">
-						  <label for="delivery_address">Addresa</label>
+						                    <label for="delivery_address">Addresa</label>
                                             {{ form.delivery_address.errors }}
                                             <textarea name="delivery_address" class="input_cos" title="adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"></textarea>
                                         </div>    
+                                    </li>
+                                    <li class="last delivery_no">
+                                        <div class="col">
+                                            Adresa ATEX Computer:<br/>
+                                            <a href="{% url "contact" %}">
+                                                Str. Stephan Ludwig Roth, nr. 21<br/>
+                                                Cluj-Napoca, 400174 <br/>
+                                            </a>
+                                        </div>
                                     </li>
                                 </ul>    
                             </div>

@@ -471,13 +471,15 @@ function init_order() {
     var order_form = $("#orderform");
     if (!order_form.length) return;
 
-    order_form.find('input[name="customer_type"]').change(function (e) {
-        customer_type = order_form.find(':checked').val();
+    var customer_type_input = order_form.find('input[name="customer_type"]')
+    customer_type_input.change(function (e) {
+        var customer_type = customer_type_input.filter(':checked').val();
         $('.info_type_f, .info_type_j, .info_type_o').hide();
         $('.info_type_' + customer_type).show("fast");
     });
+    customer_type_input.change();
 
-    cif_input = $('.company_cif')
+    var cif_input = $('.company_cif')
     cif_input.change(function (e) {
         var cif = cif_input.filter(':visible').val();
         if (typeof cif !== "undefined" && cif.length > 0) {
@@ -497,6 +499,19 @@ function init_order() {
         }
     });
 
+    var delivery_input = order_form.find('input[name="delivery"]');
+    delivery_input.change(function (e) {
+        var delivery = delivery_input.filter(':checked').val();
+        order_form.find('.delivery_no').hide();
+        order_form.find('.delivery_other').hide(); 
+        if (delivery == 'no') {
+            order_form.find('.delivery_no').show('fast');
+        }
+        else if (delivery == 'other') {
+            order_form.find('.delivery_other').show('fast'); 
+        }
+    });
+    delivery_input.change();
 
     // fields hint
     var login_form_inputs = order_form.find('input[type="text"], textarea')

@@ -1753,6 +1753,7 @@ ul.modalitate li {
 .pas-02 .rand-cos .modalitate .row {padding-bottom:3px; position:relative;}
 .pas-02 .rand-cos .errorlist {position:absolute; bottom:0px; left:0px; font-size:11px;}
 .pas-02 .rand-cos .modalitate .row label {width:100%; float:left; font-size:11px;line-height:11px}
+.pas-02 .rand-cos .modalitate .row .checkbox_label {float: none; line-height: 19px; padding-left: 4px;}
 .pas-02 .rand-cos .modalitate .row .input_cos { width:170px !important; margin-bottom:15px;}
 .pas-02 .rand-cos .modalitate .col .input_cos { width:170px !important; margin-top:3px; margin-bottom:15px;}
 .pas-02 .rand-cos .modalitate .col { width:185px; float:left;}
