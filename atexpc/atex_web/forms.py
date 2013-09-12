@@ -104,7 +104,10 @@ def user_form_factory(is_signup, api):
         return LoginForm
 
 
-def order_form_factory(form_type):
+def order_form_factory(form_type, delivery=False):
+
+    delivery_default = 'same' if delivery else 'no'
+
     class BaseOrderForm(forms.Form):
         customer_type = forms.ChoiceField(
             widget=RadioSelect(),
@@ -130,9 +133,10 @@ def order_form_factory(form_type):
                                    "title": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}))
         delivery = forms.ChoiceField(
             widget=RadioSelect(),
-            choices=(('no', 'Ridicare de la sediul Atex'), 
-                     ('same', 'Adresa de facturare'),
-                     ('other', 'Alta adresa')))
+            choices=(('no', 'Ridic de la sediul Atex Computer'),
+                     ('same', 'La adresa de facturare'),
+                     ('other', 'La alta adresa')),
+            initial=delivery_default)
         delivery_city = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "title": "localitatea"}),
