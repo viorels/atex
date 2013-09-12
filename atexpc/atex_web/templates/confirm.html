@@ -38,12 +38,53 @@
                         	<li class="comanda">Numar comanda: <span class="red_b">{{ order.id }}</span></li>
                             {% endif %}
                             <li>&nbsp;</li>
-                        	<li><strong>{{ order.first_name }} {{ order.last_name }}</strong></li>
+
+                            {% if order.customer_type != 'f' %}
+                            <li><strong>{{ order.company }}</strong></li>
+                                {% if order.customer_type == 'j' %}
+                                <li>CUI: <strong>{{ order.cui }}</strong></li>
+                                <li>Reg.com.: <strong>{{ order.regcom }}</strong></li>
+                                {% elif order.customer_type == 'o' %}
+                                <li>CIF: <strong>{{ order.cif }}</strong></li>
+                                {% endif %}
+                            <li>Banca: <strong>{{ order.bank }}</strong></li>
+                            <li>Cont: <strong>{{ order.bank_account }}</strong></li>
+                            <li>&nbsp;</li>
+                            {% endif %}
+
+                            <li><strong>{{ order.first_name }} {{ order.last_name }}</strong></li>
+                            {% if order.customer_type == 'f' %}
+                            <li>CNP: <strong>{{ order.cnp }}</strong></li>
                             <li>{{ order.address }}</li>
                             <li>{{ order.city }}, Jud. {{ order.county }}</li>
                             <li>&nbsp;</li>
+                            {% endif %}
+
                             <li>Telefon: <strong>{{ order.phone }}</strong></li>
-                            <li>Email: <strong>{{ user.email }}</strong></li>                        
+                            <li>Email: <strong>{{ user.email }}</strong></li>
+                            <li>&nbsp;</li>
+
+                            <li>
+                                {% if order.delivery == 'no' %}
+                                    <strong>Ridicati comanda de la sediul Atex Computer</strong>:<br />
+                                    <a href="{% url "contact" %}" target="_blank">
+                                        Str. Stephan Ludwig Roth, nr. 21<br/>
+                                        Cluj-Napoca, 400174 <br/>
+                                    </a>
+                                {% elif order.delivery == 'same' %}
+                                    <strong>Livrare la adresa</strong>:<br/>
+                                    {{ order.address }}<br/>
+                                    {{ order.city }}, Jud. {{ order.county }}
+                                {% elif order.delivery == 'other' %}
+                                    <strong>Livrare la adresa</strong>:<br/>
+                                    {{ order.delivery_address }}<br/>
+                                    {{ order.delivery_city }}, Jud. {{ order.delivery_county }}
+                                {% endif %}
+                            {% if order.notes %}
+                            <li>&nbsp;</li>
+
+                            <li>Observatii: {{ order.notes }}</li>
+                            {% endif %}
                         </ul>   
                         <table class="detalii-comanda" width="450px">
                         	<colgroup>
