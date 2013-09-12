@@ -74,7 +74,7 @@
                             <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Va rugam selectati modul de facturare:</li>
-                                    <li>{{ form.customer_type }}</li>
+                                    <li class="last">{{ form.customer_type }}</li>
                                     <li>{{ form.customer_type.errors }}</li>
                                 </ul>   
                             </div>
@@ -133,7 +133,7 @@
                                 <ul class="modalitate">
                                     <li class="info_type_f">Domiciliul/resedinta:</li>
                                     <li class="info_type_j info_type_o">Sediu social:</li>
-                                    <li class="last">
+                                    <li class="last main_address">
                                       <div class="col">						
 						                <div class="row">
 						                    <label for="city">Localitatea</label>
@@ -160,7 +160,7 @@
                                     <li class="last" style="padding:0;">
                                         {{ form.delivery }}
                                     </li>
-                                    <li class="last delivery_other">
+                                    <li class="last delivery_yes">
                                         <div class="col">
                     						<div class="row">
                     						    <label for="delivery_city">Localitatea</label>
