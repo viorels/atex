@@ -124,20 +124,8 @@ function init_input_hint(form, input, hint) {
 function init_filters() {
     var search_form = $("#search_form");
 	var filter_form = $("#filter_form");
-	var all_checkboxes = $('input[type=checkbox]');
     var left_checkboxes = filter_form.find('input[type=checkbox]');
     var delegate_filters = $('.delegate_filter');
-
-	all_checkboxes.each(function() {
-		var checkbox = $(this);
-		checkbox.wrap(function() {
-			return (checkbox.is(':checked')) ? '<div class="custom_checkbox selected" />'
-                                             : '<div class="custom_checkbox" />';
-		});
-	});
-    all_checkboxes.click(function () {
-        $(this).parent().toggleClass('selected');
-    });
 
 	left_checkboxes.click(function () {
 		if ($(this).hasClass("submit")) {
@@ -204,8 +192,7 @@ function uncheck_filters() {
 	var checkboxes = filter_form.find('input[type=checkbox]');
 	checkboxes.each(function () {
 		var checkbox = $(this);
-		checkbox.parent().removeClass('selected');
-		checkbox.removeAttr('checked');
+		checkbox.prop('checked', false);
 	});
     toggle_price();
 	filter_form.submit();
@@ -462,7 +449,7 @@ function init_login() {
     });
 
     $('#readable_password').click(function() {
-        $('#show_password').prop('checked', false).change().parent().toggleClass('selected');
+        $('#show_password').prop('checked', false).change();
         $('#masked_password').focus();
     })
 }
@@ -493,7 +480,7 @@ function init_order() {
                     order_form.find('input[name="county"]').val(data['state']);
                     order_form.find('textarea[name="address"]').val(data['address']);
                     order_form.find('input[name="regcom"]').val(data['registration_id']);
-                    // inregistrat in scopuri TVA: data['vat'] == '1'
+                    order_form.find('input[name="vat"]').prop('checked', data['vat'] == '1').change();
                 }
             });
         }
@@ -535,6 +522,22 @@ function init_confirm() {
     })
 }
 
+function init_checkboxes() {
+    var all_checkboxes = $('input[type=checkbox]');
+    all_checkboxes.each(function() {
+        var checkbox = $(this);
+        checkbox.wrap(function() {
+            return (checkbox.is(':checked')) ? '<div class="custom_checkbox selected" />'
+                                             : '<div class="custom_checkbox" />';
+        });
+    });
+    all_checkboxes.change(function () {
+        var checkbox = $(this);
+        var checked = checkbox.is(':checked');
+        checkbox.parent().toggleClass('selected', checked);
+    });
+}
+
 $(document).ready(function() {
 	init_gallery();
 	init_filters();
@@ -544,6 +547,7 @@ $(document).ready(function() {
     init_login();
     init_order();
     init_confirm();
+    init_checkboxes();
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {
         calculate_height();

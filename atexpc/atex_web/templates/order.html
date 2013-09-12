@@ -118,7 +118,7 @@
                                             <input name="regcom" type="text" class="input_cos info_type_j" title="Cod înregistrare (Reg. Com.)"/>
                                         </div>
                                         <div class="row">
-                                            <input type="checkbox" name="vat" checked="{{ form.vat.checked }}" class="checkbox input_cos" />
+                                            <input type="checkbox" name="vat" {% if form.vat.value %}checked{% endif %} class="checkbox input_cos" />
                                             <label for="vat" class="checkbox_label">Inregistrat in scopuri TVA</label>
                                         </div>
                                       </div>
@@ -210,7 +210,7 @@
                             </div>
                             <div class="total-cos02">
                                 <ul class="buttons">
-                                    <li><button href="#" class="continua"><span></span>Continua</button></li>                                
+                                    <li><button class="continua"><span></span>Continua</button></li>                                
                                 </ul> 
                             </div>
                         </form>
