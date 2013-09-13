@@ -6,6 +6,10 @@ from django.core.validators import validate_email
 from django.forms.widgets import (TextInput, PasswordInput, HiddenInput, 
     CheckboxInput, RadioSelect, Select, Textarea)
 
+# ROCNPField, ROPhoneNumberField, ROCIFField, ROIBANField, ROCountyField, ROCountySelect
+from localflavor.ro import forms as roforms
+from localflavor.ro.ro_counties import COUNTIES_CHOICES
+
 SORT_CHOICES = (
     ('pret_asc', ' - pret crescator - '),
     ('pret_desc', ' - pret descrescator - '),
@@ -123,7 +127,7 @@ def order_form_factory(form_type, delivery=False):
         last_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "nume de familie"}))
-        phone = forms.CharField(
+        phone = roforms.ROPhoneNumberField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "telefon"}))
         city = forms.CharField(
@@ -159,7 +163,7 @@ def order_form_factory(form_type, delivery=False):
             required=False)
 
     class PersonOrderForm(BaseOrderForm):
-        cnp = forms.CharField(
+        cnp = roforms.ROCNPField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "CNP"}))
 
@@ -170,12 +174,12 @@ def order_form_factory(form_type, delivery=False):
         bank = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Banca"}))
-        bank_account = forms.CharField(
+        bank_account = roforms.ROIBANField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Cont bana (IBAN)"}))
 
     class CompanyOrderForm(BaseOrderForm, CompanyInfo):
-        cui = forms.CharField(
+        cui = roforms.ROCIFField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Cod unic (CUI)"}))
         regcom = forms.CharField(
@@ -183,7 +187,7 @@ def order_form_factory(form_type, delivery=False):
                                     "placeholder": "Cod înregistrare (Reg. Com.)"}))
 
     class ONGOrderForm(BaseOrderForm, CompanyInfo):
-        cif = forms.CharField(
+        cif = roforms.ROCIFField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Cod de identificare fiscală (CIF)"}))
 
