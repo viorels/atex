@@ -104,7 +104,7 @@ class BaseAdapter(object):
 
     def parse(self, stream):
         try:
-            return json.loads(stream)
+            return json.loads(stream, strict=False)
         except ValueError as e:
             message = "We failed to parse backend response: %s" % e
             logger.error(message)
