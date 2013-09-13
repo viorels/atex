@@ -80,9 +80,13 @@
                                     {{ order.delivery_address }}<br/>
                                     {{ order.delivery_city }}, Jud. {{ order.delivery_county }}
                                 {% endif %}
-                            {% if order.notes %}
+                            </li>
                             <li>&nbsp;</li>
 
+                            <li><strong>{{ cart.payment_description }}</strong></li>
+                            <li>&nbsp;</li>
+
+                            {% if order.notes %}
                             <li>Observatii: {{ order.notes }}</li>
                             {% endif %}
                         </ul>   
@@ -99,12 +103,14 @@
                                 <td class="center">Cantitate</td>
                                 <td class="right">Total</td>
                             </thead>
+                            {% if cart.delivery %}
                             <tr>
                             	<td>Livrare rapida</td>
-                                <td class="right">15.00 lei</td>
+                                <td class="right">{{ cart.delivery_price }} lei</td>
                                 <td class="center">1</td>
-                                <td class="right">15.00 lei</td>
+                                <td class="right">{{ cart.delivery_price }} lei</td>
                             </tr>
+                            {% endif %}
                             {% for item in cart.items %}
                             <tr>
                             	<td>{{ item.product.name }}</td>
