@@ -105,8 +105,12 @@ def user_form_factory(is_signup, api):
 
 
 def order_form_factory(form_type, delivery=False):
+    """ Return a personalized order form based on type of client
+        e.g. f = "Persoana fizica", j = "... juridica"
+        If he wants delivery he must also fill in the delivery_address """
 
     delivery_default = 'same' if delivery else 'no'
+    delivery_required = False
 
     class BaseOrderForm(forms.Form):
         customer_type = forms.ChoiceField(
@@ -140,15 +144,15 @@ def order_form_factory(form_type, delivery=False):
         delivery_city = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "localitatea"}),
-            required=False)
+            required=delivery_required)
         delivery_county = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "judetul"}),
-            required=False)
+            required=delivery_required)
         delivery_address = forms.CharField(
             widget=Textarea(attrs={"class": "input_cos",
                                    "placeholder": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
-            required=False)
+            required=delivery_required)
         notes = forms.CharField(
             widget=Textarea(attrs={"class": "input_cos",
                                    "placeholder": "observatii ..."}),

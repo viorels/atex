@@ -422,7 +422,11 @@ function init_order() {
     var order_form = $("#orderform");
     if (!order_form.length) return;
 
-    var customer_type_input = order_form.find('input[name="customer_type"]')
+    var customer_type_input = order_form.find('input[name="customer_type"]');
+    var delivery_choice_input = order_form.find('input[name="delivery"]');
+    var address_inputs = order_form.find('.main_address input, .main_address textarea');
+    var delivery_address_inputs = order_form.find('.delivery_yes input, .delivery_yes textarea');
+
     customer_type_input.change(function (e) {
         var customer_type = customer_type_input.filter(':checked').val();
         $('.info_type_f, .info_type_j, .info_type_o').hide();
@@ -430,9 +434,22 @@ function init_order() {
     });
     customer_type_input.change();
 
-    var cif_input = $('.company_cif')
-    cif_input.change(function (e) {
-        var cif = cif_input.filter(':visible').val();
+    function copy_delivery_address_if_same() {
+        var delivery = delivery_choice_input.filter(':checked').val();
+        if (delivery == 'same') {
+            address_inputs.each(function () {
+                var input_name = $(this).attr('name');
+                var delivery_input_name = 'delivery_' + input_name;
+                delivery_input = $('.delivery_yes [name="' + delivery_input_name + '"]');
+                delivery_input.val($(this).val());
+            });
+        }
+    }
+    address_inputs.change(copy_delivery_address_if_same).change();
+
+    var company_id = $('.company_id')
+    company_id.change(function (e) {
+        var cif = company_id.filter(':visible').val();
         if (typeof cif !== "undefined" && cif.length > 0) {
             $.ajax({
                 type: 'get',
@@ -445,24 +462,11 @@ function init_order() {
                     order_form.find('textarea[name="address"]').val(data['address']);
                     order_form.find('input[name="regcom"]').val(data['registration_id']);
                     // order_form.find('input[name="vat"]').prop('checked', data['vat'] == '1').change();
+                    copy_delivery_address_if_same();
                 }
             });
         }
     });
-
-    var delivery_choice_input = order_form.find('input[name="delivery"]');
-    var address_inputs = $('.main_address input, .main_address textarea');
-    address_inputs.change(function () {
-        var delivery = delivery_choice_input.filter(':checked').val();
-        if (delivery == 'same') {
-            address_inputs.each(function () {
-                var input_name = $(this).attr('name');
-                var delivery_input_name = 'delivery_' + input_name;
-                delivery_input = $('.delivery_yes [name="' + delivery_input_name + '"]');
-                delivery_input.val($(this).val());
-            });
-        }
-    }).change();
 
     delivery_choice_input.change(function (e) {
         var delivery = delivery_choice_input.filter(':checked').val();
@@ -473,15 +477,13 @@ function init_order() {
         }
         else {
             order_form.find('.delivery_yes').show('fast');
-            $('.delivery_yes input, .delivery_yes textarea').prop('disabled', delivery == 'same');
-            address_inputs.change();    // trigger copying of main address to delivery address
+            delivery_address_inputs.prop('disabled', delivery == 'same');
+            copy_delivery_address_if_same();
+            if (delivery == 'other') {
+                delivery_address_inputs.val('');
+            }
         }
     }).change();
-
-    $("a.continua").click(function() {
-        order_form.submit();
-        return false;
-    })
 }
 
 function init_confirm() {
@@ -521,7 +523,7 @@ $(document).ready(function() {
     init_confirm();
     init_checkboxes();
 
-    $('input[placeholder], textarea[placeholder]').inputHints();
+    // $('input[placeholder], textarea[placeholder]').inputHints();
 
 	$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
 	if ($(window).width() > 480) {
