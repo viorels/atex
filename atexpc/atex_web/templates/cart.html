@@ -164,7 +164,7 @@
 
                         <div class="total-cos01">
                         	<ul>                        	
-                                <li><div class="delivery_price">{{ cart.delivery_price|floatformat:2 }} lei</div></li>
+                                <li><div class="delivery_price">{{ cart.delivery_price|default:0|floatformat:2 }} lei</div></li>
                                 <li><div>Taxa Transport</div></li>
                             </ul>
                             <ul class="total">
