@@ -263,6 +263,9 @@ function init_cart() {
         update_cart();
         return false;
     });
+    $('input[name="delivery"], input[name="payment"]').change(function () {
+        update_cart();
+    });
 }
 
 function add_to_cart(product_id) {
@@ -282,8 +285,12 @@ function update_cart_error(jqXHR, textStatus, errorThrown) {
 function on_cart_update(cart) {
     $('.info_cos .cart_count').html(cart.count);
     $('.info_cos .cart_price, span.total_price').html(cart.price.toFixed(2));
-    $('span.delivery_price').html(cart.delivery_price.toFixed(2) + " lei");
+    $('div.delivery_price').html(cart.delivery_price.toFixed(2) + " lei");
 
+    $('label[for="payment_cash"').html(cart.payment_cash_description);
+
+    $('.show_rezumat .domiciliu').html(cart.delivery_description);
+    $('.show_rezumat .numerar').html(cart.payment_description);
     $('.show_rezumat').slideDown();
 
     cart_form = $("#cart_form");

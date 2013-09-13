@@ -481,8 +481,11 @@ class AncoraCart(BaseCart):
             items.append(item)
         return items
 
-    def delivery_price(self, items):
-        return 15 if items else 0  # TODO: compute price for delivery
+    def delivery_price(self, delivery=False, cash_payment=True):
+        # TODO: compute price for delivery
+        price = 15 if delivery and self.items() else 0
+        price += 5 if delivery and cash_payment else 0
+        return price
 
     def add_item(self, product_id):
         return self._api.cart.add_product(self.id(), product_id)

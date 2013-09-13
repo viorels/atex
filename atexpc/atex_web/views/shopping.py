@@ -35,11 +35,15 @@ class CartBase(HybridGenericView):
                     count = int(value)
                     products_count[product_id] = count
             self._update_cart(products_count)
+            self._update_cart_options(delivery=request.POST.get('delivery'),
+                                      payment=request.POST.get('payment'))
+
         if request.POST.get('next'):
-            request.session['delivery'] = request.POST.get('delivery')
-            request.session['payment'] = request.POST.get('payment')
+            self._update_cart_options(delivery=request.POST.get('delivery'),
+                                      payment=request.POST.get('payment'))
             return HttpResponseRedirect(reverse('order'))
-        return self.render_to_response(self.get_json_context())
+        else:
+            return self.render_to_response(self.get_json_context())
 
 
 class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
@@ -91,7 +95,8 @@ class ConfirmBase(LoginRequiredMixin, HybridGenericView):
         return {'order': self.request.session.get('order')}
 
     def post(self, request, *args, **kwargs):
-        cart_id = self._get_cart_data()['id']
+        cart = self._get_cart_data()
+        cart_id = cart['id']
         ancora_user_id = self.request.user.get_ancora_id(self.api)
         order_info = request.session.get('order')
         new_order = dict(cart_id=cart_id,
@@ -104,9 +109,7 @@ class ConfirmBase(LoginRequiredMixin, HybridGenericView):
                          address=order_info['address'],
                          city=order_info['city'],
                          county=order_info['county'])
-        logger.info('Confirm %s', new_order)
-        cart = self._get_cart_data()
-        logger.debug("Cart %s", cart)
+        logger.info('Confirm %s, cart %s', new_order, cart)
         order_info['id'] = self.api.cart.create_order(**new_order)
         del request.session['cart_id']  # Ancora cart is deleted after order
         return self.get(request, cart=cart, order=order_info, done=True)
@@ -134,15 +137,24 @@ class ShoppingMixin(object):
 
     def _get_cart_data(self):
         cart = self._get_cart()
+        delivery = self.request.session.get('delivery', 'no') != 'no'
+        payment = self.request.session.get('payment', 'cash')
         if cart:
             items = self._augment_cart_items(cart.items())
+            delivery_price = cart.delivery_price(delivery=delivery,
+                                                 cash_payment=(payment == 'cash'))
             cart_data = {'id': cart.id(),
                          'items': items,
                          'count': sum(item['count'] for item in items),
-                         'price': cart.price(items) + cart.delivery_price(items),
-                         'delivery_price': cart.delivery_price(items)}
+                         'price': cart.price(items) + delivery_price,
+                         'delivery_price': delivery_price}
         else:
             cart_data = {'id': None, 'items': [], 'count': 0, 'price': 0.0}
+ 
+        cart_data['delivery'] = delivery
+        cart_data['payment'] = payment
+        cart_data.update(self._cart_options_description(delivery=delivery, payment=payment))
+
         return cart_data
 
     def _augment_cart_items(self, items):
@@ -177,3 +189,26 @@ class ShoppingMixin(object):
                     cart.update_item(product_id, count)
                 else:
                     cart.remove_item(product_id)
+
+    def _update_cart_options(self, delivery, payment):
+        self.request.session['delivery'] = delivery
+        self.request.session['payment'] = payment
+
+    def _cart_options_description(self, delivery, payment):
+        options = {}
+
+        delivery_description = 'Ridicare produse de la sediul ATEX Computer'
+        if delivery:
+            delivery_description = 'Livrare la adresa specificata'
+        options['delivery_description'] = delivery_description
+
+        payment_description = 'Plata '
+        payment_cash_description = payment_description + ('ramburs' if delivery else 'numerar')
+        if (payment == 'cash'):
+            payment_description = payment_cash_description
+        else:
+            payment_description += 'prin transfer bancar/OP'
+        options['payment_description'] = payment_description
+        options['payment_cash_description'] = payment_cash_description
+
+        return options
