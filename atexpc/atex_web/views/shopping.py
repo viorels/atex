@@ -24,10 +24,13 @@ class CartBase(HybridGenericView):
 
     def post(self, request, *args, **kwargs):
         method = request.POST.get('method')
+        next_step = request.POST.get('next')
         if method == 'add':
             product_id = int(request.POST.get('product_id'))
             self._add_to_cart(product_id)
-        elif method == 'update':
+        if method == 'delivery':
+            self._update_cart_options(delivery=request.POST.get('delivery'))
+        elif method == 'update' or next_step:
             products_count = {}
             for key, value in request.POST.iteritems():
                 if key.startswith('product_'):
@@ -38,9 +41,7 @@ class CartBase(HybridGenericView):
             self._update_cart_options(delivery=request.POST.get('delivery'),
                                       payment=request.POST.get('payment'))
 
-        if request.POST.get('next'):
-            self._update_cart_options(delivery=request.POST.get('delivery'),
-                                      payment=request.POST.get('payment'))
+        if next_step:
             return HttpResponseRedirect(reverse('order'))
         else:
             return self.render_to_response(self.get_json_context())
@@ -190,9 +191,10 @@ class ShoppingMixin(object):
                 else:
                     cart.remove_item(product_id)
 
-    def _update_cart_options(self, delivery, payment):
+    def _update_cart_options(self, delivery, payment=None):
         self.request.session['delivery'] = delivery
-        self.request.session['payment'] = payment
+        if payment is not None:
+            self.request.session['payment'] = payment
 
     def _cart_options_description(self, delivery, payment):
         options = {}

@@ -240,6 +240,8 @@ function init_cart() {
     });
 
     cart_form = $("#cart_form");
+    if (!cart_form.length) return;
+
     function update_cart() {
         $.post(cart_url, cart_form.serialize())
             .success(function (data) {
@@ -490,6 +492,13 @@ function init_order() {
                 delivery_address_inputs.val('');
             }
         }
+
+        // update delivery price
+        $.post(cart_url, {'method': 'delivery', 'delivery': delivery})
+            .success(function (data) {
+                on_cart_update(data.cart);
+            })
+            .error(update_cart_error);
     }).change();
 }
 
