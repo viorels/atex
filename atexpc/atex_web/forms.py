@@ -108,7 +108,7 @@ def user_form_factory(is_signup, api):
         return LoginForm
 
 
-def order_form_factory(form_type, delivery=False):
+def order_form_factory(form_type, user, delivery=False):
     """ Return a personalized order form based on type of client
         e.g. f = "Persoana fizica", j = "... juridica"
         If he wants delivery he must also fill in the delivery_address """
@@ -121,13 +121,19 @@ def order_form_factory(form_type, delivery=False):
             widget=RadioSelect(),
             choices=(('f', 'Persoana fizica'), ('j', 'Persoana juridica'), ('o', 'ONG')),
             initial='f')
+        username = forms.EmailField(
+            widget=TextInput(attrs={"class": "input_cos"}),
+            initial=user.email)
         first_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "placeholder": "prenume"}))
+                                    "placeholder": "prenume"}),
+            initial=user.first_name)
         last_name = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
-                                    "placeholder": "nume de familie"}))
+                                    "placeholder": "nume de familie"}),
+            initial=user.last_name)
         phone = roforms.ROPhoneNumberField(
+            max_length=None, min_length=None,
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "telefon"}))
         city = forms.CharField(
@@ -164,6 +170,7 @@ def order_form_factory(form_type, delivery=False):
 
     class PersonOrderForm(BaseOrderForm):
         cnp = roforms.ROCNPField(
+            max_length=None, min_length=None,
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "CNP"}))
 
@@ -175,6 +182,7 @@ def order_form_factory(form_type, delivery=False):
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Banca"}))
         bank_account = roforms.ROIBANField(
+            max_length=None, min_length=None,
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Cont bana (IBAN)"}))
 

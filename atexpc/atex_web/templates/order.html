@@ -37,7 +37,7 @@
                                         <input name="password" type="password" class="input_cos" placeholder="parola"/>
                                         <a href="#" class="login-key"></a>
                                     </li>
-                                </ul>    
+                                </ul>
                             </div-->
                             {{ form.non_field_errors }}
                             <div class="rand-cos">
@@ -47,13 +47,13 @@
 				                      <div class="col-cos">
                                         <div class="row">
                                             <label for="email">Email</label>
-						                    {{ form.email.errors }}					  
-                                            <input name="email" type="text" class="input_cos" placeholder="email" value="{{ user.email }}" />
+						                    {{ form.username.errors }}
+                                            <input name="username" type="text" class="input_cos" placeholder="email" value="{{ form.username.value }}" />
                                         </div>
                                         <div class="row">
                                             <label for="first_name">Prenume</label>
                                             {{ form.first_name.errors }}
-                                            <input name="first_name" type="text" class="input_cos" placeholder="prenume" value="{{ user.first_name }}" />                                            
+                                            <input name="first_name" type="text" class="input_cos" placeholder="prenume" value="{{ form.first_name.value }}" />                                            
                                         </div>
 					                  </div>
 					                  <div class="col-cos">
@@ -65,7 +65,7 @@
                                         <div class="row">
 						                    <label for="last_name">Nume</label>
                                             {{ form.last_name.errors }}
-                                            <input name="last_name" type="text" class="input_cos" placeholder="nume de familie" value="{{ user.last_name }}"/>
+                                            <input name="last_name" type="text" class="input_cos" placeholder="nume de familie" value="{{ form.last_name.value }}"/>
 					                    </div>
                                       </div>
                                     </li>

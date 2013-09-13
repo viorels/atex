@@ -177,6 +177,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     
     'django.contrib.redirects',
+    'localflavor',
     'compressor',
     'south',
     'sorl.thumbnail',

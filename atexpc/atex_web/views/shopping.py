@@ -58,13 +58,14 @@ class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
         if 'form' not in context:   # show full unbound form on first view
             delivery = self.request.session.get('delivery') == 'yes'
             context['form'] = order_form_factory(form_type=None,
+                                                 user=self.request.user,
                                                  delivery=delivery)
         return context
 
     def get_form_class(self):
         customer_type = self.request.POST.get('customer_type')
         logger.debug('order form %s' % customer_type)
-        return order_form_factory(customer_type)
+        return order_form_factory(customer_type, user=self.request.user)
 
     def form_valid(self, form):
         logger.info('Order %s', form.cleaned_data)
