@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import login
 from django.views.generic.edit import FormView
+from localflavor.ro.ro_counties import COUNTIES_CHOICES
 import requests
 
 from atexpc.atex_web.forms import order_form_factory
@@ -60,6 +61,7 @@ class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
             context['form'] = order_form_factory(form_type=None,
                                                  user=self.request.user,
                                                  delivery=delivery)
+        context['counties'] = [county for short, county in COUNTIES_CHOICES]
         return context
 
     def get_form_class(self):

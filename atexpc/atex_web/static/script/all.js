@@ -500,6 +500,10 @@ function init_order() {
             })
             .error(update_cart_error);
     }).change();
+
+    order_form.find('input[name="county"], input[name="delivery_county"]').autocomplete({
+        lookup: counties
+    });
 }
 
 function init_confirm() {

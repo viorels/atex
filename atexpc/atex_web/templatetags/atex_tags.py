@@ -1,6 +1,10 @@
 from django import template
 from django.conf import settings
+from django.core.serializers import serialize
+from django.db.models.query import QuerySet
+from django.utils import simplejson
 from sorl.thumbnail import get_thumbnail
+
 
 import logging
 logger = logging.getLogger(__name__)
@@ -25,3 +29,9 @@ def thumbnail(image, size):
             logger.debug("%s: %s", image.image, e)
             url = no_image_url
     return url
+
+@register.filter
+def jsonify(object):
+    if isinstance(object, QuerySet):
+        return serialize('json', object)
+    return simplejson.dumps(object)

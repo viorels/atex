@@ -1,6 +1,10 @@
 {% extends "base_2col.html" %}
+{% load atex_tags %}
 
-{% block content_right %}          	
+{% block content_right %}
+<script type="text/javascript">
+    counties = {{ counties|jsonify|safe }};
+</script>
                 <div class="cos_content">
                     <div class="product-section">
                     	<div class="tab_d_holder_right">
@@ -76,9 +80,7 @@
                                     <li>Va rugam selectati modul de facturare:</li>
                                     <li class="last">{{ form.customer_type }}</li>
                                     <li>{{ form.customer_type.errors }}</li>
-                                </ul>   
-                            </div>
-                            <div class="rand-cos">
+                                </ul>
                                 <ul class="modalitate info_type_f">
                                     <li>Informatii facturare:</li>
                                     <li class="last">                                        

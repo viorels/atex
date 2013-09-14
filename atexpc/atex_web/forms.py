@@ -8,7 +8,6 @@ from django.forms.widgets import (TextInput, PasswordInput, HiddenInput,
 
 # ROCNPField, ROPhoneNumberField, ROCIFField, ROIBANField, ROCountyField, ROCountySelect
 from localflavor.ro import forms as roforms
-from localflavor.ro.ro_counties import COUNTIES_CHOICES
 
 SORT_CHOICES = (
     ('pret_asc', ' - pret crescator - '),
