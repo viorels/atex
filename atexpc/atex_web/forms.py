@@ -165,6 +165,7 @@ def order_form_factory(form_type, user, delivery=False):
         notes = forms.CharField(
             widget=Textarea(attrs={"class": "input_cos",
                                    "placeholder": "observatii ..."}),
+            initial='',
             required=False)
 
     class PersonOrderForm(BaseOrderForm):
@@ -189,6 +190,10 @@ def order_form_factory(form_type, user, delivery=False):
         cui = roforms.ROCIFField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Cod unic (CUI)"}))
+        vat = forms.BooleanField(
+            widget=CheckboxInput(attrs={"class": "checkbox"}),
+            initial=False,
+            required=False)
         regcom = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Cod înregistrare (Reg. Com.)"}))

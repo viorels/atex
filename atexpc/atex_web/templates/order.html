@@ -102,6 +102,10 @@
                                             {{ form.cui.errors }}
                                             <input name="cui" type="text" class="input_cos info_type_j company_id" placeholder="Cod unic (CUI)" value="{{ form.cui.value }}" />
                                         </div>
+                                        <div class="row info_type_j">
+                                            <input type="checkbox" name="vat" {% if form.vat.value %}checked{% endif %} class="checkbox input_cos" />
+                                            <label for="vat" class="checkbox_label">Înregistrat în scopuri TVA</label>
+                                        </div>
                                         <div class="row">
 						                    <label for="cif" class="info_type_o">CIF</label>
                                             {{ form.cif.errors }}

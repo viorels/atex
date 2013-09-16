@@ -107,10 +107,6 @@ class ConfirmBase(LoginRequiredMixin, HybridGenericView):
         person_name = "%s %s" % (order_info['first_name'], order_info['last_name'])
         tax_code_type = {'f': 'cnp', 'j': 'cui', 'o': 'cif'}
         tax_code = order_info[tax_code_type[customer_type]]
-        vat = False
-        if tax_code.upper().startswith('RO'):
-            tax_code = tax_code.upper().lstrip('RO ')
-            vat = True
         if order_info['delivery'] == 'same':
             order_info['delivery_county'] = order_info['county']
             order_info['delivery_city'] = order_info['city']
@@ -121,8 +117,7 @@ class ConfirmBase(LoginRequiredMixin, HybridGenericView):
                           name=(person_name if customer_type == 'f' else order_info['company']),
                           person_name=person_name,
                           delivery=order_info['delivery'] in ('same', 'other'),
-                          tax_code=tax_code,
-                          vat=vat)
+                          tax_code=tax_code)
         logger.info('Confirm %s, cart %s', order_info, cart)
         order_id = self.api.cart.create_order(**order_info)
         request.session['order']['id'] = order_id
