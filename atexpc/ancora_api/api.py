@@ -527,9 +527,12 @@ class Ancora(object):
         return self.adapter.read(list_cart_uri, post_process=post_process, cache_timeout=TIMEOUT_NO_CACHE)
 
     def create_order(self, cart_id, user_id, customer_id=0,
-                     email='', customer_type='F', tax_code='', name='', phone='',
+                     email='', customer_type='f', name='', person_name='', phone='',
+                     tax_code='', regcom='', vat=False, bank='', bank_account='',
                      address='', city='', county='',
-                     different_delivery=False, delivery_address='', delivery_city='', delivery_county=''):
+                     delivery=False, delivery_address='', delivery_city='', delivery_county='',
+                     **kwargs):
+        # TODO: payment method and order notes
         create_order_uri = self.adapter.uri_for('create_order')
         args = {'pid': 0,
                 'idcart_site': cart_id,
@@ -542,16 +545,16 @@ class Ancora(object):
                 'sufix': '',
                 'fj': customer_type,
                 'codfiscal': tax_code,
-                'regcom': '',
-                'banca': '',
-                'cont': '',
-                'atributfiscal': '',
+                'regcom': regcom,
+                'banca': bank,
+                'cont': bank_account,
+                'atributfiscal': 'RO' if vat else '',
                 'sediu_social': address,
                 'localitate': city,
                 'judet': county,
-                'persoana_contact': '',
+                'persoana_contact': person_name,
                 'telefon': phone,
-                'isadresa_livrare': different_delivery,
+                'isadresa_livrare': 'd' if delivery else 'n', # true/false or d/n ??!
                 'pl_localitate': delivery_city,
                 'pl_judet': delivery_county,
                 'pl_adresa': delivery_address}

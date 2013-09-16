@@ -458,19 +458,29 @@ function init_order() {
 
     var company_id = $('.company_id')
     company_id.change(function (e) {
-        var cif = company_id.filter(':visible').val();
-        if (typeof cif !== "undefined" && cif.length > 0) {
+        $this = $(this);
+        var cif_digits = $this.val().match(/\d+/);
+        var cif = cif_digits ? cif_digits[0] : null;
+        var vat = 'RO';
+        if (cif) {
             $.ajax({
                 type: 'get',
                 url: '/company_info/' + cif,
                 dataType: 'json',
                 success: function(data) {
+                    // according to user
+                    var cif_has_ro = $this.val().toUpperCase().indexOf(vat) === 0;
+                    // according to database
+                    var cif_has_vat = data['vat'] == '1';
+                    if (cif_has_ro !== cif_has_vat) {
+                        $this.val(cif_has_vat ? 'RO' + cif_digits : cif_digits)
+                    }
                     order_form.find('input[name="company"]').val(data['name']);
                     order_form.find('input[name="city"]').val(data['city']);
                     order_form.find('input[name="county"]').val(data['state']);
                     order_form.find('textarea[name="address"]').val(data['address']);
                     order_form.find('input[name="regcom"]').val(data['registration_id']);
-                    // order_form.find('input[name="vat"]').prop('checked', data['vat'] == '1').change();
+                    order_form.find('input[name="vat"]').prop('checked', cif_has_vat).change();
                     copy_delivery_address_if_same();
                 }
             });

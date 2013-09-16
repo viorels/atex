@@ -99,22 +99,33 @@ class ConfirmBase(LoginRequiredMixin, HybridGenericView):
         return {'order': self.request.session.get('order')}
 
     def post(self, request, *args, **kwargs):
+        order_info = request.session.get('order').copy()
         cart = self._get_cart_data()
         cart_id = cart['id']
         ancora_user_id = self.request.user.get_ancora_id(self.api)
-        order_info = request.session.get('order')
-        new_order = dict(cart_id=cart_id,
-                         user_id=ancora_user_id,
-                         email=request.user.email,
-                         customer_type=order_info['customer_type'],
-                         name=order_info['last_name'] + order_info['first_name'],
-                         tax_code=order_info['cnp'],
-                         phone=order_info['phone'],
-                         address=order_info['address'],
-                         city=order_info['city'],
-                         county=order_info['county'])
-        logger.info('Confirm %s, cart %s', new_order, cart)
-        order_info['id'] = self.api.cart.create_order(**new_order)
+        customer_type = order_info['customer_type']
+        person_name = "%s %s" % (order_info['first_name'], order_info['last_name'])
+        tax_code_type = {'f': 'cnp', 'j': 'cui', 'o': 'cif'}
+        tax_code = order_info[tax_code_type[customer_type]]
+        vat = False
+        if tax_code.upper().startswith('RO'):
+            tax_code = tax_code.upper().lstrip('RO ')
+            vat = True
+        if order_info['delivery'] == 'same':
+            order_info['delivery_county'] = order_info['county']
+            order_info['delivery_city'] = order_info['city']
+            order_info['delivery_address'] = order_info['address'] 
+        order_info.update(cart_id=cart_id,
+                          user_id=ancora_user_id,
+                          email=order_info['username'],
+                          name=(person_name if customer_type == 'f' else order_info['company']),
+                          person_name=person_name,
+                          delivery=order_info['delivery'] in ('same', 'other'),
+                          tax_code=tax_code,
+                          vat=vat)
+        logger.info('Confirm %s, cart %s', order_info, cart)
+        order_id = self.api.cart.create_order(**order_info)
+        request.session['order']['id'] = order_id
         del request.session['cart_id']  # Ancora cart is deleted after order
         return self.get(request, cart=cart, order=order_info, done=True)
 
