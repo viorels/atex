@@ -45,7 +45,7 @@
                                 <li>CUI: <strong>{% if order.vat %}RO{% endif %}{{ order.cui }}</strong></li>
                                 <li>Reg.com.: <strong>{{ order.regcom }}</strong></li>
                                 {% elif order.customer_type == 'o' %}
-                                <li>CIF: <strong>{{ order.cif }}</strong></li>
+                                <li>CIF: <strong>{% if order.vat %}RO{% endif %}{{ order.cif }}</strong></li>
                                 {% endif %}
                             <li>Banca: <strong>{{ order.bank }}</strong></li>
                             <li>Cont: <strong>{{ order.bank_account }}</strong></li>

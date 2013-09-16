@@ -178,6 +178,10 @@ def order_form_factory(form_type, user, delivery=False):
         company = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Nume firma"}))
+        vat = forms.BooleanField(
+            widget=CheckboxInput(attrs={"class": "checkbox"}),
+            initial=False,
+            required=False)
         bank = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Banca"}))
@@ -190,10 +194,6 @@ def order_form_factory(form_type, user, delivery=False):
         cui = roforms.ROCIFField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Cod unic (CUI)"}))
-        vat = forms.BooleanField(
-            widget=CheckboxInput(attrs={"class": "checkbox"}),
-            initial=False,
-            required=False)
         regcom = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Cod înregistrare (Reg. Com.)"}))
