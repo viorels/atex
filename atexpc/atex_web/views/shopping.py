@@ -112,6 +112,8 @@ class ConfirmBase(LoginRequiredMixin, HybridGenericView):
         order_info = request.session.get('order').copy()
         cart = self._get_cart_data()
         cart_id = cart['id']
+        if cart_id is None:
+            return HttpResponseRedirect(reverse('cart'))
         ancora_user_id = self.request.user.get_ancora_id(self.api)
         customer_type = order_info['customer_type']
         person_name = "%s %s" % (order_info['first_name'], order_info['last_name'])
