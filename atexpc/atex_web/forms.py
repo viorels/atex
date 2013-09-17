@@ -137,7 +137,8 @@ def order_form_factory(form_type, user, customers=[], delivery=False):
         phone = roforms.ROPhoneNumberField(
             max_length=None, min_length=None,
             widget=TextInput(attrs={"class": "input_cos",
-                                    "placeholder": "telefon"}))
+                                    "placeholder": "telefon"}),
+            initial=user.phone)
         customer = forms.ChoiceField(
             widget=Select(attrs={"class": "input_cos"}),
             choices=customer_choices,

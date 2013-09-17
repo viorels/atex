@@ -75,6 +75,13 @@ class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
     def form_valid(self, form):
         logger.info('Order %s', form.cleaned_data)
         self.request.session['order'] = form.cleaned_data
+
+        # Update user
+        self.request.user.first_name = form.cleaned_data['first_name']
+        self.request.user.last_name = form.cleaned_data['last_name']
+        self.request.user.phone = form.cleaned_data['phone']
+        self.request.user.save()
+
         return super(OrderBase, self).form_valid(form)
 
     def form_invalid(self, form):
