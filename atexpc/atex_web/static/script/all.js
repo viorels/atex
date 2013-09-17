@@ -476,7 +476,7 @@ function init_order() {
     customer_type_input.change(function (e) {
         var customer_type = customer_type_input.filter(':checked').val();
         $('.info_type_f, .info_type_j, .info_type_o').hide();
-        $('.info_type_' + customer_type).show("fast");
+        $('.info_type_' + customer_type).show();
     }).change();
 
     function copy_delivery_address_if_same() {
@@ -528,10 +528,10 @@ function init_order() {
         order_form.find('.delivery_no').hide();
         order_form.find('.delivery_yes').hide(); 
         if (delivery == 'no') {
-            order_form.find('.delivery_no').show('fast');
+            order_form.find('.delivery_no').show();
         }
         else {
-            order_form.find('.delivery_yes').show('fast');
+            order_form.find('.delivery_yes').show();
             delivery_address_inputs.prop('disabled', delivery == 'same');
             copy_delivery_address_if_same();
             if (delivery == 'other' && preserve !== true) {
