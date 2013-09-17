@@ -47,7 +47,7 @@
                             {{ form.non_field_errors }}
                             <div class="rand-cos">
                                 <ul class="modalitate">
-                                    <li>Informatii utilizator:</li>
+                                    <li>Informații persoană de contact:</li>
                                     <li class="last">
 				                      <div class="col-cos">
                                         <div class="row">
@@ -74,32 +74,24 @@
 					                    </div>
                                       </div>
                                     </li>
-                                </ul>    
+                                </ul>
                             </div>
                             <div class="rand-cos">
                                 <ul class="modalitate">
-                                    <li>Informatii facturare:</li>
-                                    <li class="last">{{ form.customer }}</li>
-                                </ul>
-                                <ul class="modalitate">
+                                    <li>Informații cumparator:</li>
+                                    <li {% if customers|length <= 1 %}style="display: none"{% endif %} class="last">{{ form.customer }}</li>
                                     <li class="last">{{ form.customer_type }}</li>
                                     <li>{{ form.customer_type.errors }}</li>
                                 </ul>
-                                <ul class="modalitate info_type_f">
-                                    <li class="last">                                        
-                                        <div class="col">
-                    						<div class="row">
-                    						  <label for="cnp">CNP</label>
-                                                {{ form.cnp.errors }}
-                                                <input name="cnp" type="text" class="input_cos" placeholder="CNP" value="{{ form.cnp.value }}" />
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <ul class="modalitate info_type_j info_type_o">
+                                <ul class="modalitate">
                                     <li>Informatii facturare:</li>
                                     <li class="last">
 					    <div class="col-cos">
+                                        <div class="row info_type_f">
+                                          <label for="cnp">CNP</label>
+                                            {{ form.cnp.errors }}
+                                            <input name="cnp" type="text" class="input_cos" placeholder="CNP" value="{{ form.cnp.value }}" />
+                                        </div>
                                         <div class="row info_type_j">
 						  <label for="cui" class="info_type_j">CUI</label>
                                             {{ form.cui.errors }}
@@ -110,18 +102,18 @@
                                             {{ form.cif.errors }}
                                             <input name="cif" type="text" class="input_cos info_type_o company_id" placeholder="Cod de identificare fiscală (CIF)" value="{{ form.cif.value }}"/>
                                         </div>                                        
-                                        <div class="row">
+                                        <div class="row info_type_j info_type_o">
 						  <label for="company">Nume Firma</label>
                                             {{ form.company.errors }}
                                             <input name="company" type="text" class="input_cos" placeholder="Nume firma" value="{{ form.company.value }}" />
                                         </div>
-					     <div class="row">
+					     <div class="row info_type_j info_type_o">
 						  <label for="bank">Banca</label>
                                             {{ form.bank.errors }}
                                             <input name="bank" type="text" class="input_cos" placeholder="Banca"/ value="{{ form.bank.value }}" >
                                         </div>                                        
                                       </div>
-				          <div class="col-cos">
+				          <div class="col-cos info_type_j info_type_o">
 					     <div class="row" style="padding:15px 0 19px 0;">
                                             <input type="checkbox" name="vat" {% if form.vat.value %}checked{% endif %} class="checkbox input_cos" />
                                             <label for="vat" class="checkbox_label">Înregistrat în scopuri TVA</label>

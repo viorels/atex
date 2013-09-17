@@ -466,7 +466,7 @@ function init_order() {
             }
         }
         else if (preserve !== true) {
-            update_customer_info({})
+            update_customer_info({customer_type: 'f'});
         }
     }
     customer_input.change(customer_input_change);
