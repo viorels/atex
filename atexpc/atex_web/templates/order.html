@@ -3,7 +3,8 @@
 
 {% block content_right %}
 <script type="text/javascript">
-    counties = {{ counties|jsonify|safe }};
+    var counties = {{ counties|jsonify|safe }};
+    var customers = {{ customers|jsonify|safe }};
 </script>
                 <div class="cos_content">
                     <div class="product-section">
@@ -78,6 +79,9 @@
                             <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Va rugam selectati modul de facturare:</li>
+                                    <li class="last">{{ form.customer }}</li>
+                                </ul>
+                                <ul class="modalitate">
                                     <li class="last">{{ form.customer_type }}</li>
                                     <li>{{ form.customer_type.errors }}</li>
                                 </ul>

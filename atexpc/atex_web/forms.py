@@ -107,11 +107,14 @@ def user_form_factory(is_signup, api):
         return LoginForm
 
 
-def order_form_factory(form_type, user, delivery=False):
+def order_form_factory(form_type, user, customers=[], delivery=False):
     """ Return a personalized order form based on type of client
         e.g. f = "Persoana fizica", j = "... juridica"
         If he wants delivery he must also fill in the delivery_address """
 
+    customer_choices = [(0, 'Altă persoană/firmă')] + \
+        [(c['customer_id'], c['name']) for c in customers]
+    default_customer = customer_choices[-1][0]
     delivery_default = 'same' if delivery else 'no'
     delivery_required = False
 
@@ -135,6 +138,11 @@ def order_form_factory(form_type, user, delivery=False):
             max_length=None, min_length=None,
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "telefon"}))
+        customer = forms.ChoiceField(
+            widget=Select(attrs={"class": "input_cos"}),
+            choices=customer_choices,
+            initial=default_customer,
+            required=True)
         city = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "localitatea"}))

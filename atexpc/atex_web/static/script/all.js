@@ -431,17 +431,50 @@ function init_order() {
     var order_form = $("#orderform");
     if (!order_form.length) return;
 
+    var customer_input = order_form.find('select[name="customer"]');
     var customer_type_input = order_form.find('input[name="customer_type"]');
     var delivery_choice_input = order_form.find('input[name="delivery"]');
     var address_inputs = order_form.find('.main_address input, .main_address textarea');
     var delivery_address_inputs = order_form.find('.delivery_yes input, .delivery_yes textarea');
 
+    function update_customer_info(customer) {
+        order_form.find('input[name="customer_type"]').val([customer['customer_type']]).change();
+        if (customer.customer_type == 'f') {
+            order_form.find('input[name="cnp"]').val(customer['tax_code']);
+        }
+        else {
+            var tax_code_name = customer.customer_type == 'j' ? 'cui' : 'cif';
+            order_form.find('input[name="' + tax_code_name + '"]').val(customer['tax_code']);
+            order_form.find('input[name="vat"]').prop('checked', customer['vat']).change();
+            order_form.find('input[name="company"]').val(customer['name']);
+            order_form.find('input[name="regcom"]').val(customer['regcom']);
+            order_form.find('input[name="bank"]').val(customer['bank']);
+            order_form.find('input[name="bank_account"]').val(customer['bank_account']);
+        }
+        order_form.find('input[name="city"]').val(customer['city']);
+        order_form.find('input[name="county"]').val(customer['county']);
+        order_form.find('textarea[name="address"]').val(customer['address']);
+        copy_delivery_address_if_same();
+    }
+
+    customer_input.change(function () {
+        var customer_id = parseInt(customer_input.val());
+        if (customer_id > 0) {
+            customer = _.findWhere(customers, {'customer_id': customer_id});
+            if (typeof customer !== 'undefined') {
+                update_customer_info(customer);
+            }
+        }
+        else {
+            update_customer_info({})
+        }
+    }).change();
+
     customer_type_input.change(function (e) {
         var customer_type = customer_type_input.filter(':checked').val();
         $('.info_type_f, .info_type_j, .info_type_o').hide();
         $('.info_type_' + customer_type).show("fast");
-    });
-    customer_type_input.change();
+    }).change();
 
     function copy_delivery_address_if_same() {
         var delivery = delivery_choice_input.filter(':checked').val();

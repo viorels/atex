@@ -177,7 +177,8 @@ class AncoraAdapter(BaseAdapter):
                 'create_cart': {'cod_formular': '1366', 'iduser': '47', 'actiune': 'SAVE_TAB'},
                 'create_cart_entry': {'cod_formular': '1367', 'actiune': 'SAVE_TAB'},
                 'delete_cart_entry': {'cfi': '1064', 'actiune': 'DEL'},
-                'create_order': {'cod_formular': '1456', 'actiune': 'SAVE_TAB'},}
+                'create_order': {'cod_formular': '1456', 'actiune': 'SAVE_TAB'},
+                'get_customers': {'cod_formular': '1152'}}
         return args.get(method_name, {})
 
     def uri_with_args(self, uri, method=None, args=None):
@@ -526,7 +527,32 @@ class Ancora(object):
         list_cart_uri = self.adapter.uri_for('list_cart', {'idparinte': cart_id})
         return self.adapter.read(list_cart_uri, post_process=post_process, cache_timeout=TIMEOUT_NO_CACHE)
 
-    def create_order(self, cart_id, user_id, customer_id=0,
+    def get_customers(self, user_id):
+        def post_process(data):
+            customers = []
+            root = 'lista_terti_user_site'
+            for item in data[root]:
+                cif = item['zcod_fiscal']
+                vat = cif.upper().startswith('RO')
+                cif_digits = cif.lstrip('RO ')
+                customer = {'customer_id': int(item['zid_tert']),
+                            'customer_type': item['fj'],
+                            'name': item['ztert'],
+                            'tax_code': cif_digits,
+                            'vat': vat,
+                            'regcom': item['zreg_com'],
+                            'city': item['zlocalitate'],
+                            'county': item['zjudet'],
+                            'address': item['zadresa'],
+                            'bank': item['zbanca'],
+                            'bank_account': item['zcont']}
+                customers.append(customer)
+            return customers
+
+        get_customers_uri = self.adapter.uri_for('get_customers', {'iduser_site': user_id})
+        return self.adapter.read(get_customers_uri, post_process=post_process, cache_timeout=TIMEOUT_NO_CACHE)
+
+    def create_order(self, cart_id, user_id, customer=0,
                      email='', customer_type='f', name='', person_name='', phone='',
                      tax_code='', regcom='', vat=False, bank='', bank_account='',
                      address='', city='', county='',
@@ -537,7 +563,7 @@ class Ancora(object):
         args = {'pid': 0,
                 'idcart_site': cart_id,
                 'iduser_site': user_id,
-                'idtert': customer_id,
+                'idtert': customer,
                 'idpunctlucru': 0,
                 'email': email,
                 'denumire': name,

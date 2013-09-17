@@ -57,17 +57,20 @@ class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
     def get_context_data(self, **kwargs):
         context = super(OrderBase, self).get_context_data(**kwargs)
         if 'form' not in context:   # show full unbound form on first view
-            delivery = self.request.session.get('delivery') == 'yes'
-            context['form'] = order_form_factory(form_type=None,
-                                                 user=self.request.user,
-                                                 delivery=delivery)
+            context['form'] = self.get_form_class()
+        context['customers'] = self.api.cart.get_customers(user_id=self.request.user.ancora_id)
         context['counties'] = [county for short, county in COUNTIES_CHOICES]
         return context
 
     def get_form_class(self):
         customer_type = self.request.POST.get('customer_type')
-        logger.debug('order form %s' % customer_type)
-        return order_form_factory(customer_type, user=self.request.user)
+        user = self.request.user
+        customers = self.api.cart.get_customers(user_id=user.ancora_id)
+        delivery = self.request.session.get('delivery') == 'yes'
+        return order_form_factory(form_type=customer_type, 
+                                  user=user,
+                                  customers=customers,
+                                  delivery=delivery)
 
     def form_valid(self, form):
         logger.info('Order %s', form.cleaned_data)
