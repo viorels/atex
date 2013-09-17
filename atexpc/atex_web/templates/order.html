@@ -49,12 +49,16 @@
                                 <ul class="modalitate">
                                     <li>Informații persoană de contact:</li>
                                     <li class="last">
-				                      <div class="col-cos">
+                                      <div class="col-cos">
                                         <div class="row">
                                             <label for="email">Email</label>
-						                    {{ form.username.errors }}
+                                            {{ form.username.errors }}
                                             <input name="username" type="text" class="input_cos" placeholder="email" value="{{ form.username.value }}" />
                                         </div>
+                                      </div>
+                                    </li>
+                                    <li class="last">
+				                      <div class="col-cos">
                                         <div class="row">
                                             <label for="first_name">Prenume</label>
                                             {{ form.first_name.errors }}
@@ -63,15 +67,19 @@
 					                  </div>
 					                  <div class="col-cos">
                                         <div class="row">
-						                  <label for="phone">Telefon</label>
-                                            {{ form.phone.errors }}
-                                            {{ form.phone }}
-                                        </div>
-                                        <div class="row">
 						                    <label for="last_name">Nume</label>
                                             {{ form.last_name.errors }}
                                             <input name="last_name" type="text" class="input_cos" placeholder="nume de familie" value="{{ form.last_name.value }}"/>
 					                    </div>
+                                      </div>
+                                    </li>
+                                    <li class="last">
+                                      <div class="col-cos">
+                                        <div class="row">
+                                          <label for="phone">Telefon</label>
+                                            {{ form.phone.errors }}
+                                            {{ form.phone }}
+                                        </div>
                                       </div>
                                     </li>
                                 </ul>
