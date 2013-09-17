@@ -457,18 +457,21 @@ function init_order() {
         copy_delivery_address_if_same();
     }
 
-    customer_input.change(function () {
+    function customer_input_change(e, preserve) {
         var customer_id = parseInt(customer_input.val());
         if (customer_id > 0) {
-            customer = _.findWhere(customers, {'customer_id': customer_id});
+            var customer = _.findWhere(customers, {'customer_id': customer_id});
             if (typeof customer !== 'undefined') {
                 update_customer_info(customer);
             }
         }
-        else {
+        else if (preserve !== true) {
             update_customer_info({})
         }
-    }).change();
+    }
+    customer_input.change(customer_input_change);
+    customer_input_change(null, parseInt(customer_input.val()) === 0);   // save new customer
+
 
     customer_type_input.change(function (e) {
         var customer_type = customer_type_input.filter(':checked').val();
@@ -520,7 +523,7 @@ function init_order() {
         }
     });
 
-    delivery_choice_input.change(function (e) {
+    function delivery_choice_change(e, preserve) {
         var delivery = delivery_choice_input.filter(':checked').val();
         order_form.find('.delivery_no').hide();
         order_form.find('.delivery_yes').hide(); 
@@ -531,7 +534,7 @@ function init_order() {
             order_form.find('.delivery_yes').show('fast');
             delivery_address_inputs.prop('disabled', delivery == 'same');
             copy_delivery_address_if_same();
-            if (delivery == 'other') {
+            if (delivery == 'other' && preserve !== true) {
                 delivery_address_inputs.val('');
             }
         }
@@ -542,7 +545,10 @@ function init_order() {
                 on_cart_update(data.cart);
             })
             .error(update_cart_error);
-    }).change();
+    }
+    delivery_choice_input.change(delivery_choice_change);
+    var delivery = delivery_choice_input.filter(':checked').val();
+    delivery_choice_change(null, delivery === 'other'); // preserve other address on page load
 
     order_form.find('input[name="county"], input[name="delivery_county"]').autocomplete({
         lookup: counties

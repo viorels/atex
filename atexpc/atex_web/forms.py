@@ -112,9 +112,9 @@ def order_form_factory(form_type, user, customers=[], delivery=False):
         e.g. f = "Persoana fizica", j = "... juridica"
         If he wants delivery he must also fill in the delivery_address """
 
-    customer_choices = [(0, 'Altă persoană/firmă')] + \
-        [(c['customer_id'], c['name']) for c in customers]
-    default_customer = customer_choices[-1][0]
+    customer_choices = [(c['customer_id'], c['name']) for c in customers] + \
+                       [(0, 'Persoană/firmă nouă')]
+    default_customer = customers[-1]['customer_id'] if customers else 0
     delivery_default = 'same' if delivery else 'no'
     delivery_required = False
 
