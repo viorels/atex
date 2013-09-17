@@ -202,11 +202,14 @@
             <p>REZUMAT COMANDA </p><span></span>
         </div>
         <div class="show_rezumat">
+	   <a href="{% url "cart" %}">
             <ul>
+		  <li><div class="cosFooter">0 produse in cos</div></li>
                 <li><div class="domiciliu">{{ cart.delivery_description }}</div></li>
                 <li><div class="numerar">{{ cart.payment_description }}</div></li>
                 <li><div class="total">TOTAL PLATA: <span class="total_price">{{ cart.price|floatformat:2 }}</span> lei</div></li>
             </ul>
+	   </a>
         </div>
     </div>
 </div>

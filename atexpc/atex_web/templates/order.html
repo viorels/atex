@@ -96,40 +96,40 @@
                                 <ul class="modalitate info_type_j info_type_o">
                                     <li>Informatii facturare:</li>
                                     <li class="last">
-					                  <div class="col-cos">
-                                        <div class="row">
-						                    <label for="cui" class="info_type_j">CUI</label>
+					    <div class="col-cos">
+                                        <div class="row info_type_j">
+						  <label for="cui" class="info_type_j">CUI</label>
                                             {{ form.cui.errors }}
                                             <input name="cui" type="text" class="input_cos info_type_j company_id" placeholder="Cod unic (CUI)" value="{{ form.cui.value }}" />
                                         </div>
-                                        <div class="row">
-						                    <label for="cif" class="info_type_o">CIF</label>
+                                        <div class="row info_type_o">
+						  <label for="cif" class="info_type_o">CIF</label>
                                             {{ form.cif.errors }}
                                             <input name="cif" type="text" class="input_cos info_type_o company_id" placeholder="Cod de identificare fiscală (CIF)" value="{{ form.cif.value }}"/>
-                                        </div>
+                                        </div>                                        
                                         <div class="row">
-                                            <input type="checkbox" name="vat" {% if form.vat.value %}checked{% endif %} class="checkbox input_cos" />
-                                            <label for="vat" class="checkbox_label">Înregistrat în scopuri TVA</label>
-                                        </div>
-                                        <div class="row">
-						                   <label for="company">Nume Firma</label>
+						  <label for="company">Nume Firma</label>
                                             {{ form.company.errors }}
                                             <input name="company" type="text" class="input_cos" placeholder="Nume firma" value="{{ form.company.value }}" />
                                         </div>
-                                        <div class="row">
-						                    <label for="regcom" class="info_type_j">Cod înregistrare (Reg. Com.)</label>
+					     <div class="row">
+						  <label for="bank">Banca</label>
+                                            {{ form.bank.errors }}
+                                            <input name="bank" type="text" class="input_cos" placeholder="Banca"/ value="{{ form.bank.value }}" >
+                                        </div>                                        
+                                      </div>
+				          <div class="col-cos">
+					     <div class="row" style="padding:15px 0 19px 0;">
+                                            <input type="checkbox" name="vat" {% if form.vat.value %}checked{% endif %} class="checkbox input_cos" />
+                                            <label for="vat" class="checkbox_label">Înregistrat în scopuri TVA</label>
+                                        </div>
+                                        <div class="row info_type_j">
+					     <label for="regcom" class="info_type_j">Cod înregistrare (Reg. Com.)</label>
                                             {{ form.regcom.errors }}
                                             <input name="regcom" type="text" class="input_cos info_type_j" placeholder="Cod înregistrare (Reg. Com.)" value="{{ form.regcom.value }}" />
                                         </div>
-                                      </div>
-				                      <div class="col-cos">
                                         <div class="row">
-						                    <label for="bank">Banca</label>
-                                            {{ form.bank.errors }}
-                                            <input name="bank" type="text" class="input_cos" placeholder="Banca"/ value="{{ form.bank.value }}" >
-                                        </div>
-                                        <div class="row">
-						                    <label for="bank_account">Cont bancar (IBAN)</label>
+						  <label for="bank_account">Cont bancar (IBAN)</label>
                                             {{ form.bank_account.errors }}
                                             <input name="bank_account" type="text" class="input_cos" placeholder="Cont banca (IBAN)" value="{{ form.bank_account.value }}" />
                                         </div>

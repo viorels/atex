@@ -1750,7 +1750,7 @@ ul.modalitate li {
 }
 .pas-02 .rand-cos .modalitate li {padding-right:40px;}
 .pas-02 .rand-cos .modalitate li.last { float:right; padding:10px 0 0 0;width:585px;}
-.pas-02 .rand-cos .modalitate .row {padding-bottom:3px; position:relative;}
+.pas-02 .rand-cos .modalitate .row {padding-bottom:3px; position:relative; }
 .pas-02 .rand-cos .errorlist {position:absolute; bottom:0px; left:0px; font-size:11px;}
 .pas-02 .rand-cos .modalitate .row label {width:100%; float:left; font-size:11px;line-height:11px}
 .pas-02 .rand-cos .modalitate .row .checkbox_label {float: none; line-height: 19px; padding-left: 4px;}
@@ -1863,6 +1863,7 @@ td.center {text-align:center}
 .show_rezumat .numerar { background:url(../images/numerar-icon.png) bottom left no-repeat;}
 .show_rezumat .transfer { background:url(../images/transfer-icon.png) bottom left no-repeat;}
 .show_rezumat .magazin { background:url(../images/magazin-icon.png) bottom left no-repeat;}
+.show_rezumat .cosFooter { background:url(../images/cos-icon.png) bottom left no-repeat;}
 .tab_rezumat {
 	background:url(../images/tab-rezumat.png) top left no-repeat;
 	width:243px;
