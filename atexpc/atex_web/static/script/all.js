@@ -291,6 +291,8 @@ function on_cart_update(cart) {
 
     $('label[for="payment_cash"').html(cart.payment_cash_description);
 
+    var cart_summary = cart.count + ' produs' + (cart.count == 1 ? '' : 'e');
+    $('.show_rezumat .cosFooter span').html(cart_summary);
     $('.show_rezumat .domiciliu').html(cart.delivery_description);
     $('.show_rezumat .numerar').html(cart.payment_description);
     $('.show_rezumat').slideDown();
