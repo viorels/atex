@@ -87,7 +87,7 @@
                             <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Informații cumparator:</li>
-                                    <li {% if customers|length <= 1 %}style="display: none"{% endif %} class="last">{{ form.customer }}</li>
+                                    <li {% if not customers %}style="display: none"{% endif %} class="last">{{ form.customer }}</li>
                                     <li class="last">{{ form.customer_type }}</li>
                                     <li>{{ form.customer_type.errors }}</li>
                                 </ul>
