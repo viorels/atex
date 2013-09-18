@@ -436,6 +436,7 @@ function init_order() {
     var customer_input = order_form.find('select[name="customer"]');
     var customer_type_input = order_form.find('input[name="customer_type"]');
     var delivery_choice_input = order_form.find('input[name="delivery"]');
+    var delivery_address_id_input = order_form.find('select[name="delivery_address_id"]');
     var address_inputs = order_form.find('.main_address input, .main_address textarea');
     var delivery_address_inputs = order_form.find('.delivery_yes input, .delivery_yes textarea');
 
@@ -456,7 +457,7 @@ function init_order() {
         order_form.find('input[name="city"]').val(customer['city']);
         order_form.find('input[name="county"]').val(customer['county']);
         order_form.find('textarea[name="address"]').val(customer['address']);
-        copy_delivery_address_if_same();
+        prefill_delivery_address();
     }
 
     function customer_input_change(e, preserve) {
@@ -481,9 +482,12 @@ function init_order() {
         $('.info_type_' + customer_type).show();
     }).change();
 
-    function copy_delivery_address_if_same() {
+    function prefill_delivery_address() {
+        if (delivery == 'no') return;
         var delivery = delivery_choice_input.filter(':checked').val();
-        if (delivery == 'same') {
+        var delivery_address_id = parseInt(delivery_address_id_input.val());
+        // -1 means same address as on invoice
+        if (delivery_address_id == -1) {
             address_inputs.each(function () {
                 var input_name = $(this).attr('name');
                 var delivery_input_name = 'delivery_' + input_name;
@@ -491,8 +495,18 @@ function init_order() {
                 delivery_input.val($(this).val());
             });
         }
+        else if (delivery_address_id > 0) {
+            var address = _.findWhere(addresses, {address_id: delivery_address_id});
+            if (typeof address !== 'undefined') {
+                delivery_address_inputs.each(function () {
+                    var delivery_input_name = $(this).attr('name');
+                    var field_name = delivery_input_name.match(/delivery_(.*)/)[1];
+                    $(this).val(address[field_name]);
+                });
+            }
+        }
     }
-    address_inputs.change(copy_delivery_address_if_same).change();
+    address_inputs.change(prefill_delivery_address).change();
 
     var company_id = $('.company_id')
     company_id.change(function (e) {
@@ -519,7 +533,7 @@ function init_order() {
                     order_form.find('textarea[name="address"]').val(data['address']);
                     order_form.find('input[name="regcom"]').val(data['registration_id']);
                     order_form.find('input[name="vat"]').prop('checked', cif_has_vat).change();
-                    copy_delivery_address_if_same();
+                    prefill_delivery_address();
                 }
             });
         }
@@ -527,6 +541,7 @@ function init_order() {
 
     function delivery_choice_change(e, preserve) {
         var delivery = delivery_choice_input.filter(':checked').val();
+        var delivery_address_id = delivery_address_id_input.val();
         order_form.find('.delivery_no').hide();
         order_form.find('.delivery_yes').hide(); 
         if (delivery == 'no') {
@@ -534,9 +549,10 @@ function init_order() {
         }
         else {
             order_form.find('.delivery_yes').show();
-            delivery_address_inputs.prop('disabled', delivery == 'same');
-            copy_delivery_address_if_same();
-            if (delivery == 'other' && preserve !== true) {
+            delivery_address_inputs.prop('disabled', delivery_address_id != 0);
+            prefill_delivery_address();
+            // preserve new address on page reload (invalid form)
+            if (delivery_address_id == 0 && preserve !== true) {
                 delivery_address_inputs.val('');
             }
         }
@@ -549,8 +565,12 @@ function init_order() {
             .error(update_cart_error);
     }
     delivery_choice_input.change(delivery_choice_change);
+    delivery_address_id_input.change(delivery_choice_change);
+
     var delivery = delivery_choice_input.filter(':checked').val();
-    delivery_choice_change(null, delivery === 'other'); // preserve other address on page load
+    var delivery_address_id = delivery_address_id_input.val();
+    // preserve new address on page reload (invalid form)
+    delivery_choice_change(null, delivery_address_id == 0);
 
     order_form.find('input[name="county"], input[name="delivery_county"]').autocomplete({
         lookup: counties

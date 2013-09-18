@@ -5,6 +5,7 @@
 <script type="text/javascript">
     var counties = {{ counties|jsonify|safe }};
     var customers = {{ customers|jsonify|safe }};
+    var addresses = {{ addresses|jsonify|safe }};
 </script>
                 <div class="cos_content">
                     <div class="product-section">
@@ -166,8 +167,9 @@
                             <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Informatii livrare:</li>
-                                    <li class="last" style="padding:0;">
+                                    <li class="last" style="padding-top:0;">
                                         {{ form.delivery }}
+                                        <span class="delivery_yes">{{ form.delivery_address_id }}</span>
                                     </li>
                                     <li class="last delivery_yes">
                                         <div class="col">

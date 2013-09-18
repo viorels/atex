@@ -20,6 +20,7 @@ MOCK_DATA_PATH = os.path.join(os.path.split(__file__)[0], 'mock_data')
 TIMEOUT_LONG = 86400    # one day
 TIMEOUT_NORMAL = 3600   # one hour
 TIMEOUT_SHORT = 300     # 5 minutes
+TIMEOUT_REQUEST = 5     # 5 seconds (during one request)
 TIMEOUT_NO_CACHE = 0    # do not cache
 
 
@@ -178,7 +179,8 @@ class AncoraAdapter(BaseAdapter):
                 'create_cart_entry': {'cod_formular': '1367', 'actiune': 'SAVE_TAB'},
                 'delete_cart_entry': {'cfi': '1064', 'actiune': 'DEL'},
                 'create_order': {'cod_formular': '1456', 'actiune': 'SAVE_TAB'},
-                'get_customers': {'cod_formular': '1152'}}
+                'get_customers': {'cod_formular': '1152'},
+                'get_addresses': {'cod_formular': '1153'}}
         return args.get(method_name, {})
 
     def uri_with_args(self, uri, method=None, args=None):
@@ -550,13 +552,30 @@ class Ancora(object):
             return customers
 
         get_customers_uri = self.adapter.uri_for('get_customers', {'iduser_site': user_id})
-        return self.adapter.read(get_customers_uri, post_process=post_process, cache_timeout=TIMEOUT_NO_CACHE)
+        return self.adapter.read(get_customers_uri, post_process=post_process, cache_timeout=TIMEOUT_REQUEST)
+
+    def get_addresses(self, user_id):
+        def post_process(data):
+            addresses = []
+            root = 'lista_puncte_lucru_user_site'
+            for item in data[root]:
+                address = {'address_id': int(item['zidpunctlucru']),
+                           'customer_id': int(item['zidtert']),
+                           'county': item['zjudet'],
+                           'city': item['zlocalitate'],
+                           'address': item['zadresa']}
+                addresses.append(address)
+            return addresses
+
+        get_addresses_uri = self.adapter.uri_for('get_addresses', {'iduser_site': user_id})
+        return self.adapter.read(get_addresses_uri, post_process=post_process, cache_timeout=TIMEOUT_REQUEST)
 
     def create_order(self, cart_id, user_id, customer=0,
                      email='', customer_type='f', name='', person_name='', phone='',
                      tax_code='', regcom='', vat=False, bank='', bank_account='',
                      address='', city='', county='',
-                     delivery=False, delivery_address='', delivery_city='', delivery_county='',
+                     delivery=False, delivery_address_id=0,
+                     delivery_address='', delivery_city='', delivery_county='',
                      **kwargs):
         # TODO: payment method and order notes
         create_order_uri = self.adapter.uri_for('create_order')
@@ -564,7 +583,7 @@ class Ancora(object):
                 'idcart_site': cart_id,
                 'iduser_site': user_id,
                 'idtert': customer,
-                'idpunctlucru': 0,
+                'idpunctlucru': delivery_address_id,
                 'email': email,
                 'denumire': name,
                 'prefix': '',

@@ -58,7 +58,9 @@ class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
         context = super(OrderBase, self).get_context_data(**kwargs)
         if 'form' not in context:   # show full unbound form on first view
             context['form'] = self.get_form_class()
-        context['customers'] = self.api.cart.get_customers(user_id=self.request.user.ancora_id)
+        user_id = self.request.user.ancora_id
+        context['customers'] = self.api.cart.get_customers(user_id=user_id)
+        context['addresses'] = self.api.cart.get_addresses(user_id=user_id)
         context['counties'] = [county for short, county in COUNTIES_CHOICES]
         return context
 
@@ -66,10 +68,12 @@ class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
         customer_type = self.request.POST.get('customer_type')
         user = self.request.user
         customers = self.api.cart.get_customers(user_id=user.ancora_id)
+        addresses = self.api.cart.get_addresses(user_id=user.ancora_id)
         delivery = self.request.session.get('delivery') == 'yes'
         return order_form_factory(form_type=customer_type, 
                                   user=user,
                                   customers=customers,
+                                  addresses=addresses,
                                   delivery=delivery)
 
     def form_valid(self, form):
@@ -119,16 +123,12 @@ class ConfirmBase(LoginRequiredMixin, HybridGenericView):
         person_name = "%s %s" % (order_info['first_name'], order_info['last_name'])
         tax_code_type = {'f': 'cnp', 'j': 'cui', 'o': 'cif'}
         tax_code = order_info[tax_code_type[customer_type]]
-        if order_info['delivery'] == 'same':
-            order_info['delivery_county'] = order_info['county']
-            order_info['delivery_city'] = order_info['city']
-            order_info['delivery_address'] = order_info['address'] 
         order_info.update(cart_id=cart_id,
                           user_id=ancora_user_id,
                           email=order_info['username'],
                           name=(person_name if customer_type == 'f' else order_info['company']),
                           person_name=person_name,
-                          delivery=order_info['delivery'] in ('same', 'other'),
+                          delivery=(order_info['delivery'] == 'yes'),
                           tax_code=tax_code)
         logger.info('Confirm %s, cart %s', order_info, cart)
         order_id = self.api.cart.create_order(**order_info)

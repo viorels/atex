@@ -188,5 +188,8 @@ class CartAPI(BaseAPI):
     def get_customers(self, user_id):
         return self._api.get_customers(user_id)
 
+    def get_addresses(self, user_id):
+        return self._api.get_addresses(user_id)
+
     def create_order(self, **kwargs):
         return self._api.create_order(**kwargs)

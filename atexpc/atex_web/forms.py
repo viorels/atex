@@ -107,7 +107,7 @@ def user_form_factory(is_signup, api):
         return LoginForm
 
 
-def order_form_factory(form_type, user, customers=[], delivery=False):
+def order_form_factory(form_type, user, customers=[], addresses=[], delivery=False):
     """ Return a personalized order form based on type of client
         e.g. f = "Persoana fizica", j = "... juridica"
         If he wants delivery he must also fill in the delivery_address """
@@ -115,8 +115,12 @@ def order_form_factory(form_type, user, customers=[], delivery=False):
     customer_choices = [(c['customer_id'], c['name']) for c in customers] + \
                        [(0, 'Persoană/firmă nouă')]
     default_customer = customers[-1]['customer_id'] if customers else 0
-    delivery_default = 'same' if delivery else 'no'
-    delivery_required = False
+
+    address_choices = [(a['address_id'], a['address']) for a in addresses] + \
+                      [(-1, 'de facturare'), (0, 'Adresă nouă')]
+    address_default = -1
+
+    delivery_default = 'yes' if delivery else 'no'
 
     class BaseOrderForm(forms.Form):
         customer_type = forms.ChoiceField(
@@ -139,10 +143,11 @@ def order_form_factory(form_type, user, customers=[], delivery=False):
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "telefon"}),
             initial=user.phone)
-        customer = forms.ChoiceField(
+        customer = forms.TypedChoiceField(
             widget=Select(attrs={"class": "input_cos"}),
             choices=customer_choices,
             initial=default_customer,
+            coerce=int,
             required=True)
         city = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
@@ -156,26 +161,51 @@ def order_form_factory(form_type, user, customers=[], delivery=False):
         delivery = forms.ChoiceField(
             widget=RadioSelect(),
             choices=(('no', 'Ridic de la sediul Atex Computer'),
-                     ('same', 'La adresa de facturare'),
-                     ('other', 'La alta adresa')),
+                     ('yes', 'Livrare la adresa')),
             initial=delivery_default)
+        delivery_address_id = forms.TypedChoiceField(
+            widget=Select(attrs={"class": "input_cos"}),
+            choices=address_choices,
+            initial=address_default,
+            coerce=int)
         delivery_city = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "localitatea"}),
-            required=delivery_required)
+            required=False)
         delivery_county = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "judetul"}),
-            required=delivery_required)
+            required=False)
         delivery_address = forms.CharField(
             widget=Textarea(attrs={"class": "input_cos",
                                    "placeholder": "adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)"}),
-            required=delivery_required)
+            required=False)
         notes = forms.CharField(
             widget=Textarea(attrs={"class": "input_cos",
                                    "placeholder": "observatii ..."}),
             initial='',
             required=False)
+
+        def clean(self):
+            cleaned_data = super(BaseOrderForm, self).clean()
+
+            if cleaned_data.get('delivery') == 'yes':
+                delivery_address_id = cleaned_data.get("delivery_address_id")
+
+                # if user selected "same address as in invoice"
+                if delivery_address_id == -1:
+                    cleaned_data['delivery_county'] = cleaned_data.get('county')
+                    cleaned_data['delivery_city'] = cleaned_data.get('city')
+                    cleaned_data['delivery_address'] = address = cleaned_data.get('address') 
+
+                    delivery_address_id = 0
+                    matched_addresses = [a for a in addresses if a['address'] == address]
+                    if matched_addresses:
+                        delivery_address_id = matched_addresses[0]['address_id']
+                    cleaned_data['delivery_address_id'] = delivery_address_id
+
+            # Always return the full collection of cleaned data.
+            return cleaned_data
 
     class PersonOrderForm(BaseOrderForm):
         cnp = roforms.ROCNPField(
