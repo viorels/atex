@@ -65,7 +65,7 @@ html, body { height: 100%;  }
 .footer_wrapper, .push { height: 200px; }
 .wrapper {
 	border-top:5px solid #cd2325;
-	background:url(../images/bg_dark_beta.png) repeat;
+	background:url(../images/bg_dark.png) repeat;
 	/*background-color:#3d97cb;*/
 }
 .page_wrapper {
@@ -1562,6 +1562,7 @@ p.info a:hover, p.info a:active {
 .info-produs-cos {
 	width:400px;
 	float:left;
+	padding-bottom:10px;
 }
 .info-produs-cos .product-title {
 	font-weight:bold;
@@ -1696,7 +1697,7 @@ ul.modalitate li {
 }
 .mai_cumpar span {
 	height:30px;
-	width:48px;
+	width:38px;
 	float:left !important;
 	background:url(../images/mai-cumpar-button.png) center center no-repeat;
 }
@@ -1749,9 +1750,14 @@ ul.modalitate li {
 	margin-left:3px;
 }
 .pas-02 .rand-cos .modalitate li {padding-right:40px;}
-.pas-02 .rand-cos .modalitate li.last { float:right; padding:10px 0 0 0;width:585px;}
-.pas-02 .rand-cos .modalitate .row {padding-bottom:3px; position:relative; }
-.pas-02 .rand-cos .errorlist {position:absolute; bottom:0px; left:0px; font-size:11px;}
+.pas-02 .rand-cos .modalitate li.last { float:right; padding:5px 0 0 0;width:585px;}
+.pas-02 .rand-cos .modalitate li.last ul li label input[type="radio"]{margin:0 3px;}
+.pas-02 .rand-cos .modalitate li.last .delivery_yes select.input_cos {width:586px; margin:10px 0;}
+.pas-02 .rand-cos .modalitate .row {padding-bottom:3px; float:left;position:relative;}
+.pas-02 .rand-cos .modalitate .row .col-cos{position:relative;}
+.pas-02 .rand-cos .errorlist li {line-height:16px;padding:0;}
+.pas-02 .rand-cos .errorlist {position:absolute; bottom:0px; left:0px; font-size:11px;width:400px;}
+.pas-02 .rand-cos .modalitate .row.row-wide {min-width:370px;}
 .pas-02 .rand-cos .modalitate .row label {width:100%; float:left; font-size:11px;line-height:11px}
 .pas-02 .rand-cos .modalitate .row .checkbox_label {float: none; line-height: 19px; padding-left: 4px;}
 .pas-02 .rand-cos .modalitate .row .input_cos { width:170px !important; margin-bottom:15px;}
@@ -1761,6 +1767,9 @@ ul.modalitate li {
 .pas-02 .rand-cos .modalitate .col-cos {width:185px; float:left;}
 .pas-02 .rand-cos .modalitate .textarea { width:400px; float:left; padding-bottom:18px; position:relative; }
 .pas-02 .rand-cos .modalitate textarea{ width:392px; height:68px; float:right;margin-top:3px; resize:none; }
+.pas-02 .rand-cos .modalitate .obs_textarea {margin:0;}
+.pas-02 .rand-cos .modalitate .select-cumparator {padding:0 !important}
+.pas-02 .rand-cos .modalitate .select-cumparator select {width:177px; margin-bottom:15px;}
 .total-cos02 { width:100%; float:left;}
 .login-fields { float:left; padding: 10px 0 15px 10px; }
 .login-fields li { padding-bottom:5px;}
@@ -1809,6 +1818,7 @@ ul.modalitate li {
 	behavior: url(/static/css/PIE.htc);	
 	border:1px solid #c62123;
 	float:left;
+	background-color:#fff;
 }
 .info-comanda li {
 	width:330px;

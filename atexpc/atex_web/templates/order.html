@@ -88,51 +88,56 @@
                             <div class="rand-cos">
                                 <ul class="modalitate">
                                     <li>Informații cumparator:</li>
-                                    <li {% if not customers %}style="display: none"{% endif %} class="last">{{ form.customer }}</li>
-                                    <li class="last">{{ form.customer_type }}</li>
+                                    <li {% if not customers %}style="display: none"{% endif %} class="last select-cumparator">{{ form.customer }}</li>
+                                    <li class="last" style="padding:0">{{ form.customer_type }}</li>
                                     <li>{{ form.customer_type.errors }}</li>
                                 </ul>
                                 <ul class="modalitate">
                                     <li>Informatii facturare:</li>
                                     <li class="last">
-					    <div class="col-cos">
-                                        <div class="row info_type_f">
-                                          <label for="cnp">CNP</label>
+					   <div class="row info_type_f">
+                                         <div class="col-cos">
+                                            <label for="cnp">CNP</label>
                                             {{ form.cnp.errors }}
                                             <input name="cnp" type="text" class="input_cos" placeholder="CNP" value="{{ form.cnp.value }}" />
-                                        </div>
-                                        <div class="row info_type_j">
+                                         </div>
+                                      </div>
+					   <div class="row">
+                                        <div class="col-cos info_type_j">
 						  <label for="cui" class="info_type_j">CUI</label>
                                             {{ form.cui.errors }}
                                             <input name="cui" type="text" class="input_cos info_type_j company_id" placeholder="Cod unic (CUI)" value="{{ form.cui.value }}" />
                                         </div>
-                                        <div class="row info_type_o">
+                                        <div class="col-cos info_type_o">
 						  <label for="cif" class="info_type_o">CIF</label>
                                             {{ form.cif.errors }}
                                             <input name="cif" type="text" class="input_cos info_type_o company_id" placeholder="Cod de identificare fiscală (CIF)" value="{{ form.cif.value }}"/>
-                                        </div>                                        
-                                        <div class="row info_type_j info_type_o">
+                                        </div>  
+					     <div class="col-cos info_type_j info_type_o" style="padding:13px 0;">
+                                            <input type="checkbox" name="vat" {% if form.vat.value %}checked{% endif %} class="checkbox input_cos" />
+                                            <label for="vat" class="checkbox_label">Înregistrat în scopuri TVA</label>
+                                        </div>
+                                         
+                                      </div>     
+					   <div class="row row-wide">                                
+                                        <div class="col-cos info_type_j info_type_o">
 						  <label for="company">Nume Firma</label>
                                             {{ form.company.errors }}
                                             <input name="company" type="text" class="input_cos" placeholder="Nume firma" value="{{ form.company.value }}" />
                                         </div>
-					     <div class="row info_type_j info_type_o">
+					     <div class="col-cos info_type_j">
+					         <label for="regcom" class="info_type_j">Cod înregistrare (Reg. Com.)</label>
+                                            {{ form.regcom.errors }}
+                                            <input name="regcom" type="text" class="input_cos info_type_j" placeholder="Cod înregistrare (Reg. Com.)" value="{{ form.regcom.value }}" />
+                                        </div>					                                             
+                                      </div>
+				          <div class="row info_type_j info_type_o">
+					     <div class="col-cos info_type_j info_type_o">
 						  <label for="bank">Banca</label>
                                             {{ form.bank.errors }}
                                             <input name="bank" type="text" class="input_cos" placeholder="Banca"/ value="{{ form.bank.value }}" >
-                                        </div>                                        
-                                      </div>
-				          <div class="col-cos info_type_j info_type_o">
-					     <div class="row" style="padding:15px 0 19px 0;">
-                                            <input type="checkbox" name="vat" {% if form.vat.value %}checked{% endif %} class="checkbox input_cos" />
-                                            <label for="vat" class="checkbox_label">Înregistrat în scopuri TVA</label>
                                         </div>
-                                        <div class="row info_type_j">
-					     <label for="regcom" class="info_type_j">Cod înregistrare (Reg. Com.)</label>
-                                            {{ form.regcom.errors }}
-                                            <input name="regcom" type="text" class="input_cos info_type_j" placeholder="Cod înregistrare (Reg. Com.)" value="{{ form.regcom.value }}" />
-                                        </div>
-                                        <div class="row">
+                                        <div class="col-cos">
 						  <label for="bank_account">Cont bancar (IBAN)</label>
                                             {{ form.bank_account.errors }}
                                             <input name="bank_account" type="text" class="input_cos" placeholder="Cont banca (IBAN)" value="{{ form.bank_account.value }}" />
@@ -192,7 +197,7 @@
                                     </li>
                                     <li class="last delivery_no">
                                         <div class="col">
-                                            Adresa ATEX Computer:<br/>
+                                            <b>Adresa ATEX Computer:</b><br/>
                                             <a href="{% url "contact" %}" target="_blank">
                                                 Str. Stephan Ludwig Roth, nr. 21<br/>
                                                 Cluj-Napoca, 400174 <br/>
@@ -205,7 +210,7 @@
                                 <ul class="modalitate">
                                     <li>Observatii:</li>
                                     <li class="last">
-                                        <textarea name="notes" class="input_cos" placeholder="observatii ...">{{ form.notes.value }}</textarea>
+                                        <textarea name="notes" class="input_cos obs_textarea" placeholder="observatii ...">{{ form.notes.value }}</textarea>
                                     </li>
                                 </ul>
                             </div>
