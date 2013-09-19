@@ -2,6 +2,9 @@
 {% load atex_tags %}
 
 {% block content_right %}         	
+
+                {% if cart.count %}
+
                 <div class="cos_content">                	
                     <div class="product-section">
                     	<div class="tab_d_holder_right">
@@ -19,7 +22,9 @@
                     </div>
                     <form id="cart_form" action="{% url "cart" %}" method="post">
                         {% csrf_token %}
+
                         <input type="hidden" name="method" value="update" />
+
                         <div class="product-section">
                         	<div class="tab_u_holder_left">
                                 <span class="up_left"></span>
@@ -128,7 +133,6 @@
                             {% endfor %}
                         </div>
 
-                        {% if cart.count %}
                         <div class="product-section livrare">
                         	<div class="tab_u_holder_left">
                                 <span class="up_left"></span>
@@ -158,9 +162,6 @@
                                 <li><input id="payment_bank" name="payment" type="radio" value="bank" {% if cart.payment == 'bank' %}checked{% endif %} /> <label for="payment_bank">Plata prin transfer bancar / OP</label></li>
                             </ul>                        
                         </div> 
-                        {% else %}
-                        	<img src="{{ STATIC_PREFIX }}images/cos-gol.png" width="457" height="32" alt="Nu exista produse in cos" style="margin:30px 0;"/>
-                        {% endif %}
 
                         <div class="total-cos01">
                         	<ul>                        	
@@ -180,4 +181,9 @@
                     <!-- end pas 01 -->
                     
                 </div>
+
+                {% else %}
+                    <img src="{{ STATIC_PREFIX }}images/cos-gol.png" width="457" height="32" alt="Nu exista produse in cos" style="margin:30px 0;"/>
+                {% endif %}
+
 {% endblock content_right %}
