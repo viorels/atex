@@ -184,6 +184,12 @@
 
                 {% else %}
                     <img src="{{ STATIC_PREFIX }}images/cos-gol.png" width="457" height="32" alt="Nu exista produse in cos" style="margin:30px 0;"/>
+
+                    <div class="total-cos01" style="border-top: none;">
+                        <ul class="buttons">
+                            <li><button class="mai_cumpar" onclick="window.history.go(-1); return false;"><span></span>Mai cumpar</button></li>
+                        </ul>
+                    </div>
                 {% endif %}
 
 {% endblock content_right %}
