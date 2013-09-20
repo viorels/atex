@@ -116,8 +116,9 @@ def order_form_factory(form_type, user, customers=[], addresses=[], delivery=Fal
                        [(0, 'Persoană/firmă nouă')]
     default_customer = customers[-1]['customer_id'] if customers else 0
 
-    address_choices = [(a['address_id'], a['address']) for a in addresses] + \
-                      [(-1, 'de facturare'), (0, 'Adresă nouă')]
+    unique_addresses = dict((a['address'], a) for a in addresses).values()
+    address_choices = [(a['address_id'], a['address']) for a in unique_addresses] + \
+                      [(-1, 'Adresa de facturare'), (0, 'Adresă nouă')]
     address_default = -1
 
     delivery_default = 'yes' if delivery else 'no'
@@ -191,6 +192,7 @@ def order_form_factory(form_type, user, customers=[], addresses=[], delivery=Fal
 
             if cleaned_data.get('delivery') == 'yes':
                 delivery_address_id = cleaned_data.get("delivery_address_id")
+                customer_id = cleaned_data.get("customer")
 
                 # if user selected "same address as in invoice"
                 if delivery_address_id == -1:
@@ -198,11 +200,15 @@ def order_form_factory(form_type, user, customers=[], addresses=[], delivery=Fal
                     cleaned_data['delivery_city'] = cleaned_data.get('city')
                     cleaned_data['delivery_address'] = address = cleaned_data.get('address') 
 
-                    delivery_address_id = 0
-                    matched_addresses = [a for a in addresses if a['address'] == address]
-                    if matched_addresses:
-                        delivery_address_id = matched_addresses[0]['address_id']
-                    cleaned_data['delivery_address_id'] = delivery_address_id
+                # check if address id belongs to this customer or we need to create a new address
+                delivery_address_id = 0
+                matched_addresses = [a for a in addresses 
+                                     if a['address'] == address 
+                                     and a['customer_id'] == customer_id]
+                if matched_addresses:
+                    delivery_address_id = matched_addresses[0]['address_id']
+
+                cleaned_data['delivery_address_id'] = delivery_address_id
 
             # Always return the full collection of cleaned data.
             return cleaned_data
