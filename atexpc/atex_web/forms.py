@@ -71,7 +71,7 @@ def user_form_factory(is_signup, api):
             widget=RadioSelect(),
             choices=(('new', 'Sunt client nou'),
                      ('password', 'Am deja parola'),
-                     ('nopassword', 'Nu am parola')),
+                     ('nopassword', 'Nu știu parola')),
             initial='f')
 
         first_name = forms.CharField(

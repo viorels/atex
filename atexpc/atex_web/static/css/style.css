@@ -1086,6 +1086,7 @@ ul.filtrare li span {
 	border:0;
 	cursor:pointer;
 }
+.register, .login {width:125px !important;}
 .add_cos_btn span {
 	height:30px;
 	width:48px;
@@ -1713,7 +1714,7 @@ ul.modalitate li {
 	color:#fff;
 	font-size:12px;
 	font-weight:bold;
-	width:145px;
+	width:125px;
 	float:left;
 	margin-top:5px;
 	display:block;
@@ -1730,10 +1731,74 @@ ul.modalitate li {
 	border:0;
 	cursor:pointer;
 }
-
+.login-google span {
+	height:30px;
+	width:48px;
+	float:left !important;
+	background:url(../images/google-btn.png) center center no-repeat;
+}
+.login-google {
+	height:30px;
+	line-height:30px;
+	color:#fff;
+	font-size:12px;
+	font-weight:bold;
+	width:125px;
+	float:left;
+	margin-top:5px;
+	display:block;
+	background: -moz-linear-gradient(top , #db4a39, #c74233 50%, #af2010 50%, #af2010);
+	background: -ms-linear-gradient(top , #db4a39, #c74233 50%, #af2010 50%, #af2010);
+	background: -o-linear-gradient(top , #db4a39, #c74233 50%, #af2010 50%, #af2010);
+	background: -webkit-gradient(linear, left top, left bottom, from(#db4a39), to(#af2010), color-stop(0.5, #c74233),  color-stop(0.5, #af2010));
+	-pie-background: linear-gradient(#db4a39, #c74233 50%, #af2010 50%, #af2010); 
+	border-radius: 6px;     
+	-moz-border-radius: 6px;     
+	-webkit-border-radius: 6px;
+	behavior: url(/static/css/PIE.htc);	
+	background-color:#db4a39; 
+	border:0;
+	cursor:pointer;
+}
+.login-yahoo span {
+	height:30px;
+	width:48px;
+	float:left !important;
+	background:url(../images/yahoo-btn.png) center center no-repeat;
+}
+.login-yahoo {
+	height:30px;
+	line-height:30px;
+	color:#fff;
+	font-size:12px;
+	font-weight:bold;
+	width:125px;
+	float:left;
+	margin-top:5px;
+	display:block;
+	background: -moz-linear-gradient(top , #6319d7, #5412bc 50%, #431a83 50%, #431a83);
+	background: -ms-linear-gradient(top , #6319d7, #5412bc 50%, #431a83 50%, #431a83);
+	background: -o-linear-gradient(top , #6319d7, #5412bc 50%, #431a83 50%, #431a83);
+	background: -webkit-gradient(linear, left top, left bottom, from(#6319d7), to(#431a83), color-stop(0.5, #5412bc),  color-stop(0.5, #431a83));
+	-pie-background: linear-gradient(#6319d7, #5412bc 50%, #431a83 50%, #431a83); 
+	border-radius: 6px;     
+	-moz-border-radius: 6px;     
+	-webkit-border-radius: 6px;
+	behavior: url(/static/css/PIE.htc);	
+	background-color:#5412bc; 
+	border:0;
+	cursor:pointer;
+}
+.social-login {float:left; width:410px; padding:10px 0; }
+.social-login li {float:left; padding-left:10px;}
+.rand-cos-right {float:left; width:430px; margin-top:40px;}
+.rand-cos-left {float:left; width:440px; border-right:1px solid #666;margin-top:35px;}
 .login, .register { margin-right:3px;}
+.login-fields li{width:380px; float:left;}
 .login-fields .input_cos{width:285px !important}
 .login-fields input[type="radio"] {margin:4px 0 0 0;}
+.login-fields strong {font-size:14px;padding:20px 0 5px 0; float:left;}
+.login-fields .radio-btns label{margin-right:20px; margin-bottom:10px;float:left;}
 .buttons li {
 	padding:15px 0 0 15px !important;
 }

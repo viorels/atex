@@ -16,19 +16,19 @@
 
     <form id="loginform" action="{% url "login" %}" method="post">
         {% csrf_token %}
-        <div class="rand-cos">
+        <div class="rand-cos-left">
             <ul class="login-fields">
                 <li class="errors">{{ form.non_field_errors }}</li>
-                <li style="padding-top:20px"><strong>Care este adresa ta de email?</strong></li>
+                <li><strong>Care este adresa ta de email?</strong></li>
                 <li class="last">
                     <div class="row">
                         {{ form.username.errors }}
                         {{ form.username }}
                     </div>
                 </li>
-                <li style="padding-top:20px"><strong>Ai parola pentru ATEX Computer?</strong></li>
+                <li><strong>Ai parola pentru ATEX Computer?</strong></li>
 
-                <li>
+                <li class="radio-btns">
                     {% for radio in signup_form.login_type %}
                         {{ radio }}
                     {% endfor %}
@@ -82,15 +82,13 @@
                 </li>
             </ul>
         </div>
-        <div class="rand-cos">
-            <ul class="login-fields">
-                <li>
-                    Autentifica-te sau creaza-ti cont nou folosind Facebook, Google sau Yahoo!
-                    <a class="login-facebook" href="{% url "socialauth_begin" "facebook" %}"><span></span>Facebook</a>
-                    <a class="login-yahoo" href="{% url "socialauth_begin" "yahoo" %}"><span></span>YAHOO</a>
-                    <a class="login-google" href="{% url "socialauth_begin" "google" %}"><span></span>GOOGLE</a>
-                </li>
-            </ul>
+        <div class="rand-cos-right">            
+                    <p class="login-fields"><strong>Autentifică-te sau crează-ți cont nou folosind</strong></p>
+			<ul class="social-login">
+				<li><a class="login-facebook" href="{% url "socialauth_begin" "facebook" %}"><span></span>Facebook</a></li>
+                    		<li><a class="login-yahoo" href="{% url "socialauth_begin" "yahoo" %}"><span></span>YAHOO</a></li>
+                    		<li><a class="login-google" href="{% url "socialauth_begin" "google" %}"><span></span>GOOGLE</a></li>
+			</ul>             
         </div>
     </form>
 
