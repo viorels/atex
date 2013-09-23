@@ -1773,7 +1773,7 @@ ul.modalitate li {
 .total-cos02 { width:100%; float:left;}
 .login-fields { float:left; padding: 10px 0 15px 10px; }
 .login-fields li { padding-bottom:5px;}
-.login-fields li label { line-height:18px; padding-left:5px;}
+.login-fields li label { line-height:18px; }
 .flleft { float:left }
 .flright { float:right }
 .reset {

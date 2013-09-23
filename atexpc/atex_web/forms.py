@@ -60,16 +60,26 @@ def search_form_factory(search_in_choices, advanced=False):
 def user_form_factory(is_signup, api):
     class LoginForm(auth_forms.AuthenticationForm):
         username = forms.CharField(
-            widget=TextInput(attrs={"class": "input_cos"}))
+            widget=TextInput(attrs={"type": "email",
+                                    "class": "input_cos"}))
         password = forms.CharField(
             widget=PasswordInput(attrs={"id": "masked_password",
                                         "class": "input_cos"}))
 
     class SignupForm(LoginForm):
+        login_type = forms.ChoiceField(
+            widget=RadioSelect(),
+            choices=(('new', 'Sunt client nou'),
+                     ('password', 'Am deja parola'),
+                     ('nopassword', 'Nu am parola')),
+            initial='f')
+
         first_name = forms.CharField(
+            label="Prenume",
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "prenume"}))
         last_name = forms.CharField(
+            label="Nume",
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "nume de familie"}))
         terms = forms.BooleanField( # Am citit si sunt de acord cu Termenii & Conditii de utilizare

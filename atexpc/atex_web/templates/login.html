@@ -1,82 +1,96 @@
 {% extends "base_2col.html" %}
 
+{% load i18n %}
+
 {% block content_right %}
 <div class="cos_content">
     <div class="product-section">
     	<div class="tab_d_holder_right">
             <span class="down_left"></span>
                 <ul class="tab_down">
-                    <li><span>login/signup</span></li>
+                    <li><span>{% trans "Sign up" %} / {% trans "Log in" %}</span></li>
                 </ul>
             <span class="down_right"></span>
         </div>
     </div>
 
-    <form id="loginform" method="post">
+    <form id="loginform" action="{% url "login" %}" method="post">
         {% csrf_token %}
         <div class="rand-cos">
             <ul class="login-fields">
-                <li style="font-size: 18pt">Login sau creeaza un cont ATEX Computer</li>
                 <li class="errors">{{ form.non_field_errors }}</li>
-                <li style="padding-top:20px">Adresa de email</li>
+                <li style="padding-top:20px"><strong>Care este adresa ta de email?</strong></li>
                 <li class="last">
                     <div class="row">
                         {{ form.username.errors }}
                         {{ form.username }}
                     </div>
                 </li>
-            </ul>
-        </div>
-        <div class="rand-cos">
-            <ul class="login-fields">
-                <li><input id="logintype_new" name="logintype" type="radio" checked /> <label for="logintype_new">Parola</label></li>
+                <li style="padding-top:20px"><strong>Ai parola pentru ATEX Computer?</strong></li>
+
                 <li>
-                    {{ form.password.errors }}
-                    <input type="password" name="password" value="{{ form.password.value|default:'' }}" id="masked_password" class="input_cos" />
-                    <input type="text" id="readable_password" class="input_cos" readonly style="display: none" />
+                    {% for radio in signup_form.login_type %}
+                        {{ radio }}
+                    {% endfor %}
                 </li>
-                <li>
-                    <input type="checkbox" id="show_password" class="checkbox" /><label for="show_password">Afișează parola</label>
-                </li>
-                <li class="signupinput">
-		      <br />
-                    Prenume
+
+                <li class="login_type_new">
+                    {{ signup_form.first_name.label }}
                     <div class="row">
                         {{ form.first_name.errors }}
                         {{ signup_form.first_name }}
+                    </div>
+                </li>
+                <li class="login_type_new">
+                    {{ signup_form.last_name.label }}
                     <div class="row">
-			<br />
-			Nume
-		      </div>
                         {{ form.last_name.errors }}
                         {{ signup_form.last_name }}
                     </div>
                 </li>
-                <li class="signupinput">
+                <li class="login_type_new login_type_password">
+                    <label for="id_password">Parola</label>
+                    {{ form.password.errors }}
+                    <div class="row">
+                        <input type="password" id="id_password" name="password" value="{{ form.password.value|default:'' }}" class="input_cos masked_password" placeholder="parola" />
+                        <input type="text" name="password" class="input_cos readable_password" placeholder="parola" disabled style="display: none" />
+                    </div>
+                </li>
+                <li class="login_type_new login_type_password">
+                    <input type="checkbox" id="show_password" class="checkbox show_password" /><label for="show_password">Afișează parola</label>
+                </li>
+
+                <li class="login_type_new">
                     {{ form.terms.errors }}
                     {{ signup_form.terms }}
-                    <label for="terms_checkbox">Am citit si sunt de acord cu Termenii &amp; Conditii de utilizare </label>
+                    <label for="terms_checkbox">Am citit si sunt de acord cu Termenii &amp; Conditiile de utilizare </label>
                 </li>
-                <li class="signupinput">
+                <li class="login_type_new">
                     {{ form.newsletter.errors }}
                     {{ signup_form.newsletter }}
-                    <label for="newsletter_checkbox"> Doresc sa fiu informat, prin email, despre produsele ATEX</label>
+                    <label for="newsletter_checkbox">Doresc sa fiu informat, prin email, despre produsele ATEX</label>
                 </li>
+
+                <li class="login_type_nopassword">
+                    <button type="button" name="reset" class="login">Resetează parola</button>
+                </li>
+
                 <li>
-                    <input type="submit" name="login" class="login logininput" value="LOG IN">
-                    <input type="submit" name="signup" class="register signupinput" value="REGISTER">
+                    <button type="submit" name="login" class="login login_type_none">Continuă</button>
+                    <button type="submit" name="signup" class="register login_type_new">{% trans "Sign up" %}</button>
+                    <button type="submit" name="login" class="login login_type_password">{% trans "Log in" %}</button>
                 </li>
             </ul>
         </div>
         <div class="rand-cos">
             <ul class="login-fields">
-                <li><input id="logintype_nopass" name="logintype" type="radio" value="nopass" /> <label for="logintype_nopass">Fără parolă - Login cu contul de:</label></li>
                 <li>
-                    <ul>
-                        <li><a class="login-facebook" href="{% url "socialauth_begin" "facebook" %}"><span></span>Facebook</a></li>
-                    </ul>
+                    Autentifica-te sau creaza-ti cont nou folosind Facebook, Google sau Yahoo!
+                    <a class="login-facebook" href="{% url "socialauth_begin" "facebook" %}"><span></span>Facebook</a>
+                    <a class="login-yahoo" href="{% url "socialauth_begin" "yahoo" %}"><span></span>YAHOO</a>
+                    <a class="login-google" href="{% url "socialauth_begin" "google" %}"><span></span>GOOGLE</a>
                 </li>
-            </ul>    
+            </ul>
         </div>
     </form>
 

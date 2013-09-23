@@ -1,6 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 {% load compress %}
 {% load static %}
+{% load i18n %}
+
 {% get_static_prefix as STATIC_PREFIX %}
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -33,11 +36,11 @@
             	<span class="down_left"></span>
                 	<ul class="tab_down">
                     {% if user.is_authenticated %}
-                    	<li><a href="{% url "logout" %}">log out</a></li>
+                    	<li><a href="{% url "logout" %}">{% trans "Log out" %}</a></li>
                     {% else %}
-                    	<li><a href="{% url "login" %}">log in</a></li>
+                    	<li><a href="{% url "login" %}">{% trans "Sign up" %}</a></li>
                         <li><span class="spacer">|</span></li>
-                        <li><a href="{% url "login" %}">register</a></li>
+                        <li><a href="{% url "login" %}">{% trans "Log in" %}</a></li>
                     {% endif %}
                     </ul>
                 <span class="down_right"></span>
@@ -58,7 +61,7 @@
             </div>
             <div class="info_cos">
             	<div class="wellcome">
-                	<p>Bun venit, <span class="red_b">{{ user.first_name|default:"anonim" }}</span> !</p>
+                	<p>Bun venit {% if user.is_authenticated %}, <span class="red_b">{{ user.get_short_name }}</span> {% endif %}!</p>
                 </div>    
                 <ul>
                 	<li><a href="{% url "cart" %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
