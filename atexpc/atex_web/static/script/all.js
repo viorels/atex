@@ -358,32 +358,37 @@ function search_customer(partial_email, is_final) {
     else {
         email_exists = null;
     }
-    update_login_form(email_exists, is_final);
+    predict_login_form(email_exists, is_final);
     console.debug("searching " + partial_email + " ... " + email_exists);
 }
 
-function update_login_form(email_exists, is_final) {
+function predict_login_form(email_exists, is_final) {
     console.debug("email_exists %s, is_final %s", email_exists, is_final);
     var login_form = $("#loginform");
 
-    password_texts = {
-        null: "Parola",
-        true: "Client vechi cu parola",
-        false: "Client nou cu parola"}
-    login_form.find('label[for="logintype_new"]').text(password_texts[email_exists]);
-
+    var login_type = null;
     if (email_exists === true) {
-        login_form.find('.signupinput').hide("fast");
-        login_form.find('.logininput').show("fast");
+        login_type = 'password';
     }
     else if (email_exists === false || email_exists === null && is_final) {
-        login_form.find('.signupinput').show("fast");
-        login_form.find('.logininput').hide("fast");
+        login_type = 'new';
+    }
+
+    if (login_type) {
+        // select login_type radio button
+        login_form.find('input[name="login_type"][value="' + login_type + '"]').prop('checked', true).change();
+    }
+}
+
+function update_login_form(login_type) {
+    var login_form = $("#loginform");
+
+    var all_fields = login_form.find('[class*="login_type"]').hide();
+    if (login_type) {
+        login_form.find('.login_type_' + login_type).show();
     }
     else {
-        login_form.find('li.signupinput').hide("fast")
-        login_form.find('input[type="submit"].logininput').show("fast");
-        login_form.find('input[type="submit"].signupinput').show("fast");
+        login_form.find('.login_type_none').show();
     }
 }
 
@@ -403,30 +408,36 @@ function init_login() {
     if (!login_form.length) return;
 
     login_form.listenForChange();
-    login_form.find("input[name='username']").on("keyup change blur", function(e) {
+    login_form.find("input[name='username']").on("keyup input", function(e) {
         var partial_email = $(e.target).val();
         var is_final = e.type == "blur";
         search_customer(partial_email, is_final);
     }).change();
 
+    var login_type_input = login_form.find('input[name="login_type"]');
+    login_type_input.change(function () {
+        var login_type = login_type_input.filter(':checked').val();
+        console.log("login_type %s", login_type);
+        update_login_form(login_type);
+    }).change();
+
     // visible password
     $('#show_password').change(function() {
         var isChecked = $(this).prop('checked');
+        var name = $(this).attr("id").match(/show_(.*)/)[1];
+        var masked = $('.masked_' + name);
+        var readable = $('.readable_' + name);
         if (isChecked) {
-            $('#masked_password').hide();
-            $('#readable_password').val($('#masked_password').val())
-            $('#readable_password').show();
+            masked.hide().prop('disabled', true);
+            readable.show().prop('disabled', false).val(masked.val());
         }
         else {
-            $('#masked_password').show();
-            $('#readable_password').hide();
+            readable.hide().prop('disabled', true);
+            masked.val(readable.val());
+            masked.show().prop('disabled', false).show();
         }
     });
 
-    $('#readable_password').click(function() {
-        $('#show_password').prop('checked', false).change();
-        $('#masked_password').focus();
-    })
 }
 
 function init_order() {

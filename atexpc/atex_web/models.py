@@ -320,7 +320,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         "Returns the short name for the user."
-        return self.first_name
+        return self.first_name or self.email.split('@')[0]
 
     def email_user(self, subject, message, from_email=None):
         """

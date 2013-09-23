@@ -8,6 +8,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.utils.http import is_safe_url
+from django.utils.translation import ugettext as _
 
 from atexpc.atex_web.views.base import HybridGenericView, JSONResponseMixin
 from atexpc.atex_web.utils import FrozenDict
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 class LoginBase(FormView, HybridGenericView):
     template_name = "login.html"
-    breadcrumbs = [FrozenDict(name="Login/Register",
+    breadcrumbs = [FrozenDict(name=_('Sign up') + '/' + _('Log in'),
                               url=reverse_lazy('login'))]
 
     def get_context_data(self, **kwargs):

@@ -2,9 +2,6 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Translators:
-# Denis Darii <sinednx@gmail.com>, 2011
-# Jannis Leidel <jannis@leidel.info>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: django-localflavor\n"
@@ -53,3 +50,11 @@ msgstr "Vă rugăm indroduceți un %(username)s corect și parola."
 #: models.py:385
 msgid "email address"
 msgstr "email"
+
+#: authentication.py:23
+msgid "Sign up"
+msgstr "Înregistrare"
+
+msgid "Log out"
+msgstr "Deconectare"
+
