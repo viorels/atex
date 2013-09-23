@@ -71,11 +71,7 @@
                                         Str. Stephan Ludwig Roth, nr. 21<br/>
                                         Cluj-Napoca, 400174 <br/>
                                     </a>
-                                {% elif order.delivery == 'same' %}
-                                    <strong>Livrare la adresa</strong>:<br/>
-                                    {{ order.address }}<br/>
-                                    {{ order.city }}, Jud. {{ order.county }}
-                                {% elif order.delivery == 'other' %}
+                                {% elif order.delivery == 'yes' %}
                                     <strong>Livrare la adresa</strong>:<br/>
                                     {{ order.delivery_address }}<br/>
                                     {{ order.delivery_city }}, Jud. {{ order.delivery_county }}

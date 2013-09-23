@@ -208,15 +208,26 @@ def order_form_factory(form_type, user, customers=[], addresses=[], delivery=Fal
                 if delivery_address_id == -1:
                     cleaned_data['delivery_county'] = cleaned_data.get('county')
                     cleaned_data['delivery_city'] = cleaned_data.get('city')
-                    cleaned_data['delivery_address'] = address = cleaned_data.get('address') 
+                    cleaned_data['delivery_address'] = cleaned_data.get('address')
+                elif delivery_address_id > 0:
+                    matched_addresses = [a for a in addresses
+                                         if a['address_id'] == delivery_address_id]
+                    if matched_addresses:
+                        cleaned_data['delivery_county'] = matched_addresses[0]['county']
+                        cleaned_data['delivery_city'] = matched_addresses[0]['city']
+                        cleaned_data['delivery_address'] = matched_addresses[0]['address']
 
                 # check if address id belongs to this customer or we need to create a new address
-                delivery_address_id = 0
-                matched_addresses = [a for a in addresses 
-                                     if a['address'] == address 
-                                     and a['customer_id'] == customer_id]
+                def delivery_is_address(delivery, other):
+                    return all(delivery.get("delivery_" + field).lower() == other.get(field).lower()
+                               for field in ('address', 'city', 'county'))
+                matched_addresses = [a for a in addresses
+                                     if a['customer_id'] == customer_id
+                                     and delivery_is_address(cleaned_data, a)]
                 if matched_addresses:
                     delivery_address_id = matched_addresses[0]['address_id']
+                else:
+                    delivery_address_id = 0
 
                 cleaned_data['delivery_address_id'] = delivery_address_id
 
