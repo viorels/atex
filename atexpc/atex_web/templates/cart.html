@@ -143,7 +143,7 @@
                             </div>
                             <ul class="modalitate">
                             	<li>Va rugam selectati varianta preferata:</li>
-                                <li><input id="delivery_self" name="delivery" type="radio" value="no" {% if not cart.delivery %}checked{% endif %} /> <label for="delivery_self">Ridicare produse de la sediul ATEX Computer</label></li>
+                                <li><input id="delivery_self" name="delivery" type="radio" value="no" {% if not cart.delivery or cart.delivery == None %}checked{% endif %} /> <label for="delivery_self">Ridicare produse de la sediul ATEX Computer</label></li>
                                 <li><input id="delivery_us" name="delivery" type="radio" value="yes" {% if cart.delivery %}checked{% endif %} /> <label for="delivery_us">Livrare la adresa specificata</label></li>
                             </ul>
                         </div> 
@@ -158,7 +158,7 @@
                             </div>
                             <ul class="modalitate">
                             	<li>Va rugam selectati varianta preferata:</li>
-                                <li><input id="payment_cash" name="payment" type="radio" value="cash" {% if cart.payment == 'cash' %}checked{% endif %} /> <label for="payment_cash">{{ cart.payment_cash_description }}</label></li>
+                                <li><input id="payment_cash" name="payment" type="radio" value="cash" {% if cart.payment == 'cash' or cart.paymeny == None %}checked{% endif %} /> <label for="payment_cash">{{ cart.payment_cash_description }}</label></li>
                                 <li><input id="payment_bank" name="payment" type="radio" value="bank" {% if cart.payment == 'bank' %}checked{% endif %} /> <label for="payment_bank">Plata prin transfer bancar / OP</label></li>
                             </ul>                        
                         </div> 

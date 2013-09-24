@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model, login, REDIRECT_FIELD_NAME
+from django.contrib.auth.signals import user_logged_out
 from django.core.urlresolvers import reverse_lazy
+from django.dispatch import receiver
 from django.views.generic import ListView
 from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
@@ -64,3 +66,8 @@ class GetEmails(JSONResponseMixin, ListView):
         users_beginning_with = get_user_model().objects.filter(email__startswith=username_filter)
         emails = [user.email for user in users_beginning_with]
         return emails
+
+
+@receiver(user_logged_out)
+def log_out_handler(sender, **kwargs):
+     pass   # "do your custom stuff here"

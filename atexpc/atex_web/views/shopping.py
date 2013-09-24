@@ -133,7 +133,12 @@ class ConfirmBase(LoginRequiredMixin, HybridGenericView):
         logger.info('Confirm %s, cart %s', order_info, cart)
         order_id = self.api.cart.create_order(**order_info)
         request.session['order']['id'] = order_id
+
+        # cleanup session
         del request.session['cart_id']  # Ancora cart is deleted after order
+        del request.session['delivery']
+        del request.session['payment']
+
         return self.get(request, cart=cart, order=order_info, done=True)
 
 
@@ -159,8 +164,10 @@ class ShoppingMixin(object):
 
     def _get_cart_data(self):
         cart = self._get_cart()
-        delivery = self.request.session.get('delivery', 'no') != 'no'
-        payment = self.request.session.get('payment', 'cash')
+        delivery = self.request.session.get('delivery', None)
+        if delivery is not None:
+            delivery = delivery == 'yes'
+        payment = self.request.session.get('payment', None)
         if cart:
             items = self._augment_cart_items(cart.items())
             delivery_price = cart.delivery_price(delivery=delivery,
@@ -223,6 +230,7 @@ class ShoppingMixin(object):
         delivery_description = 'Ridicare produse de la sediul ATEX Computer'
         if delivery:
             delivery_description = 'Livrare la adresa specificata'
+        options['delivery'] = delivery
         options['delivery_description'] = delivery_description
 
         payment_description = 'Plata '
@@ -231,6 +239,7 @@ class ShoppingMixin(object):
             payment_description = payment_cash_description
         else:
             payment_description += 'prin transfer bancar/OP'
+        options['payment'] = payment
         options['payment_description'] = payment_description
         options['payment_cash_description'] = payment_cash_description
 

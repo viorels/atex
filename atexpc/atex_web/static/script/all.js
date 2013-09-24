@@ -294,7 +294,13 @@ function on_cart_update(cart) {
     var cart_summary = cart.count + ' produs' + (cart.count == 1 ? '' : 'e');
     $('.show_rezumat .cosFooter span').html(cart_summary);
     $('.show_rezumat .domiciliu').html(cart.delivery_description);
+    if (cart.delivery) {
+        $('.show_rezumat .domiciliu').parent().show();
+    }
     $('.show_rezumat .numerar').html(cart.payment_description);
+    if (cart.payment) {
+        $('.show_rezumat .numerar').parent().show();
+    }
     $('.show_rezumat').slideDown();
 
     cart_form = $("#cart_form");

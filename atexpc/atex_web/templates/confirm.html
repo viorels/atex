@@ -39,7 +39,7 @@
                             {% endif %}
                             <li>&nbsp;</li>
 
-                            {% if order.customer_type != 'f' %}
+                            {% if order.customer_type == 'j' or order.customer_type == 'o' %}
                             <li><strong>{{ order.company }}</strong></li>
                                 {% if order.customer_type == 'j' %}
                                 <li>CUI: <strong>{% if order.vat %}RO{% endif %}{{ order.cui }}</strong></li>
@@ -79,8 +79,10 @@
                             </li>
                             <li>&nbsp;</li>
 
+                            {% if cart.payment %}
                             <li><strong>{{ cart.payment_description }}</strong></li>
                             <li>&nbsp;</li>
+                            {% endif %}
 
                             {% if order.notes %}
                             <li>Observatii: {{ order.notes }}</li>
