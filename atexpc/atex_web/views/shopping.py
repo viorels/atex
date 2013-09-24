@@ -171,7 +171,7 @@ class ShoppingMixin(object):
         if cart:
             items = self._augment_cart_items(cart.items())
             delivery_price = cart.delivery_price(delivery=delivery,
-                                                 cash_payment=(payment == 'cash'))
+                                                 payment=payment)
             cart_data = {'id': cart.id(),
                          'items': items,
                          'count': sum(item['count'] for item in items),

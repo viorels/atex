@@ -176,6 +176,9 @@ class CartAPI(BaseAPI):
     def list_cart(self, cart_id):
         return self._api.list_cart(cart_id)
 
+    def get_cart_price(self, cart_id, delivery=False, payment='cash'):
+        return self._api.get_cart_price(cart_id, delivery, payment)
+
     def add_product(self, cart_id, product_id):
         return self._api.add_cart_product(cart_id, product_id)
 

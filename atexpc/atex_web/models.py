@@ -361,8 +361,7 @@ class BaseCart(object):
     def count(self):
         return len(self.items())
 
-    @staticmethod
-    def price(items):
+    def price(self, items):
         return sum(item['count'] * item['product']['price'] for item in items)
 
     def _get_db_product(self, id):
@@ -482,11 +481,13 @@ class AncoraCart(BaseCart):
             items.append(item)
         return items
 
-    def delivery_price(self, delivery=False, cash_payment=True):
-        # TODO: compute price for delivery
-        price = 15 if delivery and self.items() else 0
-        price += 5 if delivery and self.items() and cash_payment else 0
-        return price
+    def price(self, items=None):
+        cart_price = self._api.cart.get_cart_price(self.id())
+        return cart_price['products_price']
+
+    def delivery_price(self, delivery=False, payment='cash'):
+        cart_price = self._api.cart.get_cart_price(self.id(), delivery, payment)
+        return cart_price['delivery_price']
 
     def add_item(self, product_id):
         return self._api.cart.add_product(self.id(), product_id)

@@ -145,7 +145,7 @@ class AncoraAdapter(BaseAdapter):
         except (ConnectionError, Timeout) as e:
             raise APIError("Failed to reach backend (%s)" % type(e).__name__)
 
-    def uri_for(self, method_name, args={}):
+    def uri_for(self, method_name='', args={}):
         all_args = self._args_for(method_name)
         all_args.update(args)
         return self.uri_with_args(self._base_uri,
@@ -528,6 +528,39 @@ class Ancora(object):
 
         list_cart_uri = self.adapter.uri_for('list_cart', {'idparinte': cart_id})
         return self.adapter.read(list_cart_uri, post_process=post_process, cache_timeout=TIMEOUT_NO_CACHE)
+
+    def _get(self, args, response_root, response_map, cache_timeout=TIMEOUT_NO_CACHE):
+        def post_process(data):
+            items = []
+            for raw_item in data[response_root]:
+                item = {}
+                for key, rule in response_map.items():
+                    if isinstance(rule, str):
+                        raw_key = rule
+                        transforms = (operator.itemgetter(raw_key),)
+                    elif isinstance(rule, tuple):
+                        raw_key = rule[0]
+                        transforms = (operator.itemgetter(raw_key),) + rule[1:]
+                    value = reduce(lambda val, trans: trans(val), transforms, raw_item)
+                    item[key] = value
+                items.append(item)
+            return items
+
+        uri = self.adapter.uri_for(args=args)
+        return self.adapter.read(uri, post_process=post_process, cache_timeout=cache_timeout)
+
+    def get_cart_price(self, cart_id, delivery, payment):
+        delivery_map = {False: 'N', True: 'D', None: 'N'}
+        payment_map = {'cash': 'ramburs', 'bank': 'op', None: 'ramburs'}
+        result = self._get(args={'cod_formular': 1160,
+                                 'idcart': cart_id,
+                                 'livrare': delivery_map.get(delivery, ''),
+                                 'plata': payment_map.get(payment, '')},
+                           response_root='total_cart',
+                           response_map={'products_price': ('ztotal_fara_transport', float),
+                                         'delivery_price': ('ztransport', float)},
+                           cache_timeout=TIMEOUT_REQUEST)
+        return result[0]
 
     def get_customers(self, user_id):
         def post_process(data):
