@@ -606,11 +606,10 @@ class Ancora(object):
     def create_order(self, cart_id, user_id, customer=0,
                      email='', customer_type='f', name='', person_name='', phone='',
                      tax_code='', regcom='', vat=False, bank='', bank_account='',
-                     address='', city='', county='',
-                     delivery=False, delivery_address_id=0,
+                     address='', city='', county='', notes='',
+                     payment='', delivery=False, delivery_address_id=0,
                      delivery_address='', delivery_city='', delivery_county='',
                      **kwargs):
-        # TODO: payment method and order notes
         create_order_uri = self.adapter.uri_for('create_order')
         args = {'pid': 0,
                 'idcart_site': cart_id,
@@ -632,8 +631,11 @@ class Ancora(object):
                 'judet': county,
                 'persoana_contact': person_name,
                 'telefon': phone,
-                'isadresa_livrare': 'd' if delivery else 'n', # true/false or d/n ??!
+                'isramburs': 'D' if payment == 'cash' else 'N',
+                'istransport': 'D' if delivery else 'N',
+                'isadresa_livrare': 'D' if delivery else 'N',
                 'pl_localitate': delivery_city,
                 'pl_judet': delivery_county,
-                'pl_adresa': delivery_address}
+                'pl_adresa': delivery_address,
+                'observatii': notes}
         return self.adapter.write(create_order_uri, args, post_process=self._post_process_write)

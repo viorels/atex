@@ -129,7 +129,8 @@ class ConfirmBase(LoginRequiredMixin, HybridGenericView):
                           name=(person_name if customer_type == 'f' else order_info['company']),
                           person_name=person_name,
                           delivery=(order_info['delivery'] == 'yes'),
-                          tax_code=tax_code)
+                          tax_code=tax_code,
+                          payment=request.session['payment'])
         logger.info('Confirm %s, cart %s', order_info, cart)
         order_id = self.api.cart.create_order(**order_info)
         request.session['order']['id'] = order_id
