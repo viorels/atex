@@ -16,8 +16,8 @@
                         </div>
                         <ul class="pasi">
                             <li><span class="cos-01 active" id=""></span>Cosul de cumparaturi</li>
-                            <li><span class="cos-02" id=""></span>Date personale de facturare</li>
-                            <li><span class="cos-03" id=""></span>Confirmare comanda</li>
+                            <li><a href="{% url "order" %}"><span class="cos-02" id=""></span>Date personale de facturare</a></li>
+                            <li><a href="{% url "confirm" %}"><span class="cos-03" id=""></span>Confirmare comanda</a></li>
                         </ul>
                     </div>
                     <form id="cart_form" action="{% url "cart" %}" method="post">

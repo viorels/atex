@@ -268,6 +268,11 @@ function init_cart() {
     $('input[name="delivery"], input[name="payment"]').change(function () {
         update_cart();
     });
+
+    $("div.cos_content ul.pasi a").has("span.cos-02").click(function(e) {
+        $('button[name="next"]').click();
+        e.preventDefault();
+    });
 }
 
 function add_to_cart(product_id) {
@@ -591,6 +596,11 @@ function init_order() {
 
     order_form.find('input[name="county"], input[name="delivery_county"]').autocomplete({
         lookup: counties
+    });
+
+    $("div.cos_content ul.pasi a").has("span.cos-03").click(function(e) {
+        order_form.submit();
+        e.preventDefault();
     });
 }
 
