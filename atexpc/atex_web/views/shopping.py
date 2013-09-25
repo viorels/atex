@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import login
@@ -230,7 +232,7 @@ class ShoppingMixin(object):
 
         delivery_description = 'Ridicare produse de la sediul ATEX Computer'
         if delivery:
-            delivery_description = 'Livrare la adresa specificata'
+            delivery_description = 'Livrare la adresa dorită'
         options['delivery'] = delivery
         options['delivery_description'] = delivery_description
 

@@ -172,7 +172,7 @@ def order_form_factory(form_type, user, customers=[], addresses=[], delivery=Fal
         delivery = forms.ChoiceField(
             widget=RadioSelect(),
             choices=(('no', 'Ridic de la sediul Atex Computer'),
-                     ('yes', 'Livrare la adresa')),
+                     ('yes', 'Selectați adresa de livrare')),
             initial=delivery_default)
         delivery_address_id = forms.TypedChoiceField(
             widget=Select(attrs={"class": "input_cos"}),
