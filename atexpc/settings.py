@@ -1,3 +1,4 @@
+import django.conf.global_settings as DEFAULT_SETTINGS
 from os import path, environ
 import sys
 
@@ -35,8 +36,21 @@ DROPBOX_ACCESS_TOKEN = environ.get('DROPBOX_ACCESS_TOKEN')
 DROPBOX_ACCESS_TOKEN_SECRET = environ.get('DROPBOX_ACCESS_TOKEN_SECRET')
 
 AUTH_USER_MODEL = 'atex_web.CustomUser'
-SOCIAL_AUTH_USER_MODEL = 'atex_web.CustomUser'
 INITIAL_CUSTOM_USER_MIGRATION = '0020_drop_customuser_username.py'
+
+SOCIAL_AUTH_USER_MODEL = 'atex_web.CustomUser'
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
+FACEBOOK_EXTENDED_PERMISSIONS = ['email']
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_auth.backends.pipeline.social.social_auth_user',
+    'social_auth.backends.pipeline.associate.associate_by_email',
+    'social_auth.backends.pipeline.user.get_username',
+    'social_auth.backends.pipeline.user.create_user',
+    'social_auth.backends.pipeline.social.associate_user',
+    'social_auth.backends.pipeline.social.load_extra_data',
+    'social_auth.backends.pipeline.user.update_user_details'
+)
 
 SHOPMANIA_FEED_FILE = 'shopmania.csv'   # in media root
 
@@ -53,7 +67,7 @@ CACHES = {
 
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.google.GoogleOAuth2Backend',
-    'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
+    'social_auth.backends.yahoo.YahooBackend',
     'social_auth.backends.facebook.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -63,8 +77,6 @@ LOGIN_REDIRECT_URL = '/'
 
 GOOGLE_OAUTH2_CLIENT_ID = environ.get('GOOGLE_OAUTH2_CLIENT_ID')
 GOOGLE_OAUTH2_CLIENT_SECRET = environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
-YAHOO_CONSUMER_KEY = environ.get('YAHOO_CONSUMER_KEY')
-YAHOO_CONSUMER_SECRET = environ.get('YAHOO_CONSUMER_SECRET')
 FACEBOOK_APP_ID = environ.get('FACEBOOK_APP_ID')
 FACEBOOK_API_SECRET = environ.get('FACEBOOK_API_SECRET')
 
@@ -138,6 +150,10 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + ( 
+    'social_auth.context_processors.social_auth_login_redirect',
 )
 
 MIDDLEWARE_CLASSES = (
