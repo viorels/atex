@@ -257,7 +257,25 @@ class Hit(models.Model):
         unique_together = ("product", "date")
 
 
-class CustomUserManager(BaseUserManager):
+class GetOrNoneManager(object):
+    """Adds get_or_none method to objects
+    """
+    def get_or_none(self, **kwargs):
+        try:
+            return self.get(**kwargs)
+        except self.model.DoesNotExist:
+            return None
+
+    """Adds get_unique_or_none method to objects
+    """
+    def get_unique_or_none(self, **kwargs):
+        try:
+            return self.get(**kwargs)
+        except (self.model.DoesNotExist, self.model.MultipleObjectsReturned), err:
+            return None
+
+
+class CustomUserManager(GetOrNoneManager, BaseUserManager):
     def _create_user(self, email, password,
                      is_staff, is_superuser, **extra_fields):
         """
@@ -267,12 +285,15 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError('The given email address must be set')
         email = self.normalize_email(email)
-        user = self.model(email=email,
-                          is_staff=is_staff, is_active=True,
-                          is_superuser=is_superuser, last_login=now,
-                          date_joined=now, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
+        user, created = self.get_or_create(
+            email=email,
+            defaults=dict(
+                is_staff=is_staff, is_active=True,
+                is_superuser=is_superuser, last_login=now,
+                date_joined=now, **extra_fields))
+        if created:
+            user.set_password(password)
+            user.save(using=self._db)
         return user
 
     def create_user(self, email, password=None, **extra_fields):

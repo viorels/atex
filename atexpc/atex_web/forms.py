@@ -59,21 +59,29 @@ def search_form_factory(search_in_choices, advanced=False):
 
 def user_form_factory(is_signup, api):
     class LoginForm(auth_forms.AuthenticationForm):
-        username = forms.CharField(
+        login_type = forms.ChoiceField(
+            widget=RadioSelect(),
+            choices=(('new', 'Sunt client nou'),
+                     ('password', 'Am deja parola'),
+                     ('nopassword', 'Nu știu parola')))
+        username = forms.EmailField(
             widget=TextInput(attrs={"type": "email",
                                     "class": "input_cos"}))
         password = forms.CharField(
             widget=PasswordInput(attrs={"id": "masked_password",
                                         "class": "input_cos"}))
 
-    class SignupForm(LoginForm):
-        login_type = forms.ChoiceField(
-            widget=RadioSelect(),
-            choices=(('new', 'Sunt client nou'),
-                     ('password', 'Am deja parola'),
-                     ('nopassword', 'Nu știu parola')),
-            initial='f')
+        def clean(self):
+            email = self.cleaned_data.get('username')
 
+            user_exists = get_user_model().objects.get_or_none(email=email)
+            if not user_exists:
+                # self.cleaned_data['login_type'] = 'new'
+                raise forms.ValidationError('Nu am găsit contul dar poți creea unul')
+
+            return super(LoginForm, self).clean()
+
+    class SignupForm(LoginForm):
         first_name = forms.CharField(
             label="Prenume",
             widget=TextInput(attrs={"class": "input_cos",
@@ -92,14 +100,17 @@ def user_form_factory(is_signup, api):
             initial=False,
             required=False)
 
-        def clean_username(self):
-            email = self.cleaned_data['username']
-            validate_email(email)
-            return email
-
         def clean(self):
-            if (not self._errors):
-                user_info = {'email': self.cleaned_data.get('username'),
+            email = self.cleaned_data.get('username')
+
+            user_exists = get_user_model().objects.get_or_none(email=email)
+            if user_exists:
+                # self.cleaned_data['login_type'] = 'password'
+                raise forms.ValidationError('Ai deja un cont, '
+                    'incearcă parola sau reseteaz-o')
+
+            if not self._errors:
+                user_info = {'email': email,
                              'first_name': self.cleaned_data.get('first_name'),
                              'last_name': self.cleaned_data.get('last_name')}
                 ancora_user_id = api.users.create_or_update_user(**user_info)
@@ -107,9 +118,6 @@ def user_form_factory(is_signup, api):
                 user_info['password'] = self.cleaned_data.get('password')
                 user = get_user_model().objects.create_user(**user_info)
             return super(SignupForm, self).clean()
-
-        def get_user(self):
-            return self.user_cache
 
     if is_signup:
         return SignupForm

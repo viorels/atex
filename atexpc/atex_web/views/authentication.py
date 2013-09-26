@@ -25,17 +25,15 @@ class LoginBase(FormView, HybridGenericView):
     breadcrumbs = [FrozenDict(name=_('Sign up') + '/' + _('Log in'),
                               url=reverse_lazy('login'))]
 
-    def get_context_data(self, **kwargs):
-        context = super(LoginBase, self).get_context_data(**kwargs)
-        signup_form = user_form_factory(True, self.api)
-        context['signup_form'] = signup_form(data=self.request.POST or None)
-        if 'form' not in context:   # show full unbound form on first view
-            context['form'] = signup_form()
-        return context
+    @method_decorator(sensitive_post_parameters())
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self, *args, **kwargs):
+        self.is_signup = self.request.POST.get('login_type') == 'new'
+        return super(LoginBase, self).dispatch(*args, **kwargs)
 
     def get_form_class(self):
-        is_signup = 'signup' in self.request.POST
-        return user_form_factory(is_signup, self.api)
+        return user_form_factory(self.is_signup, self.api)
 
     def form_valid(self, form):
         login(self.request, form.get_user())
@@ -48,11 +46,13 @@ class LoginBase(FormView, HybridGenericView):
             redirect_to = settings.LOGIN_REDIRECT_URL
         return redirect_to
 
-    @method_decorator(sensitive_post_parameters())
-    @method_decorator(csrf_protect)
-    @method_decorator(never_cache)
-    def dispatch(self, *args, **kwargs):
-        return super(LoginBase, self).dispatch(*args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(LoginBase, self).get_context_data(**kwargs)
+        signup_form = user_form_factory(is_signup=True, api=self.api)
+        context['signup_form'] = signup_form(data=self.request.POST or None)
+        if 'form' not in context:   # show full unbound form on first view
+            context['form'] = signup_form()
+        return context
 
 
 class GetEmails(JSONResponseMixin, ListView):
