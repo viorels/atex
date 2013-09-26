@@ -474,7 +474,7 @@ li .price_selector span {
 .left_col {
 	width:250px;
 	float:left;
-	padding-bottom:30px;
+	padding-bottom:15px;
 	position:relative;
 }
 .menu-closed {
@@ -1385,7 +1385,7 @@ ul.exposureThumbs li.last {
 .exposureTarget {
 	width:535px !important;
 	height:450px !important;	
-	background-image:url(images/loader.gif);
+	background-image:url(loader.gif);
 	background-repeat:no-repeat;
 	background-position:center center;
 	padding:0;
@@ -1488,6 +1488,10 @@ p.info a:hover, p.info a:active {
 }
 .gallery-view {
 	float:left;
+	width: 535px;
+	height: 450px;
+	overflow:hidden;
+	background:#fff;
 }
 
 /* ********************** COS  ************************************** */
