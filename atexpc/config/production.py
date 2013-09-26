@@ -6,6 +6,8 @@ from atexpc.settings import *
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+PREPEND_WWW = True
+
 ALLOWED_HOSTS = [
     '.atexpc.ro',
     '.atexcomputer.ro',
