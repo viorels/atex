@@ -153,6 +153,7 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + ( 
+    'django.core.context_processors.request',
     'social_auth.context_processors.social_auth_login_redirect',
 )
 

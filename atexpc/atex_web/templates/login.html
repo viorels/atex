@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <form id="loginform" action="{% url "login" %}" method="post">
+    <form id="loginform" action="{{ request.get_full_path }}" method="post">
         {% csrf_token %}
         <div class="rand-cos-left">
             <ul class="login-fields">
