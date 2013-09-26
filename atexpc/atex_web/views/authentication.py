@@ -12,6 +12,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils.http import is_safe_url
 from django.utils.translation import ugettext as _
 
+from password_reset.views import Recover
+
 from atexpc.atex_web.views.base import HybridGenericView, JSONResponseMixin
 from atexpc.atex_web.utils import FrozenDict
 from atexpc.atex_web.forms import user_form_factory
@@ -29,7 +31,8 @@ class LoginBase(FormView, HybridGenericView):
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
     def dispatch(self, *args, **kwargs):
-        self.is_signup = self.request.POST.get('login_type') == 'new'
+        self.login_type = self.request.POST.get('login_type')
+        self.is_signup = self.login_type == 'new'
         return super(LoginBase, self).dispatch(*args, **kwargs)
 
     def get_form_class(self):
@@ -39,6 +42,27 @@ class LoginBase(FormView, HybridGenericView):
         login(self.request, form.get_user())
         logger.info('Login %s', self.request.user.email)
         return super(LoginBase, self).form_valid(form)
+
+    def form_invalid(self, form):
+        logger.info('Login invalid %s', self.login_type)
+        if self.login_type == 'nopassword':
+            logger.info('Reset password')
+
+            return RecoverPassword.as_view()(self.request)
+            # email = form.cleaned_data['username']
+            # user = get_user_model().objects.get_or_none(email=email)
+            # if user:
+                # password_reset function does not allow changing unusable passwords
+                # if not user.has_usable_password():
+                #     random_password = get_user_model().objects.make_random_password()
+                #     user.set_password(random_password)
+                #     user.save()
+
+                # self.request.POST = self.request.POST.copy()
+                # self.request.POST['email'] = email
+                # return password_reset(request=self.request,
+                #                       template_name=self.template_name)
+        return super(LoginBase, self).form_invalid(form)
 
     def get_success_url(self):
         redirect_to = self.request.REQUEST.get(REDIRECT_FIELD_NAME, '')
@@ -66,6 +90,11 @@ class GetEmails(JSONResponseMixin, ListView):
         users_beginning_with = get_user_model().objects.filter(email__startswith=username_filter)
         emails = [user.email for user in users_beginning_with]
         return emails
+
+
+class RecoverPassword(Recover, HybridGenericView):
+    template_name = LoginBase.template_name
+    search_fields = ['username', 'email']
 
 
 @receiver(user_logged_out)

@@ -6,7 +6,7 @@ from django.views.generic import RedirectView
 from views import (HomeView, SearchView, ProductView, BrandsView,
                    ContactView, ConditionsView, ServiceView,
                    CartView, OrderView, ConfirmView, LoginView)
-from views.authentication import GetEmails
+from views.authentication import GetEmails, RecoverPassword
 from views.shopping import GetCompanyInfo
 
 
@@ -28,9 +28,7 @@ urlpatterns = patterns('',
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^login/emails/(?P<username>\w+)$', GetEmails.as_view()),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
-    url(r'^admin/password_reset/$', 'django.contrib.auth.views.password_reset', name='admin_password_reset'),
-    url(r'^admin/password_reset/confirm/$', 'django.contrib.auth.views.password_reset_confirm'),
-    url(r'^admin/password_reset/done/$', 'django.contrib.auth.views.password_reset_done'),
+    url(r'^recover/$', RecoverPassword.as_view(), name='password_reset_recover'),
     url(r'PIE\.htc$',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),
     # TODO: remove ledacy redirect sm.ashx to MEDIA_URL + SHOPMANIA_FEED_FILE
