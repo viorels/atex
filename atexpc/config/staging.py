@@ -6,8 +6,6 @@ from atexpc.settings import *
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-KEY_PREFIX = 'staging'
-
 PREPEND_WWW = True
 
 ALLOWED_HOSTS = [
@@ -45,3 +43,6 @@ if environ.has_key('DATABASE_URL'):
 #        'HOST': url.hostname,
 #        'PORT': url.port,
     }}
+
+CACHES['default']['KEY_PREFIX'] = 'staging'
+
