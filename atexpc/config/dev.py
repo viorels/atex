@@ -37,6 +37,10 @@ COMPRESS_ENABLED = False
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'atex_web', 'media/')
 MEDIA_URL = '/media/'
 
-SERVER_EMAIL = 'atex@durex.nul.ro'
+DEFAULT_FROM_EMAIL = SERVER_EMAIL = 'noreply@atexpc.ro'
 EMAIL_SUBJECT_PREFIX = '[Atex dev] '
-EMAIL_HOST = 'gmail-smtp-in.l.google.com'
+#EMAIL_HOST = 'gmail-smtp-in.l.google.com'
+#EMAIL_PORT = 25
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
