@@ -4,6 +4,7 @@
 venv
 .env
 *.sublime-*
+.idea
 atexpc/atex_web/media
 atexpc/atex_web/static/CACHE
 backup
