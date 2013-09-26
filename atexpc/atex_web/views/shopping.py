@@ -65,7 +65,7 @@ class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
         context = super(OrderBase, self).get_context_data(**kwargs)
         if 'form' not in context:   # show full unbound form on first view
             context['form'] = self.get_form_class()
-        user_id = self.request.user.ancora_id
+        user_id = self.request.user.get_ancora_id()
         context['customers'] = self.api.cart.get_customers(user_id=user_id)
         context['addresses'] = self.api.cart.get_addresses(user_id=user_id)
         context['counties'] = [county for short, county in COUNTIES_CHOICES]
