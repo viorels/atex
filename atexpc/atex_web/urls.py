@@ -5,7 +5,8 @@ from django.shortcuts import render
 from django.views.generic import RedirectView
 from views import (HomeView, SearchView, ProductView, BrandsView,
                    ContactView, ConditionsView, ServiceView,
-                   CartView, OrderView, ConfirmView, LoginView)
+                   CartView, OrderView, ConfirmView, LoginView,
+                   RecoverPassword, RecoverPasswordDone, ResetPassword, ResetPasswordDone)
 from views.authentication import GetEmails
 from views.shopping import GetCompanyInfo
 
@@ -28,10 +29,15 @@ urlpatterns = patterns('',
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^login/emails/(?P<username>\w+)$', GetEmails.as_view()),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
-    url(r'^admin/password_reset/$', 'django.contrib.auth.views.password_reset', name='admin_password_reset'),
-    url(r'^admin/password_reset/confirm/$', 'django.contrib.auth.views.password_reset_confirm'),
-    url(r'^admin/password_reset/done/$', 'django.contrib.auth.views.password_reset_done'),
-    url(r'PIE\.htc$',
+
+    url(r'^recover/(?P<signature>.+)/$', RecoverPasswordDone.as_view(),
+        name='password_reset_sent'),
+    url(r'^recover/$', RecoverPassword.as_view(), name='password_reset_recover'),
+    url(r'^reset/done/$', ResetPasswordDone.as_view(), name='password_reset_done'),
+    url(r'^reset/(?P<token>[\w:-]+)/$', ResetPassword.as_view(),
+        name='password_reset_reset'),
+
+        url(r'PIE\.htc$',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),
     # TODO: remove ledacy redirect sm.ashx to MEDIA_URL + SHOPMANIA_FEED_FILE
     url(r'^sm.ashx$', RedirectView.as_view(url='/media/shopmania.csv')),

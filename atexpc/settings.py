@@ -201,6 +201,7 @@ INSTALLED_APPS = (
     'south',
     'sorl.thumbnail',
     'social_auth',
+    'password_reset',
     'atexpc.atex_web',
 )
 

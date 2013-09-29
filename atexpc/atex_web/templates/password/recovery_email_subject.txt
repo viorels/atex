@@ -1,0 +1,3 @@
+{% load i18n %}
+
+{% blocktrans with domain=site.domain %}Password recovery on{% endblocktrans %} {{ site }}
