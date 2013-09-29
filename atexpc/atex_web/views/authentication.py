@@ -121,11 +121,12 @@ class ResetPasswordView(Reset, BaseView):
         return context
 
     def form_valid(self, form):
-        form.user = authenticate(email=form.user.email, password=form.cleaned_data['password1'])
-        if form.user is not None:
-            login(self.request, form.user)
+        valid = super(ResetPasswordView, self).form_valid(form)
+        user = authenticate(email=form.user.email, password=form.cleaned_data['password1'])
+        if user is not None:
+            login(self.request, user)
             logger.info('Login %s', self.request.user.email)
-        return super(ResetPasswordView, self).form_valid(form)
+        return valid
 
 class ResetPasswordDoneView(ResetDone, BaseView):
     template_name = 'password/recovery_done.html'
