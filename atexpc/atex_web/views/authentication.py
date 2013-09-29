@@ -12,9 +12,9 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils.http import is_safe_url
 from django.utils.translation import ugettext as _
 
-from password_reset.views import Recover
+from password_reset.views import Recover, RecoverDone, Reset, ResetDone
 
-from atexpc.atex_web.views.base import HybridGenericView, JSONResponseMixin
+from atexpc.atex_web.views.base import BaseView, HybridGenericView, JSONResponseMixin
 from atexpc.atex_web.utils import FrozenDict
 from atexpc.atex_web.forms import user_form_factory
 
@@ -46,22 +46,10 @@ class LoginBase(FormView, HybridGenericView):
     def form_invalid(self, form):
         logger.info('Login invalid %s', self.login_type)
         if self.login_type == 'nopassword':
-            logger.info('Reset password')
+            email = form.cleaned_data['username']
+            logger.info('Reset password for %s', email)
+            return RecoverPasswordView.as_view()(self.request)
 
-            return RecoverPassword.as_view()(self.request)
-            # email = form.cleaned_data['username']
-            # user = get_user_model().objects.get_or_none(email=email)
-            # if user:
-                # password_reset function does not allow changing unusable passwords
-                # if not user.has_usable_password():
-                #     random_password = get_user_model().objects.make_random_password()
-                #     user.set_password(random_password)
-                #     user.save()
-
-                # self.request.POST = self.request.POST.copy()
-                # self.request.POST['email'] = email
-                # return password_reset(request=self.request,
-                #                       template_name=self.template_name)
         return super(LoginBase, self).form_invalid(form)
 
     def get_success_url(self):
@@ -92,9 +80,37 @@ class GetEmails(JSONResponseMixin, ListView):
         return emails
 
 
-class RecoverPassword(Recover, HybridGenericView):
-    template_name = LoginBase.template_name
-    search_fields = ['username', 'email']
+class RecoverPasswordView(Recover, BaseView):
+    template_name = LoginBase.template_name     # 'password_reset/recovery_form.html'
+    email_template_name = 'password/recovery_email.txt'
+    search_fields = ['email']
+
+    def get_form_kwargs(self):
+        kwargs = super(RecoverPasswordView, self).get_form_kwargs()
+        kwargs['data'] = self.request.POST.copy()
+        kwargs['data']['username_or_email'] = kwargs['data'].get('username')
+        return kwargs
+
+
+class RecoverPasswordDoneView(RecoverDone, BaseView):
+    template_name = 'password/reset_sent.html'
+
+
+class ResetPasswordView(Reset, BaseView):
+    template_name = 'password/reset.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ResetPasswordView, self).get_context_data(**kwargs)
+
+        # TODO: move this patch to a base class
+        # this is needed because TemplateView.get overrites ProcessFormView.get
+        if self.request.method == 'GET':
+            context['form'] = self.get_form(self.get_form_class())
+
+        return context
+
+class ResetPasswordDoneView(ResetDone, BaseView):
+    template_name = 'password/recovery_done.html'
 
 
 @receiver(user_logged_out)

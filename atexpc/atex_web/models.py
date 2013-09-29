@@ -325,6 +325,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    @property
+    def username(self):
+        return self.email.split('@')[0]
+
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
@@ -341,7 +345,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         "Returns the short name for the user."
-        return self.first_name or self.email.split('@')[0]
+        return self.first_name or self.username
 
     def email_user(self, subject, message, from_email=None):
         """

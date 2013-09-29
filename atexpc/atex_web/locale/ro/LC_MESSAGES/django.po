@@ -58,3 +58,10 @@ msgstr "Înregistrare"
 msgid "Log out"
 msgstr "Deconectare"
 
+# Reset password
+msgid "We've emailed you instructions for setting your password. You should be receiving them shortly."
+msgstr "V-am trimis un email cu instrucțiuni pentru resetarea parolei. Ar trebui să-l primiți în curând."
+
+msgid "If you don't receive an email, please make sure you've entered the address you registered with, and check your spam folder."
+msgstr "Daca nu primiti un email, va rugam sa va asigurati ca ati introdus adresa de email cu care v-ati inregistrat si sa verificati si folderul de spam."
+
