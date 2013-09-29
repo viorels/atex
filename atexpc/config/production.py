@@ -31,7 +31,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = path.join(environ.get("HOME", ""), "media/")
 
-DEFAULT_FROM_EMAIL = SERVER_EMAIL = 'noreply@atexpc.ro'
+DEFAULT_FROM_EMAIL = SERVER_EMAIL = '"ATEX Computer" <noreply@atexpc.ro>'
 EMAIL_SUBJECT_PREFIX = '[Atex] '
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
