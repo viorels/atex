@@ -1,6 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 {% load compress %}
 {% load static %}
+{% load i18n %}
+
 {% get_static_prefix as STATIC_PREFIX %}
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,6 +17,9 @@
 <script src="{{ STATIC_PREFIX }}script/jquery-1.7.2.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery-ui.1.8.16.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery.exposure.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.autocomplete.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.inputhints.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/underscore-min.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/all.js" type="text/javascript"></script>
 {% endcompress %}
 <title>{% block title %}{{ site_info.name }}{% endblock %}</title>
@@ -24,20 +30,22 @@
 	<div class="page_wrapper clear" id="wrap2">
     	<div class="header">
             <div class="logo">
-                <a href="{% url home %}"><img src="{{ site_info.logo_url }}" width="300" height="100" alt="atex logo" title="{{ site_info.domain }}" name="{{ site_info.domain }}"/></a>
+                <a href="{% url "home" %}"><img src="{{ site_info.logo_url }}" width="300" height="100" alt="atex logo" title="{{ site_info.domain }}" name="{{ site_info.domain }}"/></a>
             </div>
             <div class="login_holder">
             	<span class="down_left"></span>
                 	<ul class="tab_down">
-                    	<li><a href="#">log in</a></li>
-                        <li><span class="spacer">|</span></li>
-                        <li><a href="#">register</a></li>
+                    {% if user.is_authenticated %}
+                    	<li><a href="{% url "logout" %}">Deconectare</a></li>
+                    {% else %}
+                        <li><a href="{% url "login" %}">{% trans "Log in" %}</a></li>
+                    {% endif %}
                     </ul>
                 <span class="down_right"></span>
             </div>
             <div class="advertising_top">
             	<ul>
-                	<li><a href="{% url service %}"><img src="{{ STATIC_PREFIX }}images/SERVICE.png" width="190" height="90" alt="Servicii ATEX" title="Servicii ATEX" /></a></li>
+                	<li><a href="{% url "service" %}"><img src="{{ STATIC_PREFIX }}images/SERVICE.png" width="190" height="90" alt="Servicii ATEX" title="Servicii ATEX" /></a></li>
                     <li><a href="#"><img src="{{ STATIC_PREFIX }}images/card-fidelitate-atex.png" width="190" height="90" alt="Card fidelitate ATEX" title="Card fidelitate ATEX" /></a></li>
                 </ul>
             </div>
@@ -53,30 +61,32 @@
             </div>
             <div class="info_cos">
             	<div class="wellcome">
-                	<p>Bun venit, <span class="red_b">anonim</span> !</p>
+                	<p>Bun venit {% if user.is_authenticated %}, <span class="red_b">{{ user.get_short_name }}</span> {% endif %}!</p>
                 </div>    
                 <ul>
-                	<li><a href="{% url cart %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
-                    <li><span class="red_b">0</span> produse</li>
+                	<li><a href="{% url "cart" %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
+                    <li><span class="red_b cart_count">{{ cart.count }}</span> produs{{ cart.count|pluralize:"e"}}</li>
                     <li> | </li>
-                    <li><span class="red_b">0</span> lei </li>
+                    <li><span class="red_b cart_price">{{ cart.price|floatformat:2 }}</span> lei </li>
                 </ul>
             </div>
         </div> <!-- header end -->
-        <form method="GET" action="{% url search %}" class="search">
+        
             <div class="search_bar">
                 {% if search_form %}
+            <form id="search_form" method="get" action="{% url "search" %}">
                 <ul class="search_inputs">
                     <li>{{ search_form.cuvinte }}</li>
                     <li class="search_category">
                         {{ search_form.cauta_in }}
                     </li>    
-                    <li><input type="image" name="cauta" src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Caută" title="Caută produsul dorit ..." /></li>
+                    <li><input type="image" name="cauta" src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Caută" placeholder="Caută produsul dorit ..." /></li>
                 </ul>
+            </form>
                 {% endif %}
                 <ul class="info_orar">
                 	<li>ORAR: L-V: 10:00 - 18:00  <span class="spacer">|</span>  S: 10:00 - 13:00</li>
-                    <li>TELEFON: 0751 433 284 <span class="spacer">|</span> 0735 968 743</li>
+                    <li>TELEFON: 0264 599 009 <span class="spacer">|</span> 0751 433 284 <span class="spacer">|</span> 0735 968 743</li>
                 </ul>
                 <ul class="configurator">
                 	<li>Acces Parteneri : </li>
@@ -108,14 +118,13 @@
             {% block content %}{% endblock %}
 
             </div> <!-- content wrapper end -->
-        </form>
 		<div class="content-bottom">		
 		  {% block newsletter %}
                 <div class="newsletter">
                 	<label for="news_email" >Abonare newsletter</label>
                     <div class="email-wrapper">
                         <form method="post" action="http://atexpc.us5.list-manage.com/subscribe/post?u=d089f977785291a701d86d885&amp;id=6c95d504f0" target="_blank" />
-                            <input class="news_email" type="text" id="news_email" name="EMAIL" title="email ..." />
+                            <input class="news_email" type="text" id="news_email" name="EMAIL" placeholder="email ..." />
                             <input class="email_btn" type="submit" value="" name="subscribe" />
                         </form>
                     </div>    
@@ -181,12 +190,29 @@
         <div class="bottom-footer">
         	<ul class="menu-subsol">
             	<li class="first"><a href="#">Cariera</a></li>
-                <li><a href="{% url conditions %}">Conditii Vanzare</a></li>
+                <li><a href="{% url "conditions" %}">Conditii Vanzare</a></li>
                 <li><a href="#">Configurator</a></li>
                 <li><a href="#">Harta site</a></li>
-                <li><a href="{% url contact %}">Contact</a></li>
+                <li><a href="{% url "contact" %}">Contact</a></li>
             </ul>
             <span class="copyright">Copyright &copy; {% now "Y" %} {{ site_info.company }}</span>
+        </div>
+    </div>
+</div>
+<div class="rezumat">
+    <div class="continut">
+        <div class="tab_rezumat">
+            <p>REZUMAT COMANDA </p><span></span>
+        </div>
+        <div class="show_rezumat">
+	    <a href="{% url "cart" %}">
+            <ul>
+		        <li><div class="cosFooter"><span>{{ cart.count }} produs{{ cart.count|pluralize:"e"}}</span> in cos</div></li>
+                <li {% if cart.delivery == None %}style="display: none"{% endif %}><div class="domiciliu">{{ cart.delivery_description }}</div></li>
+                <li {% if cart.payment == None %}style="display: none"{% endif %}><div class="numerar">{{ cart.payment_description }}</div></li>
+                <li><div class="total">TOTAL PLATA: <span class="total_price">{{ cart.price|floatformat:2 }}</span> lei</div></li>
+            </ul>
+	    </a>
         </div>
     </div>
 </div>

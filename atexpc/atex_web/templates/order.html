@@ -1,30 +1,13 @@
 {% extends "base_2col.html" %}
-
-{% block body_extra %}
-<div class="rezumat">
-    <div class="continut">
-        <div class="tab_rezumat">
-            <p>REZUMAT COMANDA </p><span></span>
-        </div>
-        <div class="show_rezumat">
-            <ul>
-                <li><span class="domiciliu">Livrare la domiciliu</span></li>
-                <li><span class="numerar">Plata numerar</span></li>
-                <li><span class="total">TOTAL PLATA: 1943.75 lei</span></li>
-            </ul>
-        </div>
-    </div>
-</div>
-{% endblock body_extra %}
+{% load atex_tags %}
 
 {% block content_right %}
-            	<div class="breadcrumbs">
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li>Cos cumparaturi</li>
-                    </ul>
-                </div>           	
-                <div class="cos_content">                	
+<script type="text/javascript">
+    var counties = {{ counties|jsonify|safe }};
+    var customers = {{ customers|jsonify|safe }};
+    var addresses = {{ addresses|jsonify|safe }};
+</script>
+                <div class="cos_content">
                     <div class="product-section">
                     	<div class="tab_d_holder_right">
                             <span class="down_left"></span>
@@ -34,9 +17,9 @@
                             <span class="down_right"></span>
                         </div>
                         <ul class="pasi">
-                            <li><span class="cos-01" id=""></span>Cosul de cumparaturi</li>
+                            <li><a href="{% url "cart" %}"><span class="cos-01" id=""></span>Cosul de cumparaturi</a></li>
                             <li><span class="cos-02 active" id=""></span>Date personale de facturare</li>
-                            <li><span class="cos-03" id=""></span>Confirmare comanda</li>
+                            <li><a href="{% url "confirm" %}"><span class="cos-03" id=""></span>Confirmare comanda</a></li>
                         </ul>
                     </div>
 
@@ -49,77 +32,196 @@
                                     </ul>
                                 <span class="up_right"></span>
                             </div>
-                        </div>    
-                    	<div class="rand-cos">
-                            <ul class="modalitate">
-                                <li>Va rugam selectati tipul de client:</li>
-                                <li><input type="radio"/> Client nou</li>
-                                <li><input type="radio"/> Client vechi</li>
-                                <li class="last">
-                                	<input type="text" class="input_cos" value="utilizator"/> 
-                                    <input type="password" class="input_cos" value="parola"/> 
-                                    <a href="#" class="login-key"></a>
-                                </li>
-                            </ul>    
                         </div>
-                        <div class="rand-cos">
-                            <ul class="modalitate">
-                                <li>Informatii utilizator / autentificare:</li>
-                                <li class="last">
-                                	<div class="row">
-                                        <input type="text" class="input_cos" value="nume"/> 
-                                        <input type="text" class="input_cos" value="prenume"/>
-                                        <input type="text" class="input_cos" value="adresa emai"/>
-                                    </div>  
-                                    <div class="row">  
-                                        <input type="text" class="input_cos" value="telefon"/> 
-                                        <input type="text" class="input_cos" value="parola"/>
-                                        <input type="text" class="input_cos" value="repeta parola"/>
-                                    </div>    
-                                </li>
-                            </ul>    
-                        </div>
-                        <div class="rand-cos">
-                            <ul class="modalitate">
-                                <li>Va rugam selectati modul de facturare:</li>
-                                <li><input type="radio" checked="checked" /> Persoana fizica</li>
-                                <li><input type="radio" /> Persoana juridica</li>
-                            </ul>   
-                        </div>
-                        <div class="rand-cos">
-                            <ul class="modalitate">
-                                <li>Informatii facturare:</li>
-                                <li class="last">
-                                	<div class="col">
-                                        <input type="text" class="input_cos" value="localitatea"/> 
-                                        <input type="text" class="input_cos" value="judetul"/>                                        
-                                    </div>  
-                                    <div class="textarea">  
-                                        <textarea class="input_cos">adresa (cod postal, strada, nr, bloc, scara, etaj, apartament)</textarea>
-                                    </div>    
-                                </li>
-                            </ul>    
-                        </div>
-                        <div class="total-cos02">
-                        	<ul class="termeni-newsletter">
-                            	<li>
-                                	<input type="checkbox" class="checkbox" /> 
-                                    <span>Am citit si sunt de acord cu Termenii & Conditii de utilizare </span>
-                                </li>
-                                <li>
-                                	<input type="checkbox" class="checkbox" /> 
-                                    <span> Doresc sa fiu informat, prin email, despre produsele ATEX</span>
-                                </li>    
-                            </ul>
-                            <ul class="buttons">    
-                            	<li><a href="#" class="reset"><span></span>Reset</a></li>                    	
-                                <li><a href="{% url confirm %}" class="continua"><span></span>Continua</a></li>                                
-                            </ul> 
-                        </div>
-                          
-                    </div>
-                    
-                     <!-- end pas 02 -->
+
+                        <form id="orderform" method="post">
+                            {% csrf_token %}
+                            <!--div class="rand-cos">
+                                <ul class="modalitate">
+                                    <li class="logininput">
+                                        <input name="username" type="text" class="input_cos" placeholder="utilizator"/> 
+                                        <input name="password" type="password" class="input_cos" placeholder="parola"/>
+                                        <a href="#" class="login-key"></a>
+                                    </li>
+                                </ul>
+                            </div-->
+                            {{ form.non_field_errors }}
+                            <div class="rand-cos">
+                                <ul class="modalitate">
+                                    <li>Informații persoană de contact:</li>
+                                    <li class="last">
+                                      <div class="col-cos">
+                                        <div class="row">
+                                            <label for="email">Email</label>
+                                            {{ form.username.errors }}
+                                            <input name="username" type="text" class="input_cos" placeholder="email" value="{{ form.username.value }}" />
+                                        </div>
+                                      </div>
+                                    </li>
+                                    <li class="last">
+				                      <div class="col-cos">
+                                        <div class="row">
+                                            <label for="first_name">Prenume</label>
+                                            {{ form.first_name.errors }}
+                                            <input name="first_name" type="text" class="input_cos" placeholder="prenume" value="{{ form.first_name.value }}" />                                            
+                                        </div>
+					                  </div>
+					                  <div class="col-cos">
+                                        <div class="row">
+						                    <label for="last_name">Nume</label>
+                                            {{ form.last_name.errors }}
+                                            <input name="last_name" type="text" class="input_cos" placeholder="nume de familie" value="{{ form.last_name.value }}"/>
+					                    </div>
+                                      </div>
+                                    </li>
+                                    <li class="last">
+                                      <div class="col-cos">
+                                        <div class="row">
+                                          <label for="phone">Telefon</label>
+                                            {{ form.phone.errors }}
+                                            {{ form.phone }}
+                                        </div>
+                                      </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="rand-cos">
+                                <ul class="modalitate">
+                                    <li>Informații cumparator:</li>
+                                    <li {% if not customers %}style="display: none"{% endif %} class="last select-cumparator">{{ form.customer }}</li>
+                                    <li class="last" style="padding:0">{{ form.customer_type }}</li>
+                                    <li>{{ form.customer_type.errors }}</li>
+                                </ul>
+                                <ul class="modalitate">
+                                    <li>Informatii facturare:</li>
+                                    <li class="last">
+					   <div class="row info_type_f">
+                                         <div class="col-cos">
+                                            <label for="cnp">CNP</label>
+                                            {{ form.cnp.errors }}
+                                            <input name="cnp" type="text" class="input_cos" placeholder="CNP" value="{{ form.cnp.value }}" />
+                                         </div>
+                                      </div>
+					   <div class="row">
+                                        <div class="col-cos info_type_j">
+						  <label for="cui" class="info_type_j">CUI</label>
+                                            {{ form.cui.errors }}
+                                            <input name="cui" type="text" class="input_cos info_type_j company_id" placeholder="Cod unic (CUI)" value="{{ form.cui.value }}" />
+                                        </div>
+                                        <div class="col-cos info_type_o">
+						  <label for="cif" class="info_type_o">CIF</label>
+                                            {{ form.cif.errors }}
+                                            <input name="cif" type="text" class="input_cos info_type_o company_id" placeholder="Cod de identificare fiscală (CIF)" value="{{ form.cif.value }}"/>
+                                        </div>  
+					     <div class="col-cos info_type_j info_type_o" style="padding:13px 0;">
+                                            <input type="checkbox" name="vat" {% if form.vat.value %}checked{% endif %} class="checkbox input_cos" />
+                                            <label for="vat" class="checkbox_label">Înregistrat în scopuri TVA</label>
+                                        </div>
+                                         
+                                      </div>     
+					   <div class="row row-wide">                                
+                                        <div class="col-cos info_type_j info_type_o">
+						  <label for="company">Nume Firma</label>
+                                            {{ form.company.errors }}
+                                            <input name="company" type="text" class="input_cos" placeholder="Nume firma" value="{{ form.company.value }}" />
+                                        </div>
+					     <div class="col-cos info_type_j">
+					         <label for="regcom" class="info_type_j">Cod înregistrare (Reg. Com.)</label>
+                                            {{ form.regcom.errors }}
+                                            <input name="regcom" type="text" class="input_cos info_type_j" placeholder="Cod înregistrare (Reg. Com.)" value="{{ form.regcom.value }}" />
+                                        </div>					                                             
+                                      </div>
+				          <div class="row info_type_j info_type_o">
+					     <div class="col-cos info_type_j info_type_o">
+						  <label for="bank">Banca</label>
+                                            {{ form.bank.errors }}
+                                            <input name="bank" type="text" class="input_cos" placeholder="Banca"/ value="{{ form.bank.value }}" >
+                                        </div>
+                                        <div class="col-cos">
+						  <label for="bank_account">Cont bancar (IBAN)</label>
+                                            {{ form.bank_account.errors }}
+                                            <input name="bank_account" type="text" class="input_cos" placeholder="Cont banca (IBAN)" value="{{ form.bank_account.value }}" />
+                                        </div>
+                                      </div>
+                                    </li>
+                                </ul>
+                                <ul class="modalitate">
+                                    <li class="info_type_f">Domiciliul/resedinta:</li>
+                                    <li class="info_type_j info_type_o">Sediu social:</li>
+                                    <li class="last main_address">
+                                      <div class="col">						
+						                <div class="row">
+						                    <label for="city">Localitatea</label>
+                                            {{ form.city.errors }}
+                                            {{ form.city }}
+						                </div>
+						                <div class="row">
+						                    <label for="county">Judetul</label>
+                                            {{ form.county.errors }}
+                                            {{ form.county }}  
+						                </div>                                    
+                                      </div>  
+                                      <div class="textarea">
+						                    <label for="address">Adresa</label>
+                                            {{ form.address.errors }}
+                                            {{ form.address }}
+                                      </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="rand-cos">
+                                <ul class="modalitate">
+                                    <li>Informatii livrare:</li>
+                                    <li class="last" style="padding-top:0;">
+                                        {{ form.delivery }}
+                                        <span class="delivery_yes">{{ form.delivery_address_id }}</span>
+                                    </li>
+                                    <li class="last delivery_yes">
+                                        <div class="col">
+                    						<div class="row">
+                    						    <label for="delivery_city">Localitatea</label>
+                                                {{ form.delivery_city.errors }}
+                                                {{ form.delivery_city }}
+                    						</div>
+                    						<div class="row">
+						                        <label for="delivery_county">Judetul</label>
+                                                {{ form.delivery_county.errors }}
+                                                {{ form.delivery_county }}
+						                    </div>                               
+                                        </div>  
+                                        <div class="textarea">
+						                    <label for="delivery_address">Addresa</label>
+                                            {{ form.delivery_address.errors }}
+                                            {{ form.delivery_address }}
+                                        </div>    
+                                    </li>
+                                    <li class="last delivery_no">
+                                        <div class="col">
+                                            <b>Adresa ATEX Computer:</b><br/>
+                                            <a href="{% url "contact" %}" target="_blank">
+                                                Str. Stephan Ludwig Roth, nr. 21<br/>
+                                                Cluj-Napoca, 400174 <br/>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>    
+                            </div>
+                            <div class="rand-cos">
+                                <ul class="modalitate">
+                                    <li>Observatii:</li>
+                                    <li class="last">
+                                        <textarea name="notes" class="input_cos obs_textarea" placeholder="observatii ...">{{ form.notes.value }}</textarea>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="total-cos02">
+                                <ul class="buttons">
+                                    <li><button class="continua"><span></span>Continua</button></li>                                
+                                </ul> 
+                            </div>
+                        </form>
+
+                    </div> <!-- end pas 02 -->
                     
                 </div>
 {% endblock content_right %}

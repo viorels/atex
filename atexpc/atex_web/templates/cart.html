@@ -1,29 +1,10 @@
 {% extends "base_2col.html" %}
+{% load atex_tags %}
 
-{% block body_extra %}
-<div class="rezumat">
-    <div class="continut">
-        <div class="tab_rezumat">
-            <p>REZUMAT COMANDA </p><span></span>
-        </div>
-        <div class="show_rezumat">
-            <ul>
-                <li><span class="domiciliu">Livrare la domiciliu</span></li>
-                <li><span class="numerar">Plata numerar</span></li>
-                <li><span class="total">TOTAL PLATA: 1943.75 lei</span></li>
-            </ul>
-        </div>
-    </div>
-</div>
-{% endblock body_extra %}
+{% block content_right %}         	
 
-{% block content_right %}
-            	<div class="breadcrumbs">
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li>Cos cumparaturi</li>
-                    </ul>
-                </div>           	
+                {% if cart.count %}
+
                 <div class="cos_content">                	
                     <div class="product-section">
                     	<div class="tab_d_holder_right">
@@ -35,258 +16,180 @@
                         </div>
                         <ul class="pasi">
                             <li><span class="cos-01 active" id=""></span>Cosul de cumparaturi</li>
-                            <li><span class="cos-02" id=""></span>Date personale de facturare</li>
-                            <li><span class="cos-03" id=""></span>Confirmare comanda</li>
+                            <li><a href="{% url "order" %}"><span class="cos-02" id=""></span>Date personale de facturare</a></li>
+                            <li><a href="{% url "confirm" %}"><span class="cos-03" id=""></span>Confirmare comanda</a></li>
                         </ul>
                     </div>
-                    <div class="product-section">
-                    	<div class="tab_u_holder_left">
-                            <span class="up_left"></span>
-                                <ul class="tab_up">
-                                    <li><span>produs</span></li>                                
-                                </ul>
-                            <span class="up_right"></span>
-                        </div>
-                        <div class="tab_cantitate">
-                            <span class="up_left_bw"></span>
-                                <ul class="tab_up_bw">
-                                    <li><span>cantitate</span></li>                                
-                                </ul>
-                            <span class="up_right_bw"></span>
-                        </div>
-                        <div class="tab_pret">
-                            <span class="up_left_bw"></span>
-                                <ul class="tab_up_bw">
-                                    <li><span>pret unitar</span></li>                                
-                                </ul>
-                            <span class="up_right_bw"></span>
-                        </div>
-                        <div class="tab_total">
-                            <span class="up_left_bw"></span>
-                                <ul class="tab_up_bw">
-                                    <li><span>pret total</span></li>                                
-                                </ul>
-                            <span class="up_right_bw"></span>
-                        </div>
-                        
-                        <div class="rand-cos">
-                            <div class="info-produs-cos">
-                                    <a href="#" class="img-wrapper">
-                                        <div class="middle size100x100">
-                                            <div class="img-holder">
-                                                <img class="center" src="{{ STATIC_PREFIX }}images/produs-11.jpg" width="80" height="61" alt="product name" title="product name" />
+                    <form id="cart_form" action="{% url "cart" %}" method="post">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="method" value="update" />
+
+                        <div class="product-section">
+                        	<div class="tab_u_holder_left">
+                                <span class="up_left"></span>
+                                    <ul class="tab_up">
+                                        <li><span>produs</span></li>                                
+                                    </ul>
+                                <span class="up_right"></span>
+                            </div>
+                            <div class="tab_cantitate">
+                                <span class="up_left_bw"></span>
+                                    <ul class="tab_up_bw">
+                                        <li><span>cantitate</span></li>                                
+                                    </ul>
+                                <span class="up_right_bw"></span>
+                            </div>
+                            <div class="tab_pret">
+                                <span class="up_left_bw"></span>
+                                    <ul class="tab_up_bw">
+                                        <li><span>pret unitar</span></li>                                
+                                    </ul>
+                                <span class="up_right_bw"></span>
+                            </div>
+                            <div class="tab_total">
+                                <span class="up_left_bw"></span>
+                                    <ul class="tab_up_bw">
+                                        <li><span>pret total</span></li>                                
+                                    </ul>
+                                <span class="up_right_bw"></span>
+                            </div>
+
+                            {% for item in cart.items %}
+                            <div id="product_{{ item.product.id }}" class="rand-cos">
+                                <div class="info-produs-cos">
+                                        <a href="{{ item.product.url }}" class="img-wrapper">
+                                            <div class="middle size100x100">
+                                                <div class="img-holder">
+                                                    <img class="center" src="{{ item.product.thumb_80x80_url }}" width="80" height="80" alt="{{ item.product.name }}" title="{{ item.product.name }}" />
+                                                </div>
                                             </div>
+                                        </a>
+                                        <div class="product-title">
+                                            <a href="{{ item.product.url }}">{{ item.product.name }}</a>
+                                        </div>   
+                                        <div class="descriere-cos">
+                                        	{{ item.product.description }}
                                         </div>
-                                    </a>
-                                    <div class="product-title">
-                                        <a href="#">Monitor TFT Benq G2222HDL </a>
-                                    </div>   
-                                    <div class="descriere-cos">
-                                    	Diagonala 21.5, Rezolutie 1920x1080, Luminozitate 250cd/mp 
+                                        <div class="info-stoc-cos">
+                                            <span class="flleft green">{{ item.product.stock_info }}</span>
+                                            <span class="flright">Garantie: {{ item.product.warranty }} luni</span>
+                                        </div> 
+                                </div>
+                                <div class="info-cos-pret">
+                                	<div class="rand first">
+                                    	<ul class="detalii_rand">
+                                        	<li class="cantitate">
+                                            	<input name="product_{{ item.product.id }}_count" type="text" class="input_cos cart_count" value="{{ item.count }}"/>
+                                                <label> buc. </label>
+                                            </li>
+                                            <li>
+                                            	{{ item.product.price|floatformat:2 }} lei
+                                            </li>
+                                            <li class="quantity_price">
+                                            	{{ item.price|floatformat:2 }} lei
+                                            </li>
+                                            <li class="delete">
+                                            	<a class="remove_prod" href="#"></a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="info-stoc-cos">
-                                        <span class="flleft green">In stoc</span>
-                                        <span class="flright">Garantie: 24luni</span>
-                                    </div> 
-                            </div>
-                            <div class="info-cos-pret">
-                            	<div class="rand first">
-                                	<ul class="detalii_rand">
-                                    	<li class="cantitate">
-                                        	<input type="text" class="input_cos" value="1" />
-                                            <label> buc. </label>
-                                        </li>
-                                        <li>
-                                        	385.75 lei
-                                        </li>
-                                        <li>
-                                        	<strong>385.75 lei</strong>
-                                        </li>
-                                        <li class="delete">
-                                        	<a class="remove_prod" href="#"></a>
-                                        </li>
-                                    </ul>
-                                </div>	
-                                <div class="rand">
-                                	<ul class="detalii_optionale">
-                                    	<li class="image">
-                                        	<img src="{{ STATIC_PREFIX }}images/garantie2.png" width="29" height="29" alt="Garantie 2 ani" title="Garantie 2 ani" />
-                                        </li>
-                                        <li class="title">
-                                        	Garantie +2 ANI
-                                        </li>
-                                        <li class="pret">
-                                        	220.15 lei
-                                        </li>
-                                        <li>
-                                        	<a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
-                                        </li>
-                                    </ul>
-                                </div>			
-                            </div>
-                   		</div> <!-- rand cos -->
-                        
-                         <div class="rand-cos">
-                            <div class="info-produs-cos">
-                                    <a href="#" class="img-wrapper">
-                                        <div class="middle size100x100">
-                                            <div class="img-holder">
-                                                <img class="center" src="{{ STATIC_PREFIX }}images/produs-11.jpg" width="80" height="61" alt="product name" title="product name" />
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <div class="product-title">
-                                        <a href="#">Monitor TFT Benq G2222HDL </a>
-                                    </div>   
-                                    <div class="descriere-cos">
-                                    	Diagonala 21.5, Rezolutie 1920x1080, Luminozitate 250cd/mp 
+                                    <!--
+                                    <div class="rand">
+                                    	<ul class="detalii_optionale">
+                                        	<li class="image">
+                                            	<img src="{{ STATIC_PREFIX }}images/garantie1.png" width="29" height="29" alt="Garantie 2 ani" title="Garantie 2 ani" />
+                                            </li>
+                                            <li class="title">
+                                            	Garantie +1 ANI
+                                            </li>
+                                            <li class="pret">
+                                            	130.15 lei
+                                            </li>
+                                            <li>
+                                            	<a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
+                                            </li>
+                                        </ul>
+                                    </div>			
+                                    <div class="rand">
+                                    	<ul class="detalii_optionale">
+                                        	<li class="image">
+                                            	<img src="{{ STATIC_PREFIX }}images/garantie2.png" width="29" height="29" alt="Garantie 2 ani" title="Garantie 2 ani" />
+                                            </li>
+                                            <li class="title">
+                                            	Garantie +2 ANI
+                                            </li>
+                                            <li class="pret">
+                                            	220.15 lei
+                                            </li>
+                                            <li>
+                                            	<a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="info-stoc-cos">
-                                        <span class="flleft green">In stoc</span>
-                                        <span class="flright">Garantie: 24luni</span>
-                                    </div> 
-                            </div>
-                            <div class="info-cos-pret">
-                            	<div class="rand first">
-                                	<ul class="detalii_rand">
-                                    	<li class="cantitate">
-                                        	<input type="text" class="input_cos"  value="2"/>
-                                            <label> buc. </label>
-                                        </li>
-                                        <li>
-                                        	385.75 lei
-                                        </li>
-                                        <li>
-                                        	<strong>771.50 lei</strong>
-                                        </li>
-                                        <li class="delete">
-                                        	<a class="remove_prod" href="#"></a>
-                                        </li>
-                                    </ul>
-                                </div>	
-                                <div class="rand">
-                                	<ul class="detalii_optionale">
-                                    	<li class="image">
-                                        	<img src="{{ STATIC_PREFIX }}images/garantie1.png" width="29" height="29" alt="Garantie 2 ani" title="Garantie 2 ani" />
-                                        </li>
-                                        <li class="title">
-                                        	Garantie +1 ANI
-                                        </li>
-                                        <li class="pret">
-                                        	130.15 lei
-                                        </li>
-                                        <li>
-                                        	<a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
-                                        </li>
-                                    </ul>
-                                </div>			
-                                <div class="rand">
-                                	<ul class="detalii_optionale">
-                                    	<li class="image">
-                                        	<img src="{{ STATIC_PREFIX }}images/garantie2.png" width="29" height="29" alt="Garantie 2 ani" title="Garantie 2 ani" />
-                                        </li>
-                                        <li class="title">
-                                        	Garantie +2 ANI
-                                        </li>
-                                        <li class="pret">
-                                        	220.15 lei
-                                        </li>
-                                        <li>
-                                        	<a href="#" class="add_cos_btn"><span></span>Adauga in cos</a>
-                                        </li>
-                                    </ul>
-                                </div>			
-                            </div>
-                   		</div> <!-- rand cos -->
-                        
-                        <div class="rand-cos">
-                            <div class="info-produs-cos">
-                                    <a href="#" class="img-wrapper">
-                                        <div class="middle size100x100">
-                                            <div class="img-holder">
-                                                <img class="center" src="{{ STATIC_PREFIX }}images/produs-11.jpg" width="80" height="61" alt="product name" title="product name" />
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <div class="product-title">
-                                        <a href="#">Monitor TFT Benq G2222HDL </a>
-                                    </div>   
-                                    <div class="descriere-cos">
-                                    	Diagonala 21.5, Rezolutie 1920x1080, Luminozitate 250cd/mp 
-                                    </div>
-                                    <div class="info-stoc-cos">
-                                        <span class="flleft green">In stoc</span>
-                                        <span class="flright">Garantie: 24luni</span>
-                                    </div> 
-                            </div>
-                            <div class="info-cos-pret">
-                            	<div class="rand first">
-                                	<ul class="detalii_rand">
-                                    	<li class="cantitate">
-                                        	<input type="text" class="input_cos"  value="1"/>
-                                            <label> buc. </label>
-                                        </li>
-                                        <li>
-                                        	385.75 lei
-                                        </li>
-                                        <li>
-                                        	<strong>385.75 lei</strong>
-                                        </li>
-                                        <li class="delete">
-                                        	<a class="remove_prod" href="#"></a>
-                                        </li>
-                                    </ul>
-                                </div>	
-                                
-                            </div>
-                   		</div> <!-- rand cos -->
-                    </div>  
-                                                                   
-                    <div class="product-section livrare">
-                    	<div class="tab_u_holder_left">
-                            <span class="up_left"></span>
-                                <ul class="tab_up">
-                                    <li><span>modalitate de livrare</span></li>                                
-                                </ul>
-                            <span class="up_right"></span>
+                                    -->
+                                </div>
+                       		</div> <!-- rand cos -->
+                            {% endfor %}
                         </div>
-                        <ul class="modalitate">
-                        	<li>Va rugam selectati varianta preferata:</li>
-                            <li><input type="radio" checked="checked" /> Ridicare produse de la sediul ATEX</li>
-                            <li><input type="radio" /> Livrare la adresa specificata</li>
-                        </ul>
-                    </div> 
-                                        
-                    <div class="product-section plata">
-                    	<div class="tab_u_holder_left">
-                            <span class="up_left"></span>
-                                <ul class="tab_up">
-                                    <li><span>modalitate de plata</span></li>                                
-                                </ul>
-                            <span class="up_right"></span>
+
+                        <div class="product-section livrare">
+                        	<div class="tab_u_holder_left">
+                                <span class="up_left"></span>
+                                    <ul class="tab_up">
+                                        <li><span>modalitate de livrare</span></li>                                
+                                    </ul>
+                                <span class="up_right"></span>
+                            </div>
+                            <ul class="modalitate">
+                            	<li>Va rugam selectati varianta preferata:</li>
+                                <li><input id="delivery_self" name="delivery" type="radio" value="no" {% if not cart.delivery or cart.delivery == None %}checked{% endif %} /> <label for="delivery_self">Ridicare produse de la sediul ATEX Computer</label></li>
+                                <li><input id="delivery_us" name="delivery" type="radio" value="yes" {% if cart.delivery %}checked{% endif %} /> <label for="delivery_us">Livrare la adresa dorită</label></li>
+                            </ul>
+                        </div> 
+                                            
+                        <div class="product-section plata">
+                        	<div class="tab_u_holder_left">
+                                <span class="up_left"></span>
+                                    <ul class="tab_up">
+                                        <li><span>modalitate de plata</span></li>                                
+                                    </ul>
+                                <span class="up_right"></span>
+                            </div>
+                            <ul class="modalitate">
+                            	<li>Va rugam selectati varianta preferata:</li>
+                                <li><input id="payment_cash" name="payment" type="radio" value="cash" {% if cart.payment == 'cash' or cart.paymeny == None %}checked{% endif %} /> <label for="payment_cash">{{ cart.payment_cash_description }}</label></li>
+                                <li><input id="payment_bank" name="payment" type="radio" value="bank" {% if cart.payment == 'bank' %}checked{% endif %} /> <label for="payment_bank">Plata prin transfer bancar / OP</label></li>
+                            </ul>                        
+                        </div> 
+
+                        <div class="total-cos01">
+                        	<ul>                        	
+                                <li><div class="delivery_price">{{ cart.delivery_price|default:0|floatformat:2 }} lei</div></li>
+                                <li><div>Taxa Transport</div></li>
+                            </ul>
+                            <ul class="total">
+                                <li><div class="red_b"><span class="total_price">{{ cart.price|floatformat:2 }}</span> lei</div></li>
+                                <li><div>TOTAL</div></li>
+                            </ul>
+                            <ul class="buttons">
+                                <li><button type="submit" name="next" value="step" class="continua"><span></span>Continua</button></li>
+                                <li><button type="button" class="mai_cumpar" onclick="window.location.href = '/'"><span></span>Mai cumpar</button></li>
+                            </ul>
                         </div>
-                        <ul class="modalitate">
-                        	<li>Va rugam selectati varianta preferata:</li>
-                            <li><input type="radio" checked="checked" /> Numerar</li>
-                            <li><input type="radio" /> Transfer bancar / OP</li>
-                        </ul>                        
-                    </div> 
-                    
-                    <div class="total-cos01">
-                    	<ul>                        	
-                            <li><span>15.00 lei</span></li>
-                            <li><span>Taxa Transport</span></li>
-                        </ul>
-                        <ul class="total">                        	
-                            <li><span class="red_b">1943.75 lei</span></li>
-                            <li><span>TOTAL</span></li>
-                        </ul>
-                        <ul class="buttons">                        	
-                            <li><a href="{% url order %}" class="continua"><span></span>Continua</a></li>
-                            <li><a href="{% url search %}" class="mai_cumpar"><span></span>Mai cumpar</a></li>
-                        </ul>
-                    </div>
+                    </form>
                     <!-- end pas 01 -->
                     
                 </div>
+
+                {% else %}
+                    <img src="{{ STATIC_PREFIX }}images/cos-gol.png" width="457" height="32" alt="Nu exista produse in cos" style="margin:30px 0;float:right;"/>
+
+                    <div class="total-cos01" style="border-top: none;">
+                        <ul class="buttons">
+                            <li><button class="mai_cumpar" onclick="window.history.go(-1); return false;"><span></span>Mai cumpar</button></li>
+                        </ul>
+                    </div>
+                {% endif %}
+
 {% endblock content_right %}

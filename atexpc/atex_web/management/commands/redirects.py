@@ -2,7 +2,7 @@ import csv
 
 from django.core.management.base import BaseCommand
 from django.core.urlresolvers import reverse
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 from django.contrib.redirects.models import Redirect
 
 from atexpc.atex_web.models import Product

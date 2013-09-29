@@ -65,7 +65,7 @@ html, body { height: 100%;  }
 .footer_wrapper, .push { height: 200px; }
 .wrapper {
 	border-top:5px solid #cd2325;
-	background:url(../images/bg_dark_beta.png) repeat;
+	background:url(../images/bg_dark.png) repeat;
 	/*background-color:#3d97cb;*/
 }
 .page_wrapper {
@@ -126,6 +126,7 @@ html, body { height: 100%;  }
     behavior: url(/static/css/PIE.htc);
 	display:block;
 	background-color:#c62123; 
+	position:relative;
 
 }
 .tab_up {
@@ -140,7 +141,7 @@ html, body { height: 100%;  }
     behavior: url(/static/css/PIE.htc);
 	display:block;
 background-color:#c62123; 
-
+position:relative;
 }
 
 ul.tab_down li, .tab_up li, .tab_up_bw li, span.tab_up  {
@@ -171,6 +172,7 @@ ul.tab_down li a:hover {
     -pie-background: linear-gradient(#9d9c9c, #5c5b5b); 
     behavior: url(/static/css/PIE.htc);
 	display:block;
+position:relative;
 }
 .up_left_bw {
 	width:22px;
@@ -244,6 +246,7 @@ ul.tab_down li a:hover {
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);	
 	display:block;
+position:relative;
 }
 ul.search_inputs {
 	float:left;
@@ -265,11 +268,11 @@ ul.search_inputs input.search {
 	behavior: url(/static/css/PIE.htc);	
 	height:23px;
 	line-height:23px;
-	color:#999;
 	padding:0 5px;
 	width:300px;
+	position:relative;
 }
-ul.search_inputs input.hint {
+input.hint, textarea.hint {
 	color:#999;
 }
 .categorii {
@@ -281,6 +284,7 @@ ul.search_inputs input.hint {
 	behavior: url(/static/css/PIE.htc);	
 	padding:3px 3px 2px 5px;
 	width:160px;
+	position:relative;
 }
 
 .info_orar {
@@ -295,6 +299,7 @@ ul.search_inputs input.hint {
 .spacer {
 	font-size:12px;
 	padding:0 2px;
+	color:#393939;
 }
 .configurator {
 	float:right;
@@ -350,7 +355,7 @@ ul.search_inputs input.hint {
 	behavior: url(/static/css/PIE.htc); 
 	float: left;
 	background-color:#fff;
-	
+	position:relative;	
 }
 .reset-sel span {
 	line-height:23px;
@@ -379,6 +384,7 @@ ul.selector_area {
 	border:1px solid #c62123;	
 	float:left;
 	background-color:#fff;
+	position:relative;
 }
 ul.selector_area li {
 	position:relative;
@@ -507,6 +513,7 @@ li .price_selector span {
 	text-transform:capitalize;
 	font-size:13px;
 	display:block;
+	position:relative;
 }
 .dd-menu a.menu-link{
 	display:block;
@@ -521,6 +528,7 @@ ul.menu {
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);
+	position:relative;
 }
 ul.menu li.menu-item {
 	height:40px;
@@ -540,6 +548,7 @@ ul.menu li.menu-item {
 	text-transform:capitalize;
 	font-size:13px;
 	display:block;
+	position:relative;
 }
 ul.menu li.menu-item.brand {	
 	background: -moz-linear-gradient(top , #d6585a, #cf4243 50%, #c62123 50%, #c62123);
@@ -548,6 +557,7 @@ ul.menu li.menu-item.brand {
 	background: -webkit-gradient(linear, left top, left bottom, from(#d6585a), to(#c62123), color-stop(0.5, #cf4243),  color-stop(0.5, #c62123));
 	-pie-background: linear-gradient(#d6585a, #cf4243 50%, #c62123 50%, #c62123); 	
 	behavior: url(/static/css/PIE.htc);	
+	position:relative;
 }
 ul.menu li.menu-item.brand a {color:#fff} ul.menu li.menu-item.brand a:hover {color:#393939}
 ul.menu li.menu-item.active, ul.menu li.menu-item:hover  {
@@ -557,6 +567,7 @@ ul.menu li.menu-item.active, ul.menu li.menu-item:hover  {
 	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fff)) !important;
 	-pie-background: linear-gradient(#fff, #fff) !important;
 	behavior: url(/static/css/PIE.htc);	 
+	position:relative;
 }
 ul.menu li.menu-item.first {
 
@@ -598,6 +609,7 @@ ul.menu li.menu-item a.menu-link:hover, ul.menu li.menu-item.active a.menu-link 
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);
+	position:relative;
 	text-transform:none;
 }
 .bg-01 {
@@ -682,6 +694,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	border:1px solid #cecece;
 	padding:9px;
 	zoom:1;
+	position:relative;
 }
 .newsletter label {
 	float:left;
@@ -705,7 +718,6 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
     -pie-background: linear-gradient(#fff, #f2f2f2); 		
 	height:21px;
 	line-height:21px;
-	color:#999;
 	padding:0 5px;
 	width:185px;
 	float:left;
@@ -758,6 +770,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	border-left:4px solid #c62123;
 	border-bottom:4px solid #c62123;
 	float:left;
+	position:relative;
 }
 .atex_bn_right_wrapper {
 	width:237px;
@@ -781,12 +794,14 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
     -pie-background: linear-gradient(#fafafa, #efefef); 	
 	display:block;
 	text-align:center;
+	position:relative;
 }
 .atex_bn_right_wrapper li.first {
 	behavior: url(/static/css/PIE.htc);
 	border-radius:0px 6px 0px 0px;     
 	-moz-border-radius:0px 6px 0px 0px;     
 	-webkit-border-radius:0px 6px 0px 0px;
+	position:relative;
 }
 .atex_bn_right_wrapper li.last {
 	behavior: url(/static/css/PIE.htc);
@@ -794,6 +809,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	-moz-border-radius:0px 0px 6px 0px;     
 	-webkit-border-radius:0px 0px 6px 0px;
 	border-bottom:1px solid #c62123;
+	position:relative;
 }
 .atex_bn_right_wrapper li a {
 	display:block;
@@ -811,7 +827,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	behavior: url(/static/css/PIE.htc);
 	display:block;
 background-color:#c62123; 
-
+	position:relative;
  }
 .denumire-produs-atex_bn {float:left;width:195px; text-align:center}
 .atex_bn_right_wrapper a .pret-atex_bn {font-size:18px; line-height:36px;float:left;width:195px; text-align:center}
@@ -847,6 +863,7 @@ background-color:#c62123;
 	width:278px;
 	float:left;
 	background-color:#fff;
+	position:relative;
 }
 .produse_top li {
 	height:110px;
@@ -872,6 +889,7 @@ background-color:#c62123;
 	-webkit-border-radius:6px;
 	border-radius:6px;
 	behavior: url(/static/css/PIE.htc);	 
+	position:relative;
 }
 .middle {
 	overflow:hidden;
@@ -935,6 +953,7 @@ img.center {
 	-webkit-border-radius: 6px;
 	border:1px solid #cecece;
 	float:right;
+	position:relative;
 }
 .logo-producatori ul li {
 	float:left;
@@ -1064,7 +1083,7 @@ ul.filtrare li span {
 .info_detalii li {
 	line-height:20px;
 }
-.add_cos_btn, .continua , .mai_cumpar, .confirma {
+.add_cos_btn, .continua , .mai_cumpar, .confirma, .register, .login {
 	height:30px;
 	line-height:30px;
 	color:#fff;
@@ -1083,9 +1102,12 @@ ul.filtrare li span {
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);	
-background-color:#c62123; 
-
+	background-color:#c62123; 
+	border:0;
+	cursor:pointer;
+	position:relative;
 }
+.register, .login {width:125px !important;}
 .add_cos_btn span {
 	height:30px;
 	width:48px;
@@ -1125,7 +1147,7 @@ background-color:#c62123;
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);	
 background-color:#c62123; 
-
+	position:relative;
 }
 
 /* ********************** produs ************************************** */
@@ -1139,6 +1161,7 @@ background-color:#c62123;
 	-webkit-border-radius: 0 0 6px 6px;
 	behavior: url(/static/css/PIE.htc);
 	overflow:hidden;
+	position:relative;
 }
  .product-section {
 	width:100%;
@@ -1336,7 +1359,7 @@ background-color:#c62123;
     -pie-background: linear-gradient(#c62123, #de3537); 	
 	behavior: url(/static/css/PIE.htc);
 background-color:#c62123; 
-
+	position:relative;
 }
 
 .paginare li {float:left;margin:0 5px}
@@ -1458,7 +1481,7 @@ ul.exposureThumbs li {
     -pie-background: linear-gradient(#c62123, #de3537); 	
 	behavior: url(/static/css/PIE.htc);
 background-color:#c62123; 
-
+	position:relative;
 }
 .exposurePaging a, .exposurePaging span {
 	position:relative;
@@ -1560,9 +1583,13 @@ p.info a:hover, p.info a:active {
 	border-bottom:1px solid #484848;
 
 }
+.rand-cos li.quantity_price {
+	font-weight: bold;
+}
 .info-produs-cos {
 	width:400px;
 	float:left;
+	padding-bottom:10px;
 }
 .info-produs-cos .product-title {
 	font-weight:bold;
@@ -1592,7 +1619,7 @@ p.info a:hover, p.info a:active {
 	behavior: url(/static/css/PIE.htc);	
 	font-size:11px;
 	padding:3px;
-	color:#999;
+	position:relative;
 }
 .cantitate .input_cos {
 	width:30px;
@@ -1679,7 +1706,7 @@ ul.modalitate li {
 	line-height:30px;
 	font-weight:bold;
 }
-.total-cos01 ul li span {
+.total-cos01 ul li div {
 	float:right;
 }
 .total-cos01 ul.total li span { font-size:16px !important; }
@@ -1688,31 +1715,126 @@ ul.modalitate li {
 	width:110px !important;	
 }
 .mai_cumpar {	
-	width:128px !important;	
+	width:135px !important;	
 }
 .continua span {
 	height:30px;
-	width:48px;
+	width:30px;
 	float:left !important;
 	background:url(../images/continua-button.png) center center no-repeat;
 }
 .mai_cumpar span {
 	height:30px;
-	width:48px;
+	width:38px;
 	float:left !important;
 	background:url(../images/mai-cumpar-button.png) center center no-repeat;
 }
+.login-facebook span {
+	height:30px;
+	width:48px;
+	float:left !important;
+	background:url(../images/facebook-btn.png) center center no-repeat;
+}
+.login-facebook {
+	height:30px;
+	line-height:30px;
+	color:#fff;
+	font-size:12px;
+	font-weight:bold;
+	width:125px;
+	float:left;
+	margin-top:5px;
+	display:block;
+	background: -moz-linear-gradient(top , #5e78af, #4f689a 50%, #3b527d 50%, #3b527d);
+	background: -ms-linear-gradient(top , #5e78af, #4f689a 50%, #3b527d 50%, #3b527d);
+	background: -o-linear-gradient(top , #5e78af, #4f689a 50%, #3b527d 50%, #3b527d);
+	background: -webkit-gradient(linear, left top, left bottom, from(#5e78af), to(#3b527d), color-stop(0.5, #4f689a),  color-stop(0.5, #3b527d));
+	-pie-background: linear-gradient(#5e78af, #4f689a 50%, #3b527d 50%, #3b527d); 
+	border-radius: 6px;     
+	-moz-border-radius: 6px;     
+	-webkit-border-radius: 6px;
+	behavior: url(/static/css/PIE.htc);	
+	background-color:#c62123; 
+	border:0;
+	cursor:pointer;
+	position:relative;
+}
+.login-google span {
+	height:30px;
+	width:48px;
+	float:left !important;
+	background:url(../images/google-btn.png) center center no-repeat;
+}
+.login-google {
+	height:30px;
+	line-height:30px;
+	color:#fff;
+	font-size:12px;
+	font-weight:bold;
+	width:125px;
+	float:left;
+	margin-top:5px;
+	display:block;
+	background: -moz-linear-gradient(top , #db4a39, #c74233 50%, #af2010 50%, #af2010);
+	background: -ms-linear-gradient(top , #db4a39, #c74233 50%, #af2010 50%, #af2010);
+	background: -o-linear-gradient(top , #db4a39, #c74233 50%, #af2010 50%, #af2010);
+	background: -webkit-gradient(linear, left top, left bottom, from(#db4a39), to(#af2010), color-stop(0.5, #c74233),  color-stop(0.5, #af2010));
+	-pie-background: linear-gradient(#db4a39, #c74233 50%, #af2010 50%, #af2010); 
+	border-radius: 6px;     
+	-moz-border-radius: 6px;     
+	-webkit-border-radius: 6px;
+	behavior: url(/static/css/PIE.htc);	
+	background-color:#db4a39; 
+	border:0;
+	cursor:pointer;
+	position:relative;
+}
+.login-yahoo span {
+	height:30px;
+	width:48px;
+	float:left !important;
+	background:url(../images/yahoo-btn.png) center center no-repeat;
+}
+.login-yahoo {
+	height:30px;
+	line-height:30px;
+	color:#fff;
+	font-size:12px;
+	font-weight:bold;
+	width:125px;
+	float:left;
+	margin-top:5px;
+	display:block;
+	background: -moz-linear-gradient(top , #6319d7, #5412bc 50%, #431a83 50%, #431a83);
+	background: -ms-linear-gradient(top , #6319d7, #5412bc 50%, #431a83 50%, #431a83);
+	background: -o-linear-gradient(top , #6319d7, #5412bc 50%, #431a83 50%, #431a83);
+	background: -webkit-gradient(linear, left top, left bottom, from(#6319d7), to(#431a83), color-stop(0.5, #5412bc),  color-stop(0.5, #431a83));
+	-pie-background: linear-gradient(#6319d7, #5412bc 50%, #431a83 50%, #431a83); 
+	border-radius: 6px;     
+	-moz-border-radius: 6px;     
+	-webkit-border-radius: 6px;
+	behavior: url(/static/css/PIE.htc);	
+	background-color:#5412bc; 
+	border:0;
+	cursor:pointer;
+	position:relative;
+}
+.social-login {float:left; width:410px; padding:10px 0; }
+.social-login li {float:left; padding-left:10px;}
+.rand-cos-right {float:left; width:430px; margin-top:40px;}
+.rand-cos-left {float:left; width:440px; border-right:1px solid #666;margin-top:35px;}
+.login, .register { margin-right:3px;}
+.login-fields li{width:380px; float:left;}
+.login-fields .input_cos{width:285px !important}
+.login-fields input[type="radio"] {margin:4px 0 0 0;}
+.login-fields strong {font-size:14px;padding:20px 0 5px 0; float:left;}
+.login-fields .radio-btns label{margin-right:20px; margin-bottom:10px;float:left;}
 .buttons li {
 	padding:15px 0 0 15px !important;
 }
 .pas-02 {
-	background:url(../images/cos-02-active.png) top left no-repeat;
-	padding-top:25px;
 	width:100%;
 	float:left;
-}
-.pas-02 .tab_u_holder_left, .pas-03 .tab_u_holder_left {
-	left:90px !important;
 }
 .login-key {
 	width:23px;
@@ -1722,18 +1844,31 @@ ul.modalitate li {
 	float:right;
 	margin-left:3px;
 }
-.pas-02 .rand-cos .modalitate li {padding-right:70px;}
-.pas-02 .rand-cos .modalitate li.last { float:right; padding:0;}
-.pas-02 .rand-cos .modalitate .row {padding-bottom:3px;}
-.pas-02 .rand-cos .modalitate .row .input_cos { width:170px !important;}
-.pas-02 .rand-cos .modalitate .col .input_cos { width:170px !important; margin-top:3px;}
-.pas-02 .rand-cos .modalitate .col { width:182px; float:left }
-.pas-02 .rand-cos .modalitate .textarea { width:400px; float:left }
-.pas-02 .rand-cos .modalitate .textarea textarea{ width:392px; height:39px; float:right;margin-top:3px; resize:none; }
+.pas-02 .rand-cos .modalitate li {padding-right:40px;}
+.pas-02 .rand-cos .modalitate li.last { float:right; padding:5px 0 0 0;width:585px;}
+.pas-02 .rand-cos .modalitate li.last ul li label input[type="radio"]{margin:0 3px;}
+.pas-02 .rand-cos .modalitate li.last .delivery_yes select.input_cos {width:586px; margin:10px 0;}
+.pas-02 .rand-cos .modalitate .row {padding-bottom:3px; float:left;position:relative;}
+.pas-02 .rand-cos .modalitate .row .col-cos{position:relative;}
+.pas-02 .rand-cos .errorlist li {line-height:16px;padding:0;}
+.pas-02 .rand-cos .errorlist {position:absolute; bottom:0px; left:0px; font-size:11px;width:400px;}
+.pas-02 .rand-cos .modalitate .row.row-wide {min-width:370px;}
+.pas-02 .rand-cos .modalitate .row label {width:100%; float:left; font-size:11px;line-height:11px}
+.pas-02 .rand-cos .modalitate .row .checkbox_label {float: none; line-height: 19px; padding-left: 4px;}
+.pas-02 .rand-cos .modalitate .row .input_cos { width:170px !important; margin-bottom:15px;}
+.pas-02 .rand-cos .modalitate .col .input_cos { width:170px !important; margin-top:3px; margin-bottom:15px;}
+.pas-02 .rand-cos .modalitate .col { width:185px; float:left;}
+.pas-02 .rand-cos .modalitate .col label, .pas-02 .rand-cos .modalitate .textarea label {font-size:11px;line-height:11px}
+.pas-02 .rand-cos .modalitate .col-cos {width:185px; float:left;}
+.pas-02 .rand-cos .modalitate .textarea { width:400px; float:left; padding-bottom:18px; position:relative; }
+.pas-02 .rand-cos .modalitate textarea{ width:392px; height:68px; float:right;margin-top:3px; resize:none; }
+.pas-02 .rand-cos .modalitate .obs_textarea {margin:0;}
+.pas-02 .rand-cos .modalitate .select-cumparator {padding:0 !important}
+.pas-02 .rand-cos .modalitate .select-cumparator select {width:177px; margin-bottom:15px;}
 .total-cos02 { width:100%; float:left;}
-.termeni-newsletter { float:left; padding: 10px 0 15px 280px; }
-.termeni-newsletter li { padding-bottom:5px;}
-.termeni-newsletter li span{ line-height:18px; padding-left:5px;}
+.login-fields { float:left; padding: 10px 0 15px 10px; }
+.login-fields li { padding-bottom:5px;}
+.login-fields li label { line-height:18px; }
 .flleft { float:left }
 .flright { float:right }
 .reset {
@@ -1755,6 +1890,7 @@ ul.modalitate li {
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);	
+	position:relative;
 }
 .reset span{
 	height:30px;
@@ -1765,8 +1901,6 @@ ul.modalitate li {
 .total-cos02 .buttons{	float:right;}
 .total-cos02 .buttons li {	float:left;}
 .pas-03 {
-	background:url(../images/cos-03-active.png) top left no-repeat;
-	padding:25px 0;
 	width:100%;
 	float:left;
 }
@@ -1780,6 +1914,8 @@ ul.modalitate li {
 	behavior: url(/static/css/PIE.htc);	
 	border:1px solid #c62123;
 	float:left;
+	background-color:#fff;
+	position:relative;
 }
 .info-comanda li {
 	width:330px;
@@ -1828,19 +1964,20 @@ td.center {text-align:center}
 }
 .show_rezumat ul { float:right; display:inline; padding-top:15px;}
 .show_rezumat ul li { padding:0 25px;float:left; height: 38px; background:url(../images/spacer-rezumat.jpg) top left no-repeat;color:#fff;font-size:14px}
-.show_rezumat ul li span { line-height:38px; display:block; padding-left:45px; float:left}
+.show_rezumat ul li div { line-height:38px; padding-left:45px; float:left}
 .show_rezumat .domiciliu { background:url(../images/domiciliu-icon.png) bottom left no-repeat;}
 .show_rezumat .total { background:url(../images/total-icon.png) bottom left no-repeat;}
 .show_rezumat .numerar { background:url(../images/numerar-icon.png) bottom left no-repeat;}
 .show_rezumat .transfer { background:url(../images/transfer-icon.png) bottom left no-repeat;}
 .show_rezumat .magazin { background:url(../images/magazin-icon.png) bottom left no-repeat;}
+.show_rezumat .cosFooter { background:url(../images/cos-icon.png) bottom left no-repeat;}
 .tab_rezumat {
 	background:url(../images/tab-rezumat.png) top left no-repeat;
 	width:243px;
 	height:37px;
 	position:absolute;
 	top:-28px;
-	right:40px;
+	right:200px;
 }
 .tab_rezumat p {
 	line-height:28px;
@@ -1969,3 +2106,12 @@ td.center {text-align:center}
 .brands ul li {padding:5px 10px 0px 0px}		
 .brands ul li a{display:block;border-bottom:1px solid #fff; padding-left:10px;}
 .brands ul li a:hover {border-color:#999;}
+
+.errorlist {
+    color: #c62123;
+}
+
+.autocomplete-suggestions { border: 1px solid #999; background: #fff; cursor: default; overflow: auto; }
+.autocomplete-suggestion { padding: 10px 5px; font-size: 1.2em; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #f0f0f0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399ff; }

@@ -20,6 +20,8 @@ MOCK_DATA_PATH = os.path.join(os.path.split(__file__)[0], 'mock_data')
 TIMEOUT_LONG = 86400    # one day
 TIMEOUT_NORMAL = 3600   # one hour
 TIMEOUT_SHORT = 300     # 5 minutes
+TIMEOUT_REQUEST = 5     # 5 seconds (during one request)
+TIMEOUT_NO_CACHE = 0    # do not cache
 
 
 class APIError(Exception):
@@ -69,15 +71,15 @@ class BaseAdapter(object):
         start_time = time.time()
 
         if use_backend is not True:
-            # returns None if item not found
-            cache_response = self._read_cache(uri)
+            cache_response = self._read_cache(uri)  # returns None if item not found
         else:
             cache_response = None
         if cache_response is None and use_backend is not False:
             response = self._read_backend(uri)
             data = self.parse(response)
             processed_data = post_process(data) if post_process else data
-            self._write_cache(uri, processed_data, timeout=cache_timeout)
+            if cache_timeout != TIMEOUT_NO_CACHE:
+                self._write_cache(uri, processed_data, timeout=cache_timeout)
         else:
             processed_data = cache_response
 
@@ -85,10 +87,11 @@ class BaseAdapter(object):
 
         return processed_data
 
-    def write(self, uri, data):
+    def write(self, uri, data, post_process=None):
         response = self._write_backend(uri, data)
-        data = self.parse(response)
-        return data
+        processed_response = post_process(response) if post_process else response
+        logger.debug('POST %s %s => %s', uri, data, processed_response)
+        return processed_response
 
     def _read_debug(self, uri, cache_response, response, start_time):
         elapsed = time.time() - start_time
@@ -102,7 +105,7 @@ class BaseAdapter(object):
 
     def parse(self, stream):
         try:
-            return json.loads(stream)
+            return json.loads(stream, strict=False)
         except ValueError as e:
             message = "We failed to parse backend response: %s" % e
             logger.error(message)
@@ -142,31 +145,63 @@ class AncoraAdapter(BaseAdapter):
         except (ConnectionError, Timeout) as e:
             raise APIError("Failed to reach backend (%s)" % type(e).__name__)
 
-    def uri_for(self, method_name, args={}):
+    def uri_for(self, method_name='', args={}):
         all_args = self._args_for(method_name)
         all_args.update(args)
-        return self.uri_with_args(self._base_uri, all_args)
+        return self.uri_with_args(self._base_uri,
+                                  method=self._method_for(method_name),
+                                  args=all_args)
+
+    def _method_for(self, method_name):
+        default_path = 'jis.serv'
+        post_path = 'saveForm.do'
+        delete_path = 'processActionRecords.do'
+        if re.match(r'create|update', method_name):
+            method = post_path
+        elif re.match(r'delete', method_name):
+            method = delete_path
+        else:
+            method = default_path
+        return method
 
     def _args_for(self, method_name):
         args = {'categories': {'cod_formular': '617'},
                 'product': {'cod_formular': '738'},
                 'recommended': {'cod_formular': '740', 'start': '0'},
                 'promotional': {'cod_formular': '737', 'start': '0'},
-                'brands': {'cod_formular': '1024', 'start': '0', 'stop': '1000'}}
+                'brands': {'cod_formular': '1024', 'start': '0', 'stop': '1000'},
+                'create_user': {'cod_formular': '1312',
+                                'iduser': '47',     # website user
+                                'actiune': 'SAVE_TAB'},
+                'get_user': {'cod_formular': '1023'},
+                'list_cart': {'cod_formular': '1078'},
+                'create_cart': {'cod_formular': '1366', 'iduser': '47', 'actiune': 'SAVE_TAB'},
+                'create_cart_entry': {'cod_formular': '1367', 'actiune': 'SAVE_TAB'},
+                'delete_cart_entry': {'cfi': '1064', 'actiune': 'DEL'},
+                'create_order': {'cod_formular': '1456', 'actiune': 'SAVE_TAB'},
+                'get_customers': {'cod_formular': '1152'},
+                'get_addresses': {'cod_formular': '1153'}}
         return args.get(method_name, {})
 
-    def uri_with_args(self, uri, new_args):
+    def uri_with_args(self, uri, method=None, args=None):
         parsed_uri = urlparse(uri)
 
-        parsed_args = dict(parse_qsl(parsed_uri.query))
-        parsed_new_args = dict(parse_qsl(new_args)) if isinstance(new_args, basestring) else new_args
-        parsed_args.update(parsed_new_args)
-        valid_args = dict((key, value) for key, value in parsed_args.items() if value is not None)
+        if method is not None:
+            delimiter = '/'
+            path_parts = parsed_uri.path.split(delimiter)
+            path = delimiter.join(path_parts[:-1] + [method])
+        else:
+            path = parsed_uri.path
+
+        parsed_old_args = dict(parse_qsl(parsed_uri.query))
+        parsed_args = dict(parse_qsl(args)) if isinstance(args, basestring) else args
+        parsed_old_args.update(parsed_args)
+        valid_args = dict((key, value) for key, value in parsed_old_args.items() if value is not None)
         encoded_args = urlencode(valid_args)
 
         final_uri = urlunparse((parsed_uri.scheme,
                                 parsed_uri.netloc,
-                                parsed_uri.path,
+                                path,
                                 parsed_uri.params,
                                 encoded_args,
                                 parsed_uri.fragment))
@@ -215,7 +250,7 @@ class Ancora(object):
         return self.adapter.read(categories_uri, post_process,
                                  cache_timeout=TIMEOUT_LONG) or []
 
-    def selectors(self, category_id, selectors_active, price_min, price_max):
+    def selectors(self, category_id, selectors_active, price_min, price_max, stock):
         def post_process(data):
             json_root = 'selectors'
             selectors = []
@@ -236,8 +271,10 @@ class Ancora(object):
             if price_min or price_max:
                 args['zpret_site_min'] = price_min
                 args['zpret_site_max'] = price_max
+            if stock:
+                args['zstoc'] = 'D'
             if args:
-                selectors_uri = self.adapter.uri_with_args(selectors_uri, args)
+                selectors_uri = self.adapter.uri_with_args(selectors_uri, args=args)
             selectors = self.adapter.read(selectors_uri, post_process, cache_timeout=TIMEOUT_LONG)
         else:
             selectors = []
@@ -250,7 +287,7 @@ class Ancora(object):
         else:
             some_products_uri = self.categories()[0]['products_uri']
             base_products_uri = self.adapter.uri_with_args(some_products_uri,
-                                                           {'idgrupa': None})
+                                                           args={'idgrupa': None})
         return base_products_uri
 
     def _post_process_product_list(self, json_root='products'):
@@ -289,7 +326,7 @@ class Ancora(object):
             args['zsort_order'] = sort_order
         products_uri = self.adapter.uri_with_args(
             self._base_products_uri(category_id),
-            args)
+            args=args)
 
         products = self.adapter.read(products_uri,
                                      self._post_process_product_list(),
@@ -316,7 +353,7 @@ class Ancora(object):
         args = {'zlista_id': ','.join(str(pid) for pid in product_ids)}
         products_uri = self.adapter.uri_with_args(
             self._base_products_uri(),
-            args)
+            args=args)
         products = self.adapter.read(products_uri,
                                      self._post_process_product_list(),
                                      cache_timeout=TIMEOUT_SHORT)
@@ -392,7 +429,213 @@ class Ancora(object):
         return self.adapter.read(brands_uri, post_process,
                                  cache_timeout=TIMEOUT_LONG) or []
 
-    def create_user(self, user):
+    @staticmethod
+    def _post_process_write(data):
+        lines = data.splitlines()
+        if len(lines) == 2 and lines[0] == '~DQS':  # success
+            return lines[1]
+        else:
+            raise APIError(lines[0])
+
+    def create_user(self, email, first_name, last_name, usertype='F'):
         create_user_uri = self.adapter.uri_for('create_user')
-        status = self.adapter.write(create_user_uri, user)
-    
+        args = {'pid': '0',     # new user
+                'email': email,
+                'denumire': "%s %s" % (last_name, first_name),
+                'parola': '',   # legacy
+                'fj': usertype}
+        return self.adapter.write(create_user_uri, args, post_process=self._post_process_write)
+
+    def _post_process_user(self, user):
+        last_name, first_name = user['zdenumire'].split(" ", 1)
+        return {'id': user['pidm'],
+                'email': user['zemail'],
+                'first_name': first_name,
+                'last_name': last_name,
+                'usertype': user['zfj'],    # Fizica/Juridica
+                'disabled': user['zcol_inactiv'] == 'Y'}    # Y/N
+
+    def get_users(self):
+        """ Returns a user if the password is good, otherwise None """
+        def post_process(data):
+            json_root = 'useri_site'
+            return [self._post_process_user(user) for user in data[json_root]]
+
+        get_user_uri = self.adapter.uri_for('get_user')
+        user = self.adapter.read(get_user_uri, post_process=post_process, cache_timeout=TIMEOUT_SHORT)
+        return user
+
+    def get_user(self, email):
+        """ Returns user information """
+        def post_process(data):
+            json_root = 'useri_site'
+            return self._post_process_user(data[json_root][0]) if len(data[json_root]) else None
+
+        args = {'femail': email}
+        get_user_uri = self.adapter.uri_for('get_user', args)
+        user = self.adapter.read(get_user_uri, post_process=post_process, cache_timeout=TIMEOUT_SHORT)
+        return user
+
+    def create_cart(self, user_id):
+        create_cart_uri = self.adapter.uri_for('create_cart')
+        args = {'pid': '0',     # new cart
+                'iduser_site': user_id}
+        return self.adapter.write(create_cart_uri, args, post_process=self._post_process_write)
+
+    def add_cart_product(self, cart_id, product_id):
+        cart_items = self.list_cart(cart_id)
+        matching_cart_entries = [p for p in cart_items if p['product_id'] == product_id]
+        if matching_cart_entries:
+            quantity = 1 + matching_cart_entries[0]['quantity']
+        else:
+            quantity = 1
+        return self.update_cart_product(cart_id, product_id, quantity)
+
+    def remove_cart_product(self, cart_id, product_id):
+        delete_cart_entry_uri = self.adapter.uri_for('delete_cart_entry')
+        cart_item_id = self._existing_cart_item_id(cart_id, product_id)
+        if cart_item_id:
+            args = {'lista_id': cart_item_id}
+            return self.adapter.write(delete_cart_entry_uri, args)
+
+    def update_cart_product(self, cart_id, product_id, quantity):
+        create_cart_entry_uri = self.adapter.uri_for('create_cart_entry')
+        args = {'pid': self._existing_cart_item_id(cart_id, product_id) or 0,  # 0 for new
+                'idparinte': cart_id,
+                'idprodus': product_id,
+                'cantitate': quantity}
+        return self.adapter.write(create_cart_entry_uri, args, post_process=self._post_process_write)
+
+    def _existing_cart_item_id(self, cart_id, product_id):
+        cart_items = self.list_cart(cart_id)
+        matching_cart_entries = [p for p in cart_items if p['product_id'] == product_id]
+        if matching_cart_entries:
+            return matching_cart_entries[0]['cart_item_id']
+        else:
+            return None
+
+    def list_cart(self, cart_id):
+        def post_process(data):
+            cart_items = []
+            json_root = 'cart_site_items'
+            for item in data[json_root]:
+                cart_item = {'cart_item_id': int(item['pidm']),
+                             'product_id': int(item['zidprodus']),
+                             'quantity': int(item['zcantitate']),
+                             'price': float(item['zpret'])}
+                cart_items.append(cart_item)
+            return cart_items
+
+        list_cart_uri = self.adapter.uri_for('list_cart', {'idparinte': cart_id})
+        return self.adapter.read(list_cart_uri, post_process=post_process, cache_timeout=TIMEOUT_NO_CACHE)
+
+    def _get(self, args, response_root, response_map, cache_timeout=TIMEOUT_NO_CACHE):
+        def post_process(data):
+            items = []
+            for raw_item in data[response_root]:
+                item = {}
+                for key, rule in response_map.items():
+                    if isinstance(rule, str):
+                        raw_key = rule
+                        transforms = (operator.itemgetter(raw_key),)
+                    elif isinstance(rule, tuple):
+                        raw_key = rule[0]
+                        transforms = (operator.itemgetter(raw_key),) + rule[1:]
+                    value = reduce(lambda val, trans: trans(val), transforms, raw_item)
+                    item[key] = value
+                items.append(item)
+            return items
+
+        uri = self.adapter.uri_for(args=args)
+        return self.adapter.read(uri, post_process=post_process, cache_timeout=cache_timeout)
+
+    def get_cart_price(self, cart_id, delivery, payment):
+        delivery_map = {False: 'N', True: 'D', None: 'N'}
+        payment_map = {'cash': 'ramburs', 'bank': 'op', None: 'ramburs'}
+        result = self._get(args={'cod_formular': 1160,
+                                 'idcart': cart_id,
+                                 'livrare': delivery_map.get(delivery, ''),
+                                 'plata': payment_map.get(payment, '')},
+                           response_root='total_cart',
+                           response_map={'products_price': ('ztotal_fara_transport', float),
+                                         'delivery_price': ('ztransport', float)},
+                           cache_timeout=TIMEOUT_REQUEST)
+        return result[0]
+
+    def get_customers(self, user_id):
+        def post_process(data):
+            customers = []
+            root = 'lista_terti_user_site'
+            for item in data[root]:
+                cif = item['zcod_fiscal']
+                vat = cif.upper().startswith('RO')
+                cif_digits = cif.lstrip('RO ')
+                customer = {'customer_id': int(item['zid_tert']),
+                            'customer_type': item['fj'],
+                            'name': item['ztert'],
+                            'tax_code': cif_digits,
+                            'vat': vat,
+                            'regcom': item['zreg_com'],
+                            'city': item['zlocalitate'],
+                            'county': item['zjudet'],
+                            'address': item['zadresa'],
+                            'bank': item['zbanca'],
+                            'bank_account': item['zcont']}
+                customers.append(customer)
+            return customers
+
+        get_customers_uri = self.adapter.uri_for('get_customers', {'iduser_site': user_id})
+        return self.adapter.read(get_customers_uri, post_process=post_process, cache_timeout=TIMEOUT_REQUEST)
+
+    def get_addresses(self, user_id):
+        def post_process(data):
+            addresses = []
+            root = 'lista_puncte_lucru_user_site'
+            for item in data[root]:
+                address = {'address_id': int(item['zidpunctlucru']),
+                           'customer_id': int(item['zidtert']),
+                           'county': item['zjudet'],
+                           'city': item['zlocalitate'],
+                           'address': item['zadresa']}
+                addresses.append(address)
+            return addresses
+
+        get_addresses_uri = self.adapter.uri_for('get_addresses', {'iduser_site': user_id})
+        return self.adapter.read(get_addresses_uri, post_process=post_process, cache_timeout=TIMEOUT_REQUEST)
+
+    def create_order(self, cart_id, user_id, customer=0,
+                     email='', customer_type='f', name='', person_name='', phone='',
+                     tax_code='', regcom='', vat=False, bank='', bank_account='',
+                     address='', city='', county='', notes='',
+                     payment='', delivery=False, delivery_address_id=0,
+                     delivery_address='', delivery_city='', delivery_county='',
+                     **kwargs):
+        create_order_uri = self.adapter.uri_for('create_order')
+        args = {'pid': 0,
+                'idcart_site': cart_id,
+                'iduser_site': user_id,
+                'idtert': customer,
+                'idpunctlucru': delivery_address_id,
+                'email': email,
+                'denumire': name,
+                'prefix': '',
+                'sufix': '',
+                'fj': customer_type,
+                'codfiscal': tax_code,
+                'regcom': regcom,
+                'banca': bank,
+                'cont': bank_account,
+                'atributfiscal': 'RO' if vat else '',
+                'sediu_social': address,
+                'localitate': city,
+                'judet': county,
+                'persoana_contact': person_name,
+                'telefon': phone,
+                'isramburs': 'D' if payment == 'cash' else 'N',
+                'istransport': 'D' if delivery else 'N',
+                'isadresa_livrare': 'D' if delivery else 'N',
+                'pl_localitate': delivery_city,
+                'pl_judet': delivery_county,
+                'pl_adresa': delivery_address,
+                'observatii': notes}
+        return self.adapter.write(create_order_uri, args, post_process=self._post_process_write)

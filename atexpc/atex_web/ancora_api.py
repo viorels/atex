@@ -2,6 +2,7 @@ import string
 from operator import itemgetter
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 
 from atexpc.ancora_api.api import Ancora, AncoraAdapter
 
@@ -18,6 +19,8 @@ class AncoraAPI(object):
         self._ancora = Ancora(adapter=adapter_class(**adapter_args))
         self.categories = CategoriesAPI(api=self._ancora)
         self.products = ProductsAPI(api=self._ancora, categories=self.categories)
+        self.users = UsersAPI(api=self._ancora)
+        self.cart = CartAPI(api=self._ancora)
 
 
 class BaseAPI(object):
@@ -89,11 +92,11 @@ class CategoriesAPI(BaseAPI):
         parent_category_code = category['code'].split('.')[0]
         return [c for c in self.get_all_categories() if c['code'] == parent_category_code][0]['id']
 
-    def get_selectors(self, category_id, selectors_active, price_min, price_max):
+    def get_selectors(self, category_id, selectors_active, price_min, price_max, stock):
         if not hasattr(self, '_selectors'):
             self._selectors = self._api.selectors(
                 category_id, selectors_active,
-                price_min=price_min, price_max=price_max)
+                price_min=price_min, price_max=price_max, stock=stock)
         return self._selectors
 
 
@@ -139,3 +142,57 @@ class ProductsAPI(BaseAPI):
 
     def get_brands(self):
         return self._api.brands()
+
+
+class UsersAPI(BaseAPI):
+    def create_user(self, **kwargs):
+        return self._api.create_user(**kwargs)
+
+    def get_user(self, email):
+        return self._api.get_user(email)
+
+    def create_or_update_user(self, **kwargs):
+        email = kwargs.get('email')
+        user = self.get_user(email)
+        if user is not None:
+            # TODO: update user
+            return user['id']
+        else:
+            user_id = self.create_user(**kwargs)
+            return user_id
+
+    def get_users(self):
+        return self._api.get_users()
+
+
+class CartAPI(BaseAPI):
+    def get_cart(self, cart_id):
+        """ Ancora does't tell if the cart exists so we assume it does"""
+        return cart_id
+
+    def create_cart(self, user_id):
+        return self._api.create_cart(user_id)
+
+    def list_cart(self, cart_id):
+        return self._api.list_cart(cart_id)
+
+    def get_cart_price(self, cart_id, delivery=False, payment='cash'):
+        return self._api.get_cart_price(cart_id, delivery, payment)
+
+    def add_product(self, cart_id, product_id):
+        return self._api.add_cart_product(cart_id, product_id)
+
+    def remove_product(self, cart_id, product_id):
+        return self._api.remove_cart_product(cart_id, product_id)
+
+    def update_product(self, cart_id, product_id, count):
+        return self._api.update_cart_product(cart_id, product_id, count)
+
+    def get_customers(self, user_id):
+        return self._api.get_customers(user_id)
+
+    def get_addresses(self, user_id):
+        return self._api.get_addresses(user_id)
+
+    def create_order(self, **kwargs):
+        return self._api.create_order(**kwargs)

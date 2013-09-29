@@ -1,29 +1,6 @@
 {% extends "base_2col.html" %}
 
-{% block body_extra %}
-<div class="rezumat">
-    <div class="continut">
-        <div class="tab_rezumat">
-            <p>REZUMAT COMANDA </p><span></span>
-        </div>
-        <div class="show_rezumat">
-            <ul>
-                <li><span class="domiciliu">Livrare la domiciliu</span></li>
-                <li><span class="numerar">Plata numerar</span></li>
-                <li><span class="total">TOTAL PLATA: 1943.75 lei</span></li>
-            </ul>
-        </div>
-    </div>
-</div>
-{% endblock body_extra %}
-
-{% block content_right %}
-            	<div class="breadcrumbs">
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li>Cos cumparaturi</li>
-                    </ul>
-                </div>           	
+{% block content_right %}        	
                 <div class="cos_content">                	
                     <div class="product-section">
                     	<div class="tab_d_holder_right">
@@ -34,8 +11,8 @@
                             <span class="down_right"></span>
                         </div>
                         <ul class="pasi">
-                            <li><span class="cos-01" id=""></span>Cosul de cumparaturi</li>
-                            <li><span class="cos-02" id=""></span>Date personale de facturare</li>
+                            <li><a href="{% url "cart" %}"><span class="cos-01" id=""></span>Cosul de cumparaturi</a></li>
+                            <li><a href="{% url "order" %}"><span class="cos-02" id=""></span>Date personale de facturare</a></li>
                             <li><span class="cos-03 active" id=""></span>Confirmare comanda</li>
                         </ul>
                     </div>
@@ -49,16 +26,67 @@
                                 <span class="up_right"></span>
                             </div>
                         </div>
-                        <div class="verificare">Va rugam sa verificati corectitudinea datelor de mai jos.</div>
+                        <div class="verificare">
+                            {% if done %}
+                            Va multumim pentru comanda dumneavoastra!
+                            {% else %}
+                            Va rugam sa verificati corectitudinea datelor de mai jos.
+                            {% endif %}
+                        </div>
                         <ul class="info-comanda">
-                        	<li class="comanda">Numar comanda: <span class="red_b">0077275</span></li>
+                            {% if done %}
+                        	<li class="comanda">Numar comanda: <span class="red_b">{{ order.id }}</span></li>
+                            {% endif %}
                             <li>&nbsp;</li>
-                        	<li><strong>Ionescu David</strong></li>
-                            <li>Principala 36 Bl P2, Sc 2, Ap 9</li>
-                            <li>Gherla, Jud. Cluj</li>
+
+                            {% if order.customer_type == 'j' or order.customer_type == 'o' %}
+                            <li><strong>{{ order.company }}</strong></li>
+                                {% if order.customer_type == 'j' %}
+                                <li>CUI: <strong>{% if order.vat %}RO{% endif %}{{ order.cui }}</strong></li>
+                                <li>Reg.com.: <strong>{{ order.regcom }}</strong></li>
+                                {% elif order.customer_type == 'o' %}
+                                <li>CIF: <strong>{% if order.vat %}RO{% endif %}{{ order.cif }}</strong></li>
+                                {% endif %}
+                            <li>Banca: <strong>{{ order.bank }}</strong></li>
+                            <li>Cont: <strong>{{ order.bank_account }}</strong></li>
                             <li>&nbsp;</li>
-                            <li>Telefon: <strong>0744993939</strong></li>
-                            <li>Email: <strong>ionescu.david@yahoo.com</strong></li>                        
+                            {% endif %}
+
+                            <li><strong>{{ order.first_name }} {{ order.last_name }}</strong></li>
+                            {% if order.customer_type == 'f' %}
+                            <li>CNP: <strong>{{ order.cnp }}</strong></li>
+                            <li>{{ order.address }}</li>
+                            <li>{{ order.city }}, Jud. {{ order.county }}</li>
+                            <li>&nbsp;</li>
+                            {% endif %}
+
+                            <li>Telefon: <strong>{{ order.phone }}</strong></li>
+                            <li>Email: <strong>{{ user.email }}</strong></li>
+                            <li>&nbsp;</li>
+
+                            <li>
+                                {% if order.delivery == 'no' %}
+                                    <strong>Ridicati comanda de la sediul Atex Computer</strong>:<br />
+                                    <a href="{% url "contact" %}" target="_blank">
+                                        Str. Stephan Ludwig Roth, nr. 21<br/>
+                                        Cluj-Napoca, 400174 <br/>
+                                    </a>
+                                {% elif order.delivery == 'yes' %}
+                                    <strong>Livrare la adresa</strong>:<br/>
+                                    {{ order.delivery_address }}<br/>
+                                    {{ order.delivery_city }}, Jud. {{ order.delivery_county }}
+                                {% endif %}
+                            </li>
+                            <li>&nbsp;</li>
+
+                            {% if cart.payment %}
+                            <li><strong>{{ cart.payment_description }}</strong></li>
+                            <li>&nbsp;</li>
+                            {% endif %}
+
+                            {% if order.notes %}
+                            <li>Observatii: {{ order.notes }}</li>
+                            {% endif %}
                         </ul>   
                         <table class="detalii-comanda" width="450px">
                         	<colgroup>
@@ -73,36 +101,33 @@
                                 <td class="center">Cantitate</td>
                                 <td class="right">Total</td>
                             </thead>
+                            {% if cart.delivery %}
                             <tr>
                             	<td>Livrare rapida</td>
-                                <td class="right">15.00 lei</td>
+                                <td class="right">{{ cart.delivery_price }} lei</td>
                                 <td class="center">1</td>
-                                <td class="right">15.00 lei</td>
+                                <td class="right">{{ cart.delivery_price }} lei</td>
                             </tr>
+                            {% endif %}
+                            {% for item in cart.items %}
                             <tr>
-                            	<td>Monitor TFT Benq G2222HDL </td>
-                                <td class="right">385.75 lei</td>
-                                <td class="center">1</td>
-                                <td class="right">385.75 lei</td>
+                            	<td>{{ item.product.name }}</td>
+                                <td class="right">{{ item.product.price }} lei</td>
+                                <td class="center">{{ item.count }}</td>
+                                <td class="right">{{ item.price }} lei</td>
                             </tr>
-                            <tr>
-                            	<td>Monitor TFT Benq G2222HDL </td>
-                                <td class="right">385.75 lei</td>
-                                <td class="center">2</td>
-                                <td class="right">771.50 lei</td>
-                            </tr>
-                            <tr>
-                            	<td>Monitor TFT Benq G2222HDL </td>
-                                <td class="right">385.75 lei</td>
-                                <td class="center">1</td>
-                                <td class="right">385.75 lei</td>
-                            </tr>
+                            {% endfor %}
                             <tr class="info-total">
                             	<td colspan="2" class="right">TOTAL</td>
-                                <td colspan="2" class="right">1943.75 lei</td>
+                                <td colspan="2" class="right">{{ cart.price }} lei</td>
                             </tr>
                         </table> 
-                        <a href="#" class="confirma"><span></span>Confirma</a>
+                        {% if not done %}
+                        <form id="confirmform" method="post">
+                            {% csrf_token %}
+                            <a href="#" class="confirma"><span></span>Confirma</a>
+                        </form>
+                        {% endif %}
                     </div>	
                      <!-- end pas 03 -->
                 </div>

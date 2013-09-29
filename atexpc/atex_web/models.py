@@ -2,13 +2,20 @@ import os
 import re
 from datetime import datetime, timedelta
 
-import pytz
+from django.conf import settings
+from django.contrib.sessions.models import Session
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.core.files.storage import get_storage_class
+from django.core.mail import send_mail
 from django.db import models, connection
 from django.db.models.query import QuerySet
-from django.core.files.storage import get_storage_class
-from django.template.defaultfilters import slugify
-from django.utils.datastructures import SortedDict
 from django.db.utils import DatabaseError
+from django.utils import timezone
+from django.utils.datastructures import SortedDict
+from django.utils.http import urlquote
+from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
+import pytz
 from sorl.thumbnail import ImageField
 
 import logging
@@ -242,9 +249,283 @@ class Image(models.Model):
 
 
 class Hit(models.Model):
-    product = models.ForeignKey(Product, unique_for_date="date")
+    product = models.ForeignKey(Product)
     count = models.IntegerField()
     date = models.DateField()
+
+    class Meta:
+        unique_together = ("product", "date")
+
+
+class GetOrNoneManager(object):
+    """Adds get_or_none method to objects
+    """
+    def get_or_none(self, **kwargs):
+        try:
+            return self.get(**kwargs)
+        except self.model.DoesNotExist:
+            return None
+
+    """Adds get_unique_or_none method to objects
+    """
+    def get_unique_or_none(self, **kwargs):
+        try:
+            return self.get(**kwargs)
+        except (self.model.DoesNotExist, self.model.MultipleObjectsReturned), err:
+            return None
+
+
+class CustomUserManager(GetOrNoneManager, BaseUserManager):
+    def _create_user(self, email, password,
+                     is_staff, is_superuser, **extra_fields):
+        """
+        Creates and saves a User with the given username, email and password.
+        """
+        now = timezone.now()
+        if not email:
+            raise ValueError('The given email address must be set')
+        email = self.normalize_email(email)
+        user, created = self.get_or_create(
+            email=email,
+            defaults=dict(
+                is_staff=is_staff, is_active=True,
+                is_superuser=is_superuser, last_login=now,
+                date_joined=now, **extra_fields))
+        if created:
+            user.set_password(password)
+            user.save(using=self._db)
+        return user
+
+    def create_user(self, email, password=None, **extra_fields):
+        return self._create_user(email, password, False, False,
+                                 **extra_fields)
+
+    def create_superuser(self, email, password, **extra_fields):
+        return self._create_user(email, password, True, True,
+                                 **extra_fields)
+
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    first_name = models.CharField(_('first name'), max_length=30, blank=True)
+    last_name = models.CharField(_('last name'), max_length=30, blank=True)
+    email = models.EmailField(_('email address'), blank=False, unique=True, db_index=True)
+    phone = models.CharField(_('phone'), max_length=20, blank=True)
+    ancora_id = models.IntegerField(blank=True, null=True)
+
+    is_staff = models.BooleanField(_('staff status'), default=False,
+        help_text=_('Designates whether the user can log into this admin '
+                    'site.'))
+    is_active = models.BooleanField(_('active'), default=True,
+        help_text=_('Designates whether this user should be treated as '
+                    'active. Unselect this instead of deleting accounts.'))
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    @property
+    def username(self):
+        return self.email.split('@')[0]
+
+    class Meta:
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
+
+    def get_absolute_url(self):
+        return "/users/%s/" % urlquote(self.email)
+
+    def get_full_name(self):
+        """
+        Returns the first_name plus the last_name, with a space in between.
+        """
+        full_name = '%s %s' % (self.first_name, self.last_name)
+        return full_name.strip()
+
+    def get_short_name(self):
+        "Returns the short name for the user."
+        return self.first_name or self.username
+
+    def email_user(self, subject, message, from_email=None):
+        """
+        Sends an email to this User.
+        """
+        send_mail(subject, message, from_email, [self.email])
+
+    def get_ancora_id(self, api):
+        if self.ancora_id is None:
+            user_info = {'email': self.email,
+                         'first_name': self.first_name,
+                         'last_name': self.last_name}
+            self.ancora_id = api.users.create_or_update_user(**user_info)
+            self.save()
+        return self.ancora_id
+
+
+# class Company(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL)
+
+
+class Cart(models.Model):
+    session = models.ForeignKey(Session, db_index=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
+    products = models.ManyToManyField(Product, through='CartProducts')
+
+
+class CartProducts(models.Model):
+    cart = models.ForeignKey(Cart)
+    product = models.ForeignKey(Product)
+    count = models.IntegerField(default=1)
+
+
+class BaseCart(object):
+    def __init__(self, cart):
+        self._cart = cart
+
+    def count(self):
+        return len(self.items())
+
+    def price(self, items):
+        return sum(item['count'] * item['product']['price'] for item in items)
+
+    def _get_db_product(self, id):
+        try:
+            product = Product.objects.get(id=id)
+        except Product.DoesNotExist as e:
+            logger.error(e)
+        else:
+            return product
+
+
+class CartFactory(object):
+    def __init__(self, database=None, api=None):
+        if not (database or api):
+            raise ValueError("Specify either database (True) or api")
+        self.database = database
+        self.api = api
+
+    def get(self, cart_id):
+        if self.database:
+            try:
+                cart_row = Cart.objects.get(id=cart_id)
+                cart = DatabaseCart(cart_row)
+            except Cart.DoesNotExist:
+                cart = None
+        elif self.api:
+            cart_id = self.api.cart.get_cart(cart_id)
+            cart = AncoraCart(cart=cart_id, api=self.api)
+        return cart
+
+    def create(self, user_id=None):
+        if self.database:
+            cart_row = Cart.objects.create()
+            cart = DatabaseCart(cart=cart_row)
+        elif self.api:
+            cart_id = self.api.cart.create_cart(user_id)
+            cart = AncoraCart(cart=cart_id, api=self.api)
+        return cart
+
+
+class DatabaseCart(BaseCart):
+    def id(self):
+        return self._cart.id
+
+    def items(self):
+        cart_items = CartProducts.objects.filter(cart=self._cart)
+        items = []
+        for cart_item in cart_items:
+            product = cart_item.product
+            product_dict = {'id': product.id,
+                            'name': product.get_best_name(),
+                            'images': product.images()}
+            item = {'product': product_dict,
+                    'count': cart_item.count}
+            items.append(item)
+        return items
+
+    def delivery_price(self, items):
+        return 15 if items else 0  # TODO: compute price for delivery
+
+    def add_item(self, product_id):
+        product = self._get_db_product(product_id)
+        if product:
+            cart_product, created = CartProducts.objects.get_or_create(cart=self._cart, product=product)
+            if not created:
+                cart_product.count = models.F('count') + 1
+                cart_product.save()
+        return product
+
+    def remove_item(self, product_id):
+        product = self._get_db_product(product_id)
+        if product:
+            try:
+                cart_product = CartProducts.objects.get(cart=self._cart, product=product)
+            except CartProducts.DoesNotExist as e:
+                logger.error(e)
+                product = None
+            else:
+                cart_product.delete()
+        return product
+
+    def update_item(self, product_id, count):
+        if count < 0:
+            return
+        if count == 0:
+            return self.remove_item(product_id)
+        product = self._get_db_product(product_id)
+        if product:
+            try:
+                cart_product = CartProducts.objects.get(cart=self._cart, product=product)
+            except CartProducts.DoesNotExist as e:
+                logger.error(e)
+            else:
+                cart_product.count = count
+                cart_product.save()
+
+
+class AncoraCart(BaseCart):
+    def __init__(self, cart, api):
+        self._api = api
+        super(AncoraCart, self).__init__(cart)
+
+    def id(self):
+        return self._cart
+
+    def items(self):
+        cart_items = self._api.cart.list_cart(self.id())
+        items = []
+        for cart_item in cart_items:
+            product_id = cart_item['product_id']
+            db_product = self._get_db_product(product_id)
+            product_dict = {'id': product_id,
+                            'name': db_product.get_best_name(),
+                            'images': db_product.images()}
+            item = {'product': product_dict,
+                    'count': cart_item['quantity']}
+            items.append(item)
+        return items
+
+    def price(self, items=None):
+        cart_price = self._api.cart.get_cart_price(self.id())
+        return cart_price['products_price']
+
+    def delivery_price(self, delivery=False, payment='cash'):
+        cart_price = self._api.cart.get_cart_price(self.id(), delivery, payment)
+        return cart_price['delivery_price']
+
+    def add_item(self, product_id):
+        return self._api.cart.add_product(self.id(), product_id)
+
+    def remove_item(self, product_id):
+        return self._api.cart.remove_product(self.id(), product_id)
+
+    def update_item(self, product_id, count):
+        if count < 0:
+            return
+        if count == 0:
+            return self.remove_item(product_id)
+        return self._api.cart.update_product(self.id(), product_id, count)
 
 
 class Dropbox(models.Model):

@@ -1,6 +1,6 @@
+import django.conf.global_settings as DEFAULT_SETTINGS
+from os import path, environ
 import sys
-import os
-import imp
 
 # Django settings for atexpc project.
 
@@ -25,20 +25,38 @@ DATABASES = {
     # XXX: overridden by environment specific file in "config" directory
 }
 
-PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+PROJECT_ROOT = path.dirname(path.realpath(__file__))
 
-ANCORA_URI = os.environ.get('ANCORA_URI')
+ANCORA_URI = environ.get('ANCORA_URI')
 
-DROPBOX_APP_KEY = os.environ.get('DROPBOX_APP_KEY')
-DROPBOX_APP_SECRET = os.environ.get('DROPBOX_APP_SECRET')
-DROPBOX_ACCESS_TYPE = os.environ.get('DROPBOX_ACCESS_TYPE', 'dropbox')
-DROPBOX_ACCESS_TOKEN = os.environ.get('DROPBOX_ACCESS_TOKEN')
-DROPBOX_ACCESS_TOKEN_SECRET = os.environ.get('DROPBOX_ACCESS_TOKEN_SECRET')
+DROPBOX_APP_KEY = environ.get('DROPBOX_APP_KEY')
+DROPBOX_APP_SECRET = environ.get('DROPBOX_APP_SECRET')
+DROPBOX_ACCESS_TYPE = environ.get('DROPBOX_ACCESS_TYPE', 'dropbox')
+DROPBOX_ACCESS_TOKEN = environ.get('DROPBOX_ACCESS_TOKEN')
+DROPBOX_ACCESS_TOKEN_SECRET = environ.get('DROPBOX_ACCESS_TOKEN_SECRET')
 
-SHOPMANIA_FEED_FILE = 'shopmania.csv' # in media root
+AUTH_USER_MODEL = 'atex_web.CustomUser'
+INITIAL_CUSTOM_USER_MIGRATION = '0020_drop_customuser_username.py'
+
+SOCIAL_AUTH_USER_MODEL = 'atex_web.CustomUser'
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
+FACEBOOK_EXTENDED_PERMISSIONS = ['email']
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_auth.backends.pipeline.social.social_auth_user',
+    'social_auth.backends.pipeline.associate.associate_by_email',
+    'social_auth.backends.pipeline.user.get_username',
+    'social_auth.backends.pipeline.user.create_user',
+    'social_auth.backends.pipeline.social.associate_user',
+    'social_auth.backends.pipeline.social.load_extra_data',
+    'social_auth.backends.pipeline.user.update_user_details'
+)
+
+SHOPMANIA_FEED_FILE = 'shopmania.csv'   # in media root
 
 if 'test' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+
 
 CACHES = {
     'default': {
@@ -46,6 +64,22 @@ CACHES = {
         'TIMEOUT': 300,
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.google.GoogleOAuth2Backend',
+    'social_auth.backends.yahoo.YahooBackend',
+    'social_auth.backends.facebook.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_ERROR_URL = '/login'
+
+GOOGLE_OAUTH2_CLIENT_ID = environ.get('GOOGLE_OAUTH2_CLIENT_ID')
+GOOGLE_OAUTH2_CLIENT_SECRET = environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
+FACEBOOK_APP_ID = environ.get('FACEBOOK_APP_ID')
+FACEBOOK_API_SECRET = environ.get('FACEBOOK_API_SECRET')
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -58,7 +92,7 @@ TIME_ZONE = 'Europe/Bucharest'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ro'
 
 SITE_ID = 1
 
@@ -86,7 +120,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'atex_web', 'static/')
+STATIC_ROOT = path.join(PROJECT_ROOT, 'atex_web', 'static/')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -119,6 +153,11 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + ( 
+    'django.core.context_processors.request',
+    'social_auth.context_processors.social_auth_login_redirect',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -129,6 +168,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    'social_auth.middleware.SocialAuthExceptionMiddleware',
 )
 
 ROOT_URLCONF = 'atexpc.urls'
@@ -140,7 +180,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_ROOT, 'templates'),
+    path.join(PROJECT_ROOT, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -156,9 +196,12 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     
     'django.contrib.redirects',
+    'localflavor',
     'compressor',
     'south',
     'sorl.thumbnail',
+    'social_auth',
+    'password_reset',
     'atexpc.atex_web',
 )
 
@@ -202,7 +245,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers':['null'],
+            'handlers':['console'],
             'propagate': True,
             'level':'INFO',
         },
@@ -222,6 +265,6 @@ LOGGING = {
     }
 }
 
-if os.environ.get('DJANGO_SETTINGS_MODULE').endswith('settings'):
+if environ.get('DJANGO_SETTINGS_MODULE').endswith('settings'):
     raise Exception("DJANGO_SETTINGS_MODULE must be set to environment specific value, "
                     "e.g. 'atexpc.config.production'")

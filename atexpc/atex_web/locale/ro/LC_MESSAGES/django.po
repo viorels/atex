@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: django-localflavor\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-29 11:44+0200\n"
+"PO-Revision-Date: 2013-06-18 08:25+0000\n"
+"Last-Translator: Jannis Leidel <jannis@leidel.info>\n"
+"Language-Team: Romanian (http://www.transifex.com/projects/p/django/language/"
+"ro/)\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+#: ro/forms.py:23
+msgid "Enter a valid CIF."
+msgstr "Introduceți un CIF corect"
+
+#: ro/forms.py:61
+msgid "Enter a valid CNP."
+msgstr "Introduceți un CNP corect"
+
+#: ro/forms.py:151
+msgid "Enter a valid IBAN in ROXX-XXXX-XXXX-XXXX-XXXX-XXXX format"
+msgstr "Introduceți un IBAN corect în formatul ROXX-XXXX-XXXX-XXXX-XXXX-XXXX"
+
+#: ro/forms.py:184
+msgid "Phone numbers must be in XXXX-XXXXXX format."
+msgstr "Introduceți un număr de telefon din 10 cifre"
+
+#: ro/forms.py:210
+msgid "Enter a valid postal code in the format XXXXXX"
+msgstr "Introduceți un cod poștal valabil în formatul XXXXXX."
+
+# Django auth
+
+#: forms.py:151
+#, python-format
+msgid ""
+"Please enter a correct %(username)s and password. Note that both fields may "
+"be case-sensitive."
+msgstr "Vă rugăm indroduceți un %(username)s corect și parola."
+
+#: models.py:385
+msgid "email address"
+msgstr "email"
+
+#: authentication.py:23
+msgid "Sign up"
+msgstr "Înregistrare"
+
+msgid "Log out"
+msgstr "Deconectare"
+
+# Reset password
+msgid "We've emailed you instructions for setting your password. You should be receiving them shortly."
+msgstr "V-am trimis un email cu instrucțiuni pentru resetarea parolei. Ar trebui să-l primiți în curând."
+
+msgid "If you don't receive an email, please make sure you've entered the address you registered with, and check your spam folder."
+msgstr "Daca nu primiti un email, va rugam sa va asigurati ca ati introdus adresa de email cu care v-ati inregistrat si sa verificati folderul de spam."
+
+msgid "Sorry, this user doesn't exist."
+msgstr "Îmi pare rău dar nu găsesc contul cu această adresă de email"
+
+msgid "New password (confirm)"
+msgstr "Parolă nouă (confirmă)"
+
+msgid "Your password has been set and you are logged in. You may go ahead and browse the site."
+msgstr "Parola dumneavoastră a fost stabilită și ați fost autentificat. Acum puteți continua cumpărăturile."
+
+msgid "Password recovery on"
+msgstr "Resetare parola pentru"
+
+msgid "You're receiving this email because you requested a password reset for your user account at"
+msgstr "Ati primit acest email pentru ca ati cerut sa resetati parola pentru contul dumneavoastra"

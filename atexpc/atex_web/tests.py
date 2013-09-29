@@ -1,16 +1,14 @@
 """
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
+run "manage.py test --settings=atexpc.config.test atex_web".
 """
 
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
+from django.contrib.sessions.backends.db import SessionStore
 from mock import patch
 
-from models import Product, ProductManager
+from models import Product, ProductManager, DatabaseCart
 from ancora_api import AncoraAPI
 import views
 
@@ -75,3 +73,74 @@ class AncoraTest(TestCase):
     def test_categories(self):
         ancora = AncoraAPI()
         self.assertTrue(len(ancora.categories.get_all()) > 0)
+
+
+class DatabaseCartTest(TestCase):
+    def setUp(self):
+        session = SessionStore()
+        session.save()
+        self.cart = DatabaseCart.create(session_id=session.session_key)
+
+    def _create_product(self, name):
+        product = Product.objects.create(name=name, model=name[-10:])
+        product.save()
+        return product
+
+    def test_add_product_increases_count(self):
+        p = self._create_product("Test product 1")
+        self.cart.add_item(p.id)
+        self.assertEqual(self.cart.count(), 1)
+
+    def test_add_delete_product_keeps_count_0(self):
+        p = self._create_product("Test product 1")
+        self.cart.add_item(p.id)
+        self.cart.remove_item(p.id)
+        self.assertEqual(self.cart.count(), 0)
+
+    def test_add_2_delete_1_results_count_1(self):
+        p1 = self._create_product("Test product 1")
+        self.cart.add_item(p1.id)
+        p2 = self._create_product("Test product 2")
+        self.cart.add_item(p2.id)
+        self.cart.remove_item(p1.id)
+        self.assertEqual(self.cart.count(), 1)
+
+    def test_add_product_twice_results_count_2_and_total_count_1(self):
+        p = self._create_product("Test product 1")
+        self.cart.add_item(p.id)
+        self.cart.add_item(p.id)
+        self.assertEqual(self.cart.count(), 1)
+        self.assertEqual(self.cart.items()[0]['count'], 2)
+
+    def test_add_product_update_count(self):
+        p = self._create_product("Test product 1")
+        self.cart.add_item(p.id)
+        self.cart.update_item(p.id, 3)
+        self.assertEqual(self.cart.count(), 1)
+        self.assertEqual(self.cart.items()[0]['count'], 3)
+
+    def test_add_product_returns_product(self):
+        p = self._create_product("Test product 1")
+        added = self.cart.add_item(p.id)
+        self.assertTrue(added is not None and added.id == p.id)
+
+    def test_remove_product_returns_product(self):
+        p = self._create_product("Test product 1")
+        self.cart.add_item(p.id)
+        removed = self.cart.remove_item(p.id)
+        self.assertTrue(removed is not None and removed.id == p.id)
+
+    def test_remove_product_not_in_cart_returns_none(self):
+        p = self._create_product("Test product 1")
+        removed = self.cart.remove_item(p.id)
+        self.assertTrue(removed is None) 
+
+    inexistent_id = 100
+
+    def test_add_inexistent_product_returns_none(self):
+        added = self.cart.add_item(self.inexistent_id)
+        self.assertTrue(added is None)
+
+    def test_remove_inexistent_product_returns_none(self):
+        removed = self.cart.remove_item(self.inexistent_id)
+        self.assertTrue(removed is None)

@@ -4,7 +4,7 @@ from optparse import make_option
 
 from django.core.management.base import BaseCommand
 from django.core.urlresolvers import reverse
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 from django.contrib.sites.models import get_current_site
 from django.conf import settings
 from atexpc.atex_web.models import Product
