@@ -52,9 +52,11 @@
             <div class="social">
             	<ul>
                 	<li>Ne gasiti si pe:</li>
-                	<li><a href="https://www.facebook.com/pages/ATEX-Computer-SRL/134752229926145"><img src="{{ STATIC_PREFIX }}images/facebook-icon.png" height="22" width="22" alt="Facebook icon" title="Find us on Facebook" /></a></li>
-                    <li><a href="https://twitter.com/ATEXPC"><img src="{{ STATIC_PREFIX }}images/twitter-icon.png" height="22" width="22" alt="Twitter icon" title="Follow us on Twitter" /></a></li>
-                    <li><a href="#"><img src="{{ STATIC_PREFIX }}images/google-icon.png" height="22" width="22" alt="Google icon" title="Google" /></a></li>
+                	<li><a href="https://www.facebook.com/pages/ATEX-Computer-SRL/134752229926145" target="_new"><img src="{{ STATIC_PREFIX }}images/facebook-icon.png" height="22" width="22" alt="Facebook icon" title="Find us on Facebook" /></a></li>
+                    <li><a href="https://twitter.com/ATEXPC" target="_new"><img src="{{ STATIC_PREFIX }}images/twitter-icon.png" height="22" width="22" alt="Twitter icon" title="Follow us on Twitter" /></a></li>
+                    <li><a href="http://atexpc.wordpress.com/" target="_new"><img src="{{ STATIC_PREFIX }}images/wp-blog-icon.png" height="22" width="52" alt="Wp blog icon" title="Blog Wordpress" /></a></li>
+			<!--<li><a href="#" target="_new"><img src="{{ STATIC_PREFIX }}images/google-icon.png" height="22" width="22" alt="Google icon" title="Google" /></a></li>-->
+
                 </ul>
             </div>
             <div class="info_cos">
@@ -121,9 +123,9 @@
                 <div class="newsletter">
                 	<label for="news_email" >Abonare newsletter</label>
                     <div class="email-wrapper">
-                        <form method="GET" action="">
-                            <input class="news_email" type="text" id="news_email" placeholder="email ..." />
-                            <input class="email_btn" type="button" />
+                        <form method="post" action="http://atexpc.us5.list-manage.com/subscribe/post?u=d089f977785291a701d86d885&amp;id=6c95d504f0" target="_blank" />
+                            <input class="news_email" type="text" id="news_email" name="EMAIL" placeholder="email ..." />
+                            <input class="email_btn" type="submit" value="" name="subscribe" />
                         </form>
                     </div>    
                 </div>
@@ -136,12 +138,12 @@
 		  {% block banner_right %}
                  <div class="logo-producatori">
                 	<ul>
-                    	<li><div class="middle"><a class="img-holder" href="#"><img class="center" src="{{ STATIC_PREFIX }}images/gigabyte-partner-small.png" width="89" height="70" alt="gigabyte logo" title="gigabyte"/></a></div></li>
+                    	<li><div class="middle"><a class="img-holder" href="/cauta/?filtre=Gigabyte"><img class="center" src="{{ STATIC_PREFIX }}images/gigabyte-partner-small.png" width="89" height="70" alt="Gigabyte logo" title="Gigabyte"/></a></div></li>
                         <li><div class="middle"><a href="/cauta/?categorie=501&filtre=Kaspersky"><img src="{{ STATIC_PREFIX }}images/kaspersky-partner.png" width="200" height="59" alt="Kaspersky logo" title="Kaspersky"/></a></div></li>
-                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/intel-partner-small.png" width="77" height="70" alt="Intel Technology Partner logo" title="Intel Technology Partner"/></a></div></li>
-                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/hp-icon.jpg" width="106" height="70" alt="hp logo" title="hp"/></a></div></li>
-                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/dell_partner.png" width="177" height="70" alt="Dell Partner" title="Dell"/></a></div></li>
-                        <li><div class="middle"><a href="#"><img src="{{ STATIC_PREFIX }}images/samsung-icon.jpg" width="184" height="70" alt="samsung logo" title="samsung"/></a></div></li>
+                        <li><div class="middle"><a href="/cauta/?filtre=Intel"><img src="{{ STATIC_PREFIX }}images/intel-partner-small.png" width="77" height="70" alt="Intel Technology Partner logo" title="Intel Technology Partner"/></a></div></li>
+                        <li><div class="middle"><a href="/cauta/?filtre=Hp"><img src="{{ STATIC_PREFIX }}images/hp-icon.jpg" width="106" height="70" alt="hp logo" title="hp"/></a></div></li>
+                        <li><div class="middle"><a href="/cauta/?filtre=Dell"><img src="{{ STATIC_PREFIX }}images/dell_partner.png" width="177" height="70" alt="Dell Partner" title="Dell"/></a></div></li>
+                        <li><div class="middle"><a href="/cauta/?filtre=Lenovo"><img src="{{ STATIC_PREFIX }}images/lenovo.png" width="70" height="70" alt="Lenovo logo" title="Lenovo"/></a></div></li>
                     </ul>
                   </div>
                  {% endblock banner_right %} 

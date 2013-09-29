@@ -480,7 +480,7 @@ li .price_selector span {
 .left_col {
 	width:250px;
 	float:left;
-	padding-bottom:30px;
+	padding-bottom:15px;
 	position:relative;
 }
 .menu-closed {
@@ -1513,6 +1513,8 @@ p.info a:hover, p.info a:active {
 	float:left;
 	width: 535px;
 	height: 450px;
+	overflow:hidden;
+	background:#fff;
 }
 
 /* ********************** COS  ************************************** */
