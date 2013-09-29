@@ -46,7 +46,7 @@ class LoginBase(FormView, HybridGenericView):
     def form_invalid(self, form):
         logger.info('Login invalid %s', self.login_type)
         if self.login_type == 'nopassword':
-            email = form.cleaned_data['username']
+            email = form.cleaned_data.get('username')
             logger.info('Reset password for %s', email)
             return RecoverPasswordView.as_view()(self.request)
 
@@ -91,6 +91,16 @@ class RecoverPasswordView(Recover, BaseView):
         kwargs['data']['username_or_email'] = kwargs['data'].get('username')
         return kwargs
 
+    def get_context_data(self, **kwargs):
+        context = super(RecoverPasswordView, self).get_context_data(**kwargs)
+        
+        context['reset_form'] = context['form']
+
+        signup_form = user_form_factory(is_signup=True, api=self.api)
+        context['signup_form'] = signup_form(data=self.request.POST or None)
+        context['form'] = signup_form()
+        
+        return context
 
 class RecoverPasswordDoneView(RecoverDone, BaseView):
     template_name = 'password/reset_sent.html'

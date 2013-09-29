@@ -65,3 +65,8 @@ msgstr "V-am trimis un email cu instrucțiuni pentru resetarea parolei. Ar trebu
 msgid "If you don't receive an email, please make sure you've entered the address you registered with, and check your spam folder."
 msgstr "Daca nu primiti un email, va rugam sa va asigurati ca ati introdus adresa de email cu care v-ati inregistrat si sa verificati si folderul de spam."
 
+msgid "Sorry, this user doesn't exist."
+msgstr "Îmi pare rău dar nu găsesc contul cu această adresă de email"
+
+msgid "New password (confirm)"
+msgstr "Parolă nouă (confirmă)"
