@@ -6,7 +6,7 @@
 
 {% if not invalid %}
 
-<p>{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
+<p style="font-size: large">{% trans "Please enter your new password twice so we can verify you typed it in correctly." %}</p>
 
 <form action="" method="post">{% csrf_token %}
 {{ form.as_p }}
@@ -15,7 +15,7 @@
 
 {% else %}
 
-<p>{% trans "The password reset link was invalid, possibly because it has already been used.  Please request a new password reset." %}</p>
+<p style="font-size: large">{% trans "The password reset link was invalid, possibly because it has already been used.  Please request a new password reset." %}</p>
 
 {% endif %}
 

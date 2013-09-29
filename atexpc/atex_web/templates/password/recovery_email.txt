@@ -1,6 +1,5 @@
 {% load i18n %}{% autoescape off %}
-{% blocktrans %}You're receiving this email because you requested a password reset for your user account at {{ site_name }}.{% endblocktrans %}
-
+{% blocktrans %}You're receiving this email because you requested a password reset for your user account at{% endblocktrans %} {{ site }}.
 {% trans "Please go to the following page and choose a new password:" %}
 {% block reset_link %}
 http{% if secure %}s{% endif %}://{{ site.domain }}{% url "password_reset_reset" token %}
@@ -8,7 +7,5 @@ http{% if secure %}s{% endif %}://{{ site.domain }}{% url "password_reset_reset"
 {% trans "Your username, in case you've forgotten:" %} {{ user.get_username }}
 
 {% trans "Thanks for using our site!" %}
-
-{% blocktrans %}The {{ site_name }} team{% endblocktrans %}
 
 {% endautoescape %}

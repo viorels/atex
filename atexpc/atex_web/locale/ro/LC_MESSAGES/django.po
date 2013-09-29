@@ -63,10 +63,19 @@ msgid "We've emailed you instructions for setting your password. You should be r
 msgstr "V-am trimis un email cu instrucțiuni pentru resetarea parolei. Ar trebui să-l primiți în curând."
 
 msgid "If you don't receive an email, please make sure you've entered the address you registered with, and check your spam folder."
-msgstr "Daca nu primiti un email, va rugam sa va asigurati ca ati introdus adresa de email cu care v-ati inregistrat si sa verificati si folderul de spam."
+msgstr "Daca nu primiti un email, va rugam sa va asigurati ca ati introdus adresa de email cu care v-ati inregistrat si sa verificati folderul de spam."
 
 msgid "Sorry, this user doesn't exist."
 msgstr "Îmi pare rău dar nu găsesc contul cu această adresă de email"
 
 msgid "New password (confirm)"
 msgstr "Parolă nouă (confirmă)"
+
+msgid "Your password has been set and you are logged in. You may go ahead and browse the site."
+msgstr "Parola dumneavoastră a fost stabilită și ați fost autentificat. Acum puteți continua cumpărăturile."
+
+msgid "Password recovery on"
+msgstr "Resetare parola pentru"
+
+msgid "You're receiving this email because you requested a password reset for your user account at"
+msgstr "Ati primit acest email pentru ca ati cerut sa resetati parola pentru contul dumneavoastra"

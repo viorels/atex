@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.auth import get_user_model, login, REDIRECT_FIELD_NAME
+from django.contrib.auth import get_user_model, login, authenticate, REDIRECT_FIELD_NAME
 from django.contrib.auth.signals import user_logged_out
 from django.core.urlresolvers import reverse_lazy
 from django.dispatch import receiver
@@ -82,6 +82,7 @@ class GetEmails(JSONResponseMixin, ListView):
 
 class RecoverPasswordView(Recover, BaseView):
     template_name = LoginBase.template_name     # 'password_reset/recovery_form.html'
+    email_subject_template_name = 'password/recovery_email_subject.txt'
     email_template_name = 'password/recovery_email.txt'
     search_fields = ['email']
 
@@ -118,6 +119,13 @@ class ResetPasswordView(Reset, BaseView):
             context['form'] = self.get_form(self.get_form_class())
 
         return context
+
+    def form_valid(self, form):
+        form.user = authenticate(email=form.user.email, password=form.cleaned_data['password1'])
+        if form.user is not None:
+            login(self.request, form.user)
+            logger.info('Login %s', self.request.user.email)
+        return super(ResetPasswordView, self).form_valid(form)
 
 class ResetPasswordDoneView(ResetDone, BaseView):
     template_name = 'password/recovery_done.html'
