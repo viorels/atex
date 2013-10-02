@@ -11,6 +11,7 @@ PREPEND_WWW = True
 ALLOWED_HOSTS = [
     '.atexpc.ro',
     '.atexcomputer.ro',
+    '.atexsolutions.ro',
 ]
 
 MIDDLEWARE_CLASSES += (
