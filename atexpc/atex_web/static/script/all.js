@@ -255,7 +255,6 @@ function init_cart() {
     }
 
     $("input.cart_count").change(function () {
-        console.log($(this).val());
         if ($(this).val() === "0") {
             remove_row_containing($(this));
         }
@@ -316,7 +315,6 @@ function on_cart_update(cart) {
             product_id = item.product.id;
 
             quantity_input = $('input.cart_count[name="product_' + product_id + '_count"]');
-            console.log(quantity_input);
             quantity_input.val(item.count);
 
             quantity_price_li = $('#product_' + product_id).find('li.quantity_price');
@@ -347,7 +345,6 @@ function email_username(partial_email) {
 }
 
 function search_customer(partial_email, is_final) {
-    console.debug("searching " + partial_email);
     email_exists = null;
     username = email_username(partial_email);
     if (_.isString(username)) {
@@ -371,11 +368,9 @@ function search_customer(partial_email, is_final) {
         email_exists = null;
     }
     predict_login_form(email_exists, is_final);
-    console.debug("searching " + partial_email + " ... " + email_exists);
 }
 
 function predict_login_form(email_exists, is_final) {
-    console.debug("email_exists %s, is_final %s", email_exists, is_final);
     var login_form = $("#loginform");
 
     var login_type = null;
@@ -429,7 +424,6 @@ function init_login() {
     var login_type_input = login_form.find('input[name="login_type"]');
     login_type_input.change(function () {
         var login_type = login_type_input.filter(':checked').val();
-        console.log("login_type %s", login_type);
         update_login_form(login_type);
     }).change();
 
