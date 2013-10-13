@@ -240,6 +240,12 @@ function init_cart() {
         return false;
     });
 
+    $('div.product_holder').mouseenter(function() {
+        $(this).find('a.add_cos_btn_small').show()
+    }).mouseleave(function() {
+        $(this).find('a.add_cos_btn_small').hide()
+    });
+
     cart_form = $("#cart_form");
     if (!cart_form.length) return;
 
