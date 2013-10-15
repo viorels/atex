@@ -4,7 +4,7 @@ from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import RedirectView
 from views import (HomeView, SearchView, ProductView, BrandsView,
-                   ContactView, ConditionsView, ServiceView,
+                   ContactView, ConditionsView, ServiceView, ContestView,
                    CartView, OrderView, ConfirmView, LoginView,
                    RecoverPassword, RecoverPasswordDone, ResetPassword, ResetPasswordDone)
 from views.authentication import GetEmails
@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^contact/', ContactView.as_view(), name='contact'),
     url(r'^conditii/', ConditionsView.as_view(), name='conditions'),
     url(r'^service/', ServiceView.as_view(), name='service'),
+    url(r'^concurs/', ContestView.as_view(), name='contest'),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^login/emails/(?P<username>\w+)$', GetEmails.as_view()),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
