@@ -60,6 +60,8 @@ class ContestView(CommonMixins, BaseView):
     template_name = "contest.html"
     breadcrumbs = [{'name': "Concurs"}]
 
+class BlackFridaySoon(CommonMixins, BaseView):
+    template_name = "blackfriday-soon.html"
+
 class BlackFriday(CommonMixins, BaseView):
     template_name = "blackfriday.html"
-    breadcrumbs = [{'name': "Black Friday"}]
