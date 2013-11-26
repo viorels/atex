@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+{% block title %}{{ block.super }} - Concurs{% endblock title %}
+
+{% block content_top %}
+{% endblock content_top %}
+
+{% block content %}
+<img src="{{ STATIC_PREFIX }}images/PENDING.jpg" width="1140" />
+{% endblock content %}
