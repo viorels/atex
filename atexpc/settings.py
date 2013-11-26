@@ -65,6 +65,8 @@ CACHES = {
     }
 }
 
+CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
+
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.google.GoogleOAuth2Backend',
     'social_auth.backends.yahoo.YahooBackend',
@@ -159,6 +161,7 @@ TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -169,6 +172,7 @@ MIDDLEWARE_CLASSES = (
     
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'social_auth.middleware.SocialAuthExceptionMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',     # must be after auth sets Vary header
 )
 
 ROOT_URLCONF = 'atexpc.urls'
