@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 from django.conf.urls.static import static
 from django.conf import settings
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import RedirectView
 from views import (HomeView, SearchView, ProductView, BrandsView,
@@ -45,6 +46,7 @@ urlpatterns = patterns('',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),
     # TODO: remove ledacy redirect sm.ashx to MEDIA_URL + SHOPMANIA_FEED_FILE
     url(r'^sm.ashx$', RedirectView.as_view(url='/media/shopmania.csv')),
+    url(r'^mu-1234-cafe-5678-babe$', lambda r: HttpResponse("42")), # blitz.io
 )
 
 if settings.DEBUG:
