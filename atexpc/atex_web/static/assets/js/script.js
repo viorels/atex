@@ -16,7 +16,9 @@ $(function(){
 				// ts = (new Date()).getTime() + 1*1000;
 				blackFriday = true;
 
-				window.location.href = '/blackfriday';
+				setTimeout(function(){
+					window.location.href = '/blackfriday';
+				}, 1000);
 			}
 
 //			console.log('tick ' + blackFriday);			

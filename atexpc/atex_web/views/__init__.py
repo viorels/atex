@@ -5,6 +5,8 @@ from products import (HomeBase, SearchBase, ProductBase, BrandsBase,
 from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
 from base import BaseView, BreadcrumbsMixin, ErrorBase
 
+from django.shortcuts import redirect
+
 # *Base classes (e.g. HomeView must be last on inheritance list as
 # TemplateView.get_context_data breaks the cooperative multiple inheritance chain
 
@@ -65,3 +67,10 @@ class BlackFridaySoon(CommonMixins, BaseView):
 
 class BlackFriday(CommonMixins, BaseView):
     template_name = "blackfriday.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        black_friday = False
+        if not black_friday:
+            return redirect('/')
+        else:
+            return super(BlackFriday, self).dispatch(request, *args, **kwargs)
