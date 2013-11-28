@@ -30,10 +30,10 @@ $(function(){
 			message += seconds + " secunde" + ( seconds==1 ? '':'' ) + " <br />";
 			
 			if(blackFriday){
-				message += "pana la Black Friday!";
+				message += "a inceput Black Friday!";
 			}
 			else {
-				message += "a inceput Black Friday";
+				message += "pana la Black Friday";
 			}
 			
 			note.html(message);
