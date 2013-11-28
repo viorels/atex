@@ -6,6 +6,7 @@ from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
 from base import BaseView, BreadcrumbsMixin, ErrorBase
 
 from django.shortcuts import redirect
+from pytz import timezone
 
 # *Base classes (e.g. HomeView must be last on inheritance list as
 # TemplateView.get_context_data breaks the cooperative multiple inheritance chain
@@ -67,10 +68,16 @@ class BlackFridaySoon(CommonMixins, BaseView):
 
 class BlackFriday(CommonMixins, BaseView):
     template_name = "blackfriday.html"
+    blackfriday = datetime(2013, 11, 29, 10, 0, 0)
+
+    def is_black_friday(self):
+        cluj = timezone('Europe/Bucharest')
+        black_friday_cluj = cluj.localize(self.blackfriday)
+        now_cluj = cluj.normalize(datetime.now(tz=pytz.utc).astimezone(cluj))
+        return now_cluj > black_friday_cluj
 
     def dispatch(self, request, *args, **kwargs):
-        black_friday = False
-        if not black_friday:
+        if not is_black_friday():
             return redirect('/')
         else:
             return super(BlackFriday, self).dispatch(request, *args, **kwargs)
