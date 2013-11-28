@@ -46,7 +46,7 @@ urlpatterns = patterns('',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),
     # TODO: remove ledacy redirect sm.ashx to MEDIA_URL + SHOPMANIA_FEED_FILE
     url(r'^sm.ashx$', RedirectView.as_view(url='/media/shopmania.csv')),
-    url(r'^mu-1234-cafe-5678-babe$', lambda r: HttpResponse("42")), # blitz.io
+    url(r'^mu-57ecd7e2-71e9ba0b-ed0167ef-eabce26a$', lambda r: HttpResponse("42")), # blitz.io
 )
 
 if settings.DEBUG:
