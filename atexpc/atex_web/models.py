@@ -150,9 +150,8 @@ class Product(models.Model):
             hit.save()
 
     def get_best_name(self):
-        return self.name
-        # better_name = self.get_spec('Denumire')
-        # return better_name if better_name else self.name
+        better_name = self.get_spec('Denumire')
+        return better_name if better_name else self.name
 
     def get_spec(self, name):
         try:
