@@ -5,10 +5,6 @@ from products import (HomeBase, SearchBase, ProductBase, BrandsBase,
 from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
 from base import BaseView, BreadcrumbsMixin, ErrorBase
 
-from django.shortcuts import redirect
-from pytz import timezone, utc
-from datetime import datetime
-
 # *Base classes (e.g. HomeView must be last on inheritance list as
 # TemplateView.get_context_data breaks the cooperative multiple inheritance chain
 
@@ -64,21 +60,3 @@ class ContestView(CommonMixins, BaseView):
     template_name = "contest.html"
     breadcrumbs = [{'name': "Concurs"}]
 
-class BlackFridaySoon(CommonMixins, BaseView):
-    template_name = "blackfriday-soon.html"
-
-class BlackFriday(CommonMixins, BaseView):
-    template_name = "blackfriday.html"
-    blackfriday = datetime(2013, 11, 29, 10, 0, 0)
-
-    def is_black_friday(self):
-        cluj = timezone('Europe/Bucharest')
-        black_friday_cluj = cluj.localize(self.blackfriday)
-        now_cluj = cluj.normalize(datetime.now(tz=utc).astimezone(cluj))
-        return now_cluj > black_friday_cluj
-
-    def dispatch(self, request, *args, **kwargs):
-        if not self.is_black_friday():
-            return redirect('/')
-        else:
-            return super(BlackFriday, self).dispatch(request, *args, **kwargs)
