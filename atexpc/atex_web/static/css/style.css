@@ -188,7 +188,7 @@ position:relative;
 }
 .advertising_top {
 	float:left;
-	margin:20px 0 0 40px;
+	margin:20px 0 0 33px;
 }
 .advertising_top ul li {
 	margin-left:25px;
@@ -953,7 +953,7 @@ img.center {
 }
 .logo-producatori ul li {
 	float:left;
-	margin-left:5px;
+	margin-left:22px;
 }
 .logo-producatori ul li .middle {
 	height:100px;
@@ -2080,8 +2080,8 @@ td.center {text-align:center}
 .info-contact ul li.red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
 .info-contact ul li.orar-pad {padding-left:20px}
 .info-conditii ul .red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
-.statistics-info {float:left;}
-.statistics-info a {margin: 10px 10px 5px 0; float:left; height:35px;}
+.statistics-info {float:left; text-align: center; width: 250px; padding-top: 9px;}
+.statistics-info a {margin: 10px 5px 0; height:35px;}
 
 .brands ul {
 	width:207px;
