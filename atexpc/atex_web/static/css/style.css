@@ -65,8 +65,11 @@ html, body { height: 100%;  }
 .footer_wrapper, .push { height: 200px; }
 .wrapper {
 	border-top:5px solid #cd2325;
-	background:url(../images/bg_dark.png) repeat;
-	/*background-color:#3d97cb;*/
+	border-top: 5px solid #cd2325;
+background: url('/static/images/mos_craciun.png'), url('/static/images/bg_dark.png?2864e47cbaec');
+background-repeat: no-repeat, repeat;
+background-position: center top, center top;
+background-color: #6daece;
 }
 .page_wrapper {
 	width:1140px;
@@ -83,7 +86,7 @@ html, body { height: 100%;  }
 }
 .logo {
 	float:left;
-	margin-top:15px;
+	margin-top:25px;
 }
 .login_holder {
 	position:absolute;
@@ -188,7 +191,7 @@ position:relative;
 }
 .advertising_top {
 	float:left;
-	margin:20px 0 0 33px;
+	margin:40px 0 0 5px;
 }
 .advertising_top ul li {
 	margin-left:25px;
@@ -213,6 +216,7 @@ position:relative;
 .info_cos {
 	float:right;
 	margin-top:20px;
+	width:260px;
 }
 .wellcome {
 	width:100%;
