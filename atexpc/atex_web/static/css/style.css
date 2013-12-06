@@ -1290,6 +1290,11 @@ background-color:#c62123;
 	margin:10px;
 	float:left;
 }
+.descriere-html  table td {
+	vertical-align:middle;
+	border-spacing: 8px 2px;
+	padding: 6px;
+	}
 .specificatii-tehnice {
 	width:360px;
 	padding-right:15px;
