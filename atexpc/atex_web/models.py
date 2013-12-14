@@ -154,12 +154,16 @@ class Product(models.Model):
         better_name = self.get_spec('Denumire')
         return better_name if better_name else self.name
 
-    def get_spec(self, name):
+    def get_spec(self, name, group=None):
         try:
-            spec = Specification.objects.get(name=name)
-            prod_spec = ProductSpecification.objects.get(product=self, spec=spec)
+            # TODO: spec name may appear in more then one group, also filter after group
+            # prod_specs = ProductSpecification.objects.filter(product=self, spec__name=name, spec__group__name=group)
+            # for prod_spec in prod_specs:
+            #     spec_value = prod_spec.value
+
+            prod_spec = ProductSpecification.objects.get(product=self, spec__name=name)
             spec_value = prod_spec.value
-        except (Specification.DoesNotExist, ProductSpecification.DoesNotExist):
+        except ProductSpecification.DoesNotExist:
             spec_value = None
         return spec_value
 
@@ -538,11 +542,17 @@ class SpecificationGroup(models.Model):
     name = models.CharField(max_length=64)
 #    category_id = models.IntegerField()
 
+    def __unicode__(self):
+        return self.name
+
 
 class Specification(models.Model):
     name = models.CharField(max_length=64)
     group = models.ForeignKey(SpecificationGroup, null=True)
 #    category_id = models.IntegerField()
+
+    def __unicode__(self):
+        return self.name
 
 
 class ProductSpecification(models.Model):
