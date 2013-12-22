@@ -90,7 +90,7 @@ class CategoriesAPI(BaseAPI):
         """Returns the id of the top category that the argument belongs to"""
         category = self.get_category(category_id)
         parent_category_code = category['code'].split('.')[0]
-        return [c for c in self.get_all() if c['code'] == parent_category_code][0]['id']
+        return [c for c in self.get_all_categories() if c['code'] == parent_category_code][0]['id']
 
     def get_selectors(self, category_id, selectors_active, price_min, price_max, stock):
         if not hasattr(self, '_selectors'):
