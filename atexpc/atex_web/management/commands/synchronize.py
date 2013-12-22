@@ -14,7 +14,7 @@ from atexpc.atex_web.scrape import scrape_specs
 import logging
 logger = logging.getLogger(__name__)
 
-PRODUCT_DB_FIELDS = ('id', 'model', 'name')
+PRODUCT_DB_FIELDS = ('id', 'model', 'name', 'category_id')
 
 
 class Command(BaseCommand):
@@ -72,6 +72,8 @@ class Command(BaseCommand):
                     category_id=category_id, keywords=None,
                     start=None, stop=None).get('products')
                 products_dict = dict((int(p['id']), p) for p in products)
+                for p in products_dict.values():     # augment products with category_id
+                    p['category_id'] = category_id
                 yield products_dict
 
     def _model_product_dict(self, product):
