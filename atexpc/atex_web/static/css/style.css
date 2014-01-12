@@ -65,11 +65,8 @@ html, body { height: 100%;  }
 .footer_wrapper, .push { height: 200px; }
 .wrapper {
 	border-top:5px solid #cd2325;
-	border-top: 5px solid #cd2325;
-background: url('/static/images/mos_craciun.png'), url('/static/images/bg_dark.png?2864e47cbaec');
-background-repeat: no-repeat, repeat;
-background-position: center top, center top;
-background-color: #6daece;
+	background:url(../images/bg_dark.png) repeat;
+	/*background-color:#3d97cb;*/
 }
 .page_wrapper {
 	width:1140px;
@@ -86,7 +83,7 @@ background-color: #6daece;
 }
 .logo {
 	float:left;
-	margin-top:25px;
+	margin-top:15px;
 }
 .login_holder {
 	position:absolute;
@@ -191,7 +188,7 @@ position:relative;
 }
 .advertising_top {
 	float:left;
-	margin:40px 0 0 5px;
+	margin:20px 0 0 0px;
 }
 .advertising_top ul li {
 	margin-left:25px;
@@ -1289,12 +1286,14 @@ background-color:#c62123;
 	max-width:1060px;
 	margin:10px;
 	float:left;
-}
+	}
+	
 .descriere-html  table td {
 	vertical-align:middle;
 	border-spacing: 8px 2px;
 	padding: 6px;
 	}
+
 .specificatii-tehnice {
 	width:360px;
 	padding-right:15px;
@@ -1831,7 +1830,7 @@ ul.modalitate li {
 .login, .register { margin-right:3px;}
 .login-fields li{width:380px; float:left;}
 .login-fields .input_cos{width:285px !important}
-.login-fields input[type="radio"] {margin:4px 0 0 0;}
+.login-fields input[type=radio] {margin:4px 0 0 0;}
 .login-fields strong {font-size:14px;padding:20px 0 5px 0; float:left;}
 .login-fields .radio-btns label{margin-right:20px; margin-bottom:10px;float:left;}
 .buttons li {
@@ -1851,7 +1850,7 @@ ul.modalitate li {
 }
 .pas-02 .rand-cos .modalitate li {padding-right:40px;}
 .pas-02 .rand-cos .modalitate li.last { float:right; padding:5px 0 0 0;width:585px;}
-.pas-02 .rand-cos .modalitate li.last ul li label input[type="radio"]{margin:0 3px;}
+.pas-02 .rand-cos .modalitate li.last ul li label input[type=radio]{margin:0 3px;}
 .pas-02 .rand-cos .modalitate li.last .delivery_yes select.input_cos {width:586px; margin:10px 0;}
 .pas-02 .rand-cos .modalitate .row {padding-bottom:3px; float:left;position:relative;}
 .pas-02 .rand-cos .modalitate .row .col-cos{position:relative;}
