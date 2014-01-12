@@ -10,6 +10,7 @@ from atexpc.atex_web.dropbox_media import DropboxMedia
 MODEL_COL = 'Model'
 IGNORE_COLS = ['Cod producator']
 
+
 class Command(NoArgsCommand):
     def handle_noargs(self, *args, **options):
         api = AncoraAPI(api_timeout=300)  # 5 minutes

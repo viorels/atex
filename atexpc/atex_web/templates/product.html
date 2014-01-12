@@ -77,7 +77,7 @@
                             <div class="panel">
                                 <ul id="images" class="alte-imagini">
                                     {% for image in product.images %}
-                                    <li><a href="{{ image|thumbnail:"450x450" }}"><img src="{{ image|thumbnail:"100x100" }}" title="{{ product.name }}" /></a></li>
+                                    <li><a href="{{ image|thumbnail:"450x450" }}"><img src="{{ image|thumbnail:"100x100" }}" alt="{{ product.name }}" title="{{ product.name }}" /></a></li>
                                     {% endfor %}
                                 </ul>
                                 <div class="controls"><div id="controls"></div></div>

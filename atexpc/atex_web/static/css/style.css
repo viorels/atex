@@ -65,8 +65,11 @@ html, body { height: 100%;  }
 .footer_wrapper, .push { height: 200px; }
 .wrapper {
 	border-top:5px solid #cd2325;
-	background:url(../images/bg_dark.png) repeat;
-	/*background-color:#3d97cb;*/
+	border-top: 5px solid #cd2325;
+background: url('/static/images/mos_craciun.png'), url('/static/images/bg_dark.png?2864e47cbaec');
+background-repeat: no-repeat, repeat;
+background-position: center top, center top;
+background-color: #6daece;
 }
 .page_wrapper {
 	width:1140px;
@@ -83,7 +86,7 @@ html, body { height: 100%;  }
 }
 .logo {
 	float:left;
-	margin-top:15px;
+	margin-top:25px;
 }
 .login_holder {
 	position:absolute;
@@ -188,7 +191,7 @@ position:relative;
 }
 .advertising_top {
 	float:left;
-	margin:20px 0 0 40px;
+	margin:40px 0 0 5px;
 }
 .advertising_top ul li {
 	margin-left:25px;
@@ -213,6 +216,7 @@ position:relative;
 .info_cos {
 	float:right;
 	margin-top:20px;
+	width:260px;
 }
 .wellcome {
 	width:100%;
@@ -953,7 +957,7 @@ img.center {
 }
 .logo-producatori ul li {
 	float:left;
-	margin-left:5px;
+	margin-left:22px;
 }
 .logo-producatori ul li .middle {
 	height:100px;
@@ -1286,6 +1290,11 @@ background-color:#c62123;
 	margin:10px;
 	float:left;
 }
+.descriere-html  table td {
+	vertical-align:middle;
+	border-spacing: 8px 2px;
+	padding: 6px;
+	}
 .specificatii-tehnice {
 	width:360px;
 	padding-right:15px;
@@ -2080,8 +2089,8 @@ td.center {text-align:center}
 .info-contact ul li.red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
 .info-contact ul li.orar-pad {padding-left:20px}
 .info-conditii ul .red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
-.statistics-info {float:left;}
-.statistics-info a {margin: 10px 10px 5px 0; float:left; height:35px;}
+.statistics-info {float:left; text-align: center; width: 250px; padding-top: 9px;}
+.statistics-info a {margin: 10px 5px 0; height:35px;}
 
 .brands ul {
 	width:207px;
