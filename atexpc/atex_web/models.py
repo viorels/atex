@@ -22,6 +22,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=64)
+    code = models.CharField(max_length=8)
+    parent = models.ForeignKey('self', null=True)
+
+
 class ProductManager(models.Manager):
     def _build_folder_product_map(self):
         """ Builds a map from lowercase folder name (as found on Dropbox) to product id"""
@@ -540,7 +546,7 @@ class Dropbox(models.Model):
 
 class SpecificationGroup(models.Model):
     name = models.CharField(max_length=64)
-#    category_id = models.IntegerField()
+    category = models.ForeignKey(Category, null=True)
 
     def __unicode__(self):
         return self.name
@@ -549,7 +555,7 @@ class SpecificationGroup(models.Model):
 class Specification(models.Model):
     name = models.CharField(max_length=64)
     group = models.ForeignKey(SpecificationGroup, null=True)
-#    category_id = models.IntegerField()
+    category = models.ForeignKey(Category, null=True)
 
     def __unicode__(self):
         return self.name

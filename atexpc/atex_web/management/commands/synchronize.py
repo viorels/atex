@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from django.contrib.sites.models import get_current_site
 from django.conf import settings
-from atexpc.atex_web.models import Product
+from atexpc.atex_web.models import Product, Category
 from atexpc.atex_web.ancora_api import AncoraAPI
 from atexpc.atex_web.scrape import scrape_specs
 
@@ -59,6 +59,7 @@ class Command(BaseCommand):
 
     def synchronize(self, writers):
         self.api = AncoraAPI(api_timeout=300)  # 5 minutes
+        self.synchronize_categories()
         for products_dict in self.fetch_products():
             for writer in writers:
                 writer(products_dict)
@@ -86,6 +87,22 @@ class Command(BaseCommand):
         return model_dict
 
     # Database
+
+    def synchronize_categories(self):
+        for category in self.api.categories.get_all():
+            parent = self.api.categories.get_parent_category(category['id'])
+            parent_id = parent['id'] if parent is not None else None
+            try:
+                category_store = Category.objects.get(id=category['id'])
+                category_store.name = category['name']
+                category_store.code = category['code']
+                category_store.parent_id = parent_id
+                category_store.save()
+            except Category.DoesNotExist:
+                Category.objects.create(id=category['id'],
+                                        name=category['name'],
+                                        code=category['code'],
+                                        parent_id=parent_id)
 
     def create_or_update_products_with_status(self, products_status):
         def create_or_update_products(products):
