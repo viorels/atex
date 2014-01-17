@@ -107,7 +107,12 @@ class ProductsAPI(BaseAPI):
 
     def get_product(self, product_id):
         product = self._api.product(product_id)
-        product['category_id'] = self.categories.get_category_by_code(product['category_code'])['id']
+        category = self.categories.get_category_by_code(product['category_code'])
+        if category:
+	    product['category_id'] = category['id']
+        else:
+           # the product is invalid if the category code is unknown (e.g. XX)
+           return None
         return product
 
     def get_and_store(self, product_id, product_storer):
