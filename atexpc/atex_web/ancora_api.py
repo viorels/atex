@@ -106,7 +106,9 @@ class ProductsAPI(BaseAPI):
         self.categories = categories
 
     def get_product(self, product_id):
-        return self._api.product(product_id)
+        product = self._api.product(product_id)
+        product['category_id'] = self.categories.get_category_by_code(product['category_code'])['id']
+        return product
 
     def get_and_store(self, product_id, product_storer):
         """Fetch product from API and store it using the specified callable"""
