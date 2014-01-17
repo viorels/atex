@@ -6,33 +6,15 @@ from django.db import models
 
 from atexpc.atex_web.ancora_api import AncoraAPI
 
-
 class Migration(DataMigration):
 
     def forwards(self, orm):
         self.synchronize_categories(orm)
-        for spec in orm.Specification.objects.all():
-            if spec.product_set.count() > 0:
-                category_ids = [p.category_id for p in spec.product_set.distinct('category_id')]
-                last_category_id = category_ids.pop()
-                spec.category = orm.Category.objects.get(id=last_category_id)
-                spec.save()
-                for category_id in category_ids:
-                    spec_copy = orm.Specification(name=spec.name,
-                                                  group=spec.group,
-                                                  category_id=category_id)
-                    spec_copy.save()
-                    orm.ProductSpecification.objects \
-                                            .filter(spec=spec, 
-                                                    product__category_id=425) \
-                                            .update(spec=spec_copy)
-            else:
-                spec.delete()
-
-        for spec_group in orm.SpecificationGroup.objects.all():
-            category = spec_group.specification_set.first().category
-            spec_group.category = category
-            spec_group.save()
+	
+	# delete specifications
+	orm.ProductSpecification.objects.all().delete()
+	orm.Specification.objects.all().delete()
+	orm.SpecificationGroup.objects.all().delete()
 
     def synchronize_categories(self, orm):
         api = AncoraAPI(api_timeout=300)
@@ -78,7 +60,7 @@ class Migration(DataMigration):
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '75', 'db_index': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
+            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -87,7 +69,7 @@ class Migration(DataMigration):
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'phone': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"})
+            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
         },
         u'atex_web.dropbox': {
             'Meta': {'object_name': 'Dropbox'},
@@ -110,7 +92,7 @@ class Migration(DataMigration):
         },
         u'atex_web.product': {
             'Meta': {'object_name': 'Product'},
-            'category_id': ('django.db.models.fields.IntegerField', [], {}),
+            'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['atex_web.Category']", 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '128', 'db_index': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
