@@ -26,6 +26,13 @@ class Category(models.Model):
     name = models.CharField(max_length=64)
     code = models.CharField(max_length=8)
     parent = models.ForeignKey('self', null=True)
+    specs_file = models.FileField(upload_to='specs', null=True)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+    def __unicode__(self):
+        return self.name
 
 
 class ProductManager(models.Manager):
