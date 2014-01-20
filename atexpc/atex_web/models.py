@@ -565,7 +565,7 @@ class Specification(models.Model):
     category = models.ForeignKey(Category, null=True)
 
     def __unicode__(self):
-        return self.name
+        return self.name if self.group is None else "%s (%s)" % (self.name, self.group)
 
 
 class ProductSpecification(models.Model):

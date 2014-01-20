@@ -8,9 +8,9 @@ from django.contrib.redirects.models import Redirect
 from django import forms
 from django.utils.datastructures import SortedDict
 
-
 from models import Category, Product, Image, Hit
 from dropbox_media import DropboxMedia
+from specs_impex import import_specs
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'code')
@@ -28,9 +28,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         form.save()  # save file
-        print(obj.specs_file.path)
         if self.accepted_file(obj.specs_file):
-            pass
+            import_specs(obj.specs_file.path)
             #obj.answer = remote_upload(obj.specs_file.path)
             #obj.save()
         else:
