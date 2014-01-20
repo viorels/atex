@@ -1,11 +1,12 @@
 import math
+from collections import defaultdict
 
 from django.template import Context, Template
 from django.http import Http404
 from django.conf import settings
 
 from atexpc.atex_web.views.base import BaseView
-from atexpc.atex_web.models import Product
+from atexpc.atex_web.models import Product, ProductSpecification
 from atexpc.atex_web.forms import search_form_factory
 from atexpc.atex_web.utils import group_in, grouper
 
@@ -223,22 +224,31 @@ class ProductBase(BaseView):
     def get_product(self):
         if not hasattr(self, '_product'):
             product_id = self.kwargs['product_id']
-            product_obj = self.api.products.get_and_store(product_id, Product.objects.store)
-            if product_obj is None:
+            product_orm = self.api.products.get_and_store(product_id, Product.objects.store)
+            if product_orm is None:
                 raise Http404()
-            product = product_obj.raw
-            product['name'] = product_obj.get_best_name()
-            product['images'] = product_obj.images()
-            html_template = product_obj.html_description()
+            product = product_orm.raw
+            product['name'] = product_orm.get_best_name()
+            product['images'] = product_orm.images()
+            product['spec_groups'] = self.get_product_spec_groups(product_orm)
+            print product['spec_groups']
+
+            html_template = product_orm.html_description()
             if html_template:
-                product_prefix = settings.MEDIA_URL + product_obj.folder_path() + '/'
+                product_prefix = settings.MEDIA_URL + product_orm.folder_path() + '/'
                 context = Context({'PRODUCT_PREFIX': product_prefix})
                 product['html_description'] = Template(html_template).render(context)
 
-            product_obj.hit()
+            product_orm.hit()
 
             self._product = product
         return self._product
+
+    def get_product_spec_groups(self, product_orm):
+        spec_groups = defaultdict(list)
+        for spec in ProductSpecification.objects.filter(product=product_orm):
+            spec_groups[unicode(spec.spec.group)].append((spec.spec.name, spec.value))
+        return dict(spec_groups.items())
 
     def get_properties(self):
         items = sorted(self.get_product().get('properties', {}).items())
