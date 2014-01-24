@@ -1056,22 +1056,26 @@ ul.filtrare li span {
 	font-weight:bold;
 	line-height:14px;
 }
+
 .stoc_ok {
-	display:block;
-	font-weight:bold;
-	width:205px;
-	float:left;
-	font-size:14px;
-	color:#048507;
-	padding:5px 0;
+        color:#048507;
+}
+.stoc_comanda {
+        color:#C91234;
+}
+.stoc_indisponibil {
+        color:#D8F22C;
+	font-weight:normal !important;
 }
 .stoc {
 	display:block;
 	font-weight:bold;
+	font-size:14px;
 	width:205px;
 	float:left;
 	padding:5px 0;
 }
+
 .info_detalii {
 	width:205px;
 	float:left;
@@ -2128,4 +2132,5 @@ ul.service-bg {background: url('/static/images/service-bg.png?a768d25285c0') 510
 .bx-wrapper .bx-pager .bx-pager-item,.bx-wrapper .bx-controls-auto .bx-controls-auto-item {display: inline-block;*zoom: 1;*display: inline;}
 .bx-wrapper .bx-pager.bx-default-pager a {background: url(/static/images/bullet.png) center center no-repeat;text-indent: -9999px;display: block;width: 12px;height: 12px;margin: 0 4px;outline: 0;}
 .bx-wrapper .bx-pager.bx-default-pager a:hover,.bx-wrapper .bx-pager.bx-default-pager a.active {background-image: url(/static/images/active-bullet.png)}
+
 .bx-wrapper .bx-controls-direction {display:none;}

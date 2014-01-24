@@ -101,7 +101,17 @@
                                 </div>
                             </a>
                             <h2><a href="{{ product.url }}">{{ product.name }}</a></h2>
-                            <span class="stoc_ok">{{ product.stock_info }}</span>      
+			    {% if "stoc" in product.stock_info %}
+                              <span class="stoc stoc_ok">
+			    {% elif "comanda" in product.stock_info %}
+                              <span class="stoc stoc_comanda">
+			    {% elif "nu este disponibil" in product.stock_info %}
+                              <span class="stoc stoc_indisponibil">
+			    {% else %}
+                              <span class="stoc stock_ok">
+			    {% endif %}
+				{{ product.stock_info }}
+			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
                                 		<span class="pret_produs">{{ product.price }} lei</span>

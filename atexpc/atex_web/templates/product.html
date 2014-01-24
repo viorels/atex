@@ -34,7 +34,20 @@
                         <div class="product-info">
                             {% if product.available %}
                         	<ul class="info-termeni">
-                            	<li><strong><span class="green">{{ product.stock_info }}</span></strong></li>
+                            	<li><strong>
+
+			        {% if "stoc" in product.stock_info %}
+                                  <span class="stoc_ok">
+			        {% elif "comanda" in product.stock_info %}
+                                  <span class="stoc_comanda">
+			        {% elif "nu este disponibil" in product.stock_info %}
+                                  <span class="stoc_indisponibil">
+			        {% else %}
+                                  <span class="stock_ok">
+			        {% endif %}
+
+				  {{ product.stock_info }}
+				  </span></strong></li>
 					<li><strong>Garantie:</strong> {{ product.warranty }} luni</li>
                                	<li><strong>Termen livrare:</strong> 24h de la comanda ferma</li>                             
                                	<li><strong>Cod produs:</strong> {{ product.model}}</li>                             
