@@ -97,19 +97,28 @@
                         </div>
                         {{ product.html_description|safe }}
                         {% endif %}
-
+						<div class="product-section">
+                            <div class="tab_u_holder_left">
+                                <span class="up_left"></span>
+                                    <ul class="tab_up">
+                                        <li><span>detalii tehnice</span></li>                                
+                                    </ul>
+                                <span class="up_right"></span>
+                            </div>
                         {% for group, specs in product.spec_groups.items %}
-                            <strong>{{ group }}</strong>
-                            <ul>
+                            <h4 class="spec-title">{{ group }}</h4>
+                            <ul class="new-spec-list clear">
                                 {% for spec, value in specs %}
-                                <li>{{ spec }} = {{ value }}</li>
+                                <li class="spec-name">{{ spec }}</li>
+                                <li class="spec-value">{{ value }}</li>
                                 {% endfor %}
                             </ul>
                         {% endfor %}
-                        <hr>
+                        </div>
 
                         {% if properties %}
-                        <div {% if product.html_description %} class="product-section" {% endif %}>
+                        <!--<div {% if product.html_description %} class="product-section" {% endif %}>-->
+                        <div class="product-section">
                             <div class="tab_u_holder_left">
                                 <span class="up_left"></span>
                                     <ul class="tab_up">

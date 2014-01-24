@@ -2129,3 +2129,8 @@ ul.service-bg {background: url('/static/images/service-bg.png?a768d25285c0') 510
 .bx-wrapper .bx-pager.bx-default-pager a {background: url(/static/images/bullet.png) center center no-repeat;text-indent: -9999px;display: block;width: 12px;height: 12px;margin: 0 4px;outline: 0;}
 .bx-wrapper .bx-pager.bx-default-pager a:hover,.bx-wrapper .bx-pager.bx-default-pager a.active {background-image: url(/static/images/active-bullet.png)}
 .bx-wrapper .bx-controls-direction {display:none;}
+
+h4.spec-title {padding:5px; background-color:#eee;} 
+ul.new-spec-list li.spec-name {width:250px; float:left; margin-right:20px;}
+ul.new-spec-list li.spec-value {width:800px; float:left;}
+ul.new-spec-list li {padding:2px 5px;}
