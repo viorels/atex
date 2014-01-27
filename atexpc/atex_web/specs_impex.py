@@ -1,4 +1,5 @@
 from xlrd import open_workbook
+from collections import OrderedDict
 
 from ancora_api import AncoraAPI
 from models import Category, Product, Specification, ProductSpecification, SpecificationGroup
@@ -17,21 +18,22 @@ def import_specs(fname):
 
 def import_category_specs(sheet):
     """ Return specs['model']['spec_group|spec'] = value """
-    specs = {}
+    specs = []
     columns = worksheet_columns(sheet)
     model_column = [i for i, name in columns.items() if name.lower() == MODEL_COLUMN.lower()][0]
     for row in xrange(1, sheet.nrows):
         model = sheet.cell(row, model_column).value
-        model_specs = {name: sheet.cell(row, i).value for i, name in columns.items()
-                                                if i != model_column}
-        specs[model] = model_specs
+        model_specs = OrderedDict((name, sheet.cell(row, i).value)
+                                  for i, name in columns.items()
+                                  if i != model_column)
+        specs.append((model, model_specs))
     return specs
 
 def update_db_specs(category_id, product_specs):
     # TODO: cache spec_group and used NamedTouple instead of dictionary
     category = Category.objects.get(pk=category_id)
     clear_db_specs(category)
-    for model, specs in product_specs.items():
+    for model, specs in product_specs:
         product_orm = Product.objects.filter(model=model)
         if product_orm.exists():
             product_orm = product_orm[0]

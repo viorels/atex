@@ -169,11 +169,13 @@ class Product(models.Model):
         return better_name if better_name else self.name
 
     def get_spec_groups(self):
-        spec_groups = defaultdict(list)
+        spec_groups_orm = SpecificationGroup.objects.filter(category=self.category)
+        spec_groups = SortedDict((spec_group.name, [])
+                                 for spec_group in spec_groups_orm)
         for spec in ProductSpecification.objects.filter(product=self):
             if spec.spec.group is not None:
                 spec_groups[spec.spec.group.name].append((spec.spec.name, spec.value))
-        return dict(spec_groups.items())
+        return spec_groups
 
     def get_spec(self, name, group=None):
         try:
