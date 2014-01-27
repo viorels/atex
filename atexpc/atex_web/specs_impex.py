@@ -3,6 +3,7 @@ from collections import OrderedDict
 
 from ancora_api import AncoraAPI
 from models import Category, Product, Specification, ProductSpecification, SpecificationGroup
+from django.db.utils import DataError
 
 IGNORED_COLUMNS = ('Duplicate',)
 MODEL_COLUMN = 'Model'
@@ -50,9 +51,12 @@ def update_db_specs(category_id, product_specs):
                                                                         group=spec_group_orm,
                                                                         defaults={'category': category})
                 print('Product %s: %s = %s' % (product_orm, spec_orm, value))
-                product_spec, created = ProductSpecification.objects.get_or_create(product=product_orm,
-                                                                                   spec=spec_orm,
-                                                                                   value=value)
+                try:
+                    product_spec, created = ProductSpecification.objects.get_or_create(product=product_orm,
+                                                                                       spec=spec_orm,
+                                                                                       value=value)
+                except DataError as e:
+                    print '*** ERROR: %s' % e
                 if not created:
                     pass    # update ?
 
