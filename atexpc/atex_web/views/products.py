@@ -1,5 +1,4 @@
 import math
-from collections import defaultdict
 
 from django.template import Context, Template
 from django.http import Http404
@@ -230,7 +229,7 @@ class ProductBase(BaseView):
             product = product_orm.raw
             product['name'] = product_orm.get_best_name()
             product['images'] = product_orm.images()
-            product['spec_groups'] = self.get_product_spec_groups(product_orm)
+            product['spec_groups'] = product_orm.get_spec_groups()
             print product['spec_groups']
 
             html_template = product_orm.html_description()
@@ -243,12 +242,6 @@ class ProductBase(BaseView):
 
             self._product = product
         return self._product
-
-    def get_product_spec_groups(self, product_orm):
-        spec_groups = defaultdict(list)
-        for spec in ProductSpecification.objects.filter(product=product_orm):
-            spec_groups[unicode(spec.spec.group)].append((spec.spec.name, spec.value))
-        return dict(spec_groups.items())
 
     def get_properties(self):
         items = sorted(self.get_product().get('properties', {}).items())

@@ -1,6 +1,7 @@
 import os
 import re
 from datetime import datetime, timedelta
+from collections import defaultdict
 
 from django.conf import settings
 from django.contrib.sessions.models import Session
@@ -166,6 +167,12 @@ class Product(models.Model):
     def get_best_name(self):
         better_name = self.get_spec('Denumire')
         return better_name if better_name else self.name
+
+    def get_spec_groups(self):
+        spec_groups = defaultdict(list)
+        for spec in ProductSpecification.objects.filter(product=self):
+            spec_groups[unicode(spec.spec.group)].append((spec.spec.name, spec.value))
+        return dict(spec_groups.items())
 
     def get_spec(self, name, group=None):
         try:
