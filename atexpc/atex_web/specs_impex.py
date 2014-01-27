@@ -14,7 +14,6 @@ def import_specs(fname):
         print "Sheet %s: %s" % (category['name'], worksheet_columns(sheet).values())
         product_specs = import_category_specs(sheet)
         update_db_specs(category['id'], product_specs)
-        break
 
 def import_category_specs(sheet):
     """ Return specs['model']['spec_group|spec'] = value """
