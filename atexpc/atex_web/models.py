@@ -171,7 +171,8 @@ class Product(models.Model):
     def get_spec_groups(self):
         spec_groups = defaultdict(list)
         for spec in ProductSpecification.objects.filter(product=self):
-            spec_groups[unicode(spec.spec.group)].append((spec.spec.name, spec.value))
+            if spec.spec.group is not None:
+                spec_groups[spec.spec.group.name].append((spec.spec.name, spec.value))
         return dict(spec_groups.items())
 
     def get_spec(self, name, group=None):
