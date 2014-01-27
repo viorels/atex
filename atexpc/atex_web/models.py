@@ -175,6 +175,9 @@ class Product(models.Model):
         for spec in ProductSpecification.objects.filter(product=self):
             if spec.spec.group is not None:
                 spec_groups[spec.spec.group.name].append((spec.spec.name, spec.value))
+        for group, values in spec_groups.items():
+            if len(values) == 0:
+                del spec_groups[group]
         return spec_groups
 
     def get_spec(self, name, group=None):

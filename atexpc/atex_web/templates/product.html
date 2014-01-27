@@ -97,6 +97,8 @@
                         </div>
                         {{ product.html_description|safe }}
                         {% endif %}
+
+                        {% if product.spec_groups %}
 						<div class="product-section">
                             <div class="tab_u_holder_left">
                                 <span class="up_left"></span>
@@ -115,6 +117,7 @@
                             </ul>
                         {% endfor %}
                         </div>
+                        {% endif %}
 
                         {% if properties %}
                         <!--<div {% if product.html_description %} class="product-section" {% endif %}>-->
