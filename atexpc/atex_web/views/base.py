@@ -65,7 +65,8 @@ class BaseView(TemplateView):
                      '5': 'images/printer-icon.png',
                      '6': 'images/network-icon.png',
                      '7': 'images/cd-icon.png',
-                     '8': 'images/phone-icon.png'}
+                     '8': 'images/phone-icon.png',
+                     '9': 'images/conectica-icon.png'}
             return icons.get(category['code'], '')
 
         def category_background_class(category):

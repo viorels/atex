@@ -633,6 +633,10 @@ ul.menu li.menu-item a.menu-link:hover, ul.menu li.menu-item.active a.menu-link 
 .bg-08 {
 	background:url(../images/bg-08.jpg) #fcfcfc bottom right no-repeat;
 }
+.bg-09 {
+	background:url(../images/bg-09.jpg) #fcfcfc bottom right no-repeat;
+}
+
 ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	z-index:100;
 	left:250px;
