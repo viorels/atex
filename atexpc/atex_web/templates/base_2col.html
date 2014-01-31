@@ -13,7 +13,7 @@
             	<ul class="menu">
                     {% for category in menu %}
                 	<li class="menu-item{% if forloop.first %} first{% endif %}">
-                    	<a class="menu-link" href="{{ category.url|default:'#' }}"><span class="menu_icon"><img src="{{ STATIC_PREFIX }}{{ category.icon }}" height="22" width="24" alt="icon" /></span>{{ category.name }}</a>
+                    	<a class="menu-link" href="#"><span class="menu_icon"><img src="{{ STATIC_PREFIX }}{{ category.icon }}" height="22" width="24" alt="icon" /></span>{{ category.name }}</a>
                         <div class="popup-holder">
                             <div class="popup {{ category.background_class }}">
                                 <h1>{{ category.name }}</h1>
