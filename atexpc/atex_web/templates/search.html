@@ -2,7 +2,11 @@
 {% load atex_tags %}
 
 {% block title %}{{ block.super }} - {% with breadcrumbs|last as current %}{{ current.name }}{% endwith %}{% endblock title %}
+{% block head %}
+	<meta name="description" content="{% with breadcrumbs|last as current %}{{ current.name }}{% endwith %} - Profita de cele mai bune oferte. Livrare Rapida.">
 
+	<meta name="keywords" content="{% with breadcrumbs|last as current %}{{ current.name }}{% endwith %}"> 
+{% endblock %}
 {% block menu %}
             	<div class="menu-closed">
                 	<div class="dd-menu">

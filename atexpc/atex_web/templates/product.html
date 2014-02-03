@@ -2,7 +2,11 @@
 {% load atex_tags %}
 
 {% block title %}{{ block.super }} - {{ product.name }}{% endblock title %}
+{% block head %}
+	<meta name="description" content="{{ product.name }}">
 
+	<meta name="keywords" content="{{ product.name }}"> 
+{% endblock %}
 {% block menu %}{% endblock %}
 {% block banner_left %}{% endblock %}
 

@@ -3,7 +3,12 @@
 {% load static %}
 {% get_static_prefix as STATIC_PREFIX %}
 
-{% block title %}{{ block.super }} - Concurs{% endblock title %}
+{% block title %}Concurs{% endblock title %}
+{% block head %}
+	<meta name="description" content="Concursuri desfasurate | ATEX Computer">
+
+	<meta name="keywords" content="concurs ATEX"> 
+{% endblock %}
 
 {% block content_top %}
 {% endblock content_top %}
