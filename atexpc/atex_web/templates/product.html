@@ -112,7 +112,7 @@
                             <ul class="new-spec-list clear">
                                 {% for spec, value in specs %}
                                 <li class="spec-name">{{ spec }}</li>
-                                <li class="spec-value">{{ value }}</li>
+                                <li class="spec-value">{{ value|safe }}</li>
                                 {% endfor %}
                             </ul>
                         {% endfor %}

@@ -595,6 +595,7 @@ class Specification(models.Model):
         if format_match:
             value_format = format_match.group(2)
             value = value_format.replace(self.FORMAT_PLACEHOLDER, unicode(value))
+        value = value.replace('\n', '<br>')
         return value
 
     def __unicode__(self):
