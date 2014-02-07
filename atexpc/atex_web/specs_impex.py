@@ -8,6 +8,7 @@ from django.db.utils import DataError
 IGNORED_COLUMNS = ('Duplicate',)
 MODEL_COLUMN = 'Model'
 SPEC_GROUP_SEPARATOR = '|'
+EPSILON = 0.001     # convert to int if smaller then that
 
 def import_specs(fname):
     book = open_workbook(fname)
@@ -24,11 +25,20 @@ def import_category_specs(sheet):
     model_column = [i for i, name in columns.items() if name.lower() == MODEL_COLUMN.lower()][0]
     for row in xrange(1, sheet.nrows):
         model = sheet.cell(row, model_column).value
-        model_specs = OrderedDict((name, sheet.cell(row, i).value)
+        model_specs = OrderedDict((name, cell_value(sheet.cell(row, i)))
                                   for i, name in columns.items()
                                   if i != model_column)
         specs.append((model, model_specs))
     return specs
+
+def cell_value(cell):
+    value = cell.value
+    try:
+        if abs(int(value) - value) < EPSILON:
+            value = int(value)
+    except ValueError:
+        pass
+    return value
 
 def update_db_specs(category_id, product_specs):
     # TODO: cache spec_group and used NamedTouple instead of dictionary
