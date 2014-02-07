@@ -165,6 +165,7 @@ class SearchBase(BaseView):
 
         data['pagination'] = {'pages': pages,
                               'previous': previous_page,
+                              'current': current_page,
                               'next': next_page,
                               'start': start,
                               'stop': stop,
