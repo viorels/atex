@@ -172,9 +172,11 @@ class Product(models.Model):
         spec_groups_orm = SpecificationGroup.objects.filter(category=self.category)
         spec_groups = SortedDict((spec_group.name, [])
                                  for spec_group in spec_groups_orm)
-        for spec in ProductSpecification.objects.filter(product=self):
-            if spec.spec.group is not None:
-                spec_groups[spec.spec.group.name].append((spec.spec.name, spec.value))
+        for prod_spec in ProductSpecification.objects.filter(product=self):
+            if prod_spec.spec.group is not None:
+                value = prod_spec.spec.value_format(prod_spec.value)
+                spec_groups[prod_spec.spec.group.name].append((prod_spec.spec.clean_name(),
+                                                               value))
         for group, values in spec_groups.items():
             if len(values) == 0:
                 del spec_groups[group]
@@ -576,6 +578,24 @@ class Specification(models.Model):
     name = models.CharField(max_length=64)
     group = models.ForeignKey(SpecificationGroup, null=True)
     category = models.ForeignKey(Category, null=True)
+
+    FORMAT_RE = r'(.*?)\s*\((.*)\)$'   # e.g. 'Memory ($ GB)'
+    FORMAT_PLACEHOLDER = '$'
+
+    def clean_name(self):
+        format_match = re.search(self.FORMAT_RE, self.name)
+        if format_match:
+            name = format_match.group(1)
+        else:
+            name = self.name
+        return name
+
+    def value_format(self, value):
+        format_match = re.search(self.FORMAT_RE, self.name)
+        if format_match:
+            value_format = format_match.group(2)
+            value = value_format.replace(self.FORMAT_PLACEHOLDER, unicode(value))
+        return value
 
     def __unicode__(self):
         return self.name if self.group is None else "%s (%s)" % (self.name, self.group)
