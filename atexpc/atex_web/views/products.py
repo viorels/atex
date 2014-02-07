@@ -32,7 +32,7 @@ class HomeBase(BaseView):
                                    if int(p['id']) == product_obj.id]
             if matching_in_backend:
                 product = matching_in_backend[0]
-                product['name'] = product_obj.get_best_name()
+                product['name'] = product_obj.get_short_name()
                 product['images'] = product_obj.images
                 product['url'] = self._product_url(product)
                 hits.append(product)
@@ -42,7 +42,7 @@ class HomeBase(BaseView):
         recommended = self.api.products.get_recommended(limit=self.top_limit)
         for product in recommended:
             product_obj = Product(raw=product)
-            product['name'] = product_obj.get_best_name()
+            product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
             product['url'] = self._product_url(product)
         return recommended
@@ -51,7 +51,7 @@ class HomeBase(BaseView):
         promotional = self.api.products.get_promotional(limit=self.top_limit)
         for product in promotional:
             product_obj = Product(raw=product)
-            product['name'] = product_obj.get_best_name()
+            product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
             product['url'] = self._product_url(product)
         return promotional
@@ -175,7 +175,7 @@ class SearchBase(BaseView):
         products = self.get_products_page().get('products')
         for product in products:
             product_obj = Product(raw=product)
-            product['name'] = product_obj.get_best_name()
+            product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
             product['url'] = self._product_url(product)
 
@@ -230,7 +230,6 @@ class ProductBase(BaseView):
             product['name'] = product_orm.get_best_name()
             product['images'] = product_orm.images()
             product['spec_groups'] = product_orm.get_spec_groups()
-            print product['spec_groups']
 
             html_template = product_orm.html_description()
             if html_template:

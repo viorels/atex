@@ -164,8 +164,12 @@ class Product(models.Model):
             hit.count = models.F('count') + 1
             hit.save()
 
+    def get_short_name(self):
+        better_name = self.get_spec('Nume')
+        return better_name if better_name else self.name
+
     def get_best_name(self):
-        better_name = self.get_spec('Denumire')
+        better_name = self.get_spec('Descriere')
         return better_name if better_name else self.name
 
     def get_spec_groups(self):
