@@ -59,10 +59,10 @@ html, body { height: 100%;  }
   	/*min-height: 100%;
  	height: auto !important;
  	height: 100%;*/
- 	margin: 0 auto -200px;
+ 	margin: 0 auto -235px;
 	min-width:1170px;
 }
-.footer_wrapper, .push { height: 200px; }
+.footer_wrapper, .push { height: 235px; }
 .wrapper {
 	border-top:5px solid #cd2325;
 	background:url(../images/bg_dark.png) repeat;
