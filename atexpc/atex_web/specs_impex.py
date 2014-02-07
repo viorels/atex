@@ -1,4 +1,4 @@
-from xlrd import open_workbook
+from xlrd import open_workbook, XL_CELL_NUMBER
 from collections import OrderedDict
 
 from ancora_api import AncoraAPI
@@ -34,7 +34,7 @@ def import_category_specs(sheet):
 def cell_value(cell):
     value = cell.value
     try:
-        if abs(int(value) - value) < EPSILON:
+        if cell.ctype == XL_CELL_NUMBER and value - int(value) < EPSILON:
             value = int(value)
     except ValueError:
         pass
