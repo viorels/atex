@@ -1,9 +1,10 @@
 from xlrd import open_workbook, XL_CELL_NUMBER
 from collections import OrderedDict
+from django import db
+from django.db.utils import DataError
 
 from ancora_api import AncoraAPI
 from models import Category, Product, Specification, ProductSpecification, SpecificationGroup
-from django.db.utils import DataError
 
 IGNORED_COLUMNS = ('Duplicate',)
 MODEL_COLUMN = 'Model'
@@ -31,6 +32,7 @@ def import_category_specs(sheet):
                                           for i, name in columns.items()
                                           if i != model_column)
                 yield model, model_specs
+    db.reset_queries()
 
 def cell_value(cell):
     value = cell.value
@@ -61,7 +63,7 @@ def update_db_specs(category_id, product_specs):
                 spec_orm, created = Specification.objects.get_or_create(name=spec_name,
                                                                         group=spec_group_orm,
                                                                         defaults={'category': category})
-                print('Product %s: %s = %s' % (product_orm, spec_orm, value))
+                # print('Product %s: %s = %s' % (product_orm, spec_orm, value))
                 try:
                     product_spec, created = ProductSpecification.objects.get_or_create(product=product_orm,
                                                                                        spec=spec_orm,
