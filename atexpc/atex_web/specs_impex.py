@@ -20,16 +20,17 @@ def import_specs(fname):
 
 def import_category_specs(sheet):
     """ Return specs['model']['spec_group|spec'] = value """
-    specs = []
     columns = worksheet_columns(sheet)
-    model_column = [i for i, name in columns.items() if name.lower() == MODEL_COLUMN.lower()][0]
-    for row in xrange(1, sheet.nrows):
-        model = sheet.cell(row, model_column).value
-        model_specs = OrderedDict((name, cell_value(sheet.cell(row, i)))
-                                  for i, name in columns.items()
-                                  if i != model_column)
-        specs.append((model, model_specs))
-    return specs
+    model_column = [i for i, name in columns.items() if name.lower() == MODEL_COLUMN.lower()]
+    if model_column:
+        model_column = model_column[0]
+        for row in xrange(1, sheet.nrows):
+            model = sheet.cell(row, model_column).value
+            if model:
+                model_specs = OrderedDict((name, cell_value(sheet.cell(row, i)))
+                                          for i, name in columns.items()
+                                          if i != model_column)
+                yield model, model_specs
 
 def cell_value(cell):
     value = cell.value
