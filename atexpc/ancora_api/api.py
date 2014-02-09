@@ -587,6 +587,26 @@ class Ancora(object):
         get_customers_uri = self.adapter.uri_for('get_customers', {'iduser_site': user_id})
         return self.adapter.read(get_customers_uri, post_process=post_process, cache_timeout=TIMEOUT_REQUEST)
 
+    def get_customer_by_code(self, code):
+        """ Code is CUI/CIF/CNP """
+        result = self._get(args={'cod_formular': 1108,
+                                 'cui': cui},
+                           response_root='terti_site',
+                           response_map={'customer_id': ('pidm', int),
+                                         'customer_type': 'zfj',
+                                         'name': 'c1',
+                                         # 'tax_code': cif_digits,
+                                         # 'vat': vat,
+                                         # 'regcom': item['zreg_com'],
+                                         'city': 'zlocalitate',
+                                         'county': 'zjudet',
+                                         # 'address': item['zadresa'],
+                                         # 'bank': item['zbanca'],
+                                         # 'bank_account': item['zcont']
+                                         },
+                           cache_timeout=TIMEOUT_REQUEST)
+        return result[0]
+
     def get_addresses(self, user_id):
         def post_process(data):
             addresses = []

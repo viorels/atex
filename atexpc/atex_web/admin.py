@@ -8,9 +8,37 @@ from django.contrib.redirects.models import Redirect
 from django import forms
 from django.utils.datastructures import SortedDict
 
-
-from models import Product, Image, Hit
+from models import Category, Product, Image, Hit
 from dropbox_media import DropboxMedia
+from specs_impex import import_specs
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'code')
+    readonly_fields = ('code', 'name')
+    search_fields = ('name',)
+    ordering = ('code',)
+    fields = ('code', 'name', 'specs_file')
+
+    def queryset (self, request):
+        qs = Category.objects.filter(parent=None)
+        ordering = self.get_ordering(request)
+        if ordering:
+            qs = qs.order_by(*ordering)
+        return qs
+
+    def save_model(self, request, obj, form, change):
+        form.save()  # save file
+        if self.accepted_file(obj.specs_file):
+            import_specs(obj.specs_file.path)
+            #obj.answer = remote_upload(obj.specs_file.path)
+            #obj.save()
+        else:
+            obj.specs_file.delete()
+
+    def accepted_file(self, file):
+        return file.name.lower().endswith('.xlsx')
+
+admin.site.register(Category, CategoryAdmin)
 
 
 class ImageCountListFilter(SimpleListFilter):

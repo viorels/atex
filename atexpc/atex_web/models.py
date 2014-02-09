@@ -1,6 +1,7 @@
 import os
 import re
 from datetime import datetime, timedelta
+from collections import defaultdict
 
 from django.conf import settings
 from django.contrib.sessions.models import Session
@@ -20,6 +21,19 @@ from sorl.thumbnail import ImageField
 
 import logging
 logger = logging.getLogger(__name__)
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=64)
+    code = models.CharField(max_length=8)
+    parent = models.ForeignKey('self', null=True)
+    specs_file = models.FileField(upload_to='specs', null=True)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+    def __unicode__(self):
+        return self.name
 
 
 class ProductManager(models.Manager):
@@ -84,7 +98,7 @@ class StorageWithOverwrite(get_storage_class()):
 class Product(models.Model):
     model = models.CharField(max_length=128, db_index=True)
     name = models.CharField(max_length=128)
-    category_id = models.IntegerField()
+    category = models.ForeignKey(Category, null=True)
     specs = models.ManyToManyField('Specification', through='ProductSpecification')
     updated = models.DateTimeField(auto_now=True, auto_now_add=True)
     # has_folder = models.NullBooleanField()
@@ -150,9 +164,27 @@ class Product(models.Model):
             hit.count = models.F('count') + 1
             hit.save()
 
-    def get_best_name(self):
-        better_name = self.get_spec('Denumire')
+    def get_short_name(self):
+        better_name = self.get_spec('Nume')
         return better_name if better_name else self.name
+
+    def get_best_name(self):
+        better_name = self.get_spec('Descriere')
+        return better_name if better_name else self.name
+
+    def get_spec_groups(self):
+        spec_groups_orm = SpecificationGroup.objects.filter(category=self.category)
+        spec_groups = SortedDict((spec_group.name, [])
+                                 for spec_group in spec_groups_orm)
+        for prod_spec in ProductSpecification.objects.filter(product=self):
+            if prod_spec.spec.group is not None:
+                value = prod_spec.spec.value_format(prod_spec.value)
+                spec_groups[prod_spec.spec.group.name].append((prod_spec.spec.clean_name(),
+                                                               value))
+        for group, values in spec_groups.items():
+            if len(values) == 0:
+                del spec_groups[group]
+        return spec_groups
 
     def get_spec(self, name, group=None):
         try:
@@ -540,7 +572,7 @@ class Dropbox(models.Model):
 
 class SpecificationGroup(models.Model):
     name = models.CharField(max_length=64)
-#    category_id = models.IntegerField()
+    category = models.ForeignKey(Category, null=True)
 
     def __unicode__(self):
         return self.name
@@ -549,10 +581,29 @@ class SpecificationGroup(models.Model):
 class Specification(models.Model):
     name = models.CharField(max_length=64)
     group = models.ForeignKey(SpecificationGroup, null=True)
-#    category_id = models.IntegerField()
+    category = models.ForeignKey(Category, null=True)
+
+    FORMAT_RE = r'(.*?)\s*\((.*)\)$'   # e.g. 'Memory ($ GB)'
+    FORMAT_PLACEHOLDER = '$'
+
+    def clean_name(self):
+        format_match = re.search(self.FORMAT_RE, self.name)
+        if format_match:
+            name = format_match.group(1)
+        else:
+            name = self.name
+        return name
+
+    def value_format(self, value):
+        format_match = re.search(self.FORMAT_RE, self.name)
+        if format_match:
+            value_format = format_match.group(2)
+            value = value_format.replace(self.FORMAT_PLACEHOLDER, unicode(value))
+        value = value.replace('\n', '<br>')
+        return value
 
     def __unicode__(self):
-        return self.name
+        return self.name if self.group is None else "%s (%s)" % (self.name, self.group)
 
 
 class ProductSpecification(models.Model):

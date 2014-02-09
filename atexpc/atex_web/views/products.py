@@ -5,7 +5,7 @@ from django.http import Http404
 from django.conf import settings
 
 from atexpc.atex_web.views.base import BaseView
-from atexpc.atex_web.models import Product
+from atexpc.atex_web.models import Product, ProductSpecification
 from atexpc.atex_web.forms import search_form_factory
 from atexpc.atex_web.utils import group_in, grouper
 
@@ -32,7 +32,7 @@ class HomeBase(BaseView):
                                    if int(p['id']) == product_obj.id]
             if matching_in_backend:
                 product = matching_in_backend[0]
-                product['name'] = product_obj.get_best_name()
+                product['name'] = product_obj.get_short_name()
                 product['images'] = product_obj.images
                 product['url'] = self._product_url(product)
                 hits.append(product)
@@ -42,7 +42,7 @@ class HomeBase(BaseView):
         recommended = self.api.products.get_recommended(limit=self.top_limit)
         for product in recommended:
             product_obj = Product(raw=product)
-            product['name'] = product_obj.get_best_name()
+            product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
             product['url'] = self._product_url(product)
         return recommended
@@ -51,7 +51,7 @@ class HomeBase(BaseView):
         promotional = self.api.products.get_promotional(limit=self.top_limit)
         for product in promotional:
             product_obj = Product(raw=product)
-            product['name'] = product_obj.get_best_name()
+            product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
             product['url'] = self._product_url(product)
         return promotional
@@ -165,6 +165,7 @@ class SearchBase(BaseView):
 
         data['pagination'] = {'pages': pages,
                               'previous': previous_page,
+                              'current': current_page,
                               'next': next_page,
                               'start': start,
                               'stop': stop,
@@ -175,7 +176,7 @@ class SearchBase(BaseView):
         products = self.get_products_page().get('products')
         for product in products:
             product_obj = Product(raw=product)
-            product['name'] = product_obj.get_best_name()
+            product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
             product['url'] = self._product_url(product)
 
@@ -223,19 +224,21 @@ class ProductBase(BaseView):
     def get_product(self):
         if not hasattr(self, '_product'):
             product_id = self.kwargs['product_id']
-            product_obj = self.api.products.get_and_store(product_id, Product.objects.store)
-            if product_obj is None:
+            product_orm = self.api.products.get_and_store(product_id, Product.objects.store)
+            if product_orm is None:
                 raise Http404()
-            product = product_obj.raw
-            product['name'] = product_obj.get_best_name()
-            product['images'] = product_obj.images()
-            html_template = product_obj.html_description()
+            product = product_orm.raw
+            product['name'] = product_orm.get_best_name()
+            product['images'] = product_orm.images()
+            product['spec_groups'] = product_orm.get_spec_groups()
+
+            html_template = product_orm.html_description()
             if html_template:
-                product_prefix = settings.MEDIA_URL + product_obj.folder_path() + '/'
+                product_prefix = settings.MEDIA_URL + product_orm.folder_path() + '/'
                 context = Context({'PRODUCT_PREFIX': product_prefix})
                 product['html_description'] = Template(html_template).render(context)
 
-            product_obj.hit()
+            product_orm.hit()
 
             self._product = product
         return self._product
