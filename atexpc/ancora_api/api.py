@@ -595,15 +595,14 @@ class Ancora(object):
                            response_map={'customer_id': ('pidm', int),
                                          'customer_type': 'zfj',
                                          'name': 'c1',
-                                         # 'tax_code': cif_digits,
-                                         # 'vat': vat,
-                                         # 'regcom': item['zreg_com'],
+                                         'tax_code': 'zcui',
+                                         'vat': 'zisd394', # TODO: convert from D/N to true/false
+                                         'regcom': 'zregcom',
                                          'city': 'zlocalitate',
                                          'county': 'zjudet',
-                                         # 'address': item['zadresa'],
-                                         # 'bank': item['zbanca'],
-                                         # 'bank_account': item['zcont']
-                                         },
+                                         'address': 'zadresa',
+                                         'bank': 'zbanca',
+                                         'bank_account': 'zcont'},
                            cache_timeout=TIMEOUT_REQUEST)
         return result[0]
 
