@@ -73,6 +73,12 @@ CACHES = {
 
 CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = BROKER_URL
+CELERY_ACCEPT_CONTENT = ['json']  # Ignore other content
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.google.GoogleOAuth2Backend',
     'social_auth.backends.yahoo.YahooBackend',

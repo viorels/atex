@@ -11,13 +11,15 @@ $ sudo su - atex
 $ git clone https://viorels@bitbucket.org/viorels/atex.git
 $ virtualenv venv
 $ . venv/bin/activate
-$ pip install -r atex/requirements/amazon.txt
+$ pip install -r atex/requirements/production.txt
 
 $ cat << _EOF_ > .env
-ANCORA_URI=http://ancora.atexpc.ro:8765/ancoraerp/jis.serv?database=atex
+ANCORA_URI=http://ANCORA.SERVER:8765/ancoraerp/jis.serv?database=atex
 MEMCACHE_SERVERS=localhost
-DJANGO_SETTINGS_MODULE=atexpc.config.dev
+DJANGO_SETTINGS_MODULE=atexpc.config.production
 _EOF_
 
-$ env `cat .env | xargs` python manage.py runserver
+$ env `xargs < .env` celery -A atexpc worker -l info 	# run Celery
+
+$ env `xargs < .env` python manage.py runserver		# run server
 
