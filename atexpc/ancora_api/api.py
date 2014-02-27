@@ -1,7 +1,6 @@
 import os
 import re
 import time
-import hashlib
 import json
 import operator
 from urlparse import urlparse, urlunparse, parse_qsl
@@ -41,8 +40,8 @@ class BaseAdapter(object):
 
     def _cache_key(self, uri):
         cache_key = self.normalize_uri(uri)
-        if len(cache_key) > 247:   # memcached.py: key too long, max is 247
-            cache_key = hashlib.sha1(cache_key).hexdigest()
+        # if len(cache_key) > 247:   # memcached.py: key too long, max is 247
+        #     cache_key = hashlib.sha1(cache_key).hexdigest()
         return cache_key
 
     def _read_cache(self, uri):

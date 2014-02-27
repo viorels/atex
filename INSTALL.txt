@@ -1,6 +1,6 @@
 # sudo adduser atex
 # sudo apt-get update
-# sudo aptitude install memcached libmemcached-dev postgresql libpq-dev python-virtualenv python-dev libjpeg8-dev libapache2-mod-wsgi git
+# sudo aptitude install redis-server libmemcached-dev postgresql libpq-dev python-virtualenv python-dev libjpeg8-dev libapache2-mod-wsgi git
 
 # a2dismod python perl php5
 

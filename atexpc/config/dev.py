@@ -44,3 +44,5 @@ EMAIL_SUBJECT_PREFIX = '[Atex dev] '
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
 
+CACHES['default']['KEY_PREFIX'] = 'dev'
+
