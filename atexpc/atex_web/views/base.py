@@ -65,7 +65,8 @@ class BaseView(TemplateView):
                      '5': 'images/printer-icon.png',
                      '6': 'images/network-icon.png',
                      '7': 'images/cd-icon.png',
-                     '8': 'images/phone-icon.png'}
+                     '8': 'images/phone-icon.png',
+                     '9': 'images/conectica-icon.png'}
             return icons.get(category['code'], '')
 
         def category_background_class(category):
@@ -89,6 +90,27 @@ class BaseView(TemplateView):
                              'level': self._category_level(category)}
             return menu_category
 
+        def insert_in_column_grouped(submenu_items, columns, max_per_column):
+            """ Insert all into the first column with enough space """
+            inserted = False
+            for column in columns:
+                if len(column) + len(submenu_items) <= max_per_column:
+                    column.extend(submenu_items)
+                    inserted = True
+                    break
+            return columns, inserted
+
+        def insert_in_column_anyway(submenu_items, columns, max_per_column):
+            """ Insert partially into any column with enough space """
+            for column in columns:
+                can_insert = max_per_column - len(column)
+                enough_to_fill = len(submenu_items) >= can_insert
+                if can_insert > 0:
+                    removed, submenu_items = submenu_items[:can_insert], submenu_items[can_insert:]
+                    column.extend(removed)
+            inserted = len(submenu_items) == 0
+            return columns, inserted
+
         menu = []
         max_per_column = 10
         for top_category in categories_in(None):
@@ -97,13 +119,11 @@ class BaseView(TemplateView):
                 submenu_items = ([menu_category(level2_category)] +
                                  [menu_category(level3_category)
                                   for level3_category in categories_in(level2_category)])
-
-                # insert into the first column with enough enough space
-                for column in columns:
-                    if len(column) + len(submenu_items) <= max_per_column:
-                        column.extend(submenu_items)
-                        break
-                # TODO: what if none has enough space ... MISSING CATEGORIES !!!
+                columns, inserted = insert_in_column_grouped(submenu_items, columns, max_per_column)
+                if not inserted:
+                    columns, inserted = insert_in_column_anyway(submenu_items, columns, max_per_column)
+                if not inserted:
+                    logger.debug("Too many subcategories in %s", top_category['code'])
 
             category = menu_category(top_category)
             category.update({'columns': columns,

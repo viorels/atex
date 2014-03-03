@@ -229,6 +229,7 @@ class ProductBase(BaseView):
                 raise Http404()
             product = product_orm.raw
             product['name'] = product_orm.get_best_name()
+            product['short_name'] = product_orm.get_short_name()
             product['images'] = product_orm.images()
             product['spec_groups'] = product_orm.get_spec_groups()
 
@@ -259,7 +260,7 @@ class ProductBase(BaseView):
         category = self.api.categories.get_category_by_code(product['category_code'])
         if category:
             breadcrumbs = self._get_category_breadcrumbs(category['id'])
-            breadcrumbs.append({'name': product['name'],
+            breadcrumbs.append({'name': product['short_name'],
                                 'url': None})
         else:
             breadcrumbs = []

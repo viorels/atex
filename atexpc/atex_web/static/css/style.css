@@ -59,10 +59,10 @@ html, body { height: 100%;  }
   	/*min-height: 100%;
  	height: auto !important;
  	height: 100%;*/
- 	margin: 0 auto -200px;
+ 	margin: 0 auto -235px;
 	min-width:1170px;
 }
-.footer_wrapper, .push { height: 200px; }
+.footer_wrapper, .push { height: 235px; }
 .wrapper {
 	border-top:5px solid #cd2325;
 	background:url(../images/bg_dark.png) repeat;
@@ -633,6 +633,10 @@ ul.menu li.menu-item a.menu-link:hover, ul.menu li.menu-item.active a.menu-link 
 .bg-08 {
 	background:url(../images/bg-08.jpg) #fcfcfc bottom right no-repeat;
 }
+.bg-09 {
+	background:url(../images/bg-09.jpg) #fcfcfc bottom right no-repeat;
+}
+
 ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	z-index:100;
 	left:250px;
@@ -1056,22 +1060,26 @@ ul.filtrare li span {
 	font-weight:bold;
 	line-height:14px;
 }
+
 .stoc_ok {
-	display:block;
-	font-weight:bold;
-	width:205px;
-	float:left;
-	font-size:14px;
-	color:#048507;
-	padding:5px 0;
+        color:#048507;
+}
+.stoc_comanda {
+        color:#048507;
+}
+.stoc_indisponibil {
+        color:#492F2F;
+	font-weight:normal !important;
 }
 .stoc {
 	display:block;
 	font-weight:bold;
+	font-size:14px;
 	width:205px;
 	float:left;
 	padding:5px 0;
 }
+
 .info_detalii {
 	width:205px;
 	float:left;
@@ -2128,9 +2136,11 @@ ul.service-bg {background: url('/static/images/service-bg.png?a768d25285c0') 510
 .bx-wrapper .bx-pager .bx-pager-item,.bx-wrapper .bx-controls-auto .bx-controls-auto-item {display: inline-block;*zoom: 1;*display: inline;}
 .bx-wrapper .bx-pager.bx-default-pager a {background: url(/static/images/bullet.png) center center no-repeat;text-indent: -9999px;display: block;width: 12px;height: 12px;margin: 0 4px;outline: 0;}
 .bx-wrapper .bx-pager.bx-default-pager a:hover,.bx-wrapper .bx-pager.bx-default-pager a.active {background-image: url(/static/images/active-bullet.png)}
+
 .bx-wrapper .bx-controls-direction {display:none;}
 
 h4.spec-title {padding:5px; background-color:#eee;} 
 ul.new-spec-list li.spec-name {width:250px; float:left; margin-right:20px;}
 ul.new-spec-list li.spec-value {width:800px; float:left;}
 ul.new-spec-list li {padding:2px 5px;}
+

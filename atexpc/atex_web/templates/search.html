@@ -2,7 +2,10 @@
 {% load atex_tags %}
 
 {% block title %}{{ block.super }} - {% with breadcrumbs|last as current %}{{ current.name }}{% endwith %}{% if pagination.current > 1 %} - pagina {{ pagination.current }}{% endif %}{% endblock title %}
-
+{% block head %}
+	<meta name="description" content="{% with breadcrumbs|last as current %}{{ current.name }}{% endwith %} - Profita de cele mai bune oferte. Livrare Rapida.">
+	<meta name="keywords" content="{% with breadcrumbs|last as current %}{{ current.name }}{% endwith %}"> 
+{% endblock %}
 {% block menu %}
             	<div class="menu-closed">
                 	<div class="dd-menu">
@@ -101,7 +104,17 @@
                                 </div>
                             </a>
                             <h2><a href="{{ product.url }}">{{ product.name }}</a></h2>
-                            <span class="stoc_ok">{{ product.stock_info }}</span>      
+			    {% if "stoc" in product.stock_info %}
+                              <span class="stoc stoc_ok">
+			    {% elif "comanda" in product.stock_info %}
+                              <span class="stoc stoc_comanda">
+			    {% elif "nu este disponibil" in product.stock_info %}
+                              <span class="stoc stoc_indisponibil">
+			    {% else %}
+                              <span class="stoc stock_ok">
+			    {% endif %}
+				{{ product.stock_info }}
+			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
                                 		<span class="pret_produs">{{ product.price }} lei</span>

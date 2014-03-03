@@ -15,6 +15,7 @@
                 	<li class="menu-item{% if forloop.first %} first{% endif %}">
                     	<span class="menu_icon"><img src="{{ STATIC_PREFIX }}{{ category.icon }}" height="22" width="24" alt="icon" /></span>
                         {{ category.name }}
+                        
                         <div class="popup-holder">
                             <div class="popup {{ category.background_class }}">
                                 <h1>{{ category.name }}</h1>
@@ -31,8 +32,6 @@
                         </div>    
                     </li>
                     {% endfor %}
-			<li class="menu-item brand"><a class="menu-link" href="{% url "brands" %}"><span class="menu_icon"><img src="/static/images/globe-icon.png" height="22" width="24" alt="icon"></span>Branduri</a></li>
-
                 </ul>
                 {% endblock menu %}
           
@@ -42,13 +41,13 @@
                 {% block banner_left %}
                 <ul class="ads-left">
                 	<li>
-                    	<a href="/produs/51104-memorii-interne-kingston-kvr13s9s84">
-                            <img src="{{ STATIC_PREFIX }}images/bannermicstangakingston.png" width="250" height="320" alt="Oferta sodimm 4Gb Kingston" title="Oferta sodimm 4Gb Kingston" />
+                    	<a href="/produs/32530-routere-si-acces-point-tp-link-tl-wr740n">
+                            <img src="{{ STATIC_PREFIX }}images/promotie router tp-link TL-WR740N.jpg" width="250" height="320" alt="Promotie router Tp-Link TL-WR740N" title="Promotie router Tp-Link TL-WR740N" />
                         </a>
                     </li>
                     <li>
-                    	<a href="/produs/58714-laptop-hp-eur-e6h06ea">
-                            <img src="{{ STATIC_PREFIX }}images/banner atex mic promotie laptop hp.png" width="250" height="240" alt="Promotie Laptop HP Pavilion Sleekbook" title="Promotie Laptop HP Pavilion Sleekbook" />
+                    	<a href="/produs/54741-kit-tastatura-mouse-logitech-920-004508">
+                            <img src="{{ STATIC_PREFIX }}images/Promotie Logitech kit tastatura si mouse.png" width="250" height="240" alt="Promotie Logitech Kit tastatura si mouse" title="Promotie Logitech Kit tastatura si mouse" />
                         </a>
                     </li>
                 </ul>
