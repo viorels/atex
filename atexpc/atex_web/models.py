@@ -616,4 +616,4 @@ class Specification(models.Model):
 class ProductSpecification(models.Model):
     product = models.ForeignKey(Product)
     spec = models.ForeignKey(Specification)
-    value = models.CharField(max_length=255, blank=True)
+    value = models.TextField(blank=True)
