@@ -24,10 +24,15 @@ logger = logging.getLogger(__name__)
 
 
 class Category(models.Model):
+    def _category_specs_path(instance, filename):
+        SPECS_PATH = 'specs'
+        canonical_name = u"%s-%s.xlsx" % (instance.code, instance.name)
+        return os.path.join(SPECS_PATH, canonical_name)
+
     name = models.CharField(max_length=64)
     code = models.CharField(max_length=8)
     parent = models.ForeignKey('self', null=True)
-    specs_file = models.FileField(upload_to='specs', null=True)
+    specs_file = models.FileField(upload_to=_category_specs_path, null=True)
 
     class Meta:
         verbose_name_plural = 'Categories'
