@@ -10,7 +10,7 @@ from django.utils.datastructures import SortedDict
 
 from models import Category, Product, Image, Hit
 from dropbox_media import DropboxMedia
-from specs_impex import import_specs
+from tasks import import_specs
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'code')
@@ -29,9 +29,7 @@ class CategoryAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         form.save()  # save file
         if self.accepted_file(obj.specs_file):
-            import_specs(obj.specs_file.path)
-            #obj.answer = remote_upload(obj.specs_file.path)
-            #obj.save()
+            result = import_specs.delay(obj.specs_file.path)
         else:
             obj.specs_file.delete()
 
