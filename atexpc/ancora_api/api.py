@@ -239,7 +239,7 @@ class Ancora(object):
                 categories.append({'id': int(category['pidm']),
                                    'code': category['zcod'],
                                    'name': category['zname'],
-                                   'count': category['zcount'],
+                                   'count': int(category['zcount']),
                                    'parent': category['zparent'] or None,
                                    'products_uri': category['link_produse'],
                                    'selectors_uri': category['link_selectoare']})

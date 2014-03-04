@@ -165,12 +165,8 @@ class BaseView(TemplateView):
                                           'slug': slugify(product['name'])})
 
     def _category_url(self, category):
-        if re.match(r'^\d+$', category['id']):
-            category_url = reverse('category', kwargs={'category_id': category['id'],
-                                                       'slug': slugify(category['name'])})
-        else:
-            category_url = None
-        return category_url
+        return reverse('category', kwargs={'category_id': category['id'],
+                                           'slug': slugify(category['name'])})
 
     def _category_level(self, category):
         return category['code'].count('.') + 1
