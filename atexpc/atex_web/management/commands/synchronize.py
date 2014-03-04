@@ -14,8 +14,6 @@ from atexpc.atex_web.scrape import scrape_specs
 import logging
 logger = logging.getLogger(__name__)
 
-PRODUCT_DB_FIELDS = ('id', 'model', 'name', 'category_id')
-
 
 class Command(BaseCommand):
     helf = "Synchronize Ancora products to local database AND (optionally) to Shopmania feed file"
@@ -77,15 +75,6 @@ class Command(BaseCommand):
                     p['category_id'] = category_id
                 yield products_dict
 
-    def _model_product_dict(self, product):
-        model_dict = {}
-        for field in PRODUCT_DB_FIELDS:
-            if field == 'id':
-                model_dict[field] = int(product.get(field))
-            else:
-                model_dict[field] = product.get(field)
-        return model_dict
-
     # Database
 
     def synchronize_categories(self):
@@ -112,8 +101,8 @@ class Command(BaseCommand):
 
                 old_product = existing_products.get(product_id)
                 if old_product:
-                    new_product_fields = self._model_product_dict(new_product)
-                    updated_product = self._updated_product(old_product, new_product_fields)
+                    new_product_fields = Product.from_raw(new_product)
+                    updated_product = old_product.updated_product(new_product_fields)
                     if updated_product:
                         logger.debug("Update %s", updated_product)
                         updated_product.save()
@@ -133,17 +122,6 @@ class Command(BaseCommand):
             logger.debug("Delete %s", delete_ids)
             for product_id in delete_ids:
                 Product.objects.get(id=product_id).delete()
-
-
-    def _updated_product(self, product, product_update_dict):
-        """ Returns updated product if the dict contains new data,
-            otherwise returns None"""
-        updated = False
-        for field, new_value in product_update_dict.items():
-            if new_value != getattr(product, field):
-                setattr(product, field, new_value)
-                updated = True
-        return product if updated else None
 
     # Shopmania
 

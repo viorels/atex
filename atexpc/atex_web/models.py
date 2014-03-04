@@ -68,10 +68,9 @@ class ProductManager(models.Manager):
         if created:
             Image.objects.all().assign_images_folder_to_product(product)
         elif update:
-            for field, value in product_fields.items():
-                setattr(product, field, value)
-            # TODO: only save if dirty, https://github.com/smn/django-dirtyfields/
-            product.save()
+            updated_product = product.updated_product(product_fields)
+            if updated_product:
+                updated_product.save()
         return product
 
     def augment_with_hits(self, products):
@@ -126,8 +125,17 @@ class Product(models.Model):
     def from_raw(cls, raw):
         fields = [field.name for field in cls._meta.fields] + ['category_id']
         product = {field: raw.get(field) for field in fields if field in raw}
-        print u"PRODUCT %s" % product
         return product
+
+    def updated_product(self, updates):
+        """ Returns updated product if the dict contains new data,
+            otherwise returns None"""
+        updated = False
+        for field, new_value in updates.items():
+            if new_value != getattr(self, field):
+                setattr(self, field, new_value)
+                updated = True
+        return self if updated else None
 
     def folder_name(self):
         folder = re.sub(r'[<>:"|?*/\\]', "-", self.model)
