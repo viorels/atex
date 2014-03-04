@@ -118,7 +118,7 @@ class SearchBase(BaseView):
         return args
 
     def get_category_id(self):
-        return self.kwargs.get('category_id') or self.request.GET.get('categorie')
+        return int(self.kwargs.get('category_id') or self.request.GET.get('categorie'))
 
     def get_products_page(self):
         if not hasattr(self, '_products_page'):
