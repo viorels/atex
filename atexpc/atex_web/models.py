@@ -62,8 +62,7 @@ class ProductManager(models.Manager):
     def store(self, product_raw, update=False):
         """Save product basic details in database"""
         product_id = int(product_raw['id'])
-        product_fields = dict((field.name, product_raw.get(field.name))
-                              for field in Product._meta.fields)
+        product_fields = Product.from_raw(product_raw)
         product, created = Product.objects.get_or_create(
             id=product_id, defaults=product_fields)
         if created:
@@ -117,9 +116,15 @@ class Product(models.Model):
     def __init__(self, *args, **kwargs):
         if kwargs.has_key('raw'):
             self.raw = kwargs.pop('raw')
-            for field in self._meta.fields:
-                kwargs[field.name] = self.raw.get(field.name)
+            kwargs.update(self.from_raw(self.raw))
         super(Product, self).__init__(*args, **kwargs)
+
+    @classmethod
+    def from_raw(cls, raw):
+        fields = [field.name for field in cls._meta.fields] + ['category_id']
+        product = {field: raw.get(field) for field in fields if field in raw}
+        print u"PRODUCT %s" % product
+        return product
 
     def folder_name(self):
         folder = re.sub(r'[<>:"|?*/\\]', "-", self.model)
