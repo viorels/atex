@@ -57,12 +57,14 @@ table {
 html, body { height: 100%;  }
 .wrapper {
   	/*min-height: 100%;
- 	height: auto !important;
+ 	height: aut !important;
  	height: 100%;*/
- 	margin: 0 auto -235px;
+ 	margin: 0 auto -275px;
 	min-width:1170px;
 }
-.footer_wrapper, .push { height: 235px; }
+.footer_wrapper, .push { 
+    height: 275px; 
+    }
 .wrapper {
 	border-top:5px solid #cd2325;
 	background:url(../images/bg_dark.png) repeat;
