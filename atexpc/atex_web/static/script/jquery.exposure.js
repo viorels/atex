@@ -362,6 +362,7 @@
 						img.load(onload);
 					}
 					img.attr('src', image.src);
+					img.attr('alt', image.caption);
 				}
 				return img;		
 			},
@@ -773,6 +774,7 @@
 						thumb.attr('rel', index);
 						if (image.caption && gallery.showThumbToolTip) {
 							thumb.attr('title', image.caption);
+							thumb.attr('alt', image.caption);
 						}
 						
 						// Save extra image data in thumbnail data.
@@ -1747,10 +1749,12 @@
 								var thumb = $('<img />').attr('src', photo.thumb_source);
 								if (photo.caption && photo.caption.length) {
 									thumb.attr('title', photo.caption);
+									thumb.attr('alt', photo.caption);
 								}
 								link.append(thumb);
 							} else if (photo.caption && photo.caption.length) {
 								link.attr('title', photo.caption);
+								link.attr('alt', photo.caption);
 							}
 							item.append(link);					
 							if (photo.extra_data && photo.extra_data.length) {
