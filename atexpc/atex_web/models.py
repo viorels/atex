@@ -68,7 +68,10 @@ class ProductManager(models.Manager):
         if created:
             Image.objects.all().assign_images_folder_to_product(product)
         elif update:
-            product.update(product_fields)
+            for field, value in product_fields.items():
+                setattr(product, field, value)
+            # TODO: only save if dirty, https://github.com/smn/django-dirtyfields/
+            product.save()
         return product
 
     def augment_with_hits(self, products):

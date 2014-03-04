@@ -121,7 +121,7 @@ class ProductsAPI(BaseAPI):
         product_raw = self.get_product(product_id)
         if product_raw is None:
             return None
-        product = product_storer(product_raw)
+        product = product_storer(product_raw, update=True)
         product.raw = product_raw
         return product
 
