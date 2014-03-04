@@ -45,5 +45,8 @@ if environ.has_key('DATABASE_URL'):
 #        'PORT': url.port,
     }}
 
+CACHES['default']['LOCATION'] = "127.0.0.1:6379:1"
 CACHES['default']['KEY_PREFIX'] = 'staging'
 
+BROKER_URL = 'redis://localhost:6379/1'
+CELERY_RESULT_BACKEND = BROKER_URL
