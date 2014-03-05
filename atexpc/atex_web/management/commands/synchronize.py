@@ -48,8 +48,9 @@ class Command(BaseCommand):
         self.delete_products_other_then(products_status)
 
         if options['shopmania']:
-            if os.path.exists(temp_feed_filename) and os.path.exists(feed_filename):
-                os.remove(feed_filename)
+            if os.path.exists(temp_feed_filename):
+                if os.path.exists(feed_filename):
+                    os.remove(feed_filename)
                 os.rename(temp_feed_filename, feed_filename)
 
         # Assign existing images for new products
