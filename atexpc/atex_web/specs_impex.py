@@ -61,8 +61,8 @@ def update_db_specs(category_id, product_specs):
                 else:
                     spec_group_orm = None
                 spec_orm, created = Specification.objects.get_or_create(name=spec_name,
-                                                                        group=spec_group_orm,
-                                                                        defaults={'category': category})
+                                                                        category=category,
+                                                                        group=spec_group_orm)
                 # print('Product %s: %s = %s' % (product_orm, spec_orm, value))
                 try:
                     product_spec, created = ProductSpecification.objects.get_or_create(product=product_orm,
@@ -74,10 +74,11 @@ def update_db_specs(category_id, product_specs):
                     pass    # update ?
 
 def clear_db_specs(category):
-    for product in Product.objects.filter(category=category):
-        product.specs.clear()
-    Specification.objects.filter(category=category).delete()
-    SpecificationGroup.objects.filter(category=category).delete()
+    if category:
+        for product in Product.objects.filter(category=category):
+            product.specs.clear()
+        Specification.objects.filter(category=category).delete()
+        SpecificationGroup.objects.filter(category=category).delete()
 
 def parse_spec(spec):
     if SPEC_GROUP_SEPARATOR in spec:
