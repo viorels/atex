@@ -56,6 +56,7 @@ SOCIAL_AUTH_PIPELINE = (
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 SHOPMANIA_FEED_FILE = 'shopmania.csv'   # in media root
+ALLSHOPS_FEED_FILE = 'allshops.csv'   # in media root
 
 if 'test' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'

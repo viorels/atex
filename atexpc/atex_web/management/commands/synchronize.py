@@ -15,12 +15,38 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class atomic_write(object):
+    def __init__(self, name):
+        self.fname = name
+        self.temp_fname = name + '.tmp'
+
+    def get_filename(self):
+        return self.temp_fname
+
+    def __enter__(self):
+        if os.path.exists(self.temp_fname):
+            os.remove(self.temp_fname)
+        return self.temp_fname
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if exc_type is None:
+            if os.path.exists(self.temp_fname):
+                if os.path.exists(self.fname):
+                    os.remove(self.fname)
+                os.rename(self.temp_fname, self.fname)
+        else:
+            if os.path.exists(self.temp_fname):
+                os.remove(self.temp_fname)
+
+        return False    # propagate errors
+
+
 class Command(BaseCommand):
     helf = "Synchronize Ancora products to local database AND (optionally) to Shopmania feed file"
     option_list = BaseCommand.option_list + (
-        make_option('--to-shopmania',
+        make_option('--to-shops',
             action='store_true',
-            dest='shopmania',
+            dest='shops',
             default=False,
             help='Also generate Shopmania data feed'),
         make_option('--from-pcgarage',
@@ -34,27 +60,21 @@ class Command(BaseCommand):
         products_status = {}
         writers = [self.create_or_update_products_with_status(products_status)]
 
-        if options['shopmania']:
-            feed_filename = os.path.join(settings.MEDIA_ROOT, settings.SHOPMANIA_FEED_FILE)
-            temp_feed_filename = feed_filename + '.tmp'
-            if os.path.exists(temp_feed_filename):
-                os.remove(temp_feed_filename)
-            writers.append(partial(self.add_products_to_shopmania_feed, temp_feed_filename))
+        with atomic_write(os.path.join(settings.MEDIA_ROOT, settings.SHOPMANIA_FEED_FILE)) as shopmania_feed, \
+             atomic_write(os.path.join(settings.MEDIA_ROOT, settings.ALLSHOPS_FEED_FILE)) as allshops_feed:
 
-        if options['pcgarage']:
-            writers.append(self.get_and_save_specs)
+            if options['shops']:
+                writers.append(partial(self.add_products_to_shopmania_feed, shopmania_feed))
+                writers.append(partial(self.add_products_to_allshops_feed, allshops_feed))
 
-        self.synchronize(writers)
-        self.delete_products_other_then(products_status)
+            if options['pcgarage']:
+                writers.append(self.get_and_save_specs)
 
-        if options['shopmania']:
-            if os.path.exists(temp_feed_filename):
-                if os.path.exists(feed_filename):
-                    os.remove(feed_filename)
-                os.rename(temp_feed_filename, feed_filename)
+            self.synchronize(writers)
+            self.delete_products_other_then(products_status)
 
-        # Assign existing images for new products
-        Product.objects.assign_images()
+            # Assign existing images for new products
+            Product.objects.assign_images()
 
     def synchronize(self, writers):
         self.api = AncoraAPI(api_timeout=300)  # 5 minutes
@@ -124,9 +144,26 @@ class Command(BaseCommand):
             for product_id in delete_ids:
                 Product.objects.get(id=product_id).delete()
 
-    # Shopmania
+    # Shopping sites export
 
     def add_products_to_shopmania_feed(self, filename, products):
+        feed_line_items = (
+            'category_path', 'brand', 'model', 'id', 'name', 'description', 'url',
+            'image_url', 'price', 'currency', 'transport_cost', 'stock_info', 'gtin')
+        with open(filename, "a") as feed:
+            for product in products.values():
+                product_info = self._product_info(product)
+                # TODO: is float(price) > 0 ?
+                feed_line = '|'.join(self._clean(unicode(product_info.get(item, '')))
+                                     for item in feed_line_items)
+                feed.write(feed_line)
+                feed.write('\n')
+
+    def add_products_to_allshops_feed(self, filename, products):
+
+        return None # NYI
+
+
         feed_line_items = (
             'category_path', 'brand', 'model', 'id', 'name', 'description', 'url',
             'image_url', 'price', 'currency', 'transport_cost', 'stock_info', 'gtin')
