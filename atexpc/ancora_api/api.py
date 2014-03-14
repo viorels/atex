@@ -379,7 +379,8 @@ class Ancora(object):
 
         category_code = product.get('zcod_grupa') or product.get('zcodp')
         is_available = bool(re.match(r"[0-9.]+$", category_code)) if category_code is not None else False
-        stock_info = 'In stoc' if product.get('zstoc', 0) else product.get('zinfo_stoc_site', '')
+        local_stock = int(product.get('zstoc', 0))
+        stock_info = 'In stoc' if local_stock else product.get('zinfo_stoc_site', '')
 
         return {'id': int(product.get('pidm') or product.get('zidprodus')),
                 'brand': product.get('zbrand'),
@@ -391,10 +392,27 @@ class Ancora(object):
                 'price': product.get('zpret_site'),
                 'old_price': old_price,
                 'available': is_available,
-                'stock': product.get('zstoc', 0),
-                'stock_info': stock_info,
+                'stock': local_stock,                           # 1/0 local stock, only on cod_formular=618
+                'stock_info': stock_info,                       # human readable stock info from providers (not local stock)
+                'stock_status': self._stock_status(local_stock, stock_info), # machine readable stock heuristic
                 'warranty': product.get('zluni_garantie'),
                 'properties': self._product_properties(product.get('zselectori', []))}
+
+    STOCK_UNKNOWN = 0       # unknown/call
+    STOCK_TRUE = 1          # in stoc
+    STOCK_ORDER = 2         # order, la comanda
+    STOCK_UNAVAILABLE = 3   # indisponibil
+
+    def _stock_status(self, local_stock, stock_info):
+        stock_info = stock_info.lower()
+        if local_stock or ('in stoc' in stock_info):
+            return self.STOCK_TRUE
+        elif 'comanda' in stock_info:
+            return self.STOCK_ORDER
+        elif 'nu este disponibil' in stock_info:
+            return self.STOCK_UNAVAILABLE
+        else:
+            return self.STOCK_UNKNOWN
 
     def _product_properties(self, selectors):
         properties = {}
