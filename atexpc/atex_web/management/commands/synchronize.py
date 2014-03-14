@@ -1,3 +1,4 @@
+from base64 import b64encode
 import os
 from functools import partial
 from optparse import make_option
@@ -160,35 +161,43 @@ class Command(BaseCommand):
                 feed.write('\n')
 
     def add_products_to_allshops_feed(self, filename, products):
-
-        return None # NYI
-
-
         feed_line_items = (
-            'category_path', 'brand', 'model', 'id', 'name', 'description', 'url',
-            'image_url', 'price', 'currency', 'transport_cost', 'stock_info', 'gtin')
+            'category_id', 'category_name', 'name', 'model', 'description', 
+            'image_url', 'kw1', 'kw2', 'kw3', 'brand', 'price_standard', 'price_discount',
+            'currency_id', 'url', 'stock_allshops', 'sizes')
         with open(filename, "a") as feed:
             for product in products.values():
                 product_info = self._product_info(product)
                 # TODO: is float(price) > 0 ?
-                feed_line = '|'.join(self._clean(unicode(product_info.get(item, '')))
+                feed_line = ';'.join('"%s"' % b64encode(self._clean(unicode(product_info.get(item, ''))))
                                      for item in feed_line_items)
                 feed.write(feed_line)
                 feed.write('\n')
 
     def _product_info(self, product):
         info = product.copy()
+
         info['category_path']  = self._get_category_path(product)
-        info['description'] = '' # TODO: import description
+        info['description'] = self.api.products.get_product(info['id'])['description']
         info['url'] = self._product_url(product)
         info['image_url'] = self._image_url(product)
         info['currency'] = 'RON'
         info['transport_cost'] = ''
-        info['stock_info'] = self._translate_stock(product)
+        info['stock_info'] = self._translate_stock_shopmania(product)
         info['gtin'] = ''
+
+        # allshops
+        info['category_name'] = self.api.categories.get_category_by_code(info['category_code'])['name']
+        info['price_standard'] = info['price'] if not info['old_price'] else info['old_price']
+        info['price_discount'] = info['price'] if info['old_price'] else ''
+        info['currency_id'] = 1
+        # all shops stock id is the same with atex status
+        info['stock_allshops'] = info['stock_status']
+        info['sizes'] = ''
+
         return info
 
-    def _translate_stock(self, product):
+    def _translate_stock_shopmania(self, product):
         shopmania_stock = {
             'stock': 'In stock / In stoc',
             'order': 'Available for order / Disponibil la comanda',
