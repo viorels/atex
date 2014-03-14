@@ -54,6 +54,7 @@ SOCIAL_AUTH_PIPELINE = (
 
 # https://docs.djangoproject.com/en/dev/releases/1.6/#default-session-serialization-switched-to-json
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 SHOPMANIA_FEED_FILE = 'shopmania.csv'   # in media root
 ALLSHOPS_FEED_FILE = 'allshops.csv'   # in media root
