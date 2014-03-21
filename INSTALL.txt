@@ -19,7 +19,7 @@ MEMCACHE_SERVERS=localhost
 DJANGO_SETTINGS_MODULE=atexpc.config.production
 _EOF_
 
-$ env `xargs < .env` celery -A atexpc worker -l info 	# run Celery
-
 $ env `xargs < .env` python manage.py runserver		# run server
+
+$ env `xargs < .env` celery -A atexpc worker -l info 	# run Celery
 
