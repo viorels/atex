@@ -215,7 +215,10 @@ class SearchBase(BaseView):
             selectors_active=args['selectors_active'],
             price_min=args['price_min'], price_max=args['price_max'],
             stock=args['stock'])
-        return selectors
+        selectors_with_products = [{'name': group['name'],
+                                    'selectors': [selector for selector in group['selectors'] if selector['count'] > 0]}
+                                   for group in selectors] # if len(group['selectors']) > 0]
+        return selectors_with_products
 
 
 class SearchMixin(object):
