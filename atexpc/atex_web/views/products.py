@@ -158,8 +158,8 @@ class SearchBase(BaseView):
         page_info = lambda number: {
             'name': number,
             'url': self._uri_with_args(base_url, pagina=number),
-            'is_current': number == current_page}
-        pages = [page_info(number) for number in range(1, pages_count + 1)]
+            'is_current': number == current_page} if number is not None else None
+        pages = [page_info(number) for number in self._pages_list(pages_count, current_page)]
 
         previous_page = page_info(current_page - 1) if current_page > 1 else None
         next_page = page_info(current_page + 1) if current_page < pages_count else None
@@ -172,6 +172,9 @@ class SearchBase(BaseView):
                               'stop': stop,
                               'total_count': total_count}
         return data
+
+    def _pages_list(self, pages_count, current_page, max_pages=10):
+        return range(1, pages_count + 1)
 
     def get_products(self):
         products = self.get_products_page().get('products')
