@@ -19,6 +19,14 @@ MEMCACHE_SERVERS=localhost
 DJANGO_SETTINGS_MODULE=atexpc.config.production
 _EOF_
 
+# echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
+
+# wget -O /etc/init.d/celeryd https://raw.github.com/celery/celery/3.1/extra/generic-init.d/celeryd
+# chmod +x /etc/init.d/celeryd
+# ln -s atexpc/config/celeryd.default /etc/default/celeryd
+
+# DEVELOPMENT
+
 $ env `xargs < .env` python manage.py runserver		# run server
 
 $ env `xargs < .env` celery -A atexpc worker -l info 	# run Celery
