@@ -150,7 +150,9 @@
                                 <ul class="paginare">
                                     {% for page in pagination.pages %}
                                     <li>
-                                        {% if page.is_current %}
+                                        {% if not page %}
+                                        <span style="color: white">...</span>
+                                        {% elif page.is_current %}
                                         <a class="active">{{ page.name }}</a></li>
                                         {% else %}
                                         <a href="{{ page.url }}">{{ page.name }}</a></li>

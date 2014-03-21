@@ -173,8 +173,24 @@ class SearchBase(BaseView):
                               'total_count': total_count}
         return data
 
-    def _pages_list(self, pages_count, current_page, max_pages=10):
-        return range(1, pages_count + 1)
+    def _pages_list(self, pages_count, current_page, nearby=5):
+        first_page = 1
+        last_page = pages_count
+        min_context = max(first_page, current_page - nearby)
+        max_context = min(last_page, current_page + nearby)
+        print "context", min_context, max_context
+        before, after = [], []
+        if min_context == first_page + 1:
+            before = [first_page]
+        elif min_context >= first_page + 2:
+            before = [first_page, None]
+        if max_context <= last_page - 2:
+            after = [None, last_page]
+        elif max_context <= last_page - 1:
+            after = [last_page]
+        pages = before + range(min_context, max_context + 1) + after
+        print pages
+        return pages
 
     def get_products(self):
         products = self.get_products_page().get('products')
