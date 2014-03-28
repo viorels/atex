@@ -95,6 +95,7 @@ class Command(BaseCommand):
                 products_dict = dict((int(p['id']), p) for p in products)
                 for p in products_dict.values():     # augment products with category_id
                     p['category_id'] = category_id
+                    p['description'] = self.api.products.get_product(p['id'])['description']
                 yield products_dict
 
     # Database
@@ -178,7 +179,6 @@ class Command(BaseCommand):
         info = product.copy()
 
         info['category_path']  = self._get_category_path(product)
-        info['description'] = self.api.products.get_product(info['id'])['description']
         info['url'] = self._product_url(product)
         info['image_url'] = self._image_url(product)
         info['currency'] = 'RON'

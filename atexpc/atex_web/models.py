@@ -104,6 +104,7 @@ class StorageWithOverwrite(get_storage_class()):
 class Product(models.Model):
     model = models.CharField(max_length=128, db_index=True)
     name = models.CharField(max_length=128)
+    description = models.TextField(null=False, blank=False)
     category = models.ForeignKey(Category, null=True)
     specs = models.ManyToManyField('Specification', through='ProductSpecification')
     updated = models.DateTimeField(auto_now=True, auto_now_add=True)

@@ -1,2 +1,4 @@
+{{ object.get_best_name }}
+{{ object.description }}
 {{ object.category.name }}
 {{ object.model }}
