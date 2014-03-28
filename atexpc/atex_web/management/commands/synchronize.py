@@ -88,15 +88,19 @@ class Command(BaseCommand):
         for category in self.api.categories.get_all():
             category_id = category['id']
             logger.debug("Category %(name)s (%(count)d)", category)
-            if category['count'] > 0:
+            start = 0
+            per_page = 20
+            while start < category['count']:
                 products = self.api.products.get_products(
                     category_id=category_id, keywords=None,
-                    start=None, stop=None).get('products')
+                    start=start, stop=start + per_page).get('products')
                 products_dict = dict((int(p['id']), p) for p in products)
+                # products_details = self.api.products.get_product_list(products_dict.keys())
                 for p in products_dict.values():     # augment products with category_id
                     p['category_id'] = category_id
                     p['description'] = self.api.products.get_product(p['id'])['description']
                 yield products_dict
+                start += per_page
 
     # Database
 
