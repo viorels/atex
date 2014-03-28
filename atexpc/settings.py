@@ -97,6 +97,13 @@ GOOGLE_OAUTH2_CLIENT_SECRET = environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
 FACEBOOK_APP_ID = environ.get('FACEBOOK_APP_ID')
 FACEBOOK_API_SECRET = environ.get('FACEBOOK_API_SECRET')
 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': path.join(PROJECT_ROOT, 'whoosh_index'),
+    },
+}
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -220,6 +227,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'social_auth',
     'password_reset',
+    'haystack',
     'atexpc.atex_web',
 )
 
