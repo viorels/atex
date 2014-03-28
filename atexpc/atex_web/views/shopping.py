@@ -198,7 +198,10 @@ class ShoppingMixin(object):
         for item in items:
             product = item['product']
             api_product = self.api.products.get_product(product['id'])
-            product.update({'description': api_product['description'],
+            category = self.api.categories.get_category(api_product['category_id'])
+            product.update({'model': api_product['model'],
+                            'description': api_product['description'],
+                            'category': category['name'],
                             'price': api_product['price'],
                             'stock_info': api_product['stock_info'],
                             'warranty': api_product['warranty'],
