@@ -177,8 +177,10 @@ class Command(BaseCommand):
     def _product_info(self, product):
         info = product.copy()
 
+        product_details = self.api.products.get_product(info['id'])
+
         info['category_path']  = self._get_category_path(product)
-        info['description'] = self.api.products.get_product(info['id'])['description']
+        info['description'] = product_details['description'] if product_details else ''
         info['url'] = self._product_url(product)
         info['image_url'] = self._image_url(product)
         info['currency'] = 'RON'
