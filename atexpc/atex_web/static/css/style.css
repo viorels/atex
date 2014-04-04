@@ -59,11 +59,11 @@ html, body { height: 100%;  }
   	/*min-height: 100%;
  	height: aut !important;
  	height: 100%;*/
- 	margin: 0 auto -275px;
+ 	margin: 0 auto -295px;
 	min-width:1170px;
 }
 .footer_wrapper, .push { 
-    height: 275px; 
+    height: 295px; 
     }
 .wrapper {
 	border-top:5px solid #cd2325;
