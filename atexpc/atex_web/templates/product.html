@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load atex_tags %}
 
-{% block title %}{{ block.super }} - {{ product.name }}{% endblock title %}
+{% block title %}{{ product.name }} - {{ block.super }}{% endblock title %}
 {% block head %}
 	<meta name="description" content="{{ product.name }}">
 

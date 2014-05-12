@@ -12,10 +12,14 @@
 <link rel="icon" href="{{ STATIC_PREFIX }}favicon.ico" />
 {% compress css %}
 <link href="{{ STATIC_PREFIX }}css/style.css" type="text/css" rel="stylesheet" />
+<link href="{{ STATIC_PREFIX }}css/style_certificari.css" type="text/css" rel="stylesheet" />
 <link href="{{ STATIC_PREFIX }}css/jquery-ui-1.8.16.custom.css" type="text/css" rel="stylesheet" />
+<link href="{{ STATIC_PREFIX }}css/jcarousel.data-attributes.css" type="text/css" rel="stylesheet" />
+<link href="{{ STATIC_PREFIX }}css/jquery.fancybox.css" type="text/css" rel="stylesheet" />
 {% endcompress %}
 {% compress js %}
 <script src="{{ STATIC_PREFIX }}script/jquery-1.7.2.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.fancybox.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery-ui.1.8.16.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery.exposure.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery.autocomplete.js" type="text/javascript"></script>
@@ -23,6 +27,8 @@
 <script src="{{ STATIC_PREFIX }}script/underscore-min.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/all.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery.bxslider.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.slides.min.js" type="text/javascript"></script
+<script src="{{ STATIC_PREFIX }}dist/jquery.jcarousel.min.js" type="text/javascript"></script>
 {% endcompress %}
 <title>{% block title %}{{ site_info.name }}{% endblock %}</title>
 {% block head %}{% endblock %}
@@ -38,7 +44,34 @@
 
 							</script>
 						<!--/End Google Analitycs/-->
-
+						<script>
+    $(function() {
+      $('#slides').slidesjs({
+        width: 278,
+        height: 100,
+        play: {
+          active: false,
+          auto: true,
+          interval: 4000,
+          swap: true
+        }
+      });
+    });
+  </script>
+<style type="text/css">
+    .hidden {
+    display: none;
+	}
+  </style>
+<script type="text/javascript">//<![CDATA[ 
+$(function(){
+$(".fancybox")
+    .attr('rel', 'gallery')
+    .fancybox({
+        padding : 0
+    });
+});//]]>  
+</script>
 </head>
 
 <body>
@@ -154,16 +187,44 @@
 
                 {% endblock newsletter %}
 		  {% block banner_right %}
-                 <div class="logo-producatori">
-                	<ul>
+                <div class="logo-producatori">
+                	<!--<ul>
                     	<li><div class="middle"><a class="img-holder" href="/cauta/?filtre=Gigabyte"><img class="center" src="{{ STATIC_PREFIX }}images/gigabyte-partner-small.png" width="89" height="70" alt="Gigabyte logo" title="Gigabyte"/></a></div></li>
                         <li><div class="middle"><a href="/cauta/?categorie=501&filtre=Kaspersky"><img src="{{ STATIC_PREFIX }}images/kaspersky-partner.png" width="200" height="59" alt="Kaspersky logo" title="Kaspersky"/></a></div></li>
                         <li><div class="middle"><a href="/cauta/?filtre=Intel"><img src="{{ STATIC_PREFIX }}images/intel-partner-small.png" width="77" height="70" alt="Intel Technology Partner logo" title="Intel Technology Partner"/></a></div></li>
                         <li><div class="middle"><a href="/cauta/?filtre=Hp"><img src="{{ STATIC_PREFIX }}images/hp-icon.jpg" width="106" height="70" alt="hp logo" title="hp"/></a></div></li>
                         <li><div class="middle"><a href="/cauta/?filtre=Dell"><img src="{{ STATIC_PREFIX }}images/dell_partner.png" width="177" height="70" alt="Dell Partner" title="Dell"/></a></div></li>
                         <li><div class="middle"><a href="/cauta/?filtre=Lenovo"><img src="{{ STATIC_PREFIX }}images/lenovo.png" width="70" height="70" alt="Lenovo logo" title="Lenovo"/></a></div></li>
-                    </ul>
-                  </div>
+                    </ul>-->
+					<div class="wrapper_certificari">
+							<div class="container">
+								<div id="slides">
+								<img src="{{ STATIC_PREFIX }}images/apple.jpg" alt="Apple Resseler Authorized" title="Apple Resseler Authorized">
+								<img src="{{ STATIC_PREFIX }}images/asus.jpg" alt="ASUS Gold Partner" title="ASUS Gold Partner">
+								<img src="{{ STATIC_PREFIX }}images/cisco.jpg" alt="Cisco Select Partner" title="Cisco Select Partner">
+								<img src="{{ STATIC_PREFIX }}images/dell.jpg" alt="Dell Partner Direct" title="Dell Partner Direct">
+								<img src="{{ STATIC_PREFIX }}images/epson.jpg" alt="Epson Reseller Authorised" title="Epson Reseller Authorised">
+								<img src="{{ STATIC_PREFIX }}images/gigabyte.jpg" alt="Gigabyte Authorized Partner" title="Gigabyte Authorized Partner">
+								<img src="{{ STATIC_PREFIX }}images/hp.jpg" alt="HP Partner" title="HP Partner">
+								<img src="{{ STATIC_PREFIX }}images/intel.jpg" alt="Intel Technology Provider Gold" title="Intel Technology Provider Gold">
+								<img src="{{ STATIC_PREFIX }}images/jabra.jpg" alt="Jabra Partner Registered" title="Jabra Partner Registered">
+								<img src="{{ STATIC_PREFIX }}images/juniper.jpg" alt="Juniper Select Partner" title="Juniper Select Partner">
+								<img src="{{ STATIC_PREFIX }}images/kaspersky.jpg" alt="Kaspersky Reseller Authorized" title="Kaspersky Reseller Authorized">
+								<img src="{{ STATIC_PREFIX }}images/lenovo.jpg" alt="Lenovo Silver Business Partner" title="Lenovo Silver Business Partner">
+								</div>
+							</div>
+							
+						<div class="text-box_furnizori_logo">
+							<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/logo-uri_producatori.jpg" alt="logo producatori" title="ATEX Computer reprezinta cele mai cunoscute branduri din industria tehnologica.
+Click pentru a vedea multitudinea de furnizori pe care ii reprezentam"></a>
+						</div>
+						<div class="text-box_furnizori">
+							<p style="text-align:justify"><strong>ATEX Computer</strong> reprezinta cele mai cunoscute branduri din industria tehnologica.
+Click pentru a vedea multitudinea de furnizori pe care ii reprezentam.</p>
+							<p style="text-align:right"><img src="{{ STATIC_PREFIX }}images/arrow-1.jpg" alt="Arrow" ></p>
+						</div>
+					</div>
+                </div>
                  {% endblock banner_right %} 
 			<div class="statistics-info">
                             

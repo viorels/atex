@@ -1,7 +1,7 @@
 {% extends "base_2col.html" %}
 {% load atex_tags %}
 
-{% block title %}{{ block.super }} - {% with breadcrumbs|last as current %}{{ current.name }}{% endwith %}{% if pagination.current > 1 %} - pagina {{ pagination.current }}{% endif %}{% endblock title %}
+{% block title %}{% with breadcrumbs|last as current %}{{ current.name }}{% endwith %} - {{ block.super }}{% if pagination.current > 1 %} - pagina {{ pagination.current }}{% endif %}{% endblock title %}
 {% block head %}
 	<meta name="description" content="{% with breadcrumbs|last as current %}{{ current.name }}{% endwith %} - Profita de cele mai bune oferte. Livrare Rapida.">
 	<meta name="keywords" content="{% with breadcrumbs|last as current %}{{ current.name }}{% endwith %}"> 
