@@ -182,6 +182,8 @@ class Command(BaseCommand):
     def _product_info(self, product):
         info = product.copy()
 
+        product_details = self.api.products.get_product(info['id'])
+
         info['category_path']  = self._get_category_path(product)
         info['url'] = self._product_url(product)
         info['image_url'] = self._image_url(product)
