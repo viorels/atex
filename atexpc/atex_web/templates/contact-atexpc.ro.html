@@ -6,6 +6,45 @@
 	<meta name="description" content="Strada Stephan Ludwig Roth, nr. 21 Cluj-Napoca, 400174.">
 
 	<meta name="keywords" content="contact ATEX"> 
+	<script>
+							$(document).ready(function() {
+							$("#single_1").fancybox({
+								helpers: {
+									title : {
+										type : 'float'
+											}
+										}
+							});
+
+							$("#single_2").fancybox({
+							openEffect	: 'elastic',
+							closeEffect	: 'elastic',
+
+								helpers : {
+									title : {
+										type : 'inside'
+											}
+										}
+							});
+
+							$("#single_3").fancybox({
+								openEffect : 'none',
+								closeEffect	: 'none',
+								helpers : {
+								title : {
+								type : 'outside'
+										}
+											}
+							});
+
+							$("#single_4").fancybox({
+							helpers : {
+								title : {
+								type : 'over'
+										}
+									}
+							});
+						});</script>
 {% endblock %}
 {% block content_right %}
             	<div class="contact-content">
@@ -46,19 +85,24 @@
                              	<iframe class="gmap-border" width="485" height="435" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?msid=205342714700961790690.0004cbd78b069ec125f51&amp;msa=0&amp;ie=UTF8&amp;t=m&amp;ll=46.775013,23.586992&amp;spn=0.002893,0.006703&amp;output=embed"></iframe><br /><span style="float:right; font-size:10px;">Vizualizati <a href="https://maps.google.com/maps/ms?msid=205342714700961790690.0004cbd78b069ec125f51&amp;msa=0&amp;ie=UTF8&amp;t=m&amp;ll=46.775013,23.586992&amp;spn=0.002893,0.006703&amp;source=embed" style="color:#c62123;text-align:left">Sediul ATEX Computer</a> pe o harta mai mare</span>
                     	</div>
                     	</div>
-                    	<link href="/static/css/contact.css" rel="stylesheet"  />
- <div class="container" id="container">
-            <div class="gallery">
-                <a tabindex="1"><img src="/static/images/contact/1.jpg"></a>
-                <a tabindex="1"><img src="/static/images/contact/2.jpg"></a>
-                <a tabindex="1"><img src="/static/images/contact/3.jpg"></a>
-                <a tabindex="1"><img src="/static/images/contact/4.jpg"></a>
-                <a tabindex="1"><img src="/static/images/contact/5.jpg"></a>
-                <a tabindex="1"><img src="/static/images/contact/6.jpg"></a>
-                              <span class="close"></span>
-            </div>
-        </div>
-
+						<p style="text-align:center"><a id="single_1" href="{{ STATIC_PREFIX }}images/contact/1.jpg" >
+								<img src="{{ STATIC_PREFIX }}images/contact/1s.jpg" alt="ATEX Computer - Magazin IT Cluj Napoca" />
+						</a>
+						<a id="single_1" href="{{ STATIC_PREFIX }}images/contact/2.jpg" >
+								<img src="{{ STATIC_PREFIX }}images/contact/2s.jpg" alt="ATEX Computer - Magazin IT Cluj Napoca" />
+						</a>
+						<a id="single_1" href="{{ STATIC_PREFIX }}images/contact/3.jpg" >
+								<img src="{{ STATIC_PREFIX }}images/contact/3s.jpg" alt="ATEX Computer - Magazin IT Cluj Napoca" />
+						</a>
+						<a id="single_1" href="{{ STATIC_PREFIX }}images/contact/4.jpg" >
+								<img src="{{ STATIC_PREFIX }}images/contact/4s.jpg" alt="ATEX Computer - Magazin IT Cluj Napoca" />
+						</a>
+						<a id="single_1" href="{{ STATIC_PREFIX }}images/contact/5.jpg" >
+								<img src="{{ STATIC_PREFIX }}images/contact/5s.jpg" alt="ATEX Computer - Magazin IT Cluj Napoca" />
+						</a>
+						<a id="single_1" href="{{ STATIC_PREFIX }}images/contact/6.jpg" >
+								<img src="{{ STATIC_PREFIX }}images/contact/6s.jpg" alt="ATEX Computer - Magazin IT Cluj Napoca" />
+						</a></p>
                         <div class="red-bottom"> 
                 			<div class="tab_u_holder_left">
                             	<span class="up_left"></span>

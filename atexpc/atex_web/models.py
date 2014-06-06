@@ -218,7 +218,8 @@ class Product(models.Model):
 
             prod_spec = ProductSpecification.objects.get(product=self, spec__name=name)
             spec_value = prod_spec.value
-        except ProductSpecification.DoesNotExist:
+        except (ProductSpecification.DoesNotExist, ProductSpecification.MultipleObjectsReturned) as e:
+            logger.error("get_spec: %s", e)
             spec_value = None
         return spec_value
 
