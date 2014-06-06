@@ -1,5 +1,5 @@
 """
-run "manage.py test --settings=atexpc.config.test atex_web".
+run "./manage.py test --settings=atexpc.config.test atexpc.atex_web".
 """
 
 from django.test import TestCase
