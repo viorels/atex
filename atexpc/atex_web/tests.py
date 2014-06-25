@@ -1,5 +1,5 @@
 """
-run "manage.py test --settings=atexpc.config.test atex_web".
+run "./manage.py test --settings=atexpc.config.test atexpc.atex_web".
 """
 
 from django.test import TestCase
@@ -8,9 +8,10 @@ from django.db import IntegrityError
 from django.contrib.sessions.backends.db import SessionStore
 from mock import patch
 
-from models import Product, ProductManager, DatabaseCart
+from models import Product, ProductManager, DatabaseCart, Category
 from ancora_api import AncoraAPI
 import views
+from specs_impex import update_db_specs
 
 
 class ClientTest(TestCase):
@@ -144,3 +145,42 @@ class DatabaseCartTest(TestCase):
     def test_remove_inexistent_product_returns_none(self):
         removed = self.cart.remove_item(self.inexistent_id)
         self.assertTrue(removed is None)
+
+
+class SyncTest(TestCase):
+    def setUp(self):
+        self.some_category = Category.objects.create(name="Some Category", code='1')
+
+    def test_add_specs_for_nonexistent_product_does_not_create_product(self):
+        item_model = 'MODEL1'
+        item_name = 'Item Model 1'
+        item_description = 'First model of item'
+        item_brand = 'Acme'
+        specs = [
+            (item_model, {
+                'Name': item_name,
+                'Description': item_description,
+                'General|Producator': item_brand}),
+        ]
+        update_db_specs(self.some_category.id, specs)
+        new_products = Product.objects.filter(model=item_model).count()
+        self.assertEqual(new_products, 0)
+
+    def test_update_specs_for_existent_product(self):
+        item_model = 'MODEL1'
+        item_name = 'Item Model 1'
+        item_description = 'First model of item'
+        item_brand = 'Acme'
+        specs = [
+            (item_model, {
+                'Name': item_name,
+                'Description': item_description,
+                'General|Producator': item_brand}),
+        ]
+
+        # create product
+        Product.objects.create(model=item_model, name=item_name, category=self.some_category)
+
+        update_db_specs(self.some_category.id, specs)
+        product = Product.objects.get(model=item_model)
+        self.assertEqual(set(product.specs_list().keys()), {'Name', 'Description', 'Producator'})
