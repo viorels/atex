@@ -72,7 +72,7 @@ class SearchBase(BaseView):
 
     def get_breadcrumbs(self):
         args = self.get_search_args()
-        return self._get_search_breadcrumbs(args['keywords'], args['category_id'])
+        return self._get_search_breadcrumbs(args['keywords'], args['category_id'], args['selectors_active'])
 
     def get_search_form(self):
         if not hasattr(self, '_search_form'):

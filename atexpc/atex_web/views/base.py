@@ -226,13 +226,16 @@ class BreadcrumbsMixin(object):
             breadcrumbs[-1]['url'] = None   # the current navigation item is not clickable
         return breadcrumbs
 
-    def _get_search_breadcrumbs(self, search_keywords, category_id):
+    def _get_search_breadcrumbs(self, search_keywords, category_id, selectors):
         breadcrumbs = []
         if search_keywords:
             breadcrumbs.append({'name': '"%s"' % search_keywords,
                                 'url': None})
         elif category_id:
             breadcrumbs = self._get_category_breadcrumbs(category_id)
+        elif selectors:
+            breadcrumbs.append({'name': ", ".join(selectors),
+                                'url': None})
         return breadcrumbs
 
     def _get_category_breadcrumbs(self, category_id):
