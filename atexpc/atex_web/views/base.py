@@ -240,7 +240,7 @@ class BreadcrumbsMixin(object):
         category = self.api.categories.get_category(category_id)
         while category is not None:
             crumb = {'name': category['name'],
-                     'url': self._category_url(category)}
+                     'url': self._category_url(category) if category.get('count') else None}
             breadcrumbs.insert(0, crumb)
             category = self.api.categories.get_parent_category(category['id'])
         return breadcrumbs

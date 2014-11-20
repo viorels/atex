@@ -335,10 +335,10 @@ input.hint, textarea.hint {
 .breadcrumbs ul li {
 	float:left;
 	font-weight:bold;
-	padding-right:10px;
+	padding-right: 10px;
 }
-.breadcrumbs ul li a {
-	padding-right:17px;
+.breadcrumbs ul li span.arrow {
+	padding-right: 7px;
 	background:url(../images/red-arrow.png) right center no-repeat;
 }
 .breadcrumbs ul li a:hover {
