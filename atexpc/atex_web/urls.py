@@ -14,9 +14,9 @@ from views.shopping import GetCompanyInfo
 
 
 urlpatterns = patterns('',
-#    url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^$', HomeView.as_view(), name='home'),
 #    url(r'^$', BlackFridaySoon.as_view(), name='home'),
-    url(r'^$', RedirectView.as_view(url='/blackfriday', permanent=False), name='home'),
+#    url(r'^$', RedirectView.as_view(url='/blackfriday', permanent=False), name='home'),
     url(r'^cauta/', SearchView.as_view(), name='search'),
     url(r'^produse/(?P<category_id>\d+)-(?P<slug>.*)$',
         SearchView.as_view(), name='category'),
