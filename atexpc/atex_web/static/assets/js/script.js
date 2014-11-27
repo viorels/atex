@@ -1,8 +1,8 @@
 $(function(){
 	
 	var note = $('#note'),
-		ts = new Date(2013, 10, 29, 10, 0, 0, 0000),
-//		ts = new Date(2013, 10, 28, 23, 11, 30, 0000),
+		ts = new Date(2014, 10, 28, 0, 0, 0, 0000),
+//		ts = new Date(2014, 10, 27, 22, 11, 30, 0000),
 		blackFriday = false;
 	
 		

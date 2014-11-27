@@ -69,7 +69,8 @@ class BlackFridaySoon(CommonMixins, BaseView):
 
 class BlackFriday(CommonMixins, BaseView):
     template_name = "blackfriday.html"
-    blackfriday = datetime(2013, 11, 29, 10, 0, 0)
+    blackfriday = datetime(2014, 11, 28, 0, 0, 0)
+#    blackfriday = datetime(2014, 11, 27, 22, 11, 30)
 
     def is_black_friday(self):
         cluj = timezone('Europe/Bucharest')
