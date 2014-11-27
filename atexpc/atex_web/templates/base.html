@@ -153,6 +153,7 @@ $(".fancybox")
                     <ul>                   
                         <li><a href="/">Home</a></li>
                         {% for crumb in breadcrumbs %}
+                            <li><span class="arrow"></span></li>
                             {% if crumb.url %}
                                 <li><a href="{{ crumb.url }}">{{ crumb.name }}</a></li>
                             {% else %}

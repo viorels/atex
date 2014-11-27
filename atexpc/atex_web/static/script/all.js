@@ -152,7 +152,7 @@ function init_filters() {
 
 function toggle_price() {
     var price_checkbox = $('input.checkbox[name="pret"]');
-    var price_enabled = price_checkbox.parent().hasClass('selected');
+    var price_enabled = price_checkbox.is(':checked');
     $(".price_selector input").attr("disabled", !price_enabled);
     return price_enabled;
 }
