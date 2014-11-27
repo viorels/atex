@@ -1,20 +1,27 @@
 $(function(){
 	
 	var note = $('#note'),
-		ts = new Date(2013, 10, 29, 10, 0, 0, 0000),
-		newYear = true;
+		ts = new Date(2014, 10, 28, 0, 0, 0, 0000),
+//		ts = new Date(2014, 10, 27, 22, 11, 30, 0000),
+		blackFriday = false;
 	
-	if((new Date()) > ts){
-		// The new year is here! Count towards something else.
-		// Notice the *1000 at the end - time must be in milliseconds
-		ts = (new Date()).getTime() + 1*12*60*60*1000;
-		newYear = false;
-	}
 		
 	$('#countdown').countdown({
 		timestamp	: ts,
 		callback	: function(days, hours, minutes, seconds){
-			
+
+			if((new Date()) > ts){
+				// The new year is here! Count towards something else.
+				// Notice the *1000 at the end - time must be in milliseconds
+				// ts = (new Date()).getTime() + 1*1000;
+				blackFriday = true;
+
+				setTimeout(function(){
+					window.location.href = '/blackfriday';
+				}, 1000);
+			}
+
+//			console.log('tick ' + blackFriday);			
 			var message = "";
 			
 			message += days + " zile" + ( days==1 ? '':'' ) + ", ";
@@ -22,11 +29,11 @@ $(function(){
 			message += minutes + " minute" + ( minutes==1 ? '':'' ) + " si ";
 			message += seconds + " secunde" + ( seconds==1 ? '':'' ) + " <br />";
 			
-			if(newYear){
-				message += "pana la Black Friday!";
+			if(blackFriday){
+				message += "a inceput Black Friday!";
 			}
 			else {
-				message += "a inceput Black Friday";
+				message += "pana la Black Friday";
 			}
 			
 			note.html(message);

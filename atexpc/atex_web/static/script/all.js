@@ -641,7 +641,7 @@ $(document).ready(function() {
     init_order();
     init_confirm();
     init_checkboxes();
-	$('.bxslider').bxSlider({auto:true, mode: 'fade', pause:'5000'});
+	$('.bxslider').bxSlider({auto:false, mode: 'fade', pause:'5000'});
     // $('input[placeholder], textarea[placeholder]').inputHints();
 
 	//$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
