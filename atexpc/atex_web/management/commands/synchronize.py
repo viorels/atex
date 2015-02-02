@@ -102,9 +102,10 @@ class Command(BaseCommand):
                     start=start, stop=start + per_page).get('products')
                 products_dict = dict((int(p['id']), p) for p in products)
                 # products_details = self.api.products.get_product_list(products_dict.keys())
-                for p in products_dict.values():     # augment products with category_id
+                for p in products_dict.values():     # augment products with category_id and description
                     p['category_id'] = category_id
-                    p['description'] = self.api.products.get_product(p['id'])['description']
+                    product_details = self.api.products.get_product(p['id'])
+                    p['description'] = product_details['description'] if product_details else ''
                 yield products_dict
                 start += per_page
 
@@ -188,9 +189,9 @@ class Command(BaseCommand):
     def _product_info(self, product):
         info = product.copy()
 
-        #FIXME unused
         product_details = self.api.products.get_product(info['id'])
 
+        info['description'] = product_details['description'] if product_details else ''
         info['category_path']  = self._get_category_path(product)
         info['url'] = self._product_url(product)
         info['image_url'] = self._image_url(product)
