@@ -251,7 +251,7 @@ class Command(BaseCommand):
     def _clean_info(self, field):
         if not field:
             return ""
-        return field.translate(self.CLEAN_INFO_UNWANTED_CHARS)
+        return field.translate(dict.fromkeys(self.CLEAN_INFO_UNWANTED_CHARS))
 
     # Specifications
 
