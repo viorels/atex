@@ -63,7 +63,9 @@
                                 {% else %}
                             	<li>Pret: <span class="pret">{{ product.price }} Lei</span></li>
                                 {% endif %}
-                                <li><a href="#" class="add_cos_btn" data-product-id="{{ product.id }}"><span></span>Adauga in cos</a></li>
+                                {% if product.stock_available %}
+                                    <li><a href="#" class="add_cos_btn" data-product-id="{{ product.id }}"><span></span>Adauga in cos</a></li>
+                                {% endif %}
                             </ul>
                             {% else %}
                             <ul class="info-termeni">

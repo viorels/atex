@@ -141,7 +141,7 @@ $(".fancybox")
                 </ul>
                 <ul class="configurator">
                 	<li>Acces Parteneri : </li>
-                     <li><a href="http://109.102.172.60:8765/profon/" target="_blank"><img src="{{ STATIC_PREFIX }}images/config-button.png" width="23" height="23" alt="Acces Parteneri" title="Acces Parteneri" /></a></li>
+                     <li><a href="http://ancora.atexpc.ro:8765/profon/" target="_blank"><img src="{{ STATIC_PREFIX }}images/config-button.png" width="23" height="23" alt="Acces Parteneri" title="Acces Parteneri" /></a></li>
                 </ul>
             </div> <!-- search bar end -->
             
@@ -153,6 +153,7 @@ $(".fancybox")
                     <ul>                   
                         <li><a href="/">Home</a></li>
                         {% for crumb in breadcrumbs %}
+                            <li><span class="arrow"></span></li>
                             {% if crumb.url %}
                                 <li><a href="{{ crumb.url }}">{{ crumb.name }}</a></li>
                             {% else %}

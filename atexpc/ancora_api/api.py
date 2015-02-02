@@ -391,7 +391,7 @@ class Ancora(object):
                 'short_description': product.get('zdescriere_scurta', ''),
                 'price': product.get('zpret_site'),
                 'old_price': old_price,
-                'available': is_available,
+                'available': is_available,                      # belongs to visible category
                 'stock': local_stock,                           # 1/0 local stock, only on cod_formular=618
                 'stock_info': stock_info,                       # human readable stock info from providers (not local stock)
                 'stock_status': self._stock_status(local_stock, stock_info), # machine readable stock heuristic

@@ -43,7 +43,7 @@ class atomic_write(object):
 
 
 class Command(BaseCommand):
-    helf = "Synchronize Ancora products to local database AND (optionally) to Shopmania feed file"
+    help = "Synchronize Ancora products to local database AND (optionally) to Shopmania feed file"
     option_list = BaseCommand.option_list + (
         make_option('--to-shops',
             action='store_true',
@@ -56,6 +56,12 @@ class Command(BaseCommand):
             default=False,
             help='Get product details'),
         )
+
+    CLEAN_INFO_UNWANTED_CHARS = {
+        ord('|'),
+        ord('\n'),
+        ord('\r'),
+    }
 
     def handle(self, *args, **options):
         products_status = {}
@@ -160,21 +166,21 @@ class Command(BaseCommand):
             for product in products.values():
                 product_info = self._product_info(product)
                 # TODO: is float(price) > 0 ?
-                feed_line = '|'.join(self._clean(unicode(product_info.get(item, '')))
+                feed_line = '|'.join(self._clean_info(unicode(product_info.get(item, '')))
                                      for item in feed_line_items)
                 feed.write(feed_line)
                 feed.write('\n')
 
     def add_products_to_allshops_feed(self, filename, products):
         feed_line_items = (
-            'category_id', 'category_name', 'name', 'model', 'description', 
+            'category_id', 'category_name', 'name', 'model', 'description',
             'image_url', 'kw1', 'kw2', 'kw3', 'brand', 'price_standard', 'price_discount',
             'currency_id', 'url', 'stock_allshops', 'sizes')
         with open(filename, "a") as feed:
             for product in products.values():
                 product_info = self._product_info(product)
                 # TODO: is float(price) > 0 ?
-                feed_line = ';'.join('"%s"' % b64encode(self._clean(unicode(product_info.get(item, ''))))
+                feed_line = ';'.join('"%s"' % b64encode(self._clean_info(unicode(product_info.get(item, ''))))
                                      for item in feed_line_items)
                 feed.write(feed_line)
                 feed.write('\n')
@@ -182,6 +188,7 @@ class Command(BaseCommand):
     def _product_info(self, product):
         info = product.copy()
 
+        #FIXME unused
         product_details = self.api.products.get_product(info['id'])
 
         info['category_path']  = self._get_category_path(product)
@@ -241,11 +248,10 @@ class Command(BaseCommand):
         else:
             return ''
 
-    def _clean(self, field):
-        if field is None:
-            return None
-        strip_chars = ('|', '\n', '\r')
-        return reduce(lambda s, c: s.replace(c, ''), strip_chars, field)
+    def _clean_info(self, field):
+        if not field:
+            return ""
+        return field.translate(self.CLEAN_INFO_UNWANTED_CHARS)
 
     # Specifications
 

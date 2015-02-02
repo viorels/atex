@@ -165,13 +165,24 @@
                             	<td colspan="2" class="right">TOTAL</td>
                                 <td colspan="2" class="right">{{ cart.price }} lei</td>
                             </tr>
+                            <tr>
+                                <td colspan="4">
+				    {% if not done %}
+					<form id="confirmform" method="post">
+					    {% csrf_token %}
+					    <a href="#" class="confirma"><span></span>Confirma</a>
+					</form>
+				    {% endif %}
+                                </td>
+			    </tr>
+			    <tr>
+                                <td colspan="4">
+Aceasta nu este o confirmare din partea ATEX Computer SRL,
+confirmarea de pret si termenul de livrare o veti primi pe adresa de mail furnizata la inregistrare
+in termen de maxim doua zile lucratoare de la data efectuarii comenzii !
+				</td>
+                            </tr>
                         </table> 
-                        {% if not done %}
-                        <form id="confirmform" method="post">
-                            {% csrf_token %}
-                            <a href="#" class="confirma"><span></span>Confirma</a>
-                        </form>
-                        {% endif %}
                     </div>	
                      <!-- end pas 03 -->
                 </div>

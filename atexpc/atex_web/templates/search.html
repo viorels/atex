@@ -117,12 +117,14 @@
 			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
-                                		<span class="pret_produs">{{ product.price }} lei</span>
-                                		{% if product.old_price %}
-                                		<span class="pret_vechi">{{ product.old_price }} lei</span>
-                                		{% endif %}
-                            	</div>
-					<a href="#" class="add_cos_btn_small" data-product-id="{{ product.id }}" style="display: none"><span></span>Adauga in cos</a>
+                        <span class="pret_produs">{{ product.price }} lei</span>
+                        {% if product.old_price %}
+                        <span class="pret_vechi">{{ product.old_price }} lei</span>
+                        {% endif %}
+                    </div>
+                    {% if product.stock_available %}
+                       <a href="#" class="add_cos_btn_small" data-product-id="{{ product.id }}" style="display: none"><span></span>Adauga in cos</a>
+                    {% endif %}
 				</div>
                                                   
                             <!--

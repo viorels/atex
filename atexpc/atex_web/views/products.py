@@ -8,6 +8,7 @@ from atexpc.atex_web.views.base import BaseView
 from atexpc.atex_web.models import Product, ProductSpecification
 from atexpc.atex_web.forms import search_form_factory
 from atexpc.atex_web.utils import group_in, grouper
+from atexpc.ancora_api.api import Ancora    # STOCK_UNAVAILABLE
 
 import logging
 logger = logging.getLogger(__name__)
@@ -71,7 +72,7 @@ class SearchBase(BaseView):
 
     def get_breadcrumbs(self):
         args = self.get_search_args()
-        return self._get_search_breadcrumbs(args['keywords'], args['category_id'])
+        return self._get_search_breadcrumbs(args['keywords'], args['category_id'], args['selectors_active'])
 
     def get_search_form(self):
         if not hasattr(self, '_search_form'):
@@ -197,6 +198,7 @@ class SearchBase(BaseView):
             product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
             product['url'] = self._product_url(product)
+            product['stock_available'] = product['stock_status'] != Ancora.STOCK_UNAVAILABLE
 
         products_per_line = 4
         for idx, product in enumerate(products):
@@ -253,6 +255,7 @@ class ProductBase(BaseView):
             product['short_name'] = product_orm.get_short_name()
             product['images'] = product_orm.images()
             product['spec_groups'] = product_orm.get_spec_groups()
+            product['stock_available'] = product['stock_status'] != Ancora.STOCK_UNAVAILABLE
 
             html_template = product_orm.html_description()
             if html_template:

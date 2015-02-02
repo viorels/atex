@@ -1,3 +1,24 @@
+<head>
+<style type="text/css">
+.auto-style1 {
+	text-align: center;
+}
+.auto-style2 {
+	font-size: large;
+}
+.auto-style3 {
+	font-size: medium;
+}
+.auto-style5 {
+	background-color: #FFFFFF;
+}
+.auto-style6 {
+	font-size: x-large;
+}
+</style>
+</head>
+
+
 {% extends "base.html" %}
 
 {% load static %}
@@ -14,7 +35,11 @@
 {% endblock content_top %}
 
 {% block content %}
-<p align="center"><img src="{{ STATIC_PREFIX }}images/PENDING.jpg" align="center" width="auto" /></p>
+<table style="width: 100%">
+	<tr>
+		<td class="auto-style1"><img src="{{ STATIC_PREFIX }}images/PENDING.jpg" align="center" width="auto" /></td>
+	</tr>
+</table>
 
 </br></br>
 

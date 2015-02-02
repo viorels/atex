@@ -335,10 +335,10 @@ input.hint, textarea.hint {
 .breadcrumbs ul li {
 	float:left;
 	font-weight:bold;
-	padding-right:10px;
+	padding-right: 10px;
 }
-.breadcrumbs ul li a {
-	padding-right:17px;
+.breadcrumbs ul li span.arrow {
+	padding-right: 7px;
 	background:url(../images/red-arrow.png) right center no-repeat;
 }
 .breadcrumbs ul li a:hover {
@@ -1952,7 +1952,7 @@ ul.modalitate li {
 tr.info-total td { font-size:16px; font-weight:bold; border:0; line-height:35px;}
 td.right {text-align:right}
 td.center {text-align:center}
-.confirma { float:right; width:110px !important;}
+.confirma { float:right; width:110px !important; margin-bottom:10px;}
 .confirma span{
 	height:30px;
 	width:48px;
