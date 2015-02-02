@@ -201,7 +201,8 @@ class Command(BaseCommand):
         info['gtin'] = ''
 
         # allshops
-        info['category_name'] = self.api.categories.get_category_by_code(info['category_code'])['name']
+        category = self.api.categories.get_category_by_code(info['category_code'])
+        info['category_name'] = category['name'] if category else ''
         info['price_standard'] = info['price'] if not info['old_price'] else info['old_price']
         info['price_discount'] = info['price'] if info['old_price'] else ''
         info['currency_id'] = 1
