@@ -10,7 +10,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^', include('atexpc.atex_web.urls')),
     url(r'^', include('social_auth.urls')),
-    url(r'^search/', include('haystack.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
 

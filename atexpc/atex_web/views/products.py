@@ -3,6 +3,7 @@ import math
 from django.template import Context, Template
 from django.http import Http404
 from django.conf import settings
+from haystack.views import FacetedSearchView
 
 from atexpc.atex_web.views.base import BaseView
 from atexpc.atex_web.models import Product, ProductSpecification
@@ -58,7 +59,22 @@ class HomeBase(BaseView):
         return promotional
 
 
-class SearchBase(BaseView):
+class SearchBase(FacetedSearchView, BaseView):
+    template_name = "search/search.html"
+
+    def __call__(self, request, *args, **kwargs):
+        self.base_response = ProductsBase.as_view()(request, *args, **kwargs)
+        return super(SearchBase, self).__call__(request)
+
+    def extra_context(self):
+        extra = super(SearchBase, self).extra_context()
+        for var in self.base_response.context_data:
+            if var not in extra:
+                extra[var] = self.base_response.context_data[var]
+        return extra
+
+
+class ProductsBase(BaseView):
     template_name = "search.html"
 
     def get_local_context(self):

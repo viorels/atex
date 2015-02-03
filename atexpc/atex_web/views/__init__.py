@@ -1,6 +1,6 @@
 from authentication import (LoginBase, RecoverPasswordView, RecoverPasswordDoneView,
                             ResetPasswordView, ResetPasswordDoneView)
-from products import (HomeBase, SearchBase, ProductBase, BrandsBase,
+from products import (HomeBase, SearchBase, ProductsBase, ProductBase, BrandsBase,
                       SearchMixin)
 from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
 from base import BaseView, BreadcrumbsMixin, ErrorBase
@@ -15,6 +15,9 @@ class HomeView(CommonMixins, HomeBase):
     pass
 
 class ProductView(CommonMixins, ProductBase):
+    pass
+
+class ProductsView(ShoppingMixin, BreadcrumbsMixin, ProductsBase):
     pass
 
 class SearchView(ShoppingMixin, BreadcrumbsMixin, SearchBase):
