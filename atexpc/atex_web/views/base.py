@@ -13,11 +13,21 @@ from django.contrib.sites.models import get_current_site
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from atexpc.atex_web.ancora_api import AncoraAPI
 from atexpc.ancora_api.api import APIError
+from atexpc.atex_web.ancora_api import AncoraAPI
+from atexpc.atex_web.models import Product
 
 import logging
 logger = logging.getLogger(__name__)
+
+
+class AncoraMixin(object):
+    def __init__(self, *args, **kwargs):
+        super(AncoraMixin, self).__init__(*args, **kwargs)
+        self.api = AncoraAPI()
+
+    def _product_url(self, product):
+        return Product(id=product['id'], name=product['name']).get_absolute_url()
 
 
 class BaseView(TemplateView):
@@ -159,10 +169,6 @@ class BaseView(TemplateView):
         """Get the last 2 segments of the domain name"""
         domain = get_current_site(self.request).domain
         return '.'.join(domain.split('.')[-2:])
-
-    def _product_url(self, product):
-        return reverse('product', kwargs={'product_id': product['id'],
-                                          'slug': slugify(product['name'])})
 
     def _category_url(self, category):
         return reverse('category', kwargs={'category_id': category['id'],

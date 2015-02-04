@@ -179,6 +179,7 @@ TEMPLATE_LOADERS = (
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + ( 
     'django.core.context_processors.request',
     'social_auth.context_processors.social_auth_login_redirect',
+    'atexpc.atex_web.middleware.context_processor'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -194,6 +195,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'social_auth.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',     # must be after auth sets Vary header
+    'atexpc.atex_web.middleware.AncoraMiddleware'
 )
 
 ROOT_URLCONF = 'atexpc.urls'

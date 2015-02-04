@@ -37,6 +37,11 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('category', (), {'category_id': self.id,
+                                 'slug': slugify(self.name)})
+
     def __unicode__(self):
         return self.name
 
@@ -245,9 +250,8 @@ class Product(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        # TODO: store self.name on object and use it in url
         return ('product', (), {'product_id': self.id,
-                                'slug': slugify(self.model)})
+                                'slug': slugify(self.name)})
 
     def __unicode__(self):
         return self.model

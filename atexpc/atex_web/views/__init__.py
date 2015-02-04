@@ -1,26 +1,26 @@
 from authentication import (LoginBase, RecoverPasswordView, RecoverPasswordDoneView,
                             ResetPasswordView, ResetPasswordDoneView)
-from products import (HomeBase, SearchBase, ProductsBase, ProductBase, BrandsBase,
+from products import (HomeView, SearchBase, ProductsBase, ProductBase, BrandsBase,
                       SearchMixin)
 from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
-from base import BaseView, BreadcrumbsMixin, ErrorBase
+from base import BaseView, AncoraMixin, BreadcrumbsMixin, ErrorBase
 
 # *Base classes (e.g. HomeView must be last on inheritance list as
 # TemplateView.get_context_data breaks the cooperative multiple inheritance chain
 
-class CommonMixins(SearchMixin, BreadcrumbsMixin, ShoppingMixin):
+class CommonMixins(SearchMixin, BreadcrumbsMixin, ShoppingMixin, AncoraMixin):
     pass
 
-class HomeView(CommonMixins, HomeBase):
+class HomeView(CommonMixins, HomeView):
     pass
 
 class ProductView(CommonMixins, ProductBase):
     pass
 
-class ProductsView(ShoppingMixin, BreadcrumbsMixin, ProductsBase):
+class ProductsView(ShoppingMixin, BreadcrumbsMixin, AncoraMixin, ProductsBase):
     pass
 
-class SearchView(ShoppingMixin, BreadcrumbsMixin, SearchBase):
+class SearchView(ShoppingMixin, BreadcrumbsMixin, AncoraMixin, SearchBase):
     pass
 
 class BrandsView(CommonMixins, BrandsBase):

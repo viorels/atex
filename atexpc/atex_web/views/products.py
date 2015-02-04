@@ -3,6 +3,7 @@ import math
 from django.template import Context, Template
 from django.http import Http404
 from django.conf import settings
+from django.views.generic.base import TemplateView
 from haystack.views import FacetedSearchView
 
 from atexpc.atex_web.views.base import BaseView
@@ -15,7 +16,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class HomeBase(BaseView):
+class HomeView(TemplateView):
     template_name = "home.html"
     top_limit = 5
 
@@ -23,7 +24,7 @@ class HomeBase(BaseView):
         hits = []
         product_objects = Product.objects.get_top_hits(limit=self.top_limit)
         product_ids = [p.id for p in product_objects]
-        products = self.api.products.get_product_list(product_ids)
+        products = self.request.api.products.get_product_list(product_ids)
         for product_obj in product_objects:
             matching_in_backend = [p for p in products
                                    if int(p['id']) == product_obj.id]
@@ -36,7 +37,7 @@ class HomeBase(BaseView):
         return hits
 
     def get_recommended(self):
-        recommended = self.api.products.get_recommended(limit=self.top_limit)
+        recommended = self.request.api.products.get_recommended(limit=self.top_limit)
         for product in recommended:
             product_obj = Product(raw=product)
             product['name'] = product_obj.get_short_name()
@@ -45,7 +46,7 @@ class HomeBase(BaseView):
         return recommended
 
     def get_promotional(self):
-        promotional = self.api.products.get_promotional(limit=self.top_limit)
+        promotional = self.request.api.products.get_promotional(limit=self.top_limit)
         for product in promotional:
             product_obj = Product(raw=product)
             product['name'] = product_obj.get_short_name()
