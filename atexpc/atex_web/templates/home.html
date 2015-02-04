@@ -81,7 +81,7 @@
                             <span class="up_right"></span>
                          </div> 
                          <ul class="produse_top">
-                            {% for product in hits %}
+                            {% for product in view.get_hits %}
                             <li {% if forloop.last %}class="last"{% endif %}>
                                 <a href="{{ product.url }}" class="img-wrapper">
                                     <div class="middle size100x100">
@@ -110,7 +110,7 @@
                             <span class="up_right"></span>
                          </div>     
                          <ul class="produse_top">
-                            {% for product in recommended %}
+                            {% for product in view.get_recommended %}
                          	<li {% if forloop.last %}class="last"{% endif %}> 
                             	<a href="{{ product.url }}" class="img-wrapper">
                                     <div class="middle size100x100">
@@ -140,7 +140,7 @@
                             <span class="up_right"></span>
                          </div>      
                          <ul class="produse_top">
-                            {% for product in promotional %}
+                            {% for product in view.get_promotional %}
                          	<li {% if forloop.last %}class="last"{% endif %}>
                             	<a href="{{ product.url }}" class="img-wrapper">
                                     <div class="middle size100x100">

@@ -19,11 +19,6 @@ class HomeBase(BaseView):
     template_name = "home.html"
     top_limit = 5
 
-    def get_local_context(self):
-        return {'hits': self.get_hits(),
-                'recommended': self.get_recommended(),
-                'promotional': self.get_promotional()}
-
     def get_hits(self):
         hits = []
         product_objects = Product.objects.get_top_hits(limit=self.top_limit)
