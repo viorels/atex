@@ -5,6 +5,7 @@ from django.contrib.sites.models import get_current_site
 
 from atexpc.atex_web.ancora_api import AncoraAPI
 from atexpc.atex_web.models import Category
+from atexpc.atex_web.views.shopping import get_cart_data
 
 
 class AncoraMiddleware(object):
@@ -20,7 +21,8 @@ def context_processor(request):
     return {'menu': get_menu(request.api),
             'categories': request.api.categories.get_main,
             'footer': get_footer(request.api),
-            'site_info': get_site_info(request)}
+            'site_info': get_site_info(request),
+            'cart': get_cart_data(request)}
 
 def get_menu(api):
     def category_icon(category):

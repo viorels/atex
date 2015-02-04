@@ -11,7 +11,7 @@ from base import BaseView, AncoraMixin, BreadcrumbsMixin, ErrorBase
 class CommonMixins(SearchMixin, BreadcrumbsMixin, ShoppingMixin, AncoraMixin):
     pass
 
-class HomeView(CommonMixins, HomeView):
+class HomeView(SearchMixin, BreadcrumbsMixin, AncoraMixin, HomeView):
     pass
 
 class ProductView(CommonMixins, ProductBase):

@@ -9,7 +9,7 @@ import requests
 
 from atexpc.atex_web.forms import order_form_factory
 from atexpc.atex_web.views.base import HybridGenericView
-from atexpc.atex_web.models import CartFactory
+from atexpc.atex_web.models import CartFactory, Product
 from atexpc.atex_web.utils import LoginRequiredMixin, FrozenDict
 from atexpc.atex_web.templatetags import atex_tags
 
@@ -23,7 +23,7 @@ class CartBase(HybridGenericView):
                               url=reverse_lazy('cart'))]
 
     def get_json_context(self):
-        return {'cart': self._get_cart_data()}
+        return {'cart': get_cart_data(self.request)}
 
     def post(self, request, *args, **kwargs):
         method = request.POST.get('method')
@@ -121,7 +121,7 @@ class ConfirmBase(LoginRequiredMixin, HybridGenericView):
 
     def post(self, request, *args, **kwargs):
         order_info = request.session.get('order').copy()
-        cart = self._get_cart_data()
+        cart = get_cart_data(request)
         cart_id = cart['id']
         if cart_id is None:
             return HttpResponseRedirect(reverse('cart'))
@@ -153,13 +153,8 @@ class ConfirmBase(LoginRequiredMixin, HybridGenericView):
 class ShoppingMixin(object):
     def get_context_data(self, **context):
         if 'cart' not in context:
-            context.update({'cart': self._get_cart_data()})
+            context.update({'cart': get_cart_data(self.request)})
         return super(ShoppingMixin, self).get_context_data(**context)
-
-    def _get_cart(self):
-        cart_id = self.request.session.get('cart_id')
-        cart = CartFactory(api=self.api).get(cart_id) if cart_id else None
-        return cart
 
     def _create_cart(self):
         # TODO: are cookies enabled ?
@@ -170,49 +165,8 @@ class ShoppingMixin(object):
         self.request.session['cart_id'] = cart.id()
         return cart
 
-    def _get_cart_data(self):
-        cart = self._get_cart()
-        delivery = self.request.session.get('delivery', None)
-        if delivery is not None:
-            delivery = delivery == 'yes'
-        payment = self.request.session.get('payment', None)
-        if cart:
-            items = self._augment_cart_items(cart.items())
-            delivery_price = cart.delivery_price(delivery=delivery,
-                                                 payment=payment)
-            cart_data = {'id': cart.id(),
-                         'items': items,
-                         'count': sum(item['count'] for item in items),
-                         'price': cart.price(items) + delivery_price,
-                         'delivery_price': delivery_price}
-        else:
-            cart_data = {'id': None, 'items': [], 'count': 0, 'price': 0.0}
- 
-        cart_data['delivery'] = delivery
-        cart_data['payment'] = payment
-        cart_data.update(self._cart_options_description(delivery=delivery, payment=payment))
-
-        return cart_data
-
-    def _augment_cart_items(self, items):
-        for item in items:
-            product = item['product']
-            api_product = self.api.products.get_product(product['id'])
-            category = self.api.categories.get_category(api_product['category_id'])
-            product.update({'model': api_product['model'],
-                            'description': api_product['description'],
-                            'category': category['name'],
-                            'price': api_product['price'],
-                            'stock_info': api_product['stock_info'],
-                            'warranty': api_product['warranty'],
-                            'url': self._product_url(product),
-                            'thumb_80x80_url': atex_tags.thumbnail(product['images'][0], '80x80')})
-            del product['images']   # not serializable
-            item['price'] = item['count'] * product['price']
-        return items
-
     def _add_to_cart(self, product_id):
-        cart = self._get_cart()
+        cart = get_cart(self.request)
         if cart is None:
             cart = self._create_cart()
         cart.add_item(product_id)
@@ -220,7 +174,7 @@ class ShoppingMixin(object):
     def _update_cart(self, products={}):
         """ Update produt count or delete products from cart.
             Argument is a dict with id: count items """
-        cart = self._get_cart()
+        cart = get_cart(self.request)
         if cart:
             for item in cart.items():
                 product_id = item['product']['id']
@@ -235,23 +189,70 @@ class ShoppingMixin(object):
         if payment is not None:
             self.request.session['payment'] = payment
 
-    def _cart_options_description(self, delivery, payment):
-        options = {}
 
-        delivery_description = 'Ridicare produse de la sediul ATEX Computer'
-        if delivery:
-            delivery_description = 'Livrare la adresa dorită'
-        options['delivery'] = delivery
-        options['delivery_description'] = delivery_description
+def get_cart_data(request):
+    cart = get_cart(request)
+    delivery = request.session.get('delivery', None)
+    if delivery is not None:
+        delivery = delivery == 'yes'
+    payment = request.session.get('payment', None)
+    if cart:
+        items = _augment_cart_items(request.api, cart.items())
+        delivery_price = cart.delivery_price(delivery=delivery,
+                                             payment=payment)
+        cart_data = {'id': cart.id(),
+                     'items': items,
+                     'count': sum(item['count'] for item in items),
+                     'price': cart.price(items) + delivery_price,
+                     'delivery_price': delivery_price}
+    else:
+        cart_data = {'id': None, 'items': [], 'count': 0, 'price': 0.0}
 
-        payment_description = 'Plata '
-        payment_cash_description = payment_description + ('ramburs' if delivery else 'numerar')
-        if (payment == 'cash'):
-            payment_description = payment_cash_description
-        else:
-            payment_description += 'prin transfer bancar/OP'
-        options['payment'] = payment
-        options['payment_description'] = payment_description
-        options['payment_cash_description'] = payment_cash_description
+    cart_data['delivery'] = delivery
+    cart_data['payment'] = payment
+    cart_data.update(_cart_options_description(delivery=delivery, payment=payment))
 
-        return options
+    return cart_data
+
+def get_cart(request):
+    cart_id = request.session.get('cart_id')
+    cart = CartFactory(api=request.api).get(cart_id) if cart_id else None
+    return cart
+
+def _augment_cart_items(api, items):
+    for item in items:
+        product = item['product']
+        api_product = api.products.get_product(product['id'])
+        category = api.categories.get_category(api_product['category_id'])
+        product.update({'model': api_product['model'],
+                        'description': api_product['description'],
+                        'category': category['name'],
+                        'price': api_product['price'],
+                        'stock_info': api_product['stock_info'],
+                        'warranty': api_product['warranty'],
+                        'url': Product(id=product['id'], name=product['name']).get_absolute_url(),
+                        'thumb_80x80_url': atex_tags.thumbnail(product['images'][0], '80x80')})
+        del product['images']   # not serializable
+        item['price'] = item['count'] * product['price']
+    return items
+
+def _cart_options_description(delivery, payment):
+    options = {}
+
+    delivery_description = 'Ridicare produse de la sediul ATEX Computer'
+    if delivery:
+        delivery_description = 'Livrare la adresa dorită'
+    options['delivery'] = delivery
+    options['delivery_description'] = delivery_description
+
+    payment_description = 'Plata '
+    payment_cash_description = payment_description + ('ramburs' if delivery else 'numerar')
+    if (payment == 'cash'):
+        payment_description = payment_cash_description
+    else:
+        payment_description += 'prin transfer bancar/OP'
+    options['payment'] = payment
+    options['payment_description'] = payment_description
+    options['payment_cash_description'] = payment_cash_description
+
+    return options
