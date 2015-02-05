@@ -15,8 +15,9 @@ class AncoraMiddleware(object):
         return None
 
     def process_template_response(self, request, response):
-        if 'search_form' not in response.context_data:
-            response.context_data['search_form'] = get_search_form(request)
+        if hasattr(response, 'context_data'):
+            if 'search_form' not in response.context_data:
+                response.context_data['search_form'] = get_search_form(request)
         return response
 
     def process_exception(self, request, exception):
