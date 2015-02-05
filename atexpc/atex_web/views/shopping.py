@@ -8,7 +8,7 @@ from localflavor.ro.ro_counties import COUNTIES_CHOICES
 import requests
 
 from atexpc.atex_web.forms import order_form_factory
-from atexpc.atex_web.views.base import BreadcrumbsMixin, HybridGenericView
+from atexpc.atex_web.views.base import BreadcrumbsMixin, HybridGenericView, CSRFCookieMixin
 from atexpc.atex_web.models import CartFactory, Product
 from atexpc.atex_web.utils import LoginRequiredMixin, FrozenDict
 from atexpc.atex_web.templatetags import atex_tags
@@ -17,7 +17,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class CartView(BreadcrumbsMixin, HybridGenericView):
+class CartView(BreadcrumbsMixin, CSRFCookieMixin, HybridGenericView):
     template_name = "cart.html"
     breadcrumbs = [FrozenDict(name="Cos cumparaturi",
                               url=reverse_lazy('cart'))]
@@ -83,7 +83,7 @@ class CartView(BreadcrumbsMixin, HybridGenericView):
             self.request.session['payment'] = payment
 
 
-class OrderView(LoginRequiredMixin, BreadcrumbsMixin, FormView, HybridGenericView):
+class OrderView(LoginRequiredMixin, BreadcrumbsMixin, CSRFCookieMixin, FormView, HybridGenericView):
     template_name = "order.html"
     breadcrumbs = CartView.breadcrumbs + [FrozenDict(name="Date facturare",
                                                      url=reverse_lazy('order'))]
