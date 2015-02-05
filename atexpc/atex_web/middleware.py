@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.sites.models import get_current_site
 
 from atexpc.atex_web.ancora_api import AncoraAPI
+from atexpc.atex_web.forms import search_form_factory
 from atexpc.atex_web.models import Category
 from atexpc.atex_web.views.shopping import get_cart_data
 
@@ -21,6 +22,7 @@ def context_processor(request):
     return {'menu': get_menu(request.api),
             'categories': request.api.categories.get_main,
             'footer': get_footer(request.api),
+            'search_form': get_search_form(request),
             'site_info': get_site_info(request),
             'cart': get_cart_data(request)}
 
@@ -107,6 +109,12 @@ def get_footer(api):
             for category in api.categories.get_all()
             if _category_level(category) >= 2 and category['count'] > 0]
 
+def get_search_form(request):
+    search_in_choices = tuple((c['id'], c['name']) for c in request.api.categories.get_main())
+    search_form_class = search_form_factory(search_in_choices, advanced=False)
+    search_form = search_form_class(request.GET)
+    return search_form
+
 def get_site_info(request):
     current_site = get_current_site(request)
     base_domain = _get_base_domain(request)
@@ -133,23 +141,4 @@ def _category_url(category):
 
 def _category_level(category):
     return category['code'].count('.') + 1
-
-def _uri_with_args(self, base_uri, **new_args):
-    """Overwrite specified args in base uri. If any other multiple value args
-    are present in base_uri then they must be preserved"""
-    parsed_uri = urlparse(base_uri)
-
-    parsed_args = parse_qsl(parsed_uri.query)
-    updated_args = [(key, value) for key, value in parsed_args if key not in new_args]
-    updated_args.extend(new_args.items())
-    valid_args = [(key, value) for key, value in updated_args if value is not None]
-    encoded_args = urlencode(valid_args, doseq=True)
-
-    final_uri = urlunparse((parsed_uri.scheme,
-                            parsed_uri.netloc,
-                            parsed_uri.path,
-                            parsed_uri.params,
-                            encoded_args,
-                            parsed_uri.fragment))
-    return final_uri
 

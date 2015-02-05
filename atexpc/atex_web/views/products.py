@@ -6,7 +6,7 @@ from django.conf import settings
 from django.views.generic.base import TemplateView
 from haystack.views import FacetedSearchView
 
-from atexpc.atex_web.views.base import BaseView
+from atexpc.atex_web.views.base import BaseView, BreadcrumbsMixin
 from atexpc.atex_web.models import Product, ProductSpecification
 from atexpc.atex_web.forms import search_form_factory
 from atexpc.atex_web.utils import group_in, grouper
@@ -32,7 +32,7 @@ class HomeView(TemplateView):
                 product = matching_in_backend[0]
                 product['name'] = product_obj.get_short_name()
                 product['images'] = product_obj.images
-                product['url'] = self._product_url(product)
+                product['url'] = Product(id=product['id'], name=product['name']).get_absolute_url()
                 hits.append(product)
         return hits
 
@@ -42,7 +42,7 @@ class HomeView(TemplateView):
             product_obj = Product(raw=product)
             product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
-            product['url'] = self._product_url(product)
+            product['url'] = Product(id=product['id'], name=product['name']).get_absolute_url()
         return recommended
 
     def get_promotional(self):
@@ -51,7 +51,7 @@ class HomeView(TemplateView):
             product_obj = Product(raw=product)
             product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
-            product['url'] = self._product_url(product)
+            product['url'] = Product(id=product['id'], name=product['name']).get_absolute_url()
         return promotional
 
 
@@ -209,7 +209,7 @@ class ProductsBase(BaseView):
             product_obj = Product(raw=product)
             product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
-            product['url'] = self._product_url(product)
+            product['url'] = Product(id=product['id'], name=product['name']).get_absolute_url()
             product['stock_available'] = product['stock_status'] != Ancora.STOCK_UNAVAILABLE
 
         products_per_line = 4
@@ -288,7 +288,7 @@ class ProductBase(BaseView):
         recommended = self.api.products.get_recommended(limit=self.recommended_limit)
         for product in recommended:
             product['images'] = Product(model=product['model']).images
-            product['url'] = self._product_url(product)
+            product['url'] = Product(id=product['id'], name=product['name']).get_absolute_url()
         return recommended
 
     def get_breadcrumbs(self):

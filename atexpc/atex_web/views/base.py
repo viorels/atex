@@ -21,15 +21,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class AncoraMixin(object):
-    def __init__(self, *args, **kwargs):
-        super(AncoraMixin, self).__init__(*args, **kwargs)
-        self.api = AncoraAPI()
-
-    def _product_url(self, product):
-        return Product(id=product['id'], name=product['name']).get_absolute_url()
-
-
 class BaseView(TemplateView):
     def __init__(self, *args, **kwargs):
         super(BaseView, self).__init__(*args, **kwargs)
@@ -176,25 +167,6 @@ class BaseView(TemplateView):
 
     def _category_level(self, category):
         return category['code'].count('.') + 1
-
-    def _uri_with_args(self, base_uri, **new_args):
-        """Overwrite specified args in base uri. If any other multiple value args
-        are present in base_uri then they must be preserved"""
-        parsed_uri = urlparse(base_uri)
-
-        parsed_args = parse_qsl(parsed_uri.query)
-        updated_args = [(key, value) for key, value in parsed_args if key not in new_args]
-        updated_args.extend(new_args.items())
-        valid_args = [(key, value) for key, value in updated_args if value is not None]
-        encoded_args = urlencode(valid_args, doseq=True)
-
-        final_uri = urlunparse((parsed_uri.scheme,
-                                parsed_uri.netloc,
-                                parsed_uri.path,
-                                parsed_uri.params,
-                                encoded_args,
-                                parsed_uri.fragment))
-        return final_uri
 
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
