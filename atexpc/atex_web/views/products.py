@@ -5,6 +5,8 @@ from django.http import Http404
 from django.conf import settings
 from django.views.generic.base import TemplateView
 from haystack.views import FacetedSearchView
+from urllib import urlencode
+from urlparse import urlparse, urlunparse, parse_qsl
 
 from atexpc.atex_web.views.base import BaseView, BreadcrumbsMixin
 from atexpc.atex_web.models import Product, ProductSpecification
@@ -55,32 +57,22 @@ class HomeView(TemplateView):
         return promotional
 
 
-class SearchBase(FacetedSearchView, BaseView):
+class SearchView(FacetedSearchView):
     template_name = "search/search.html"
 
-    def __call__(self, request, *args, **kwargs):
-        self.base_response = ProductsBase.as_view()(request, *args, **kwargs)
-        return super(SearchBase, self).__call__(request)
 
-    def extra_context(self):
-        extra = super(SearchBase, self).extra_context()
-        for var in self.base_response.context_data:
-            if var not in extra:
-                extra[var] = self.base_response.context_data[var]
-        return extra
-
-
-class ProductsBase(BaseView):
+class ProductsView(BreadcrumbsMixin, TemplateView):
     template_name = "search.html"
 
-    def get_local_context(self):
-        return {'search_form': self.get_search_form,
-                'selectors': self.get_selectors,
-                'selectors_active': lambda: self.get_search_args()['selectors_active'],
-                'price_min': lambda: self.get_search_args()['price_min'],
-                'price_max': lambda: self.get_search_args()['price_max'],
-                'products': self.get_products(),
-                'pagination': self.get_pagination}
+    def get_context_data(self, **context):
+        context.update({'search_form': self.get_search_form,
+                        'selectors': self.get_selectors,
+                        'selectors_active': lambda: self.get_search_args()['selectors_active'],
+                        'price_min': lambda: self.get_search_args()['price_min'],
+                        'price_max': lambda: self.get_search_args()['price_max'],
+                        'products': self.get_products(),
+                        'pagination': self.get_pagination})
+        return super(ProductsView, self).get_context_data(**context)
 
     def get_breadcrumbs(self):
         args = self.get_search_args()
@@ -91,7 +83,7 @@ class ProductsBase(BaseView):
             request_GET = self.request.GET.copy()
             if request_GET.get('categorie') is None:
                 request_GET['categorie'] = self.get_category_id()
-            search_in_choices = tuple((c['id'], c['name']) for c in self.api.categories.get_main())
+            search_in_choices = tuple((c['id'], c['name']) for c in self.request.api.categories.get_main())
             search_form_class = search_form_factory(search_in_choices, advanced=True)
             self._search_form = search_form_class(request_GET)
             if not self._search_form.is_valid():
@@ -144,13 +136,13 @@ class ProductsBase(BaseView):
                 'sort_by': args['sort_by'], 'sort_order': args['sort_order']}
             if args['sort_by'] == "vanzari":
                 get_products_range = (lambda start, stop:
-                    self.api.products.get_products_with_hits(
+                    self.request.api.products.get_products_with_hits(
                         start=start, stop=stop,
                         augmenter_with_hits=Product.objects.augment_with_hits,
                         **products_args))
             else:
                 get_products_range = (lambda start, stop:
-                    self.api.products.get_products(start=start, stop=stop,
+                    self.request.api.products.get_products(start=start, stop=stop,
                                                    **products_args))
             self._products_page = self._get_page(
                 get_products_range, per_page=args['per_page'],
@@ -185,6 +177,25 @@ class ProductsBase(BaseView):
                               'stop': stop,
                               'total_count': total_count}
         return data
+
+    def _uri_with_args(self, base_uri, **new_args):
+        """Overwrite specified args in base uri. If any other multiple value args
+        are present in base_uri then they must be preserved"""
+        parsed_uri = urlparse(base_uri)
+
+        parsed_args = parse_qsl(parsed_uri.query)
+        updated_args = [(key, value) for key, value in parsed_args if key not in new_args]
+        updated_args.extend(new_args.items())
+        valid_args = [(key, value) for key, value in updated_args if value is not None]
+        encoded_args = urlencode(valid_args, doseq=True)
+
+        final_uri = urlunparse((parsed_uri.scheme,
+                                parsed_uri.netloc,
+                                parsed_uri.path,
+                                parsed_uri.params,
+                                encoded_args,
+                                parsed_uri.fragment))
+        return final_uri
 
     def _pages_list(self, pages_count, current_page, nearby=5):
         first_page = 1
@@ -224,7 +235,7 @@ class ProductsBase(BaseView):
 
     def get_selectors(self):
         args = self.get_search_args()
-        selectors = self.api.categories.get_selectors(
+        selectors = self.request.api.categories.get_selectors(
             category_id=args['category_id'],
             selectors_active=args['selectors_active'],
             price_min=args['price_min'], price_max=args['price_max'],
@@ -241,25 +252,26 @@ class SearchMixin(object):
         return super(SearchMixin, self).get_context_data(**context)
 
     def get_search_form(self):
-        search_in_choices = tuple((c['id'], c['name']) for c in self.api.categories.get_main())
+        search_in_choices = tuple((c['id'], c['name']) for c in self.request.api.categories.get_main())
         search_form_class = search_form_factory(search_in_choices, advanced=False)
         search_form = search_form_class(self.request.GET)
         return search_form
 
 
-class ProductBase(BaseView):
+class ProductView(BreadcrumbsMixin, TemplateView):
     template_name = "product.html"
     recommended_limit = 3
 
-    def get_local_context(self):
-        return {'product': self.get_product(),
-                'properties': self.get_properties,
-                'recommended': self.get_recommended}
+    def get_context_data(self, **context):
+        context.update({'product': self.get_product(),
+                        'properties': self.get_properties,
+                        'recommended': self.get_recommended})
+        return super(ProductView, self).get_context_data(**context)
 
     def get_product(self):
         if not hasattr(self, '_product'):
             product_id = self.kwargs['product_id']
-            product_orm = self.api.products.get_and_store(product_id, Product.objects.store)
+            product_orm = self.request.api.products.get_and_store(product_id, Product.objects.store)
             if product_orm is None:
                 raise Http404()
             product = product_orm.raw
@@ -285,7 +297,7 @@ class ProductBase(BaseView):
         return group_in(3, items)
 
     def get_recommended(self):
-        recommended = self.api.products.get_recommended(limit=self.recommended_limit)
+        recommended = self.request.api.products.get_recommended(limit=self.recommended_limit)
         for product in recommended:
             product['images'] = Product(model=product['model']).images
             product['url'] = Product(id=product['id'], name=product['name']).get_absolute_url()
@@ -293,7 +305,7 @@ class ProductBase(BaseView):
 
     def get_breadcrumbs(self):
         product = self.get_product()
-        category = self.api.categories.get_category_by_code(product['category_code'])
+        category = self.request.api.categories.get_category_by_code(product['category_code'])
         if category:
             breadcrumbs = self._get_category_breadcrumbs(category['id'])
             breadcrumbs.append({'name': product['short_name'],
@@ -311,7 +323,7 @@ class BrandsBase(BaseView):
         return {'brand_index': self._brand_index()}
 
     def _brand_index(self):
-        brands = self.api.products.get_brands()
+        brands = self.request.api.products.get_brands()
         index_letters = sorted(set(brand[0].upper() for brand in brands))
         brand_index = dict((letter, sorted(brand for brand in brands
                             if brand[0].upper() == letter))

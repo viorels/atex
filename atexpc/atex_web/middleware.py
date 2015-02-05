@@ -14,6 +14,11 @@ class AncoraMiddleware(object):
         request.api = AncoraAPI()
         return None
 
+    def process_template_response(self, request, response):
+        if 'search_form' not in response.context_data:
+            response.context_data['search_form'] = get_search_form(request)
+        return response
+
     def process_exception(self, request, exception):
         # self.api = AncoraAPI(use_backend=False)
         return None   # or HttpResponse() if it's an APIError
@@ -22,7 +27,6 @@ def context_processor(request):
     return {'menu': get_menu(request.api),
             'categories': request.api.categories.get_main,
             'footer': get_footer(request.api),
-            'search_form': get_search_form(request),
             'site_info': get_site_info(request),
             'cart': get_cart_data(request)}
 
@@ -117,7 +121,7 @@ def get_search_form(request):
 
 def get_site_info(request):
     current_site = get_current_site(request)
-    base_domain = _get_base_domain(request)
+    base_domain = get_base_domain(request)
     company_name = {
         'atexpc.ro': "ATEX Computer SRL",
         'atexsolutions.ro': "ATEX Solutions SRL-D",
@@ -131,7 +135,7 @@ def get_site_info(request):
     }
     return site_info
 
-def _get_base_domain(request):
+def get_base_domain(request):
     """Get the last 2 segments of the domain name"""
     domain = get_current_site(request).domain
     return '.'.join(domain.split('.')[-2:])

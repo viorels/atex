@@ -1,8 +1,6 @@
 import re
 import json
 from operator import itemgetter
-from urlparse import urlparse, urlunparse, parse_qsl
-from urllib import urlencode
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -218,13 +216,17 @@ class BreadcrumbsMixin(object):
 
     def _get_category_breadcrumbs(self, category_id):
         breadcrumbs = []
-        category = self.api.categories.get_category(category_id)
+        category = self.request.api.categories.get_category(category_id)
         while category is not None:
             crumb = {'name': category['name'],
                      'url': self._category_url(category) if category.get('count') else None}
             breadcrumbs.insert(0, crumb)
-            category = self.api.categories.get_parent_category(category['id'])
+            category = self.request.api.categories.get_parent_category(category['id'])
         return breadcrumbs
+
+    def _category_url(self, category):
+        return reverse('category', kwargs={'category_id': category['id'],
+                                           'slug': slugify(category['name'])})
 
 
 class JSONResponseMixin(object):
