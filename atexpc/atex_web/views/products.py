@@ -246,18 +246,6 @@ class ProductsView(BreadcrumbsMixin, TemplateView):
         return selectors_with_products
 
 
-class SearchMixin(object):
-    def get_context_data(self, **context):
-        context.update({'search_form': self.get_search_form})
-        return super(SearchMixin, self).get_context_data(**context)
-
-    def get_search_form(self):
-        search_in_choices = tuple((c['id'], c['name']) for c in self.request.api.categories.get_main())
-        search_form_class = search_form_factory(search_in_choices, advanced=False)
-        search_form = search_form_class(self.request.GET)
-        return search_form
-
-
 class ProductView(BreadcrumbsMixin, TemplateView):
     template_name = "product.html"
     recommended_limit = 3
@@ -315,7 +303,7 @@ class ProductView(BreadcrumbsMixin, TemplateView):
         return breadcrumbs
 
 
-class BrandsBase(BaseView):
+class BrandsView(BreadcrumbsMixin, TemplateView):
     template_name = "branduri.html"
     breadcrumbs = [{'name': "Branduri"}]
 

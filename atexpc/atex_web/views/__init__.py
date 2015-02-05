@@ -4,8 +4,7 @@ from django.views.generic.base import TemplateView
 from base import BreadcrumbsMixin, ErrorBase
 from authentication import (LoginBase, RecoverPasswordView, RecoverPasswordDoneView,
                             ResetPasswordView, ResetPasswordDoneView)
-from products import (HomeView, SearchView, ProductsView, ProductView, BrandsBase,
-                      SearchMixin)
+from products import (HomeView, SearchView, ProductsView, ProductView, BrandsView)
 from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
 
 
@@ -24,8 +23,8 @@ from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
 # class SearchView(BreadcrumbsMixin, SearchBase):
 #     pass
 
-class BrandsView(BreadcrumbsMixin, BrandsBase):
-    pass
+# class BrandsView(BreadcrumbsMixin, BrandsBase):
+#     pass
 
 class CartView(BreadcrumbsMixin, CartBase):
     pass
