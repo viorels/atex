@@ -251,9 +251,9 @@ class JSONResponseMixin(object):
         return json.dumps(json_context, skipkeys=True, default=none_unless_serializable)
 
 
-class HybridGenericView(JSONResponseMixin, BaseView):
+class HybridGenericView(JSONResponseMixin, TemplateView):
     def render_to_response(self, context):
         if self.request.is_ajax() or self.template_name is None:
             return JSONResponseMixin.render_to_response(self, context)
         else:
-            return BaseView.render_to_response(self, context)
+            return TemplateView.render_to_response(self, context)

@@ -36,7 +36,7 @@ class LoginBase(FormView, HybridGenericView):
         return super(LoginBase, self).dispatch(*args, **kwargs)
 
     def get_form_class(self):
-        return user_form_factory(self.is_signup, self.api)
+        return user_form_factory(self.is_signup, self.request.api)
 
     def form_valid(self, form):
         login(self.request, form.get_user())
@@ -60,7 +60,7 @@ class LoginBase(FormView, HybridGenericView):
 
     def get_context_data(self, **kwargs):
         context = super(LoginBase, self).get_context_data(**kwargs)
-        signup_form = user_form_factory(is_signup=True, api=self.api)
+        signup_form = user_form_factory(is_signup=True, api=self.request.api)
         context['signup_form'] = signup_form(data=self.request.POST or None)
         if 'form' not in context:   # show full unbound form on first view
             context['form'] = signup_form()
@@ -97,7 +97,7 @@ class RecoverPasswordView(Recover, BaseView):
         
         context['reset_form'] = context['form']
 
-        signup_form = user_form_factory(is_signup=True, api=self.api)
+        signup_form = user_form_factory(is_signup=True, api=self.request.api)
         context['signup_form'] = signup_form(data=self.request.POST or None)
         context['form'] = signup_form()
         

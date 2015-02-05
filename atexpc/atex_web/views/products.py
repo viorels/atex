@@ -8,7 +8,7 @@ from haystack.views import FacetedSearchView
 from urllib import urlencode
 from urlparse import urlparse, urlunparse, parse_qsl
 
-from atexpc.atex_web.views.base import BaseView, BreadcrumbsMixin
+from atexpc.atex_web.views.base import BreadcrumbsMixin
 from atexpc.atex_web.models import Product, ProductSpecification
 from atexpc.atex_web.forms import search_form_factory
 from atexpc.atex_web.utils import group_in, grouper

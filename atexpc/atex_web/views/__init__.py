@@ -5,7 +5,7 @@ from base import BreadcrumbsMixin, ErrorBase
 from authentication import (LoginBase, RecoverPasswordView, RecoverPasswordDoneView,
                             ResetPasswordView, ResetPasswordDoneView)
 from products import (HomeView, SearchView, ProductsView, ProductView, BrandsView)
-from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
+from shopping import CartView, OrderView, ConfirmView
 
 
 # *Base classes (e.g. HomeView must be last on inheritance list as
@@ -26,14 +26,14 @@ from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
 # class BrandsView(BreadcrumbsMixin, BrandsBase):
 #     pass
 
-class CartView(BreadcrumbsMixin, CartBase):
-    pass
+# class CartView(BreadcrumbsMixin, CartBase):
+#     pass
 
-class OrderView(BreadcrumbsMixin, OrderBase):
-    pass
+# class OrderView(BreadcrumbsMixin, OrderBase):
+#     pass
 
-class ConfirmView(BreadcrumbsMixin, ConfirmBase):
-    pass
+# class ConfirmView(BreadcrumbsMixin, ConfirmBase):
+#     pass
 
 class LoginView(BreadcrumbsMixin, LoginBase): pass
 

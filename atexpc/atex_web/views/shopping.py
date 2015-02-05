@@ -8,7 +8,7 @@ from localflavor.ro.ro_counties import COUNTIES_CHOICES
 import requests
 
 from atexpc.atex_web.forms import order_form_factory
-from atexpc.atex_web.views.base import HybridGenericView
+from atexpc.atex_web.views.base import BreadcrumbsMixin, HybridGenericView
 from atexpc.atex_web.models import CartFactory, Product
 from atexpc.atex_web.utils import LoginRequiredMixin, FrozenDict
 from atexpc.atex_web.templatetags import atex_tags
@@ -17,7 +17,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class CartBase(HybridGenericView):
+class CartView(BreadcrumbsMixin, HybridGenericView):
     template_name = "cart.html"
     breadcrumbs = [FrozenDict(name="Cos cumparaturi",
                               url=reverse_lazy('cart'))]
@@ -49,119 +49,12 @@ class CartBase(HybridGenericView):
         else:
             return self.render_to_response(self.get_json_context())
 
-
-class OrderBase(LoginRequiredMixin, FormView, HybridGenericView):
-    template_name = "order.html"
-    breadcrumbs = CartBase.breadcrumbs + [FrozenDict(name="Date facturare",
-                                                     url=reverse_lazy('order'))]
-    success_url = reverse_lazy('confirm')
-
-    def get_initial(self):
-        initial = super(OrderBase, self).get_initial()
-        # TODO: user and delivery not required on order_form_factory(...)
-        return initial
-
-    def get_context_data(self, **kwargs):
-        context = super(OrderBase, self).get_context_data(**kwargs)
-        if 'form' not in context:   # show full unbound form on first view
-            context['form'] = self.get_form_class()
-        user_id = self.request.user.get_ancora_id(self.api)
-        context['customers'] = self.api.cart.get_customers(user_id=user_id)
-        context['addresses'] = self.api.cart.get_addresses(user_id=user_id)
-        context['counties'] = [county for short, county in COUNTIES_CHOICES]
-        return context
-
-    def get_form_class(self):
-        customer_type = self.request.POST.get('customer_type')
-        user = self.request.user
-        customers = self.api.cart.get_customers(user_id=user.ancora_id)
-        addresses = self.api.cart.get_addresses(user_id=user.ancora_id)
-        delivery = self.request.session.get('delivery') == 'yes'
-        return order_form_factory(form_type=customer_type, 
-                                  user=user,
-                                  customers=customers,
-                                  addresses=addresses,
-                                  delivery=delivery)
-
-    def form_valid(self, form):
-        logger.info('Order %s', form.cleaned_data)
-        self.request.session['order'] = form.cleaned_data
-
-        # Update user
-        self.request.user.first_name = form.cleaned_data['first_name']
-        self.request.user.last_name = form.cleaned_data['last_name']
-        self.request.user.phone = form.cleaned_data['phone']
-        self.request.user.save()
-
-        return super(OrderBase, self).form_valid(form)
-
-    def form_invalid(self, form):
-        logger.info('Order errors %s', form.errors)
-        return super(OrderBase, self).form_invalid(form)
-
-class GetCompanyInfo(HybridGenericView):
-    """ Get company info by CIF from openapi.ro """
-
-    template_name = None
-    json_exclude = ('object_list', 'view', 'paginator', 'page_obj', 'is_paginated')
-
-    def get_local_context(self):
-        cif = self.kwargs.get('cif')
-        r = requests.get('http://openapi.ro/api/companies/%s.json' % cif)
-        return r.json
-
-
-class ConfirmBase(LoginRequiredMixin, HybridGenericView):
-    template_name = "confirm.html"
-    breadcrumbs = OrderBase.breadcrumbs + [FrozenDict(name="Confirmare",
-                                                      url=reverse_lazy('confirm'))]
-
-    def get_local_context(self):
-        return {'order': self.request.session.get('order')}
-
-    def post(self, request, *args, **kwargs):
-        order_info = request.session.get('order').copy()
-        cart = get_cart_data(request)
-        cart_id = cart['id']
-        if cart_id is None:
-            return HttpResponseRedirect(reverse('cart'))
-        ancora_user_id = self.request.user.get_ancora_id(self.api)
-        customer_type = order_info['customer_type']
-        person_name = "%s %s" % (order_info['first_name'], order_info['last_name'])
-        tax_code_type = {'f': 'cnp', 'j': 'cui', 'o': 'cif'}
-        tax_code = order_info[tax_code_type[customer_type]]
-        order_info.update(cart_id=cart_id,
-                          user_id=ancora_user_id,
-                          email=order_info['username'],
-                          name=(person_name if customer_type == 'f' else order_info['company']),
-                          person_name=person_name,
-                          delivery=(order_info['delivery'] == 'yes'),
-                          tax_code=tax_code,
-                          payment=request.session['payment'])
-        logger.info('Confirm %s, cart %s', order_info, cart)
-        order_id = self.api.cart.create_order(**order_info)
-        request.session['order']['id'] = order_id
-
-        # cleanup session
-        del request.session['cart_id']  # Ancora cart is deleted after order
-        del request.session['delivery']
-        del request.session['payment']
-
-        return self.get(request, cart=cart, order=order_info, done=True)
-
-
-class ShoppingMixin(object):
-    def get_context_data(self, **context):
-        if 'cart' not in context:
-            context.update({'cart': get_cart_data(self.request)})
-        return super(ShoppingMixin, self).get_context_data(**context)
-
     def _create_cart(self):
         # TODO: are cookies enabled ?
         ancora_user_id = guest_id = 0
         if self.request.user.is_authenticated():
-            ancora_user_id = self.request.user.get_ancora_id(self.api)
-        cart = CartFactory(api=self.api).create(ancora_user_id)
+            ancora_user_id = self.request.user.get_ancora_id(self.request.api)
+        cart = CartFactory(api=self.request.api).create(ancora_user_id)
         self.request.session['cart_id'] = cart.id()
         return cart
 
@@ -188,6 +81,107 @@ class ShoppingMixin(object):
         self.request.session['delivery'] = delivery
         if payment is not None:
             self.request.session['payment'] = payment
+
+
+class OrderView(LoginRequiredMixin, BreadcrumbsMixin, FormView, HybridGenericView):
+    template_name = "order.html"
+    breadcrumbs = CartView.breadcrumbs + [FrozenDict(name="Date facturare",
+                                                     url=reverse_lazy('order'))]
+    success_url = reverse_lazy('confirm')
+
+    def get_initial(self):
+        initial = super(OrderView, self).get_initial()
+        # TODO: user and delivery not required on order_form_factory(...)
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderView, self).get_context_data(**kwargs)
+        if 'form' not in context:   # show full unbound form on first view
+            context['form'] = self.get_form_class()
+        user_id = self.request.user.get_ancora_id(self.request.api)
+        context['customers'] = self.request.api.cart.get_customers(user_id=user_id)
+        context['addresses'] = self.request.api.cart.get_addresses(user_id=user_id)
+        context['counties'] = [county for short, county in COUNTIES_CHOICES]
+        return context
+
+    def get_form_class(self):
+        customer_type = self.request.POST.get('customer_type')
+        user = self.request.user
+        customers = self.request.api.cart.get_customers(user_id=user.ancora_id)
+        addresses = self.request.api.cart.get_addresses(user_id=user.ancora_id)
+        delivery = self.request.session.get('delivery') == 'yes'
+        return order_form_factory(form_type=customer_type, 
+                                  user=user,
+                                  customers=customers,
+                                  addresses=addresses,
+                                  delivery=delivery)
+
+    def form_valid(self, form):
+        logger.info('Order %s', form.cleaned_data)
+        self.request.session['order'] = form.cleaned_data
+
+        # Update user
+        self.request.user.first_name = form.cleaned_data['first_name']
+        self.request.user.last_name = form.cleaned_data['last_name']
+        self.request.user.phone = form.cleaned_data['phone']
+        self.request.user.save()
+
+        return super(OrderView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        logger.info('Order errors %s', form.errors)
+        return super(OrderView, self).form_invalid(form)
+
+
+class GetCompanyInfo(HybridGenericView):
+    """ Get company info by CIF from openapi.ro """
+
+    template_name = None
+    json_exclude = ('object_list', 'view', 'paginator', 'page_obj', 'is_paginated')
+
+    def get_local_context(self):
+        cif = self.kwargs.get('cif')
+        r = requests.get('http://openapi.ro/api/companies/%s.json' % cif)
+        return r.json
+
+
+class ConfirmView(LoginRequiredMixin, BreadcrumbsMixin, HybridGenericView):
+    template_name = "confirm.html"
+    breadcrumbs = OrderView.breadcrumbs + [FrozenDict(name="Confirmare",
+                                                      url=reverse_lazy('confirm'))]
+
+    def get_local_context(self):
+        return {'order': self.request.session.get('order')}
+
+    def post(self, request, *args, **kwargs):
+        order_info = request.session.get('order').copy()
+        cart = get_cart_data(request)
+        cart_id = cart['id']
+        if cart_id is None:
+            return HttpResponseRedirect(reverse('cart'))
+        ancora_user_id = self.request.user.get_ancora_id(self.request.api)
+        customer_type = order_info['customer_type']
+        person_name = "%s %s" % (order_info['first_name'], order_info['last_name'])
+        tax_code_type = {'f': 'cnp', 'j': 'cui', 'o': 'cif'}
+        tax_code = order_info[tax_code_type[customer_type]]
+        order_info.update(cart_id=cart_id,
+                          user_id=ancora_user_id,
+                          email=order_info['username'],
+                          name=(person_name if customer_type == 'f' else order_info['company']),
+                          person_name=person_name,
+                          delivery=(order_info['delivery'] == 'yes'),
+                          tax_code=tax_code,
+                          payment=request.session['payment'])
+        logger.info('Confirm %s, cart %s', order_info, cart)
+        order_id = self.request.api.cart.create_order(**order_info)
+        request.session['order']['id'] = order_id
+
+        # cleanup session
+        del request.session['cart_id']  # Ancora cart is deleted after order
+        del request.session['delivery']
+        del request.session['payment']
+
+        return self.get(request, cart=cart, order=order_info, done=True)
 
 
 def get_cart_data(request):
