@@ -8,7 +8,7 @@ from haystack.views import FacetedSearchView
 from urllib import urlencode
 from urlparse import urlparse, urlunparse, parse_qsl
 
-from atexpc.atex_web.views.base import BreadcrumbsMixin
+from atexpc.atex_web.views.base import BreadcrumbsMixin, CSRFCookieMixin
 from atexpc.atex_web.models import Product, ProductSpecification
 from atexpc.atex_web.forms import search_form_factory
 from atexpc.atex_web.utils import group_in, grouper
@@ -18,7 +18,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class HomeView(TemplateView):
+class HomeView(CSRFCookieMixin, TemplateView):
     template_name = "home.html"
     top_limit = 5
 
@@ -57,11 +57,11 @@ class HomeView(TemplateView):
         return promotional
 
 
-class SearchView(FacetedSearchView):
+class SearchView(CSRFCookieMixin, FacetedSearchView):
     template_name = "search/search.html"
 
 
-class ProductsView(BreadcrumbsMixin, TemplateView):
+class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
     template_name = "search.html"
 
     def get_context_data(self, **context):
@@ -246,7 +246,7 @@ class ProductsView(BreadcrumbsMixin, TemplateView):
         return selectors_with_products
 
 
-class ProductView(BreadcrumbsMixin, TemplateView):
+class ProductView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
     template_name = "product.html"
     recommended_limit = 3
 

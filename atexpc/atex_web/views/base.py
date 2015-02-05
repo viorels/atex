@@ -171,6 +171,12 @@ class BaseView(TemplateView):
         return super(BaseView, self).dispatch(*args, **kwargs)
 
 
+class CSRFCookieMixin(object):
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, *args, **kwargs):
+        return super(CSRFCookieMixin, self).dispatch(*args, **kwargs)
+
+
 class ErrorBase(BaseView):
     error_code = None
 

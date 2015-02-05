@@ -14,7 +14,7 @@ from django.utils.translation import ugettext as _
 
 from password_reset.views import Recover, RecoverDone, Reset, ResetDone
 
-from atexpc.atex_web.views.base import BaseView, HybridGenericView, JSONResponseMixin
+from atexpc.atex_web.views.base import BaseView, HybridGenericView, JSONResponseMixin, CSRFCookieMixin
 from atexpc.atex_web.utils import FrozenDict
 from atexpc.atex_web.forms import user_form_factory
 
@@ -22,7 +22,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class LoginBase(FormView, HybridGenericView):
+class LoginBase(CSRFCookieMixin, FormView, HybridGenericView):
     template_name = "login.html"
     breadcrumbs = [FrozenDict(name=_('Sign up') + '/' + _('Log in'),
                               url=reverse_lazy('login'))]
