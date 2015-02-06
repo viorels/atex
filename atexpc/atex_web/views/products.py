@@ -34,7 +34,7 @@ class HomeView(CSRFCookieMixin, TemplateView):
                 product = matching_in_backend[0]
                 product['name'] = product_obj.get_short_name()
                 product['images'] = product_obj.images
-                product['url'] = Product(id=product['id'], name=product['name']).get_absolute_url()
+                product['url'] = product_obj.get_absolute_url()
                 hits.append(product)
         return hits
 
@@ -44,7 +44,7 @@ class HomeView(CSRFCookieMixin, TemplateView):
             product_obj = Product(raw=product)
             product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
-            product['url'] = Product(id=product['id'], name=product['name']).get_absolute_url()
+            product['url'] = product_obj.get_absolute_url()
         return recommended
 
     def get_promotional(self):
@@ -53,7 +53,7 @@ class HomeView(CSRFCookieMixin, TemplateView):
             product_obj = Product(raw=product)
             product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
-            product['url'] = Product(id=product['id'], name=product['name']).get_absolute_url()
+            product['url'] = product_obj.get_absolute_url()
         return promotional
 
 
@@ -220,7 +220,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
             product_obj = Product(raw=product)
             product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
-            product['url'] = Product(id=product['id'], name=product['name']).get_absolute_url()
+            product['url'] = product_obj.get_absolute_url()
             product['stock_available'] = product['stock_status'] != Ancora.STOCK_UNAVAILABLE
 
         products_per_line = 4
@@ -287,8 +287,10 @@ class ProductView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
     def get_recommended(self):
         recommended = self.request.api.products.get_recommended(limit=self.recommended_limit)
         for product in recommended:
-            product['images'] = Product(model=product['model']).images
-            product['url'] = Product(id=product['id'], name=product['name']).get_absolute_url()
+            product_obj = Product(raw=product)
+            product['name'] = product_obj.get_short_name()
+            product['images'] = product_obj.images
+            product['url'] = product_obj.get_absolute_url()
         return recommended
 
     def get_breadcrumbs(self):
