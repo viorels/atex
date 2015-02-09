@@ -17,6 +17,8 @@ from atexpc.ancora_api.api import Ancora    # STOCK_UNAVAILABLE
 import logging
 logger = logging.getLogger(__name__)
 
+PRODUCTS_PER_LINE = 4
+
 
 class HomeView(CSRFCookieMixin, TemplateView):
     template_name = "home.html"
@@ -58,11 +60,25 @@ class HomeView(CSRFCookieMixin, TemplateView):
 
 
 class SearchView(CSRFCookieMixin, FacetedSearchView):
-    template_name = "search/search.html"
+    template = "search.html"
+
+    def extra_context(self):
+        return {'search_form': self.form}
+
+    def get_results(self):
+        results = super(SearchView, self).get_results()
+
+        # TODO: refactor as it's the same in ProductsView
+        for idx, product in enumerate(results):
+            if (idx+1) % PRODUCTS_PER_LINE == 0:
+                setattr(product.object, 'last_in_line', True)
+
+        # import ipdb; ipdb.set_trace()
+        return results
 
 
 class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
-    template_name = "search.html"
+    template_name = "products.html"
 
     def get_context_data(self, **context):
         context.update({'search_form': self.get_search_form,
@@ -223,9 +239,8 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
             product['url'] = product_obj.get_absolute_url()
             product['stock_available'] = product['stock_status'] != Ancora.STOCK_UNAVAILABLE
 
-        products_per_line = 4
         for idx, product in enumerate(products):
-            if (idx+1) % products_per_line == 0:
+            if (idx+1) % PRODUCTS_PER_LINE == 0:
                 product['last_in_line'] = True
 
         return products
