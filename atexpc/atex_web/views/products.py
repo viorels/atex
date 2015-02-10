@@ -4,7 +4,7 @@ from django.template import Context, Template
 from django.http import Http404
 from django.conf import settings
 from django.views.generic.base import TemplateView
-from haystack.views import FacetedSearchView
+from haystack.generic_views import SearchView, FacetedSearchView
 from urllib import urlencode
 from urlparse import urlparse, urlunparse, parse_qsl
 
@@ -59,22 +59,26 @@ class HomeView(CSRFCookieMixin, TemplateView):
         return promotional
 
 
-class SearchView(CSRFCookieMixin, FacetedSearchView):
-    template = "search.html"
+class MySearchView(CSRFCookieMixin, SearchView):
+    template_name = "search.html"
+    form_name = "search_form"
+    search_field = "q"
 
-    def extra_context(self):
-        return {'search_form': self.form}
+    # def get_queryset(self):
+    #     queryset = super(MySearchView, self).get_queryset()
+    #     # further filter queryset based on some set of criteria
+    #     return queryset.filter(pub_date__gte=date(2015, 1, 1))
 
-    def get_results(self):
-        results = super(SearchView, self).get_results()
+    def get_context_data(self, **kwargs):
+        context = super(MySearchView, self).get_context_data(**kwargs)
 
         # TODO: refactor as it's the same in ProductsView
-        for idx, product in enumerate(results):
+        for idx, product in enumerate(context['object_list']):
             if (idx+1) % PRODUCTS_PER_LINE == 0:
                 setattr(product.object, 'last_in_line', True)
 
-        # import ipdb; ipdb.set_trace()
-        return results
+        return context
+
 
 
 class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):

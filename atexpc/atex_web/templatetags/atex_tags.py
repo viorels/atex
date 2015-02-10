@@ -2,8 +2,8 @@ from django import template
 from django.conf import settings
 from django.core.serializers import serialize
 from django.db.models.query import QuerySet
-from django.utils import simplejson
 from sorl.thumbnail import get_thumbnail
+import json
 
 
 import logging
@@ -34,4 +34,4 @@ def thumbnail(image, size):
 def jsonify(object):
     if isinstance(object, QuerySet):
         return serialize('json', object)
-    return simplejson.dumps(object)
+    return json.dumps(object)

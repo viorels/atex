@@ -95,7 +95,7 @@
                     </ul>    
                 </div>
                 <div class="listing_produse">
-                    {% for result in page.object_list %}
+                    {% for result in object_list %}
                         <div class="product_holder {% if result.object.last_in_line %}last{% endif %}">
                             <a href="{{ result.object.get_absolute_url }}" class="product_picture_holder">
                                 <div class="middle size205x175">

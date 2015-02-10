@@ -4,7 +4,7 @@ from django.views.generic.base import TemplateView
 from base import BreadcrumbsMixin, ErrorBase
 from authentication import (LoginBase, RecoverPasswordView, RecoverPasswordDoneView,
                             ResetPasswordView, ResetPasswordDoneView)
-from products import (HomeView, SearchView, ProductsView, ProductView, BrandsView)
+from products import (HomeView, MySearchView, ProductsView, ProductView, BrandsView)
 from shopping import CartView, OrderView, ConfirmView
 
 

@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import RedirectView
-from views import (HomeView, SearchView, ProductsView, ProductView, BrandsView,
+from views import (HomeView, MySearchView, ProductsView, ProductView, BrandsView,
                    ContactView, ConditionsView, ServiceView, ContestView,
                    CartView, OrderView, ConfirmView, LoginView,
                    RecoverPassword, RecoverPasswordDone, ResetPassword, ResetPasswordDone)
@@ -13,7 +13,7 @@ from views.shopping import GetCompanyInfo
 
 urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
-    url(r'^cauta/', SearchView(), name='search'),
+    url(r'^cauta/', MySearchView.as_view(), name='search'),
     url(r'^produse/$', ProductsView.as_view(), name='products'),
     url(r'^produse/(?P<category_id>\d+)-(?P<slug>.*)$',
         ProductsView.as_view(), name='category'),
