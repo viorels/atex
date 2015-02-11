@@ -136,7 +136,7 @@ function init_filters() {
         }
         return false;
     }
-    $("input#id_cuvinte").keyup(function(e){
+    $("input#id_q").keyup(function(e){
         var key_enter = 13;
         if(e.keyCode == key_enter){
             return submit_search_filter_form(e);

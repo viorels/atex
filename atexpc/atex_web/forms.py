@@ -5,6 +5,7 @@ from django.contrib.auth import forms as auth_forms, get_user_model
 from django.core.validators import validate_email
 from django.forms.widgets import (TextInput, PasswordInput, HiddenInput, 
     CheckboxInput, RadioSelect, Select, Textarea)
+from haystack.forms import FacetedSearchForm
 
 # ROCNPField, ROPhoneNumberField, ROCIFField, ROIBANField, ROCountyField, ROCountySelect
 from localflavor.ro import forms as roforms
@@ -19,9 +20,10 @@ PER_PAGE_CHOICES = tuple((choice, str(choice)) for choice in (20, 40, 60))
 def search_form_factory(search_in_choices, advanced=False):
     SEARCH_IN_CHOICES = (("", "- Toate Categoriile -"),) + search_in_choices
 
-    class SearchForm(forms.Form):
-        cuvinte = forms.CharField(
-            widget=TextInput(attrs={"class": "search delegate_filter",
+    class SearchForm(FacetedSearchForm):
+        q = forms.CharField(
+            widget=TextInput(attrs={"type": "search",
+                                    "class": "search delegate_filter",
                                     "placeholder": "Caută produsul dorit ..."}),
             initial='',
             required=False)

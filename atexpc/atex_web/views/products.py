@@ -62,7 +62,9 @@ class HomeView(CSRFCookieMixin, TemplateView):
 class MySearchView(CSRFCookieMixin, SearchView):
     template_name = "search.html"
     form_name = "search_form"
-    search_field = "q"
+
+    def get_form_class(self):
+        return search_form_factory((), advanced=True)
 
     # def get_queryset(self):
     #     queryset = super(MySearchView, self).get_queryset()
@@ -140,7 +142,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
         search_form = self.get_search_form()
         if search_form.is_valid():
             args['category_id'] = self.get_category_id()
-            args['keywords'] = search_form.cleaned_data.get('cuvinte')
+            args['keywords'] = search_form.cleaned_data.get('q')
             args['current_page'] = search_form.cleaned_data.get('pagina')
             args['per_page'] = search_form.cleaned_data.get('pe_pagina')
             args['price_min'] = search_form.cleaned_data.get('pret_min')

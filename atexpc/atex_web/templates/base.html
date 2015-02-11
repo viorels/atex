@@ -127,7 +127,7 @@ $(".fancybox")
                 {% if search_form %}
             <form id="search_form" method="get" action="{% url "search" %}">
                 <ul class="search_inputs">
-                    <li>{{ search_form.cuvinte }}</li>
+                    <li>{{ search_form.q }}</li>
                     <li class="search_category">
                         {{ search_form.cauta_in }}
                     </li>    
