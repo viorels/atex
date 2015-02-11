@@ -71,14 +71,29 @@ class MySearchView(CSRFCookieMixin, SearchView):
 
     def get_context_data(self, **kwargs):
         context = super(MySearchView, self).get_context_data(**kwargs)
+        products = [result.object for result in context['object_list']]
 
         # TODO: refactor as it's the same in ProductsView
-        for idx, product in enumerate(context['object_list']):
+        for idx, product in enumerate(products):
             if (idx+1) % PRODUCTS_PER_LINE == 0:
-                setattr(product.object, 'last_in_line', True)
+                setattr(product, 'last_in_line', True)
 
+        self.augment_products(products)
+        context['object_list'] = products
         return context
 
+    def augment_products(self, products):
+        """ Augments products from search with updated info from Ancora """
+        product_ids = [p.id for p in products]
+        products_ancora = self.request.api.products.get_product_list(product_ids)
+        for product in products:
+            ancora_product = [p for p in products_ancora if product.id == p['id']]
+            ancora_product = ancora_product[0] if ancora_product else {}
+            setattr(product, 'price', ancora_product.get('price'))
+            setattr(product, 'old_price', ancora_product.get('old_price'))
+            setattr(product, 'stock_info', ancora_product.get('stock_info'))
+            setattr(product, 'stock_available', ancora_product.get('stock_status') != Ancora.STOCK_UNAVAILABLE)
+        return products
 
 
 class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):

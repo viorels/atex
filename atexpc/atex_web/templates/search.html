@@ -95,49 +95,49 @@
                     </ul>    
                 </div>
                 <div class="listing_produse">
-                    {% for result in object_list %}
-                        <div class="product_holder {% if result.object.last_in_line %}last{% endif %}">
-                            <a href="{{ result.object.get_absolute_url }}" class="product_picture_holder">
+                    {% for product in object_list %}
+                        <div class="product_holder {% if product.last_in_line %}last{% endif %}">
+                            <a href="{{ product.get_absolute_url }}" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
-                                        <img class="center" src="{{ result.object.images.0|thumbnail:"185x145" }}" alt="{{ result.object.name }}" title="{{ result.object.name }}" name="{{ result.object.name }}"/>
+                                        <img class="center" src="{{ product.images.0|thumbnail:"185x145" }}" alt="{{ product.name }}" title="{{ product.name }}" name="{{ product.name }}"/>
                                     </div>
                                 </div>
                             </a>
-                            <h2><a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a></h2>
-			    {% if "stoc" in result.object.stock_info %}
+                            <h2><a href="{{ product.get_absolute_url }}">{{ product.get_best_name }}</a></h2>
+			    {% if "stoc" in product.stock_info %}
                               <span class="stoc stoc_ok">
-			    {% elif "comanda" in result.object.stock_info %}
+			    {% elif "comanda" in product.stock_info %}
                               <span class="stoc stoc_comanda">
-			    {% elif "nu este disponibil" in result.object.stock_info %}
+			    {% elif "nu este disponibil" in product.stock_info %}
                               <span class="stoc stoc_indisponibil">
 			    {% else %}
                               <span class="stoc stock_ok">
 			    {% endif %}
-				{{ result.object.stock_info }}
+				{{ product.stock_info }}
 			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
-                        <span class="pret_produs">{{ result.object.price }} lei</span>
-                        {% if result.object.old_price %}
-                        <span class="pret_vechi">{{ result.object.old_price }} lei</span>
+                        <span class="pret_produs">{{ product.price }} lei</span>
+                        {% if product.old_price %}
+                        <span class="pret_vechi">{{ product.old_price }} lei</span>
                         {% endif %}
                     </div>
-                    {% if result.object.stock_available %}
-                       <a href="#" class="add_cos_btn_small" data-product-id="{{ result.object.id }}" style="display: none"><span></span>Adauga in cos</a>
+                    {% if product.stock_available %}
+                       <a href="#" class="add_cos_btn_small" data-product-id="{{ product.id }}" style="display: none"><span></span>Adauga in cos</a>
                     {% endif %}
 				</div>
                                                   
                             <!--
 				<ul class="info_detalii">
-                                <li><span>Garantie: {{ result.object.warranty }} luni</span></li>
+                                <li><span>Garantie: {{ product.warranty }} luni</span></li>
                                 <li><span>Termen livrare: 24h de la comanda</span></li>
                                 <li><span><span class="red">*</span>Transport GRATUIT</span></li>
                             </ul>  
 				-->  
                         </div>
      
-                        {% if result.object.last_in_line %}
+                        {% if product.last_in_line %}
                             <div class="product_spacer"></div>
                         {% endif %}
                     {% endfor %}
