@@ -62,6 +62,7 @@ class HomeView(CSRFCookieMixin, TemplateView):
 class MySearchView(CSRFCookieMixin, SearchView):
     template_name = "search.html"
     form_name = "search_form"
+    # paginator_class = https://docs.djangoproject.com/en/1.7/ref/class-based-views/mixins-multiple-object/#django.views.generic.list.MultipleObjectMixin.paginator_class
 
     def get_form_class(self):
         return search_form_factory((), advanced=True)
@@ -82,6 +83,7 @@ class MySearchView(CSRFCookieMixin, SearchView):
 
         self.augment_products(products)
         context['object_list'] = products
+        context['search_url'] = _uri_with_args(self.request.build_absolute_uri(), page=None)
         return context
 
     def augment_products(self, products):
@@ -199,7 +201,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
         pages_count = int(math.ceil(float(total_count)/per_page))
         page_info = lambda number: {
             'name': number,
-            'url': self._uri_with_args(base_url, pagina=number),
+            'url': _uri_with_args(base_url, pagina=number),
             'is_current': number == current_page} if number is not None else None
         pages = [page_info(number) for number in self._pages_list(pages_count, current_page)]
 
@@ -214,25 +216,6 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
                               'stop': stop,
                               'total_count': total_count}
         return data
-
-    def _uri_with_args(self, base_uri, **new_args):
-        """Overwrite specified args in base uri. If any other multiple value args
-        are present in base_uri then they must be preserved"""
-        parsed_uri = urlparse(base_uri)
-
-        parsed_args = parse_qsl(parsed_uri.query)
-        updated_args = [(key, value) for key, value in parsed_args if key not in new_args]
-        updated_args.extend(new_args.items())
-        valid_args = [(key, value) for key, value in updated_args if value is not None]
-        encoded_args = urlencode(valid_args, doseq=True)
-
-        final_uri = urlunparse((parsed_uri.scheme,
-                                parsed_uri.netloc,
-                                parsed_uri.path,
-                                parsed_uri.params,
-                                encoded_args,
-                                parsed_uri.fragment))
-        return final_uri
 
     def _pages_list(self, pages_count, current_page, nearby=5):
         first_page = 1
@@ -356,3 +339,23 @@ class BrandsView(BreadcrumbsMixin, TemplateView):
                            for letter in index_letters)
         grouped_brand_index = grouper(4, sorted(brand_index.items()))
         return grouped_brand_index
+
+
+def _uri_with_args(base_uri, **new_args):
+    """Overwrite specified args in base uri. If any other multiple value args
+    are present in base_uri then they must be preserved"""
+    parsed_uri = urlparse(base_uri)
+
+    parsed_args = parse_qsl(parsed_uri.query)
+    updated_args = [(key, value) for key, value in parsed_args if key not in new_args]
+    updated_args.extend(new_args.items())
+    valid_args = [(key, value) for key, value in updated_args if value is not None]
+    encoded_args = urlencode(valid_args, doseq=True)
+
+    final_uri = urlunparse((parsed_uri.scheme,
+                            parsed_uri.netloc,
+                            parsed_uri.path,
+                            parsed_uri.params,
+                            encoded_args,
+                            parsed_uri.fragment))
+    return final_uri

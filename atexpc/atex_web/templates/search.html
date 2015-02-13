@@ -143,15 +143,15 @@
                     {% endfor %}
                     
                     <div class="product-section">
-                    	<span class="produse-gasite">Produsele de la {{ pagination.start }} la {{ pagination.stop }} din {{ pagination.total_count }} produse {% if category_name %}gasite in categoria <strong>{{ category_name }}</strong>{% endif %}</span>
+                        <span class="produse-gasite">Produsele de la {{ page_obj.start_index }} la {{ page_obj.end_index }} din {{ paginator.count }} produse {% if category_name %}gasite in categoria <strong>{{ category_name }}</strong>{% endif %}</span>
                     	<div class="tab_d_holder_right">
-                            {% if pagination.previous %}
-                                <a href="{{ pagination.previous.url }}" class="prev"></a>
+                            {% if page_obj.has_previous %}
+                                <a href="{{ search_url }}&amp;page={{ page_obj.previous_page_number }}" class="prev"></a>
                             {% else %}
                                 <a class="prev"></a>
                             {% endif %}
                                 <ul class="paginare">
-                                    {% for page in pagination.pages %}
+                                    {% for page in TOO_MANY %}
                                     <li>
                                         {% if not page %}
                                         <span style="color: white">...</span>
@@ -162,8 +162,8 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ul>
-                            {% if pagination.next %}
-                                <a href="{{ pagination.next.url }}" class="next"></a>
+                            {% if page_obj.has_next %}
+                                <a href="{{ search_url }}&amp;page={{ page_obj.next_page_number }}" class="next"></a>
                             {% else %}
                                 <a class="next"></a>
                             {% endif %}
