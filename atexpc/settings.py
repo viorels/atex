@@ -99,8 +99,8 @@ FACEBOOK_API_SECRET = environ.get('FACEBOOK_API_SECRET')
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': path.join(PROJECT_ROOT, 'whoosh_index'),
+        'ENGINE': 'xapian_backend.XapianEngine',
+        'PATH': path.join(PROJECT_ROOT, 'xapian_index'),
     },
 }
 

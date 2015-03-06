@@ -10,4 +10,4 @@ atexpc/atex_web/static/CACHE
 backup
 tmp
 newsletter
-whoosh_index
+xapian_index

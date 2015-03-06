@@ -2,3 +2,9 @@
 {{ object.description }}
 {{ object.category.name }}
 {{ object.model }}
+
+{% for group, specs in object.get_spec_groups.items %}
+    {% for spec, value in specs %}
+		{{ value }}
+	{% endfor %}
+{% endfor %}

@@ -1,4 +1,4 @@
-Django==1.7.4
+Django==1.7.5
 pytz==2014.10
 redis==2.9.1
 celery[redis]==3.1.9
@@ -17,5 +17,6 @@ django-localflavor==1.0
 django-password-reset==0.5
 xlsxwriter==0.5.1
 xlrd==0.9.2
-git+git://github.com/django-haystack/django-haystack@v2.4.0
-Whoosh==2.6.0
+git+git://github.com/django-haystack/django-haystack@b92e4ddc37
+git+https://github.com/viorels/xapian-haystack.git@e66cd5aca4
+xapian-haystack==1.1.5beta
