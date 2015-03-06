@@ -6,7 +6,6 @@ from django.core.validators import validate_email
 from django.forms.widgets import (TextInput, PasswordInput, HiddenInput, 
     CheckboxInput, RadioSelect, Select, Textarea)
 from haystack.forms import FacetedSearchForm
-
 # ROCNPField, ROPhoneNumberField, ROCIFField, ROIBANField, ROCountyField, ROCountySelect
 from localflavor.ro import forms as roforms
 
@@ -16,6 +15,7 @@ SORT_CHOICES = (
     ('vanzari_desc', ' - cele mai vandute - '))
 
 PER_PAGE_CHOICES = tuple((choice, str(choice)) for choice in (20, 40, 60))
+
 
 def search_form_factory(search_in_choices, advanced=False):
     SEARCH_IN_CHOICES = (("", "- Toate Categoriile -"),) + search_in_choices
@@ -33,6 +33,11 @@ def search_form_factory(search_in_choices, advanced=False):
             choices=SEARCH_IN_CHOICES,
             coerce=int,
             required=False)
+
+        def search(self):
+            sqs = super(SearchForm, self).search()
+            q = self.cleaned_data['q']
+            return sqs.filter(content=q).filter(name=q)
 
     class AdvancedSearchForm(SearchForm):
         categorie = forms.IntegerField(
