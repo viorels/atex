@@ -37,7 +37,7 @@ def search_form_factory(search_in_choices, advanced=False):
         def search(self):
             sqs = super(SearchForm, self).search()
             q = self.cleaned_data['q']
-            return sqs.filter(content=q).filter(name=q)
+            return sqs.filter(content=q).filter(name=q).facet('category')
 
     class AdvancedSearchForm(SearchForm):
         categorie = forms.IntegerField(

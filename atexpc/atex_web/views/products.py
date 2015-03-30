@@ -84,6 +84,7 @@ class MySearchView(CSRFCookieMixin, SearchView):
         self.augment_products(products)
         context['object_list'] = products
         context['search_url'] = _uri_with_args(self.request.build_absolute_uri(), page=None)
+        # context['facets'] = context['object_list'].facet_counts()
         return context
 
     def augment_products(self, products):
