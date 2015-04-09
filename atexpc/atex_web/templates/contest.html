@@ -15,6 +15,72 @@
 .auto-style6 {
 	font-size: x-large;
 }
+ul.menu1 {
+	width:250px;
+	float:center;	
+	background:url('/static/images/menu-bg.jpg?7a073fb9024d') 0 0 repeat;
+	border-radius: 6px;     
+	-moz-border-radius: 6px;     
+	-webkit-border-radius: 6px;
+	behavior: url('/static/css/PIE.htc?08a02b6181dc');
+	position: fixed;
+button:hover;
+background:url('/static/images/red-arrow.png?7a073fb9024d') 230px 17px no-repeat;
+}
+ul.menu1 li.menu-item {
+	height:40px;
+	line-height:40px;
+	border-bottom:1px solid #cecece;
+	border-left:1px solid #cecece;
+	border-right:1px solid #cecece;
+	background: -moz-linear-gradient(top , #fcfcfc, #f7f7f7 50%, #f0f0f0 50%, #f0f0f0);
+	background: -ms-linear-gradient(top , #fcfcfc, #f7f7f7 50%, #f0f0f0 50%, #f0f0f0);
+	background: -o-linear-gradient(top , #fcfcfc, #f7f7f7 50%, #f0f0f0 50%, #f0f0f0);
+	background: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#f0f0f0), color-stop(0.5, #f7f7f7),  color-stop(0.5, #f0f0f0));
+	-pie-background: linear-gradient(#fcfcfc, #f7f7f7 50%, #f0f0f0 50%, #f0f0f0); 
+	-moz-border-radius: 0 0 6px 6px;
+	-webkit-border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+	behavior: url('/static/css/PIE.htc?08a02b6181dc');	
+	text-transform:capitalize;
+	font-size:13px;
+	display:block;
+	position:relative;
+}
+ul.menu1 li.menu-item.brand {	
+	background: -moz-linear-gradient(top , #d6585a, #cf4243 50%, #c62123 50%, #c62123);
+	background: -ms-linear-gradient(top , #d6585a, #cf4243 50%, #c62123 50%, #c62123);
+	background: -o-linear-gradient(top , #d6585a, #cf4243 50%, #c62123 50%, #c62123);
+	background: -webkit-gradient(linear, left top, left bottom, from(#d6585a), to(#c62123), color-stop(0.5, #cf4243),  color-stop(0.5, #c62123));
+	-pie-background: linear-gradient(#d6585a, #cf4243 50%, #c62123 50%, #c62123); 	
+	behavior: url('/static/css/PIE.htc?08a02b6181dc');	
+	position:relative;
+}
+ul.menu1 li.menu-item.brand a {color:#fff} ul.menu li.menu-item.brand a:hover {color:#393939}
+ul.menu li.menu-item.active, ul.menu1 li.menu-item:hover  {
+	background: #fff !important;		 
+	position:static !important;
+}
+ul.menu1 li.menu-item.first {
+	border-top:1px solid #cecece;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+ul.menu1 li.menu-item a.menu-link {
+	display:block;
+	line-height:40px;
+	background:url('/static/images/gray-arrow.png?7a073fb9024d') 230px 17px no-repeat;
+}
+ul.menu1 li.menu-item a.menu-link:hover, ul.menu li.menu-item.active a.menu-link {
+	background:url('/static/images/red-arrow.png?7a073fb9024d') 230px 17px no-repeat;
+}
+ul.menu_icon1 {
+margin-top:25px;
+margin-left:120px;}
+
+ul.dumbo {margin-left:555px;
+font-size:40px;}
 </style>
 </head>
 
@@ -24,22 +90,794 @@
 {% load static %}
 {% get_static_prefix as STATIC_PREFIX %}
 
-{% block title %}Concurs{% endblock title %}
+{% block title %}Promotiile Saptamanii{% endblock title %}
 {% block head %}
-	<meta name="description" content="Concursuri desfasurate | ATEX Computer">
+	<meta name="description" content="Promotiile Saptamanii | ATEX Computer">
 
-	<meta name="keywords" content="concurs ATEX"> 
+	<meta name="keywords" content="Promotiile Saptamanii ATEX"> 
 {% endblock %}
 
 {% block content_top %}
 {% endblock content_top %}
 
 {% block content %}
-<table style="width: 100%">
-	<tr>
-		<td class="auto-style1"><img src="{{ STATIC_PREFIX }}images/PENDING.jpg" align="center" width="auto" /></td>
-	</tr>
-</table>
+
+
+
+<div class="left_col">
+<ul class="menu1">
+                    
+                	<li class="menu-item first">
+                     <a href="#Laptopuri">
+      <div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Laptop &amp; Desktop &amp; Servere
+                        </div>
+                        </a>
+                    </li>
+                    
+                	<li class="menu-item">
+                    	<a href="#Tablete"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Tablete
+                        </div></a>
+                    </li>
+                    
+                	<li class="menu-item">
+                    	<a href="#Componente IT"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                     Componente IT
+                        </div></a>
+                    </li>
+                                
+                                
+                                
+                       <li class="menu-item">
+                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Periferice
+                        </div></a>
+                    </li>
+                	<li class="menu-item">
+                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                       Birotica si Consumabile
+                        </div></a>
+                    </li>
+                    
+                	<li class="menu-item">
+                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Retelistica
+                        </div></a>
+                    </li>
+                    
+                	<li class="menu-item">
+                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Software
+                        </div></a>
+                    </li>
+                    
+                	<li class="menu-item">
+                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Telefonie
+                        </div></a>
+                    </li>
+                
+                  <li class="menu-item">
+                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Conectica
+                        </div></a>
+                    </li>
+                    
+                </ul>
+</div>
+
+
+
+
+
+
+<div class="listing_produse">
+                   <div style="font-size: 250%;" id="Laptopuri"><b>Laptopuri</b></div>
+                        <div class="product_holder ">
+                            <a href="/produs/65405-laptop-asus-x553ma-xx086d-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/5a/80/5a80339439249c5ce07e5d801099e27e.jpg" alt="Laptop Asus X553MA-XX086D cu procesor Intel Celeron Dual Core" title="Laptop Asus X553MA-XX086D cu procesor Intel Celeron Dual Core" name="Laptop Asus X553MA-XX086D cu procesor Intel Celeron Dual Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/65405-laptop-asus-x553ma-xx086d-cu-procesor-intel-celeron-dual-core">Laptop Asus X553MA-XX086D cu procesor Intel Celeron Dual Core</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1079 lei</span>
+                        
+                        <span class="pret_vechi">1175,16 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="65405" style="display: none;"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/67215-laptop-lenovo-80g000j4ri" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/e8/80/e880a3db148d0d06b5d6f14de3eea649.jpg" alt="Laptop LENOVO 80G000J4RI" title="Laptop LENOVO 80G000J4RI" name="Laptop LENOVO 80G000J4RI">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67215-laptop-lenovo-80g000j4ri">Laptop LENOVO 80G000J4RI</a></h2>
+			    
+                              <span class="stoc stoc_indisponibil">
+			    
+				Momentan nu este disponibil
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1205,78 lei</span>
+                        
+                    </div>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/67252-laptop-hp-250-g3-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/88/30/8830523c0d38c24b91b32c53fac34b17.jpg" alt="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core" title="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core" name="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67252-laptop-hp-250-g3-cu-procesor-intel-celeron-dual-core">Laptop HP 250 G3 cu procesor Intel Celeron Dual Core</a></h2>
+			    
+                              <span class="stoc stoc_comanda">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1248,15 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="67252" style="display: none;"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder last">
+                            <a href="/produs/66732-laptop-toshiba-satellite-c50-b-158-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/0a/34/0a34d114fe0c547513580b7682b765d8.jpg" alt="Laptop Toshiba Satellite C50-B-158 cu procesor Intel Celeron Dual Core" title="Laptop Toshiba Satellite C50-B-158 cu procesor Intel Celeron Dual Core" name="Laptop Toshiba Satellite C50-B-158 cu procesor Intel Celeron Dual Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/66732-laptop-toshiba-satellite-c50-b-158-cu-procesor-intel-celeron-dual-core">Laptop Toshiba Satellite C50-B-158 cu procesor Intel Celeron Dual Core</a></h2>
+			    
+                              <span class="stoc stoc_comanda">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1279,07 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="66732" style="display: none;"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                            <div class="product_spacer"></div>
+                
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/67253-laptop-hp-250-g3-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/00/cb/00cb05d05ae08b7dfc780f3557f82319.jpg" alt="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core" title="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core" name="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67253-laptop-hp-250-g3-cu-procesor-intel-celeron-dual-core">Laptop HP 250 G3 cu procesor Intel Celeron Dual Core</a></h2>
+			    
+                              <span class="stoc stoc_indisponibil">
+			    
+				Momentan nu este disponibil
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1310,78 lei</span>
+                        
+                    </div>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                     
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/67254-laptop-hp-250-g3-cu-procesor-intel-pentium-quad-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/ba/40/ba406f69cdd25c9d087cb6ec0a5ba9e8.jpg" alt="Laptop HP 250 G3 cu procesor Intel Pentium Quad Core" title="Laptop HP 250 G3 cu procesor Intel Pentium Quad Core" name="Laptop HP 250 G3 cu procesor Intel Pentium Quad Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67254-laptop-hp-250-g3-cu-procesor-intel-pentium-quad-core">Laptop HP 250 G3 cu procesor Intel Pentium Quad Core</a></h2>
+			    
+                              <span class="stoc stoc_indisponibil">
+			    
+				Momentan nu este disponibil
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1338,32 lei</span>
+                        
+                    </div>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/64719-laptop-asus-n3530-cu-procesor-intel-celeron-quad-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/f2/de/f2deaa53612ae673a58228f04eae81af.jpg" alt="Laptop Asus N3530 cu procesor Intel Celeron Quad Core" title="Laptop Asus N3530 cu procesor Intel Celeron Quad Core" name="Laptop Asus N3530 cu procesor Intel Celeron Quad Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/64719-laptop-asus-n3530-cu-procesor-intel-celeron-quad-core">Laptop Asus N3530 cu procesor Intel Celeron Quad Core</a></h2>
+			    
+                              <span class="stoc stoc_comanda">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1382,61 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="64719" style="display: none;"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                      
+                 
+
+
+
+
+
+
+                        <div class="product_holder last">
+                            <a href="/produs/67170-laptop-dell-din3542i34500dsv" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/36/ad/36ad3ef8faf3acf648cddbef476a13ab.jpg" alt="Laptop DELL DIN3542I34500DSV" title="Laptop DELL DIN3542I34500DSV" name="Laptop DELL DIN3542I34500DSV">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67170-laptop-dell-din3542i34500dsv">Laptop DELL DIN3542I34500DSV</a></h2>
+			    
+                              <span class="stoc stoc_indisponibil">
+			    
+				Momentan nu este disponibil
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1407,72 lei</span>
+                        
+                    </div>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                            <div class="product_spacer"></div>
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/67052-laptop-dell-inspiron-3542-cu-procesor-intel-pentium-dual-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/81/96/8196276bb7b9a6f36ac537773c1a681c.jpg" alt="Laptop Dell  Inspiron 3542 cu procesor Intel Pentium Dual Core" title="Laptop Dell  Inspiron 3542 cu procesor Intel Pentium Dual Core" name="Laptop Dell  Inspiron 3542 cu procesor Intel Pentium Dual Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67052-laptop-dell-inspiron-3542-cu-procesor-intel-pentium-dual-core">Laptop Dell  Inspiron 3542 cu procesor Intel Pentium Dual Core</a></h2>
+			    
+                              <span class="stoc stoc_indisponibil">
+			    
+				Momentan nu este disponibil
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1412,71 lei</span>
+                        
+                    </div>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/67309-laptop-lenovo-b50-70-cu-procesor-intel-pentium-dual-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/a1/8a/a18a7c2ee1f5fa03fb8906487bd921b5.jpg" alt="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core" title="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core" name="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67309-laptop-lenovo-b50-70-cu-procesor-intel-pentium-dual-core">Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core</a></h2>
+			    
+                              <span class="stoc stoc_indisponibil">
+			    
+				Momentan nu este disponibil
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1436,66 lei</span>
+                        
+                    </div>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/55326-laptop-fujitsu-lifebook-ah512-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/af/cf/afcfdf7d5f783eeacec66f65acf44deb.jpg" alt="Laptop Fujitsu Lifebook AH512 cu procesor Intel Celeron Dual Core" title="Laptop Fujitsu Lifebook AH512 cu procesor Intel Celeron Dual Core" name="Laptop Fujitsu Lifebook AH512 cu procesor Intel Celeron Dual Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/55326-laptop-fujitsu-lifebook-ah512-cu-procesor-intel-celeron-dual-core">Laptop Fujitsu Lifebook AH512 cu procesor Intel Celeron Dual Core</a></h2>
+			    
+                              <span class="stoc stoc_indisponibil">
+			    
+				Momentan nu este disponibil
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1436,95 lei</span>
+                        
+                    </div>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder last">
+                            <a href="/produs/67885-laptop-lenovo-b50-70-cu-procesor-intel-pentium-core-i3" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/c1/1f/c11ff5dcb375e2dfdb2c05921dec2ffa.jpg" alt="Laptop Lenovo B50-70 cu procesor Intel Pentium Core i3" title="Laptop Lenovo B50-70 cu procesor Intel Pentium Core i3" name="Laptop Lenovo B50-70 cu procesor Intel Pentium Core i3">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67885-laptop-lenovo-b50-70-cu-procesor-intel-pentium-core-i3">Laptop Lenovo B50-70 cu procesor Intel Pentium Core i3</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1449 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="67885" style="display: none"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                       <div style="font-size: 250%;"><b><a name="Tablete">Tablete</b></div></a>
+ 
+                            <div class="product_spacer"></div>
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/67317-laptop-lenovo-b50-30-cu-procesor-intel-pentium-quad-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/e4/5a/e45a3ebab8a6f8cb6717868d61242fac.jpg" alt="Laptop Lenovo B50-30 cu procesor Intel Pentium Quad Core" title="Laptop Lenovo B50-30 cu procesor Intel Pentium Quad Core" name="Laptop Lenovo B50-30 cu procesor Intel Pentium Quad Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67317-laptop-lenovo-b50-30-cu-procesor-intel-pentium-quad-core">Laptop Lenovo B50-30 cu procesor Intel Pentium Quad Core</a></h2>
+			    
+                              <span class="stoc stoc_indisponibil">
+			    
+				Momentan nu este disponibil
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1453,3 lei</span>
+                        
+                    </div>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/66743-laptop-toshiba-satellite-l50-b-1vx-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/ce/c3/cec31845cc10ec8381b79c52630af58a.jpg" alt="Laptop Toshiba Satellite L50-B-1VX cu procesor Intel Celeron Dual Core" title="Laptop Toshiba Satellite L50-B-1VX cu procesor Intel Celeron Dual Core" name="Laptop Toshiba Satellite L50-B-1VX cu procesor Intel Celeron Dual Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/66743-laptop-toshiba-satellite-l50-b-1vx-cu-procesor-intel-celeron-dual-core">Laptop Toshiba Satellite L50-B-1VX cu procesor Intel Celeron Dual Core</a></h2>
+			    
+                              <span class="stoc stoc_comanda">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1489,36 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="66743" style="display: none"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/67188-laptop-dell-inspiron-3542-cu-procesor-intel-pentium-dual-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/c7/e1/c7e1ec4d9c0aeca352a0faa219c9ee06.jpg" alt="Laptop Dell Inspiron 3542 cu procesor Intel Pentium Dual Core" title="Laptop Dell Inspiron 3542 cu procesor Intel Pentium Dual Core" name="Laptop Dell Inspiron 3542 cu procesor Intel Pentium Dual Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67188-laptop-dell-inspiron-3542-cu-procesor-intel-pentium-dual-core">Laptop Dell Inspiron 3542 cu procesor Intel Pentium Dual Core</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				La comanda (stoc limitat)
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1507,78 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="67188" style="display: none"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder last">
+                            <a href="/produs/67269-laptop-acer-aspire-e5-521g-636x-cu-procesor-amd-quad-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/1c/2a/1c2a15550ea4a644102c3c209d8b6f98.jpg" alt="Laptop Acer  Aspire E5-521G-636X cu procesor AMD Quad Core" title="Laptop Acer  Aspire E5-521G-636X cu procesor AMD Quad Core" name="Laptop Acer  Aspire E5-521G-636X cu procesor AMD Quad Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67269-laptop-acer-aspire-e5-521g-636x-cu-procesor-amd-quad-core">Laptop Acer  Aspire E5-521G-636X cu procesor AMD Quad Core</a></h2>
+			    
+                              <span class="stoc stoc_comanda">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1522,77 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="67269" style="display: none"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        <div style="font-size: 250%;"><b><a name="Componente IT">Componente IT</a></b></div>
+
+
+                            <div class="product_spacer"></div>
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/63855-laptop-asus-x551ma-cu-procesor-intel-pentium-quad-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/39/3e/393ec3d2a03c837277eed440c4e5f3b1.jpg" alt="Laptop Asus X551MA cu procesor Intel Pentium Quad Core" title="Laptop Asus X551MA cu procesor Intel Pentium Quad Core" name="Laptop Asus X551MA cu procesor Intel Pentium Quad Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/63855-laptop-asus-x551ma-cu-procesor-intel-pentium-quad-core">Laptop Asus X551MA cu procesor Intel Pentium Quad Core</a></h2>
+			    
+                              <span class="stoc stoc_comanda">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1550,63 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="63855" style="display: none"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/66624-laptop-lenovo-b50-70-cu-procesor-intel-pentium-dual-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/a4/9c/a49cd8d1b306e63fe359d16a96ea090f.jpg" alt="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core" title="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core" name="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/66624-laptop-lenovo-b50-70-cu-procesor-intel-pentium-dual-core">Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core</a></h2>
+			    
+                              <span class="stoc stoc_comanda">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1563,34 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="66624" style="display: none"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/66730-laptop-toshiba-satellite-c50-b-15j-cu-procesor-intel-pentium-dual-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/28/e6/28e623064ce2c030ca45c48a9dccc637.jpg" alt="Laptop Toshiba Satellite C50-B-15J cu procesor Intel Pentium Dual Core" title="Laptop Toshiba Satellite C50-B-15J cu procesor Intel Pentium Dual Core" name="Laptop Toshiba Satellite C50-B-15J cu procesor Intel Pentium Dual Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/66730-laptop-toshiba-satellite-c50-b-15j-cu-procesor-intel-pentium-dual-core">Laptop Toshiba Satellite C50-B-15J cu procesor Intel Pentium Dual Core</a></h2>
+			    
+                              <span class="stoc stoc_comanda">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1594,49 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="66730" style="display: none"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                    
+                        <div class="product_holder last">
+                            <a href="/produs/67903-laptop-toshiba-satellite-l50-b-258-cu-procesor-intel-pentium-quad-core" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/1b/16/1b16fc009ecce3e787093254e0874b29.jpg" alt="Laptop Toshiba SATELLITE L50-B-258 cu procesor Intel Pentium Quad Core" title="Laptop Toshiba SATELLITE L50-B-258 cu procesor Intel Pentium Quad Core" name="Laptop Toshiba SATELLITE L50-B-258 cu procesor Intel Pentium Quad Core">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67903-laptop-toshiba-satellite-l50-b-258-cu-procesor-intel-pentium-quad-core">Laptop Toshiba SATELLITE L50-B-258 cu procesor Intel Pentium Quad Core</a></h2>
+			    
+                              <span class="stoc stoc_comanda">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">1670,42 lei</span>
+                        
+                    </div>
+                    
+                       <a href="#" class="add_cos_btn_small" data-product-id="67903" style="display: none"><span></span>Adauga in cos</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     
+                        
+                          
+
 
 </br></br>
 
