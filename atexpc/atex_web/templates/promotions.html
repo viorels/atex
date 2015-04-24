@@ -15,18 +15,27 @@
 .auto-style6 {
 	font-size: x-large;
 }
-ul.menu1 {
-	width:250px;
-	float:center;	
+div#menu1 {
+	width:250px;	
 	background:url('/static/images/menu-bg.jpg?7a073fb9024d') 0 0 repeat;
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
 	behavior: url('/static/css/PIE.htc?08a02b6181dc');
-	position: fixed;
+
 button:hover;
 background:url('/static/images/red-arrow.png?7a073fb9024d') 230px 17px no-repeat;
+z-index: 999;
+display:inline-block;
+
+float: left;
+
+
+    
 }
+
+
+
 ul.menu1 li.menu-item {
 	height:40px;
 	line-height:40px;
@@ -46,6 +55,7 @@ ul.menu1 li.menu-item {
 	font-size:13px;
 	display:block;
 	position:relative;
+
 }
 ul.menu1 li.menu-item.brand {	
 	background: -moz-linear-gradient(top , #d6585a, #cf4243 50%, #c62123 50%, #c62123);
@@ -79,8 +89,131 @@ ul.menu_icon1 {
 margin-top:25px;
 margin-left:120px;}
 
-ul.dumbo {margin-left:555px;
-font-size:40px;}
+.atx-c {border-radius: 8px;
+background: linear-gradient(to bottom, #D74949 50%, #D02A2C 50%) repeat scroll 0% 0% transparent;
+color: #FFF;
+font-weight: bold;
+font-size: 13px;
+position: relative;
+font-color: #FFF;
+line-height: 25px;
+padding: 0px 0px 0px 0px;
+vertical-align: middle;
+overflow: hidden;
+cursor: pointer;
+text-align: center;
+display: inline-block;
+width: 100%;
+max-width: 115px;
+border: 0px none;
+box-sizing: border-box;
+font-family: "Segoe UI","Helvetica","Arial";
+text-transform: lowercase;
+text-decoration: none;
+float:right;}
+
+.adauga-cos {
+    height: 25px;
+    line-height: 25px;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: bold;
+    width: 115px;
+    float: right;
+    display: block;
+    background: -moz-linear-gradient(center top , #D74949, #D02A2C 50%, #C62123 50%, #C62123) repeat scroll 0% 0% #C62123;
+    border-radius: 6px;
+    position: relative;
+}
+div#left_col1 {
+    width: 250px;
+    float: left;
+    padding-bottom: 15px;
+    position: relative;
+ 
+}
+
+.rig { 
+
+float: right;
+display: block;
+    position: relative;
+}
+.pret_produss {
+  font-size: 17px;
+  font-weight: bold;
+  color: #c62123;
+  float: left;
+  line-height: 24px;
+}
+
+#footer {
+	
+	width:100%;
+}
+
+.listing_chestii {
+
+   float: left;
+   padding-top: 15px;
+   margin-left: 15px;
+   width: 888px;
+   z-index: 999;
+display: block;}
+@media only screen and (max-width: 1170px) {
+    #fadeshow1 {
+        display: none;
+		
+    }
+}
+@media only screen and (max-width: 1170px) {
+    #marginleft {
+      margin-left: -200px;
+	  float:left;
+    }
+}
+
+
+
+.clear { 
+    clear:both; 
+}
+div#sticker {
+    	width:250px;	
+	background:url('/static/images/menu-bg.jpg?7a073fb9024d') 0 0 repeat;
+	border-radius: 6px;     
+	-moz-border-radius: 6px;     
+	-webkit-border-radius: 6px;
+	behavior: url('/static/css/PIE.htc?08a02b6181dc');
+
+button:hover;
+background:url('/static/images/red-arrow.png?7a073fb9024d') 230px 17px no-repeat;
+z-index: 999;
+
+
+float: left;
+display: block;
+
+}
+.stick {
+    position:fixed;
+    top:0px;
+	    	width:250px;	
+float: left;
+display: block;
+	z-index: 20;
+}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('.parent').click(function() {
+        $('.sub-nav').toggleClass('visible');
+    });
+});
+</script>
+
+
 </style>
 </head>
 
@@ -103,103 +236,167 @@ font-size:40px;}
 {% block content %}
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	var s = $("#sticker");
+	var pos = s.position();	
+	var stickermax = $(document).outerHeight() - $("#footer").outerHeight() - s.outerHeight() - 450; //40 value is the total of the top and bottom margin
+	$(window).scroll(function() {
+		var windowpos = $(window).scrollTop();
+		if (windowpos >= pos.top && windowpos < stickermax) {
+			s.attr("style", ""); //kill absolute positioning
+			s.addClass("stick"); //stick it
+		} else if (windowpos >= stickermax) {
+			s.removeClass(); //un-stick
+			s.css({position: "absolute", top: stickermax + "px"}); //set sticker right above the footer
+			
+		} else {
+			s.removeClass(); //top of page
+		}
+	});
+	//alert(stickermax); //uncomment to show max sticker postition value on doc.ready
+});
+</script>
 
-<div class="left_col">
-<ul class="menu1">
+<div id="fadeshow1" >
+        <div id="sticker"><ul class="menu1">
                     
                 	<li class="menu-item first">
-                     <a href="#Laptopuri">
-      <div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        Laptop &amp; Desktop &amp; Servere
+                     <a href="#Laptopuri&unitati">
+      <div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" > Laptopuri & Unitati centrale
                         </div>
                         </a>
                     </li>
-                    
-                	<li class="menu-item">
-                    	<a href="#Tablete"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        Tablete
+
+					
+					<li class="menu-item">
+                    	<a href="#Monitoare"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Monitoare
                         </div></a>
                     </li>
                     
-                	<li class="menu-item">
-                    	<a href="#Componente IT"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                     Componente IT
+					
+					<li class="menu-item">
+                    	<a href="#placidebaza"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Placi de baza
+                        </div></a>
+                    </li>
+					
+					
+					<li class="menu-item">
+                    	<a href="#procesoare"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Procesoare
+                        </div></a>
+                    </li>
+					
+					<li class="menu-item">
+                    	<a href="#memorii"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Memorii interne
+                        </div></a>
+                    </li>
+					
+					<li class="menu-item">
+                    	<a href="#ssd"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        SSD
+                        </div></a>
+                    </li>
+					
+					<li class="menu-item">
+                    	<a href="#PlaciVideo"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                       Placi Video
+                        </div></a>
+                    </li>	
+					
+					
+					<li class="menu-item">
+                    	<a href="#GentiRucsacuri"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                     Genti si Rucsacuri
                         </div></a>
                     </li>
                                 
                                 
                                 
-                       <li class="menu-item">
-                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        Periferice
-                        </div></a>
-                    </li>
+                       
+                	
+                    
+                	
+                    
                 	<li class="menu-item">
-                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                       Birotica si Consumabile
+                    	<a href="#memoriiexterne"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Memorii externe
                         </div></a>
                     </li>
                     
                 	<li class="menu-item">
-                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        Retelistica
-                        </div></a>
-                    </li>
-                    
-                	<li class="menu-item">
-                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        Software
-                        </div></a>
-                    </li>
-                    
-                	<li class="menu-item">
-                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        Telefonie
+                    	<a href="#tablete&telefoane"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
+                        Tablete & Telefoane
                         </div></a>
                     </li>
                 
-                  <li class="menu-item">
-                    	<a href="/#"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        Conectica
-                        </div></a>
-                    </li>
+                  
                     
-                </ul>
+                </ul></div>
+	
+    </div>
+
+<div>
+<img src="{{ STATIC_PREFIX }}images/promotii/discount1.png" alt=.. width=171px  style="position: absolute; left:-136px; top: 190px;z-index: 10;" />
+
+<img src="{{ STATIC_PREFIX }}images/promotii/discount2.png" alt=.. width=141px  style="position: absolute;left:-236px; top: 400px;z-index: 10;" />
+
+<img src="{{ STATIC_PREFIX }}images/promotii/discount3.png" alt=.. width=151px  style="position: absolute;left:-106px; top: 590px;z-index: 10;" />
+
+</div>
+<div>
+<img src="{{ STATIC_PREFIX }}images/promotii/1discount.png" alt=.. width=161px  style="position: absolute;right:-146px; top: 190px;z-index: 10;" />
+
+<img src="{{ STATIC_PREFIX }}images/promotii/2discount.png" alt=.. width=121px  style="position: absolute;right:-169px; top: 400px;z-index: 10;" />
+
+<img src="{{ STATIC_PREFIX }}images/promotii/3discount.png" alt=.. width=141px  style="position: absolute;right:-256px; top: 590px;z-index: 10;" />
+
 </div>
 
+<div style="float:right; width:890px; ">
+<div id="marginleft" class="listing_chestii">
 
-
-
-
-
-<div class="listing_produse">
-                   <div style="font-size: 250%;" id="Laptopuri"><b>Laptopuri</b></div>
+                   <div style="font-size: 250%;" id="Laptopuri&unitati"><b>Laptopuri & Unitati centrale </b></div><br>                      
+                                        
+					
+              
                         <div class="product_holder ">
                             <a href="/produs/65405-laptop-asus-x553ma-xx086d-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
                                         <img class="center" src="/media/cache/5a/80/5a80339439249c5ce07e5d801099e27e.jpg" alt="Laptop Asus X553MA-XX086D cu procesor Intel Celeron Dual Core" title="Laptop Asus X553MA-XX086D cu procesor Intel Celeron Dual Core" name="Laptop Asus X553MA-XX086D cu procesor Intel Celeron Dual Core">
-                                    </div>
+                                   <img src="{{ STATIC_PREFIX }}images/promotii/red.png" alt=.. width=71px height=71px style="position: absolute;left:136px; top: -3px;z-index: 10;" />
+								   </div>
+									
+							
+									
                                 </div>
+								
+								
                             </a>
-                            <h2><a href="/produs/65405-laptop-asus-x553ma-xx086d-cu-procesor-intel-celeron-dual-core">Laptop Asus X553MA-XX086D cu procesor Intel Celeron Dual Core</a></h2>
-			    
+                            <h2><a href="/produs/65405-laptop-asus-x553ma-xx086d-cu-procesor-intel-celeron-dual-core">Laptop Asus X553MA-XX086D cu procesor Intel Celeron Dual Core</h2></a>
                               <span class="stoc stoc_ok">
 			    
 				In stoc
 			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
-                        <span class="pret_produs">1079 lei</span>
+                        <span class="pret_produss">1079 lei</span>
                         
                         <span class="pret_vechi">1175,16 lei</span>
                         
                     </div>
-                    
-                       <a href="#" class="add_cos_btn_small" data-product-id="65405" style="display: none;"><span></span>Adauga in cos</a>
-                    
+                    <a href="http://www.atexpc.ro/produs/65405-laptop-asus-x553ma-xx086d-cu-procesor-intel-celeron-dual-core" class="atx-c" data-product-id="65405" style="display: block;"><span></span>vezi detalii</a>
+					<span></span>
+                    				
+
 				</div>
-                                                  
+                                            
+                            
                             <!--
 				<ul class="info_detalii">
                                 <li><span>Garantie: 24 luni</span></li>
@@ -208,356 +405,8 @@ font-size:40px;}
                             </ul>  
 				-->  
                         </div>
-     
-                        
-                    
+    
                         <div class="product_holder ">
-                            <a href="/produs/67215-laptop-lenovo-80g000j4ri" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/e8/80/e880a3db148d0d06b5d6f14de3eea649.jpg" alt="Laptop LENOVO 80G000J4RI" title="Laptop LENOVO 80G000J4RI" name="Laptop LENOVO 80G000J4RI">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/67215-laptop-lenovo-80g000j4ri">Laptop LENOVO 80G000J4RI</a></h2>
-			    
-                              <span class="stoc stoc_indisponibil">
-			    
-				Momentan nu este disponibil
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1205,78 lei</span>
-                        
-                    </div>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 12 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                        
-                    
-                        <div class="product_holder ">
-                            <a href="/produs/67252-laptop-hp-250-g3-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/88/30/8830523c0d38c24b91b32c53fac34b17.jpg" alt="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core" title="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core" name="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/67252-laptop-hp-250-g3-cu-procesor-intel-celeron-dual-core">Laptop HP 250 G3 cu procesor Intel Celeron Dual Core</a></h2>
-			    
-                              <span class="stoc stoc_comanda">
-			    
-				La comanda
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1248,15 lei</span>
-                        
-                    </div>
-                    
-                       <a href="#" class="add_cos_btn_small" data-product-id="67252" style="display: none;"><span></span>Adauga in cos</a>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 12 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                        
-                    
-                        <div class="product_holder last">
-                            <a href="/produs/66732-laptop-toshiba-satellite-c50-b-158-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/0a/34/0a34d114fe0c547513580b7682b765d8.jpg" alt="Laptop Toshiba Satellite C50-B-158 cu procesor Intel Celeron Dual Core" title="Laptop Toshiba Satellite C50-B-158 cu procesor Intel Celeron Dual Core" name="Laptop Toshiba Satellite C50-B-158 cu procesor Intel Celeron Dual Core">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/66732-laptop-toshiba-satellite-c50-b-158-cu-procesor-intel-celeron-dual-core">Laptop Toshiba Satellite C50-B-158 cu procesor Intel Celeron Dual Core</a></h2>
-			    
-                              <span class="stoc stoc_comanda">
-			    
-				La comanda
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1279,07 lei</span>
-                        
-                    </div>
-                    
-                       <a href="#" class="add_cos_btn_small" data-product-id="66732" style="display: none;"><span></span>Adauga in cos</a>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 24 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                        
-                            <div class="product_spacer"></div>
-                
-                    
-                        <div class="product_holder ">
-                            <a href="/produs/67253-laptop-hp-250-g3-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/00/cb/00cb05d05ae08b7dfc780f3557f82319.jpg" alt="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core" title="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core" name="Laptop HP 250 G3 cu procesor Intel Celeron Dual Core">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/67253-laptop-hp-250-g3-cu-procesor-intel-celeron-dual-core">Laptop HP 250 G3 cu procesor Intel Celeron Dual Core</a></h2>
-			    
-                              <span class="stoc stoc_indisponibil">
-			    
-				Momentan nu este disponibil
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1310,78 lei</span>
-                        
-                    </div>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 12 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                     
-                    
-                        <div class="product_holder ">
-                            <a href="/produs/67254-laptop-hp-250-g3-cu-procesor-intel-pentium-quad-core" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/ba/40/ba406f69cdd25c9d087cb6ec0a5ba9e8.jpg" alt="Laptop HP 250 G3 cu procesor Intel Pentium Quad Core" title="Laptop HP 250 G3 cu procesor Intel Pentium Quad Core" name="Laptop HP 250 G3 cu procesor Intel Pentium Quad Core">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/67254-laptop-hp-250-g3-cu-procesor-intel-pentium-quad-core">Laptop HP 250 G3 cu procesor Intel Pentium Quad Core</a></h2>
-			    
-                              <span class="stoc stoc_indisponibil">
-			    
-				Momentan nu este disponibil
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1338,32 lei</span>
-                        
-                    </div>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 12 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                        
-                    
-                        <div class="product_holder ">
-                            <a href="/produs/64719-laptop-asus-n3530-cu-procesor-intel-celeron-quad-core" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/f2/de/f2deaa53612ae673a58228f04eae81af.jpg" alt="Laptop Asus N3530 cu procesor Intel Celeron Quad Core" title="Laptop Asus N3530 cu procesor Intel Celeron Quad Core" name="Laptop Asus N3530 cu procesor Intel Celeron Quad Core">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/64719-laptop-asus-n3530-cu-procesor-intel-celeron-quad-core">Laptop Asus N3530 cu procesor Intel Celeron Quad Core</a></h2>
-			    
-                              <span class="stoc stoc_comanda">
-			    
-				La comanda
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1382,61 lei</span>
-                        
-                    </div>
-                    
-                       <a href="#" class="add_cos_btn_small" data-product-id="64719" style="display: none;"><span></span>Adauga in cos</a>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 24 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                      
-                 
-
-
-
-
-
-
-                        <div class="product_holder last">
-                            <a href="/produs/67170-laptop-dell-din3542i34500dsv" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/36/ad/36ad3ef8faf3acf648cddbef476a13ab.jpg" alt="Laptop DELL DIN3542I34500DSV" title="Laptop DELL DIN3542I34500DSV" name="Laptop DELL DIN3542I34500DSV">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/67170-laptop-dell-din3542i34500dsv">Laptop DELL DIN3542I34500DSV</a></h2>
-			    
-                              <span class="stoc stoc_indisponibil">
-			    
-				Momentan nu este disponibil
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1407,72 lei</span>
-                        
-                    </div>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 24 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                        
-                            <div class="product_spacer"></div>
-                        
-                    
-                        <div class="product_holder ">
-                            <a href="/produs/67052-laptop-dell-inspiron-3542-cu-procesor-intel-pentium-dual-core" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/81/96/8196276bb7b9a6f36ac537773c1a681c.jpg" alt="Laptop Dell  Inspiron 3542 cu procesor Intel Pentium Dual Core" title="Laptop Dell  Inspiron 3542 cu procesor Intel Pentium Dual Core" name="Laptop Dell  Inspiron 3542 cu procesor Intel Pentium Dual Core">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/67052-laptop-dell-inspiron-3542-cu-procesor-intel-pentium-dual-core">Laptop Dell  Inspiron 3542 cu procesor Intel Pentium Dual Core</a></h2>
-			    
-                              <span class="stoc stoc_indisponibil">
-			    
-				Momentan nu este disponibil
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1412,71 lei</span>
-                        
-                    </div>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 24 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                        
-                    
-                        <div class="product_holder ">
-                            <a href="/produs/67309-laptop-lenovo-b50-70-cu-procesor-intel-pentium-dual-core" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/a1/8a/a18a7c2ee1f5fa03fb8906487bd921b5.jpg" alt="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core" title="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core" name="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/67309-laptop-lenovo-b50-70-cu-procesor-intel-pentium-dual-core">Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core</a></h2>
-			    
-                              <span class="stoc stoc_indisponibil">
-			    
-				Momentan nu este disponibil
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1436,66 lei</span>
-                        
-                    </div>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 12 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                        
-                    
-                        <div class="product_holder ">
-                            <a href="/produs/55326-laptop-fujitsu-lifebook-ah512-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/af/cf/afcfdf7d5f783eeacec66f65acf44deb.jpg" alt="Laptop Fujitsu Lifebook AH512 cu procesor Intel Celeron Dual Core" title="Laptop Fujitsu Lifebook AH512 cu procesor Intel Celeron Dual Core" name="Laptop Fujitsu Lifebook AH512 cu procesor Intel Celeron Dual Core">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/55326-laptop-fujitsu-lifebook-ah512-cu-procesor-intel-celeron-dual-core">Laptop Fujitsu Lifebook AH512 cu procesor Intel Celeron Dual Core</a></h2>
-			    
-                              <span class="stoc stoc_indisponibil">
-			    
-				Momentan nu este disponibil
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1436,95 lei</span>
-                        
-                    </div>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 12 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                        
-                    
-                        <div class="product_holder last">
                             <a href="/produs/67885-laptop-lenovo-b50-70-cu-procesor-intel-pentium-core-i3" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
@@ -573,11 +422,12 @@ font-size:40px;}
 			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
-                        <span class="pret_produs">1449 lei</span>
+                        <span class="pret_produss">1449 lei</span>
                         
                     </div>
                     
-                       <a href="#" class="add_cos_btn_small" data-product-id="67885" style="display: none"><span></span>Adauga in cos</a>
+                        <a href="http://www.atexpc.ro/produs/67885-laptop-lenovo-b50-70-cu-procesor-intel-pentium-core-i3" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+					<span></span>
                     
 				</div>
                                                   
@@ -590,135 +440,984 @@ font-size:40px;}
 				-->  
                         </div>
      
+                       
+     
+             
  
-                            <div class="product_spacer"></div>
-                           <div style="font-size: 250%;"><b><a name="Tablete">Tablete</b></div></a>
-                    
-                    
-                        <div class="product_holder ">
-                            <a href="/produs/67317-laptop-lenovo-b50-30-cu-procesor-intel-pentium-quad-core" class="product_picture_holder">
+						
+						
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/67664-laptop-lenovo-ideapad-g510-cu-procesor-intel-pentium-core-i5" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
-                                        <img class="center" src="/media/cache/e4/5a/e45a3ebab8a6f8cb6717868d61242fac.jpg" alt="Laptop Lenovo B50-30 cu procesor Intel Pentium Quad Core" title="Laptop Lenovo B50-30 cu procesor Intel Pentium Quad Core" name="Laptop Lenovo B50-30 cu procesor Intel Pentium Quad Core">
+                                        <img class="center" src="/media/cache/61/68/616831edbae5f1f1880d1cece641cd49.jpg" alt="Laptop Lenovo IdeaPad G510 cu procesor Intel Pentium Core i5" title="Laptop Lenovo IdeaPad G510 cu procesor Intel Pentium Core i5" name="Laptop Lenovo IdeaPad G510 cu procesor Intel Pentium Core i5">
+										 <img src="{{ STATIC_PREFIX }}images/promotii/6suta.png" alt=.. width=71px height=71px style="position: absolute;left:136px; top: -3px;z-index: 10;" />
                                     </div>
                                 </div>
                             </a>
-                            <h2><a href="/produs/67317-laptop-lenovo-b50-30-cu-procesor-intel-pentium-quad-core">Laptop Lenovo B50-30 cu procesor Intel Pentium Quad Core</a></h2>
-			    
-                              <span class="stoc stoc_indisponibil">
-			    
-				Momentan nu este disponibil
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1453,3 lei</span>
-                        
-                    </div>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 12 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                        
-                    
-                        <div class="product_holder ">
-                            <a href="/produs/66743-laptop-toshiba-satellite-l50-b-1vx-cu-procesor-intel-celeron-dual-core" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/ce/c3/cec31845cc10ec8381b79c52630af58a.jpg" alt="Laptop Toshiba Satellite L50-B-1VX cu procesor Intel Celeron Dual Core" title="Laptop Toshiba Satellite L50-B-1VX cu procesor Intel Celeron Dual Core" name="Laptop Toshiba Satellite L50-B-1VX cu procesor Intel Celeron Dual Core">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/66743-laptop-toshiba-satellite-l50-b-1vx-cu-procesor-intel-celeron-dual-core">Laptop Toshiba Satellite L50-B-1VX cu procesor Intel Celeron Dual Core</a></h2>
-			    
-                              <span class="stoc stoc_comanda">
-			    
-				La comanda
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1489,36 lei</span>
-                        
-                    </div>
-                    
-                       <a href="#" class="add_cos_btn_small" data-product-id="66743" style="display: none"><span></span>Adauga in cos</a>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 24 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                        
-                    
-                        <div class="product_holder ">
-                            <a href="/produs/67188-laptop-dell-inspiron-3542-cu-procesor-intel-pentium-dual-core" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/c7/e1/c7e1ec4d9c0aeca352a0faa219c9ee06.jpg" alt="Laptop Dell Inspiron 3542 cu procesor Intel Pentium Dual Core" title="Laptop Dell Inspiron 3542 cu procesor Intel Pentium Dual Core" name="Laptop Dell Inspiron 3542 cu procesor Intel Pentium Dual Core">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/67188-laptop-dell-inspiron-3542-cu-procesor-intel-pentium-dual-core">Laptop Dell Inspiron 3542 cu procesor Intel Pentium Dual Core</a></h2>
+                            <h2><a href="/produs/67664-laptop-lenovo-ideapad-g510-cu-procesor-intel-pentium-core-i5">Laptop Lenovo IdeaPad G510 cu procesor Intel Pentium Core i5</a></h2>
 			    
                               <span class="stoc stoc_ok">
 			    
-				La comanda (stoc limitat)
+				La comanda
 			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
-                        <span class="pret_produs">1507,78 lei</span>
+                        <span class="pret_produs">2399 lei</span>
+                        
+                        <span class="pret_vechi">2573,78 lei</span>
                         
                     </div>
                     
-                       <a href="#" class="add_cos_btn_small" data-product-id="67188" style="display: none"><span></span>Adauga in cos</a>
+ <a href="http://www.atexpc.ro/produs/67664-laptop-lenovo-ideapad-g510-cu-procesor-intel-pentium-core-i5" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						<div class="product_holder ">
+                            <a href="/produs/67881-laptop-toshiba-tecra-z40-a-17u-cu-procesor-intel-pentium-core-i5" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/5d/0b/5d0bb1c5ea9a5810ea0e46c2b383526e.jpg" alt="Laptop Toshiba TECRA Z40-A-17U cu procesor Intel Pentium Core i5" title="Laptop Toshiba TECRA Z40-A-17U cu procesor Intel Pentium Core i5" name="Laptop Toshiba TECRA Z40-A-17U cu procesor Intel Pentium Core i5">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67881-laptop-toshiba-tecra-z40-a-17u-cu-procesor-intel-pentium-core-i5">Laptop Toshiba TECRA Z40-A-17U cu procesor Intel Pentium Core i5</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">4049 lei</span>
+                        
+                    </div>
+                    
+                       <a href="http://www.atexpc.ro/produs/67881-laptop-toshiba-tecra-z40-a-17u-cu-procesor-intel-pentium-core-i5" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                      
+                        </div>
+						
+						
+						 </div>
+						
+						
+						
+						
+						
+						
+                        
+                 <div id="marginleft" class="listing_chestii">
+
+                        
+     
+                     
+                    
+                        <div class="product_holder ">
+                            <a href="/produs/66563-laptop-toshiba-z50-a-19t-cu-procesor-intel-pentium-core-i5" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/1a/f8/1af87b1fa39eef2bc026d6c36cc569e5.jpg" alt="Laptop Toshiba Z50-A-19T cu procesor Intel Pentium Core i5" title="Laptop Toshiba Z50-A-19T cu procesor Intel Pentium Core i5" name="Laptop Toshiba Z50-A-19T cu procesor Intel Pentium Core i5">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/66563-laptop-toshiba-z50-a-19t-cu-procesor-intel-pentium-core-i5">Laptop Toshiba Z50-A-19T cu procesor Intel Pentium Core i5</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">4299 lei</span>
+                        
+                    </div>
+                    
+                      <a href="http://www.atexpc.ro/produs/66563-laptop-toshiba-z50-a-19t-cu-procesor-intel-pentium-core-i5" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                           
+                        </div>
+						
+						<div class="product_holder ">
+                            <a href="/produs/65241-unitate-centrala-lenovo-thinkcentre-e73-twr" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/ba/e8/bae8d2ba510891203468f6b37963533d.jpg" alt="Unitate Centrala Lenovo  ThinkCentre E73 TWR" title="Unitate Centrala Lenovo  ThinkCentre E73 TWR" name="Unitate Centrala Lenovo  ThinkCentre E73 TWR">
+										<img src="{{ STATIC_PREFIX }}images/promotii/6discount.png" alt=.. width=71px height=71px style="position: 
+
+absolute;left:136px; top: -3px;z-index: 10;" />
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/65241-unitate-centrala-lenovo-thinkcentre-e73-twr">Unitate Centrala Lenovo  ThinkCentre E73 TWR</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">1949 lei</span>
+                        
+                        <span class="pret_vechi">2078,95 lei</span>
+                        
+                    </div>
+                    
+                     <a href="/produs/65241-unitate-centrala-lenovo-thinkcentre-e73-twr" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
                     
 				</div>
                                                   
                             <!--
 				<ul class="info_detalii">
-                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>	
+						
+<div class="product_holder ">
+                            <a href="/produs/66639-unitate-centrala-atex-s01atexi58gb" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/bb/50/bb5045e3325aa834e6a29336e5b10037.jpg" alt="Unitate Centrala Atex S01ATEXI58GB" title="Unitate Centrala Atex S01ATEXI58GB" name="Unitate Centrala Atex S01ATEXI58GB">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/66639-unitate-centrala-atex-s01atexi58gb">Unitate Centrala Atex S01ATEXI58GB</a></h2>
+			    
+                              <span class="stoc stoc_comanda">
+			    
+				La comanda in 3-5 zile
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">1999 lei</span>
+                        
+                    </div>
+                    
+                     <a href="/produs/66639-unitate-centrala-atex-s01atexi58gb" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
                                 <li><span>Termen livrare: 24h de la comanda</span></li>
                                 <li><span><span class="red">*</span>Transport GRATUIT</span></li>
                             </ul>  
 				-->  
                         </div>
      
+     
+                        </div> 
+    
+
+				   
+	<div id="marginleft" class="listing_chestii">				
                         
-                    
-                        <div class="product_holder last">
-                            <a href="/produs/67269-laptop-acer-aspire-e5-521g-636x-cu-procesor-amd-quad-core" class="product_picture_holder">
+  <p> <br><div style="font-size: 250%;"><b><a name="Monitoare">Monitoare</a></b></div>
+   <br></p>
+
+<div class="product_holder ">
+                            <a href="/produs/43743-monitor-led-benq-gl2450-24-inch-negru" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
-                                        <img class="center" src="/media/cache/1c/2a/1c2a15550ea4a644102c3c209d8b6f98.jpg" alt="Laptop Acer  Aspire E5-521G-636X cu procesor AMD Quad Core" title="Laptop Acer  Aspire E5-521G-636X cu procesor AMD Quad Core" name="Laptop Acer  Aspire E5-521G-636X cu procesor AMD Quad Core">
+                                        <img class="center" src="/media/cache/68/bf/68bf61492901e84520b23fe3cc3ef010.jpg" alt="Monitor LED Benq GL2450, 24 inch, Negru" title="Monitor LED Benq GL2450, 24 inch, Negru" name="Monitor LED Benq GL2450, 24 inch, Negru">
                                     </div>
                                 </div>
                             </a>
-                            <h2><a href="/produs/67269-laptop-acer-aspire-e5-521g-636x-cu-procesor-amd-quad-core">Laptop Acer  Aspire E5-521G-636X cu procesor AMD Quad Core</a></h2>
+                            <h2><a href="/produs/43743-monitor-led-benq-gl2450-24-inch-negru">Monitor LED Benq GL2450, 24 inch, Negru</a></h2>
 			    
-                              <span class="stoc stoc_comanda">
+                              <span class="stoc stoc_ok">
 			    
 				La comanda
 			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
-                        <span class="pret_produs">1522,77 lei</span>
+                        <span class="pret_produss">573,61 lei</span>
                         
                     </div>
                     
-                       <a href="#" class="add_cos_btn_small" data-product-id="67269" style="display: none"><span></span>Adauga in cos</a>
+<a href="http://www.atexpc.ro/produs/43743-monitor-led-benq-gl2450-24-inch-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+				<div class="product_holder ">
+                            <a href="/produs/54352-monitor-led-dell-s2240l-215-inch-negru" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/d8/a1/d8a19375b6f97f3cc3383589516eea69.jpg" alt="Monitor LED Dell S2240L, 21.5 inch, Negru" title="Monitor LED Dell S2240L, 21.5 inch, Negru" name="Monitor LED Dell S2240L, 21.5 inch, Negru">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/54352-monitor-led-dell-s2240l-215-inch-negru">Monitor LED Dell S2240L, 21.5 inch, Negru</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">669 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/54352-monitor-led-dell-s2240l-215-inch-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>		
+						
+						<div class="product_holder ">
+                            <a href="/produs/32362-monitor-led-benq-v2410t-24-inch-negru" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/a8/ff/a8ff840a26edc68d0bfcfb9ab3ad98e1.jpg" alt="Monitor LED Benq V2410T, 24 inch, Negru" title="Monitor LED Benq V2410T, 24 inch, Negru" name="Monitor LED Benq V2410T, 24 inch, Negru">
+										<img src="{{ STATIC_PREFIX }}images/promotii/31discount.png" alt=.. width=71px height=71px style="position: absolute;left:136px; top: -3px;z-index: 10;" />   
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/32362-monitor-led-benq-v2410t-24-inch-negru">Monitor LED Benq V2410T, 24 inch, Negru</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">749 lei</span>
+                        
+                        <span class="pret_vechi">1087,55 lei</span>
+                        
+                    </div>
+                    
+<a href="http://www.atexpc.ro/produs/32362-monitor-led-benq-v2410t-24-inch-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                       
+				</div>
+                                                  
+                         
+                        </div>
+						
+					
+						<div class="product_holder ">
+                            <a href="/produs/49230-monitor-ips-dell-ultrasharp-u2412m-24-inch-negru" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/73/41/7341659bc82759a7c7e42c78eb3396b8.jpg" alt="Monitor IPS Dell Ultrasharp U2412M, 24 inch, Negru" title="Monitor IPS Dell Ultrasharp U2412M, 24 inch, Negru" name="Monitor IPS Dell Ultrasharp U2412M, 24 inch, Negru">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/49230-monitor-ips-dell-ultrasharp-u2412m-24-inch-negru">Monitor IPS Dell Ultrasharp U2412M, 24 inch, Negru</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">1283,56 lei</span>
+                        
+                    </div>
+                    
+<a href="http://www.atexpc.ro/produs/49230-monitor-ips-dell-ultrasharp-u2412m-24-inch-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                       
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+	</div>
+
+
+     <div id="marginleft" class="listing_chestii">
+ 
+                           <br><div style="font-size: 250%; width:100%;"><b><a name="placidebaza">Placi de baza</b></div></a><br>	
+				
+<div class="product_holder ">
+                            <a href="/produs/58902-placa-de-baza-asrock-970-pro3-socket-am3-am3" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/0d/e7/0de717397793b81ae5a41a2a05c8ba63.jpg" alt="Placa de baza Asrock 970 PRO3, socket AM3, AM3+" title="Placa de baza Asrock 970 PRO3, socket AM3, AM3+" name="Placa de baza Asrock 970 PRO3, socket AM3, AM3+">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/58902-placa-de-baza-asrock-970-pro3-socket-am3-am3">Placa de baza Asrock 970 PRO3, socket AM3, AM3+</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">322,62 lei</span>
+                        
+                    </div>
+                    
+  <a href="/produs/58902-placa-de-baza-asrock-970-pro3-socket-am3-am3" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+
+
+				<div class="product_holder ">
+                            <a href="/produs/58909-placa-de-baza-asus-b85m-g-socket-1150" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/e7/eb/e7ebc65d6ef012ba4b510bf803820af8.jpg" alt="Placa de baza Asus B85M-G, socket 1150" title="Placa de baza Asus B85M-G, socket 1150" name="Placa de baza Asus B85M-G, socket 1150">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/58909-placa-de-baza-asus-b85m-g-socket-1150">Placa de baza Asus B85M-G, socket 1150</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">348,75 lei</span>
+                        
+                    </div>
+                    
+  <a href="/produs/58909-placa-de-baza-asus-b85m-g-socket-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+
+					<div class="product_holder ">
+                            <a href="/produs/63661-placa-de-baza-asus-z97-k-socket-1150" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/46/a5/46a54aaa619dfb6ceb02e9e852210cb7.jpg" alt="Placa de baza Asus Z97-K, socket 1150" title="Placa de baza Asus Z97-K, socket 1150" name="Placa de baza Asus Z97-K, socket 1150">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/63661-placa-de-baza-asus-z97-k-socket-1150">Placa de baza Asus Z97-K, socket 1150</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">556 lei</span>
+                        
+                    </div>
+                    
+  <a href="/produs/63661-placa-de-baza-asus-z97-k-socket-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+
+						<div class="product_holder ">
+                            <a href="/produs/65252-placa-de-baza-gigabyte-ga-h81m-s2v-socket-1150" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/c8/77/c877154a55a7ca792ba942c9fc22bde6.jpg" alt="Placa de baza Gigabyte GA-H81M-S2V, socket 1150" title="Placa de baza Gigabyte GA-H81M-S2V, socket 1150" name="Placa de baza Gigabyte GA-H81M-S2V, socket 1150">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/65252-placa-de-baza-gigabyte-ga-h81m-s2v-socket-1150">Placa de baza Gigabyte GA-H81M-S2V, socket 1150</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">215,12 lei</span>
+                        
+                    </div>
+                    
+  <a href="/produs/65252-placa-de-baza-gigabyte-ga-h81m-s2v-socket-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+
+
+</div>
+
+
+     <div id="marginleft" class="listing_chestii">
+ 
+                           <br><div style="font-size: 250%; width:100%;"><b><a name="procesoare">Procesoare</b></div></a><br>	
+						   
+						   <div class="product_holder ">
+                            <a href="/produs/64810-procesor-intel-pentium-core-i3-4160-36-ghz-socket-1150" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/d1/f4/d1f4245c35beef6363693fa61a2a3b50.jpg" alt="Procesor Intel Pentium Core I3 4160, 3,6 GHz, socket 1150" title="Procesor Intel Pentium Core I3 4160, 3,6 GHz, socket 1150" name="Procesor Intel Pentium Core I3 4160, 3,6 GHz, socket 1150">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/64810-procesor-intel-pentium-core-i3-4160-36-ghz-socket-1150">Procesor Intel Pentium Core I3 4160, 3,6 GHz, socket 1150</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">586,16 lei</span>
+                        
+                    </div>
+                    
+                      <a href="/produs/64810-procesor-intel-pentium-core-i3-4160-36-ghz-socket-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/63622-procesor-intel-pentium-core-i5-4460-32-ghz-socket-1150" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/41/1a/411a49eabb3a244e418b55a14eb4938a.jpg" alt="Procesor Intel Pentium Core i5 4460, 3.2 GHz, socket 1150" title="Procesor Intel Pentium Core i5 4460, 3.2 GHz, socket 1150" name="Procesor Intel Pentium Core i5 4460, 3.2 GHz, socket 1150">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/63622-procesor-intel-pentium-core-i5-4460-32-ghz-socket-1150">Procesor Intel Pentium Core i5 4460, 3.2 GHz, socket 1150</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">849 lei</span>
+                        
+                    </div>
+                    
+                      <a href="/produs/63622-procesor-intel-pentium-core-i5-4460-32-ghz-socket-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/63618-procesor-intel-pentium-core-i5-4590-33-ghz-socket-1150" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/10/57/10578712019d913a937f7a91c89d34e2.jpg" alt="Procesor Intel Pentium Core i5 4590, 3.3 GHz, socket 1150" title="Procesor Intel Pentium Core i5 4590, 3.3 GHz, socket 1150" name="Procesor Intel Pentium Core i5 4590, 3.3 GHz, socket 1150">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/63618-procesor-intel-pentium-core-i5-4590-33-ghz-socket-1150">Procesor Intel Pentium Core i5 4590, 3.3 GHz, socket 1150</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">1049,1 lei</span>
+                        
+                    </div>
+                    
+                      <a href="/produs/63618-procesor-intel-pentium-core-i5-4590-33-ghz-socket-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/54709-procesor-intel-pentium-core-i5-4670k-34-ghz-socket-1150" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/8d/bd/8dbd172624013e23f9a8387cfba7c336.jpg" alt="Procesor Intel Pentium Core i5 4670K, 3.4 GHz, socket 1150" title="Procesor Intel Pentium Core i5 4670K, 3.4 GHz, socket 1150" name="Procesor Intel Pentium Core i5 4670K, 3.4 GHz, socket 1150">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/54709-procesor-intel-pentium-core-i5-4670k-34-ghz-socket-1150">Procesor Intel Pentium Core i5 4670K, 3.4 GHz, socket 1150</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">1263,06 lei</span>
+                        
+                    </div>
+                    
+                      <a href="/produs/54709-procesor-intel-pentium-core-i5-4670k-34-ghz-socket-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						   
+						   </div>
+						   
+						   
+						   <div id="marginleft" class="listing_chestii">				
+                        
+  <p> <br><div style="font-size: 250%;"><b><a name="memorii">Memorii interne</a></b></div>
+   <br></p>
+	
+	
+                    <div class="product_holder ">
+                            <a href="/produs/64865-kit-memorie-dimm-kingston-1-x-8-gb-ddr3-1600-mhz" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/cc/ff/ccffe8c34549775775b3fab77fdc82b5.jpg" alt="Kit memorie DIMM, Kingston,  1 x 8 GB DDR3, 1600 MHz" title="Kit memorie DIMM, Kingston,  1 x 8 GB DDR3, 1600 MHz" name="Kit memorie DIMM, Kingston,  1 x 8 GB DDR3, 1600 MHz">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/64865-kit-memorie-dimm-kingston-1-x-8-gb-ddr3-1600-mhz">Kit memorie DIMM, Kingston,  1 x 8 GB DDR3, 1600 MHz</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">311,25 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/64865-kit-memorie-dimm-kingston-1-x-8-gb-ddr3-1600-mhz" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 99 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/61371-memorie-sodimm-kingston-8-gb-ddr3-1600-mhz" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/d3/46/d3467328c4e97855f43e35dba7030f57.jpg" alt="Memorie SODIMM, Kingston,  8 GB DDR3, 1600 MHz" title="Memorie SODIMM, Kingston,  8 GB DDR3, 1600 MHz" name="Memorie SODIMM, Kingston,  8 GB DDR3, 1600 MHz">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/61371-memorie-sodimm-kingston-8-gb-ddr3-1600-mhz">Memorie SODIMM, Kingston,  8 GB DDR3, 1600 MHz</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">296,77 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/61371-memorie-sodimm-kingston-8-gb-ddr3-1600-mhz" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 60 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/58584-memorie-dimm-crucial-4-gb-ddr3-1600-mhz" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/89/aa/89aabe6b31055dde8daa4aefef71c4a0.jpg" alt="Memorie DIMM, Crucial,  4 GB DDR3, 1600 MHz" title="Memorie DIMM, Crucial,  4 GB DDR3, 1600 MHz" name="Memorie DIMM, Crucial,  4 GB DDR3, 1600 MHz">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/58584-memorie-dimm-crucial-4-gb-ddr3-1600-mhz">Memorie DIMM, Crucial,  4 GB DDR3, 1600 MHz</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">137,95 lei</span>
+                        <span class="pret_vechi">146,25 lei</span>
+                    </div>
+                    
+<a href="/produs/58584-memorie-dimm-crucial-4-gb-ddr3-1600-mhz" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 60 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/56304-memorie-sodimm-crucial-4-gb-ddr3-1600-mhz" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/6a/e2/6ae25020057cc66322a407e9bdbe139c.jpg" alt="Memorie SODIMM, Crucial,  4 GB DDR3, 1600 MHz" title="Memorie SODIMM, Crucial,  4 GB DDR3, 1600 MHz" name="Memorie SODIMM, Crucial,  4 GB DDR3, 1600 MHz">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/56304-memorie-sodimm-crucial-4-gb-ddr3-1600-mhz">Memorie SODIMM, Crucial,  4 GB DDR3, 1600 MHz</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">136,8 lei</span>
+                         <span class="pret_vechi">149,01 lei</span>
+                    </div>
+                    
+<a href="/produs/56304-memorie-sodimm-crucial-4-gb-ddr3-1600-mhz" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 60 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+
+						
+
+						
+	</div>
+	
+	     <div id="marginleft" class="listing_chestii">
+ 
+                           <br><div style="font-size: 250%; width:100%;"><b><a name="ssd">SSD</b></div></a><br>	
+						   
+						   <div class="product_holder ">
+                            <a href="/produs/67130-ssd-samsung-850-evo-250-gb-sata-3-25" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/82/13/8213e307b79359fa2ca09a89de3eb7f3.jpg" alt="SSD Samsung 850 EVO, 250 GB, SATA 3, 2.5&quot;" title="SSD Samsung 850 EVO, 250 GB, SATA 3, 2.5&quot;" name="SSD Samsung 850 EVO, 250 GB, SATA 3, 2.5&quot;">
+										<img src="{{ STATIC_PREFIX }}images/promotii/5discount.png" alt=.. width=71px height=71px style="position: absolute;left:136px; top: -3px;z-index: 10;" />
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67130-ssd-samsung-850-evo-250-gb-sata-3-25">SSD Samsung 850 EVO, 250 GB, SATA 3, 2.5"</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">574,99 lei</span>
+                        
+                        <span class="pret_vechi">607,4 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/67130-ssd-samsung-850-evo-250-gb-sata-3-25" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 60 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/64542-ssd-samsung-850-pro-128-gb-sata-3-25" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/b5/50/b550ba90977e2b1db2fb85e5b8fd4bfb.jpg" alt="SSD Samsung 850 PRO, 128 GB, SATA 3, 2.5&quot;" title="SSD Samsung 850 PRO, 128 GB, SATA 3, 2.5&quot;" name="SSD Samsung 850 PRO, 128 GB, SATA 3, 2.5&quot;">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/64542-ssd-samsung-850-pro-128-gb-sata-3-25">SSD Samsung 850 PRO, 128 GB, SATA 3, 2.5"</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produs">505,3 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/64542-ssd-samsung-850-pro-128-gb-sata-3-25" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 120 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						
+						   
+						   
+						   </div>
+						   
+						   
+						   <div id="marginleft" class="listing_chestii">				
+                        
+  <p> <br><div style="font-size: 250%;"><b><a name="PlaciVideo">Placi Video</a></b></div>
+   <br></p>
+
+	<div class="product_holder ">
+                            <a href="/produs/66360-placa-video-asus-nvidia-geforce-210-1-gb-gddr3-64-biti" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/c4/46/c446aaf014fd312caa3b5bd467a02520.jpg" alt="Placa video Asus NVIDIA GeForce 210, 1 GB GDDR3, 64 biti" title="Placa video Asus NVIDIA GeForce 210, 1 GB GDDR3, 64 biti" name="Placa video Asus NVIDIA GeForce 210, 1 GB GDDR3, 64 biti">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/66360-placa-video-asus-nvidia-geforce-210-1-gb-gddr3-64-biti">Placa video Asus NVIDIA GeForce 210, 1 GB GDDR3, 64 biti</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">166,45 lei</span>
+                        
+                    </div>
+                    
+<a href="http://www.atexpc.ro/produs/66360-placa-video-asus-nvidia-geforce-210-1-gb-gddr3-64-biti" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                     
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+	<div class="product_holder ">
+                            <a href="/produs/64852-placa-video-asus-geforce-gt-730-4-gb-gddr3-128-biti" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/94/2f/942fe5c49a9645e6aa5706c11ee7fa16.jpg" alt="Placa video Asus GeForce GT 730, 4 GB GDDR3, 128 biti" title="Placa video Asus GeForce GT 730, 4 GB GDDR3, 128 biti" name="Placa video Asus GeForce GT 730, 4 GB GDDR3, 128 biti">
+										<img src="{{ STATIC_PREFIX }}images/promotii/6discount.png" alt=.. width=71px height=71px style="position: absolute;left:136px; top: -3px;z-index: 10;" />
+										
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/64852-placa-video-asus-geforce-gt-730-4-gb-gddr3-128-biti">Placa video Asus GeForce GT 730, 4 GB GDDR3, 128 biti</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">413,02 lei</span>
+                        
+                        <span class="pret_vechi">441,39 lei</span>
+                        
+                    </div>
+                    
+<a href="http://www.atexpc.ro/produs/64852-placa-video-asus-geforce-gt-730-4-gb-gddr3-128-biti" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                     
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/67872-placa-video-asus-geforce-gt-740-2-gb-gddr5-128-biti" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/18/54/1854aa84f063740b7c11324341ad6778.jpg" alt="Placa video Asus GeForce GT 740, 2 GB GDDR5, 128 biti" title="Placa video Asus GeForce GT 740, 2 GB GDDR5, 128 biti" name="Placa video Asus GeForce GT 740, 2 GB GDDR5, 128 biti">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67872-placa-video-asus-geforce-gt-740-2-gb-gddr5-128-biti">Placa video Asus GeForce GT 740, 2 GB GDDR5, 128 biti</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">501,51 lei</span>
+                        <span class="pret_vechi">513,07 lei</span>
+                    </div>
+                    
+<a href="http://www.atexpc.ro/produs/67872-placa-video-asus-geforce-gt-740-2-gb-gddr5-128-biti" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                     
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+	</div>
+	
+	
+
+		<div id="marginleft" class="listing_chestii">				
+                        
+  <p> <br><div style="font-size: 250%;"><b><a name="GentiRucsacuri">Genti si Rucsacuri</a></b></div>
+   <br></p>
+						
+						
+                        <div class="product_holder ">
+                            <a href="/produs/66292-geanta-laptop-toshiba-16-inch-neagra" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/0d/8f/0d8febc1cf7978c17078c11616b33890.jpg" alt="Geanta laptop Toshiba 16 inch, Neagra" title="Geanta laptop Toshiba 16 inch, Neagra" name="Geanta laptop Toshiba 16 inch, Neagra">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/66292-geanta-laptop-toshiba-16-inch-neagra">Geanta laptop Toshiba 16 inch, Neagra</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">97,77 lei</span>
+                        
+                    </div>
+                    
+                    <a href="http://www.atexpc.ro/produs/66292-geanta-laptop-toshiba-16-inch-neagra" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
                     
 				</div>
                                                   
@@ -731,68 +1430,29 @@ font-size:40px;}
 				-->  
                         </div>
      
-
-
-                            <div class="product_spacer"></div>
-                        
-   <div style="font-size: 250%;"><b><a name="Componente IT">Componente IT</a></b></div>
-   
-                        <div class="product_holder ">
-                            <a href="/produs/63855-laptop-asus-x551ma-cu-procesor-intel-pentium-quad-core" class="product_picture_holder">
+                       
+                    
+                       <div class="product_holder ">
+                            <a href="/produs/60407-geanta-laptop-targus-141-inch-neagra" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
-                                        <img class="center" src="/media/cache/39/3e/393ec3d2a03c837277eed440c4e5f3b1.jpg" alt="Laptop Asus X551MA cu procesor Intel Pentium Quad Core" title="Laptop Asus X551MA cu procesor Intel Pentium Quad Core" name="Laptop Asus X551MA cu procesor Intel Pentium Quad Core">
+                                        <img class="center" src="/media/cache/5e/01/5e0111b8b8ad59fbcbd071d4db845440.jpg" alt="Geanta laptop Targus 14.1 inch, Neagra" title="Geanta laptop Targus 14.1 inch, Neagra" name="Geanta laptop Targus 14.1 inch, Neagra">
                                     </div>
                                 </div>
                             </a>
-                            <h2><a href="/produs/63855-laptop-asus-x551ma-cu-procesor-intel-pentium-quad-core">Laptop Asus X551MA cu procesor Intel Pentium Quad Core</a></h2>
+                            <h2><a href="/produs/60407-geanta-laptop-targus-141-inch-neagra">Geanta laptop Targus 14.1 inch, Neagra</a></h2>
 			    
-                              <span class="stoc stoc_comanda">
+                              <span class="stoc stoc_ok">
 			    
-				La comanda
+				In stoc
 			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
-                        <span class="pret_produs">1550,63 lei</span>
+                        <span class="pret_produss">107,68 lei</span>
                         
                     </div>
                     
-                       <a href="#" class="add_cos_btn_small" data-product-id="63855" style="display: none"><span></span>Adauga in cos</a>
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 24 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-     
-                        
-                    
-                        <div class="product_holder ">
-                            <a href="/produs/66624-laptop-lenovo-b50-70-cu-procesor-intel-pentium-dual-core" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/a4/9c/a49cd8d1b306e63fe359d16a96ea090f.jpg" alt="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core" title="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core" name="Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/66624-laptop-lenovo-b50-70-cu-procesor-intel-pentium-dual-core">Laptop Lenovo B50-70 cu procesor Intel Pentium Dual Core</a></h2>
-			    
-                              <span class="stoc stoc_comanda">
-			    
-				La comanda
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produs">1563,34 lei</span>
-                        
-                    </div>
-                    
-                       <a href="#" class="add_cos_btn_small" data-product-id="66624" style="display: none"><span></span>Adauga in cos</a>
+                     <a href="http://www.atexpc.ro/produs/60407-geanta-laptop-targus-141-inch-neagra" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
                     
 				</div>
                                                   
@@ -804,30 +1464,60 @@ font-size:40px;}
                             </ul>  
 				-->  
                         </div>
-     
-                        
+                                              
                     
                         <div class="product_holder ">
-                            <a href="/produs/66730-laptop-toshiba-satellite-c50-b-15j-cu-procesor-intel-pentium-dual-core" class="product_picture_holder">
+                            <a href="/produs/63948-rucsac-laptop-case-logic-156-inch-negru" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
-                                        <img class="center" src="/media/cache/28/e6/28e623064ce2c030ca45c48a9dccc637.jpg" alt="Laptop Toshiba Satellite C50-B-15J cu procesor Intel Pentium Dual Core" title="Laptop Toshiba Satellite C50-B-15J cu procesor Intel Pentium Dual Core" name="Laptop Toshiba Satellite C50-B-15J cu procesor Intel Pentium Dual Core">
+                                        <img class="center" src="/media/cache/34/05/3405dc171e05fa5a8264958edcfcc778.jpg" alt="Rucsac laptop Case Logic 15.6 inch, negru" title="Rucsac laptop Case Logic 15.6 inch, negru" name="Rucsac laptop Case Logic 15.6 inch, negru">
                                     </div>
                                 </div>
                             </a>
-                            <h2><a href="/produs/66730-laptop-toshiba-satellite-c50-b-15j-cu-procesor-intel-pentium-dual-core">Laptop Toshiba Satellite C50-B-15J cu procesor Intel Pentium Dual Core</a></h2>
+                            <h2><a href="/produs/63948-rucsac-laptop-case-logic-156-inch-negru">Rucsac laptop Case Logic 15.6 inch, negru</a></h2>
 			    
-                              <span class="stoc stoc_comanda">
+                              <span class="stoc stoc_ok">
 			    
-				La comanda
+				In stoc
 			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
-                        <span class="pret_produs">1594,49 lei</span>
+                        <span class="pret_produss">107,98 lei</span>
                         
                     </div>
                     
-                       <a href="#" class="add_cos_btn_small" data-product-id="66730" style="display: none"><span></span>Adauga in cos</a>
+                     <a href="http://www.atexpc.ro/produs/63948-rucsac-laptop-case-logic-156-inch-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+     <div class="product_holder ">
+                            <a href="/produs/58325-rucsac-laptop-case-logic-17-inch-negru" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/01/bf/01bf9d60c298347848c29f64c2655237.jpg" alt="Rucsac laptop Case Logic 17 inch, Negru" title="Rucsac laptop Case Logic 17 inch, Negru" name="Rucsac laptop Case Logic 17 inch, Negru">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/58325-rucsac-laptop-case-logic-17-inch-negru">Rucsac laptop Case Logic 17 inch, Negru</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">119 lei</span>
+                        
+                    </div>
+                    
+                      <a href="http://www.atexpc.ro/produs/58325-rucsac-laptop-case-logic-17-inch-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
                     
 				</div>
                                                   
@@ -839,46 +1529,428 @@ font-size:40px;}
                             </ul>  
 				-->  
                         </div>
-     
-                        
-                    
-                        <div class="product_holder last">
-                            <a href="/produs/67903-laptop-toshiba-satellite-l50-b-258-cu-procesor-intel-pentium-quad-core" class="product_picture_holder">
+                                              
+                    <div class="product_holder ">
+                            <a href="/produs/60460-geanta-laptop-targus-156-inch-neagra" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
-                                        <img class="center" src="/media/cache/1b/16/1b16fc009ecce3e787093254e0874b29.jpg" alt="Laptop Toshiba SATELLITE L50-B-258 cu procesor Intel Pentium Quad Core" title="Laptop Toshiba SATELLITE L50-B-258 cu procesor Intel Pentium Quad Core" name="Laptop Toshiba SATELLITE L50-B-258 cu procesor Intel Pentium Quad Core">
+                                        <img class="center" src="/media/cache/3f/43/3f4304a993d9e51a597733f1e87a16db.jpg" alt="Geanta laptop Targus 15.6 inch, Neagra" title="Geanta laptop Targus 15.6 inch, Neagra" name="Geanta laptop Targus 15.6 inch, Neagra">
                                     </div>
                                 </div>
                             </a>
-                            <h2><a href="/produs/67903-laptop-toshiba-satellite-l50-b-258-cu-procesor-intel-pentium-quad-core">Laptop Toshiba SATELLITE L50-B-258 cu procesor Intel Pentium Quad Core</a></h2>
+                            <h2><a href="/produs/60460-geanta-laptop-targus-156-inch-neagra">Geanta laptop Targus 15.6 inch, Neagra</a></h2>
 			    
-                              <span class="stoc stoc_comanda">
+                              <span class="stoc stoc_ok">
 			    
-				La comanda
+				In stoc
 			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
-                        <span class="pret_produs">1670,42 lei</span>
+                        <span class="pret_produss">139 lei</span>
                         
                     </div>
                     
-                       <a href="#" class="add_cos_btn_small" data-product-id="67903" style="display: none"><span></span>Adauga in cos</a>
+                      <a href="http://www.atexpc.ro/produs/60460-geanta-laptop-targus-156-inch-neagra" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
                     
 				</div>
                                                   
                             <!--
 				<ul class="info_detalii">
-                                <li><span>Garantie: 24 luni</span></li>
+                                <li><span>Garantie: 0 luni</span></li>
                                 <li><span>Termen livrare: 24h de la comanda</span></li>
                                 <li><span><span class="red">*</span>Transport GRATUIT</span></li>
                             </ul>  
 				-->  
                         </div>
-     
+						
+						<div class="product_holder ">
+                            <a href="/produs/57863-rucsac-laptop-hp-156-inch-negru" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/52/8c/528cf9a2ba79cb269816ec6f8d82d93c.jpg" alt="Rucsac laptop HP 15.6 inch, Negru" title="Rucsac laptop HP 15.6 inch, Negru" name="Rucsac laptop HP 15.6 inch, Negru">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/57863-rucsac-laptop-hp-156-inch-negru">Rucsac laptop HP 15.6 inch, Negru</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">229 lei</span>
                         
-                          
+                    </div>
+                    
+                       <a href="http://www.atexpc.ro/produs/57863-rucsac-laptop-hp-156-inch-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+                        
+                       
+             </div>           
+	
+	
+	
+	
+	<div id="marginleft" class="listing_chestii">				
+                        
+  <p> <br><div style="font-size: 250%;"><b><a name="memoriiexterne">Memorii externe</a></b></div>
+   <br></p>
+	
+	
+	<div class="product_holder ">
+                            <a href="/produs/52735-memorie-usb-kingston-datatraveler-se9-8-gb" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/12/b0/12b078a5c49ed7e886eda0f3901da18c.jpg" alt="Memorie USB Kingston DataTraveler SE9, 8 GB" title="Memorie USB Kingston DataTraveler SE9, 8 GB" name="Memorie USB Kingston DataTraveler SE9, 8 GB">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/52735-memorie-usb-kingston-datatraveler-se9-8-gb">Memorie USB Kingston DataTraveler SE9, 8 GB</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">16,59 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/52735-memorie-usb-kingston-datatraveler-se9-8-gb" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 60 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/36036-memorie-usb-kingston-datatraveler-dt101-8-gb" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/4d/c4/4dc48e046b47f0056b64623370ce872b.jpg" alt="Memorie USB Kingston DataTraveler DT101, 8 GB" title="Memorie USB Kingston DataTraveler DT101, 8 GB" name="Memorie USB Kingston DataTraveler DT101, 8 GB">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/36036-memorie-usb-kingston-datatraveler-dt101-8-gb">Memorie USB Kingston DataTraveler DT101, 8 GB</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">16,85 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/36036-memorie-usb-kingston-datatraveler-dt101-8-gb" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
+
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 60 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/36544-memorie-usb-a-data-ac008-8-gb" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/ba/00/ba00496227c7fe8e4626aee9851b0a1f.jpg" alt="Memorie USB A-Data AC008, 8 GB" title="Memorie USB A-Data AC008, 8 GB" name="Memorie USB A-Data AC008, 8 GB">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/36544-memorie-usb-a-data-ac008-8-gb">Memorie USB A-Data AC008, 8 GB</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">16,8 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/36544-memorie-usb-a-data-ac008-8-gb" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
+
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+	
+
+						
+						<div class="product_holder ">
+                            <a href="/produs/64507-card-de-memorie-samsung-8-gb" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/b3/3f/b33f88cd21145944b74668e6abcd7c27.jpg" alt="Card de memorie Samsung 8 GB" title="Card de memorie Samsung 8 GB" name="Card de memorie Samsung 8 GB">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/64507-card-de-memorie-samsung-8-gb">Card de memorie Samsung 8 GB</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">22,27 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/64507-card-de-memorie-samsung-8-gb" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
+
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 60 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						
+						
+						<div class="product_holder ">
+                            <a href="/produs/52544-memorie-usb-a-data-uv100-16-gb" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/c7/fc/c7fce728d65a336b439eb48ac12ee7bf.jpg" alt="Memorie USB A-Data UV100, 16 GB" title="Memorie USB A-Data UV100, 16 GB" name="Memorie USB A-Data UV100, 16 GB">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/52544-memorie-usb-a-data-uv100-16-gb">Memorie USB A-Data UV100, 16 GB</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				La comanda
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">27,34 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/52544-memorie-usb-a-data-uv100-16-gb" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
+
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 36 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						<div class="product_holder ">
+                            <a href="/produs/41906-card-de-memorie-kingston-16-gb" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/3a/00/3a00dc1c9ef265879b4b4fa8bb95e26b.jpg" alt="Card de memorie Kingston 16 GB" title="Card de memorie Kingston 16 GB" name="Card de memorie Kingston 16 GB">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/41906-card-de-memorie-kingston-16-gb">Card de memorie Kingston 16 GB</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">31,36 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/41906-card-de-memorie-kingston-16-gb" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
+
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 60 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						
+						
+						
+						
+	
+	
+	</div>
+	
+	<div id="marginleft" class="listing_chestii">				
+                        
+  <p> <br><div style="font-size: 250%;"><b><a name="tablete&telefoane">Tablete & Telefoane</a></b></div>
+   <br></p>
+	<div class="product_holder ">
+                            <a href="/produs/65360-tableta-apple-ipad-air-2-97-inch-16gb-culoare-space-gray-ios-8" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/05/98/05984ebe804db57fc953d3a179d7185d.jpg" alt="Tableta Apple, iPad Air 2, 9.7 inch, 16GB, Culoare Space Gray, iOS 8" title="Tableta Apple, iPad Air 2, 9.7 inch, 16GB, Culoare Space Gray, iOS 8" name="Tableta Apple, iPad Air 2, 9.7 inch, 16GB, Culoare Space Gray, iOS 8">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/65360-tableta-apple-ipad-air-2-97-inch-16gb-culoare-space-gray-ios-8">Tableta Apple, iPad Air 2, 9.7 inch, 16GB, Culoare Space Gray, iOS 8</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">2279 lei</span>
+                        
+                    </div>
+                    
+                      <a href="http://www.atexpc.ro/produs/65360-tableta-apple-ipad-air-2-97-inch-16gb-culoare-space-gray-ios-8" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+    
+	
+	
+	<div class="product_holder ">
+                            <a href="/produs/64856-telefon-apple-iphone-6-16-gb-argintiu" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/d9/b3/d9b3bd049a3f8f882b944591ab5feedf.jpg" alt="Telefon Apple iPhone 6, 16 GB, Argintiu" title="Telefon Apple iPhone 6, 16 GB, Argintiu" name="Telefon Apple iPhone 6, 16 GB, Argintiu">
+										<img src="{{ STATIC_PREFIX }}images/promotii/11discount.png" alt=.. width=71px height=71px style="position: absolute;left:136px; top: -3px;z-index: 10;" />
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/64856-telefon-apple-iphone-6-16-gb-argintiu">Telefon Apple iPhone 6, 16 GB, Argintiu</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">3099 lei</span>
+                        
+                        <span class="pret_vechi">3507,35 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/64856-telefon-apple-iphone-6-16-gb-argintiu" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+						
+						<div class="product_holder ">
+                            <a href="/produs/64857-telefon-apple-iphone-6-plus-16-gb-space-gray" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/29/47/2947d718f35933298eb2c4a25a6c5c1d.jpg" alt="Telefon Apple iPhone 6 Plus, 16 GB, Space Gray" title="Telefon Apple iPhone 6 Plus, 16 GB, Space Gray" name="Telefon Apple iPhone 6 Plus, 16 GB, Space Gray">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/64857-telefon-apple-iphone-6-plus-16-gb-space-gray">Telefon Apple iPhone 6 Plus, 16 GB, Space Gray</a></h2>
+			    
+                              <span class="stoc stoc_ok">
+			    
+				In stoc
+			      </span>
+				<div class="price-add-row">
+					<div class="product_price">
+                        <span class="pret_produss">4085,06 lei</span>
+                        
+                    </div>
+                    
+<a href="/produs/64857-telefon-apple-iphone-6-plus-16-gb-space-gray" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
+                    
+				</div>
+                                                  
+                            <!--
+				<ul class="info_detalii">
+                                <li><span>Garantie: 12 luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+				-->  
+                        </div>
+	
+	
+	
+	
+	
+	
+	</div>
+	</div>
+	
+    <div class="clear"></div>
 
 
 </br></br>
 
+
+<div id="footer">
+
 {% endblock content %}
+</div>
