@@ -25,7 +25,8 @@ class HomeBase(BaseView):
 
     def get_hits(self):
         hits = []
-        product_objects = Product.objects.get_top_hits(limit=self.top_limit)
+        # ask for double that we need because some will no longer be available
+        product_objects = Product.objects.get_top_hits(limit=self.top_limit * 2)
         product_ids = [p.id for p in product_objects]
         products = self.api.products.get_product_list(product_ids)
         for product_obj in product_objects:
@@ -37,6 +38,8 @@ class HomeBase(BaseView):
                 product['images'] = product_obj.images
                 product['url'] = self._product_url(product)
                 hits.append(product)
+            if len(hits) >= self.top_limit:
+                break
         return hits
 
     def get_recommended(self):
