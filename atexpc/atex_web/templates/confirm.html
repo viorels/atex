@@ -98,7 +98,7 @@
 
                             <li><strong>{{ order.first_name }} {{ order.last_name }}</strong></li>
                             {% if order.customer_type == 'f' %}
-                            <li>CNP: <strong>{{ order.cnp }}</strong></li>
+                            {% if order.cnp %}<li>CNP: <strong>{{ order.cnp }}</strong></li>{% endif %}
                             <li>{{ order.address }}</li>
                             <li>{{ order.city }}, Jud. {{ order.county }}</li>
                             <li>&nbsp;</li>
