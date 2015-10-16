@@ -2098,7 +2098,8 @@ td.center {text-align:center}
 .info-contact ul li { line-height:18px;}
 .info-contact ul li.red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
 .info-contact ul li.orar-pad {padding-left:20px}
-.info-conditii ul .red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
+.info-conditii ul li {     font-size: 13px; color: #3C4057; font-weight: 400; line-height: 230%;}
+.info-conditii ul .red-title {font-size: 16px; color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
 .statistics-info {float:left; text-align: center; width: 250px; padding-top: 9px;}
 .statistics-info a {margin: 10px 5px 0; height:35px;}
 
