@@ -1,4 +1,13 @@
-<head>
+{% extends "base.html" %}
+
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+{% block title %}Promotiile Saptamanii{% endblock title %}
+{% block head %}
+	<meta name="description" content="Promotiile Saptamanii | ATEX Computer">
+	<meta name="keywords" content="Promotiile Saptamanii ATEX"> 
+
 <style type="text/css">
 .auto-style1 {
 	text-align: center;
@@ -208,6 +217,8 @@ a.titlu:hover {
   color: red ;
 }
 
+</style>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
@@ -216,29 +227,6 @@ $(document).ready(function(){
     });
 });
 </script>
-
-
-</style>
-</head>
-
-
-{% extends "base.html" %}
-
-{% load static %}
-{% get_static_prefix as STATIC_PREFIX %}
-
-{% block title %}Promotiile Saptamanii{% endblock title %}
-{% block head %}
-	<meta name="description" content="Promotiile Saptamanii | ATEX Computer">
-
-	<meta name="keywords" content="Promotiile Saptamanii ATEX"> 
-{% endblock %}
-
-{% block content_top %}
-{% endblock content_top %}
-
-{% block content %}
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
@@ -262,6 +250,16 @@ $(document).ready(function() {
 	//alert(stickermax); //uncomment to show max sticker postition value on doc.ready
 });
 </script>
+
+{% endblock %}
+
+{% block content_top %}
+{% endblock content_top %}
+
+{% block content %}
+
+
+
 
 <div id="fadeshow1" >
         <div id="sticker"><ul class="menu1">
