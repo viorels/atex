@@ -218,9 +218,9 @@ INSTALLED_APPS = (
     'compressor',
     'south',
     'sorl.thumbnail',
+    'atexpc.atex_web',  # before social_auth
     'social_auth',
     'password_reset',
-    'atexpc.atex_web',
 )
 
 # A sample logging configuration. The only tangible logging
