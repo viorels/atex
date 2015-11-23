@@ -56,7 +56,19 @@ class ServiceView(CommonMixins, BaseView):
     template_name = "service.html"
     breadcrumbs = [{'name': "Servicii"}]
 
-class ContestView(CommonMixins, BaseView):
-    template_name = "contest.html"
-    breadcrumbs = [{'name': "Concurs"}]
+class PromotionsView(CommonMixins, BaseView):
+    template_name = "promotions.html"
+    breadcrumbs = [{'name': "Promotii"}]
+
+class GamingView(CommonMixins, BaseView):
+    template_name = "gaming.html"
+    breadcrumbs = [{'name': "Gaming"}]
+
+class AppleView(CommonMixins, BaseView):
+    template_name = "apple.html"
+    breadcrumbs = [{'name': "Apple"}]
+
+class BlackFridayView(CommonMixins, BaseView):
+    template_name = "black_friday.html"
+    breadcrumbs = [{'name': "Black Friday"}]
 
