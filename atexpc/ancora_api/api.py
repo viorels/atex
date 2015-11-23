@@ -585,6 +585,7 @@ class Ancora(object):
             root = 'lista_terti_user_site'
             for item in data[root]:
                 cif = item['zcod_fiscal']
+                cif = "" if cif == " 0" else cif	# clean empty CNP from Ancora
                 vat = cif.upper().startswith('RO')
                 cif_digits = cif.lstrip('RO ')
                 customer = {'customer_id': int(item['zid_tert']),
