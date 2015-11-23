@@ -11,25 +11,13 @@
 <meta name="google-site-verification" content="b18Kt6L5fCRNRREsgxzrQjm9ZZ0lSv0GSPRpUeU7J0s" />
 <link rel="icon" href="{{ STATIC_PREFIX }}favicon.ico" />
 {% compress css %}
-<link href="{{ STATIC_PREFIX }}css/style.css" type="text/css" rel="stylesheet" />
+<link href="{{ STATIC_PREFIX }}css/styleblackfriday.css" type="text/css" rel="stylesheet" />
 <link href="{{ STATIC_PREFIX }}css/style_certificari.css" type="text/css" rel="stylesheet" />
 <link href="{{ STATIC_PREFIX }}css/jquery-ui-1.8.16.custom.css" type="text/css" rel="stylesheet" />
 <link href="{{ STATIC_PREFIX }}css/jcarousel.data-attributes.css" type="text/css" rel="stylesheet" />
 
 {% endcompress %}
-{% compress js %}
-<script src="{{ STATIC_PREFIX }}script/jquery-1.7.2.js" type="text/javascript"></script>
 
-<script src="{{ STATIC_PREFIX }}script/jquery-ui.1.8.16.min.js" type="text/javascript"></script>
-<script src="{{ STATIC_PREFIX }}script/jquery.exposure.js" type="text/javascript"></script>
-<script src="{{ STATIC_PREFIX }}script/jquery.autocomplete.js" type="text/javascript"></script>
-<script src="{{ STATIC_PREFIX }}script/jquery.inputhints.js" type="text/javascript"></script>
-<script src="{{ STATIC_PREFIX }}script/underscore-min.js" type="text/javascript"></script>
-<script src="{{ STATIC_PREFIX }}script/all.js" type="text/javascript"></script>
-<script src="{{ STATIC_PREFIX }}script/jquery.bxslider.min.js" type="text/javascript"></script>
-<script src="{{ STATIC_PREFIX }}script/jquery.slides.min.js" type="text/javascript"></script
-<script src="{{ STATIC_PREFIX }}dist/jquery.jcarousel.min.js" type="text/javascript"></script>
-{% endcompress %}
 <title>{% block title %}{{ site_info.name }}{% endblock %}</title>
 {% block head %}{% endblock %}
 <!--/Start Google Analitycs/-->
@@ -239,7 +227,22 @@ Click pentru a vedea multitudinea de furnizori pe care ii reprezentam.</p>
     </div>
     <div class="push"></div>
 </div>
-<div class="footer_wrapper">	
+<div class="footer_wrapper">
+
+{% compress js %}
+<script src="{{ STATIC_PREFIX }}script/jquery-1.7.2.js" type="text/javascript"></script>
+
+<script src="{{ STATIC_PREFIX }}script/jquery-ui.1.8.16.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.exposure.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.autocomplete.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.inputhints.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/underscore-min.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/all.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.bxslider.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/jquery.slides.min.js" type="text/javascript"></script
+<script src="{{ STATIC_PREFIX }}dist/jquery.jcarousel.min.js" type="text/javascript"></script>
+{% endcompress %}
+	
 	<div class="footer clear">
     	<div class="titlu_top">
              <span class="up_left"></span>
@@ -256,15 +259,7 @@ Click pentru a vedea multitudinea de furnizori pe care ii reprezentam.</p>
 			{% endfor %}
         </div>
         <div class="bottom-footer">
-        	<ul class="menu-subsol">
-
-	
-			
-			<li><a href="{% url "conditions" %}">Conditii Vanzare</a></li>
-            <li><a href="{% url "contact" %}">Contact</a></li>
-			<li><a href="{% url "service" %}">Service IT</a></li>
-			<li><a href="http://www.anpc.gov.ro/" target="_blank">ANPC</a></li>
-            </ul>
+ 
             <span class="copyright">Copyright &copy; {% now "Y" %} {{ site_info.company }}</span>
         </div>
     </div>
