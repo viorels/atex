@@ -439,7 +439,7 @@ class Ancora(object):
     def brands(self):
         def post_process(data):
             json_root = 'brands'
-            brands = [brand['zdenumire'].capitalize() for brand in data.get(json_root, [])]
+            brands = [brand['pid'].capitalize() for brand in data.get(json_root, [])]
             return brands
 
         brands_uri = self.adapter.uri_for('brands')
