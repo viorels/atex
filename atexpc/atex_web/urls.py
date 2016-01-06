@@ -4,7 +4,7 @@ from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import RedirectView
 from views import (HomeView, SearchView, ProductView, BrandsView,
-                   ContactView, ConditionsView, ServiceView,
+                   ContactView, ConditionsView, ServiceView, WarrantyServiceView,
                    PromotionsView, GamingView, AppleView, BlackFridayView,
                    CartView, OrderView, ConfirmView, LoginView,
                    RecoverPassword, RecoverPasswordDone, ResetPassword, ResetPasswordDone)
@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     url(r'^contact/', ContactView.as_view(), name='contact'),
     url(r'^conditii/', ConditionsView.as_view(), name='conditions'),
     url(r'^service/', ServiceView.as_view(), name='service'),
+    url(r'^garantii-service-autorizat/', WarrantyServiceView.as_view(), name='warranty-service'),
     url(r'^promotii/', PromotionsView.as_view(), name='promotions'),
     url(r'^gaming/', GamingView.as_view(), name='gaming'),
     url(r'^apple/', AppleView.as_view(), name='apple'),

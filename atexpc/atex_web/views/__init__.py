@@ -56,6 +56,10 @@ class ServiceView(CommonMixins, BaseView):
     template_name = "service.html"
     breadcrumbs = [{'name': "Servicii"}]
 
+class WarrantyServiceView(CommonMixins, BaseView):
+    template_name = "warranty-service.html"
+    breadcrumbs = [{'name': "Service autorizat"}]
+
 class PromotionsView(CommonMixins, BaseView):
     template_name = "promotions.html"
     breadcrumbs = [{'name': "Promotii"}]
