@@ -1008,6 +1008,7 @@ ul.filtrare li span {
 .product_blackfriday {
 	float:left;
 	background:url(../images/promotii/backblackfriday.jpg) center no-repeat;
+	height: 308px;
 }
 .product_holder {
 	width:207px;
@@ -2010,7 +2011,7 @@ td.center {text-align:center}
 .tab_rezumat span { background:url(../images/open-tab.png) center center no-repeat; width:30px; height:28px; display:block; float:left; padding-left:30px;}
 /* ********************** footer ************************************** */
 .footer_wrapper {
-	background-color:#c62123;
+	background-color:#000;
 	min-width:1170px;
 }
 .footer {
