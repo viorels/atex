@@ -35,32 +35,105 @@
                 </ul>
                 {% endblock menu %}
           
+  
+		  
+		  
                 {% block content_left %}
-                {% endblock %}
-				
-					  {% block newsletter %}
+
+										  {% block newsletter %}
 						
                 <div class="newsletter">
-                	<label for="news_email" ><img src="/static/images/promotii/inscriere.jpg"/></label>
-                    <div class="email-wrapper">
+                <!-- 	<label for="news_email" ><img src="/static/images/promotii/inscriere.jpg"/></label> -->
+                   <div class="email-ins"><p>Inscrie-te la newsletter-ul ATEX</p></div>
+				   <div class="email-wrapper">
                         <form method="post" action="http://atexpc.us5.list-manage.com/subscribe/post?u=d089f977785291a701d86d885&amp;id=6c95d504f0" target="_blank" />
-                            <input class="news_email" type="text" id="news_email" name="EMAIL" placeholder="email ..." /><br>
-                            <input class="email_btn" type="submit" value="" name="subscribe" />
+                            <input class="news_email" type="text" id="news_email" name="EMAIL" placeholder="email ..." /><br><br>
+                            <input class="email_btn" type="submit" value="Mă înscriu" name="subscribe" />
                         </form>
                     </div>    
                 </div>
           
 
-                {% endblock newsletter %}
+                {% endblock newsletter %}	
+				
+		<div class="link-2col">
+
+		<div class="link-j1">
+			            <span class="menu_icon">
+			<li>
+			    <a href="{% url "service" %}">
+				<img src="{{ STATIC_PREFIX }}images/service-button.png" width="23" height="23" alt="Service IT" title="Service IT" />
+			    </a>
+		    </li>
+			</span>
+				 <a href="{% url "service" %}">Service IT		    </a>
+
+			</div>
+		<div class="link-j">
+			            <span class="menu_icon">
+			<li>
+			    <a href="garantii-service-autorizat">
+				<img src="{{ STATIC_PREFIX }}images/service-button.png" width="23" height="23" alt="Service Garantii" title="Service Garantii" />
+			    </a>
+		    </li>
+			</span>
+
+				<li><a href="garantii-service-autorizat">Service Garantii</a>
+				</li>
+
+		</div>
+		<div class="link-j">
+            <span class="menu_icon">
+			<li>
+			    <a href="http://ancora.atexpc.ro:8765/profon/" target="_blank">
+				<img src="{{ STATIC_PREFIX }}images/config-button1.png" width="23" height="23" alt="Acces Parteneri" title="Acces Parteneri" />
+			    </a>
+		    </li>
+			</span>
+				<li><a href="http://ancora.atexpc.ro:8765/profon/" target="_blank">
+				
+                	Acces Parteneri
+                     </a>
+				</li>
+			</div>
+        </div>
+
+		
+
+							
+				
+                {% endblock %}
+				
+
 
                 {% block banner_left %}
-                <ul class="ads-left">
-                	<li><img src="{{ STATIC_PREFIX }}images/asamblare.jpg" alt="">
-						
-                    </li>
-         
-                          </ul>
-                {% endblock banner_left %}                
+<div class="asamblare">
+<div class="asamblare-t">
+<h1>Asamblare gratuită</h1>
+</div><br>
+<div class="asamblare-img">
+</div>
+<div class="asamblare-imgr">
+<p> &nbsp; *pentru sistemele pc cumpărate de la noi.</p>
+</div>
+</div>
+
+				
+				                        <div class="social">
+            	<ul>
+                	<li><a href="https://www.facebook.com/pages/ATEX-Computer-SRL/134752229926145" target="_new"><img src="{{ STATIC_PREFIX }}images/facebook-icon.png" height="60" width="72" alt="Facebook icon" title="Find us on Facebook" /></a></li>
+                    <li><a href="https://twitter.com/ATEXPC" target="_new"><img src="{{ STATIC_PREFIX }}images/twitter-icon.png" height="60" width="72" alt="Twitter icon" title="Follow us on Twitter" /></a></li>
+					<li><a href="https://plus.google.com/109045933207353333795" target="_new"><img src="{{ STATIC_PREFIX }}images/google-plus-icon.png" height="60" width="72" alt="Google plus icon" title="Google plus" /></a></li>	
+                    <li><a href="http://atexpc.wordpress.com/" target="_new"><img src="{{ STATIC_PREFIX }}images/wp-blog-icon.png" height="55" width="230" alt="Wp blog icon" title="Blog Wordpress" /></a></li>	
+                </ul>
+            </div>  
+                {% endblock banner_left %}      
+
+ 
+
+          
+
+				
             </div> <!-- left side end -->
             <div class="right_col">
                 {% block content_right %}
