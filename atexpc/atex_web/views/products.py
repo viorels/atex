@@ -122,7 +122,14 @@ class SearchBase(BaseView):
         return args
 
     def get_category_id(self):
-        category_id = self.kwargs.get('category_id') or self.request.GET.get('categorie')
+        # search in category returns 0 for anything other then "all" (broken in ancora)
+        # search for a keyword after browsing a category restricts the search to the browsed category
+        # instead of selected category (broken in atex_web)
+        # as a "temporary fix", disable category when searching for any keyword, search in all
+        if self.request.GET.get('cuvinte'):
+            category_id = None
+        else:
+            category_id = self.kwargs.get('category_id') or self.request.GET.get('categorie')
         return int(category_id) if category_id else None
 
     def get_products_page(self):
