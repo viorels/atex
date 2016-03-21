@@ -66,8 +66,8 @@ html, body { height: 100%;  }
     height: 295px; 
     }
 .wrapper {
-	border-top:5px solid #cd2325;
-	background:url(../images/bg_dark.png) repeat;
+	border-top:5px solid #cecece;
+	/*background:url(../images/bg_dark.png) repeat;*/
 	/*background-color:#3d97cb;*/
 }
 .page_wrapper {
@@ -119,27 +119,27 @@ html, body { height: 100%;  }
 .tab_down {
 	height:20px;
 	float:left;
-	background: -webkit-linear-gradient(#cd2325, #c62123); 
-    background: -moz-linear-gradient(#cd2325, #c62123); 
-    background: -ms-linear-gradient(#cd2325, #c62123); 
-    background: -o-linear-gradient(#cd2325, #c62123); 
-    background: linear-gradient(#dcd2325, #c62123); 
-    -pie-background: linear-gradient(#cd2325, #c62123); 
+	background: -webkit-linear-gradient(#f0f0f0, #f0f0f0); 
+    background: -moz-linear-gradient(#f0f0f0, #f0f0f0); 
+    background: -ms-linear-gradient(#f0f0f0, #f0f0f0); 
+    background: -o-linear-gradient(#f0f0f0, #cf0f0f0); 
+    background: linear-gradient(#f0f0f0, #f0f0f0); 
+    -pie-background: linear-gradient(#f0f0f0, #f0f0f0); 
     behavior: url(/static/css/PIE.htc);
 	display:block;
-	background-color:#c62123; 
+	background-color:#f0f0f0; 
 	position:relative;
 
 }
 .tab_up {
 	height:20px;
 	float:left;
-	background: -webkit-linear-gradient(#de3537, #c62123); 
-    background: -moz-linear-gradient(#de3537, #c62123); 
-    background: -ms-linear-gradient(#de3537, #c62123); 
-    background: -o-linear-gradient(#de3537, #c62123); 
-    background: linear-gradient(#de3537, #c62123); 
-    -pie-background: linear-gradient(#de3537, #c62123); 
+	background: -webkit-linear-gradient(#f0f0f0, #f0f0f0); 
+    background: -moz-linear-gradient(#f0f0f0, #f0f0f0); 
+    background: -ms-linear-gradient(#f0f0f0, #f0f0f0); 
+    background: -o-linear-gradient(#f0f0f0, #f0f0f0); 
+    background: linear-gradient(#f0f0f0, #f0f0f0); 
+    -pie-background: linear-gradient(#f0f0f0, #f0f0f0); 
     behavior: url(/static/css/PIE.htc);
 	display:block;
 background-color:#c62123; 
@@ -151,12 +151,12 @@ ul.tab_down li, .tab_up li, .tab_up_bw li, span.tab_up  {
 	line-height:20px;
 	text-transform:uppercase !important;
 	padding:0 5px;
-	color:#fff !important;
+	color:#393939 !important;
 	font-size:11px;
 	height:20px;
 }
 ul.tab_down li a {
-	color:#fff;
+	color:#393939;
 	font-size:11px;
 }
 
@@ -388,7 +388,7 @@ ul.selector_area {
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);
-	border:1px solid #c62123;	
+	border:1px solid #cecece;	
 	float:left;
 	background-color:#fff;
 	position:relative;
@@ -449,7 +449,7 @@ ul.selector_area li span {
 	float:right;
 	right:10px;
 	position:absolute;
-	top:-20px;
+	top:-21px;
 }
 .price_input {
 	width:70px;
@@ -698,6 +698,7 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	padding:9px;
 	zoom:1;
 	position:relative;
+	margin-top: 15px;
 }
 .newsletter label {
 	float:left;
@@ -722,17 +723,18 @@ ul.menu li:hover .popup-holder, ul.menu li.active .popup-holder  {
 	height:21px;
 	line-height:21px;
 	padding:0 5px;
-	width:185px;
+	width:219px;
 	float:left;
 	position:relative;
 }
 .email_btn {
-	width:23px; 
-	height:23px;
+	width:129px; 
+	height:32px;
 	border:none;
-	background:url(../images/email-button.png) top left no-repeat;
+	background:url(../images/bnewsletter.jpg) top left no-repeat;
 	display:block;
-	float:right;
+	text-align:center;
+    margin-left: 48px;
 	cursor:pointer;
 }
 .ads-left {
@@ -862,7 +864,7 @@ background-color:#c62123;
 	border-radius: 6px;     
 	-moz-border-radius: 6px;     
 	-webkit-border-radius: 6px;
-	border:1px solid #c62123;
+	border:1px solid #cecece;
 	width:278px;
 	float:left;
 	background-color:#fff;
@@ -968,7 +970,7 @@ img.center {
 /* ************************ produse cautare ******************************/
 .filtrare_holder {
 	width:875px;
-	border-top:1px solid #c62123;
+	border-top:1px solid #cecece;
 	float:right;
 }
 .tab_d_holder {
@@ -1175,24 +1177,23 @@ background-color:#c62123;
 	float:left;
 	padding:15px 0;	
 	position:relative;
-	border-top:1px solid #c62123;
+	border-top:1px solid #cecece;
 }
 .product {
-	width:1110px;
+	 width:1110px;
 	float:left;
-	padding:15px;	
-	position:relative;
-	border-top:1px solid #c62123;
+	padding:15px;	position:relative;
+	border-top:1px solid #cecece;
 
 }
 .tab_u_holder_right {
 	position:absolute;
-	top:-20px;
+	top:-21px;
 	right:20px;
 }
 .tab_u_holder_left {
 	position:absolute;
-	top:-20px;
+	top:-21px;
 	left:20px;
 }
 .tab_d_holder_right {
@@ -1369,17 +1370,17 @@ background-color:#c62123;
     background: -moz-linear-gradient(#c62123, #de3537); 
     background: -ms-linear-gradient(#c62123, #de3537); 
     background: -o-linear-gradient(#c62123, #de3537); 
-    background: linear-gradient(#c62123, #de3537); 
-    -pie-background: linear-gradient(#c62123, #de3537); 	
+    background: linear-gradient(#f0f0f0, #f0f0f0); 
+    -pie-background: linear-gradient(#f0f0f0, #f0f0f0); 	
 	behavior: url(/static/css/PIE.htc);
-background-color:#c62123; 
+background-color:#f0f0f0; 
 	position:relative;
 }
 
 .paginare li {float:left;margin:0 5px}
 .paginare a {
 	padding:0 3px;
-	color:#fff;
+	color:#393939;
 }
 .paginare a:hover {text-decoration:underline}
 .paginare .active {
@@ -1398,7 +1399,7 @@ background-color:#c62123;
 .controls {
 	width:575px;
 	float:left;
-	border-top:1px solid #c62123;
+	border-top:1px solid #cecece;
 }
 ul.exposureThumbs {
  	float:left;
@@ -1472,13 +1473,13 @@ ul.exposureThumbs li {
 	width:42px;
 }
 .exposureControls a {
-	color:#fff;
+	color:#393939;
 	text-decoration:none;
 	outline:none;	
 }
 .exposureControls a:active,
 .exposureControls a:hover {
-	color:#ddd;
+	color:#6e6e6e;
 }
 
 .exposurePaging {
@@ -1491,8 +1492,8 @@ ul.exposureThumbs li {
     background: -moz-linear-gradient(#c62123, #de3537); 
     background: -ms-linear-gradient(#c62123, #de3537); 
     background: -o-linear-gradient(#c62123, #de3537); 
-    background: linear-gradient(#c62123, #de3537); 
-    -pie-background: linear-gradient(#c62123, #de3537); 	
+    background: linear-gradient(#f0f0f0, #f0f0f0); 
+    -pie-background: linear-gradient(#f0f0f0, #f0f0f0); 	
 	behavior: url(/static/css/PIE.htc);
 background-color:#c62123; 
 	position:relative;
@@ -1503,7 +1504,7 @@ background-color:#c62123;
 }
 .exposurePaging .active {
 	background:url(../images/page-gallery-active.png) center center no-repeat;
-	color:#c62123;
+	color:#393939;
 }
 
 .clear {
@@ -2089,7 +2090,7 @@ td.center {text-align:center}
 	float:left;
 	padding:15px 0;	
 	position:relative;
-	border-top:1px solid #c62123;
+	border-top:1px solid #cecece;
 }
 .map-wrapper {width:490px;float:right}
 .gmap-border {border:1px solid #c62123; float:right; margin-bottom:5px}
@@ -2097,7 +2098,8 @@ td.center {text-align:center}
 .info-contact ul li { line-height:18px;}
 .info-contact ul li.red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
 .info-contact ul li.orar-pad {padding-left:20px}
-.info-conditii ul .red-title {color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
+.info-conditii ul li {     font-size: 13px; color: #3C4057; font-weight: 400; line-height: 230%;}
+.info-conditii ul .red-title {font-size: 16px; color:#c62123; font-weight:bold; text-transform:uppercase; padding:10px 0}
 .statistics-info {float:left; text-align: center; width: 250px; padding-top: 9px;}
 .statistics-info a {margin: 10px 5px 0; height:35px;}
 

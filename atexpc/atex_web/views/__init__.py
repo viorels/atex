@@ -63,6 +63,22 @@ class ContestView(BreadcrumbsMixin, TemplateView):
     template_name = "contest.html"
     breadcrumbs = [{'name': "Concurs"}]
 
+class PromotionsView(BreadcrumbsMixin, TemplateView):
+    template_name = "promotions.html"
+    breadcrumbs = [{'name': "Promotii"}]
+
+class GamingView(BreadcrumbsMixin, TemplateView):
+    template_name = "gaming.html"
+    breadcrumbs = [{'name': "Gaming"}]
+
+class AppleView(BreadcrumbsMixin, TemplateView):
+    template_name = "apple.html"
+    breadcrumbs = [{'name': "Apple"}]
+
+class BlackFridayView(BreadcrumbsMixin, TemplateView):
+    template_name = "black_friday.html"
+    breadcrumbs = [{'name': "Black Friday"}]
+
 # TODO: import from middleware
 def _get_base_domain(request):
     """Get the last 2 segments of the domain name"""

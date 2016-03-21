@@ -252,6 +252,7 @@ def order_form_factory(form_type, user, customers=[], addresses=[], delivery=Fal
     class PersonOrderForm(BaseOrderForm):
         cnp = roforms.ROCNPField(
             max_length=None, min_length=None,
+            required=False,
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "CNP"}))
 

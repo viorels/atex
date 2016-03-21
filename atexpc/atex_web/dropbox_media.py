@@ -6,7 +6,7 @@ import time
 from django.conf import settings
 from django.core.files import File, temp
 from dropbox import rest, session, client
-from dropbox.rest import RESTSocketError
+from dropbox.rest import ErrorResponse, RESTSocketError
 
 from atexpc.atex_web.models import Dropbox, Product, Image, StorageWithOverwrite
 
@@ -75,10 +75,14 @@ class DropboxMedia(object):
                               or path_match.group('other')):
                             self._copy_file(path_with_case, meta, self._storage_file_writer)
                 else:
-                    meta = self._dropbox.metadata(path, include_deleted=True)
-                    if not meta['is_dir']:
-                        path_with_case = meta['path']
-                        self._delete_file(path_with_case)
+                    try:
+                        meta = self._dropbox.metadata(path, include_deleted=True)
+                        if not meta['is_dir']:
+                            path_with_case = meta['path']
+                            self._delete_file(path_with_case)
+                    except ErrorResponse:
+                        pass
+
 
             last_cursor = delta['cursor']
             self._delta_cursor(last_cursor)

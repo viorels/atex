@@ -15,11 +15,11 @@
 <link href="{{ STATIC_PREFIX }}css/style_certificari.css" type="text/css" rel="stylesheet" />
 <link href="{{ STATIC_PREFIX }}css/jquery-ui-1.8.16.custom.css" type="text/css" rel="stylesheet" />
 <link href="{{ STATIC_PREFIX }}css/jcarousel.data-attributes.css" type="text/css" rel="stylesheet" />
-<link href="{{ STATIC_PREFIX }}css/jquery.fancybox.css" type="text/css" rel="stylesheet" />
+
 {% endcompress %}
 {% compress js %}
 <script src="{{ STATIC_PREFIX }}script/jquery-1.7.2.js" type="text/javascript"></script>
-<script src="{{ STATIC_PREFIX }}script/jquery.fancybox.js" type="text/javascript"></script>
+
 <script src="{{ STATIC_PREFIX }}script/jquery-ui.1.8.16.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery.exposure.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery.autocomplete.js" type="text/javascript"></script>
@@ -75,6 +75,7 @@ $(".fancybox")
 </head>
 
 <body>
+
 <div class="wrapper" id="wrap1">
 	<div class="page_wrapper clear" id="wrap2">
     	<div class="header">
@@ -98,7 +99,7 @@ $(".fancybox")
             </div>
             <div class="advertising_top">
             	<ul>
-                	<li><img src="{{ STATIC_PREFIX }}images/atexvindecalculatoare.png" width="520" height="95" alt="ATEX vinde calculatoare" title="ATEX vinde calculatoare" /></a></li>
+                	<li><a href="/promotii"><img src="{{ STATIC_PREFIX }}images/promotii/atexvindecalculatoare.jpg" width="520" height="95" alt="Aniversam 15 Ani" title="" /></a></li>
                 </ul>
             </div>
             <div class="social">
@@ -171,22 +172,9 @@ $(".fancybox")
 
             </div> <!-- content wrapper end -->
 		<div class="content-bottom">		
-		  {% block newsletter %}
-                <div class="newsletter">
-                	<label for="news_email" >Abonare newsletter</label>
-                    <div class="email-wrapper">
-                        <form method="post" action="http://atexpc.us5.list-manage.com/subscribe/post?u=d089f977785291a701d86d885&amp;id=6c95d504f0" target="_blank" />
-                            <input class="news_email" type="text" id="news_email" name="EMAIL" placeholder="email ..." />
-                            <input class="email_btn" type="submit" value="" name="subscribe" />
-                        </form>
-                    </div>    
-                </div>
-		  <script type="text/javascript"> 
-                            t_rid="trafic";
-                            t_domain="trafic.ro";
-                </script>            
-
-                {% endblock newsletter %}
+		  
+		  
+		  
 		  {% block banner_right %}
                 <div class="logo-producatori">
                 	<!--<ul>
@@ -269,32 +257,9 @@ Click pentru a vedea multitudinea de furnizori pe care ii reprezentam.</p>
         </div>
         <div class="bottom-footer">
         	<ul class="menu-subsol">
-                <li class="first">
-				<a href="http://www.computersales.ro" target="_blank" title="Componente PC si notebook">
-				<img border="0" alt="Calculator & Laptop" src="http://www.computersales.ro/images/logocs.jpg" alt="Calculator & Laptop" height="31" width="68"></a></li>
-				<li><div id="cautiro-logo-container" style="display:inline; margin: 0 3px; width: auto;">
-						<script type="text/javascript">
-							var _cauti_logo_settings = _cauti_logo_settings || {};
-							_cauti_logo_settings.type = 1;
-							_cauti_logo_settings.merchant_id = 61940;
-							_cauti_logo_settings.merchant_slug = "atexcomputer";
-							_cauti_logo_settings.keyword = "componente-it";
-							(function() {
-							    var c = document.createElement('script');
-    							c.type = 'text/javascript';
-    							c.async = true;
-    							c.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'logo.cauti.ro/js/logo.js';
-    							var s = document.getElementsByTagName('script')[0];
-    							s.parentNode.insertBefore(c, s);
-							})();
-						</script>
-						<noscript>
-						    <a href="http://www.cauti.ro/produse/compara-preturi/merchant~~atexcomputer/keyword~~componente-it.html" title="Cauti.ro - Orice, dar nu oricum! O gama larga de componente-it numai la atexcomputer">Partener Cauti.ro</a>
-						</noscript>
-					</div>
-			</li>
-			<li><a target="_blank" href="http://www.pricewatcher.ro/"><img src="http://www.pricewatcher.ro/img/template/pricewatcher-x-small.png" alt="PriceWatcher.ro" title="PriceWatcher.ro"></a>
-			</li>
+
+	
+			
 			<li><a href="{% url "conditions" %}">Conditii Vanzare</a></li>
             <li><a href="{% url "contact" %}">Contact</a></li>
 			<li><a href="{% url "service" %}">Service IT</a></li>

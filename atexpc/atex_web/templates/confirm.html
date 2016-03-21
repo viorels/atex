@@ -44,10 +44,10 @@
 
 {% endblock %}
 
-{% block content_right %}        	
-                <div class="cos_content">                	
+{% block content_right %}           
+                <div class="cos_content">                   
                     <div class="product-section">
-                    	<div class="tab_d_holder_right">
+                        <div class="tab_d_holder_right">
                             <span class="down_left"></span>
                                 <ul class="tab_down">
                                     <li><span>cos cumparaturi</span></li>                                
@@ -61,7 +61,7 @@
                         </ul>
                     </div>
                     <div class="pas-03">
-                    	<div class="product-section">
+                        <div class="product-section">
                             <div class="tab_u_holder_left">
                                 <span class="up_left"></span>
                                     <ul class="tab_up">
@@ -79,7 +79,7 @@
                         </div>
                         <ul class="info-comanda">
                             {% if done %}
-                        	<li class="comanda">Numar comanda: <span class="red_b">{{ order.id }}</span></li>
+                            <li class="comanda">Numar comanda: <span class="red_b">{{ order.id }}</span></li>
                             {% endif %}
                             <li>&nbsp;</li>
 
@@ -98,7 +98,7 @@
 
                             <li><strong>{{ order.first_name }} {{ order.last_name }}</strong></li>
                             {% if order.customer_type == 'f' %}
-                            <li>CNP: <strong>{{ order.cnp }}</strong></li>
+                            {% if order.cnp %}<li>CNP: <strong>{{ order.cnp }}</strong></li>{% endif %}
                             <li>{{ order.address }}</li>
                             <li>{{ order.city }}, Jud. {{ order.county }}</li>
                             <li>&nbsp;</li>
@@ -133,21 +133,21 @@
                             {% endif %}
                         </ul>   
                         <table class="detalii-comanda" width="450px">
-                        	<colgroup>
-                            	<col width="200px" align="left" />
+                            <colgroup>
+                                <col width="200px" align="left" />
                                 <col width="90px" align="right" />
                                 <col width="70px" align="center" />
                                 <col width="90px" align="right" />
                             </colgroup>
-                        	<thead>
-                            	<td>Produse</td>
+                            <thead>
+                                <td>Produse</td>
                                 <td class="right">Pret unitar</td>
                                 <td class="center">Cantitate</td>
                                 <td class="right">Total</td>
                             </thead>
                             {% if cart.delivery %}
                             <tr>
-                            	<td>Livrare rapida</td>
+                                <td>Livrare rapida</td>
                                 <td class="right">{{ cart.delivery_price }} lei</td>
                                 <td class="center">1</td>
                                 <td class="right">{{ cart.delivery_price }} lei</td>
@@ -155,35 +155,37 @@
                             {% endif %}
                             {% for item in cart.items %}
                             <tr>
-                            	<td>{{ item.product.name }}</td>
+                                <td>{{ item.product.name }}</td>
                                 <td class="right">{{ item.product.price }} lei</td>
                                 <td class="center">{{ item.count }}</td>
                                 <td class="right">{{ item.price }} lei</td>
                             </tr>
                             {% endfor %}
                             <tr class="info-total">
-                            	<td colspan="2" class="right">TOTAL</td>
+                                <td colspan="2" class="right">TOTAL</td>
                                 <td colspan="2" class="right">{{ cart.price }} lei</td>
                             </tr>
                             <tr>
                                 <td colspan="4">
-				    {% if not done %}
-					<form id="confirmform" method="post">
-					    {% csrf_token %}
-					    <a href="#" class="confirma"><span></span>Confirma</a>
-					</form>
-				    {% endif %}
+                                    Aceasta nu este o confirmare din partea ATEX Computer SRL,
+                                    confirmarea de pret si termenul de livrare o veti primi pe adresa de mail furnizata la inregistrare
+                                    in termen de maxim doua zile lucratoare de la data efectuarii comenzii !
+                                    <br><br>
+
+                                    {% if not done %}
+                                    <form id="confirmform" method="post">
+                                        {% csrf_token %}
+                                        {% if must_agree %}
+                                        <p style="color:red;">Este necesar sa fiti de acord cu termenii si conditiile pentru a finaliza comanda!</p>
+                                        {% endif %}
+                                        <input type="checkbox" name="agree" value="true" style="opacity:0; position:absolute;" > Sunt de acord cu <a target="_blank" style="color:red;" href="/conditii">termenii si conditiile</a>!
+                                        <a href="#" class="confirma"><span></span>Confirma</a>
+                                    </form>
+                                    {% endif %}
                                 </td>
-			    </tr>
-			    <tr>
-                                <td colspan="4">
-Aceasta nu este o confirmare din partea ATEX Computer SRL,
-confirmarea de pret si termenul de livrare o veti primi pe adresa de mail furnizata la inregistrare
-in termen de maxim doua zile lucratoare de la data efectuarii comenzii !
-				</td>
                             </tr>
                         </table> 
-                    </div>	
+                    </div>  
                      <!-- end pas 03 -->
                 </div>
 {% endblock content_right %}

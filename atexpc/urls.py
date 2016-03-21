@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
+from django.http import HttpResponse
 
 from atex_web.views import ErrorView
 
@@ -19,4 +20,6 @@ if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^404/$', handler404),
         (r'^500/$', ErrorView.as_view(error_code=500)),
+        (r'^robots.txt$', lambda r: HttpResponse("User-agent: *\nDisallow: /",
+                                                 content_type="text/plain")),
     )

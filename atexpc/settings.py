@@ -167,7 +167,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '^phe(gn-&amp;laaufa=o_f90ulmmqd1@6yj7sslxq62z@&amp;m8-(ab*'
+SECRET_KEY = environ.get('SECRET_KEY')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -227,10 +227,10 @@ INSTALLED_APPS = (
     'compressor',
     'south',
     'sorl.thumbnail',
+    'atexpc.atex_web',  # before social_auth
     'social_auth',
     'password_reset',
     'haystack',
-    'atexpc.atex_web',
 )
 
 # A sample logging configuration. The only tangible logging
