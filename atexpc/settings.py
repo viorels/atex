@@ -225,7 +225,6 @@ INSTALLED_APPS = (
     'django.contrib.redirects',
     'localflavor',
     'compressor',
-    'south',
     'sorl.thumbnail',
     'atexpc.atex_web',  # before social_auth
     'social_auth',

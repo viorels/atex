@@ -23,11 +23,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+def _category_specs_path(instance, filename):
+    SPECS_PATH = 'specs'
+    canonical_name = u"%s-%s.xlsx" % (instance.code, instance.name)
+    return os.path.join(SPECS_PATH, canonical_name)
+
 class Category(models.Model):
-    def _category_specs_path(instance, filename):
-        SPECS_PATH = 'specs'
-        canonical_name = u"%s-%s.xlsx" % (instance.code, instance.name)
-        return os.path.join(SPECS_PATH, canonical_name)
 
     name = models.CharField(max_length=64)
     code = models.CharField(max_length=8)
@@ -109,7 +110,7 @@ class StorageWithOverwrite(get_storage_class()):
 class Product(models.Model):
     model = models.CharField(max_length=128, db_index=True)
     name = models.CharField(max_length=128)
-    description = models.TextField(null=False, blank=False)
+    description = models.TextField(null=False, blank=True)
     category = models.ForeignKey(Category, null=True)
     specs = models.ManyToManyField('Specification', through='ProductSpecification')
     updated = models.DateTimeField(auto_now=True, auto_now_add=True)
@@ -263,14 +264,16 @@ class CustomQuerySetManager(models.Manager):
         return self.model.QuerySet(self.model)
 
 
+def _media_path(instance, filename):
+    if '/' in filename:
+        path_match = re.search(Product.media_folder + '.*', filename)
+        path = path_match.group()
+    else:
+        path = os.path.join(Product.media_folder, filename)
+    return path
+
 class Image(models.Model):
-    def _media_path(instance, filename):
-        if '/' in filename:
-            path_match = re.search(Product.media_folder + '.*', filename)
-            path = path_match.group()
-        else:
-            path = os.path.join(Product.media_folder, filename)
-        return path
+    print "IMPORT ", models
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     path = models.CharField(max_length=128, db_index=True)
     image = ImageField(storage=StorageWithOverwrite(), upload_to=_media_path, max_length=255)
