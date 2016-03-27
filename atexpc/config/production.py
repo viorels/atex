@@ -4,7 +4,6 @@ from urlparse import urlparse
 from atexpc.settings import *
 
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
 
 PREPEND_WWW = True
 

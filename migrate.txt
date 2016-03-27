@@ -1,0 +1,34 @@
+recreate venv (to clean old south install and other modules)
+ln -s python-xapin into virtualenv
+run new migration style for add product description
+clean login sessions to avoid import errors with python-social-auth
+
+$ ... manage.py migrate contenttypes --fake-initial
+# yes, delete auth/user
+
+$ ... manage.py migrate sessions --fake-initial
+$ ... manage.py migrate auth --fake-initial
+$ ... manage.py migrate atex_web --fake-initial
+$ ... manage.py migrate admin --fake-initial
+$ ... manage.py migrate sites --fake-initial
+$ ... manage.py migrate redirects --fake-initial
+
+# python-social-auth added one more table, social_auth_code, which is now included in the initial migration
+
+BEGIN;
+--
+-- Create model Code
+--
+CREATE TABLE "social_auth_code" ("id" serial NOT NULL PRIMARY KEY, "email" varchar(75) NOT NULL, "code" varchar(32) NOT NULL, "verified" boolean NOT NULL);
+--
+-- Alter unique_together for code (1 constraint(s))
+--
+ALTER TABLE "social_auth_code" ADD CONSTRAINT "social_auth_code_email_801b2d02_uniq" UNIQUE ("email", "code");
+--
+-- Alter unique_together for nonce (1 constraint(s))
+--
+CREATE INDEX "social_auth_code_c1336794" ON "social_auth_code" ("code");
+CREATE INDEX "social_auth_code_code_a2393167_like" ON "social_auth_code" ("code" varchar_pattern_ops);
+COMMIT;
+
+$ ... manage.py migrate default 0001 --fake		# python social auth

@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.shortcuts import get_current_site
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 

@@ -3,7 +3,6 @@ import os
 from atexpc.settings import *
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = [
     'localhost',

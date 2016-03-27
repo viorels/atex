@@ -4,7 +4,6 @@ from urlparse import urlparse
 from atexpc.settings import *
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 PREPEND_WWW = True
 
@@ -45,7 +44,7 @@ if environ.has_key('DATABASE_URL'):
 #        'PORT': url.port,
     }}
 
-CACHES['default']['LOCATION'] = "127.0.0.1:6379:1"
+CACHES['default']['OPTIONS']['DB'] = 1
 CACHES['default']['KEY_PREFIX'] = 'staging'
 
 BROKER_URL = 'redis://localhost:6379/1'

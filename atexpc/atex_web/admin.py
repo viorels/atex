@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
@@ -6,7 +7,6 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import forms as auth_forms, get_user_model
 from django.contrib.redirects.models import Redirect
 from django import forms
-from django.utils.datastructures import SortedDict
 
 from models import Category, Product, Image, Hit
 from dropbox_media import DropboxMedia
@@ -108,8 +108,8 @@ class ProductAdmin(admin.ModelAdmin):
     def queryset(self, request):
         qs = ProductQuerySet(Product)
         hit_params = (Product.objects.one_month_ago(),)
-        return (qs.extra(select=SortedDict([('image_count', qs.image_subquery()),
-                                            ('hit_count', qs.hit_subquery())]),
+        return (qs.extra(select=OrderedDict([('image_count', qs.image_subquery()),
+                                             ('hit_count', qs.hit_subquery())]),
                          select_params=hit_params))
 
     def hit_count(self, obj):

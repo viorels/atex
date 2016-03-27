@@ -3,6 +3,7 @@ import re
 from datetime import datetime, timedelta
 from collections import defaultdict
 
+from collections import OrderedDict
 from django.conf import settings
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
@@ -12,7 +13,6 @@ from django.db import models, connection
 from django.db.models.query import QuerySet
 from django.db.utils import DatabaseError
 from django.utils import timezone
-from django.utils.datastructures import SortedDict
 from django.utils.http import urlquote
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -113,7 +113,7 @@ class Product(models.Model):
     description = models.TextField(null=False, blank=True)
     category = models.ForeignKey(Category, null=True)
     specs = models.ManyToManyField('Specification', through='ProductSpecification')
-    updated = models.DateTimeField(auto_now=True, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     # has_folder = models.NullBooleanField()
 
     objects = ProductManager()
@@ -203,8 +203,8 @@ class Product(models.Model):
     def get_spec_groups(self):
         spec_groups_orm = SpecificationGroup.objects.filter(category=self.category) \
                                                     .order_by('id')
-        spec_groups = SortedDict((spec_group.name, [])
-                                 for spec_group in spec_groups_orm)
+        spec_groups = OrderedDict((spec_group.name, [])
+                                  for spec_group in spec_groups_orm)
         for prod_spec in ProductSpecification.objects.filter(product=self):
             if prod_spec.spec.group is not None:
                 value = prod_spec.spec.value_format(prod_spec.value)
@@ -231,7 +231,7 @@ class Product(models.Model):
         return spec_value
 
     def specs_list(self):
-        return SortedDict([(prod_spec.spec.name, prod_spec.value) 
+        return OrderedDict([(prod_spec.spec.name, prod_spec.value) 
             for prod_spec in ProductSpecification.objects
                 .filter(product=self)
                 .order_by('id')])
