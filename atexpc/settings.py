@@ -221,6 +221,7 @@ INSTALLED_APPS = (
     'atexpc.atex_web',  # before social_auth
     'social_auth',
     'password_reset',
+    'memoize',
 )
 
 # A sample logging configuration. The only tangible logging

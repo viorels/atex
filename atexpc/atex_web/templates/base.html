@@ -19,7 +19,6 @@
 {% endcompress %}
 {% compress js %}
 <script src="{{ STATIC_PREFIX }}script/jquery-1.7.2.js" type="text/javascript"></script>
-
 <script src="{{ STATIC_PREFIX }}script/jquery-ui.1.8.16.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery.exposure.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery.autocomplete.js" type="text/javascript"></script>
@@ -44,7 +43,7 @@
 
 							</script>
 						<!--/End Google Analitycs/-->
-						<script>
+<script>
     $(function() {
       $('#slides').slidesjs({
         width: 278,
@@ -58,6 +57,18 @@
       });
     });
   </script>
+  
+  <script>
+  $(window).scroll(function() {
+if ($(this).scrollTop() > 1){  
+    $('header').addClass("sticky");
+  }
+  else{
+    $('header').removeClass("sticky");
+  }
+});
+  </script>
+  
 <style type="text/css">
     .hidden {
     display: none;
@@ -79,41 +90,66 @@ $(".fancybox")
 <div class="wrapper" id="wrap1">
 	<div class="page_wrapper clear" id="wrap2">
     	<div class="header">
+		 <div class="header_center">
             <div class="logo">
-                <a href="{% url "home" %}"><img src="{{ site_info.logo_url }}" width="330" height="110" alt="atex logo" title="{{ site_info.domain }}" name="{{ site_info.domain }}"/></a>
+                <a href="{% url "home" %}"><img src="{{ site_info.logo_url }}" width="250" height="83" alt="atex logo" title="{{ site_info.domain }}" name="{{ site_info.domain }}"/></a>
             </div>
+			
+			 <div class="searchh_mod0">
+
+			 <div class="searchh_mod">
+			   {% if search_form %}
+            <form id="search_form" method="get" action="{% url "search" %}">
+                <ul class="search_inputs">
+                    <li>{{ search_form.cuvinte }}</li>
+                    <li class="search_category">
+                        {{ search_form.cauta_in }}
+                    </li> 
+			
+                    <li><input type="image" name="cauta" src="{{ STATIC_PREFIX }}images/search-button3.png" height="28" width="23" alt="Caută" placeholder="Caută produsul dorit ..." /></li>
+                </ul>
+            </form>
+                {% endif %}
+				
+			 </div>
+			 
+			 </div>    
+
+			<div class="login_bar">
             <div class="login_holder">
-            	<span class="down_left"></span>
-                	<ul class="tab_down">
+            	
+                	<ul class="tab_login">
+					
                     {% if user.is_authenticated %}
-                    	<li><a href="{% url "logout" %}">Deconectare</a></li>
+                    	<li><a href="{% url "logout" %}"><input type="image" name="logoff" src="{{ STATIC_PREFIX }}images/logoff-1.png" height="18" width="14" alt="logoff"  />Deconectare</a></li>
                     {% else %}
-                        <li><a href="{% url "login" %}">{% trans "Log in" %}</a></li>
+					
+                        <li><a href="{% url "login" %}"><input type="image" name="login" src="{{ STATIC_PREFIX }}images/login-1.png" height="18" width="13" alt="login"  />{% trans "Contul meu" %}</a></li>
+						
                     {% endif %}
-						<li><span class="spacer">|</span></li>
-						<li><a href="{% url "contact" %}">Contact</a></li>
-						<li><span class="spacer">|</span></li>
-						<li><a href="{% url "service" %}">Service IT</a></li>
+					
+					</ul>
+                
+            </div>
+			
+			
+					
+					<div class="login_holder">
+                	<ul class="tab_login">
+						<li> <a href="{% url "contact" %}"><input type="image" name="contact" src="{{ STATIC_PREFIX }}images/contact-1.png" height="18" width="13" alt="login"  />Contact</a></li>
+						
                     </ul>
-                <span class="down_right"></span>
+               
+                    </div>
             </div>
-            <div class="advertising_top">
-            	<ul>
-                	<li><a href="/promotii"><img src="{{ STATIC_PREFIX }}images/promotii/atexvindecalculatoare.jpg" width="520" height="95" alt="Aniversam 15 Ani" title="" /></a></li>
-                </ul>
-            </div>
-            <div class="social">
-            	<ul>
-                	<li><span>Ne gasiti si pe:</span></li>
-                	<li><a href="https://www.facebook.com/pages/ATEX-Computer-SRL/134752229926145" target="_new"><img src="{{ STATIC_PREFIX }}images/facebook-icon.png" height="22" width="22" alt="Facebook icon" title="Find us on Facebook" /></a></li>
-                    <li><a href="https://twitter.com/ATEXPC" target="_new"><img src="{{ STATIC_PREFIX }}images/twitter-icon.png" height="22" width="22" alt="Twitter icon" title="Follow us on Twitter" /></a></li>
-					<li><a href="https://plus.google.com/109045933207353333795" target="_new"><img src="{{ STATIC_PREFIX }}images/google-plus-icon.png" height="22" width="22" alt="Google plus icon" title="Google plus" /></a></li>	
-                    <li><a href="http://atexpc.wordpress.com/" target="_new"><img src="{{ STATIC_PREFIX }}images/wp-blog-icon.png" height="22" width="52" alt="Wp blog icon" title="Blog Wordpress" /></a></li>	
-                </ul>
-            </div>
+           
             <div class="info_cos">
             	<div class="wellcome">
-                	<p>Bun venit {% if user.is_authenticated %}, <span class="red_b">{{ user.get_short_name }}</span> {% endif %}!</p>
+				 {% if user.is_authenticated %}
+                	<p>Bun venit, <span class="red_b">{{ user.get_short_name }}</span> !</p>
+					 {% else %}
+					 <p><a href="{% url "cart" %}">Coșul meu</a></p>
+					 {% endif %}
                 </div>    
                 <ul>
                 	<li><a href="{% url "cart" %}"><img src="{{ STATIC_PREFIX }}images/chart-button.png" height="23" width="23" alt="Cos cumparaturi" title="Cos cumparaturi" /></a></li>
@@ -122,30 +158,17 @@ $(".fancybox")
                     <li><span class="red_b cart_price">{{ cart.price|floatformat:2 }}</span> lei </li>
                 </ul>
             </div>
+			
+						<div class="info_orar">
+            <img src="{{ STATIC_PREFIX }}images/telefon-button.png" height="23" width="17" alt="Telefon" title="Telefon" /><li>0264 599 009 <span class="spacer">|</span> 0751 433 284 <span class="spacer">|</span> 0735 968 743		</li>
+            </div>
+			
+		    </div>
+			
+
+			
         </div> <!-- header end -->
-        
-            <div class="search_bar">
-                {% if search_form %}
-            <form id="search_form" method="get" action="{% url "search" %}">
-                <ul class="search_inputs">
-                    <li>{{ search_form.cuvinte }}</li>
-                    <li class="search_category">
-                        {{ search_form.cauta_in }}
-                    </li>    
-                    <li><input type="image" name="cauta" src="{{ STATIC_PREFIX }}images/search-button.png" height="23" width="23" alt="Caută" placeholder="Caută produsul dorit ..." /></li>
-                </ul>
-            </form>
-                {% endif %}
-                <ul class="info_orar">
-                	<li>ORAR: L-V: 10:00 - 18:00  <span class="spacer">|</span>  S: 10:00 - 13:00</li>
-                    <li>TELEFON: 0264 599 009 <span class="spacer">|</span> 0751 433 284 <span class="spacer">|</span> 0735 968 743</li>
-                </ul>
-                <ul class="configurator">
-                	<li>Acces Parteneri : </li>
-                     <li><a href="http://ancora.atexpc.ro:8765/profon/" target="_blank"><img src="{{ STATIC_PREFIX }}images/config-button.png" width="23" height="23" alt="Acces Parteneri" title="Acces Parteneri" /></a></li>
-                </ul>
-            </div> <!-- search bar end -->
-            
+
             <div class="content_wrapper clear">
             
             {% block content_top %}
@@ -177,14 +200,7 @@ $(".fancybox")
 		  
 		  {% block banner_right %}
                 <div class="logo-producatori">
-                	<!--<ul>
-                    	<li><div class="middle"><a class="img-holder" href="/cauta/?filtre=Gigabyte"><img class="center" src="{{ STATIC_PREFIX }}images/gigabyte-partner-small.png" width="89" height="70" alt="Gigabyte logo" title="Gigabyte"/></a></div></li>
-                        <li><div class="middle"><a href="/cauta/?categorie=501&filtre=Kaspersky"><img src="{{ STATIC_PREFIX }}images/kaspersky-partner.png" width="200" height="59" alt="Kaspersky logo" title="Kaspersky"/></a></div></li>
-                        <li><div class="middle"><a href="/cauta/?filtre=Intel"><img src="{{ STATIC_PREFIX }}images/intel-partner-small.png" width="77" height="70" alt="Intel Technology Partner logo" title="Intel Technology Partner"/></a></div></li>
-                        <li><div class="middle"><a href="/cauta/?filtre=Hp"><img src="{{ STATIC_PREFIX }}images/hp-icon.jpg" width="106" height="70" alt="hp logo" title="hp"/></a></div></li>
-                        <li><div class="middle"><a href="/cauta/?filtre=Dell"><img src="{{ STATIC_PREFIX }}images/dell_partner.png" width="177" height="70" alt="Dell Partner" title="Dell"/></a></div></li>
-                        <li><div class="middle"><a href="/cauta/?filtre=Lenovo"><img src="{{ STATIC_PREFIX }}images/lenovo.png" width="70" height="70" alt="Lenovo logo" title="Lenovo"/></a></div></li>
-                    </ul>-->
+
 					<div class="wrapper_certificari">
 							<div class="container">
 								<div id="slides">
@@ -237,30 +253,21 @@ Click pentru a vedea multitudinea de furnizori pe care ii reprezentam.</p>
 		</div>	
 		
     </div>
-    <div class="push"></div>
 </div>
 <div class="footer_wrapper">	
 	<div class="footer clear">
     	<div class="titlu_top">
              <span class="up_left"></span>
                   <ul class="tab_up">                                    
-                       <li>quickmenu</li>
-                       <li><span class="spacer">|</span></li>
-                       <li>tags</li>                                    
+                       <li>resurse</li>
+                                                     
                   </ul>
              <span class="up_right"></span>
     	</div>   
-		<div class="tags">
-			{% for category in footer %}
-				<a href="{{ category.url }}">{{ category.name }}</a>
-			{% endfor %}
-        </div>
+
         <div class="bottom-footer">
         	<ul class="menu-subsol">
-
-	
-			
-			<li><a href="{% url "conditions" %}">Conditii Vanzare</a></li>
+            <li><a href="{% url "conditions" %}">Conditii Vanzare</a></li>
             <li><a href="{% url "contact" %}">Contact</a></li>
 			<li><a href="{% url "service" %}">Service IT</a></li>
 			<li><a href="http://www.anpc.gov.ro/" target="_blank">ANPC</a></li>

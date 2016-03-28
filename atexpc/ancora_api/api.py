@@ -284,8 +284,8 @@ class Ancora(object):
         if category_id:
             base_products_uri = self._get_category_meta(category_id, 'products_uri')
         else:
-            some_products_uri = self.categories()[0]['products_uri']
-            base_products_uri = self.adapter.uri_with_args(some_products_uri,
+            any_products_uri = self.categories()[0]['products_uri']
+            base_products_uri = self.adapter.uri_with_args(any_products_uri,
                                                            args={'idgrupa': None})
         return base_products_uri
 
@@ -302,7 +302,7 @@ class Ancora(object):
     def _no_products(self):
         return self._post_process_product_list()({})
 
-    def search_products(self, category_id=None, keywords=None, selectors=None,
+    def search_products(self, category_id=None, keywords=None, base_category=None, selectors=None,
                         price_min=None, price_max=None, start=None, stop=None,
                         stock=None, sort_by=None, sort_order=None):
         if not (keywords or selectors or 
@@ -315,6 +315,7 @@ class Ancora(object):
             args['zvalori_selectoare_id'] = ','.join(selectors)
         if keywords:
             args['zdescriere'] = self._full_text_conjunction(keywords)
+            args['codp'] = base_category     # top category number (1, 2, 3, ...)
         if price_min or price_max:
             args['zpret_site_min'] = price_min
             args['zpret_site_max'] = price_max
@@ -439,7 +440,7 @@ class Ancora(object):
     def brands(self):
         def post_process(data):
             json_root = 'brands'
-            brands = [brand['zdenumire'].capitalize() for brand in data.get(json_root, [])]
+            brands = [brand['pid'].capitalize() for brand in data.get(json_root, [])]
             return brands
 
         brands_uri = self.adapter.uri_for('brands')
