@@ -10,7 +10,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^', include('atexpc.atex_web.urls')),
-    url(r'^', include('social.apps.django_app.urls')),
+    url(r'^', include('social.apps.django_app.urls', namespace='social')),
     url(r'^admin/', include(admin.site.urls)),
 )
 
