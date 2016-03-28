@@ -235,6 +235,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'password_reset',
     'haystack',
+    'memoize',
 )
 
 # A sample logging configuration. The only tangible logging

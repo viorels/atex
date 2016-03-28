@@ -59,9 +59,9 @@ class ServiceView(BreadcrumbsMixin, TemplateView):
     template_name = "service.html"
     breadcrumbs = [{'name': "Servicii"}]
 
-class ContestView(BreadcrumbsMixin, TemplateView):
-    template_name = "contest.html"
-    breadcrumbs = [{'name': "Concurs"}]
+class WarrantyServiceView(BreadcrumbsMixin, TemplateView):
+    template_name = "warranty-service.html"
+    breadcrumbs = [{'name': "Service autorizat"}]
 
 class PromotionsView(BreadcrumbsMixin, TemplateView):
     template_name = "promotions.html"

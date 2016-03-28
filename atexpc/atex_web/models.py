@@ -17,6 +17,7 @@ from django.utils.http import urlquote
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 import pytz
+from memoize import memoize
 from sorl.thumbnail import ImageField
 
 import logging
@@ -89,6 +90,7 @@ class ProductManager(models.Manager):
             product['hits'] = product_obj.month_count if product_obj else 0
         return products
 
+    @memoize(timeout=24*60*60)
     def get_top_hits(self, limit=5):
         return (self.filter(hit__count__gte=1,
                             hit__date__gte=self.one_month_ago())

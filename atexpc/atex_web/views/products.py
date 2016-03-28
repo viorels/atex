@@ -126,7 +126,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
             request_GET = self.request.GET.copy()
             if request_GET.get('categorie') is None:
                 request_GET['categorie'] = self.get_category_id()
-            search_in_choices = tuple((c['id'], c['name']) for c in self.request.api.categories.get_main())
+            search_in_choices = tuple((c['code'], c['name']) for c in self.request.api.categories.get_main())
             search_form_class = search_form_factory(search_in_choices, advanced=True)
             self._search_form = search_form_class(request_GET)
             if not self._search_form.is_valid():
@@ -149,6 +149,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
         if search_form.is_valid():
             args['category_id'] = self.get_category_id()
             args['keywords'] = search_form.cleaned_data.get('q')
+            args['base_category'] = search_form.cleaned_data.get('cauta_in')
             args['current_page'] = search_form.cleaned_data.get('pagina')
             args['per_page'] = search_form.cleaned_data.get('pe_pagina')
             args['price_min'] = search_form.cleaned_data.get('pret_min')
@@ -166,14 +167,18 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
         return args
 
     def get_category_id(self):
-        category_id = self.kwargs.get('category_id') or self.request.GET.get('categorie')
+        if self.request.GET.get('cuvinte'):
+            category_id = None  # search in base category, not specific category
+        else:
+            category_id = self.kwargs.get('category_id') or self.request.GET.get('categorie')
         return int(category_id) if category_id else None
 
     def get_products_page(self):
         if not hasattr(self, '_products_page'):
             args = self.get_search_args()
             products_args = {
-                'category_id': args['category_id'], 'keywords': args['keywords'],
+                'category_id': args['category_id'],
+                'keywords': args['keywords'], 'base_category': args['base_category'],
                 'selectors': args['selectors_active'], 'price_min': args['price_min'],
                 'price_max': args['price_max'], 'stock': args['stock'],
                 'sort_by': args['sort_by'], 'sort_order': args['sort_order']}
@@ -267,6 +272,18 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
                                     'selectors': [selector for selector in group['selectors'] if selector['count'] > 0]}
                                    for group in selectors] # if len(group['selectors']) > 0]
         return selectors_with_products
+
+
+class SearchMixin(object):
+    def get_context_data(self, **context):
+        context.update({'search_form': self.get_search_form})
+        return super(SearchMixin, self).get_context_data(**context)
+
+    def get_search_form(self):
+        search_in_choices = tuple((c['code'], c['name']) for c in self.api.categories.get_main())
+        search_form_class = search_form_factory(search_in_choices, advanced=False)
+        search_form = search_form_class(self.request.GET)
+        return search_form
 
 
 class ProductView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
