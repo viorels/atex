@@ -48,7 +48,7 @@ urlpatterns = patterns('',
         url(r'PIE\.htc$',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),
     # TODO: remove ledacy redirect sm.ashx to MEDIA_URL + SHOPMANIA_FEED_FILE
-    url(r'^sm.ashx$', RedirectView.as_view(url='/media/shopmania.csv')),
+    url(r'^sm.ashx$', RedirectView.as_view(url='/media/shopmania.csv', permanent=True)),
 )
 
 if settings.DEBUG:

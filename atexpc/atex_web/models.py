@@ -275,7 +275,6 @@ def _media_path(instance, filename):
     return path
 
 class Image(models.Model):
-    print "IMPORT ", models
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     path = models.CharField(max_length=128, db_index=True)
     image = ImageField(storage=StorageWithOverwrite(), upload_to=_media_path, max_length=255)
