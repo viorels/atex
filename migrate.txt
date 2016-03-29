@@ -1,6 +1,7 @@
 recreate venv (to clean old south install and other modules)
 # ln -s python-xapin into virtualenv
 ln -s /usr/lib/python2.7/dist-packages/xapian ~/.virtualenvs/atex/lib/python2.7
+rm migrations/*.pyc
 run new migration style for add product description
 clean login sessions to avoid import errors with python-social-auth
 

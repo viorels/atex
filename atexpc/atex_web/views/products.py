@@ -3,6 +3,7 @@ import math
 from django.template import Context, Template
 from django.http import Http404
 from django.conf import settings
+from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
 from haystack.generic_views import SearchView, FacetedSearchView
 from urllib import urlencode
@@ -62,13 +63,50 @@ class HomeView(CSRFCookieMixin, TemplateView):
         return promotional
 
 
+class SparsePaginator(Paginator):
+    def __init__(self, object_list, per_page, current_page, orphans=0,
+                 allow_empty_first_page=True):
+        super(SparsePaginator, self).__init__(object_list, per_page, orphans=0,
+              allow_empty_first_page=True)
+        self.current_page = current_page
+
+    def sparse_page_range(self):
+        first_page = 1
+        last_page = self.num_pages
+        nearby = 5
+        min_context = max(first_page, self.current_page - nearby)
+        max_context = min(last_page, self.current_page + nearby)
+        before, after = [], []
+        if min_context == first_page + 1:
+            before = [first_page]
+        elif min_context >= first_page + 2:
+            before = [first_page, None]
+        if max_context <= last_page - 2:
+            after = [None, last_page]
+        elif max_context <= last_page - 1:
+            after = [last_page]
+        pages = before + range(min_context, max_context + 1) + after
+        return pages
+
+
 class MySearchView(CSRFCookieMixin, SearchView):
     template_name = "search.html"
     form_name = "search_form"
-    # paginator_class = https://docs.djangoproject.com/en/1.7/ref/class-based-views/mixins-multiple-object/#django.views.generic.list.MultipleObjectMixin.paginator_class
+    search_field = "cuvinte"
+    page_kwarg = "pagina"
 
     def get_form_class(self):
         return search_form_factory((), advanced=True)
+
+    def get_paginate_by(self, queryset):
+        return self.request.GET.get("pe_pagina", 20)
+
+    def get_paginator(self, queryset, per_page, orphans=0,
+                      allow_empty_first_page=True, **kwargs):
+        current_page = int(self.request.GET.get(self.page_kwarg, 1))
+        return SparsePaginator(
+            queryset, per_page, current_page=current_page, orphans=orphans,
+            allow_empty_first_page=allow_empty_first_page, **kwargs)
 
     # def get_queryset(self):
     #     queryset = super(MySearchView, self).get_queryset()
@@ -148,7 +186,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
         search_form = self.get_search_form()
         if search_form.is_valid():
             args['category_id'] = self.get_category_id()
-            args['keywords'] = search_form.cleaned_data.get('q')
+            args['keywords'] = search_form.cleaned_data.get('cuvinte')
             args['base_category'] = search_form.cleaned_data.get('cauta_in')
             args['current_page'] = search_form.cleaned_data.get('pagina')
             args['per_page'] = search_form.cleaned_data.get('pe_pagina')

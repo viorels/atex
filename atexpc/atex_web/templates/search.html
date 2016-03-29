@@ -19,7 +19,7 @@
 
 {% block content_left %}
             <form id="filter_form" method="get" action="{% url "search" %}" class="search">
-                <input type="hidden" name="q" value="{{ search_form.cleaned_data.q }}">
+                <input type="hidden" name="cuvinte" value="{{ search_form.cleaned_data.cuvinte }}">
                 <input type="hidden" name="cauta_in" value="{{ search_form.cleaned_data.cauta_in }}">
 {% comment %}
                 <input type="hidden" name="ordine" value="{{ search_form.cleaned_data.ordine|default:search_form.fields.ordine.initial }}">
@@ -146,24 +146,24 @@
                         <span class="produse-gasite">Produsele de la {{ page_obj.start_index }} la {{ page_obj.end_index }} din {{ paginator.count }} produse {% if category_name %}gasite in categoria <strong>{{ category_name }}</strong>{% endif %}</span>
                     	<div class="tab_d_holder_right">
                             {% if page_obj.has_previous %}
-                                <a href="{{ search_url }}&amp;page={{ page_obj.previous_page_number }}" class="prev"></a>
+                                <a href="{% request_uri_with_args pagina=page_obj.previous_page_number %}" class="prev"></a>
                             {% else %}
                                 <a class="prev"></a>
                             {% endif %}
                                 <ul class="paginare">
-                                    {% for page in TOO_MANY %}
+                                    {% for page in paginator.sparse_page_range %}
                                     <li>
                                         {% if not page %}
                                         <span style="color: white">...</span>
-                                        {% elif page.is_current %}
-                                        <a class="active">{{ page.name }}</a></li>
+                                        {% elif page == page_obj.number %}
+                                        <a class="active">{{ page }}</a></li>
                                         {% else %}
-                                        <a href="{{ page.url }}">{{ page.name }}</a></li>
+                                        <a href="{% request_uri_with_args pagina=page %}">{{ page }}</a></li>
                                         {% endif %}
                                     {% endfor %}
                                 </ul>
                             {% if page_obj.has_next %}
-                                <a href="{{ search_url }}&amp;page={{ page_obj.next_page_number }}" class="next"></a>
+                                <a href="{% request_uri_with_args pagina=page_obj.next_page_number %}" class="next"></a>
                             {% else %}
                                 <a class="next"></a>
                             {% endif %}
