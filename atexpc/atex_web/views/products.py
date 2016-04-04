@@ -92,7 +92,7 @@ class SparsePaginator(Paginator):
 class MySearchView(CSRFCookieMixin, SearchView):
     template_name = "search.html"
     form_name = "search_form"
-    search_field = "cuvinte"
+    search_field = "q"
     page_kwarg = "pagina"
 
     def get_form_class(self):
@@ -186,7 +186,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
         search_form = self.get_search_form()
         if search_form.is_valid():
             args['category_id'] = self.get_category_id()
-            args['keywords'] = search_form.cleaned_data.get('cuvinte')
+            args['keywords'] = search_form.cleaned_data.get('q')
             args['base_category'] = search_form.cleaned_data.get('cauta_in')
             args['current_page'] = search_form.cleaned_data.get('pagina')
             args['per_page'] = search_form.cleaned_data.get('pe_pagina')
@@ -205,7 +205,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
         return args
 
     def get_category_id(self):
-        if self.request.GET.get('cuvinte'):
+        if self.request.GET.get('q'):
             category_id = None  # search in base category, not specific category
         else:
             category_id = self.kwargs.get('category_id') or self.request.GET.get('categorie')

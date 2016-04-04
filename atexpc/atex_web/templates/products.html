@@ -19,7 +19,7 @@
 
 {% block content_left %}
             <form id="filter_form" method="get" action="{% url "products" %}" class="search">
-                <input type="hidden" name="cuvinte" value="{{ search_form.cleaned_data.cuvinte }}">
+                <input type="hidden" name="q" value="{{ search_form.cleaned_data.q }}">
                 <input type="hidden" name="cauta_in" value="{{ search_form.cleaned_data.cauta_in }}">
                 <input type="hidden" name="ordine" value="{{ search_form.cleaned_data.ordine|default:search_form.fields.ordine.initial }}">
                 <input type="hidden" name="pe_pagina" value="{{ search_form.cleaned_data.pe_pagina|default:search_form.fields.pe_pagina.initial }}">

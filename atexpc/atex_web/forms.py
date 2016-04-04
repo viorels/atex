@@ -21,7 +21,7 @@ def search_form_factory(search_in_choices, advanced=False):
     SEARCH_IN_CHOICES = (("", "- Toate Categoriile -"),) + search_in_choices
 
     class SearchForm(FacetedSearchForm):
-        cuvinte = forms.CharField(
+        q = forms.CharField(
             widget=TextInput(attrs={"type": "search",
                                     "class": "search delegate_filter",
                                     "placeholder": "Caută produsul dorit ..."}),
@@ -36,7 +36,7 @@ def search_form_factory(search_in_choices, advanced=False):
 
         def search(self):
             sqs = super(SearchForm, self).search()
-            keywords = self.cleaned_data['cuvinte']
+            keywords = self.cleaned_data['q']
             return sqs.filter(content=keywords).filter(name=keywords).facet('category')
 
     class AdvancedSearchForm(SearchForm):
