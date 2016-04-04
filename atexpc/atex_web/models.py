@@ -109,8 +109,15 @@ class StorageWithOverwrite(get_storage_class()):
         return name
 
 
+class BrandQuerySet(models.QuerySet):
+    def get_by_name(self, name):
+        brand, _ = Brand.objects.get_or_create(name__iexact=name,
+                                               defaults={'name': name})
+        return brand
+
 class Brand(models.Model):
     name = models.CharField(max_length=128)
+    objects = BrandQuerySet.as_manager()
 
 
 class Product(models.Model):
@@ -138,7 +145,14 @@ class Product(models.Model):
 
     @classmethod
     def from_raw(cls, raw):
+        raw = raw.copy()
+
+        # Use fields from raw object, including category_id (as it's the same id in Ancora)
         fields = [field.name for field in cls._meta.fields] + ['category_id']
+
+        # Get brand by name from db
+        raw['brand'] = Brand.objects.get_by_name(raw['brand'])
+
         product = {field: raw.get(field) for field in fields if field in raw}
         return product
 

@@ -112,8 +112,7 @@ class Command(BaseCommand):
                 products_dict = dict((int(p['id']), p) for p in products)
                 for p in products_dict.values():     # augment products with category_id, brand and description
                     p['category_id'] = category_id
-                    p['brand'], _ = Brand.objects.get_or_create(name__iexact=p['brand'],
-                                                                defaults={'name': p['brand']})
+                    p['brand'] = Brand.objects.get_by_name(p['brand'])
                     if fast:
                         del p['description']
                     else:
