@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
-from atexpc.atex_web.models import Product, Category
+from atexpc.atex_web.models import Product, Category, Brand
 from atexpc.atex_web.ancora_api import AncoraAPI
 from atexpc.atex_web.scrape import scrape_specs
 
@@ -104,6 +104,8 @@ class Command(BaseCommand):
                 # products_details = self.api.products.get_product_list(products_dict.keys())
                 for p in products_dict.values():     # augment products with category_id and description
                     p['category_id'] = category_id
+                    p['brand'], _ = Brand.objects.get_or_create(name__iexact=p['brand'],
+                                                                defaults={'name': p['brand']})
                     product_details = self.api.products.get_product(p['id'])
                     p['description'] = product_details['description'] if product_details else ''
                 yield products_dict

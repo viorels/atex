@@ -109,11 +109,17 @@ class StorageWithOverwrite(get_storage_class()):
         return name
 
 
+class Brand(models.Model):
+    name = models.CharField(max_length=128)
+
+
 class Product(models.Model):
     model = models.CharField(max_length=128, db_index=True)
     name = models.CharField(max_length=128)
     description = models.TextField(null=False, blank=True)
     category = models.ForeignKey(Category, null=True)
+    brand = models.ForeignKey(Brand, null=True, default=None)
+    price = models.FloatField(null=True, default=None)
     specs = models.ManyToManyField('Specification', through='ProductSpecification')
     updated = models.DateTimeField(auto_now=True)
     # has_folder = models.NullBooleanField()
