@@ -266,12 +266,6 @@ class Product(models.Model):
         return self.model
 
 
-class CustomQuerySetManager(models.Manager):
-    """A re-usable Manager to access a custom QuerySet"""
-    def get_query_set(self):
-        return self.model.QuerySet(self.model)
-
-
 def _media_path(instance, filename):
     if '/' in filename:
         path_match = re.search(Product.media_folder + '.*', filename)
@@ -280,32 +274,33 @@ def _media_path(instance, filename):
         path = os.path.join(Product.media_folder, filename)
     return path
 
+
+class ImageQuerySet(QuerySet):
+    def unassigned(self, *args, **kwargs):
+        return self.filter(product=None, *args, **kwargs)
+
+    def in_folder(self, folder_name, *args, **kwargs):
+        path = "%s/%s/" % (Product.media_folder, folder_name)
+        return self.filter(image__istartswith=path, *args, **kwargs)
+
+    def assign_images_folder_to_product(self, product):
+        folder_name = product.folder_name()
+        self.unassigned().in_folder(folder_name).update(product=product)
+
+    def assign_all_unasigned(self, get_product_id_for_folder=lambda folder_name: None):
+        for image in self.unassigned().iterator():
+            folder_name = image.folder_name().lower()
+            product_id = get_product_id_for_folder(folder_name)
+            if product_id is not None:
+                image.product_id = product_id
+                image.save()
+                logger.debug("Assigned image %s to product id %d", image, product_id)
+
 class Image(models.Model):
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     path = models.CharField(max_length=128, db_index=True)
     image = ImageField(storage=StorageWithOverwrite(), upload_to=_media_path, max_length=255)
-    objects = CustomQuerySetManager()
-
-    class QuerySet(QuerySet):
-        def unassigned(self, *args, **kwargs):
-            return self.filter(product=None, *args, **kwargs)
-
-        def in_folder(self, folder_name, *args, **kwargs):
-            path = "%s/%s/" % (Product.media_folder, folder_name)
-            return self.filter(image__istartswith=path, *args, **kwargs)
-
-        def assign_images_folder_to_product(self, product):
-            folder_name = product.folder_name()
-            self.unassigned().in_folder(folder_name).update(product=product)
-
-        def assign_all_unasigned(self, get_product_id_for_folder=lambda folder_name: None):
-            for image in self.unassigned().iterator():
-                folder_name = image.folder_name().lower()
-                product_id = get_product_id_for_folder(folder_name)
-                if product_id is not None:
-                    image.product_id = product_id
-                    image.save()
-                    logger.debug("Assigned image %s to product id %d", image, product_id)
+    objects = ImageQuerySet.as_manager()
 
     def folder_name(self):
         path_match = re.match(Product.media_folder + r'/([^/]+)', self.image.name)
