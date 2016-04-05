@@ -1,11 +1,13 @@
 {{ object.get_best_name }}
-... object.description or excel description ?
 {{ object.category.name }}
+{{ object.brand.name }}
 {{ object.model }}
 {{ object.id }}
 
+{{ object.description }}
+
 {% for group, specs in object.get_spec_groups.items %}
     {% for spec, value in specs %}
-		{{ value }}
-	{% endfor %}
+        {{ value }}
+    {% endfor %}
 {% endfor %}

@@ -7,7 +7,13 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='get_best_name', boost=2)
     category = indexes.CharField(model_attr='category__name', faceted=True)
-    # stock = indexes.BooleanField(model_attr='stock')
+    brand = indexes.CharField(model_attr='brand__name', faceted=True)
+    price = indexes.FloatField(model_attr='price')
+    stock = indexes.IntegerField(model_attr='stock')
+    hits = indexes.IntegerField(model_attr='get_recent_hits')
 
     def get_model(self):
         return Product
+
+    def get_updated_field(self):
+        return "updated"    # update_index --age=10 (hours)

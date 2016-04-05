@@ -92,6 +92,7 @@ class ProductManager(models.Manager):
 
     @memoize(timeout=24*60*60)
     def get_top_hits(self, limit=5):
+        """ Within last 30 days """
         return (self.filter(hit__count__gte=1,
                             hit__date__gte=self.one_month_ago())
                     .annotate(month_count=models.Sum('hit__count'))
@@ -227,6 +228,11 @@ class Product(models.Model):
         if not created:
             hit.count = models.F('count') + 1
             hit.save()
+
+    def get_recent_hits(self):
+        hits = self.hit_set.filter(date__gte=Product.objects.one_month_ago()) \
+                           .annotate(month_count=models.Sum('count'))
+        return hits[0].month_count if hits else 0
 
     def get_short_name(self):
         better_name = self.get_spec('Nume')
