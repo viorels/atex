@@ -115,7 +115,7 @@ class MySearchView(CSRFCookieMixin, SearchView):
 
     def get_context_data(self, **kwargs):
         context = super(MySearchView, self).get_context_data(**kwargs)
-        products = [result.object for result in context['object_list']]
+        products = [result.object for result in context['object_list'] if result.object]
 
         # TODO: refactor as it's the same in ProductsView
         for idx, product in enumerate(products):

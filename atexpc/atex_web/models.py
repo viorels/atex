@@ -121,12 +121,25 @@ class Brand(models.Model):
 
 
 class Product(models.Model):
+    # Same as in ancora_api.Ancora
+    STOCK_UNKNOWN = 0       # unknown/call
+    STOCK_TRUE = 1          # in stoc
+    STOCK_ORDER = 2         # order, la comanda
+    STOCK_UNAVAILABLE = 3   # indisponibil
+    STOCK_CHOICES = (
+        (STOCK_UNKNOWN, 'call'),
+        (STOCK_TRUE, 'in stoc'),
+        (STOCK_ORDER, 'la comanda'),
+        (STOCK_UNAVAILABLE, 'indisponibil'),
+    )
+
     model = models.CharField(max_length=128, db_index=True)
     name = models.CharField(max_length=128)
     description = models.TextField(null=False, blank=True)
     category = models.ForeignKey(Category, null=True)
-    brand = models.ForeignKey(Brand, null=True, default=None)
-    price = models.FloatField(null=True, default=None)
+    brand = models.ForeignKey(Brand, null=True)
+    price = models.FloatField(null=True)
+    stock = models.SmallIntegerField(choices=STOCK_CHOICES, null=True)
     specs = models.ManyToManyField('Specification', through='ProductSpecification')
     updated = models.DateTimeField(auto_now=True)
     # has_folder = models.NullBooleanField()
@@ -147,11 +160,12 @@ class Product(models.Model):
     def from_raw(cls, raw):
         raw = raw.copy()
 
-        # Use fields from raw object, including category_id (as it's the same id in Ancora)
-        fields = [field.name for field in cls._meta.fields] + ['category_id']
+        # Use fields from raw object, including category and brand by id
+        fields = [field.name for field in cls._meta.fields] + ['category_id', 'brand_id']
 
-        # Get brand by name from db
-        raw['brand'] = Brand.objects.get_by_name(raw['brand'])
+        # Get brand by name from db and store the id
+        raw['brand_id'] = Brand.objects.get_by_name(raw['brand']).id
+        del raw['brand']
 
         product = {field: raw.get(field) for field in fields if field in raw}
         return product
