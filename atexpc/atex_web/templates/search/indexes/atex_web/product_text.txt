@@ -1,7 +1,8 @@
 {{ object.get_best_name }}
-{{ object.description }}
+... object.description or excel description ?
 {{ object.category.name }}
 {{ object.model }}
+{{ object.id }}
 
 {% for group, specs in object.get_spec_groups.items %}
     {% for spec, value in specs %}
