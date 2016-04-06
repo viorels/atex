@@ -30,7 +30,6 @@ def _category_specs_path(instance, filename):
     return os.path.join(SPECS_PATH, canonical_name)
 
 class Category(models.Model):
-
     name = models.CharField(max_length=64)
     code = models.CharField(max_length=8)
     parent = models.ForeignKey('self', null=True)
@@ -38,6 +37,13 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Categories'
+
+    def get_main_category(self):
+        """Returns the top category that this category belongs to"""
+        category = self
+        while category.parent is not None:
+            category = category.parent
+        return category
 
     @models.permalink
     def get_absolute_url(self):
@@ -180,6 +186,9 @@ class Product(models.Model):
                 setattr(self, field, new_value)
                 updated = True
         return self if updated else None
+
+    def get_main_category_code(self):
+        return self.category.get_main_category().code
 
     def folder_name(self):
         folder = re.sub(r'[<>:"|?*/\\]', "-", self.model)

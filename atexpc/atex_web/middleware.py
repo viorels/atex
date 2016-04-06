@@ -16,8 +16,7 @@ class AncoraMiddleware(object):
 
     def process_template_response(self, request, response):
         if hasattr(response, 'context_data'):
-            if 'search_form' not in response.context_data:
-                response.context_data['search_form'] = get_search_form(request)
+            response.context_data['search_form'] = get_search_form(request)
         return response
 
     def process_exception(self, request, exception):
@@ -115,7 +114,7 @@ def get_footer(api):
             if _category_level(category) >= 2 and category['count'] > 0]
 
 def get_search_form(request):
-    search_in_choices = tuple((c['id'], c['name']) for c in request.api.categories.get_main())
+    search_in_choices = tuple((c['code'], c['name']) for c in request.api.categories.get_main())
     search_form_class = search_form_factory(search_in_choices, advanced=False)
     search_form = search_form_class(request.GET)
     return search_form

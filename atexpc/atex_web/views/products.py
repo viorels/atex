@@ -91,12 +91,13 @@ class SparsePaginator(Paginator):
 
 class MySearchView(CSRFCookieMixin, SearchView):
     template_name = "search.html"
-    form_name = "search_form"
+    form_name = "filter_form"
     search_field = "q"
     page_kwarg = "pagina"
 
     def get_form_class(self):
-        return search_form_factory((), advanced=True)
+        search_in_choices = tuple((c['code'], c['name']) for c in self.request.api.categories.get_main())
+        return search_form_factory(search_in_choices, advanced=True)
 
     def get_paginate_by(self, queryset):
         return self.request.GET.get("pe_pagina", 20)
@@ -146,7 +147,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
     template_name = "products.html"
 
     def get_context_data(self, **context):
-        context.update({'search_form': self.get_search_form,
+        context.update({'filter_form': self.get_search_form,
                         'selectors': self.get_selectors,
                         'selectors_active': lambda: self.get_search_args()['selectors_active'],
                         'price_min': lambda: self.get_search_args()['price_min'],
@@ -310,18 +311,6 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
                                     'selectors': [selector for selector in group['selectors'] if selector['count'] > 0]}
                                    for group in selectors] # if len(group['selectors']) > 0]
         return selectors_with_products
-
-
-class SearchMixin(object):
-    def get_context_data(self, **context):
-        context.update({'search_form': self.get_search_form})
-        return super(SearchMixin, self).get_context_data(**context)
-
-    def get_search_form(self):
-        search_in_choices = tuple((c['code'], c['name']) for c in self.api.categories.get_main())
-        search_form_class = search_form_factory(search_in_choices, advanced=False)
-        search_form = search_form_class(self.request.GET)
-        return search_form
 
 
 class ProductView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):

@@ -19,14 +19,14 @@
 
 {% block content_left %}
             <form id="filter_form" method="get" action="{% url "search" %}" class="search">
-                <input type="hidden" name="q" value="{{ search_form.cleaned_data.q }}">
-                <input type="hidden" name="cauta_in" value="{{ search_form.cleaned_data.cauta_in }}">
-                <input type="hidden" name="ordine" value="{{ search_form.cleaned_data.ordine|default:search_form.fields.ordine.initial }}">
-                <input type="hidden" name="pe_pagina" value="{{ search_form.cleaned_data.pe_pagina|default:search_form.fields.pe_pagina.initial }}">
-                <input type="hidden" name="stoc" value="{{ search_form.cleaned_data.stoc|default:search_form.fields.stoc.initial }}">
+                <input type="hidden" name="q" value="{{ filter_form.cleaned_data.q }}">
+                <input type="hidden" name="cauta_in" value="{{ filter_form.cleaned_data.cauta_in }}">
+                <input type="hidden" name="ordine" value="{{ filter_form.cleaned_data.ordine|default:filter_form.fields.ordine.initial }}">
+                <input type="hidden" name="pe_pagina" value="{{ filter_form.cleaned_data.pe_pagina|default:filter_form.fields.pe_pagina.initial }}">
+                <input type="hidden" name="stoc" value="{{ filter_form.cleaned_data.stoc|default:filter_form.fields.stoc.initial }}">
 
                 <div class="left_search">
-                    {{ search_form.categorie }}
+                    {{ filter_form.categorie }}
                     {% if selectors %}
                 	<div class="reset-sel">
                     	<a href="#" class="reset_sel_btn" id="uncheck">Anuleaza toate selectiile</a>
@@ -81,15 +81,15 @@
                     <ul class="filtrare">
                     	<li>
                         	<span>Ordoneaza dupa: </span>
-                            {{ search_form.ordine }}
+                            {{ filter_form.ordine }}
                         </li>
                         <li>
                         	<span>Nr produse pe pagina: </span>
-                            {{ search_form.pe_pagina }}
+                            {{ filter_form.pe_pagina }}
                         </li>
                         <li>
                         	<span>Doar produsele din stoc: </span>
-                            {{ search_form.stoc }}
+                            {{ filter_form.stoc }}
                         </li>
                     </ul>    
                 </div>

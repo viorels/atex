@@ -42,8 +42,16 @@ def search_form_factory(search_in_choices, advanced=False):
 
         def search(self):
             sqs = super(SearchForm, self).search()
+
             keywords = self.cleaned_data['q']
-            return sqs.filter(content=AutoQuery(keywords))
+            if keywords:
+                sqs = sqs.filter(content=AutoQuery(keywords))
+
+            category = self.cleaned_data['cauta_in']
+            if category:
+                sqs = sqs.filter(main_category=category)
+
+            return sqs
 
     class AdvancedSearchForm(SearchForm):
         categorie = forms.IntegerField(
@@ -68,7 +76,7 @@ def search_form_factory(search_in_choices, advanced=False):
         pret_max = forms.IntegerField(initial='', required=False)
 
         def search(self):
-            sqs = super(SearchForm, self).search()
+            sqs = super(AdvancedSearchForm, self).search()
 
             if self.cleaned_data['stoc']:
                 sqs = sqs.filter(stock=Exact(Product.STOCK_TRUE))
