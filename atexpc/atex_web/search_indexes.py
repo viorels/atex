@@ -15,5 +15,12 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
     def get_model(self):
         return Product
 
+    def build_queryset(self, *args, **kwargs):
+        qs = super(ProductIndex, self).build_queryset(*args, **kwargs)
+        qs = qs.select_related('category', 'brand') \
+               .prefetch_related('specs')
+        # TODO: prefetch recent hits
+        return qs
+
     def get_updated_field(self):
         return "updated"    # update_index --age=10 (hours)
