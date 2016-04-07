@@ -1,3 +1,4 @@
+{{ object.get_short_name }}
 {{ object.get_best_name }}
 {{ object.category.name }}
 {{ object.brand.name }}

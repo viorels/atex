@@ -6,10 +6,11 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
 from haystack.generic_views import SearchView, FacetedSearchView
+from haystack.query import SearchQuerySet
 from urllib import urlencode
 from urlparse import urlparse, urlunparse, parse_qsl
 
-from atexpc.atex_web.views.base import BreadcrumbsMixin, CSRFCookieMixin
+from atexpc.atex_web.views.base import BreadcrumbsMixin, CSRFCookieMixin, HybridGenericView
 from atexpc.atex_web.models import Product, ProductSpecification
 from atexpc.atex_web.forms import search_form_factory
 from atexpc.atex_web.utils import group_in, grouper
@@ -141,6 +142,18 @@ class MySearchView(CSRFCookieMixin, SearchView):
             setattr(product, 'stock_info', ancora_product.get('stock_info'))
             setattr(product, 'stock_available', ancora_product.get('stock_status') != Ancora.STOCK_UNAVAILABLE)
         return products
+
+
+class SearchAutoComplete(HybridGenericView):
+    json_exclude = ('view',)
+    def get_context_data(self, **kwargs):
+        context = super(SearchAutoComplete, self).get_context_data(**kwargs)
+
+        sqs = SearchQuerySet().autocomplete(name_auto=self.request.GET.get('q', '')) \
+                              .order_by('-hits')[:10]
+        context['suggestions'] = [result.name_auto for result in sqs]
+
+        return context
 
 
 class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):

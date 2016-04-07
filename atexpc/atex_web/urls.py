@@ -9,6 +9,7 @@ from views import (HomeView, MySearchView, ProductsView, ProductView, BrandsView
                    ContactView, ConditionsView, ServiceView, WarrantyServiceView,
                    CartView, OrderView, ConfirmView, LoginView,
                    RecoverPassword, RecoverPasswordDone, ResetPassword, ResetPasswordDone)
+from views.products import SearchAutoComplete
 from views.authentication import GetEmails
 from views.shopping import GetCompanyInfo
 
@@ -16,6 +17,7 @@ from views.shopping import GetCompanyInfo
 urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^cauta/', MySearchView.as_view(), name='search'),
+    url(r'^cauta_auto/', SearchAutoComplete.as_view()),
     url(r'^produse/$', ProductsView.as_view(), name='products'),
     url(r'^produse/(?P<category_id>\d+)-(?P<slug>.*)$',
         ProductsView.as_view(), name='category'),

@@ -98,6 +98,19 @@ function init_filters() {
     var left_checkboxes = filter_form.find('input[type=checkbox]');
     var delegate_filters = $('.delegate_filter');
 
+    var search_input = search_form.find('input[name="q"]');
+    search_input.autocomplete({
+        serviceUrl: '/cauta_auto/',
+        paramName: 'q',
+        dataType: 'json',
+        noCache: true,
+        onSelect: function(suggestion) {
+            search_input.change();
+            filter_form.submit();
+        },
+        width: 350,
+    });
+
 	left_checkboxes.click(function () {
 		if ($(this).hasClass("submit")) {
 			filter_form.submit();
