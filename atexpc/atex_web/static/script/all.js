@@ -52,6 +52,7 @@ var get_emails_url = '/login/emails/';
 })(jQuery);
 
 function init_gallery() {
+    // product images
 	var gallery = $('#images');
 	gallery.exposure({controlsTarget : '#controls',
 		controls : { prevNext : true, pageNumbers : true, firstLast : false },
@@ -641,12 +642,23 @@ $(document).ready(function() {
     init_order();
     init_confirm();
     init_checkboxes();
-	$('.bxslider').bxSlider({auto:true, mode: 'fade', pause:'5000'});
-    // $('input[placeholder], textarea[placeholder]').inputHints();
 
-	//$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
+    // big carousel on home page
+    $('.bxslider').bxSlider({auto:true, mode: 'fade', pause:'5000'});
+
+    // small carousel with brands on bottom of all pages
+    $('#slides').slidesjs({
+        width: 278,
+        height: 100,
+        play: {
+            active: false,
+            auto: true,
+            interval: 4000,
+            swap: true
+        }
+    });
+
 	if ($(window).width() > 480) {
         calculate_height();
     }
 });
-
