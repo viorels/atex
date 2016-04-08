@@ -95,10 +95,10 @@ function init_gallery() {
 function init_filters() {
     var search_form = $("#search_form");
 	var filter_form = $("#filter_form");
+    var search_input = search_form.find('input[name="q"]');
     var left_checkboxes = filter_form.find('input[type=checkbox]');
     var delegate_filters = $('.delegate_filter');
 
-    var search_input = search_form.find('input[name="q"]');
     search_input.autocomplete({
         serviceUrl: '/cauta_auto/',
         paramName: 'q',
@@ -150,13 +150,25 @@ function init_filters() {
         }
         return false;
     }
-    $("input#id_q").keyup(function(e){
+    search_input.keyup(function(e){
         var key_enter = 13;
         if(e.keyCode == key_enter){
-            return submit_search_filter_form(e);
+            if (search_input.val()) {
+                return submit_search_filter_form(e);
+            }
+            else {
+                return false;
+            }
         }
     });
-    $("input[name=cauta]").click(submit_search_filter_form);
+    $("input[name=cauta]").click(function (e) {
+        if (search_input.val()) {
+            return submit_search_filter_form(e);
+        }
+        else {
+            return false;
+        }
+    });
 
 	$('.reset_sel_btn').click(function () {
         uncheck_filters();
