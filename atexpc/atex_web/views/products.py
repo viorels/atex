@@ -142,9 +142,26 @@ class MySearchView(CSRFCookieMixin, SearchView):
 
         self.augment_products(products)
         context['object_list'] = products
+        if not products:
+            context['no_products'] = self.get_no_products_message(context[self.form_name])
         context['search_url'] = _uri_with_args(self.request.build_absolute_uri(), page=None)
         # context['facets'] = context['object_list'].facet_counts()
         return context
+
+    def get_no_products_message(self, form):
+        keywords = form.cleaned_data[self.search_field]
+        message = 'Nu am gasit produse "%s"' % (keywords,)
+
+        category_code = form.cleaned_data['cauta_in']
+        category = self.request.api.categories.get_category_by_code(str(category_code)) if category_code else None
+        if category:
+            message += ' din categoria "%s"' % (category['name'],)
+
+        in_stock = form.cleaned_data['stoc']
+        if in_stock:
+            message += ', in stoc'
+
+        return message + '!'
 
     def augment_products(self, products):
         """ Augments products from search with updated info from Ancora """

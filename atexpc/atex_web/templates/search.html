@@ -139,6 +139,8 @@
                         {% if product.last_in_line %}
                             <div class="product_spacer"></div>
                         {% endif %}
+                    {% empty %}
+                        <h1 class="no_products">{{ no_products }}</h1>
                     {% endfor %}
                     
                     <div class="product-section">
