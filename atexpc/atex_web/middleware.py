@@ -26,7 +26,7 @@ class AncoraMiddleware(object):
 def context_processor(request):
     return {'menu': get_menu(request.api),
             'categories': request.api.categories.get_main,
-            'footer': get_footer(request.api),
+            # 'footer': get_footer(request.api),
             'site_info': get_site_info(request),
             'cart': get_cart_data(request)}
 
