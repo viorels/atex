@@ -1,7 +1,7 @@
 import math
 
 from django.template import Context, Template
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
@@ -95,6 +95,22 @@ class MySearchView(CSRFCookieMixin, SearchView):
     form_name = "filter_form"
     search_field = "q"
     page_kwarg = "pagina"
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates a blank version of the form.
+        """
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+
+        if form.is_valid():
+            response = self.form_valid(form)
+            if self.queryset.count() == 1:
+                return HttpResponseRedirect(self.queryset[0].object.get_absolute_url())
+            else:
+                return response
+        else:
+            return self.form_invalid(form)
 
     def get_form_class(self):
         search_in_choices = tuple((c['code'], c['name']) for c in self.request.api.categories.get_main())
