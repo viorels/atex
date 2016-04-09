@@ -26,7 +26,6 @@ class AncoraMiddleware(object):
 def context_processor(request):
     return {'menu': get_menu(request.api),
             'categories': request.api.categories.get_main,
-            # 'footer': get_footer(request.api),
             'site_info': get_site_info(request),
             'cart': get_cart_data(request)}
 
@@ -106,12 +105,6 @@ def get_menu(api):
         menu.append(category)
 
     return menu
-
-def get_footer(api):
-    return [{'name': category['name'],
-             'url': _category_url(category)}
-            for category in api.categories.get_all()
-            if _category_level(category) >= 2 and category['count'] > 0]
 
 def get_search_form(request):
     search_in_choices = tuple((c['code'], c['name']) for c in request.api.categories.get_main())

@@ -27,14 +27,12 @@ class BaseView(TemplateView):
     def get_general_context(self):
         return {'menu': self.get_menu,
                 'categories': self.api.categories.get_main,
-                'footer': self.get_footer,
                 'site_info': self.get_site_info}
 
     def get_minimal_context(self):
         self.api = AncoraAPI(use_backend=False)
         return {'menu': self.get_menu(),
                 'categories': self.api.categories.get_main(),
-                'footer': self.get_footer(),
                 'site_info': self.get_site_info()}
 
     def get_local_context(self):
@@ -131,12 +129,6 @@ class BaseView(TemplateView):
             menu.append(category)
 
         return menu
-
-    def get_footer(self):
-        return [{'name': category['name'],
-                 'url': self._category_url(category)}
-                for category in self.api.categories.get_all()
-                if self._category_level(category) >= 2 and category['count'] > 0]
 
     def get_site_info(self):
         current_site = get_current_site(self.request)
