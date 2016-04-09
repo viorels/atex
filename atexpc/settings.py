@@ -71,9 +71,6 @@ CACHES = {
     }
 }
 
-CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
-CACHE_MIDDLEWARE_SECONDS = 60
-
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = BROKER_URL
 CELERY_ACCEPT_CONTENT = ['json']  # Ignore other content
@@ -194,7 +191,6 @@ TEMPLATES = [
 ]
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -206,7 +202,6 @@ MIDDLEWARE_CLASSES = (
     
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',     # must be after auth sets Vary header
     'atexpc.atex_web.middleware.AncoraMiddleware'
 )
 

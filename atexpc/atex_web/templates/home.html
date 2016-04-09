@@ -1,5 +1,5 @@
 {% extends "base_2col.html" %}
-{% load atex_tags %}
+{% load cache atex_tags %}
 
 {% block title %}ATEX - Noi vindem calculatoare!{% endblock %}
 
@@ -12,7 +12,7 @@
 {% block content_top %}{% endblock content_top %}
 
 {% block content_right %}
-            	
+    {% cache 60 home %}
 			  <ul class="bxslider">
 				<li><a href="http://www.atexpc.ro/produs/76786-ultrabook-lenovo-x1-carbon-3-cu-procesor-intel-core-i7"><img src="{{ STATIC_PREFIX }}images/promotii/thinkpad-x1-carbon3.jpg" alt="Lenovo ThinkPad x1 Carbon 3" title="Lenovo ThinkPad x1 Carbon 3" /></a></li>
 				
@@ -115,4 +115,5 @@
                     </div>
                      <!-- end top 3 --> 
                 </div>
+    {% endcache %}
 {% endblock content_right %}
