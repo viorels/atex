@@ -139,10 +139,10 @@ class GetCompanyInfo(HybridGenericView):
     template_name = None
     json_exclude = ('object_list', 'view', 'paginator', 'page_obj', 'is_paginated')
 
-    def get_local_context(self):
+    def get_context_data(self, **kwargs):
         cif = self.kwargs.get('cif')
         r = requests.get('http://openapi.ro/api/companies/%s.json' % cif)
-        return r.json
+        return r.json()
 
 
 class ConfirmView(LoginRequiredMixin, BreadcrumbsMixin, HybridGenericView):
@@ -150,8 +150,10 @@ class ConfirmView(LoginRequiredMixin, BreadcrumbsMixin, HybridGenericView):
     breadcrumbs = OrderView.breadcrumbs + [FrozenDict(name="Confirmare",
                                                       url=reverse_lazy('confirm'))]
 
-    def get_local_context(self):
-        return {'order': self.request.session.get('order')}
+    def get_context_data(self, **kwargs):
+        context = super(ConfirmView, self).get_context_data(**kwargs)
+        context['order'] = self.request.session.get('order')
+        return context
 
     def post(self, request, *args, **kwargs):
         order_info = request.session.get('order').copy()

@@ -422,18 +422,6 @@ class BrandsView(BreadcrumbsMixin, TemplateView):
     template_name = "branduri.html"
     breadcrumbs = [{'name': "Branduri"}]
 
-    def get_local_context(self):
-        return {'brand_index': self._brand_index()}
-
-    def _brand_index(self):
-        brands = self.request.api.products.get_brands()
-        index_letters = sorted(set(brand[0].upper() for brand in brands))
-        brand_index = dict((letter, sorted(brand for brand in brands
-                            if brand[0].upper() == letter))
-                           for letter in index_letters)
-        grouped_brand_index = grouper(4, sorted(brand_index.items()))
-        return grouped_brand_index
-
 
 def _uri_with_args(base_uri, **new_args):
     """Overwrite specified args in base uri. If any other multiple value args
