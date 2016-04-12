@@ -5,23 +5,31 @@ from django.contrib.auth import forms as auth_forms, get_user_model
 from django.core.validators import validate_email
 from django.forms.widgets import (TextInput, PasswordInput, HiddenInput, 
     CheckboxInput, RadioSelect, Select, Textarea)
-
+from haystack.forms import FacetedSearchForm
+from haystack.inputs import AutoQuery, Exact
 # ROCNPField, ROPhoneNumberField, ROCIFField, ROIBANField, ROCountyField, ROCountySelect
 from localflavor.ro import forms as roforms
 
+from models import Product
+
+SORT_PRICE_ASC = 'pret_asc'
+SORT_PRICE_DESC = 'pret_desc'
+SORT_SALES_DESC = 'vanzari_desc'
 SORT_CHOICES = (
-    ('pret_asc', ' - pret crescator - '),
-    ('pret_desc', ' - pret descrescator - '),
-    ('vanzari_desc', ' - cele mai vandute - '))
+    (SORT_PRICE_ASC, ' - pret crescator - '),
+    (SORT_PRICE_DESC, ' - pret descrescator - '),
+    (SORT_SALES_DESC, ' - cele mai vandute - '))
 
 PER_PAGE_CHOICES = tuple((choice, str(choice)) for choice in (20, 40, 60))
+
 
 def search_form_factory(search_in_choices, advanced=False):
     SEARCH_IN_CHOICES = (("", "- Toate Categoriile -"),) + search_in_choices
 
-    class SearchForm(forms.Form):
-        cuvinte = forms.CharField(
-            widget=TextInput(attrs={"class": "search delegate_filter",
+    class SearchForm(FacetedSearchForm):
+        q = forms.CharField(
+            widget=TextInput(attrs={"type": "search",
+                                    "class": "search delegate_filter",
                                     "placeholder": "Caută produsul dorit ..."}),
             initial='',
             required=False)
@@ -31,6 +39,19 @@ def search_form_factory(search_in_choices, advanced=False):
             choices=SEARCH_IN_CHOICES,
             coerce=int,
             required=False)
+
+        def search(self):
+            sqs = super(SearchForm, self).search()
+
+            keywords = self.cleaned_data['q']
+            if keywords:
+                sqs = sqs.filter(content=AutoQuery(keywords))
+
+            category = self.cleaned_data['cauta_in']
+            if category:
+                sqs = sqs.filter(main_category=category)
+
+            return sqs
 
     class AdvancedSearchForm(SearchForm):
         categorie = forms.IntegerField(
@@ -53,6 +74,21 @@ def search_form_factory(search_in_choices, advanced=False):
         pagina = forms.IntegerField(initial=1, required=False)
         pret_min = forms.IntegerField(initial='', required=False)
         pret_max = forms.IntegerField(initial='', required=False)
+
+        def search(self):
+            sqs = super(AdvancedSearchForm, self).search()
+
+            if self.cleaned_data['stoc']:
+                sqs = sqs.filter(stock=Exact(Product.STOCK_TRUE))
+
+            order = self.cleaned_data['ordine']
+            if order:
+                order_args = {SORT_PRICE_ASC: 'price',
+                              SORT_PRICE_DESC: '-price',
+                              SORT_SALES_DESC: '-hits'}
+                sqs = sqs.order_by(order_args[order])
+
+            return sqs
 
     return AdvancedSearchForm if advanced else SearchForm
 

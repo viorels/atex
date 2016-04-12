@@ -8,7 +8,7 @@ from django.core.files import File, temp
 from dropbox import rest, session, client
 from dropbox.rest import ErrorResponse, RESTSocketError
 
-from atexpc.atex_web.models import Dropbox, Product, Image, StorageWithOverwrite
+from atexpc.atex_web.models import Dropbox, Product, Image, StorageWithOverwrite, _media_path
 
 import logging
 logger = logging.getLogger(__name__)
@@ -129,12 +129,18 @@ class DropboxMedia(object):
         os.unlink(tempfile.name)
 
     def _storage_image_writer(self, path, f):
-        image, created = Image.objects.get_or_create(path=path)
+        try:
+            image, created = Image.objects.get_or_create(path=path)
+        except Image.MultipleObjectsReturned:
+            images = Image.objects.filter(path=path)
+            image = images[0]
+            for i in images[1:]:
+                i.delete()
         django_file = File(f)
         image.image.save(path, django_file)
 
     def _storage_file_writer(self, path, f):
-        media_path = Image()._media_path(path)
+        media_path = _media_path(None, path)
         django_file = File(f)
         StorageWithOverwrite().save(media_path, django_file)
 
@@ -149,5 +155,5 @@ class DropboxMedia(object):
             pass
 
         # delete storage file with this name
-        media_path = Image()._media_path(path)
+        media_path = _media_path(None, path)
         StorageWithOverwrite().delete(media_path)

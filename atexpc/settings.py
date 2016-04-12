@@ -5,7 +5,6 @@ import sys
 # Django settings for atexpc project.
 
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Viorel Stirbu', 'viorels@gmail.com'),
@@ -63,17 +62,14 @@ if 'test' in sys.argv:
 
 CACHES = {
     "default": {
-        "BACKEND": "redis_cache.cache.RedisCache",
-        "LOCATION": "127.0.0.1:6379:0",
+        "BACKEND": "redis_cache.RedisCache",
+        "LOCATION": "127.0.0.1:6379",
         "OPTIONS": {
-            "CLIENT_CLASS": "redis_cache.client.DefaultClient",
+            "DB": 0,
         },
         'TIMEOUT': 300,
     }
 }
-
-CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
-CACHE_MIDDLEWARE_SECONDS = 60
 
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = BROKER_URL
@@ -82,9 +78,9 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.google.GoogleOAuth2Backend',
-    'social_auth.backends.yahoo.YahooBackend',
-    'social_auth.backends.facebook.FacebookBackend',
+    'social.backends.google.GoogleOAuth2',
+    'social.backends.yahoo.YahooOpenId',
+    'social.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -92,10 +88,17 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/login'
 
-GOOGLE_OAUTH2_CLIENT_ID = environ.get('GOOGLE_OAUTH2_CLIENT_ID')
-GOOGLE_OAUTH2_CLIENT_SECRET = environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
-FACEBOOK_APP_ID = environ.get('FACEBOOK_APP_ID')
-FACEBOOK_API_SECRET = environ.get('FACEBOOK_API_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = environ.get('GOOGLE_OAUTH2_CLIENT_ID')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
+SOCIAL_AUTH_FACEBOOK_KEY = environ.get('FACEBOOK_APP_ID')
+SOCIAL_AUTH_FACEBOOK_SECRET = environ.get('FACEBOOK_API_SECRET')
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'xapian_backend.XapianEngine',
+        'PATH': path.join(PROJECT_ROOT, 'xapian_index'),
+    },
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -162,44 +165,50 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = environ.get('SECRET_KEY')
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + ( 
-    'django.core.context_processors.request',
-    'social_auth.context_processors.social_auth_login_redirect',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            path.join(PROJECT_ROOT, 'templates')
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                'django.template.context_processors.request',
+                'social.apps.django_app.context_processors.login_redirect',
+                'atexpc.atex_web.middleware.context_processor',
+            ],
+        },
+    },
+]
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-    'social_auth.middleware.SocialAuthExceptionMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',     # must be after auth sets Vary header
+    'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
+    'atexpc.atex_web.middleware.AncoraMiddleware'
 )
 
 ROOT_URLCONF = 'atexpc.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'atexpc.wsgi.application'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    path.join(PROJECT_ROOT, 'templates'),
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -216,11 +225,11 @@ INSTALLED_APPS = (
     'django.contrib.redirects',
     'localflavor',
     'compressor',
-    'south',
     'sorl.thumbnail',
-    'atexpc.atex_web',  # before social_auth
-    'social_auth',
+    'atexpc.atex_web',  # before social auth
+    'social.apps.django_app.default',
     'password_reset',
+    'haystack',
     'memoize',
 )
 
@@ -248,7 +257,7 @@ LOGGING = {
     'handlers': {
         'null': {
             'level':'DEBUG',
-            'class':'django.utils.log.NullHandler',
+            'class':'logging.NullHandler',
         },
         'console':{
             'level':'DEBUG',

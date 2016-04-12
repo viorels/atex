@@ -1,78 +1,86 @@
+from django.contrib.sites.shortcuts import get_current_site
+from django.views.generic.base import TemplateView
+
+from base import BreadcrumbsMixin, ErrorBase
 from authentication import (LoginBase, RecoverPasswordView, RecoverPasswordDoneView,
                             ResetPasswordView, ResetPasswordDoneView)
-from products import (HomeBase, SearchBase, ProductBase, BrandsBase,
-                      SearchMixin)
-from shopping import CartBase, OrderBase, ConfirmBase, ShoppingMixin
-from base import BaseView, BreadcrumbsMixin, ErrorBase
+from products import (HomeView, MySearchView, ProductsView, ProductView, BrandsView)
+from shopping import CartView, OrderView, ConfirmView
+
 
 # *Base classes (e.g. HomeView must be last on inheritance list as
 # TemplateView.get_context_data breaks the cooperative multiple inheritance chain
 
-class CommonMixins(SearchMixin, BreadcrumbsMixin, ShoppingMixin):
+# class HomeView(BreadcrumbsMixin, HomeView):
+#     pass
+
+# class ProductView(BreadcrumbsMixin, ProductBase):
+#     pass
+
+# class ProductsView(BreadcrumbsMixin, ProductsBase):
+#     pass
+
+# class SearchView(BreadcrumbsMixin, SearchBase):
+#     pass
+
+# class BrandsView(BreadcrumbsMixin, BrandsBase):
+#     pass
+
+# class CartView(BreadcrumbsMixin, CartBase):
+#     pass
+
+# class OrderView(BreadcrumbsMixin, OrderBase):
+#     pass
+
+# class ConfirmView(BreadcrumbsMixin, ConfirmBase):
+#     pass
+
+class LoginView(BreadcrumbsMixin, LoginBase): pass
+
+class RecoverPassword(BreadcrumbsMixin, RecoverPasswordView): pass
+class RecoverPasswordDone(BreadcrumbsMixin, RecoverPasswordDoneView): pass
+class ResetPassword(BreadcrumbsMixin, ResetPasswordView): pass
+class ResetPasswordDone(BreadcrumbsMixin, ResetPasswordDoneView): pass
+
+class ErrorView(BreadcrumbsMixin, ErrorBase):
     pass
 
-class HomeView(CommonMixins, HomeBase):
-    pass
-
-class ProductView(CommonMixins, ProductBase):
-    pass
-
-class SearchView(ShoppingMixin, BreadcrumbsMixin, SearchBase):
-    pass
-
-class BrandsView(CommonMixins, BrandsBase):
-    pass
-
-class CartView(CommonMixins, CartBase):
-    pass
-
-class OrderView(CommonMixins, OrderBase):
-    pass
-
-class ConfirmView(CommonMixins, ConfirmBase):
-    pass
-
-class LoginView(CommonMixins, LoginBase): pass
-
-class RecoverPassword(CommonMixins, RecoverPasswordView): pass
-class RecoverPasswordDone(CommonMixins, RecoverPasswordDoneView): pass
-class ResetPassword(CommonMixins, ResetPasswordView): pass
-class ResetPasswordDone(CommonMixins, ResetPasswordDoneView): pass
-
-class ErrorView(BreadcrumbsMixin, SearchMixin, ErrorBase):
-    pass
-
-class ContactView(CommonMixins, BaseView):
+class ContactView(BreadcrumbsMixin, TemplateView):
     breadcrumbs = [{'name': "Contact"}]
 
     def get_template_names(self):
-        return "contact-%s.html" % self._get_base_domain()
+        return "contact-%s.html" % _get_base_domain(self.request)
 
-class ConditionsView(CommonMixins, BaseView):
+class ConditionsView(BreadcrumbsMixin, TemplateView):
     template_name = "conditions.html"
     breadcrumbs = [{'name': "Conditii Vanzare"}]
 
-class ServiceView(CommonMixins, BaseView):
+class ServiceView(BreadcrumbsMixin, TemplateView):
     template_name = "service.html"
     breadcrumbs = [{'name': "Servicii"}]
 
-class WarrantyServiceView(CommonMixins, BaseView):
+class WarrantyServiceView(BreadcrumbsMixin, TemplateView):
     template_name = "warranty-service.html"
     breadcrumbs = [{'name': "Service autorizat"}]
 
-class PromotionsView(CommonMixins, BaseView):
+class PromotionsView(BreadcrumbsMixin, TemplateView):
     template_name = "promotions.html"
     breadcrumbs = [{'name': "Promotii"}]
 
-class GamingView(CommonMixins, BaseView):
+class GamingView(BreadcrumbsMixin, TemplateView):
     template_name = "gaming.html"
     breadcrumbs = [{'name': "Gaming"}]
 
-class AppleView(CommonMixins, BaseView):
+class AppleView(BreadcrumbsMixin, TemplateView):
     template_name = "apple.html"
     breadcrumbs = [{'name': "Apple"}]
 
-class BlackFridayView(CommonMixins, BaseView):
+class BlackFridayView(BreadcrumbsMixin, TemplateView):
     template_name = "black_friday.html"
     breadcrumbs = [{'name': "Black Friday"}]
 
+# TODO: import from middleware
+def _get_base_domain(request):
+    """Get the last 2 segments of the domain name"""
+    domain = get_current_site(request).domain
+    return '.'.join(domain.split('.')[-2:])

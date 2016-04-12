@@ -1376,6 +1376,13 @@ background-color:#c62123;
 	position:relative;
 }
 
+.no_products {
+	font-size: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: right;
+}
+
 /* ********************** produs ************************************** */
 .product-wrapper {
 	width:100%;

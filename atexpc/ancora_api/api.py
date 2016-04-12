@@ -401,14 +401,15 @@ class Ancora(object):
 
     STOCK_UNKNOWN = 0       # unknown/call
     STOCK_TRUE = 1          # in stoc
-    STOCK_ORDER = 2         # order, la comanda
+    STOCK_ORDER = 2         # order, la comanda, in stoc furnizor
     STOCK_UNAVAILABLE = 3   # indisponibil
 
     def _stock_status(self, local_stock, stock_info):
+        """ Machine readable stock heuristic """
         stock_info = stock_info.lower()
-        if local_stock or ('in stoc' in stock_info):
+        if local_stock or (stock_info == 'in stoc'):
             return self.STOCK_TRUE
-        elif 'comanda' in stock_info:
+        elif 'comanda' in stock_info or 'furnizor' in stock_info:
             return self.STOCK_ORDER
         elif 'nu este disponibil' in stock_info:
             return self.STOCK_UNAVAILABLE

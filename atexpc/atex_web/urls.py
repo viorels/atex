@@ -3,20 +3,24 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import RedirectView
-from views import (HomeView, SearchView, ProductView, BrandsView,
-                   ContactView, ConditionsView, ServiceView, WarrantyServiceView,
+
+from views import (HomeView, MySearchView, ProductsView, ProductView, BrandsView,
                    PromotionsView, GamingView, AppleView, BlackFridayView,
+                   ContactView, ConditionsView, ServiceView, WarrantyServiceView,
                    CartView, OrderView, ConfirmView, LoginView,
                    RecoverPassword, RecoverPasswordDone, ResetPassword, ResetPasswordDone)
+from views.products import SearchAutoComplete
 from views.authentication import GetEmails
 from views.shopping import GetCompanyInfo
 
 
 urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
-    url(r'^cauta/', SearchView.as_view(), name='search'),
+    url(r'^cauta/', MySearchView.as_view(), name='search'),
+    url(r'^cauta_auto/', SearchAutoComplete.as_view()),
+    url(r'^produse/$', ProductsView.as_view(), name='products'),
     url(r'^produse/(?P<category_id>\d+)-(?P<slug>.*)$',
-        SearchView.as_view(), name='category'),
+        ProductsView.as_view(), name='category'),
     url(r'^produs/(?P<product_id>\d+)-(?P<slug>.*)$', ProductView.as_view(),
         name='product'),
     url(r'^branduri/', BrandsView.as_view(), name='brands'),
@@ -46,7 +50,7 @@ urlpatterns = patterns('',
         url(r'PIE\.htc$',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),
     # TODO: remove ledacy redirect sm.ashx to MEDIA_URL + SHOPMANIA_FEED_FILE
-    url(r'^sm.ashx$', RedirectView.as_view(url='/media/shopmania.csv')),
+    url(r'^sm.ashx$', RedirectView.as_view(url='/media/shopmania.csv', permanent=True)),
 )
 
 if settings.DEBUG:

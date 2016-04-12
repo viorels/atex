@@ -6,9 +6,9 @@ from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
-from atexpc.atex_web.models import Product, Category
+from atexpc.atex_web.models import Product, Category, Brand
 from atexpc.atex_web.ancora_api import AncoraAPI
 from atexpc.atex_web.scrape import scrape_specs
 
@@ -54,7 +54,12 @@ class Command(BaseCommand):
             action='store_true',
             dest='pcgarage',
             default=False,
-            help='Get product details'),
+            help='Get product details from pcgarage'),
+        make_option('--fast',
+            action='store_true',
+            dest='fast',
+            default=False,
+            help='Do not get product details from Ancora'),
         )
 
     CLEAN_INFO_UNWANTED_CHARS = {
@@ -67,41 +72,55 @@ class Command(BaseCommand):
         products_status = {}
         writers = [self.create_or_update_products_with_status(products_status)]
 
-        with atomic_write(os.path.join(settings.MEDIA_ROOT, settings.SHOPMANIA_FEED_FILE)) as shopmania_feed, \
-             atomic_write(os.path.join(settings.MEDIA_ROOT, settings.ALLSHOPS_FEED_FILE)) as allshops_feed:
+        if options['fast']:
+            self.synchronize(writers, fast=True)
+        else:
+            with atomic_write(os.path.join(settings.MEDIA_ROOT, settings.SHOPMANIA_FEED_FILE)) as shopmania_feed, \
+                 atomic_write(os.path.join(settings.MEDIA_ROOT, settings.ALLSHOPS_FEED_FILE)) as allshops_feed:
 
-            if options['shops']:
-                writers.append(partial(self.add_products_to_shopmania_feed, shopmania_feed))
-                writers.append(partial(self.add_products_to_allshops_feed, allshops_feed))
+                if options['shops']:
+                    writers.append(partial(self.add_products_to_shopmania_feed, shopmania_feed))
+                    writers.append(partial(self.add_products_to_allshops_feed, allshops_feed))
 
-            if options['pcgarage']:
-                writers.append(self.get_and_save_specs)
+                if options['pcgarage']:
+                    writers.append(self.get_and_save_specs)
 
-            self.synchronize(writers)
-            self.delete_products_other_then(products_status)
+                self.synchronize(writers, fast=False)
 
-            # Assign existing images for new products
-            Product.objects.assign_images()
+        self.delete_products_other_then(products_status)
 
-    def synchronize(self, writers):
+        # Assign existing images for new products
+        Product.objects.assign_images()
+
+    def synchronize(self, writers, fast):
         self.api = AncoraAPI(api_timeout=300)  # 5 minutes
         self.synchronize_categories()
-        for products_dict in self.fetch_products():
+        for products_dict in self.fetch_products(fast):
             for writer in writers:
                 writer(products_dict)
 
-    def fetch_products(self):
+    def fetch_products(self, fast):
         for category in self.api.categories.get_all():
             category_id = category['id']
             logger.debug("Category %(name)s (%(count)d)", category)
-            if category['count'] > 0:
+            start = 0
+            per_page = 20
+            while start < category['count']:
                 products = self.api.products.get_products(
                     category_id=category_id, keywords=None,
-                    start=None, stop=None).get('products')
+                    start=start, stop=start + per_page).get('products')
                 products_dict = dict((int(p['id']), p) for p in products)
-                for p in products_dict.values():     # augment products with category_id
+                for p in products_dict.values():     # augment products with category_id, brand and description
                     p['category_id'] = category_id
+                    p['brand_id'] = Brand.objects.get_by_name(p['brand']).id
+                    p['stock'] = p['stock_status']
+                    if fast:
+                        del p['description']
+                    else:
+                        product_details = self.api.products.get_product(p['id'])
+                        p['description'] = product_details['description'] if product_details else ''
                 yield products_dict
+                start += per_page
 
     # Database
 
@@ -183,11 +202,10 @@ class Command(BaseCommand):
     def _product_info(self, product):
         info = product.copy()
 
-        #FIXME unused
         product_details = self.api.products.get_product(info['id'])
 
-        info['category_path']  = self._get_category_path(product)
         info['description'] = product_details['description'] if product_details else ''
+        info['category_path']  = self._get_category_path(product)
         info['url'] = self._product_url(product)
         info['image_url'] = self._image_url(product)
         info['currency'] = 'RON'
@@ -248,7 +266,7 @@ class Command(BaseCommand):
     def _clean_info(self, field):
         if not field:
             return ""
-        return field.translate(self.CLEAN_INFO_UNWANTED_CHARS)
+        return field.translate(dict.fromkeys(self.CLEAN_INFO_UNWANTED_CHARS))
 
     # Specifications
 

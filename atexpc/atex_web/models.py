@@ -3,6 +3,7 @@ import re
 from datetime import datetime, timedelta
 from collections import defaultdict
 
+from collections import OrderedDict
 from django.conf import settings
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
@@ -12,7 +13,6 @@ from django.db import models, connection
 from django.db.models.query import QuerySet
 from django.db.utils import DatabaseError
 from django.utils import timezone
-from django.utils.datastructures import SortedDict
 from django.utils.http import urlquote
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -24,12 +24,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class Category(models.Model):
-    def _category_specs_path(instance, filename):
-        SPECS_PATH = 'specs'
-        canonical_name = u"%s-%s.xlsx" % (instance.code, instance.name)
-        return os.path.join(SPECS_PATH, canonical_name)
+def _category_specs_path(instance, filename):
+    SPECS_PATH = 'specs'
+    canonical_name = u"%s-%s.xlsx" % (instance.code, instance.name)
+    return os.path.join(SPECS_PATH, canonical_name)
 
+class Category(models.Model):
     name = models.CharField(max_length=64)
     code = models.CharField(max_length=8)
     parent = models.ForeignKey('self', null=True)
@@ -37,6 +37,18 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Categories'
+
+    def get_main_category(self):
+        """Returns the top category that this category belongs to"""
+        category = self
+        while category.parent is not None:
+            category = category.parent
+        return category
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('category', (), {'category_id': self.id,
+                                 'slug': slugify(self.name)})
 
     def __unicode__(self):
         return self.name
@@ -86,6 +98,7 @@ class ProductManager(models.Manager):
 
     @memoize(timeout=24*60*60)
     def get_top_hits(self, limit=5):
+        """ Within last 30 days """
         return (self.filter(hit__count__gte=1,
                             hit__date__gte=self.one_month_ago())
                     .annotate(month_count=models.Sum('hit__count'))
@@ -103,12 +116,39 @@ class StorageWithOverwrite(get_storage_class()):
         return name
 
 
+class BrandQuerySet(models.QuerySet):
+    def get_by_name(self, name):
+        brand, _ = Brand.objects.get_or_create(name__iexact=name,
+                                               defaults={'name': name})
+        return brand
+
+class Brand(models.Model):
+    name = models.CharField(max_length=128)
+    objects = BrandQuerySet.as_manager()
+
+
 class Product(models.Model):
+    # Same as in ancora_api.Ancora
+    STOCK_UNKNOWN = 0       # unknown/call
+    STOCK_TRUE = 1          # in stoc
+    STOCK_ORDER = 2         # order, la comanda
+    STOCK_UNAVAILABLE = 3   # indisponibil
+    STOCK_CHOICES = (
+        (STOCK_UNKNOWN, 'call'),
+        (STOCK_TRUE, 'in stoc'),
+        (STOCK_ORDER, 'la comanda'),
+        (STOCK_UNAVAILABLE, 'indisponibil'),
+    )
+
     model = models.CharField(max_length=128, db_index=True)
     name = models.CharField(max_length=128)
+    description = models.TextField(null=False, blank=True)
     category = models.ForeignKey(Category, null=True)
+    brand = models.ForeignKey(Brand, null=True)
+    price = models.FloatField(null=True)
+    stock = models.SmallIntegerField(choices=STOCK_CHOICES, null=True)
     specs = models.ManyToManyField('Specification', through='ProductSpecification')
-    updated = models.DateTimeField(auto_now=True, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     # has_folder = models.NullBooleanField()
 
     objects = ProductManager()
@@ -125,7 +165,15 @@ class Product(models.Model):
 
     @classmethod
     def from_raw(cls, raw):
-        fields = [field.name for field in cls._meta.fields] + ['category_id']
+        raw = raw.copy()
+
+        # Use fields from raw object, including category and brand by id
+        fields = [field.name for field in cls._meta.fields] + ['category_id', 'brand_id']
+
+        # Get brand by name from db and store the id
+        raw['brand_id'] = Brand.objects.get_by_name(raw['brand']).id
+        del raw['brand']
+
         product = {field: raw.get(field) for field in fields if field in raw}
         return product
 
@@ -138,6 +186,9 @@ class Product(models.Model):
                 setattr(self, field, new_value)
                 updated = True
         return self if updated else None
+
+    def get_main_category_code(self):
+        return self.category.get_main_category().code
 
     def folder_name(self):
         folder = re.sub(r'[<>:"|?*/\\]', "-", self.model)
@@ -187,6 +238,11 @@ class Product(models.Model):
             hit.count = models.F('count') + 1
             hit.save()
 
+    def get_recent_hits(self):
+        hits = self.hit_set.filter(date__gte=Product.objects.one_month_ago()) \
+                           .annotate(month_count=models.Sum('count'))
+        return hits[0].month_count if hits else 0
+
     def get_short_name(self):
         better_name = self.get_spec('Nume')
         return better_name if better_name else self.name
@@ -198,8 +254,8 @@ class Product(models.Model):
     def get_spec_groups(self):
         spec_groups_orm = SpecificationGroup.objects.filter(category=self.category) \
                                                     .order_by('id')
-        spec_groups = SortedDict((spec_group.name, [])
-                                 for spec_group in spec_groups_orm)
+        spec_groups = OrderedDict((spec_group.name, [])
+                                  for spec_group in spec_groups_orm)
         for prod_spec in ProductSpecification.objects.filter(product=self):
             if prod_spec.spec.group is not None:
                 value = prod_spec.spec.value_format(prod_spec.value)
@@ -221,12 +277,12 @@ class Product(models.Model):
             prod_spec = ProductSpecification.objects.get(product=self, spec__name=name)
             spec_value = prod_spec.value
         except (ProductSpecification.DoesNotExist, ProductSpecification.MultipleObjectsReturned) as e:
-            logger.error("get_spec: %s", e)
+            # logger.error("get_spec: %s", e)
             spec_value = None
         return spec_value
 
     def specs_list(self):
-        return SortedDict([(prod_spec.spec.name, prod_spec.value) 
+        return OrderedDict([(prod_spec.spec.name, prod_spec.value) 
             for prod_spec in ProductSpecification.objects
                 .filter(product=self)
                 .order_by('id')])
@@ -246,53 +302,48 @@ class Product(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        # TODO: store self.name on object and use it in url
         return ('product', (), {'product_id': self.id,
-                                'slug': slugify(self.model)})
+                                'slug': slugify(self.name)})
 
     def __unicode__(self):
         return self.model
 
 
-class CustomQuerySetManager(models.Manager):
-    """A re-usable Manager to access a custom QuerySet"""
-    def get_query_set(self):
-        return self.model.QuerySet(self.model)
+def _media_path(instance, filename):
+    if '/' in filename:
+        path_match = re.search(Product.media_folder + '.*', filename)
+        path = path_match.group()
+    else:
+        path = os.path.join(Product.media_folder, filename)
+    return path
 
+
+class ImageQuerySet(QuerySet):
+    def unassigned(self, *args, **kwargs):
+        return self.filter(product=None, *args, **kwargs)
+
+    def in_folder(self, folder_name, *args, **kwargs):
+        path = "%s/%s/" % (Product.media_folder, folder_name)
+        return self.filter(image__istartswith=path, *args, **kwargs)
+
+    def assign_images_folder_to_product(self, product):
+        folder_name = product.folder_name()
+        self.unassigned().in_folder(folder_name).update(product=product)
+
+    def assign_all_unasigned(self, get_product_id_for_folder=lambda folder_name: None):
+        for image in self.unassigned().iterator():
+            folder_name = image.folder_name().lower()
+            product_id = get_product_id_for_folder(folder_name)
+            if product_id is not None:
+                image.product_id = product_id
+                image.save()
+                logger.debug("Assigned image %s to product id %d", image, product_id)
 
 class Image(models.Model):
-    def _media_path(instance, filename):
-        if '/' in filename:
-            path_match = re.search(Product.media_folder + '.*', filename)
-            path = path_match.group()
-        else:
-            path = os.path.join(Product.media_folder, filename)
-        return path
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     path = models.CharField(max_length=128, db_index=True)
     image = ImageField(storage=StorageWithOverwrite(), upload_to=_media_path, max_length=255)
-    objects = CustomQuerySetManager()
-
-    class QuerySet(QuerySet):
-        def unassigned(self, *args, **kwargs):
-            return self.filter(product=None, *args, **kwargs)
-
-        def in_folder(self, folder_name, *args, **kwargs):
-            path = "%s/%s/" % (Product.media_folder, folder_name)
-            return self.filter(image__istartswith=path, *args, **kwargs)
-
-        def assign_images_folder_to_product(self, product):
-            folder_name = product.folder_name()
-            self.unassigned().in_folder(folder_name).update(product=product)
-
-        def assign_all_unasigned(self, get_product_id_for_folder=lambda folder_name: None):
-            for image in self.unassigned().iterator():
-                folder_name = image.folder_name().lower()
-                product_id = get_product_id_for_folder(folder_name)
-                if product_id is not None:
-                    image.product_id = product_id
-                    image.save()
-                    logger.debug("Assigned image %s to product id %d", image, product_id)
+    objects = ImageQuerySet.as_manager()
 
     def folder_name(self):
         path_match = re.match(Product.media_folder + r'/([^/]+)', self.image.name)
