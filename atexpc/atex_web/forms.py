@@ -45,7 +45,7 @@ def search_form_factory(search_in_choices, advanced=False):
 
             keywords = self.cleaned_data['q']
             if keywords:
-                sqs = sqs.filter(content=AutoQuery(keywords))
+                sqs = sqs.filter(content=AutoQuery(keywords)).filter(name=AutoQuery(keywords))
 
             category = self.cleaned_data['cauta_in']
             if category:

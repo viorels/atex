@@ -5,7 +5,7 @@ from models import Product
 
 class ProductIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    # name = indexes.CharField(model_attr='get_best_name', boost=2)
+    name = indexes.CharField(model_attr='get_best_name', boost=2)
     name_auto = indexes.EdgeNgramField(model_attr='get_short_name')
     main_category = indexes.IntegerField(model_attr='get_main_category_code', faceted=True)
     # brand = indexes.CharField(model_attr='brand__name', faceted=True)
