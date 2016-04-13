@@ -90,7 +90,7 @@ class SparsePaginator(Paginator):
         return pages
 
 
-class MySearchView(CSRFCookieMixin, SearchView):
+class MySearchView(BreadcrumbsMixin, CSRFCookieMixin, SearchView):
     template_name = "search.html"
     form_name = "filter_form"
     search_field = "q"
@@ -126,11 +126,6 @@ class MySearchView(CSRFCookieMixin, SearchView):
             queryset, per_page, current_page=current_page, orphans=orphans,
             allow_empty_first_page=allow_empty_first_page, **kwargs)
 
-    # def get_queryset(self):
-    #     queryset = super(MySearchView, self).get_queryset()
-    #     # further filter queryset based on some set of criteria
-    #     return queryset.filter(pub_date__gte=date(2015, 1, 1))
-
     def get_context_data(self, **kwargs):
         context = super(MySearchView, self).get_context_data(**kwargs)
         products = [result.object for result in context['object_list'] if result.object]
@@ -162,6 +157,10 @@ class MySearchView(CSRFCookieMixin, SearchView):
             message += ', in stoc'
 
         return message + '!'
+
+    def get_breadcrumbs(self):
+        return [{'name': '"%s"' % self.request.GET.get(self.search_field),
+                 'url': None}]
 
     def augment_products(self, products):
         """ Augments products from search with updated info from Ancora """
