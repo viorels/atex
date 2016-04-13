@@ -114,7 +114,7 @@ class MySearchView(CSRFCookieMixin, SearchView):
 
     def get_form_class(self):
         search_in_choices = tuple((c['code'], c['name']) for c in self.request.api.categories.get_main())
-        return search_form_factory(search_in_choices, advanced=True)
+        return search_form_factory(search_in_choices, advanced=True, is_search=True)
 
     def get_paginate_by(self, queryset):
         return self.request.GET.get("pe_pagina", 20)

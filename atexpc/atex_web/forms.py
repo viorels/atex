@@ -19,11 +19,12 @@ SORT_CHOICES = (
     (SORT_PRICE_ASC, ' - pret crescator - '),
     (SORT_PRICE_DESC, ' - pret descrescator - '),
     (SORT_SALES_DESC, ' - cele mai vandute - '))
+SORT_SEARCH_CHOICES = (('', ' - relevanta - '),) + SORT_CHOICES
 
 PER_PAGE_CHOICES = tuple((choice, str(choice)) for choice in (20, 40, 60))
 
 
-def search_form_factory(search_in_choices, advanced=False):
+def search_form_factory(search_in_choices, advanced=False, is_search=False):
     SEARCH_IN_CHOICES = (("", "- Toate Categoriile -"),) + search_in_choices
 
     class SearchForm(FacetedSearchForm):
@@ -58,8 +59,8 @@ def search_form_factory(search_in_choices, advanced=False):
             widget=HiddenInput(), required=False)
         ordine = forms.ChoiceField(
             widget=Select(attrs={"class": "delegate_filter submit"}),
-            choices=SORT_CHOICES,
-            initial='pret_asc',
+            choices=(SORT_CHOICES if not is_search else SORT_SEARCH_CHOICES),
+            initial=('pret_asc' if not is_search else ''),
             required=False)
         pe_pagina = forms.TypedChoiceField(
             widget=Select(attrs={"class": "delegate_filter submit"}),
