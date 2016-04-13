@@ -1,12 +1,8 @@
 git pull
-recreate venv   # to clean old south install and other modules
+virtualenv venv   # rebuild to clean old south install and other modules
 apt-get install python-xapian
 ln -s /usr/lib/python2.7/dist-packages/xapian ~/venv/lib/python2.7  # link xapian libs into venv
 rm atexpc/atex_web/migrations/*.pyc
-clean login sessions to avoid import errors with python-social-auth
-
-$ ... manage.py migrate contenttypes --fake-initial
-# yes, delete auth/user
 
 # python-social-auth added one more table, social_auth_code, which is now included in the initial migration
 
@@ -26,13 +22,16 @@ CREATE INDEX "social_auth_code_c1336794" ON "social_auth_code" ("code");
 CREATE INDEX "social_auth_code_code_a2393167_like" ON "social_auth_code" ("code" varchar_pattern_ops);
 COMMIT;
 
-$ ... manage.py migrate default 0001 --fake		# python social auth
+# env `xargs < ../.env` python manage.py ...
+
 for APP in default sessions auth atex_web admin sites redirects; do ... manage.py migrate $APP --fake-initial; done
+... manage.py migrate contenttypes --fake-initial   # yes, delete auth/user
+... manage.py clearsessions    # clean login sessions to avoid import errors with python-social-auth
 
-$ ... manage.py migrate sessions --fake-initial
-$ ... manage.py migrate auth --fake-initial
-$ ... manage.py migrate atex_web --fake-initial
-$ ... manage.py migrate admin --fake-initial
-$ ... manage.py migrate sites --fake-initial
-$ ... manage.py migrate redirects --fake-initial
+manage.py synchronize --fast
+manage.py rebuild_index -v2
 
+manage.py synchronize
+manage.py update_index -r
+
+# setup crontab with syncronize/update_index -r
