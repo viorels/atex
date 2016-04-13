@@ -9,6 +9,6 @@
 
 {% for group, specs in object.get_spec_groups.items %}
     {% for spec, value in specs %}
-        {{ value }}
+        {{ value|striptags }}
     {% endfor %}
 {% endfor %}
