@@ -142,31 +142,17 @@ function init_filters() {
         }
     });
 
-    function submit_search_filter_form(e) {
-        if (filter_form.length) {
-            filter_form.submit();
-        } else {
-            search_form.submit();
-        }
-        return false;
-    }
     search_input.keyup(function(e){
         var key_enter = 13;
         if(e.keyCode == key_enter){
-            if (search_input.val()) {
-                return submit_search_filter_form(e);
-            }
-            else {
-                return false;
+            if (!search_input.val()) {
+                e.preventDefault();
             }
         }
     });
     $("input[name=cauta]").click(function (e) {
-        if (search_input.val()) {
-            return submit_search_filter_form(e);
-        }
-        else {
-            return false;
+        if (!search_input.val()) {
+            e.preventDefault();
         }
     });
 
