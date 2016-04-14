@@ -3,6 +3,7 @@ import os
 from functools import partial
 from optparse import make_option
 
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
@@ -91,6 +92,9 @@ class Command(BaseCommand):
 
         # Assign existing images for new products
         Product.objects.assign_images()
+
+        # update haystack index
+        call_command('update_index', remove=True, verbosity=options.get('verbosity'))
 
     def synchronize(self, writers, fast):
         self.api = AncoraAPI(api_timeout=300)  # 5 minutes
