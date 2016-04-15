@@ -105,8 +105,7 @@ function init_filters() {
         dataType: 'json',
         noCache: true,
         onSelect: function(suggestion) {
-            search_input.change();
-            filter_form.submit();
+            search_form.submit();
         },
         width: 350,
     });
