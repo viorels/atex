@@ -1,3 +1,5 @@
+from hashlib import sha256
+import hmac
 import os
 import re
 import shutil
@@ -69,13 +71,23 @@ class DropboxMedia(object):
             last_cursor = delta.cursor
             self._delta_cursor(last_cursor)
             logger.debug("Cursor: %s", last_cursor)
-            
+
+    def validate_webhook_request(self, body, signature):
+        """Validate that the request is properly signed by Dropbox.
+           (If not, this is a spoofed webhook.)"""
+
+        return signature == hmac.new(settings.DROPBOX_APP_SECRET, body, sha256).hexdigest()
+
+    def get_account_id(self):
+        return self._dropbox.users_get_current_account().account_id
+
+    ### private methods ###
 
     def _relative_path(self, path):
         return path[1:] if path[0] == '/' else path
 
     def _copy_file(self, entry):
-        logger.debug("Uploading %s", entry.path_display)
+        logger.debug("Downloading %s", entry.path_display)
 
         with temp.NamedTemporaryFile(delete=False) as tempfile:
             tempfile_name = tempfile.name   # temp file is created and closed empty
@@ -106,11 +118,10 @@ class DropboxMedia(object):
 
         # cleanup database image with this name, if any
         try:
-            image = Image.objects.get(path=self._relative_path(path))
+            # Dropbox returns only lower case name after delete
+            image = Image.objects.get(path__iexact=self._relative_path(path))
+            image_name = image.image.name
             image.delete()
+            StorageWithOverwrite().delete(image_name)
         except Image.DoesNotExist, e:
             pass
-
-        # delete storage file with this name
-        media_path = _media_path(None, path)
-        StorageWithOverwrite().delete(media_path)

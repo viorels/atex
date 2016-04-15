@@ -35,3 +35,7 @@ manage.py synchronize
 manage.py update_index -r
 
 # setup crontab with syncronize/update_index -r
+
+# create dropbox app on atex account, update config with credentials, update delta_cursor to LATEST
+# remove sync_dropbox from cron
+# register production dropbox hook

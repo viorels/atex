@@ -9,7 +9,7 @@ from views import (HomeView, MySearchView, ProductsView, ProductView, BrandsView
                    ContactView, ConditionsView, ServiceView, WarrantyServiceView,
                    CartView, OrderView, ConfirmView, LoginView,
                    RecoverPassword, RecoverPasswordDone, ResetPassword, ResetPasswordDone)
-from views.products import SearchAutoComplete
+from views.products import SearchAutoComplete, DropboxWebHookView
 from views.authentication import GetEmails
 from views.shopping import GetCompanyInfo
 
@@ -23,6 +23,7 @@ urlpatterns = patterns('',
         ProductsView.as_view(), name='category'),
     url(r'^produs/(?P<product_id>\d+)-(?P<slug>.*)$', ProductView.as_view(),
         name='product'),
+    url(r'^dropbox-webhook/$', DropboxWebHookView.as_view()),
     url(r'^branduri/', BrandsView.as_view(), name='brands'),
     url(r'^cos/$', CartView.as_view(), name='cart'),
     url(r'^cos/comanda/', OrderView.as_view(), name='order'),
@@ -47,7 +48,7 @@ urlpatterns = patterns('',
     url(r'^reset/(?P<token>[\w:-]+)/$', ResetPassword.as_view(),
         name='password_reset_reset'),
 
-        url(r'PIE\.htc$',
+    url(r'PIE\.htc$',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),
     # TODO: remove ledacy redirect sm.ashx to MEDIA_URL + SHOPMANIA_FEED_FILE
     url(r'^sm.ashx$', RedirectView.as_view(url='/media/shopmania.csv', permanent=True)),

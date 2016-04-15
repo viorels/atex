@@ -1,18 +1,25 @@
 import math
 
+import json
 from django.template import Context, Template
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import View
 from django.views.generic.base import TemplateView
 from haystack.generic_views import SearchView, FacetedSearchView
 from haystack.query import SearchQuerySet
 from urllib import urlencode
 from urlparse import urlparse, urlunparse, parse_qsl
 
+from atexpc.atex_web.dropbox_media import DropboxMedia
 from atexpc.atex_web.views.base import BreadcrumbsMixin, CSRFCookieMixin, HybridGenericView
 from atexpc.atex_web.models import Product, ProductSpecification
 from atexpc.atex_web.forms import search_form_factory
+from atexpc.atex_web.tasks import sync_dropbox
 from atexpc.atex_web.utils import group_in, grouper
 from atexpc.ancora_api.api import Ancora    # STOCK_UNAVAILABLE
 
@@ -415,6 +422,30 @@ class ProductView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
         else:
             breadcrumbs = []
         return breadcrumbs
+
+
+class DropboxWebHookView(View):
+    def get(self, request):
+        return HttpResponse(request.GET.get('challenge'))
+
+    def post(self, request):
+        notification = json.loads(request.body)
+        signature = request.META.get('HTTP_X_DROPBOX_SIGNATURE')
+
+        dropbox = DropboxMedia()
+        if not dropbox.validate_webhook_request(request.body, signature):
+            raise PermissionDenied
+        if not dropbox.get_account_id() in notification['list_folder']['accounts']:
+            raise Http404
+
+        sync_dropbox.delay()
+
+        return HttpResponse()
+
+    # TODO: use Django 1.9 class decorator
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(DropboxWebHookView, self).dispatch(*args, **kwargs)
 
 
 class BrandsView(BreadcrumbsMixin, TemplateView):
