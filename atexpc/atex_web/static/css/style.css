@@ -1334,6 +1334,11 @@ ul.filtrare li span {
 	position:relative;
 }
 .register, .login {width:125px !important;}
+
+.login_type_new, .login_type_password, .login_type_nopassword {
+	display: none;
+}
+
 .add_cos_btn span {
 	height:30px;
 	width:48px;
