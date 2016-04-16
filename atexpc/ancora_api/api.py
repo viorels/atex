@@ -350,7 +350,9 @@ class Ancora(object):
         return promotional
 
     def product_list(self, product_ids):
-        args = {'zlista_id': ','.join(str(pid) for pid in product_ids)}
+        args = {'zlista_id': ','.join(str(pid) for pid in product_ids),
+                'start': None,
+                'stop': None}
         products_uri = self.adapter.uri_with_args(
             self._base_products_uri(),
             args=args)
