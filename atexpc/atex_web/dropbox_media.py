@@ -1,3 +1,5 @@
+from hashlib import sha256
+import hmac
 import os
 import re
 import shutil
@@ -5,8 +7,9 @@ import time
 
 from django.conf import settings
 from django.core.files import File, temp
-from dropbox import rest, session, client
-from dropbox.rest import ErrorResponse, RESTSocketError
+import dropbox
+from dropbox.files import FileMetadata, FolderMetadata, DeletedMetadata
+from dropbox.exceptions import ApiError
 
 from atexpc.atex_web.models import Dropbox, Product, Image, StorageWithOverwrite, _media_path
 
@@ -18,24 +21,11 @@ class DropboxMedia(object):
     products_path = "/Atex-media/products"
     products_path_re = r"/products/(?P<folder>[^/]+)/(?P<resource>[^/]+)(?P<other>/.*)?"
     max_path_length = 128 # TODO: introspect model
-    local_dropbox_path = os.path.join(os.path.expanduser("~"), 'Dropbox')
 
-    def __init__(self, use_local_dropbox=False, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(DropboxMedia, self).__init__(*args, **kwargs)
-        self.use_local_dropbox = use_local_dropbox # relevant for reading
-        self.session = self._get_session()
-        if settings.DROPBOX_ACCESS_TOKEN and settings.DROPBOX_ACCESS_TOKEN_SECRET:
-            self._dropbox = self._get_client()
-
-    def _get_session(self):
-        return session.DropboxSession(settings.DROPBOX_APP_KEY,
-                                      settings.DROPBOX_APP_SECRET,
-                                      settings.DROPBOX_ACCESS_TYPE)
-
-    def _get_client(self):
-        self.session.set_token(settings.DROPBOX_ACCESS_TOKEN,
-                               settings.DROPBOX_ACCESS_TOKEN_SECRET)
-        return client.DropboxClient(self.session)
+        if settings.DROPBOX_ACCESS_TOKEN_V2:
+            self._dropbox = dropbox.Dropbox(settings.DROPBOX_ACCESS_TOKEN_V2)
 
     def _delta_cursor(self, new_cursor=None):
         state, created = Dropbox.objects.get_or_create(app_key=settings.DROPBOX_APP_KEY)
@@ -48,85 +38,64 @@ class DropboxMedia(object):
     def create_product_folder(self, name):
         path = os.path.join(self.products_path, name)
         try:
-            self._dropbox.file_create_folder(path)
-        except rest.ErrorResponse, e:
+            self._dropbox.files_create_folder(path)
+        except ApiError, e:
             logger.error(e)
 
     def synchronize(self): # TODO: handle rate limit (503 errors)
         last_cursor = self._delta_cursor()
         has_more = True
         while has_more:
-            delta = self._dropbox.delta(last_cursor)
-            has_more = delta['has_more']
-            for entry in delta['entries']:
-                path, meta = entry
+            if not last_cursor:
+                delta = self._dropbox.files_list_folder(products_path, recursive=True, include_media_info=True)
+            else:
+                delta = self._dropbox.files_list_folder_continue(last_cursor)
+            has_more = delta.has_more
+            for entry in delta.entries:
+                path = entry.path_display
                 path_match = re.search(self.products_path_re, path, re.IGNORECASE)
                 if not path_match:
                     continue
                 if len(path) > self.max_path_length:
                     logger.error("Error: path too long (%d): %s", len(path), path)
                     continue
-                if meta:
-                    path_with_case = meta['path']
-                    if not meta['is_dir'] and path_match.group('resource'):
-                        if not path_match.group('other') and path.endswith(Product.image_extensions):
-                            self._copy_file(path_with_case, meta, self._storage_image_writer)
-                        elif (path_match.group('resource').endswith(Product.html_extensions)
-                              or path_match.group('other')):
-                            self._copy_file(path_with_case, meta, self._storage_file_writer)
-                else:
-                    try:
-                        meta = self._dropbox.metadata(path, include_deleted=True)
-                        if not meta['is_dir']:
-                            path_with_case = meta['path']
-                            self._delete_file(path_with_case)
-                    except ErrorResponse:
-                        pass
+                if isinstance(entry, FileMetadata) and path_match.group('resource'):
+                    if not path_match.group('other') and path.endswith(Product.image_extensions):
+                        self._copy_file(entry)
+                    elif (path_match.group('resource').endswith(Product.html_extensions)
+                          or path_match.group('other')):
+                        self._copy_file(entry)
+                elif isinstance(entry, DeletedMetadata):
+                    self._delete_file(path)
 
-
-            last_cursor = delta['cursor']
+            last_cursor = delta.cursor
             self._delta_cursor(last_cursor)
             logger.debug("Cursor: %s", last_cursor)
-            
+
+    def validate_webhook_request(self, body, signature):
+        """Validate that the request is properly signed by Dropbox.
+           (If not, this is a spoofed webhook.)"""
+
+        return signature == hmac.new(settings.DROPBOX_APP_SECRET, body, sha256).hexdigest()
+
+    def get_account_id(self):
+        return self._dropbox.users_get_current_account().account_id
+
+    ### private methods ###
 
     def _relative_path(self, path):
         return path[1:] if path[0] == '/' else path
 
-    def _copy_file(self, path, meta, writer):
-        logger.debug("Uploading %s", path)
+    def _copy_file(self, entry):
+        logger.debug("Downloading %s", entry.path_display)
 
-        if self.use_local_dropbox:
-            self._local_file_reader(self._relative_path(path), meta, writer)
-        else:
-            self._dropbox_file_reader(self._relative_path(path), meta, writer)
-
-    def _local_file_reader(self, path, meta, writer):
-        file_path = os.path.join(self.local_dropbox_path, path)
-        with open(file_path) as f:
-            writer(path, f)
-
-    def _dropbox_file_reader(self, path, meta, writer):
-        rev = meta['rev']
-
-        attempts = 0
-        dropbox_file = None
-        while attempts < 3 and not dropbox_file:
-            try:
-                dropbox_file = self._dropbox.get_file(path, rev)
-            except RESTSocketError, e:
-                attempts += 1
-                logger.debug(e)
-                time.sleep(3)
-        if not dropbox_file:
-            return
-
-        chunk_size = 1024 ** 2
         with temp.NamedTemporaryFile(delete=False) as tempfile:
-            shutil.copyfileobj(dropbox_file, tempfile)
+            tempfile_name = tempfile.name   # temp file is created and closed empty
+        self._dropbox.files_download_to_file(tempfile_name, entry.path_display)
 
-        with open(tempfile.name) as f:
-            writer(path, f)
-        os.unlink(tempfile.name)
+        with open(tempfile_name) as f:
+            self._storage_image_writer(self._relative_path(entry.path_display), f)
+        os.unlink(tempfile_name)
 
     def _storage_image_writer(self, path, f):
         try:
@@ -149,11 +118,10 @@ class DropboxMedia(object):
 
         # cleanup database image with this name, if any
         try:
-            image = Image.objects.get(path=self._relative_path(path))
+            # Dropbox returns only lower case name after delete
+            image = Image.objects.get(path__iexact=self._relative_path(path))
+            image_name = image.image.name
             image.delete()
+            StorageWithOverwrite().delete(image_name)
         except Image.DoesNotExist, e:
             pass
-
-        # delete storage file with this name
-        media_path = _media_path(None, path)
-        StorageWithOverwrite().delete(media_path)
