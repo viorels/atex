@@ -47,7 +47,7 @@ class DropboxMedia(object):
         has_more = True
         while has_more:
             if not last_cursor:
-                delta = self._dropbox.files_list_folder(products_path, recursive=True, include_media_info=True)
+                delta = self._dropbox.files_list_folder(self.products_path, recursive=True)
             else:
                 delta = self._dropbox.files_list_folder_continue(last_cursor)
             has_more = delta.has_more
