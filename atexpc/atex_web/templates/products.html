@@ -117,9 +117,11 @@
 			      </span>
 				<div class="price-add-row">
 					<div class="product_price">
-                        <span class="pret_produs">{{ product.price }} lei</span>
-                        {% if product.old_price %}
-                        <span class="pret_vechi">{{ product.old_price }} lei</span>
+                        {% if product.price %}
+                            <span class="pret_produs">{{ product.price }} lei</span>
+                            {% if product.old_price %}
+                            <span class="pret_vechi">{{ product.old_price }} lei</span>
+                            {% endif %}
                         {% endif %}
                     </div>
                     {% if product.stock_available %}

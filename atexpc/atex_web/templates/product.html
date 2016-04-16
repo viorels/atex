@@ -60,7 +60,7 @@
                                 {% if product.old_price %}
                             	<li>Pret nou: <span class="pret">{{ product.price }} Lei</span></li>
                                 <li><span class="pret_vechi">Pret vechi: {{ product.old_price }} Lei</span></li>
-                                {% else %}
+                                {% elif product.price %}
                             	<li>Pret: <span class="pret">{{ product.price }} Lei</span></li>
                                 {% endif %}
                                 {% if product.stock_available %}
