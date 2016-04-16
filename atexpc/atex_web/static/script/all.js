@@ -52,6 +52,7 @@ var get_emails_url = '/login/emails/';
 })(jQuery);
 
 function init_gallery() {
+    // product images
 	var gallery = $('#images');
 	gallery.exposure({controlsTarget : '#controls',
 		controls : { prevNext : true, pageNumbers : true, firstLast : false },
@@ -94,8 +95,20 @@ function init_gallery() {
 function init_filters() {
     var search_form = $("#search_form");
 	var filter_form = $("#filter_form");
+    var search_input = search_form.find('input[name="q"]');
     var left_checkboxes = filter_form.find('input[type=checkbox]');
     var delegate_filters = $('.delegate_filter');
+
+    search_input.autocomplete({
+        serviceUrl: '/cauta_auto/',
+        paramName: 'q',
+        dataType: 'json',
+        noCache: true,
+        onSelect: function(suggestion) {
+            search_form.submit();
+        },
+        width: 350,
+    });
 
 	left_checkboxes.click(function () {
 		if ($(this).hasClass("submit")) {
@@ -128,21 +141,19 @@ function init_filters() {
         }
     });
 
-    function submit_search_filter_form(e) {
-        if (filter_form.length) {
-            filter_form.submit();
-        } else {
-            search_form.submit();
-        }
-        return false;
-    }
-    $("input#id_cuvinte").keyup(function(e){
+    search_input.keyup(function(e){
         var key_enter = 13;
         if(e.keyCode == key_enter){
-            return submit_search_filter_form(e);
+            if (!search_input.val()) {
+                e.preventDefault();
+            }
         }
     });
-    $("input[name=cauta]").click(submit_search_filter_form);
+    $("input[name=cauta]").click(function (e) {
+        if (!search_input.val()) {
+            e.preventDefault();
+        }
+    });
 
 	$('.reset_sel_btn').click(function () {
         uncheck_filters();
@@ -641,12 +652,23 @@ $(document).ready(function() {
     init_order();
     init_confirm();
     init_checkboxes();
-	$('.bxslider').bxSlider({auto:true, mode: 'fade', pause:'5000'});
-    // $('input[placeholder], textarea[placeholder]').inputHints();
 
-	//$('#ui-tabs').tabs({fx:{opacity: 'toggle'}}).tabs('rotate', 5000, true);
+    // big carousel on home page
+    $('.bxslider').bxSlider({auto:true, mode: 'fade', pause:'5000'});
+
+    // small carousel with brands on bottom of all pages
+    $('#slides').slidesjs({
+        width: 278,
+        height: 100,
+        play: {
+            active: false,
+            auto: true,
+            interval: 4000,
+            swap: true
+        }
+    });
+
 	if ($(window).width() > 480) {
         calculate_height();
     }
 });
-

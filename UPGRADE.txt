@@ -1,0 +1,41 @@
+git pull
+virtualenv venv   # rebuild to clean old south install and other modules
+apt-get install python-xapian
+ln -s /usr/lib/python2.7/dist-packages/xapian ~/venv/lib/python2.7  # link xapian libs into venv
+rm atexpc/atex_web/migrations/*.pyc
+
+# python-social-auth added one more table, social_auth_code, which is now included in the initial migration
+
+BEGIN;
+--
+-- Create model Code
+--
+CREATE TABLE "social_auth_code" ("id" serial NOT NULL PRIMARY KEY, "email" varchar(75) NOT NULL, "code" varchar(32) NOT NULL, "verified" boolean NOT NULL);
+--
+-- Alter unique_together for code (1 constraint(s))
+--
+ALTER TABLE "social_auth_code" ADD CONSTRAINT "social_auth_code_email_801b2d02_uniq" UNIQUE ("email", "code");
+--
+-- Alter unique_together for nonce (1 constraint(s))
+--
+CREATE INDEX "social_auth_code_c1336794" ON "social_auth_code" ("code");
+CREATE INDEX "social_auth_code_code_a2393167_like" ON "social_auth_code" ("code" varchar_pattern_ops);
+COMMIT;
+
+# env `xargs < ../.env` python manage.py ...
+
+for APP in default sessions auth atex_web admin sites redirects; do ... manage.py migrate $APP --fake-initial; done
+... manage.py migrate contenttypes --fake-initial   # yes, delete auth/user
+... manage.py clearsessions    # clean login sessions to avoid import errors with python-social-auth
+
+manage.py synchronize --fast
+manage.py rebuild_index -v2
+
+manage.py synchronize
+manage.py update_index -r
+
+# setup crontab with syncronize/update_index -r
+
+# create dropbox app on atex account, update config with credentials, update delta_cursor to LATEST
+# remove sync_dropbox from cron
+# register production dropbox hook

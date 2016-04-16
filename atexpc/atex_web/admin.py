@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
@@ -6,12 +7,13 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import forms as auth_forms, get_user_model
 from django.contrib.redirects.models import Redirect
 from django import forms
-from django.utils.datastructures import SortedDict
 
 from models import Category, Product, Image, Hit
 from dropbox_media import DropboxMedia
 from tasks import import_specs
 
+
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'code')
     readonly_fields = ('code', 'name')
@@ -19,12 +21,9 @@ class CategoryAdmin(admin.ModelAdmin):
     ordering = ('code',)
     fields = ('code', 'name', 'specs_file')
 
-    def queryset (self, request):
-        qs = Category.objects.filter(parent=None)
-        ordering = self.get_ordering(request)
-        if ordering:
-            qs = qs.order_by(*ordering)
-        return qs
+    def get_queryset(self, request):
+        qs = super(CategoryAdmin, self).get_queryset(request)
+        return qs.filter(parent=None)
 
     def save_model(self, request, obj, form, change):
         form.save()  # save file
@@ -36,7 +35,13 @@ class CategoryAdmin(admin.ModelAdmin):
     def accepted_file(self, file):
         return file.name.lower().endswith('.xlsx')
 
-admin.site.register(Category, CategoryAdmin)
+    def get_actions(self, request):
+        actions = super(CategoryAdmin, self).get_actions(request)
+        del actions['delete_selected']
+        return actions
+
+    def has_delete_permission(self, request, obj=None): # note the obj=None
+        return False
 
 
 class ImageCountListFilter(SimpleListFilter):
@@ -90,6 +95,7 @@ class ProductQuerySet(QuerySet):
         return related_fields[0]
 
 
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'folder_name', 'hit_count', 'image_count')
     search_fields = ('name',)
@@ -105,11 +111,11 @@ class ProductAdmin(admin.ModelAdmin):
         self.message_user(request, "Created %d product folders on Dropbox" % len(queryset))
     action_create_dropbox_folder.short_description = "Create Dropbox folders for selected products"
 
-    def queryset(self, request):
+    def get_queryset(self, request):
         qs = ProductQuerySet(Product)
         hit_params = (Product.objects.one_month_ago(),)
-        return (qs.extra(select=SortedDict([('image_count', qs.image_subquery()),
-                                            ('hit_count', qs.hit_subquery())]),
+        return (qs.extra(select=OrderedDict([('image_count', qs.image_subquery()),
+                                             ('hit_count', qs.hit_subquery())]),
                          select_params=hit_params))
 
     def hit_count(self, obj):
@@ -124,7 +130,6 @@ class ProductAdmin(admin.ModelAdmin):
             return '<span style="color:#DF0101">%d</span>' % count
     image_count.admin_order_field = 'image_count'
     image_count.allow_tags = True
-admin.site.register(Product, ProductAdmin)
 
 
 class UserChangeForm(forms.ModelForm):
@@ -192,7 +197,7 @@ class UserCreationForm(forms.ModelForm):
             user.save()
         return user
 
-
+@admin.register(get_user_model())
 class CustomUserAdmin(UserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
@@ -214,13 +219,3 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ('is_active',)
     search_fields = ('first_name', 'last_name', 'email')
     ordering = ('email',)
-admin.site.register(get_user_model(), CustomUserAdmin)
-
-
-class RedirectAdmin(admin.ModelAdmin):
-    actions = ('delete_selected',)
-admin.site.unregister(Redirect)
-admin.site.register(Redirect, RedirectAdmin)
-
-
-admin.site.disable_action('delete_selected')

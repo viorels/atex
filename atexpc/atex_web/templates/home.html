@@ -1,5 +1,5 @@
 {% extends "base_2col.html" %}
-{% load atex_tags %}
+{% load cache atex_tags %}
 
 {% block title %}ATEX - Noi vindem calculatoare!{% endblock %}
 
@@ -12,15 +12,11 @@
 {% block content_top %}{% endblock content_top %}
 
 {% block content_right %}
-
-	<ul class="bxslider">
-
-		<li><a href="http://www.atexpc.ro/produs/76786-ultrabook-lenovo-x1-carbon-3-cu-procesor-intel-core-i7"><img src="{{ STATIC_PREFIX }}images/promotii/thinkpad-x1-carbon3.jpg" alt="Lenovo ThinkPad x1 Carbon 3" title="Lenovo ThinkPad x1 Carbon 3" /></a></li>
-
-		<li style="display:none"><a href="http://www.atexpc.ro/produs/68391-procesor-intel-core-i3-4170-37-ghz-socket-1150"><img src="{{ STATIC_PREFIX }}images/promotii/i3-4170.jpg" alt="Intel Core I3 4170" title="Intel Core I3 4170" /></a></li>
-
-	</ul>
-	
+    {% cache 60 home %}
+			  <ul class="bxslider">
+                <li><a href="http://www.atexpc.ro/produs/76786-ultrabook-lenovo-x1-carbon-3-cu-procesor-intel-core-i7"><img src="{{ STATIC_PREFIX }}images/promotii/thinkpad-x1-carbon3.jpg" alt="Lenovo ThinkPad x1 Carbon 3" title="Lenovo ThinkPad x1 Carbon 3" /></a></li>
+                <li style="display:none"><a href="http://www.atexpc.ro/produs/68391-procesor-intel-core-i3-4170-37-ghz-socket-1150"><img src="{{ STATIC_PREFIX }}images/promotii/i3-4170.jpg" alt="Intel Core I3 4170" title="Intel Core I3 4170" /></a></li>
+			  </ul>
 
               <div class="right_content">
                 	<div class="topuri">
@@ -32,7 +28,7 @@
                             <span class="up_right"></span>
                          </div> 
                          <ul class="produse_top">
-                            {% for product in hits %}
+                            {% for product in view.get_hits %}
                             <li {% if forloop.last %}class="last"{% endif %}>
                                 <a href="{{ product.url }}" class="img-wrapper">
                                     <div class="middle size100x100">
@@ -61,7 +57,7 @@
                             <span class="up_right"></span>
                          </div>     
                          <ul class="produse_top">
-                            {% for product in recommended %}
+                            {% for product in view.get_recommended %}
                          	<li {% if forloop.last %}class="last"{% endif %}> 
                             	<a href="{{ product.url }}" class="img-wrapper">
                                     <div class="middle size100x100">
@@ -91,7 +87,7 @@
                             <span class="up_right"></span>
                          </div>      
                          <ul class="produse_top">
-                            {% for product in promotional %}
+                            {% for product in view.get_promotional %}
                          	<li {% if forloop.last %}class="last"{% endif %}>
                             	<a href="{{ product.url }}" class="img-wrapper">
                                     <div class="middle size100x100">
@@ -112,4 +108,5 @@
                     </div>
                      <!-- end top 3 --> 
                 </div>
+    {% endcache %}
 {% endblock content_right %}

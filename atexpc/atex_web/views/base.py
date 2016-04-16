@@ -1,20 +1,19 @@
 import re
 import json
 from operator import itemgetter
-from urlparse import urlparse, urlunparse, parse_qsl
-from urllib import urlencode
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.shortcuts import get_current_site
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from atexpc.atex_web.ancora_api import AncoraAPI
 from atexpc.ancora_api.api import APIError
+from atexpc.atex_web.ancora_api import AncoraAPI
+from atexpc.atex_web.models import Product
 
 import logging
 logger = logging.getLogger(__name__)
@@ -28,14 +27,12 @@ class BaseView(TemplateView):
     def get_general_context(self):
         return {'menu': self.get_menu,
                 'categories': self.api.categories.get_main,
-                'footer': self.get_footer,
                 'site_info': self.get_site_info}
 
     def get_minimal_context(self):
         self.api = AncoraAPI(use_backend=False)
         return {'menu': self.get_menu(),
                 'categories': self.api.categories.get_main(),
-                'footer': self.get_footer(),
                 'site_info': self.get_site_info()}
 
     def get_local_context(self):
@@ -133,12 +130,6 @@ class BaseView(TemplateView):
 
         return menu
 
-    def get_footer(self):
-        return [{'name': category['name'],
-                 'url': self._category_url(category)}
-                for category in self.api.categories.get_all()
-                if self._category_level(category) >= 2 and category['count'] > 0]
-
     def get_site_info(self):
         current_site = get_current_site(self.request)
         base_domain = self._get_base_domain()
@@ -160,10 +151,6 @@ class BaseView(TemplateView):
         domain = get_current_site(self.request).domain
         return '.'.join(domain.split('.')[-2:])
 
-    def _product_url(self, product):
-        return reverse('product', kwargs={'product_id': product['id'],
-                                          'slug': slugify(product['name'])})
-
     def _category_url(self, category):
         return reverse('category', kwargs={'category_id': category['id'],
                                            'slug': slugify(category['name'])})
@@ -171,28 +158,15 @@ class BaseView(TemplateView):
     def _category_level(self, category):
         return category['code'].count('.') + 1
 
-    def _uri_with_args(self, base_uri, **new_args):
-        """Overwrite specified args in base uri. If any other multiple value args
-        are present in base_uri then they must be preserved"""
-        parsed_uri = urlparse(base_uri)
-
-        parsed_args = parse_qsl(parsed_uri.query)
-        updated_args = [(key, value) for key, value in parsed_args if key not in new_args]
-        updated_args.extend(new_args.items())
-        valid_args = [(key, value) for key, value in updated_args if value is not None]
-        encoded_args = urlencode(valid_args, doseq=True)
-
-        final_uri = urlunparse((parsed_uri.scheme,
-                                parsed_uri.netloc,
-                                parsed_uri.path,
-                                parsed_uri.params,
-                                encoded_args,
-                                parsed_uri.fragment))
-        return final_uri
-
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
         return super(BaseView, self).dispatch(*args, **kwargs)
+
+
+class CSRFCookieMixin(object):
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, *args, **kwargs):
+        return super(CSRFCookieMixin, self).dispatch(*args, **kwargs)
 
 
 class ErrorBase(BaseView):
@@ -240,13 +214,17 @@ class BreadcrumbsMixin(object):
 
     def _get_category_breadcrumbs(self, category_id):
         breadcrumbs = []
-        category = self.api.categories.get_category(category_id)
+        category = self.request.api.categories.get_category(category_id)
         while category is not None:
             crumb = {'name': category['name'],
                      'url': self._category_url(category) if category.get('count') else None}
             breadcrumbs.insert(0, crumb)
-            category = self.api.categories.get_parent_category(category['id'])
+            category = self.request.api.categories.get_parent_category(category['id'])
         return breadcrumbs
+
+    def _category_url(self, category):
+        return reverse('category', kwargs={'category_id': category['id'],
+                                           'slug': slugify(category['name'])})
 
 
 class JSONResponseMixin(object):
@@ -271,9 +249,9 @@ class JSONResponseMixin(object):
         return json.dumps(json_context, skipkeys=True, default=none_unless_serializable)
 
 
-class HybridGenericView(JSONResponseMixin, BaseView):
+class HybridGenericView(JSONResponseMixin, TemplateView):
     def render_to_response(self, context):
         if self.request.is_ajax() or self.template_name is None:
             return JSONResponseMixin.render_to_response(self, context)
         else:
-            return BaseView.render_to_response(self, context)
+            return TemplateView.render_to_response(self, context)

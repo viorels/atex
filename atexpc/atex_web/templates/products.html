@@ -18,7 +18,7 @@
 {% block banner_left %}{% endblock %}
 
 {% block content_left %}
-            <form id="filter_form" method="get" action="{% url "search" %}" class="search">
+            <form id="filter_form" method="get" action="{% url "products" %}" class="search">
                 <input type="hidden" name="q" value="{{ filter_form.cleaned_data.q }}">
                 <input type="hidden" name="cauta_in" value="{{ filter_form.cleaned_data.cauta_in }}">
                 <input type="hidden" name="ordine" value="{{ filter_form.cleaned_data.ordine|default:filter_form.fields.ordine.initial }}">
@@ -73,7 +73,7 @@
                 <div class="filtrare_holder">
                     <div class="tab_d_holder">
                         <span class="down_left"></span>
-                            <ul class="tab_downcat">
+                            <ul class="tab_down">
                                 <li><span>filtrare</span></li>                                
                             </ul>
                         <span class="down_right"></span>
@@ -94,16 +94,16 @@
                     </ul>    
                 </div>
                 <div class="listing_produse">
-                    {% for product in object_list %}
-                        <div class="product_holder {% if product.last_in_line %}last{% endif %}">
-                            <a href="{{ product.get_absolute_url }}" class="product_picture_holder">
+                    {% for product in products %}
+                        <div class="product_holder {% if product.last_in_line%}last{% endif %}">
+                            <a href="{{ product.url }}" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
                                         <img class="center" src="{{ product.images.0|thumbnail:"185x145" }}" alt="{{ product.name }}" title="{{ product.name }}" name="{{ product.name }}"/>
                                     </div>
                                 </div>
                             </a>
-                            <h2><a href="{{ product.get_absolute_url }}">{{ product.get_best_name }}</a></h2>
+                            <h2><a href="{{ product.url }}">{{ product.name }}</a></h2>
 			    {% if "stoc" in product.stock_info %}
                               <span class="stoc stoc_ok">
 			    {% elif "comanda" in product.stock_info %}
@@ -139,32 +139,30 @@
                         {% if product.last_in_line %}
                             <div class="product_spacer"></div>
                         {% endif %}
-                    {% empty %}
-                        <h1 class="no_products">{{ no_products }}</h1>
                     {% endfor %}
                     
                     <div class="product-section">
-                        <span class="produse-gasite">Produsele de la {{ page_obj.start_index }} la {{ page_obj.end_index }} din {{ paginator.count }} produse {% if category_name %}gasite in categoria <strong>{{ category_name }}</strong>{% endif %}</span>
+                    	<span class="produse-gasite">Produsele de la {{ pagination.start }} la {{ pagination.stop }} din {{ pagination.total_count }} produse {% if category_name %}gasite in categoria <strong>{{ category_name }}</strong>{% endif %}</span>
                     	<div class="tab_d_holder_right">
-                            {% if page_obj.has_previous %}
-                                <a href="{% request_uri_with_args pagina=page_obj.previous_page_number %}" class="prev"></a>
+                            {% if pagination.previous %}
+                                <a href="{{ pagination.previous.url }}" class="prev"></a>
                             {% else %}
                                 <a class="prev"></a>
                             {% endif %}
                                 <ul class="paginare">
-                                    {% for page in paginator.sparse_page_range %}
+                                    {% for page in pagination.pages %}
                                     <li>
                                         {% if not page %}
                                         <span style="color: white">...</span>
-                                        {% elif page == page_obj.number %}
-                                        <a class="active">{{ page }}</a></li>
+                                        {% elif page.is_current %}
+                                        <a class="active">{{ page.name }}</a></li>
                                         {% else %}
-                                        <a href="{% request_uri_with_args pagina=page %}">{{ page }}</a></li>
+                                        <a href="{{ page.url }}">{{ page.name }}</a></li>
                                         {% endif %}
                                     {% endfor %}
                                 </ul>
-                            {% if page_obj.has_next %}
-                                <a href="{% request_uri_with_args pagina=page_obj.next_page_number %}" class="next"></a>
+                            {% if pagination.next %}
+                                <a href="{{ pagination.next.url }}" class="next"></a>
                             {% else %}
                                 <a class="next"></a>
                             {% endif %}
