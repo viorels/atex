@@ -33,7 +33,7 @@ def search_form_factory(search_in_choices, advanced=False, is_search=False):
                                     "class": "search delegate_filter",
                                     "placeholder": "Caută produsul dorit ..."}),
             initial='',
-            required=False)
+            required=is_search)
         cauta_in = forms.TypedChoiceField(
             widget=Select(attrs={"class": "categorii delegate_filter",
                                  "placeholder": "Selectează categoria în care cauţi"}),
