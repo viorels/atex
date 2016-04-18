@@ -1,9 +1,11 @@
+from datetime import datetime, timedelta
 from operator import itemgetter
 from itertools import groupby, izip, chain, repeat
 from collections import Mapping
 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+import pytz
 
 
 class LoginRequiredMixin(object):
@@ -22,6 +24,8 @@ def grouper(n, iterable, padvalue=None):
     "grouper(3, 'abcdefg', 'x') --> ('a','b','c'), ('d','e','f'), ('g','x','x')"
     return izip(*[chain(iterable, repeat(padvalue, n-1))]*n)
 
+def one_month_ago():
+    return datetime.now(pytz.utc).date() - timedelta(days=30)
 
 class FrozenDict(Mapping):
     """ Immutable dictionary """

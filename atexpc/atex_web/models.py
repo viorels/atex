@@ -1,6 +1,6 @@
 import os
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 from collections import defaultdict
 
 from collections import OrderedDict
@@ -19,6 +19,8 @@ from django.utils.translation import ugettext_lazy as _
 import pytz
 from memoize import memoize
 from sorl.thumbnail import ImageField
+
+from utils import one_month_ago
 
 import logging
 logger = logging.getLogger(__name__)
@@ -88,7 +90,7 @@ class ProductManager(models.Manager):
 
     def augment_with_hits(self, products):
         product_ids = [int(product['id']) for product in products]
-        product_objs = (self.filter(hit__date__gte=self.one_month_ago())
+        product_objs = (self.filter(hit__date__gte=one_month_ago())
                             .annotate(month_count=models.Sum('hit__count'))
                             .in_bulk(product_ids))
         for product in products:
@@ -100,12 +102,9 @@ class ProductManager(models.Manager):
     def get_top_hits(self, limit=5):
         """ Within last 30 days """
         return (self.filter(hit__count__gte=1,
-                            hit__date__gte=self.one_month_ago())
+                            hit__date__gte=one_month_ago())
                     .annotate(month_count=models.Sum('hit__count'))
                     .order_by('-month_count')[:limit])
-
-    def one_month_ago(self):
-        return datetime.now(pytz.utc).date() - timedelta(days=30)
 
 
 class StorageWithOverwrite(get_storage_class()):
@@ -239,7 +238,7 @@ class Product(models.Model):
             hit.save()
 
     def get_recent_hits(self):
-        hits = self.hit_set.filter(date__gte=Product.objects.one_month_ago()) \
+        hits = self.hit_set.filter(date__gte=one_month_ago()) \
                            .annotate(month_count=models.Sum('count'))
         return hits[0].month_count if hits else 0
 
