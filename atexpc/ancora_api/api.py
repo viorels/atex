@@ -126,7 +126,7 @@ class BaseAdapter(object):
 
 class AncoraAdapter(BaseAdapter):
     def __init__(self, *args, **kwargs):
-        default_api_timeout = 10  # seconds
+        default_api_timeout = 30  # seconds
         self._api_timeout = kwargs.pop('api_timeout') if 'api_timeout' in kwargs else default_api_timeout
         super(AncoraAdapter, self).__init__(*args, **kwargs)
 
@@ -135,7 +135,7 @@ class AncoraAdapter(BaseAdapter):
             response = self._requests.get(self.normalize_uri(uri), timeout=self._api_timeout)
             return response.text
         except (ConnectionError, Timeout) as e:
-            raise APIError("Failed to reach backend (%s)" % type(e).__name__)
+            raise APIError("Failed to reach backend: %s (%s)" % (uri, type(e).__name__))
 
     def _write_backend(self, uri, data):
         try:
@@ -350,6 +350,9 @@ class Ancora(object):
         return promotional
 
     def product_list(self, product_ids):
+        if not product_ids:
+            return self._no_products()
+
         args = {'zlista_id': ','.join(str(pid) for pid in product_ids),
                 'start': None,
                 'stop': None}
