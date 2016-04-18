@@ -239,8 +239,8 @@ class Product(models.Model):
 
     def get_recent_hits(self):
         hits = self.hit_set.filter(date__gte=one_month_ago()) \
-                           .annotate(month_count=models.Sum('count'))
-        return hits[0].month_count if hits else 0
+                           .annotate(recent_count=models.Sum('count'))
+        return hits[0].recent_count if hits else 0
 
     def get_short_name(self):
         better_name = self.get_spec('Nume')
