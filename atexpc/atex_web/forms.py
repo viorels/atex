@@ -7,6 +7,7 @@ from django.forms.widgets import (TextInput, PasswordInput, HiddenInput,
     CheckboxInput, RadioSelect, Select, Textarea)
 from haystack.forms import FacetedSearchForm
 from haystack.inputs import AutoQuery, Exact
+from haystack.query import SQ
 # ROCNPField, ROPhoneNumberField, ROCIFField, ROIBANField, ROCountyField, ROCountySelect
 from localflavor.ro import forms as roforms
 
@@ -33,7 +34,7 @@ def search_form_factory(search_in_choices, advanced=False, is_search=False):
                                     "class": "search delegate_filter",
                                     "placeholder": "Caută produsul dorit ..."}),
             initial='',
-            required=False)
+            required=is_search)
         cauta_in = forms.TypedChoiceField(
             widget=Select(attrs={"class": "categorii delegate_filter",
                                  "placeholder": "Selectează categoria în care cauţi"}),
@@ -46,7 +47,7 @@ def search_form_factory(search_in_choices, advanced=False, is_search=False):
 
             keywords = self.cleaned_data['q']
             if keywords:
-                sqs = sqs.filter(content=AutoQuery(keywords)).filter(name=AutoQuery(keywords))
+                sqs = sqs.filter(SQ(name=AutoQuery(keywords)) | SQ(content=AutoQuery(keywords)))
 
             category = self.cleaned_data['cauta_in']
             if category:

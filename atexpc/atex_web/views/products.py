@@ -123,6 +123,13 @@ class MySearchView(BreadcrumbsMixin, CSRFCookieMixin, SearchView):
         search_in_choices = tuple((c['code'], c['name']) for c in self.request.api.categories.get_main())
         return search_form_factory(search_in_choices, advanced=True, is_search=True)
 
+    def form_invalid(self, form):
+        context = self.get_context_data(**{
+            self.form_name: form,
+            'object_list': []
+        })
+        return self.render_to_response(context)
+
     def get_paginate_by(self, queryset):
         return self.request.GET.get("pe_pagina", 20)
 
@@ -151,13 +158,13 @@ class MySearchView(BreadcrumbsMixin, CSRFCookieMixin, SearchView):
         return context
 
     def get_no_products_message(self, form):
-        keywords = form.cleaned_data[self.search_field]
+        keywords = form.cleaned_data.get(self.search_field, '')
         message = 'Nu am gasit produse "%s"' % (keywords,)
 
         category_code = form.cleaned_data['cauta_in']
         category = self.request.api.categories.get_category_by_code(str(category_code)) if category_code else None
         if category:
-            message += ' din categoria "%s"' % (category['name'],)
+            message += ' in categoria "%s"' % (category['name'],)
 
         in_stock = form.cleaned_data['stoc']
         if in_stock:
@@ -166,7 +173,7 @@ class MySearchView(BreadcrumbsMixin, CSRFCookieMixin, SearchView):
         return message + '!'
 
     def get_breadcrumbs(self):
-        return [{'name': '"%s"' % self.request.GET.get(self.search_field),
+        return [{'name': '"%s"' % self.request.GET.get(self.search_field, ''),
                  'url': None}]
 
     def augment_products(self, products):

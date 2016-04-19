@@ -60,9 +60,9 @@ class DropboxMedia(object):
                     logger.error("Error: path too long (%d): %s", len(path), path)
                     continue
                 if isinstance(entry, FileMetadata) and path_match.group('resource'):
-                    if not path_match.group('other') and path.endswith(Product.image_extensions):
+                    if not path_match.group('other') and path.lower().endswith(Product.image_extensions):
                         self._copy_file(entry)
-                    elif (path_match.group('resource').endswith(Product.html_extensions)
+                    elif (path_match.group('resource').lower().endswith(Product.html_extensions)
                           or path_match.group('other')):
                         self._copy_file(entry)
                 elif isinstance(entry, DeletedMetadata):
