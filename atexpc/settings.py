@@ -129,10 +129,12 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
 SOCIAL_AUTH_FACEBOOK_KEY = environ.get('FACEBOOK_APP_ID')
 SOCIAL_AUTH_FACEBOOK_SECRET = environ.get('FACEBOOK_API_SECRET')
 
+HAYSTACK_DEFAULT_OPERATOR = 'AND'
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'xapian_backend.XapianEngine',
         'PATH': path.join(PROJECT_ROOT, 'xapian_index'),
+        'INCLUDE_SPELLING': False,
     },
 }
 
