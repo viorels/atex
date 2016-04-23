@@ -53,10 +53,10 @@ class BaseAdapter(object):
             self._cache.set(self._cache_key(uri), data, timeout)
 
     def _read_backend(self, uri):
-        raise NotImplemented()
+        raise NotImplementedError()
 
     def _write_backend(self, uri, data):
-        raise NotImplemented()
+        raise NotImplementedError()
 
     def read(self, uri, post_process=None, use_backend=None, cache_timeout=TIMEOUT_SHORT):
         """ Read data from backend and cache processed data
@@ -615,7 +615,7 @@ class Ancora(object):
     def get_customer_by_code(self, code):
         """ Code is CUI/CIF/CNP """
         result = self._get(args={'cod_formular': 1108,
-                                 'cui': cui},
+                                 'cui': code},
                            response_root='terti_site',
                            response_map={'customer_id': ('pidm', int),
                                          'customer_type': 'zfj',

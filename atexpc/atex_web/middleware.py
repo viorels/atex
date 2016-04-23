@@ -2,11 +2,14 @@ from operator import itemgetter
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
+import logging
 
 from atexpc.atex_web.ancora_api import AncoraAPI
 from atexpc.atex_web.forms import search_form_factory
 from atexpc.atex_web.models import Category
 from atexpc.atex_web.views.shopping import get_cart_data
+
+logger = logging.getLogger(__name__)
 
 
 class AncoraMiddleware(object):
