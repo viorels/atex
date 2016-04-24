@@ -8,9 +8,9 @@ from django.contrib.auth import forms as auth_forms, get_user_model
 from django.contrib.redirects.models import Redirect
 from django import forms
 
-from models import Category, Product, Image, Hit
-from dropbox_media import DropboxMedia
-from tasks import import_specs
+from .models import Category, Product, Image, Hit
+from .dropbox_media import DropboxMedia
+from .tasks import import_specs
 
 
 @admin.register(Category)

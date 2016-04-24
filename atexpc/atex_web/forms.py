@@ -11,7 +11,7 @@ from haystack.query import SQ
 # ROCNPField, ROPhoneNumberField, ROCIFField, ROIBANField, ROCountyField, ROCountySelect
 from localflavor.ro import forms as roforms
 
-from models import Product
+from .models import Product
 
 SORT_PRICE_ASC = 'pret_asc'
 SORT_PRICE_DESC = 'pret_desc'

@@ -3,8 +3,7 @@ import re
 import time
 import json
 import operator
-from urlparse import urlparse, urlunparse, parse_qsl
-from urllib import urlencode
+from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
 from django.core.cache import cache as django_cache
 
 import requests

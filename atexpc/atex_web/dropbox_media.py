@@ -39,7 +39,7 @@ class DropboxMedia(object):
         path = os.path.join(self.products_path, name)
         try:
             self._dropbox.files_create_folder(path)
-        except ApiError, e:
+        except ApiError as e:
             logger.error(e)
 
     def synchronize(self): # TODO: handle rate limit (503 errors)
@@ -123,5 +123,5 @@ class DropboxMedia(object):
             image_name = image.image.name
             image.delete()
             StorageWithOverwrite().delete(image_name)
-        except Image.DoesNotExist, e:
+        except Image.DoesNotExist as e:
             pass

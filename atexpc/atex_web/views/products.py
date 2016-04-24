@@ -12,8 +12,7 @@ from django.views.generic import View
 from django.views.generic.base import TemplateView
 from haystack.generic_views import SearchView, FacetedSearchView
 from haystack.query import SearchQuerySet
-from urllib import urlencode
-from urlparse import urlparse, urlunparse, parse_qsl
+from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
 
 from atexpc.atex_web.dropbox_media import DropboxMedia
 from atexpc.atex_web.views.base import BreadcrumbsMixin, CSRFCookieMixin, HybridGenericView

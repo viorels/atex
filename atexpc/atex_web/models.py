@@ -20,7 +20,7 @@ import pytz
 from memoize import memoize
 from sorl.thumbnail import ImageField
 
-from utils import one_month_ago
+from .utils import one_month_ago
 
 import logging
 logger = logging.getLogger(__name__)
@@ -202,7 +202,7 @@ class Product(models.Model):
     def _product_files(self):
         try:
             folders, files = StorageWithOverwrite().listdir(self.folder_path())
-        except OSError, e:
+        except OSError as e:
             files = []
         return files
 
@@ -384,7 +384,7 @@ class GetOrNoneManager(object):
     def get_unique_or_none(self, **kwargs):
         try:
             return self.get(**kwargs)
-        except (self.model.DoesNotExist, self.model.MultipleObjectsReturned), err:
+        except (self.model.DoesNotExist, self.model.MultipleObjectsReturned) as err:
             return None
 
 

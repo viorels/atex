@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.http import HttpResponse
 
-from atex_web.views import ErrorView
+from .atex_web.views import ErrorView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
