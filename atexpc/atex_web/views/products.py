@@ -337,7 +337,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
             after = [None, last_page]
         elif max_context <= last_page - 1:
             after = [last_page]
-        pages = before + range(min_context, max_context + 1) + after
+        pages = before + list(range(min_context, max_context + 1)) + after
         return pages
 
     def get_products(self):

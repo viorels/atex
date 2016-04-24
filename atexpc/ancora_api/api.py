@@ -192,7 +192,7 @@ class AncoraAdapter(BaseAdapter):
             path = parsed_uri.path
 
         parsed_old_args = dict(parse_qsl(parsed_uri.query))
-        parsed_args = dict(parse_qsl(args)) if isinstance(args, basestring) else args
+        parsed_args = dict(parse_qsl(args)) if isinstance(args, str) else args
         parsed_old_args.update(parsed_args)
         valid_args = dict((key, value) for key, value in parsed_old_args.items() if value is not None)
         encoded_args = urlencode(valid_args)

@@ -2,8 +2,8 @@ import datetime
 from django.db.models import Prefetch, F, Sum
 from haystack import indexes
 
-from models import Product, Hit
-from utils import one_month_ago
+from .models import Product, Hit
+from .utils import one_month_ago
 
 
 class ProductIndex(indexes.SearchIndex, indexes.Indexable):

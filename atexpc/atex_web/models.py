@@ -157,7 +157,7 @@ class Product(models.Model):
     html_extensions = ('.html', '.htm')
 
     def __init__(self, *args, **kwargs):
-        if kwargs.has_key('raw'):
+        if 'raw' in kwargs:
             self.raw = kwargs.pop('raw')
             kwargs.update(self.from_raw(self.raw))
         super(Product, self).__init__(*args, **kwargs)
@@ -674,7 +674,7 @@ class Specification(models.Model):
         format_match = re.search(self.FORMAT_RE, self.name)
         if format_match:
             value_format = format_match.group(2)
-            value = value_format.replace(self.FORMAT_PLACEHOLDER, unicode(value))
+            value = value_format.replace(self.FORMAT_PLACEHOLDER, value)
         value = value.replace('\n', '<br>')
         return value
 
