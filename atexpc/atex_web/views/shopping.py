@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth import login
+from django.views.generic import View
 from django.views.generic.edit import FormView
 from localflavor.ro.ro_counties import COUNTIES_CHOICES
 import requests
@@ -133,16 +134,15 @@ class OrderView(LoginRequiredMixin, BreadcrumbsMixin, CSRFCookieMixin, FormView,
         return super(OrderView, self).form_invalid(form)
 
 
-class GetCompanyInfo(HybridGenericView):
+class GetCompanyInfo(View):
     """ Get company info by CIF from openapi.ro """
 
-    template_name = None
-    json_exclude = ('object_list', 'view', 'paginator', 'page_obj', 'is_paginated')
-
-    def get_context_data(self, **kwargs):
+    def get(self, request, **kwargs):
         cif = self.kwargs.get('cif')
-        r = requests.get('http://openapi.ro/api/companies/%s.json' % cif)
-        return r.json()
+        res = requests.get('http://openapi.ro/api/companies/%s.json' % cif)
+        if res.status_code == 404:
+            return HttpResponseNotFound()
+        return JsonResponse(data=res.json())
 
 
 class ConfirmView(LoginRequiredMixin, BreadcrumbsMixin, HybridGenericView):
