@@ -22,7 +22,7 @@ class CategoryAdmin(admin.ModelAdmin):
     fields = ('code', 'name', 'specs_file')
 
     def get_queryset(self, request):
-        qs = super(CategoryAdmin, self).get_queryset(request)
+        qs = super().get_queryset(request)
         return qs.filter(parent=None)
 
     def save_model(self, request, obj, form, change):
@@ -36,7 +36,7 @@ class CategoryAdmin(admin.ModelAdmin):
         return file.name.lower().endswith('.xlsx')
 
     def get_actions(self, request):
-        actions = super(CategoryAdmin, self).get_actions(request)
+        actions = super().get_actions(request)
         del actions['delete_selected']
         return actions
 
@@ -191,7 +191,7 @@ class UserCreationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        user = super(UserCreationForm, self).save(commit=False)
+        user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()

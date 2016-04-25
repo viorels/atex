@@ -23,7 +23,7 @@ class DropboxMedia:
     max_path_length = 128 # TODO: introspect model
 
     def __init__(self, *args, **kwargs):
-        super(DropboxMedia, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if settings.DROPBOX_ACCESS_TOKEN_V2:
             self._dropbox = dropbox.Dropbox(settings.DROPBOX_ACCESS_TOKEN_V2)
 

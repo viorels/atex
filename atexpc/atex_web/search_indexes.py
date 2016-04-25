@@ -20,7 +20,7 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
         return Product
 
     def build_queryset(self, *args, **kwargs):
-        qs = super(ProductIndex, self).build_queryset(*args, **kwargs)
+        qs = super().build_queryset(*args, **kwargs)
 
         recent_hits_qs = Hit.objects.filter(date__gte=one_month_ago())
 

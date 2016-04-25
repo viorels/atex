@@ -127,7 +127,7 @@ class AncoraAdapter(BaseAdapter):
     def __init__(self, *args, **kwargs):
         default_api_timeout = 30  # seconds
         self._api_timeout = kwargs.pop('api_timeout') if 'api_timeout' in kwargs else default_api_timeout
-        super(AncoraAdapter, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def _read_backend(self, uri):
         try:
@@ -208,7 +208,7 @@ class AncoraAdapter(BaseAdapter):
 
 class MockAdapter(BaseAdapter):
     def __init__(self, base_uri=MOCK_DATA_PATH, **kwargs):
-        super(MockAdapter, self).__init__(base_uri, **kwargs)
+        super().__init__(base_uri, **kwargs)
 
     def _read_backend(self, uri):
         return open(uri).read()

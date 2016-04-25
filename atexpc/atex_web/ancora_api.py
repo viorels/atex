@@ -26,7 +26,7 @@ class AncoraAPI:
 class BaseAPI:
     """Base class for APIs"""
     def __init__(self, api):
-        super(BaseAPI, self).__init__()
+        super().__init__()
         self._api = api
 
 
@@ -102,7 +102,7 @@ class CategoriesAPI(BaseAPI):
 
 class ProductsAPI(BaseAPI):
     def __init__(self, categories, *args, **kwargs):
-        super(ProductsAPI, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.categories = categories
 
     def get_product(self, product_id):

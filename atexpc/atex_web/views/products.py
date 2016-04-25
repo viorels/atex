@@ -73,7 +73,7 @@ class HomeView(CSRFCookieMixin, TemplateView):
 class SparsePaginator(Paginator):
     def __init__(self, object_list, per_page, current_page, orphans=0,
                  allow_empty_first_page=True):
-        super(SparsePaginator, self).__init__(object_list, per_page, orphans=0,
+        super().__init__(object_list, per_page, orphans=0,
               allow_empty_first_page=True)
         self.current_page = current_page
 
@@ -140,7 +140,7 @@ class MySearchView(BreadcrumbsMixin, CSRFCookieMixin, SearchView):
             allow_empty_first_page=allow_empty_first_page, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(MySearchView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         products = [result.object for result in context['object_list'] if result.object]
 
         # TODO: refactor as it's the same in ProductsView
@@ -192,7 +192,7 @@ class MySearchView(BreadcrumbsMixin, CSRFCookieMixin, SearchView):
 class SearchAutoComplete(HybridGenericView):
     json_exclude = ('view',)
     def get_context_data(self, **kwargs):
-        context = super(SearchAutoComplete, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
         sqs = SearchQuerySet().autocomplete(name_auto=self.request.GET.get('q', '')) \
                               .order_by('-hits')[:10]
@@ -212,7 +212,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
                         'price_max': lambda: self.get_search_args()['price_max'],
                         'products': self.get_products(),
                         'pagination': self.get_pagination})
-        return super(ProductsView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_breadcrumbs(self):
         args = self.get_search_args()
@@ -379,7 +379,7 @@ class ProductView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
         context.update({'product': self.get_product(),
                         'properties': self.get_properties,
                         'recommended': self.get_recommended})
-        return super(ProductView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_product(self):
         if not hasattr(self, '_product'):
@@ -451,7 +451,7 @@ class DropboxWebHookView(View):
     # TODO: use Django 1.9 class decorator
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
-        return super(DropboxWebHookView, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class BrandsView(BreadcrumbsMixin, TemplateView):

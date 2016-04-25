@@ -160,7 +160,7 @@ class Product(models.Model):
         if 'raw' in kwargs:
             self.raw = kwargs.pop('raw')
             kwargs.update(self.from_raw(self.raw))
-        super(Product, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     @classmethod
     def from_raw(cls, raw):
@@ -600,7 +600,7 @@ class DatabaseCart(BaseCart):
 class AncoraCart(BaseCart):
     def __init__(self, cart, api):
         self._api = api
-        super(AncoraCart, self).__init__(cart)
+        super().__init__(cart)
 
     def id(self):
         return self._cart

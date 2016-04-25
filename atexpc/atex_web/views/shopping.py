@@ -90,12 +90,12 @@ class OrderView(LoginRequiredMixin, BreadcrumbsMixin, CSRFCookieMixin, FormView,
     success_url = reverse_lazy('confirm')
 
     def get_initial(self):
-        initial = super(OrderView, self).get_initial()
+        initial = super().get_initial()
         # TODO: user and delivery not required on order_form_factory(...)
         return initial
 
     def get_context_data(self, **kwargs):
-        context = super(OrderView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         if 'form' not in context:   # show full unbound form on first view
             context['form'] = self.get_form_class()
         user_id = self.request.user.get_ancora_id(self.request.api)
@@ -126,11 +126,11 @@ class OrderView(LoginRequiredMixin, BreadcrumbsMixin, CSRFCookieMixin, FormView,
         self.request.user.phone = form.cleaned_data['phone']
         self.request.user.save()
 
-        return super(OrderView, self).form_valid(form)
+        return super().form_valid(form)
 
     def form_invalid(self, form):
         logger.info('Order errors %s', form.errors)
-        return super(OrderView, self).form_invalid(form)
+        return super().form_invalid(form)
 
 
 class GetCompanyInfo(HybridGenericView):
@@ -151,7 +151,7 @@ class ConfirmView(LoginRequiredMixin, BreadcrumbsMixin, HybridGenericView):
                                                       url=reverse_lazy('confirm'))]
 
     def get_context_data(self, **kwargs):
-        context = super(ConfirmView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['order'] = self.request.session.get('order')
         return context
 
