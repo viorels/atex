@@ -1,0 +1,7 @@
+sudo apt-get install python3-venv python3-xapian
+mv venv venv2
+python3 -m venv venv
+. ~/venv/bin/activate
+pip install -r requirements/production.txt
+ln -s /usr/lib/python3/dist-packages/xapian venv/lib/python3.4/site-packages
+redis-cli   # flushdb
