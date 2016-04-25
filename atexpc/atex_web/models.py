@@ -52,7 +52,7 @@ class Category(models.Model):
         return ('category', (), {'category_id': self.id,
                                  'slug': slugify(self.name)})
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -304,7 +304,7 @@ class Product(models.Model):
         return ('product', (), {'product_id': self.id,
                                 'slug': slugify(self.name)})
 
-    def __unicode__(self):
+    def __str__(self):
         return self.model
 
 
@@ -357,7 +357,7 @@ class Image(models.Model):
     def not_available(cls):
         return Image(image=cls.NO_IMAGE)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.image.name
 
 
@@ -650,7 +650,7 @@ class SpecificationGroup(models.Model):
     name = models.CharField(max_length=64)
     category = models.ForeignKey(Category, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -678,7 +678,7 @@ class Specification(models.Model):
         value = value.replace('\n', '<br>')
         return value
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name if self.group is None else "%s (%s)" % (self.name, self.group)
 
 
