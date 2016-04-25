@@ -13,6 +13,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 from atexpc.ancora_api.api import APIError
 from atexpc.atex_web.ancora_api import AncoraAPI
+from atexpc.atex_web.forms import search_form_factory
 from atexpc.atex_web.models import Product
 
 import logging
@@ -180,6 +181,22 @@ class ErrorBase(BaseView):
         response.status_code = self.error_code
         response.render()   # response is not yet rendered during middleware
         return response
+
+    def get_local_context(self):
+        return {'search_form': self.get_search_form()}
+
+    # TODO: refactor in MySearchFormMixin
+    def get_search_form(self):
+        if not hasattr(self, '_search_form'):
+            request_GET = self.request.GET.copy()
+            # if request_GET.get('categorie') is None:
+            #     request_GET['categorie'] = self.get_category_id()
+            search_in_choices = tuple((c['code'], c['name']) for c in self.request.api.categories.get_main())
+            search_form_class = search_form_factory(search_in_choices, advanced=True)
+            self._search_form = search_form_class(request_GET)
+            if not self._search_form.is_valid():
+                logger.error("search form errors: %s", self._search_form.errors)
+        return self._search_form
 
     def get_breadcrumbs(self):
         return [{'name': "Pagina necunoscuta"}]
