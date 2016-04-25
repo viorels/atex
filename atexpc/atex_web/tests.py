@@ -8,10 +8,10 @@ from django.db import IntegrityError
 from django.contrib.sessions.backends.db import SessionStore
 from mock import patch
 
-from models import Product, ProductManager, DatabaseCart, Category
-from ancora_api import AncoraAPI
-import views
-from specs_impex import update_db_specs
+from .models import Product, ProductManager, DatabaseCart, Category
+from .ancora_api import AncoraAPI
+import .views
+from .specs_impex import update_db_specs
 
 
 class ClientTest(TestCase):
