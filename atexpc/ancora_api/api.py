@@ -5,6 +5,7 @@ import json
 import operator
 from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
 from django.core.cache import cache as django_cache
+from functools import reduce
 
 import requests
 from requests.exceptions import ConnectionError, Timeout
