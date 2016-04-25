@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from atexpc.ancora_api.api import Ancora, AncoraAdapter
 
 
-class AncoraAPI(object):
+class AncoraAPI:
     def __init__(self, adapter_class=AncoraAdapter,
                        base_uri=settings.ANCORA_URI,
                        use_backend=None, api_timeout=None):
@@ -23,7 +23,7 @@ class AncoraAPI(object):
         self.cart = CartAPI(api=self._ancora)
 
 
-class BaseAPI(object):
+class BaseAPI:
     """Base class for APIs"""
     def __init__(self, api):
         super(BaseAPI, self).__init__()

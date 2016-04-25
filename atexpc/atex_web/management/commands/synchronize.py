@@ -17,7 +17,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class atomic_write(object):
+class atomic_write:
     def __init__(self, name):
         self.fname = name
         self.temp_fname = name + '.tmp'

@@ -12,7 +12,7 @@ from atexpc.atex_web.views.shopping import get_cart_data
 logger = logging.getLogger(__name__)
 
 
-class AncoraMiddleware(object):
+class AncoraMiddleware:
     def process_request(self, request):
         request.api = AncoraAPI()
         return None

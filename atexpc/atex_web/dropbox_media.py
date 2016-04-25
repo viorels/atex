@@ -17,7 +17,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class DropboxMedia(object):
+class DropboxMedia:
     products_path = "/Atex-media/products"
     products_path_re = r"/products/(?P<folder>[^/]+)/(?P<resource>[^/]+)(?P<other>/.*)?"
     max_path_length = 128 # TODO: introspect model

@@ -32,10 +32,10 @@ def thumbnail(image, size):
     return url
 
 @register.filter
-def jsonify(object):
-    if isinstance(object, QuerySet):
-        return serialize('json', object)
-    return json.dumps(object)
+def jsonify(obj):
+    if isinstance(obj, QuerySet):
+        return serialize('json', obj)
+    return json.dumps(obj)
 
 @register.simple_tag(takes_context=True)
 def request_uri_with_args(context, **new_args):

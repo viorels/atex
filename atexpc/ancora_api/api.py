@@ -26,7 +26,7 @@ class APIError(Exception):
     pass
 
 
-class BaseAdapter(object):
+class BaseAdapter:
     def __init__(self, base_uri=None, cache=django_cache, use_backend=None):
         """ - base_uri = common part of the API uri
             - use_backend = None: try cache and fallback to backend
@@ -226,7 +226,7 @@ class MockAdapter(BaseAdapter):
         return name + '.json'
 
 
-class Ancora(object):
+class Ancora:
     def __init__(self, adapter=None):
         self.adapter = adapter
 

@@ -370,7 +370,7 @@ class Hit(models.Model):
         unique_together = ("product", "date")
 
 
-class GetOrNoneManager(object):
+class GetOrNoneManager:
     """Adds get_or_none method to objects
     """
     def get_or_none(self, **kwargs):
@@ -492,7 +492,7 @@ class CartProducts(models.Model):
     count = models.IntegerField(default=1)
 
 
-class BaseCart(object):
+class BaseCart:
     def __init__(self, cart):
         self._cart = cart
 
@@ -511,7 +511,7 @@ class BaseCart(object):
             return product
 
 
-class CartFactory(object):
+class CartFactory:
     def __init__(self, database=None, api=None):
         if not (database or api):
             raise ValueError("Specify either database (True) or api")

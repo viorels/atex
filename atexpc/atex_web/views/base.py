@@ -163,7 +163,7 @@ class BaseView(TemplateView):
         return super(BaseView, self).dispatch(*args, **kwargs)
 
 
-class CSRFCookieMixin(object):
+class CSRFCookieMixin:
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
         return super(CSRFCookieMixin, self).dispatch(*args, **kwargs)
@@ -185,7 +185,7 @@ class ErrorBase(BaseView):
         return [{'name': "Pagina necunoscuta"}]
 
 
-class BreadcrumbsMixin(object):
+class BreadcrumbsMixin:
     def get_context_data(self, **context):
         context.update({'breadcrumbs': self.get_breadcrumbs})
         return super(BreadcrumbsMixin, self).get_context_data(**context)
@@ -227,7 +227,7 @@ class BreadcrumbsMixin(object):
                                            'slug': slugify(category['name'])})
 
 
-class JSONResponseMixin(object):
+class JSONResponseMixin:
     """A mixin that can be used to render a JSON response."""
 
     def render_to_response(self, context, **response_kwargs):
