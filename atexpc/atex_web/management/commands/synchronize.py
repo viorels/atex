@@ -64,9 +64,9 @@ class Command(BaseCommand):
         )
 
     CLEAN_INFO_UNWANTED_CHARS = {
-        u'|': None,
-        u'\n': None,
-        u'\r': None,
+        '|': None,
+        '\n': None,
+        '\r': None,
     }
 
     def handle(self, *args, **options):

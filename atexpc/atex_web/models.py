@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 def _category_specs_path(instance, filename):
     SPECS_PATH = 'specs'
-    canonical_name = u"%s-%s.xlsx" % (instance.code, instance.name)
+    canonical_name = "%s-%s.xlsx" % (instance.code, instance.name)
     return os.path.join(SPECS_PATH, canonical_name)
 
 class Category(models.Model):
