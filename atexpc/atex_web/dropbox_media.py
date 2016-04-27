@@ -93,7 +93,7 @@ class DropboxMedia:
             tempfile_name = tempfile.name   # temp file is created and closed empty
         self._dropbox.files_download_to_file(tempfile_name, entry.path_display)
 
-        with open(tempfile_name) as f:
+        with open(tempfile_name, "rb") as f:
             self._storage_image_writer(self._relative_path(entry.path_display), f)
         os.unlink(tempfile_name)
 
