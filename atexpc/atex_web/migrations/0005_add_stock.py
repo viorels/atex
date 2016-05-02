@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='product',
             name='stock',
-            field=models.SmallIntegerField(null=True, choices=[(0, b'call'), (1, b'in stoc'), (2, b'la comanda'), (3, b'indisponibil')]),
+            field=models.SmallIntegerField(null=True, choices=[(0, 'call'), (1, 'in stoc'), (2, 'la comanda'), (3, 'indisponibil')]),
         ),
         migrations.AlterField(
             model_name='product',
