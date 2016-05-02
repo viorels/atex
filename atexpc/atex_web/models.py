@@ -686,3 +686,10 @@ class ProductSpecification(models.Model):
     product = models.ForeignKey(Product)
     spec = models.ForeignKey(Specification)
     value = models.TextField(blank=True)
+
+
+class Banner(models.Model):
+    image = models.ImageField(upload_to='banners/')
+    order = models.IntegerField()
+    
+

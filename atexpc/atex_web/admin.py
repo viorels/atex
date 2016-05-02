@@ -8,7 +8,7 @@ from django.contrib.auth import forms as auth_forms, get_user_model
 from django.contrib.redirects.models import Redirect
 from django import forms
 
-from .models import Category, Product, Image, Hit
+from .models import Category, Product, Image, Hit, Banner
 from .dropbox_media import DropboxMedia
 from .tasks import import_specs
 
@@ -219,3 +219,8 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ('is_active',)
     search_fields = ('first_name', 'last_name', 'email')
     ordering = ('email',)
+
+
+@admin.register(Banner)
+class BannerAdmin(admin.ModelAdmin):
+    pass
