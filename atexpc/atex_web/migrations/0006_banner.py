@@ -14,9 +14,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Banner',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('image', models.ImageField(upload_to='banners/')),
+                ('title', models.CharField(max_length=200, blank=True)),
+                ('url', models.CharField(max_length=200)),
                 ('order', models.IntegerField()),
             ],
+            options={
+                'ordering': ['order'],
+            },
         ),
     ]

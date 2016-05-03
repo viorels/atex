@@ -7,6 +7,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import forms as auth_forms, get_user_model
 from django.contrib.redirects.models import Redirect
 from django import forms
+from pathlib import Path
 
 from .models import Category, Product, Image, Hit, Banner
 from .dropbox_media import DropboxMedia
@@ -223,5 +224,9 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Banner)
 class BannerAdmin(admin.ModelAdmin):
-    list_display = ('image', 'order')
+    list_display = ('name', 'image', 'order')
     list_editable = ('order',)
+    list_display_links = ('name',)
+
+    def name(self, obj):
+        return Path(obj.image.path).name

@@ -690,8 +690,10 @@ class ProductSpecification(models.Model):
 
 class Banner(models.Model):
     image = models.ImageField(upload_to='banners/')
+    title = models.CharField(max_length=200, blank=True)
+    url = models.CharField(max_length=200)
     order = models.IntegerField()
-    
+
     class Meta:
         ordering = ['order']
 

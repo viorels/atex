@@ -15,7 +15,7 @@
     {% cache 60 home %}
 			  <ul class="bxslider">
                 {% for banner in view.get_banners %}
-                <li><a href="http://www.atexpc.ro/produs/76786-ultrabook-lenovo-x1-carbon-3-cu-procesor-intel-core-i7"><img src="/media/{{ banner.image }}" alt="Lenovo ThinkPad x1 Carbon 3" title="Lenovo ThinkPad x1 Carbon 3" /></a></li>
+                <li><a href="{{ banner.url }}"><img src="/media/{{ banner.image }}" alt="{{ banner.title }}" title="{{ banner.title }}" /></a></li>
                 {% endfor %}
 			  </ul>
 
