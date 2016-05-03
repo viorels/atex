@@ -223,4 +223,5 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Banner)
 class BannerAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('image', 'order')
+    list_editable = ('order',)

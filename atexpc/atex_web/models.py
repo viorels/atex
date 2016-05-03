@@ -692,4 +692,6 @@ class Banner(models.Model):
     image = models.ImageField(upload_to='banners/')
     order = models.IntegerField()
     
+    class Meta:
+        ordering = ['order']
 
