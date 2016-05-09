@@ -35,7 +35,7 @@ class CartView(BreadcrumbsMixin, CSRFCookieMixin, HybridGenericView):
             self._update_cart_options(delivery=request.POST.get('delivery'))
         elif method == 'update' or next_step:
             products_count = {}
-            for key, value in request.POST.iteritems():
+            for key, value in request.POST.items():
                 if key.startswith('product_'):
                     product_id = int(key.lstrip('product_').rstrip('_count'))
                     count = int(value)
