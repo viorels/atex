@@ -16,7 +16,7 @@ from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
 
 from atexpc.atex_web.dropbox_media import DropboxMedia
 from atexpc.atex_web.views.base import BreadcrumbsMixin, CSRFCookieMixin, HybridGenericView
-from atexpc.atex_web.models import Product, ProductSpecification
+from atexpc.atex_web.models import Product, ProductSpecification, Banner
 from atexpc.atex_web.forms import search_form_factory
 from atexpc.atex_web.tasks import sync_dropbox
 from atexpc.atex_web.utils import group_in, grouper
@@ -68,6 +68,10 @@ class HomeView(CSRFCookieMixin, TemplateView):
             product['images'] = product_obj.images
             product['url'] = product_obj.get_absolute_url()
         return promotional
+
+    def get_banners(self):
+        all_banners = Banner.objects.all()
+        return all_banners
 
 
 class SparsePaginator(Paginator):
