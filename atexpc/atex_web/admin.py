@@ -229,4 +229,6 @@ class BannerAdmin(admin.ModelAdmin):
     list_display_links = ('name',)
 
     def name(self, obj):
-        return Path(obj.image.path).name
+        image_title = obj.title
+        image_name = Path(obj.image.path).name
+        return image_title or image_name
