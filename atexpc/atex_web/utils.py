@@ -6,6 +6,8 @@ from collections import Mapping
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 import pytz
+from PIL import Image, ImageColor
+from sorl.thumbnail.engines.pil_engine import Engine
 
 
 class LoginRequiredMixin:
@@ -57,3 +59,17 @@ class FrozenDict(Mapping):
 
     def copy(self):
         return self._d.copy()
+
+
+class BackgroundColorEngine(Engine):
+    """Conversion engine for PNG->JPG with correct background collor"""
+    def create(self, image, geometry, options):
+        thumb = super(Engine, self).create(image, geometry, options)
+        if options.get('background'):
+            try:
+                background = Image.new('RGB', thumb.size, ImageColor.getcolor(options.get('background'), 'RGB'))
+                background.paste(thumb, mask=thumb.split()[3]) # 3 is the alpha of an RGBA image.
+                return background
+            except Exception as e:
+                return thumb
+        return thumb

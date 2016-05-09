@@ -1,7 +1,11 @@
-{% extends "basepromotii.html" %}
+{% extends "base.html" %}
 
 {% load static %}
 {% get_static_prefix as STATIC_PREFIX %}
+
+{% block css %}
+<link href="{{ STATIC_PREFIX }}css/promotions.css" type="text/css" rel="stylesheet" />
+{% endblock %}
 
 {% block title %}Promotiile Saptamanii | ATEX Computer{% endblock title %}
 {% block head %}

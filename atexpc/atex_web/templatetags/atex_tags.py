@@ -19,7 +19,7 @@ def thumbnail(image, size):
         url = no_image_url
     else:
         try:
-            thumb = get_thumbnail(image.image, size, upscale=False, quality=85)
+            thumb = get_thumbnail(image.image, size, upscale=False, padding=True, background='#fff', quality=85)
             url = settings.MEDIA_URL + thumb.name
         except IOError as e:
             logger.debug("%s: %s", image.image, e)

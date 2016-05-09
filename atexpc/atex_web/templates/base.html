@@ -11,8 +11,10 @@
 <meta name="google-site-verification" content="b18Kt6L5fCRNRREsgxzrQjm9ZZ0lSv0GSPRpUeU7J0s" />
 <link rel="icon" href="{{ STATIC_PREFIX }}favicon.ico" />
 {% compress css %}
+{% block css %}
 <link href="{{ STATIC_PREFIX }}css/style.css" type="text/css" rel="stylesheet" />
 <link href="{{ STATIC_PREFIX }}css/style_certificari.css" type="text/css" rel="stylesheet" />
+{% endblock %}
 {% endcompress %}
 {% compress js %}
 <script src="{{ STATIC_PREFIX }}script/jquery-1.12.3.js" type="text/javascript"></script>
