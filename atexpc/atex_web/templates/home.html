@@ -15,7 +15,9 @@
     {% cache 60 home %}
 			  <ul class="bxslider">
                 {% for banner in view.get_banners %}
-                <li><a href="{{ banner.url }}"><img src="/media/{{ banner.image }}" alt="{{ banner.title }}" title="{{ banner.title }}" /></a></li>
+                <li {% if not forloop.first %}style="display:none"{% endif %}>
+                    <a href="{{ banner.url }}"><img src="/media/{{ banner.image }}" alt="{{ banner.title }}" title="{{ banner.title }}" /></a>
+                </li>
                 {% endfor %}
 			  </ul>
 
