@@ -3,8 +3,8 @@ from collections import OrderedDict
 from django import db
 from django.db.utils import DataError
 
-from ancora_api import AncoraAPI
-from models import Category, Product, Specification, ProductSpecification, SpecificationGroup
+from .ancora_api import AncoraAPI
+from .models import Category, Product, Specification, ProductSpecification, SpecificationGroup
 
 IGNORED_COLUMNS = ('Duplicate',)
 MODEL_COLUMN = 'Model'
@@ -15,7 +15,7 @@ def import_specs(fname):
     book = open_workbook(fname)
     for sheet in book.sheets():
         category = worksheet_category(sheet)
-        print "Sheet %s: %s" % (category['name'], worksheet_columns(sheet).values())
+        print("Sheet %s: %s" % (category['name'], worksheet_columns(sheet).values()))
         product_specs = import_category_specs(sheet)
         update_db_specs(category['id'], product_specs)
 
@@ -69,7 +69,7 @@ def update_db_specs(category_id, product_specs):
                                                                                        spec=spec_orm,
                                                                                        value=value)
                 except DataError as e:
-                    print '*** ERROR: %s' % e
+                    print('*** ERROR: %s' % e)
                 if not created:
                     pass    # update ?
 

@@ -3,9 +3,9 @@ import re
 import time
 import json
 import operator
-from urlparse import urlparse, urlunparse, parse_qsl
-from urllib import urlencode
+from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
 from django.core.cache import cache as django_cache
+from functools import reduce
 
 import requests
 from requests.exceptions import ConnectionError, Timeout
@@ -27,7 +27,7 @@ class APIError(Exception):
     pass
 
 
-class BaseAdapter(object):
+class BaseAdapter:
     def __init__(self, base_uri=None, cache=django_cache, use_backend=None):
         """ - base_uri = common part of the API uri
             - use_backend = None: try cache and fallback to backend
@@ -128,7 +128,7 @@ class AncoraAdapter(BaseAdapter):
     def __init__(self, *args, **kwargs):
         default_api_timeout = 30  # seconds
         self._api_timeout = kwargs.pop('api_timeout') if 'api_timeout' in kwargs else default_api_timeout
-        super(AncoraAdapter, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def _read_backend(self, uri):
         try:
@@ -193,7 +193,7 @@ class AncoraAdapter(BaseAdapter):
             path = parsed_uri.path
 
         parsed_old_args = dict(parse_qsl(parsed_uri.query))
-        parsed_args = dict(parse_qsl(args)) if isinstance(args, basestring) else args
+        parsed_args = dict(parse_qsl(args)) if isinstance(args, str) else args
         parsed_old_args.update(parsed_args)
         valid_args = dict((key, value) for key, value in parsed_old_args.items() if value is not None)
         encoded_args = urlencode(valid_args)
@@ -209,7 +209,7 @@ class AncoraAdapter(BaseAdapter):
 
 class MockAdapter(BaseAdapter):
     def __init__(self, base_uri=MOCK_DATA_PATH, **kwargs):
-        super(MockAdapter, self).__init__(base_uri, **kwargs)
+        super().__init__(base_uri, **kwargs)
 
     def _read_backend(self, uri):
         return open(uri).read()
@@ -227,7 +227,7 @@ class MockAdapter(BaseAdapter):
         return name + '.json'
 
 
-class Ancora(object):
+class Ancora:
     def __init__(self, adapter=None):
         self.adapter = adapter
 

@@ -20,7 +20,7 @@ import pytz
 from memoize import memoize
 from sorl.thumbnail import ImageField
 
-from utils import one_month_ago
+from .utils import one_month_ago
 
 import logging
 logger = logging.getLogger(__name__)
@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 def _category_specs_path(instance, filename):
     SPECS_PATH = 'specs'
-    canonical_name = u"%s-%s.xlsx" % (instance.code, instance.name)
+    canonical_name = "%s-%s.xlsx" % (instance.code, instance.name)
     return os.path.join(SPECS_PATH, canonical_name)
 
 class Category(models.Model):
@@ -52,7 +52,7 @@ class Category(models.Model):
         return ('category', (), {'category_id': self.id,
                                  'slug': slugify(self.name)})
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -157,10 +157,10 @@ class Product(models.Model):
     html_extensions = ('.html', '.htm')
 
     def __init__(self, *args, **kwargs):
-        if kwargs.has_key('raw'):
+        if 'raw' in kwargs:
             self.raw = kwargs.pop('raw')
             kwargs.update(self.from_raw(self.raw))
-        super(Product, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     @classmethod
     def from_raw(cls, raw):
@@ -202,7 +202,7 @@ class Product(models.Model):
     def _product_files(self):
         try:
             folders, files = StorageWithOverwrite().listdir(self.folder_path())
-        except OSError, e:
+        except OSError as e:
             files = []
         return files
 
@@ -304,7 +304,7 @@ class Product(models.Model):
         return ('product', (), {'product_id': self.id,
                                 'slug': slugify(self.name)})
 
-    def __unicode__(self):
+    def __str__(self):
         return self.model
 
 
@@ -357,7 +357,7 @@ class Image(models.Model):
     def not_available(cls):
         return Image(image=cls.NO_IMAGE)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.image.name
 
 
@@ -370,7 +370,7 @@ class Hit(models.Model):
         unique_together = ("product", "date")
 
 
-class GetOrNoneManager(object):
+class GetOrNoneManager:
     """Adds get_or_none method to objects
     """
     def get_or_none(self, **kwargs):
@@ -384,7 +384,7 @@ class GetOrNoneManager(object):
     def get_unique_or_none(self, **kwargs):
         try:
             return self.get(**kwargs)
-        except (self.model.DoesNotExist, self.model.MultipleObjectsReturned), err:
+        except (self.model.DoesNotExist, self.model.MultipleObjectsReturned) as err:
             return None
 
 
@@ -492,7 +492,7 @@ class CartProducts(models.Model):
     count = models.IntegerField(default=1)
 
 
-class BaseCart(object):
+class BaseCart:
     def __init__(self, cart):
         self._cart = cart
 
@@ -511,7 +511,7 @@ class BaseCart(object):
             return product
 
 
-class CartFactory(object):
+class CartFactory:
     def __init__(self, database=None, api=None):
         if not (database or api):
             raise ValueError("Specify either database (True) or api")
@@ -600,7 +600,7 @@ class DatabaseCart(BaseCart):
 class AncoraCart(BaseCart):
     def __init__(self, cart, api):
         self._api = api
-        super(AncoraCart, self).__init__(cart)
+        super().__init__(cart)
 
     def id(self):
         return self._cart
@@ -650,7 +650,7 @@ class SpecificationGroup(models.Model):
     name = models.CharField(max_length=64)
     category = models.ForeignKey(Category, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -674,11 +674,11 @@ class Specification(models.Model):
         format_match = re.search(self.FORMAT_RE, self.name)
         if format_match:
             value_format = format_match.group(2)
-            value = value_format.replace(self.FORMAT_PLACEHOLDER, unicode(value))
+            value = value_format.replace(self.FORMAT_PLACEHOLDER, value)
         value = value.replace('\n', '<br>')
         return value
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name if self.group is None else "%s (%s)" % (self.name, self.group)
 
 
@@ -686,3 +686,14 @@ class ProductSpecification(models.Model):
     product = models.ForeignKey(Product)
     spec = models.ForeignKey(Specification)
     value = models.TextField(blank=True)
+
+
+class Banner(models.Model):
+    image = models.ImageField(upload_to='banners/')
+    title = models.CharField(max_length=200, blank=True)
+    url = models.CharField(max_length=200)
+    order = models.IntegerField()
+
+    class Meta:
+        ordering = ['order']
+

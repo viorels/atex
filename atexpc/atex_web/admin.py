@@ -7,10 +7,11 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import forms as auth_forms, get_user_model
 from django.contrib.redirects.models import Redirect
 from django import forms
+from pathlib import Path
 
-from models import Category, Product, Image, Hit
-from dropbox_media import DropboxMedia
-from tasks import import_specs
+from .models import Category, Product, Image, Hit, Banner
+from .dropbox_media import DropboxMedia
+from .tasks import import_specs
 
 
 @admin.register(Category)
@@ -22,7 +23,7 @@ class CategoryAdmin(admin.ModelAdmin):
     fields = ('code', 'name', 'specs_file')
 
     def get_queryset(self, request):
-        qs = super(CategoryAdmin, self).get_queryset(request)
+        qs = super().get_queryset(request)
         return qs.filter(parent=None)
 
     def save_model(self, request, obj, form, change):
@@ -36,7 +37,7 @@ class CategoryAdmin(admin.ModelAdmin):
         return file.name.lower().endswith('.xlsx')
 
     def get_actions(self, request):
-        actions = super(CategoryAdmin, self).get_actions(request)
+        actions = super().get_actions(request)
         del actions['delete_selected']
         return actions
 
@@ -191,7 +192,7 @@ class UserCreationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        user = super(UserCreationForm, self).save(commit=False)
+        user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
@@ -219,3 +220,15 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ('is_active',)
     search_fields = ('first_name', 'last_name', 'email')
     ordering = ('email',)
+
+
+@admin.register(Banner)
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'image', 'order')
+    list_editable = ('order',)
+    list_display_links = ('name',)
+
+    def name(self, obj):
+        image_title = obj.title
+        image_name = Path(obj.image.path).name
+        return image_title or image_name

@@ -4,7 +4,7 @@ run "manage.py test --settings=atexpc.config.test ancora_api"
 
 from django.test import TestCase
 from mock import Mock
-from api import Ancora, MockAdapter, AncoraAdapter
+from .api import Ancora, MockAdapter, AncoraAdapter
 
 class CategoryTest(TestCase):
     def test_categories(self):

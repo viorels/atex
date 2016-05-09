@@ -3,8 +3,7 @@ from django.conf import settings
 from django.core.serializers import serialize
 from django.db.models.query import QuerySet
 from sorl.thumbnail import get_thumbnail
-from urllib import urlencode
-from urlparse import urlparse, urlunparse, parse_qsl
+from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
 import json
 
 
@@ -22,10 +21,10 @@ def thumbnail(image, size):
         try:
             thumb = get_thumbnail(image.image, size, upscale=False, quality=85)
             url = settings.MEDIA_URL + thumb.name
-        except IOError, e:
+        except IOError as e:
             logger.debug("%s: %s", image.image, e)
             url = no_image_url
-        except IndexError, e:
+        except IndexError as e:
             # string index out of range 
             # at lib/python2.6/site-packages/PIL/TiffImagePlugin.py in il16, line 68
             logger.debug("%s: %s", image.image, e)
@@ -33,10 +32,10 @@ def thumbnail(image, size):
     return url
 
 @register.filter
-def jsonify(object):
-    if isinstance(object, QuerySet):
-        return serialize('json', object)
-    return json.dumps(object)
+def jsonify(obj):
+    if isinstance(obj, QuerySet):
+        return serialize('json', obj)
+    return json.dumps(obj)
 
 @register.simple_tag(takes_context=True)
 def request_uri_with_args(context, **new_args):

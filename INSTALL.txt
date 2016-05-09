@@ -1,19 +1,19 @@
 # sudo adduser atex
 # sudo apt-get update
-# sudo aptitude install redis-server libmemcached-dev postgresql libpq-dev python-virtualenv python-dev libjpeg8-dev libapache2-mod-wsgi git
-# sudo install libxapian-dev libxapian22 python-xapian
+# sudo apt-get install redis-server postgresql libpq-dev python3-venv python3-dev libjpeg8-dev libapache2-mod-wsgi git libxapian-dev libxapian22v5 python3-xapian1.3
 
 # a2dismod python perl php5
 
 # sudo su - postgres
-$ createdb atex
+$ createuser -d atex
+atex@server$ createdb atex
 
 $ sudo su - atex
 $ git clone https://github.com/viorels/atex.git
-$ virtualenv venv
+$ pyvenv venv
 $ . venv/bin/activate
 $ pip install -r atex/requirements/production.txt
-$ ln -s /usr/lib/python2.7/dist-packages/xapian ~/venv/lib/python2.7
+$ ln -s /usr/lib/python3/dist-packages/xapian venv/lib/python3.5/site-packages
 
 $ cat << _EOF_ > .env
 ANCORA_URI=http://ANCORA.SERVER:8765/ancoraerp/jis.serv?database=atex
@@ -29,7 +29,9 @@ _EOF_
 
 # DEVELOPMENT
 
-$ env `xargs < .env` python manage.py runserver		# run server
+$ export `xargs < .env`
+$ python manage.py migrate      # init/update database
+$ python manage.py runserver	# run server
 
-$ env `xargs < .env` celery -A atexpc worker -l info 	# run Celery
+$ celery -A atexpc worker -l info 	# run Celery
 

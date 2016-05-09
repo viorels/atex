@@ -17,7 +17,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class atomic_write(object):
+class atomic_write:
     def __init__(self, name):
         self.fname = name
         self.temp_fname = name + '.tmp'
@@ -64,9 +64,9 @@ class Command(BaseCommand):
         )
 
     CLEAN_INFO_UNWANTED_CHARS = {
-        u'|': None,
-        u'\n': None,
-        u'\r': None,
+        '|': None,
+        '\n': None,
+        '\r': None,
     }
 
     def handle(self, *args, **options):

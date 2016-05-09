@@ -14,8 +14,9 @@
 {% block content_right %}
     {% cache 60 home %}
 			  <ul class="bxslider">
-                <li><a href="http://www.atexpc.ro/produs/76786-ultrabook-lenovo-x1-carbon-3-cu-procesor-intel-core-i7"><img src="{{ STATIC_PREFIX }}images/promotii/thinkpad-x1-carbon3.jpg" alt="Lenovo ThinkPad x1 Carbon 3" title="Lenovo ThinkPad x1 Carbon 3" /></a></li>
-                <li style="display:none"><a href="http://www.atexpc.ro/produs/68391-procesor-intel-core-i3-4170-37-ghz-socket-1150"><img src="{{ STATIC_PREFIX }}images/promotii/i3-4170.jpg" alt="Intel Core I3 4170" title="Intel Core I3 4170" /></a></li>
+                {% for banner in view.get_banners %}
+                <li><a href="{{ banner.url }}"><img src="/media/{{ banner.image }}" alt="{{ banner.title }}" title="{{ banner.title }}" /></a></li>
+                {% endfor %}
 			  </ul>
 
               <div class="right_content">

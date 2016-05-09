@@ -1,5 +1,5 @@
 from django.core.management.base import NoArgsCommand
-from dropbox_media import DropboxMedia
+from .dropbox_media import DropboxMedia
 
 class Command(NoArgsCommand):
     def handle_noargs(self, *args, **options):

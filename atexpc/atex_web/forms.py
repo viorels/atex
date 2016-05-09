@@ -11,7 +11,7 @@ from haystack.query import SQ
 # ROCNPField, ROPhoneNumberField, ROCIFField, ROIBANField, ROCountyField, ROCountySelect
 from localflavor.ro import forms as roforms
 
-from models import Product
+from .models import Product
 
 SORT_PRICE_ASC = 'pret_asc'
 SORT_PRICE_DESC = 'pret_desc'
@@ -43,7 +43,7 @@ def search_form_factory(search_in_choices, advanced=False, is_search=False):
             required=False)
 
         def search(self):
-            sqs = super(SearchForm, self).search()
+            sqs = super().search()
 
             keywords = self.cleaned_data['q']
             if keywords:
@@ -78,7 +78,7 @@ def search_form_factory(search_in_choices, advanced=False, is_search=False):
         pret_max = forms.IntegerField(initial='', required=False)
 
         def search(self):
-            sqs = super(AdvancedSearchForm, self).search()
+            sqs = super().search()
 
             if self.cleaned_data['stoc']:
                 sqs = sqs.filter(stock=Exact(Product.STOCK_TRUE))
@@ -117,7 +117,7 @@ def user_form_factory(is_signup, api):
                 # self.cleaned_data['login_type'] = 'new'
                 raise forms.ValidationError('Nu am găsit contul dar poți creea unul')
 
-            return super(LoginForm, self).clean()
+            return super().clean()
 
     class SignupForm(LoginForm):
         first_name = forms.CharField(
@@ -155,7 +155,7 @@ def user_form_factory(is_signup, api):
                 user_info['ancora_id'] = ancora_user_id
                 user_info['password'] = self.cleaned_data.get('password')
                 user = get_user_model().objects.create_user(**user_info)
-            return super(SignupForm, self).clean()
+            return super().clean()
 
     if is_signup:
         return SignupForm
@@ -244,7 +244,7 @@ def order_form_factory(form_type, user, customers=[], addresses=[], delivery=Fal
             required=False)
 
         def clean(self):
-            cleaned_data = super(BaseOrderForm, self).clean()
+            cleaned_data = super().clean()
 
             if cleaned_data.get('delivery') == 'yes':
                 delivery_address_id = cleaned_data.get("delivery_address_id")

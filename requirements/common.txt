@@ -20,3 +20,5 @@ xlsxwriter==0.8.4
 xlrd==0.9.4
 django-haystack==2.4.1
 xapian-haystack==2.0.0
+kombu==3.0.35
+billiard==3.3.0.23

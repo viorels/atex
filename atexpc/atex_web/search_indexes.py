@@ -2,8 +2,8 @@ import datetime
 from django.db.models import Prefetch, F, Sum
 from haystack import indexes
 
-from models import Product, Hit
-from utils import one_month_ago
+from .models import Product, Hit
+from .utils import one_month_ago
 
 
 class ProductIndex(indexes.SearchIndex, indexes.Indexable):
@@ -20,7 +20,7 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
         return Product
 
     def build_queryset(self, *args, **kwargs):
-        qs = super(ProductIndex, self).build_queryset(*args, **kwargs)
+        qs = super().build_queryset(*args, **kwargs)
 
         recent_hits_qs = Hit.objects.filter(date__gte=one_month_ago())
 
