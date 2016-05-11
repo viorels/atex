@@ -1,5 +1,5 @@
 from os import path, environ
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 from atexpc.settings import *
 
@@ -36,7 +36,7 @@ EMAIL_SUBJECT_PREFIX = '[Atex] '
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
 
-if environ.has_key('DATABASE_URL'):
+if 'DATABASE_URL' in environ:
     url = urlparse(environ['DATABASE_URL'])
     DATABASES = {'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
