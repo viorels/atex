@@ -1,4 +1,6 @@
 Django==1.8.11
+django-haystack==2.4.1
+elasticsearch==2.3.0
 pytz==2016.3
 redis==2.10.5
 celery[redis]==3.1.23
@@ -18,7 +20,5 @@ django-memoize==1.2.0
 django-password-reset==0.8.2
 xlsxwriter==0.8.4
 xlrd==0.9.4
-django-haystack==2.4.1
-xapian-haystack==2.0.0
 kombu==3.0.35
 billiard==3.3.0.23

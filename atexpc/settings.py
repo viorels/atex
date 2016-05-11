@@ -132,9 +132,11 @@ SOCIAL_AUTH_FACEBOOK_SECRET = environ.get('FACEBOOK_API_SECRET')
 HAYSTACK_DEFAULT_OPERATOR = 'AND'
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'xapian_backend.XapianEngine',
-        'PATH': path.join(PROJECT_ROOT, 'xapian_index'),
-        'INCLUDE_SPELLING': False,
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 1000,
     },
 }
 
