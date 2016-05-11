@@ -268,7 +268,7 @@ INSTALLED_APPS = (
     'localflavor',
     'compressor',
     'sorl.thumbnail',
-    'atexpc.atex_web',  # before social auth
+    'atexpc.atex_web.apps.AtexConfig',  # before social auth
     'social.apps.django_app.default',
     'password_reset',
     'haystack',
