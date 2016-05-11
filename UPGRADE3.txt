@@ -1,3 +1,4 @@
+git co stable && git pull
 sudo apt-get install python3-venv python3-xapian
 mv venv venv2
 python3 -m venv venv
@@ -6,3 +7,5 @@ pip install -r requirements/production.txt
 redis-cli   # flushdb
 find . -name *.pyc -exec rm {} \;
 python manage.py migrate
+python manage.py rebuild_index -v2
+add banners in /admin !!!

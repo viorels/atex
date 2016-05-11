@@ -12,6 +12,7 @@ from pathlib import Path
 from .models import Category, Product, Image, Hit, Banner
 from .dropbox_media import DropboxMedia
 from .tasks import import_specs
+from .utils import one_month_ago
 
 
 @admin.register(Category)
@@ -114,7 +115,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = ProductQuerySet(Product)
-        hit_params = (Product.objects.one_month_ago(),)
+        hit_params = (one_month_ago(),)
         return (qs.extra(select=OrderedDict([('image_count', qs.image_subquery()),
                                              ('hit_count', qs.hit_subquery())]),
                          select_params=hit_params))
