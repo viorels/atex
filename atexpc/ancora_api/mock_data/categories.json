@@ -1,1489 +1,1984 @@
 {
-   "categories" : [
-      {
-         "pidm" : "424",
-         "zcod" : "1",
-         "zslug" : "laptop-&-desktop-&-servere",
-         "zname" : "Laptop & Desktop & Servere",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=424",
-         "zdenumire_singular" : "Laptop & Desktop & Servere",
-         "zparent" : "",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=424&start=0&stop=20"
-      },
-      {
-         "pidm" : "425",
-         "zcod" : "1.01",
-         "zslug" : "laptop",
-         "zname" : "Laptop",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=425",
-         "zdenumire_singular" : "Laptop",
-         "zparent" : "1",
-         "zcount" : 1033,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=425&start=0&stop=20"
-      },
-      {
-         "pidm" : "426",
-         "zcod" : "1.02",
-         "zslug" : "netbook",
-         "zname" : "Netbook",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=426",
-         "zdenumire_singular" : "Netbook",
-         "zparent" : "1",
-         "zcount" : 26,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=426&start=0&stop=20"
-      },
-      {
-         "pidm" : "427",
-         "zcod" : "1.03",
-         "zslug" : "ultrabook",
-         "zname" : "Ultrabook",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=427",
-         "zdenumire_singular" : "Ultrabook",
-         "zparent" : "1",
-         "zcount" : 49,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=427&start=0&stop=20"
-      },
-      {
-         "pidm" : "428",
-         "zcod" : "1.04",
-         "zslug" : "tablete",
-         "zname" : "Tablete",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=428",
-         "zdenumire_singular" : "Tableta",
-         "zparent" : "1",
-         "zcount" : 84,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=428&start=0&stop=20"
-      },
-      {
-         "pidm" : "429",
-         "zcod" : "1.05",
-         "zslug" : "e-book",
-         "zname" : "E-Book",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=429",
-         "zdenumire_singular" : "E-Book",
-         "zparent" : "1",
-         "zcount" : 5,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=429&start=0&stop=20"
-      },
-      {
-         "pidm" : "430",
-         "zcod" : "1.06",
-         "zslug" : "unitati-centrale",
-         "zname" : "Unitati centrale",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=430",
-         "zdenumire_singular" : "Unitate centrala",
-         "zparent" : "1",
-         "zcount" : 180,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=430&start=0&stop=20"
-      },
-      {
-         "pidm" : "431",
-         "zcod" : "1.07",
-         "zslug" : "servere",
-         "zname" : "Servere",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=431",
-         "zdenumire_singular" : "Server",
-         "zparent" : "1",
-         "zcount" : 78,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=431&start=0&stop=20"
-      },
-      {
-         "pidm" : "535",
-         "zcod" : "1.07.1",
-         "zslug" : "carcase-server",
-         "zname" : "Carcase server",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=535",
-         "zdenumire_singular" : "Carcasa pentru server",
-         "zparent" : "1.07",
-         "zcount" : 19,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=535&start=0&stop=20"
-      },
-      {
-         "pidm" : "536",
-         "zcod" : "1.07.2",
-         "zslug" : "memorii-server",
-         "zname" : "Memorii server",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=536",
-         "zdenumire_singular" : "Memorii pentru sisteme de tip server",
-         "zparent" : "1.07",
-         "zcount" : 1,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=536&start=0&stop=20"
-      },
-      {
-         "pidm" : "537",
-         "zcod" : "1.07.3",
-         "zslug" : "raid-controller",
-         "zname" : "Raid controller",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=537",
-         "zdenumire_singular" : "Raid controller",
-         "zparent" : "1.07",
-         "zcount" : 16,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=537&start=0&stop=20"
-      },
-      {
-         "pidm" : "558",
-         "zcod" : "1.07.4",
-         "zslug" : "accesorii-servere",
-         "zname" : "Accesorii servere",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=558",
-         "zdenumire_singular" : "Accesorii servere",
-         "zparent" : "1.07",
-         "zcount" : 13,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=558&start=0&stop=20"
-      },
-      {
-         "pidm" : "432",
-         "zcod" : "1.08",
-         "zslug" : "barebone",
-         "zname" : "Barebone",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=432",
-         "zdenumire_singular" : "Barebone",
-         "zparent" : "1",
-         "zcount" : 4,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=432&start=0&stop=20"
-      },
-      {
-         "pidm" : "433",
-         "zcod" : "1.09",
-         "zslug" : "genti-si-huse",
-         "zname" : "Genti si Huse",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=433",
-         "zdenumire_singular" : "Genti si Huse",
-         "zparent" : "1",
-         "zcount" : 198,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=433&start=0&stop=20"
-      },
-      {
-         "pidm" : "434",
-         "zcod" : "1.10",
-         "zslug" : "baterii-si-incarcatoare",
-         "zname" : "Baterii si incarcatoare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=434",
-         "zdenumire_singular" : "Baterii si incarcatoare",
-         "zparent" : "1",
-         "zcount" : 64,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=434&start=0&stop=20"
-      },
-      {
-         "pidm" : "540",
-         "zcod" : "1.11",
-         "zslug" : "coolere&standuri-laptop",
-         "zname" : "Coolere&Standuri laptop",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=540",
-         "zdenumire_singular" : "Coolere&Standuri laptop",
-         "zparent" : "1",
-         "zcount" : 85,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=540&start=0&stop=20"
-      },
-      {
-         "pidm" : "435",
-         "zcod" : "1.12",
-         "zslug" : "extindere-de-garantie",
-         "zname" : "Extindere de garantie",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=435",
-         "zdenumire_singular" : "Extindere de garantie",
-         "zparent" : "1",
-         "zcount" : 33,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=435&start=0&stop=20"
-      },
-      {
-         "pidm" : "436",
-         "zcod" : "2",
-         "zslug" : "monitoare-&-tv-&-gaming",
-         "zname" : "Monitoare & TV & Gaming",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=436",
-         "zdenumire_singular" : "Monitoare & TV & Gaming",
-         "zparent" : "",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=436&start=0&stop=20"
-      },
-      {
-         "pidm" : "437",
-         "zcod" : "2.01",
-         "zslug" : "monitoare",
-         "zname" : "Monitoare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=437",
-         "zdenumire_singular" : "Monitor",
-         "zparent" : "2",
-         "zcount" : 273,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=437&start=0&stop=20"
-      },
-      {
-         "pidm" : "439",
-         "zcod" : "2.02",
-         "zslug" : "proiectoare-multimedia",
-         "zname" : "Proiectoare multimedia",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=439",
-         "zdenumire_singular" : "Proiector multimedia",
-         "zparent" : "2",
-         "zcount" : 66,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=439&start=0&stop=20"
-      },
-      {
-         "pidm" : "440",
-         "zcod" : "2.03",
-         "zslug" : "televizoare",
-         "zname" : "Televizoare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=440",
-         "zdenumire_singular" : "Televizor",
-         "zparent" : "2",
-         "zcount" : 68,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=440&start=0&stop=20"
-      },
-      {
-         "pidm" : "442",
-         "zcod" : "2.04",
-         "zslug" : "ecrane-de-proiectie",
-         "zname" : "Ecrane de proiectie",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=442",
-         "zdenumire_singular" : "Ecran de proiectie",
-         "zparent" : "2",
-         "zcount" : 12,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=442&start=0&stop=20"
-      },
-      {
-         "pidm" : "444",
-         "zcod" : "2.05",
-         "zslug" : "accesorii",
-         "zname" : "Accesorii",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=444",
-         "zdenumire_singular" : "Accesorii",
-         "zparent" : "2",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=444&start=0&stop=20"
-      },
-      {
-         "pidm" : "445",
-         "zcod" : "2.05.1",
-         "zslug" : "cabluri-si-adaptoare",
-         "zname" : "Cabluri si adaptoare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=445",
-         "zdenumire_singular" : "Cabluri si adaptoare",
-         "zparent" : "2.05",
-         "zcount" : 222,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=445&start=0&stop=20"
-      },
-      {
-         "pidm" : "446",
-         "zcod" : "2.05.2",
-         "zslug" : "suporti-de-prindere",
-         "zname" : "Suporti de prindere",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=446",
-         "zdenumire_singular" : "Suport de prindere",
-         "zparent" : "2.05",
-         "zcount" : 4,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=446&start=0&stop=20"
-      },
-      {
-         "pidm" : "447",
-         "zcod" : "2.05.3",
-         "zslug" : "lampi-proiector",
-         "zname" : "Lampi proiector",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=447",
-         "zdenumire_singular" : "Lampa pentru proiector",
-         "zparent" : "2.05",
-         "zcount" : 4,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=447&start=0&stop=20"
-      },
-      {
-         "pidm" : "560",
-         "zcod" : "2.05.4",
-         "zslug" : "geanta-proiector",
-         "zname" : "Geanta proiector",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=560",
-         "zdenumire_singular" : "Geanta proiector",
-         "zparent" : "2.05",
-         "zcount" : 3,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=560&start=0&stop=20"
-      },
-      {
-         "pidm" : "556",
-         "zcod" : "2.05.5",
-         "zslug" : "presenter",
-         "zname" : "Presenter",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=556",
-         "zdenumire_singular" : "Presenter",
-         "zparent" : "2.05",
-         "zcount" : 5,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=556&start=0&stop=20"
-      },
-      {
-         "pidm" : "448",
-         "zcod" : "2.06",
-         "zslug" : "gaming",
-         "zname" : "Gaming",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=448",
-         "zdenumire_singular" : "Gaming",
-         "zparent" : "2",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=448&start=0&stop=20"
-      },
-      {
-         "pidm" : "449",
-         "zcod" : "2.06.1",
-         "zslug" : "console",
-         "zname" : "Console",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=449",
-         "zdenumire_singular" : "Console",
-         "zparent" : "2.06",
-         "zcount" : 19,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=449&start=0&stop=20"
-      },
-      {
-         "pidm" : "450",
-         "zcod" : "2.06.2",
-         "zslug" : "accesorii-console",
-         "zname" : "Accesorii console",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=450",
-         "zdenumire_singular" : "Accesorii console",
-         "zparent" : "2.06",
-         "zcount" : 67,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=450&start=0&stop=20"
-      },
-      {
-         "pidm" : "454",
-         "zcod" : "2.06.6",
-         "zslug" : "joystick",
-         "zname" : "Joystick",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=454",
-         "zdenumire_singular" : "Joystick",
-         "zparent" : "2.06",
-         "zcount" : 3,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=454&start=0&stop=20"
-      },
-      {
-         "pidm" : "455",
-         "zcod" : "2.06.7",
-         "zslug" : "gamepad",
-         "zname" : "Gamepad",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=455",
-         "zdenumire_singular" : "Gamepad",
-         "zparent" : "2.06",
-         "zcount" : 20,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=455&start=0&stop=20"
-      },
-      {
-         "pidm" : "456",
-         "zcod" : "2.06.8",
-         "zslug" : "volane",
-         "zname" : "Volane",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=456",
-         "zdenumire_singular" : "Volane",
-         "zparent" : "2.06",
-         "zcount" : 6,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=456&start=0&stop=20"
-      },
-      {
-         "pidm" : "457",
-         "zcod" : "2.06.9",
-         "zslug" : "jocuri",
-         "zname" : "Jocuri",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=457",
-         "zdenumire_singular" : "Jocuri",
-         "zparent" : "2.06",
-         "zcount" : 72,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=457&start=0&stop=20"
-      },
-      {
-         "pidm" : "541",
-         "zcod" : "2.07",
-         "zslug" : "entertainment",
-         "zname" : "Entertainment",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=541",
-         "zdenumire_singular" : "Entertainment",
-         "zparent" : "2",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=541&start=0&stop=20"
-      },
-      {
-         "pidm" : "542",
-         "zcod" : "2.07.1",
-         "zslug" : "modulator-fm",
-         "zname" : "Modulator FM",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=542",
-         "zdenumire_singular" : "Modulator FM",
-         "zparent" : "2.07",
-         "zcount" : 1,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=542&start=0&stop=20"
-      },
-      {
-         "pidm" : "543",
-         "zcod" : "2.07.2",
-         "zslug" : "mp3-/-mp4-player",
-         "zname" : "MP3 / MP4 Player",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=543",
-         "zdenumire_singular" : "MP3 / MP4 Player",
-         "zparent" : "2.07",
-         "zcount" : 77,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=543&start=0&stop=20"
-      },
-      {
-         "pidm" : "544",
-         "zcod" : "2.07.3",
-         "zslug" : "rame-foto",
-         "zname" : "Rame foto",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=544",
-         "zdenumire_singular" : "Rama foto",
-         "zparent" : "2.07",
-         "zcount" : 8,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=544&start=0&stop=20"
-      },
-      {
-         "pidm" : "545",
-         "zcod" : "2.07.4",
-         "zslug" : "sisteme-home-cinema",
-         "zname" : "Sisteme home cinema",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=545",
-         "zdenumire_singular" : "Sisteme home cinema",
-         "zparent" : "2.07",
-         "zcount" : 14,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=545&start=0&stop=20"
-      },
-      {
-         "pidm" : "546",
-         "zcod" : "2.07.5",
-         "zslug" : "media-player",
-         "zname" : "Media player",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=546",
-         "zdenumire_singular" : "Media player",
-         "zparent" : "2.07",
-         "zcount" : 16,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=546&start=0&stop=20"
-      },
-      {
-         "pidm" : "547",
-         "zcod" : "2.07.6",
-         "zslug" : "amplificatoare",
-         "zname" : "Amplificatoare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=547",
-         "zdenumire_singular" : "Amplificatoare",
-         "zparent" : "2.07",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=547&start=0&stop=20"
-      },
-      {
-         "pidm" : "548",
-         "zcod" : "2.07.7",
-         "zslug" : "dvd-player",
-         "zname" : "DVD Player",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=548",
-         "zdenumire_singular" : "DVD Player",
-         "zparent" : "2.07",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=548&start=0&stop=20"
-      },
-      {
-         "pidm" : "549",
-         "zcod" : "2.07.8",
-         "zslug" : "bluray-player",
-         "zname" : "BluRay Player",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=549",
-         "zdenumire_singular" : "BluRay Player",
-         "zparent" : "2.07",
-         "zcount" : 1,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=549&start=0&stop=20"
-      },
-      {
-         "pidm" : "421",
-         "zcod" : "3",
-         "zslug" : "componente-it",
-         "zname" : "Componente IT",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=421",
-         "zdenumire_singular" : "Componente IT",
-         "zparent" : "",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=421&start=0&stop=20"
-      },
-      {
-         "pidm" : "422",
-         "zcod" : "3.01",
-         "zslug" : "placi-de-baza",
-         "zname" : "Placi de baza",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=422",
-         "zdenumire_singular" : "Placa de baza",
-         "zparent" : "3",
-         "zcount" : 319,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=422&start=0&stop=20"
-      },
-      {
-         "pidm" : "423",
-         "zcod" : "3.02",
-         "zslug" : "procesoare",
-         "zname" : "Procesoare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=423",
-         "zdenumire_singular" : "Procesor",
-         "zparent" : "3",
-         "zcount" : 100,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=423&start=0&stop=20"
-      },
-      {
-         "pidm" : "458",
-         "zcod" : "3.03",
-         "zslug" : "placi-video",
-         "zname" : "Placi video",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=458",
-         "zdenumire_singular" : "Placi video",
-         "zparent" : "3",
-         "zcount" : 300,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=458&start=0&stop=20"
-      },
-      {
-         "pidm" : "459",
-         "zcod" : "3.04",
-         "zslug" : "memorii-interne",
-         "zname" : "Memorii interne",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=459",
-         "zdenumire_singular" : "Memorii interne",
-         "zparent" : "3",
-         "zcount" : 299,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=459&start=0&stop=20"
-      },
-      {
-         "pidm" : "460",
-         "zcod" : "3.05",
-         "zslug" : "memorii-externe",
-         "zname" : "Memorii externe",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=460",
-         "zdenumire_singular" : "Memorii externe",
-         "zparent" : "3",
-         "zcount" : 208,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=460&start=0&stop=20"
-      },
-      {
-         "pidm" : "461",
-         "zcod" : "3.06",
-         "zslug" : "hard-disk-intern",
-         "zname" : "Hard disk intern",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=461",
-         "zdenumire_singular" : "Hard disk intern",
-         "zparent" : "3",
-         "zcount" : 119,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=461&start=0&stop=20"
-      },
-      {
-         "pidm" : "462",
-         "zcod" : "3.07",
-         "zslug" : "ssd-(-solid-state-drive-)",
-         "zname" : "SSD ( Solid State Drive )",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=462",
-         "zdenumire_singular" : "SSD ( Solid State Drive )",
-         "zparent" : "3",
-         "zcount" : 153,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=462&start=0&stop=20"
-      },
-      {
-         "pidm" : "463",
-         "zcod" : "3.08",
-         "zslug" : "unitati-optice",
-         "zname" : "Unitati optice",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=463",
-         "zdenumire_singular" : "Unitati optice",
-         "zparent" : "3",
-         "zcount" : 29,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=463&start=0&stop=20"
-      },
-      {
-         "pidm" : "464",
-         "zcod" : "3.09",
-         "zslug" : "carcase-desktop",
-         "zname" : "Carcase desktop",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=464",
-         "zdenumire_singular" : "Carcasa pentru sisteme desktop",
-         "zparent" : "3",
-         "zcount" : 284,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=464&start=0&stop=20"
-      },
-      {
-         "pidm" : "465",
-         "zcod" : "3.10",
-         "zslug" : "surse-desktop",
-         "zname" : "Surse desktop",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=465",
-         "zdenumire_singular" : "Surse desktop",
-         "zparent" : "3",
-         "zcount" : 278,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=465&start=0&stop=20"
-      },
-      {
-         "pidm" : "466",
-         "zcod" : "3.11",
-         "zslug" : "placi-de-sunet",
-         "zname" : "Placi de sunet",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=466",
-         "zdenumire_singular" : "Placi de sunet",
-         "zparent" : "3",
-         "zcount" : 38,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=466&start=0&stop=20"
-      },
-      {
-         "pidm" : "467",
-         "zcod" : "3.12",
-         "zslug" : "tv-tunere",
-         "zname" : "TV-Tunere",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=467",
-         "zdenumire_singular" : "TV-Tunere",
-         "zparent" : "3",
-         "zcount" : 22,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=467&start=0&stop=20"
-      },
-      {
-         "pidm" : "468",
-         "zcod" : "3.13",
-         "zslug" : "placi-de-captura",
-         "zname" : "Placi de captura",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=468",
-         "zdenumire_singular" : "Placi de captura",
-         "zparent" : "3",
-         "zcount" : 13,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=468&start=0&stop=20"
-      },
-      {
-         "pidm" : "469",
-         "zcod" : "3.14",
-         "zslug" : "ventilatoare",
-         "zname" : "Ventilatoare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=469",
-         "zdenumire_singular" : "Ventilatoare",
-         "zparent" : "3",
-         "zcount" : 285,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=469&start=0&stop=20"
-      },
-      {
-         "pidm" : "470",
-         "zcod" : "3.15",
-         "zslug" : "pc-tuning",
-         "zname" : "PC Tuning",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=470",
-         "zdenumire_singular" : "PC Tuning",
-         "zparent" : "3",
-         "zcount" : 17,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=470&start=0&stop=20"
-      },
-      {
-         "pidm" : "471",
-         "zcod" : "3.15.1",
-         "zslug" : "paste-termice",
-         "zname" : "Paste termice",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=471",
-         "zdenumire_singular" : "Paste termice",
-         "zparent" : "3.15",
-         "zcount" : 21,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=471&start=0&stop=20"
-      },
-      {
-         "pidm" : "472",
-         "zcod" : "3.15.2",
-         "zslug" : "controler-pt.-ventilatoare",
-         "zname" : "Controler pt. ventilatoare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=472",
-         "zdenumire_singular" : "Controler pt. ventilatoare",
-         "zparent" : "3.15",
-         "zcount" : 9,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=472&start=0&stop=20"
-      },
-      {
-         "pidm" : "473",
-         "zcod" : "3.15.3",
-         "zslug" : "neoane",
-         "zname" : "Neoane",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=473",
-         "zdenumire_singular" : "Neoane",
-         "zparent" : "3.15",
-         "zcount" : 6,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=473&start=0&stop=20"
-      },
-      {
-         "pidm" : "538",
-         "zcod" : "3.15.4",
-         "zslug" : "accesorii-ventilatoare",
-         "zname" : "Accesorii ventilatoare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=538",
-         "zdenumire_singular" : "Accesorii ventilatoare",
-         "zparent" : "3.15",
-         "zcount" : 61,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=538&start=0&stop=20"
-      },
-      {
-         "pidm" : "474",
-         "zcod" : "3.16",
-         "zslug" : "sertar-pt-hdd/ssd/odd",
-         "zname" : "Sertar pt HDD/SSD/ODD",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=474",
-         "zdenumire_singular" : "Sertar pt HDD/SSD/ODD",
-         "zparent" : "3",
-         "zcount" : 102,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=474&start=0&stop=20"
-      },
-      {
-         "pidm" : "559",
-         "zcod" : "3.17",
-         "zslug" : "card-reader-&-hub-usb",
-         "zname" : "Card reader & Hub USB",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=559",
-         "zdenumire_singular" : "Card reader & Hub USB",
-         "zparent" : "3",
-         "zcount" : 41,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=559&start=0&stop=20"
-      },
-      {
-         "pidm" : "475",
-         "zcod" : "4",
-         "zslug" : "periferice",
-         "zname" : "Periferice",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=475",
-         "zdenumire_singular" : "Periferice",
-         "zparent" : "",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=475&start=0&stop=20"
-      },
-      {
-         "pidm" : "476",
-         "zcod" : "4.01",
-         "zslug" : "imprimante",
-         "zname" : "Imprimante",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=476",
-         "zdenumire_singular" : "Imprimanta",
-         "zparent" : "4",
-         "zcount" : 173,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=476&start=0&stop=20"
-      },
-      {
-         "pidm" : "477",
-         "zcod" : "4.02",
-         "zslug" : "multifunctionale",
-         "zname" : "Multifunctionale",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=477",
-         "zdenumire_singular" : "Multifunctionale",
-         "zparent" : "4",
-         "zcount" : 177,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=477&start=0&stop=20"
-      },
-      {
-         "pidm" : "478",
-         "zcod" : "4.03",
-         "zslug" : "plottere",
-         "zname" : "Plottere",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=478",
-         "zdenumire_singular" : "Plottere",
-         "zparent" : "4",
-         "zcount" : 30,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=478&start=0&stop=20"
-      },
-      {
-         "pidm" : "479",
-         "zcod" : "4.04",
-         "zslug" : "hard-disk-extern",
-         "zname" : "Hard disk extern",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=479",
-         "zdenumire_singular" : "Hard disk extern",
-         "zparent" : "4",
-         "zcount" : 91,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=479&start=0&stop=20"
-      },
-      {
-         "pidm" : "508",
-         "zcod" : "4.05",
-         "zslug" : "foto/video",
-         "zname" : "Foto/Video",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=508",
-         "zdenumire_singular" : "Foto/Video",
-         "zparent" : "4",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=508&start=0&stop=20"
-      },
-      {
-         "pidm" : "509",
-         "zcod" : "4.05.1",
-         "zslug" : "aparate-foto",
-         "zname" : "Aparate foto",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=509",
-         "zdenumire_singular" : "Aparate foto",
-         "zparent" : "4.05",
-         "zcount" : 150,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=509&start=0&stop=20"
-      },
-      {
-         "pidm" : "510",
-         "zcod" : "4.05.2",
-         "zslug" : "camere-video",
-         "zname" : "Camere video",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=510",
-         "zdenumire_singular" : "Camere video",
-         "zparent" : "4.05",
-         "zcount" : 14,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=510&start=0&stop=20"
-      },
-      {
-         "pidm" : "511",
-         "zcod" : "4.05.3",
-         "zslug" : "acumulatori",
-         "zname" : "Acumulatori",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=511",
-         "zdenumire_singular" : "Acumulatori",
-         "zparent" : "4.05",
-         "zcount" : 4,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=511&start=0&stop=20"
-      },
-      {
-         "pidm" : "512",
-         "zcod" : "4.05.4",
-         "zslug" : "trepiede",
-         "zname" : "Trepiede",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=512",
-         "zdenumire_singular" : "Trepiede",
-         "zparent" : "4.05",
-         "zcount" : 44,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=512&start=0&stop=20"
-      },
-      {
-         "pidm" : "513",
-         "zcod" : "4.05.5",
-         "zslug" : "obiective-si-filtre-dslr",
-         "zname" : "Obiective si filtre DSLR",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=513",
-         "zdenumire_singular" : "Obiective si filtre DSLR",
-         "zparent" : "4.05",
-         "zcount" : 5,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=513&start=0&stop=20"
-      },
-      {
-         "pidm" : "514",
-         "zcod" : "4.05.6",
-         "zslug" : "genti-si-huse",
-         "zname" : "Genti si huse",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=514",
-         "zdenumire_singular" : "Genti si huse",
-         "zparent" : "4.05",
-         "zcount" : 70,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=514&start=0&stop=20"
-      },
-      {
-         "pidm" : "563",
-         "zcod" : "4.05.7",
-         "zslug" : "blitz",
-         "zname" : "Blitz",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=563",
-         "zdenumire_singular" : "Blitz",
-         "zparent" : "4.05",
-         "zcount" : 1,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=563&start=0&stop=20"
-      },
-      {
-         "pidm" : "515",
-         "zcod" : "4.06",
-         "zslug" : "camere-web",
-         "zname" : "Camere web",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=515",
-         "zdenumire_singular" : "Camere web",
-         "zparent" : "4",
-         "zcount" : 50,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=515&start=0&stop=20"
-      },
-      {
-         "pidm" : "516",
-         "zcod" : "4.07",
-         "zslug" : "scanere",
-         "zname" : "Scanere",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=516",
-         "zdenumire_singular" : "Scanere",
-         "zparent" : "4",
-         "zcount" : 58,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=516&start=0&stop=20"
-      },
-      {
-         "pidm" : "517",
-         "zcod" : "4.08",
-         "zslug" : "tablete-grafice",
-         "zname" : "Tablete grafice",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=517",
-         "zdenumire_singular" : "Tablete grafice",
-         "zparent" : "4",
-         "zcount" : 15,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=517&start=0&stop=20"
-      },
-      {
-         "pidm" : "518",
-         "zcod" : "4.09",
-         "zslug" : "boxe-pc",
-         "zname" : "Boxe PC",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=518",
-         "zdenumire_singular" : "Boxe PC",
-         "zparent" : "4",
-         "zcount" : 104,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=518&start=0&stop=20"
-      },
-      {
-         "pidm" : "519",
-         "zcod" : "4.10",
-         "zslug" : "casti-pc",
-         "zname" : "Casti PC",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=519",
-         "zdenumire_singular" : "Casti PC",
-         "zparent" : "4",
-         "zcount" : 253,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=519&start=0&stop=20"
-      },
-      {
-         "pidm" : "520",
-         "zcod" : "4.11",
-         "zslug" : "microfoane",
-         "zname" : "Microfoane",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=520",
-         "zdenumire_singular" : "Microfoane",
-         "zparent" : "4",
-         "zcount" : 6,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=520&start=0&stop=20"
-      },
-      {
-         "pidm" : "526",
-         "zcod" : "4.12",
-         "zslug" : "ups-si-prize-cu-protectie",
-         "zname" : "UPS si prize cu protectie",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=526",
-         "zdenumire_singular" : "UPS si prize cu protectie",
-         "zparent" : "4",
-         "zcount" : 8,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=526&start=0&stop=20"
-      },
-      {
-         "pidm" : "527",
-         "zcod" : "4.12.1",
-         "zslug" : "ups",
-         "zname" : "UPS",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=527",
-         "zdenumire_singular" : "UPS",
-         "zparent" : "4.12",
-         "zcount" : 137,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=527&start=0&stop=20"
-      },
-      {
-         "pidm" : "528",
-         "zcod" : "4.12.2",
-         "zslug" : "baterii-ups",
-         "zname" : "Baterii UPS",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=528",
-         "zdenumire_singular" : "Baterii UPS",
-         "zparent" : "4.12",
-         "zcount" : 22,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=528&start=0&stop=20"
-      },
-      {
-         "pidm" : "529",
-         "zcod" : "4.12.3",
-         "zslug" : "prize-cu-protectie",
-         "zname" : "Prize cu protectie",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=529",
-         "zdenumire_singular" : "Prize cu protectie",
-         "zparent" : "4.12",
-         "zcount" : 27,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=529&start=0&stop=20"
-      },
-      {
-         "pidm" : "530",
-         "zcod" : "4.13",
-         "zslug" : "tastaturi-si-mouse",
-         "zname" : "Tastaturi si Mouse",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=530",
-         "zdenumire_singular" : "Tastaturi si Mouse",
-         "zparent" : "4",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=530&start=0&stop=20"
-      },
-      {
-         "pidm" : "531",
-         "zcod" : "4.13.1",
-         "zslug" : "kit-tastatura-+-mouse",
-         "zname" : "Kit tastatura + Mouse",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=531",
-         "zdenumire_singular" : "Kit tastatura + Mouse",
-         "zparent" : "4.13",
-         "zcount" : 27,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=531&start=0&stop=20"
-      },
-      {
-         "pidm" : "532",
-         "zcod" : "4.13.2",
-         "zslug" : "tastaturi",
-         "zname" : "Tastaturi",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=532",
-         "zdenumire_singular" : "Tastaturi",
-         "zparent" : "4.13",
-         "zcount" : 172,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=532&start=0&stop=20"
-      },
-      {
-         "pidm" : "533",
-         "zcod" : "4.13.3",
-         "zslug" : "mouse",
-         "zname" : "Mouse",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=533",
-         "zdenumire_singular" : "Mouse",
-         "zparent" : "4.13",
-         "zcount" : 435,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=533&start=0&stop=20"
-      },
-      {
-         "pidm" : "534",
-         "zcod" : "4.13.4",
-         "zslug" : "mouse-pad",
-         "zname" : "Mouse pad",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=534",
-         "zdenumire_singular" : "Mouse pad",
-         "zparent" : "4.13",
-         "zcount" : 101,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=534&start=0&stop=20"
-      },
-      {
-         "pidm" : "557",
-         "zcod" : "4.14",
-         "zslug" : "gps",
-         "zname" : "GPS",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=557",
-         "zdenumire_singular" : "GPS",
-         "zparent" : "4",
-         "zcount" : 53,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=557&start=0&stop=20"
-      },
-      {
-         "pidm" : "480",
-         "zcod" : "5",
-         "zslug" : "birotica-si-consumabile",
-         "zname" : "Birotica si Consumabile",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=480",
-         "zdenumire_singular" : "Birotica si Consumabile",
-         "zparent" : "",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=480&start=0&stop=20"
-      },
-      {
-         "pidm" : "481",
-         "zcod" : "5.01",
-         "zslug" : "cartuse-imprimante",
-         "zname" : "Cartuse imprimante",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=481",
-         "zdenumire_singular" : "Cartuse imprimante",
-         "zparent" : "5",
-         "zcount" : 1278,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=481&start=0&stop=20"
-      },
-      {
-         "pidm" : "482",
-         "zcod" : "5.02",
-         "zslug" : "hartie",
-         "zname" : "Hartie",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=482",
-         "zdenumire_singular" : "Hartie",
-         "zparent" : "5",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=482&start=0&stop=20"
-      },
-      {
-         "pidm" : "483",
-         "zcod" : "5.03",
-         "zslug" : "medii-magnetice",
-         "zname" : "Medii magnetice",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=483",
-         "zdenumire_singular" : "Medii magnetice",
-         "zparent" : "5",
-         "zcount" : 85,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=483&start=0&stop=20"
-      },
-      {
-         "pidm" : "484",
-         "zcod" : "5.04",
-         "zslug" : "accesorii-iphone",
-         "zname" : "Accesorii iPhone",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=484",
-         "zdenumire_singular" : "Accesorii iPhone",
-         "zparent" : "5",
-         "zcount" : 14,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=484&start=0&stop=20"
-      },
-      {
-         "pidm" : "485",
-         "zcod" : "5.05",
-         "zslug" : "accesorii-ipad",
-         "zname" : "Accesorii iPAD",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=485",
-         "zdenumire_singular" : "Accesorii iPAD",
-         "zparent" : "5",
-         "zcount" : 9,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=485&start=0&stop=20"
-      },
-      {
-         "pidm" : "486",
-         "zcod" : "5.06",
-         "zslug" : "distrugatoare-de-documente",
-         "zname" : "Distrugatoare de documente",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=486",
-         "zdenumire_singular" : "Distrugatoare de documente",
-         "zparent" : "5",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=486&start=0&stop=20"
-      },
-      {
-         "pidm" : "487",
-         "zcod" : "5.07",
-         "zslug" : "reportofoane",
-         "zname" : "Reportofoane",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=487",
-         "zdenumire_singular" : "Reportofoane",
-         "zparent" : "5",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=487&start=0&stop=20"
-      },
-      {
-         "pidm" : "564",
-         "zcod" : "5.08",
-         "zslug" : "produse-de-curatat",
-         "zname" : "Produse de curatat",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=564",
-         "zdenumire_singular" : "Produse de curatat",
-         "zparent" : "5",
-         "zcount" : 24,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=564&start=0&stop=20"
-      },
-      {
-         "pidm" : "566",
-         "zcod" : "5.09",
-         "zslug" : "produse-de-birou",
-         "zname" : "Produse de birou",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=566",
-         "zdenumire_singular" : "Produse de birou",
-         "zparent" : "5",
-         "zcount" : 17,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=566&start=0&stop=20"
-      },
-      {
-         "pidm" : "488",
-         "zcod" : "6",
-         "zslug" : "retelistica",
-         "zname" : "Retelistica",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=488",
-         "zdenumire_singular" : "Retelistica",
-         "zparent" : "",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=488&start=0&stop=20"
-      },
-      {
-         "pidm" : "489",
-         "zcod" : "6.01",
-         "zslug" : "routere",
-         "zname" : "Routere",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=489",
-         "zdenumire_singular" : "Routere",
-         "zparent" : "6",
-         "zcount" : 121,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=489&start=0&stop=20"
-      },
-      {
-         "pidm" : "490",
-         "zcod" : "6.02",
-         "zslug" : "switch",
-         "zname" : "Switch",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=490",
-         "zdenumire_singular" : "Switch",
-         "zparent" : "6",
-         "zcount" : 185,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=490&start=0&stop=20"
-      },
-      {
-         "pidm" : "491",
-         "zcod" : "6.03",
-         "zslug" : "placi-de-retea",
-         "zname" : "Placi de retea",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=491",
-         "zdenumire_singular" : "Placi de retea",
-         "zparent" : "6",
-         "zcount" : 83,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=491&start=0&stop=20"
-      },
-      {
-         "pidm" : "492",
-         "zcod" : "6.04",
-         "zslug" : "nas-(-network-attached-storage-)",
-         "zname" : "NAS ( Network Attached Storage )",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=492",
-         "zdenumire_singular" : "NAS ( Network Attached Storage )",
-         "zparent" : "6",
-         "zcount" : 109,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=492&start=0&stop=20"
-      },
-      {
-         "pidm" : "493",
-         "zcod" : "6.05",
-         "zslug" : "cabinete-de-retea",
-         "zname" : "Cabinete de retea",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=493",
-         "zdenumire_singular" : "Cabinete de retea",
-         "zparent" : "6",
-         "zcount" : 36,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=493&start=0&stop=20"
-      },
-      {
-         "pidm" : "494",
-         "zcod" : "6.06",
-         "zslug" : "telefoane-ip",
-         "zname" : "Telefoane IP",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=494",
-         "zdenumire_singular" : "Telefoane IP",
-         "zparent" : "6",
-         "zcount" : 1,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=494&start=0&stop=20"
-      },
-      {
-         "pidm" : "495",
-         "zcod" : "6.07",
-         "zslug" : "camere-ip",
-         "zname" : "Camere IP",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=495",
-         "zdenumire_singular" : "Camera IP",
-         "zparent" : "6",
-         "zcount" : 18,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=495&start=0&stop=20"
-      },
-      {
-         "pidm" : "496",
-         "zcod" : "6.08",
-         "zslug" : "firewall",
-         "zname" : "Firewall",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=496",
-         "zdenumire_singular" : "Firewall",
-         "zparent" : "6",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=496&start=0&stop=20"
-      },
-      {
-         "pidm" : "497",
-         "zcod" : "6.09",
-         "zslug" : "print-server",
-         "zname" : "Print Server",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=497",
-         "zdenumire_singular" : "Print Server",
-         "zparent" : "6",
-         "zcount" : 12,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=497&start=0&stop=20"
-      },
-      {
-         "pidm" : "550",
-         "zcod" : "6.10",
-         "zslug" : "kvm-switch",
-         "zname" : "KVM Switch",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=550",
-         "zdenumire_singular" : "KVM Switch",
-         "zparent" : "6",
-         "zcount" : 13,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=550&start=0&stop=20"
-      },
-      {
-         "pidm" : "498",
-         "zcod" : "6.11",
-         "zslug" : "accesorii-si-conectori",
-         "zname" : "Accesorii si conectori",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=498",
-         "zdenumire_singular" : "Accesorii si conectori",
-         "zparent" : "6",
-         "zcount" : 151,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=498&start=0&stop=20"
-      },
-      {
-         "pidm" : "562",
-         "zcod" : "6.12",
-         "zslug" : "supraveghere-video",
-         "zname" : "Supraveghere video",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=562",
-         "zdenumire_singular" : "Supraveghere video",
-         "zparent" : "6",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=562&start=0&stop=20"
-      },
-      {
-         "pidm" : "499",
-         "zcod" : "7",
-         "zslug" : "software",
-         "zname" : "Software",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=499",
-         "zdenumire_singular" : "Software",
-         "zparent" : "",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=499&start=0&stop=20"
-      },
-      {
-         "pidm" : "500",
-         "zcod" : "7.01",
-         "zslug" : "software-erp",
-         "zname" : "Software ERP",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=500",
-         "zdenumire_singular" : "Software ERP",
-         "zparent" : "7",
-         "zcount" : 3,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=500&start=0&stop=20"
-      },
-      {
-         "pidm" : "501",
-         "zcod" : "7.02",
-         "zslug" : "antivirus",
-         "zname" : "Antivirus",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=501",
-         "zdenumire_singular" : "Antivirus",
-         "zparent" : "7",
-         "zcount" : 177,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=501&start=0&stop=20"
-      },
-      {
-         "pidm" : "502",
-         "zcod" : "7.03",
-         "zslug" : "sisteme-de-operare",
-         "zname" : "Sisteme de operare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=502",
-         "zdenumire_singular" : "Sisteme de operare",
-         "zparent" : "7",
-         "zcount" : 45,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=502&start=0&stop=20"
-      },
-      {
-         "pidm" : "503",
-         "zcod" : "7.04",
-         "zslug" : "aplicatii-office",
-         "zname" : "Aplicatii Office",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=503",
-         "zdenumire_singular" : "Aplicatii Office",
-         "zparent" : "7",
-         "zcount" : 27,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=503&start=0&stop=20"
-      },
-      {
-         "pidm" : "504",
-         "zcod" : "7.05",
-         "zslug" : "arhivare",
-         "zname" : "Arhivare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=504",
-         "zdenumire_singular" : "Arhivare",
-         "zparent" : "7",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=504&start=0&stop=20"
-      },
-      {
-         "pidm" : "505",
-         "zcod" : "7.06",
-         "zslug" : "prelucrare-video",
-         "zname" : "Prelucrare video",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=505",
-         "zdenumire_singular" : "Prelucrare video",
-         "zparent" : "7",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=505&start=0&stop=20"
-      },
-      {
-         "pidm" : "506",
-         "zcod" : "7.07",
-         "zslug" : "prelucrare-foto",
-         "zname" : "Prelucrare foto",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=506",
-         "zdenumire_singular" : "Prelucrare foto",
-         "zparent" : "7",
-         "zcount" : 2,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=506&start=0&stop=20"
-      },
-      {
-         "pidm" : "507",
-         "zcod" : "7.08",
-         "zslug" : "soft-pentru-programare",
-         "zname" : "Soft pentru programare",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=507",
-         "zdenumire_singular" : "Soft pentru programare",
-         "zparent" : "7",
-         "zcount" : 2,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=507&start=0&stop=20"
-      },
-      {
-         "pidm" : "565",
-         "zcod" : "7.09",
-         "zslug" : "alte-aplicatii",
-         "zname" : "Alte aplicatii",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=565",
-         "zdenumire_singular" : "Alte aplicatii",
-         "zparent" : "7",
-         "zcount" : 23,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=565&start=0&stop=20"
-      },
-      {
-         "pidm" : "551",
-         "zcod" : "8",
-         "zslug" : "telefonie",
-         "zname" : "Telefonie",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=551",
-         "zdenumire_singular" : "Telefonie",
-         "zparent" : "",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=551&start=0&stop=20"
-      },
-      {
-         "pidm" : "552",
-         "zcod" : "8.01",
-         "zslug" : "telefoane",
-         "zname" : "Telefoane",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=552",
-         "zdenumire_singular" : "Telefoane",
-         "zparent" : "8",
-         "zcount" : 2,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=552&start=0&stop=20"
-      },
-      {
-         "pidm" : "553",
-         "zcod" : "8.02",
-         "zslug" : "centrale-telefonice",
-         "zname" : "Centrale telefonice",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=553",
-         "zdenumire_singular" : "Centrale telefonice",
-         "zparent" : "8",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=553&start=0&stop=20"
-      },
-      {
-         "pidm" : "554",
-         "zcod" : "8.03",
-         "zslug" : "sisteme-de-teleconferinta",
-         "zname" : "Sisteme de teleconferinta",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=554",
-         "zdenumire_singular" : "Sisteme de teleconferinta",
-         "zparent" : "8",
-         "zcount" : 0,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=554&start=0&stop=20"
-      },
-      {
-         "pidm" : "555",
-         "zcod" : "8.04",
-         "zslug" : "accesorii-telefonie",
-         "zname" : "Accesorii telefonie",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=555",
-         "zdenumire_singular" : "Accesorii telefonie",
-         "zparent" : "8",
-         "zcount" : 6,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=555&start=0&stop=20"
-      },
-      {
-         "pidm" : "561",
-         "zcod" : "8.05",
-         "zslug" : "fax-uri",
-         "zname" : "Fax-uri",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=561",
-         "zdenumire_singular" : "Fax-uri",
-         "zparent" : "8",
-         "zcount" : 12,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=561&start=0&stop=20"
-      },
-      {
-         "pidm" : "567",
-         "zcod" : "XX",
-         "zslug" : "diverse-!",
-         "zname" : "Diverse !",
-         "link_selectoare" : "http://86.34.208.10:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=567",
-         "zdenumire_singular" : "Diverse !",
-         "zparent" : "",
-         "zcount" : 25,
-         "link_produse" : "http://86.34.208.10:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=567&start=0&stop=20"
-      }
-   ]
+	"categories": [
+	{
+		"pidm": "424",
+		"zcod": "1",
+		"zname": "Laptop & Desktop & Servere",
+		"zparent": "",
+		"zslug": "laptop-&-desktop-&-servere",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=424&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=424",
+		"zdenumire_singular": "Laptop & Desktop & Servere"
+	}
+	,{
+		"pidm": "425",
+		"zcod": "1.01",
+		"zname": "Laptop",
+		"zparent": "1",
+		"zslug": "laptop",
+		"zcount": 404,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=425&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=425",
+		"zdenumire_singular": "Laptop"
+	}
+	,{
+		"pidm": "427",
+		"zcod": "1.03",
+		"zname": "Ultrabook",
+		"zparent": "1",
+		"zslug": "ultrabook",
+		"zcount": 105,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=427&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=427",
+		"zdenumire_singular": "Ultrabook"
+	}
+	,{
+		"pidm": "428",
+		"zcod": "1.04",
+		"zname": "Tablete",
+		"zparent": "1",
+		"zslug": "tablete",
+		"zcount": 170,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=428&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=428",
+		"zdenumire_singular": "Tableta"
+	}
+	,{
+		"pidm": "485",
+		"zcod": "1.04.1",
+		"zname": "Accesorii tablete",
+		"zparent": "1.04",
+		"zslug": "accesorii-tablete",
+		"zcount": 234,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=485&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=485",
+		"zdenumire_singular": "Accesorii tablete"
+	}
+	,{
+		"pidm": "429",
+		"zcod": "1.05",
+		"zname": "E-Book",
+		"zparent": "1",
+		"zslug": "e-book",
+		"zcount": 1,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=429&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=429",
+		"zdenumire_singular": "E-Book"
+	}
+	,{
+		"pidm": "430",
+		"zcod": "1.06",
+		"zname": "Unitati centrale",
+		"zparent": "1",
+		"zslug": "unitati-centrale",
+		"zcount": 328,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=430&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=430",
+		"zdenumire_singular": "Unitate centrala"
+	}
+	,{
+		"pidm": "431",
+		"zcod": "1.07",
+		"zname": "Servere",
+		"zparent": "1",
+		"zslug": "servere",
+		"zcount": 81,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=431&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=431",
+		"zdenumire_singular": "Server"
+	}
+	,{
+		"pidm": "570",
+		"zcod": "1.07.1",
+		"zname": "CPU Server",
+		"zparent": "1.07",
+		"zslug": "cpu-server",
+		"zcount": 43,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=570&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=570",
+		"zdenumire_singular": "CPU Server"
+	}
+	,{
+		"pidm": "614",
+		"zcod": "1.07.2",
+		"zname": "Memorii pentru servere",
+		"zparent": "1.07",
+		"zslug": "memorii-pentru-servere",
+		"zcount": 122,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=614&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=614",
+		"zdenumire_singular": "Server Memory"
+	}
+	,{
+		"pidm": "537",
+		"zcod": "1.07.3",
+		"zname": "Raid controller",
+		"zparent": "1.07",
+		"zslug": "raid-controller",
+		"zcount": 34,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=537&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=537",
+		"zdenumire_singular": "Raid controller"
+	}
+	,{
+		"pidm": "558",
+		"zcod": "1.07.4",
+		"zname": "Accesorii servere",
+		"zparent": "1.07",
+		"zslug": "accesorii-servere",
+		"zcount": 127,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=558&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=558",
+		"zdenumire_singular": "Accesorii servere"
+	}
+	,{
+		"pidm": "615",
+		"zcod": "1.07.5",
+		"zname": "HDD pentru servere",
+		"zparent": "1.07",
+		"zslug": "hdd-pentru-servere",
+		"zcount": 89,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=615&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=615",
+		"zdenumire_singular": "HDD for Servers"
+	}
+	,{
+		"pidm": "619",
+		"zcod": "1.07.6",
+		"zname": "SSD pentru servere",
+		"zparent": "1.07",
+		"zslug": "ssd-pentru-servere",
+		"zcount": 12,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=619&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=619",
+		"zdenumire_singular": "SSD for servers"
+	}
+	,{
+		"pidm": "432",
+		"zcod": "1.08",
+		"zname": "Barebone",
+		"zparent": "1",
+		"zslug": "barebone",
+		"zcount": 78,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=432&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=432",
+		"zdenumire_singular": "Barebone"
+	}
+	,{
+		"pidm": "433",
+		"zcod": "1.09",
+		"zname": "Genti si Huse",
+		"zparent": "1",
+		"zslug": "genti-si-huse",
+		"zcount": 372,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=433&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=433",
+		"zdenumire_singular": "Genti si Huse"
+	}
+	,{
+		"pidm": "434",
+		"zcod": "1.10",
+		"zname": "Baterii si incarcatoare",
+		"zparent": "1",
+		"zslug": "baterii-si-incarcatoare",
+		"zcount": 153,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=434&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=434",
+		"zdenumire_singular": "Baterii si incarcatoare"
+	}
+	,{
+		"pidm": "540",
+		"zcod": "1.11",
+		"zname": "Ventilatoare si Docking Station",
+		"zparent": "1",
+		"zslug": "ventilatoare-si-docking-station",
+		"zcount": 196,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=540&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=540",
+		"zdenumire_singular": "Ventilatoare si Docking Station"
+	}
+	,{
+		"pidm": "435",
+		"zcod": "1.12",
+		"zname": "Extindere de garantie",
+		"zparent": "1",
+		"zslug": "extindere-de-garantie",
+		"zcount": 47,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=435&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=435",
+		"zdenumire_singular": "Extindere de garantie"
+	}
+	,{
+		"pidm": "616",
+		"zcod": "1.13",
+		"zname": "Accesorii Laptop",
+		"zparent": "1",
+		"zslug": "accesorii-laptop",
+		"zcount": 60,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=616&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=616",
+		"zdenumire_singular": "Accesorii Laptop"
+	}
+	,{
+		"pidm": "620",
+		"zcod": "1.14",
+		"zname": "Smartwatch",
+		"zparent": "1",
+		"zslug": "smartwatch",
+		"zcount": 217,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=620&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=620",
+		"zdenumire_singular": "Smartwatch"
+	}
+	,{
+		"pidm": "436",
+		"zcod": "2",
+		"zname": "Monitoare & TV & Gaming",
+		"zparent": "",
+		"zslug": "monitoare-&-tv-&-gaming",
+		"zcount": 1,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=436&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=436",
+		"zdenumire_singular": "Monitoare & TV & Gaming"
+	}
+	,{
+		"pidm": "437",
+		"zcod": "2.01",
+		"zname": "Monitoare",
+		"zparent": "2",
+		"zslug": "monitoare",
+		"zcount": 408,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=437&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=437",
+		"zdenumire_singular": "Monitor"
+	}
+	,{
+		"pidm": "439",
+		"zcod": "2.02",
+		"zname": "Videoproiectoare",
+		"zparent": "2",
+		"zslug": "videoproiectoare",
+		"zcount": 350,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=439&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=439",
+		"zdenumire_singular": "Videoproiectoare"
+	}
+	,{
+		"pidm": "440",
+		"zcod": "2.03",
+		"zname": "Televizoare",
+		"zparent": "2",
+		"zslug": "televizoare",
+		"zcount": 148,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=440&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=440",
+		"zdenumire_singular": "Televizor"
+	}
+	,{
+		"pidm": "442",
+		"zcod": "2.04",
+		"zname": "Ecrane de proiectie",
+		"zparent": "2",
+		"zslug": "ecrane-de-proiectie",
+		"zcount": 52,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=442&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=442",
+		"zdenumire_singular": "Ecran de proiectie"
+	}
+	,{
+		"pidm": "444",
+		"zcod": "2.05",
+		"zname": "Accesorii",
+		"zparent": "2",
+		"zslug": "accesorii",
+		"zcount": 29,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=444&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=444",
+		"zdenumire_singular": "Accesorii"
+	}
+	,{
+		"pidm": "446",
+		"zcod": "2.05.2",
+		"zname": "Suporti de prindere",
+		"zparent": "2.05",
+		"zslug": "suporti-de-prindere",
+		"zcount": 65,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=446&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=446",
+		"zdenumire_singular": "Suport de prindere"
+	}
+	,{
+		"pidm": "447",
+		"zcod": "2.05.3",
+		"zname": "Lampi proiector",
+		"zparent": "2.05",
+		"zslug": "lampi-proiector",
+		"zcount": 1,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=447&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=447",
+		"zdenumire_singular": "Lampa pentru proiector"
+	}
+	,{
+		"pidm": "560",
+		"zcod": "2.05.4",
+		"zname": "Geanta proiector",
+		"zparent": "2.05",
+		"zslug": "geanta-proiector",
+		"zcount": 3,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=560&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=560",
+		"zdenumire_singular": "Geanta proiector"
+	}
+	,{
+		"pidm": "556",
+		"zcod": "2.05.5",
+		"zname": "Presenter",
+		"zparent": "2.05",
+		"zslug": "presenter",
+		"zcount": 16,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=556&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=556",
+		"zdenumire_singular": "Presenter"
+	}
+	,{
+		"pidm": "448",
+		"zcod": "2.06",
+		"zname": "Gaming",
+		"zparent": "2",
+		"zslug": "gaming",
+		"zcount": 3,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=448&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=448",
+		"zdenumire_singular": "Gaming"
+	}
+	,{
+		"pidm": "449",
+		"zcod": "2.06.1",
+		"zname": "Console",
+		"zparent": "2.06",
+		"zslug": "console",
+		"zcount": 3,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=449&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=449",
+		"zdenumire_singular": "Console"
+	}
+	,{
+		"pidm": "612",
+		"zcod": "2.06.10",
+		"zname": "Accesorii fitness",
+		"zparent": "2.06",
+		"zslug": "accesorii-fitness",
+		"zcount": 81,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=612&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=612",
+		"zdenumire_singular": "Accesorii fitness"
+	}
+	,{
+		"pidm": "450",
+		"zcod": "2.06.2",
+		"zname": "Accesorii console",
+		"zparent": "2.06",
+		"zslug": "accesorii-console",
+		"zcount": 15,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=450&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=450",
+		"zdenumire_singular": "Accesorii console"
+	}
+	,{
+		"pidm": "454",
+		"zcod": "2.06.6",
+		"zname": "Joystick",
+		"zparent": "2.06",
+		"zslug": "joystick",
+		"zcount": 14,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=454&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=454",
+		"zdenumire_singular": "Joystick"
+	}
+	,{
+		"pidm": "455",
+		"zcod": "2.06.7",
+		"zname": "Gamepad",
+		"zparent": "2.06",
+		"zslug": "gamepad",
+		"zcount": 20,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=455&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=455",
+		"zdenumire_singular": "Gamepad"
+	}
+	,{
+		"pidm": "456",
+		"zcod": "2.06.8",
+		"zname": "Volane",
+		"zparent": "2.06",
+		"zslug": "volane",
+		"zcount": 11,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=456&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=456",
+		"zdenumire_singular": "Volane"
+	}
+	,{
+		"pidm": "457",
+		"zcod": "2.06.9",
+		"zname": "Jocuri",
+		"zparent": "2.06",
+		"zslug": "jocuri",
+		"zcount": 4,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=457&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=457",
+		"zdenumire_singular": "Jocuri"
+	}
+	,{
+		"pidm": "541",
+		"zcod": "2.07",
+		"zname": "Entertainment",
+		"zparent": "2",
+		"zslug": "entertainment",
+		"zcount": 6,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=541&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=541",
+		"zdenumire_singular": "Entertainment"
+	}
+	,{
+		"pidm": "542",
+		"zcod": "2.07.1",
+		"zname": "Modulator FM",
+		"zparent": "2.07",
+		"zslug": "modulator-fm",
+		"zcount": 2,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=542&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=542",
+		"zdenumire_singular": "Modulator FM"
+	}
+	,{
+		"pidm": "543",
+		"zcod": "2.07.2",
+		"zname": "MP3 / MP4 Player",
+		"zparent": "2.07",
+		"zslug": "mp3-/-mp4-player",
+		"zcount": 52,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=543&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=543",
+		"zdenumire_singular": "MP3 / MP4 Player"
+	}
+	,{
+		"pidm": "544",
+		"zcod": "2.07.3",
+		"zname": "Rame foto",
+		"zparent": "2.07",
+		"zslug": "rame-foto",
+		"zcount": 2,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=544&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=544",
+		"zdenumire_singular": "Rama foto"
+	}
+	,{
+		"pidm": "545",
+		"zcod": "2.07.4",
+		"zname": "Sisteme home cinema",
+		"zparent": "2.07",
+		"zslug": "sisteme-home-cinema",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=545&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=545",
+		"zdenumire_singular": "Sisteme home cinema"
+	}
+	,{
+		"pidm": "546",
+		"zcod": "2.07.5",
+		"zname": "Media player",
+		"zparent": "2.07",
+		"zslug": "media-player",
+		"zcount": 9,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=546&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=546",
+		"zdenumire_singular": "Media player"
+	}
+	,{
+		"pidm": "547",
+		"zcod": "2.07.6",
+		"zname": "Amplificatoare",
+		"zparent": "2.07",
+		"zslug": "amplificatoare",
+		"zcount": 1,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=547&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=547",
+		"zdenumire_singular": "Amplificatoare"
+	}
+	,{
+		"pidm": "548",
+		"zcod": "2.07.7",
+		"zname": "DVD Player",
+		"zparent": "2.07",
+		"zslug": "dvd-player",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=548&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=548",
+		"zdenumire_singular": "DVD Player"
+	}
+	,{
+		"pidm": "549",
+		"zcod": "2.07.8",
+		"zname": "BluRay Player",
+		"zparent": "2.07",
+		"zslug": "bluray-player",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=549&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=549",
+		"zdenumire_singular": "BluRay Player"
+	}
+	,{
+		"pidm": "421",
+		"zcod": "3",
+		"zname": "Componente IT",
+		"zparent": "",
+		"zslug": "componente-it",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=421&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=421",
+		"zdenumire_singular": "Componente IT"
+	}
+	,{
+		"pidm": "422",
+		"zcod": "3.01",
+		"zname": "Placi de baza",
+		"zparent": "3",
+		"zslug": "placi-de-baza",
+		"zcount": 555,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=422&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=422",
+		"zdenumire_singular": "Placa de baza"
+	}
+	,{
+		"pidm": "423",
+		"zcod": "3.02",
+		"zname": "Procesoare",
+		"zparent": "3",
+		"zslug": "procesoare",
+		"zcount": 149,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=423&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=423",
+		"zdenumire_singular": "Procesor"
+	}
+	,{
+		"pidm": "458",
+		"zcod": "3.03",
+		"zname": "Placi video",
+		"zparent": "3",
+		"zslug": "placi-video",
+		"zcount": 423,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=458&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=458",
+		"zdenumire_singular": "Placi video"
+	}
+	,{
+		"pidm": "459",
+		"zcod": "3.04",
+		"zname": "Memorii interne",
+		"zparent": "3",
+		"zslug": "memorii-interne",
+		"zcount": 790,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=459&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=459",
+		"zdenumire_singular": "Memorii interne"
+	}
+	,{
+		"pidm": "460",
+		"zcod": "3.05",
+		"zname": "Memorii externe",
+		"zparent": "3",
+		"zslug": "memorii-externe",
+		"zcount": 687,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=460&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=460",
+		"zdenumire_singular": "Memorii externe"
+	}
+	,{
+		"pidm": "461",
+		"zcod": "3.06",
+		"zname": "Hard disk intern",
+		"zparent": "3",
+		"zslug": "hard-disk-intern",
+		"zcount": 232,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=461&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=461",
+		"zdenumire_singular": "Hard disk intern"
+	}
+	,{
+		"pidm": "462",
+		"zcod": "3.07",
+		"zname": "SSD ( Solid State Drive )",
+		"zparent": "3",
+		"zslug": "ssd-(-solid-state-drive-)",
+		"zcount": 249,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=462&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=462",
+		"zdenumire_singular": "SSD ( Solid State Drive )"
+	}
+	,{
+		"pidm": "463",
+		"zcod": "3.08",
+		"zname": "Unitati optice",
+		"zparent": "3",
+		"zslug": "unitati-optice",
+		"zcount": 81,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=463&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=463",
+		"zdenumire_singular": "Unitati optice"
+	}
+	,{
+		"pidm": "464",
+		"zcod": "3.09",
+		"zname": "Carcase desktop / server",
+		"zparent": "3",
+		"zslug": "carcase-desktop-/-server",
+		"zcount": 614,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=464&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=464",
+		"zdenumire_singular": "Carcasa pentru sisteme desktop"
+	}
+	,{
+		"pidm": "610",
+		"zcod": "3.09.1",
+		"zname": "Accesorii",
+		"zparent": "3.09",
+		"zslug": "accesorii",
+		"zcount": 7,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=610&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=610",
+		"zdenumire_singular": "Accesorii"
+	}
+	,{
+		"pidm": "465",
+		"zcod": "3.10",
+		"zname": "Surse desktop PC",
+		"zparent": "3",
+		"zslug": "surse-desktop-pc",
+		"zcount": 332,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=465&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=465",
+		"zdenumire_singular": "Surse desktop PC"
+	}
+	,{
+		"pidm": "466",
+		"zcod": "3.11",
+		"zname": "Placi de sunet",
+		"zparent": "3",
+		"zslug": "placi-de-sunet",
+		"zcount": 58,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=466&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=466",
+		"zdenumire_singular": "Placi de sunet"
+	}
+	,{
+		"pidm": "467",
+		"zcod": "3.12",
+		"zname": "TV-Tunere",
+		"zparent": "3",
+		"zslug": "tv-tunere",
+		"zcount": 12,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=467&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=467",
+		"zdenumire_singular": "TV-Tunere"
+	}
+	,{
+		"pidm": "468",
+		"zcod": "3.13",
+		"zname": "Placi de captura",
+		"zparent": "3",
+		"zslug": "placi-de-captura",
+		"zcount": 4,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=468&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=468",
+		"zdenumire_singular": "Placi de captura"
+	}
+	,{
+		"pidm": "469",
+		"zcod": "3.14",
+		"zname": "Ventilatoare si coolere PC",
+		"zparent": "3",
+		"zslug": "ventilatoare-si-coolere-pc",
+		"zcount": 743,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=469&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=469",
+		"zdenumire_singular": "Ventilatoare si coolere PC"
+	}
+	,{
+		"pidm": "538",
+		"zcod": "3.14.1",
+		"zname": "Accesorii",
+		"zparent": "3.14",
+		"zslug": "accesorii",
+		"zcount": 71,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=538&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=538",
+		"zdenumire_singular": "Accesorii"
+	}
+	,{
+		"pidm": "470",
+		"zcod": "3.15",
+		"zname": "PC Tuning",
+		"zparent": "3",
+		"zslug": "pc-tuning",
+		"zcount": 26,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=470&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=470",
+		"zdenumire_singular": "PC Tuning"
+	}
+	,{
+		"pidm": "471",
+		"zcod": "3.15.1",
+		"zname": "Paste termice",
+		"zparent": "3.15",
+		"zslug": "paste-termice",
+		"zcount": 55,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=471&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=471",
+		"zdenumire_singular": "Paste termice"
+	}
+	,{
+		"pidm": "472",
+		"zcod": "3.15.2",
+		"zname": "Controler pt. ventilatoare",
+		"zparent": "3.15",
+		"zslug": "controler-pt.-ventilatoare",
+		"zcount": 17,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=472&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=472",
+		"zdenumire_singular": "Controler pt. ventilatoare"
+	}
+	,{
+		"pidm": "473",
+		"zcod": "3.15.3",
+		"zname": "Neoane",
+		"zparent": "3.15",
+		"zslug": "neoane",
+		"zcount": 4,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=473&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=473",
+		"zdenumire_singular": "Neoane"
+	}
+	,{
+		"pidm": "474",
+		"zcod": "3.16",
+		"zname": "Rack pt HDD/SSD/ODD",
+		"zparent": "3",
+		"zslug": "rack-pt-hdd/ssd/odd",
+		"zcount": 230,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=474&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=474",
+		"zdenumire_singular": "Rack pt HDD/SSD/ODD"
+	}
+	,{
+		"pidm": "559",
+		"zcod": "3.17",
+		"zname": "Card reader & Hub USB",
+		"zparent": "3",
+		"zslug": "card-reader-&-hub-usb",
+		"zcount": 190,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=559&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=559",
+		"zdenumire_singular": "Card reader & Hub USB"
+	}
+	,{
+		"pidm": "475",
+		"zcod": "4",
+		"zname": "Periferice",
+		"zparent": "",
+		"zslug": "periferice",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=475&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=475",
+		"zdenumire_singular": "Periferice"
+	}
+	,{
+		"pidm": "476",
+		"zcod": "4.01",
+		"zname": "Imprimante",
+		"zparent": "4",
+		"zslug": "imprimante",
+		"zcount": 284,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=476&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=476",
+		"zdenumire_singular": "Imprimanta"
+	}
+	,{
+		"pidm": "477",
+		"zcod": "4.02",
+		"zname": "Multifunctionale",
+		"zparent": "4",
+		"zslug": "multifunctionale",
+		"zcount": 360,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=477&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=477",
+		"zdenumire_singular": "Multifunctionale"
+	}
+	,{
+		"pidm": "478",
+		"zcod": "4.03",
+		"zname": "Plottere",
+		"zparent": "4",
+		"zslug": "plottere",
+		"zcount": 42,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=478&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=478",
+		"zdenumire_singular": "Plottere"
+	}
+	,{
+		"pidm": "479",
+		"zcod": "4.04",
+		"zname": "Hard disk extern",
+		"zparent": "4",
+		"zslug": "hard-disk-extern",
+		"zcount": 215,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=479&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=479",
+		"zdenumire_singular": "Hard disk extern"
+	}
+	,{
+		"pidm": "508",
+		"zcod": "4.05",
+		"zname": "Foto/Video",
+		"zparent": "4",
+		"zslug": "foto/video",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=508&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=508",
+		"zdenumire_singular": "Foto/Video"
+	}
+	,{
+		"pidm": "509",
+		"zcod": "4.05.1",
+		"zname": "Aparate foto",
+		"zparent": "4.05",
+		"zslug": "aparate-foto",
+		"zcount": 68,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=509&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=509",
+		"zdenumire_singular": "Aparate foto"
+	}
+	,{
+		"pidm": "510",
+		"zcod": "4.05.2",
+		"zname": "Camere video",
+		"zparent": "4.05",
+		"zslug": "camere-video",
+		"zcount": 20,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=510&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=510",
+		"zdenumire_singular": "Camere video"
+	}
+	,{
+		"pidm": "511",
+		"zcod": "4.05.3",
+		"zname": "Acumulatori",
+		"zparent": "4.05",
+		"zslug": "acumulatori",
+		"zcount": 7,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=511&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=511",
+		"zdenumire_singular": "Acumulatori"
+	}
+	,{
+		"pidm": "512",
+		"zcod": "4.05.4",
+		"zname": "Trepiede",
+		"zparent": "4.05",
+		"zslug": "trepiede",
+		"zcount": 20,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=512&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=512",
+		"zdenumire_singular": "Trepiede"
+	}
+	,{
+		"pidm": "513",
+		"zcod": "4.05.5",
+		"zname": "Obiective si filtre DSLR",
+		"zparent": "4.05",
+		"zslug": "obiective-si-filtre-dslr",
+		"zcount": 27,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=513&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=513",
+		"zdenumire_singular": "Obiective si filtre DSLR"
+	}
+	,{
+		"pidm": "514",
+		"zcod": "4.05.6",
+		"zname": "Genti si huse",
+		"zparent": "4.05",
+		"zslug": "genti-si-huse",
+		"zcount": 57,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=514&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=514",
+		"zdenumire_singular": "Genti si huse"
+	}
+	,{
+		"pidm": "563",
+		"zcod": "4.05.7",
+		"zname": "Blitz",
+		"zparent": "4.05",
+		"zslug": "blitz",
+		"zcount": 3,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=563&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=563",
+		"zdenumire_singular": "Blitz"
+	}
+	,{
+		"pidm": "515",
+		"zcod": "4.06",
+		"zname": "Camere web",
+		"zparent": "4",
+		"zslug": "camere-web",
+		"zcount": 48,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=515&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=515",
+		"zdenumire_singular": "Camere web"
+	}
+	,{
+		"pidm": "516",
+		"zcod": "4.07",
+		"zname": "Scanere",
+		"zparent": "4",
+		"zslug": "scanere",
+		"zcount": 96,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=516&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=516",
+		"zdenumire_singular": "Scanere"
+	}
+	,{
+		"pidm": "517",
+		"zcod": "4.08",
+		"zname": "Tablete grafice",
+		"zparent": "4",
+		"zslug": "tablete-grafice",
+		"zcount": 25,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=517&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=517",
+		"zdenumire_singular": "Tablete grafice"
+	}
+	,{
+		"pidm": "613",
+		"zcod": "4.08.1",
+		"zname": "Accesorii",
+		"zparent": "4.08",
+		"zslug": "accesorii",
+		"zcount": 40,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=613&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=613",
+		"zdenumire_singular": "Accesorii"
+	}
+	,{
+		"pidm": "518",
+		"zcod": "4.09",
+		"zname": "Boxe PC",
+		"zparent": "4",
+		"zslug": "boxe-pc",
+		"zcount": 244,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=518&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=518",
+		"zdenumire_singular": "Boxe PC"
+	}
+	,{
+		"pidm": "519",
+		"zcod": "4.10",
+		"zname": "Casti",
+		"zparent": "4",
+		"zslug": "casti",
+		"zcount": 398,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=519&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=519",
+		"zdenumire_singular": "Casti"
+	}
+	,{
+		"pidm": "520",
+		"zcod": "4.11",
+		"zname": "Microfoane",
+		"zparent": "4",
+		"zslug": "microfoane",
+		"zcount": 14,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=520&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=520",
+		"zdenumire_singular": "Microfoane"
+	}
+	,{
+		"pidm": "526",
+		"zcod": "4.12",
+		"zname": "UPS si prize cu protectie",
+		"zparent": "4",
+		"zslug": "ups-si-prize-cu-protectie",
+		"zcount": 7,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=526&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=526",
+		"zdenumire_singular": "UPS si prize cu protectie"
+	}
+	,{
+		"pidm": "527",
+		"zcod": "4.12.1",
+		"zname": "UPS",
+		"zparent": "4.12",
+		"zslug": "ups",
+		"zcount": 314,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=527&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=527",
+		"zdenumire_singular": "UPS"
+	}
+	,{
+		"pidm": "528",
+		"zcod": "4.12.2",
+		"zname": "Baterii UPS",
+		"zparent": "4.12",
+		"zslug": "baterii-ups",
+		"zcount": 71,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=528&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=528",
+		"zdenumire_singular": "Baterii UPS"
+	}
+	,{
+		"pidm": "529",
+		"zcod": "4.12.3",
+		"zname": "Prize cu protectie",
+		"zparent": "4.12",
+		"zslug": "prize-cu-protectie",
+		"zcount": 95,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=529&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=529",
+		"zdenumire_singular": "Prize cu protectie"
+	}
+	,{
+		"pidm": "530",
+		"zcod": "4.13",
+		"zname": "Tastaturi si Mouse",
+		"zparent": "4",
+		"zslug": "tastaturi-si-mouse",
+		"zcount": 6,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=530&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=530",
+		"zdenumire_singular": "Tastaturi si Mouse"
+	}
+	,{
+		"pidm": "531",
+		"zcod": "4.13.1",
+		"zname": "Kit tastatura + Mouse",
+		"zparent": "4.13",
+		"zslug": "kit-tastatura-+-mouse",
+		"zcount": 89,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=531&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=531",
+		"zdenumire_singular": "Kit tastatura + Mouse"
+	}
+	,{
+		"pidm": "532",
+		"zcod": "4.13.2",
+		"zname": "Tastaturi",
+		"zparent": "4.13",
+		"zslug": "tastaturi",
+		"zcount": 322,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=532&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=532",
+		"zdenumire_singular": "Tastaturi"
+	}
+	,{
+		"pidm": "533",
+		"zcod": "4.13.3",
+		"zname": "Mouse",
+		"zparent": "4.13",
+		"zslug": "mouse",
+		"zcount": 645,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=533&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=533",
+		"zdenumire_singular": "Mouse"
+	}
+	,{
+		"pidm": "534",
+		"zcod": "4.13.4",
+		"zname": "Mouse pad",
+		"zparent": "4.13",
+		"zslug": "mouse-pad",
+		"zcount": 147,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=534&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=534",
+		"zdenumire_singular": "Mouse pad"
+	}
+	,{
+		"pidm": "557",
+		"zcod": "4.14",
+		"zname": "GPS",
+		"zparent": "4",
+		"zslug": "gps",
+		"zcount": 19,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=557&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=557",
+		"zdenumire_singular": "GPS"
+	}
+	,{
+		"pidm": "480",
+		"zcod": "5",
+		"zname": "Birotica si Consumabile",
+		"zparent": "",
+		"zslug": "birotica-si-consumabile",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=480&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=480",
+		"zdenumire_singular": "Birotica si Consumabile"
+	}
+	,{
+		"pidm": "481",
+		"zcod": "5.01",
+		"zname": "Cartuse imprimante",
+		"zparent": "5",
+		"zslug": "cartuse-imprimante",
+		"zcount": 4005,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=481&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=481",
+		"zdenumire_singular": "Cartuse imprimante"
+	}
+	,{
+		"pidm": "482",
+		"zcod": "5.02",
+		"zname": "Hartie",
+		"zparent": "5",
+		"zslug": "hartie",
+		"zcount": 213,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=482&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=482",
+		"zdenumire_singular": "Hartie"
+	}
+	,{
+		"pidm": "483",
+		"zcod": "5.03",
+		"zname": "Medii magnetice",
+		"zparent": "5",
+		"zslug": "medii-magnetice",
+		"zcount": 92,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=483&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=483",
+		"zdenumire_singular": "Medii magnetice"
+	}
+	,{
+		"pidm": "486",
+		"zcod": "5.06",
+		"zname": "Distrugatoare de documente",
+		"zparent": "5",
+		"zslug": "distrugatoare-de-documente",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=486&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=486",
+		"zdenumire_singular": "Distrugatoare de documente"
+	}
+	,{
+		"pidm": "487",
+		"zcod": "5.07",
+		"zname": "Reportofoane",
+		"zparent": "5",
+		"zslug": "reportofoane",
+		"zcount": 6,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=487&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=487",
+		"zdenumire_singular": "Reportofoane"
+	}
+	,{
+		"pidm": "564",
+		"zcod": "5.08",
+		"zname": "Produse de curatat",
+		"zparent": "5",
+		"zslug": "produse-de-curatat",
+		"zcount": 31,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=564&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=564",
+		"zdenumire_singular": "Produse de curatat"
+	}
+	,{
+		"pidm": "566",
+		"zcod": "5.09",
+		"zname": "Produse de birou",
+		"zparent": "5",
+		"zslug": "produse-de-birou",
+		"zcount": 40,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=566&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=566",
+		"zdenumire_singular": "Produse de birou"
+	}
+	,{
+		"pidm": "605",
+		"zcod": "5.10",
+		"zname": "Baterii si incarcatoare",
+		"zparent": "5",
+		"zslug": "baterii-si-incarcatoare",
+		"zcount": 8,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=605&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=605",
+		"zdenumire_singular": "Baterii si incarcatoare"
+	}
+	,{
+		"pidm": "608",
+		"zcod": "5.11",
+		"zname": "Cititoare coduri de bare",
+		"zparent": "5",
+		"zslug": "cititoare-coduri-de-bare",
+		"zcount": 3,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=608&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=608",
+		"zdenumire_singular": "Bar code reader"
+	}
+	,{
+		"pidm": "609",
+		"zcod": "5.12",
+		"zname": "Imprimante coduri de bare",
+		"zparent": "5",
+		"zslug": "imprimante-coduri-de-bare",
+		"zcount": 2,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=609&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=609",
+		"zdenumire_singular": "Bar code printers"
+	}
+	,{
+		"pidm": "611",
+		"zcod": "5.13",
+		"zname": "Accesorii printing",
+		"zparent": "5",
+		"zslug": "accesorii-printing",
+		"zcount": 1106,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=611&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=611",
+		"zdenumire_singular": "Accesorii printing"
+	}
+	,{
+		"pidm": "488",
+		"zcod": "6",
+		"zname": "Retelistica",
+		"zparent": "",
+		"zslug": "retelistica",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=488&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=488",
+		"zdenumire_singular": "Retelistica"
+	}
+	,{
+		"pidm": "489",
+		"zcod": "6.01",
+		"zname": "Routere si Acces Point",
+		"zparent": "6",
+		"zslug": "routere-si-acces-point",
+		"zcount": 510,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=489&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=489",
+		"zdenumire_singular": "Routere si Acces Point"
+	}
+	,{
+		"pidm": "490",
+		"zcod": "6.02",
+		"zname": "Switch",
+		"zparent": "6",
+		"zslug": "switch",
+		"zcount": 602,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=490&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=490",
+		"zdenumire_singular": "Switch"
+	}
+	,{
+		"pidm": "491",
+		"zcod": "6.03",
+		"zname": "Placi de retea",
+		"zparent": "6",
+		"zslug": "placi-de-retea",
+		"zcount": 204,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=491&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=491",
+		"zdenumire_singular": "Placi de retea"
+	}
+	,{
+		"pidm": "492",
+		"zcod": "6.04",
+		"zname": "NAS ( Network Attached Storage )",
+		"zparent": "6",
+		"zslug": "nas-(-network-attached-storage-)",
+		"zcount": 224,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=492&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=492",
+		"zdenumire_singular": "NAS ( Network Attached Storage )"
+	}
+	,{
+		"pidm": "493",
+		"zcod": "6.05",
+		"zname": "Cabinete de retea",
+		"zparent": "6",
+		"zslug": "cabinete-de-retea",
+		"zcount": 125,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=493&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=493",
+		"zdenumire_singular": "Cabinete de retea"
+	}
+	,{
+		"pidm": "606",
+		"zcod": "6.05.1",
+		"zname": "Accesorii",
+		"zparent": "6.05",
+		"zslug": "accesorii",
+		"zcount": 70,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=606&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=606",
+		"zdenumire_singular": "Accesorii"
+	}
+	,{
+		"pidm": "494",
+		"zcod": "6.06",
+		"zname": "Telefoane IP",
+		"zparent": "6",
+		"zslug": "telefoane-ip",
+		"zcount": 2,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=494&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=494",
+		"zdenumire_singular": "Telefoane IP"
+	}
+	,{
+		"pidm": "495",
+		"zcod": "6.07",
+		"zname": "Camere IP",
+		"zparent": "6",
+		"zslug": "camere-ip",
+		"zcount": 398,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=495&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=495",
+		"zdenumire_singular": "Camera IP"
+	}
+	,{
+		"pidm": "618",
+		"zcod": "6.07.1",
+		"zname": "Accesorii",
+		"zparent": "6.07",
+		"zslug": "accesorii",
+		"zcount": 160,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=618&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=618",
+		"zdenumire_singular": "Accesorii"
+	}
+	,{
+		"pidm": "496",
+		"zcod": "6.08",
+		"zname": "Firewall",
+		"zparent": "6",
+		"zslug": "firewall",
+		"zcount": 14,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=496&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=496",
+		"zdenumire_singular": "Firewall"
+	}
+	,{
+		"pidm": "497",
+		"zcod": "6.09",
+		"zname": "Print Server",
+		"zparent": "6",
+		"zslug": "print-server",
+		"zcount": 11,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=497&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=497",
+		"zdenumire_singular": "Print Server"
+	}
+	,{
+		"pidm": "550",
+		"zcod": "6.10",
+		"zname": "KVM Switch, Spliter, Extender",
+		"zparent": "6",
+		"zslug": "kvm-switch,-spliter,-extender",
+		"zcount": 100,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=550&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=550",
+		"zdenumire_singular": "KVM Switch, Spliter, Extender"
+	}
+	,{
+		"pidm": "607",
+		"zcod": "6.10.1",
+		"zname": "Accesorii",
+		"zparent": "6.10",
+		"zslug": "accesorii",
+		"zcount": 21,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=607&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=607",
+		"zdenumire_singular": "Accesorii"
+	}
+	,{
+		"pidm": "498",
+		"zcod": "6.11",
+		"zname": "Accesorii si conectori",
+		"zparent": "6",
+		"zslug": "accesorii-si-conectori",
+		"zcount": 692,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=498&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=498",
+		"zdenumire_singular": "Accesorii si conectori"
+	}
+	,{
+		"pidm": "562",
+		"zcod": "6.12",
+		"zname": "Supraveghere video",
+		"zparent": "6",
+		"zslug": "supraveghere-video",
+		"zcount": 31,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=562&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=562",
+		"zdenumire_singular": "Supraveghere video"
+	}
+	,{
+		"pidm": "571",
+		"zcod": "6.13",
+		"zname": "Cablu de retea",
+		"zparent": "6",
+		"zslug": "cablu-de-retea",
+		"zcount": 337,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=571&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=571",
+		"zdenumire_singular": "Cablu de retea"
+	}
+	,{
+		"pidm": "572",
+		"zcod": "6.14",
+		"zname": "Convertor media",
+		"zparent": "6",
+		"zslug": "convertor-media",
+		"zcount": 34,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=572&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=572",
+		"zdenumire_singular": "Media Converter"
+	}
+	,{
+		"pidm": "499",
+		"zcod": "7",
+		"zname": "Software",
+		"zparent": "",
+		"zslug": "software",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=499&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=499",
+		"zdenumire_singular": "Software"
+	}
+	,{
+		"pidm": "500",
+		"zcod": "7.01",
+		"zname": "Software ERP",
+		"zparent": "7",
+		"zslug": "software-erp",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=500&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=500",
+		"zdenumire_singular": "Software ERP"
+	}
+	,{
+		"pidm": "501",
+		"zcod": "7.02",
+		"zname": "Antivirus",
+		"zparent": "7",
+		"zslug": "antivirus",
+		"zcount": 241,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=501&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=501",
+		"zdenumire_singular": "Antivirus"
+	}
+	,{
+		"pidm": "502",
+		"zcod": "7.03",
+		"zname": "Sisteme de operare",
+		"zparent": "7",
+		"zslug": "sisteme-de-operare",
+		"zcount": 167,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=502&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=502",
+		"zdenumire_singular": "Sisteme de operare"
+	}
+	,{
+		"pidm": "503",
+		"zcod": "7.04",
+		"zname": "Aplicatii Office",
+		"zparent": "7",
+		"zslug": "aplicatii-office",
+		"zcount": 60,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=503&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=503",
+		"zdenumire_singular": "Aplicatii Office"
+	}
+	,{
+		"pidm": "504",
+		"zcod": "7.05",
+		"zname": "Arhivare",
+		"zparent": "7",
+		"zslug": "arhivare",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=504&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=504",
+		"zdenumire_singular": "Arhivare"
+	}
+	,{
+		"pidm": "505",
+		"zcod": "7.06",
+		"zname": "Prelucrare video",
+		"zparent": "7",
+		"zslug": "prelucrare-video",
+		"zcount": 1,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=505&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=505",
+		"zdenumire_singular": "Prelucrare video"
+	}
+	,{
+		"pidm": "506",
+		"zcod": "7.07",
+		"zname": "Prelucrare foto",
+		"zparent": "7",
+		"zslug": "prelucrare-foto",
+		"zcount": 6,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=506&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=506",
+		"zdenumire_singular": "Prelucrare foto"
+	}
+	,{
+		"pidm": "507",
+		"zcod": "7.08",
+		"zname": "Soft pentru programare",
+		"zparent": "7",
+		"zslug": "soft-pentru-programare",
+		"zcount": 8,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=507&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=507",
+		"zdenumire_singular": "Soft pentru programare"
+	}
+	,{
+		"pidm": "565",
+		"zcod": "7.09",
+		"zname": "Alte aplicatii",
+		"zparent": "7",
+		"zslug": "alte-aplicatii",
+		"zcount": 27,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=565&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=565",
+		"zdenumire_singular": "Alte aplicatii"
+	}
+	,{
+		"pidm": "551",
+		"zcod": "8",
+		"zname": "Telefonie",
+		"zparent": "",
+		"zslug": "telefonie",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=551&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=551",
+		"zdenumire_singular": "Telefonie"
+	}
+	,{
+		"pidm": "552",
+		"zcod": "8.01",
+		"zname": "Telefoane",
+		"zparent": "8",
+		"zslug": "telefoane",
+		"zcount": 201,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=552&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=552",
+		"zdenumire_singular": "Telefoane"
+	}
+	,{
+		"pidm": "555",
+		"zcod": "8.02",
+		"zname": "Accesorii telefonie",
+		"zparent": "8",
+		"zslug": "accesorii-telefonie",
+		"zcount": 194,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=555&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=555",
+		"zdenumire_singular": "Accesorii telefonie"
+	}
+	,{
+		"pidm": "484",
+		"zcod": "8.03",
+		"zname": "Accesorii iPhone",
+		"zparent": "8",
+		"zslug": "accesorii-iphone",
+		"zcount": 293,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=484&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=484",
+		"zdenumire_singular": "Accesorii iPhone"
+	}
+	,{
+		"pidm": "553",
+		"zcod": "8.04",
+		"zname": "Centrale telefonice",
+		"zparent": "8",
+		"zslug": "centrale-telefonice",
+		"zcount": 2,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=553&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=553",
+		"zdenumire_singular": "Centrale telefonice"
+	}
+	,{
+		"pidm": "554",
+		"zcod": "8.05",
+		"zname": "Sisteme de teleconferinta",
+		"zparent": "8",
+		"zslug": "sisteme-de-teleconferinta",
+		"zcount": 17,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=554&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=554",
+		"zdenumire_singular": "Sisteme de teleconferinta"
+	}
+	,{
+		"pidm": "561",
+		"zcod": "8.06",
+		"zname": "Fax-uri",
+		"zparent": "8",
+		"zslug": "fax-uri",
+		"zcount": 18,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=561&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=561",
+		"zdenumire_singular": "Fax-uri"
+	}
+	,{
+		"pidm": "574",
+		"zcod": "9",
+		"zname": "Conectica",
+		"zparent": "",
+		"zslug": "conectica",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=574&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=574",
+		"zdenumire_singular": "Conectica"
+	}
+	,{
+		"pidm": "575",
+		"zcod": "9.01",
+		"zname": "Cabluri",
+		"zparent": "9",
+		"zslug": "cabluri",
+		"zcount": 0,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=575&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=575",
+		"zdenumire_singular": "Cabluri"
+	}
+	,{
+		"pidm": "576",
+		"zcod": "9.01.1",
+		"zname": "Cabluri alimentare",
+		"zparent": "9.01",
+		"zslug": "cabluri-alimentare",
+		"zcount": 51,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=576&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=576",
+		"zdenumire_singular": "Cabluri alimentare"
+	}
+	,{
+		"pidm": "585",
+		"zcod": "9.01.10",
+		"zname": "Cabluri PS/2 / serial paralel",
+		"zparent": "9.01",
+		"zslug": "cabluri-ps/2-/-serial-paralel",
+		"zcount": 28,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=585&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=585",
+		"zdenumire_singular": "Cabluri PS/2 / serial paralel"
+	}
+	,{
+		"pidm": "586",
+		"zcod": "9.01.11",
+		"zname": "Cabluri XLR, BNC, IEC, F Plug",
+		"zparent": "9.01",
+		"zslug": "cabluri-xlr,-bnc,-iec,-f-plug",
+		"zcount": 83,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=586&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=586",
+		"zdenumire_singular": "Cabluri XLR, BNC, IEC, F Plug"
+	}
+	,{
+		"pidm": "587",
+		"zcod": "9.01.12",
+		"zname": "Cabluri audio digitale - Toslink S/PDIF",
+		"zparent": "9.01",
+		"zslug": "cabluri-audio-digitale---toslink-s/pdif",
+		"zcount": 12,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=587&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=587",
+		"zdenumire_singular": "Cabluri audio digitale - Toslink S/PDIF"
+	}
+	,{
+		"pidm": "588",
+		"zcod": "9.01.13",
+		"zname": "Cabluri Firewire, PCI Express",
+		"zparent": "9.01",
+		"zslug": "cabluri-firewire,-pci-express",
+		"zcount": 26,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=588&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=588",
+		"zdenumire_singular": "Cabluri Firewire, PCI Express"
+	}
+	,{
+		"pidm": "589",
+		"zcod": "9.01.14",
+		"zname": "Cabluri SATA/eSATA, IDE",
+		"zparent": "9.01",
+		"zslug": "cabluri-sata/esata,-ide",
+		"zcount": 139,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=589&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=589",
+		"zdenumire_singular": "Cabluri SATA/eSATA, IDE"
+	}
+	,{
+		"pidm": "590",
+		"zcod": "9.01.15",
+		"zname": "Cabluri USB",
+		"zparent": "9.01",
+		"zslug": "cabluri-usb",
+		"zcount": 266,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=590&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=590",
+		"zdenumire_singular": "Cabluri USB"
+	}
+	,{
+		"pidm": "591",
+		"zcod": "9.01.16",
+		"zname": "Pin Header",
+		"zparent": "9.01",
+		"zslug": "pin-header",
+		"zcount": 33,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=591&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=591",
+		"zdenumire_singular": "Pin Header"
+	}
+	,{
+		"pidm": "577",
+		"zcod": "9.01.2",
+		"zname": "Cabluri alimentare interne",
+		"zparent": "9.01",
+		"zslug": "cabluri-alimentare-interne",
+		"zcount": 118,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=577&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=577",
+		"zdenumire_singular": "Cabluri alimentare interne"
+	}
+	,{
+		"pidm": "578",
+		"zcod": "9.01.3",
+		"zname": "Cabluri audio - foto - video",
+		"zparent": "9.01",
+		"zslug": "cabluri-audio---foto---video",
+		"zcount": 150,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=578&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=578",
+		"zdenumire_singular": "Cabluri audio - foto - video"
+	}
+	,{
+		"pidm": "579",
+		"zcod": "9.01.4",
+		"zname": "Cabluri MHL",
+		"zparent": "9.01",
+		"zslug": "cabluri-mhl",
+		"zcount": 14,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=579&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=579",
+		"zdenumire_singular": "Cabluri MHL"
+	}
+	,{
+		"pidm": "580",
+		"zcod": "9.01.5",
+		"zname": "Cabluri SCSI SAS",
+		"zparent": "9.01",
+		"zslug": "cabluri-scsi-sas",
+		"zcount": 38,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=580&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=580",
+		"zdenumire_singular": "Cabluri SCSI SAS"
+	}
+	,{
+		"pidm": "581",
+		"zcod": "9.01.6",
+		"zname": "Cabluri VGA, HDMI, DVI",
+		"zparent": "9.01",
+		"zslug": "cabluri-vga,-hdmi,-dvi",
+		"zcount": 192,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=581&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=581",
+		"zdenumire_singular": "Cabluri VGA, HDMI, DVI"
+	}
+	,{
+		"pidm": "582",
+		"zcod": "9.01.7",
+		"zname": "Cabluri Smartphone Tablete",
+		"zparent": "9.01",
+		"zslug": "cabluri-smartphone-tablete",
+		"zcount": 36,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=582&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=582",
+		"zdenumire_singular": "Cabluri Smartphone Tablete"
+	}
+	,{
+		"pidm": "583",
+		"zcod": "9.01.8",
+		"zname": "Cabluri DisplayPort, Thunderbolt",
+		"zparent": "9.01",
+		"zslug": "cabluri-displayport,-thunderbolt",
+		"zcount": 94,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=583&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=583",
+		"zdenumire_singular": "Cabluri DisplayPort, Thunderbolt"
+	}
+	,{
+		"pidm": "584",
+		"zcod": "9.01.9",
+		"zname": "Cabluri Imprimanta",
+		"zparent": "9.01",
+		"zslug": "cabluri-imprimanta",
+		"zcount": 39,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=584&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=584",
+		"zdenumire_singular": "Cabluri Imprimanta"
+	}
+	,{
+		"pidm": "592",
+		"zcod": "9.02",
+		"zname": "Adaptoare si cabluri",
+		"zparent": "9",
+		"zslug": "adaptoare-si-cabluri",
+		"zcount": 62,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=592&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=592",
+		"zdenumire_singular": "Adaptoare si cabluri"
+	}
+	,{
+		"pidm": "593",
+		"zcod": "9.02.1",
+		"zname": "Adaptoare alimentare interne",
+		"zparent": "9.02",
+		"zslug": "adaptoare-alimentare-interne",
+		"zcount": 19,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=593&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=593",
+		"zdenumire_singular": "Adaptoare alimentare interne"
+	}
+	,{
+		"pidm": "602",
+		"zcod": "9.02.10",
+		"zname": "Adaptoare SATA/eSATA IDE",
+		"zparent": "9.02",
+		"zslug": "adaptoare-sata/esata-ide",
+		"zcount": 102,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=602&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=602",
+		"zdenumire_singular": "Adaptoare SATA/eSATA IDE"
+	}
+	,{
+		"pidm": "603",
+		"zcod": "9.02.11",
+		"zname": "Adaptoare Smartphone",
+		"zparent": "9.02",
+		"zslug": "adaptoare-smartphone",
+		"zcount": 10,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=603&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=603",
+		"zdenumire_singular": "Adaptoare Smartphone"
+	}
+	,{
+		"pidm": "604",
+		"zcod": "9.02.12",
+		"zname": "Bloc Terminal, ZIF, DMS, XLR, BNC, N Jack",
+		"zparent": "9.02",
+		"zslug": "bloc-terminal,-zif,-dms,-xlr,-bnc,-n-jack",
+		"zcount": 83,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=604&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=604",
+		"zdenumire_singular": "Bloc Terminal, ZIF, DMS, XLR, BNC, N Jack"
+	}
+	,{
+		"pidm": "594",
+		"zcod": "9.02.2",
+		"zname": "Adaptoare Displayport",
+		"zparent": "9.02",
+		"zslug": "adaptoare-displayport",
+		"zcount": 102,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=594&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=594",
+		"zdenumire_singular": "Adaptoare Displayport"
+	}
+	,{
+		"pidm": "595",
+		"zcod": "9.02.3",
+		"zname": "Adaptoare PCI, PCI-E",
+		"zparent": "9.02",
+		"zslug": "adaptoare-pci,-pci-e",
+		"zcount": 169,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=595&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=595",
+		"zdenumire_singular": "Adaptoare PCI, PCI-E"
+	}
+	,{
+		"pidm": "596",
+		"zcod": "9.02.4",
+		"zname": "Adaptoare VGA, HDMI, DVI",
+		"zparent": "9.02",
+		"zslug": "adaptoare-vga,-hdmi,-dvi",
+		"zcount": 152,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=596&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=596",
+		"zdenumire_singular": "Adaptoare VGA, HDMI, DVI"
+	}
+	,{
+		"pidm": "597",
+		"zcod": "9.02.5",
+		"zname": "Bracket, Pin Header",
+		"zparent": "9.02",
+		"zslug": "bracket,-pin-header",
+		"zcount": 47,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=597&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=597",
+		"zdenumire_singular": "Bracket, Pin Header"
+	}
+	,{
+		"pidm": "598",
+		"zcod": "9.02.6",
+		"zname": "Adaptoare audio digitale",
+		"zparent": "9.02",
+		"zslug": "adaptoare-audio-digitale",
+		"zcount": 3,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=598&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=598",
+		"zdenumire_singular": "Adaptoare audio digitale"
+	}
+	,{
+		"pidm": "599",
+		"zcod": "9.02.7",
+		"zname": "Adaptoare USB, Serial/Paralel",
+		"zparent": "9.02",
+		"zslug": "adaptoare-usb,-serial/paralel",
+		"zcount": 167,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=599&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=599",
+		"zdenumire_singular": "Adaptoare USB, Serial/Paralel"
+	}
+	,{
+		"pidm": "600",
+		"zcod": "9.02.8",
+		"zname": "Adaptoare audio video",
+		"zparent": "9.02",
+		"zslug": "adaptoare-audio-video",
+		"zcount": 94,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=600&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=600",
+		"zdenumire_singular": "Adaptoare audio video"
+	}
+	,{
+		"pidm": "601",
+		"zcod": "9.02.9",
+		"zname": "Adaptoare Firewire",
+		"zparent": "9.02",
+		"zslug": "adaptoare-firewire",
+		"zcount": 8,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=601&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=601",
+		"zdenumire_singular": "Adaptoare Firewire"
+	}
+	,{
+		"pidm": "567",
+		"zcod": "XX",
+		"zname": "Diverse !",
+		"zparent": "",
+		"zslug": "diverse-!",
+		"zcount": 2,
+		"link_produse": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_produse.serv?database=atex&cod_formular=618&idgrupa=567&start=0&stop=20",
+		"link_selectoare": "http://ancora.atexpc.ro:8765/ancoraerp/jis_get_selectoare.serv?database=atex&cod_formular=655&idparinte=567",
+		"zdenumire_singular": "Diverse !"
+	}
+	]
 }
