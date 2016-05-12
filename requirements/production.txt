@@ -1,4 +1,4 @@
 -r common.txt
-gunicorn==19.4.5
-django-storages==1.1.5
-raven==2.0.10
+gunicorn==19.5.0
+django-storages==1.4.1
+raven==5.16.0
