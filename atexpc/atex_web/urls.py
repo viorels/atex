@@ -4,14 +4,14 @@ from django.conf import settings
 from django.shortcuts import render
 from django.views.generic import RedirectView
 
-from views import (HomeView, MySearchView, ProductsView, ProductView, BrandsView,
+from .views import (HomeView, MySearchView, ProductsView, ProductView, BrandsView,
                    PromotionsView, GamingView, AppleView, BlackFridayView,
                    ContactView, ConditionsView, ServiceView, WarrantyServiceView,
                    CartView, OrderView, ConfirmView, LoginView,
                    RecoverPassword, RecoverPasswordDone, ResetPassword, ResetPasswordDone)
-from views.products import SearchAutoComplete, DropboxWebHookView
-from views.authentication import GetEmails
-from views.shopping import GetCompanyInfo
+from .views.products import SearchAutoComplete, DropboxWebHookView
+from .views.authentication import GetEmails
+from .views.shopping import GetCompanyInfo
 
 
 urlpatterns = patterns('',

@@ -88,7 +88,7 @@ SOCIAL_AUTH_PIPELINE = (
 
 # https://docs.djangoproject.com/en/dev/releases/1.6/#default-session-serialization-switched-to-json
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 SHOPMANIA_FEED_FILE = 'shopmania.csv'   # in media root
 ALLSHOPS_FEED_FILE = 'allshops.csv'   # in media root
@@ -132,9 +132,11 @@ SOCIAL_AUTH_FACEBOOK_SECRET = environ.get('FACEBOOK_API_SECRET')
 HAYSTACK_DEFAULT_OPERATOR = 'AND'
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'xapian_backend.XapianEngine',
-        'PATH': path.join(PROJECT_ROOT, 'xapian_index'),
-        'INCLUDE_SPELLING': False,
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 1000,
     },
 }
 
@@ -266,7 +268,7 @@ INSTALLED_APPS = (
     'localflavor',
     'compressor',
     'sorl.thumbnail',
-    'atexpc.atex_web',  # before social auth
+    'atexpc.atex_web.apps.AtexConfig',  # before social auth
     'social.apps.django_app.default',
     'password_reset',
     'haystack',

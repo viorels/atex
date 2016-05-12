@@ -14,9 +14,11 @@
 {% block content_right %}
     {% cache 60 home %}
 			  <ul class="bxslider">
-
-                <li style="display:none"><a href="http://www.atexpc.ro/produs/85826-laptop-lenovo-80ew05mhri"><img src="{{ STATIC_PREFIX }}images/promotii/b50-80-lenovo.jpg" alt="Lenovo B50-80" title="Lenovo B50-80" /></a></li>
-                <li style="display:none"><a href="http://www.atexpc.ro/produs/68391-procesor-intel-core-i3-4170-37-ghz-socket-1150"><img src="{{ STATIC_PREFIX }}images/promotii/i3-4170.jpg" alt="Intel Core I3 4170" title="Intel Core I3 4170" /></a></li>
+                {% for banner in view.get_banners %}
+                <li {% if not forloop.first %}style="display:none"{% endif %}>
+                    <a href="{{ banner.url }}"><img src="/media/{{ banner.image }}" alt="{{ banner.title }}" title="{{ banner.title }}" /></a>
+                </li>
+                {% endfor %}
 			  </ul>
 
               <div class="right_content">

@@ -24,7 +24,7 @@ if os.path.isfile(env_file_name):
            try:
                key, value = line.rstrip().split("=", 1)
                os.environ[key] = value
-           except ValueError, e:
+           except ValueError as e:
                pass
 
 # This application object is used by any WSGI server configured to use this

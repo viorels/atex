@@ -17,13 +17,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class DropboxMedia(object):
+class DropboxMedia:
     products_path = "/Atex-media/products"
     products_path_re = r"/products/(?P<folder>[^/]+)/(?P<resource>[^/]+)(?P<other>/.*)?"
     max_path_length = 128 # TODO: introspect model
 
     def __init__(self, *args, **kwargs):
-        super(DropboxMedia, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if settings.DROPBOX_ACCESS_TOKEN_V2:
             self._dropbox = dropbox.Dropbox(settings.DROPBOX_ACCESS_TOKEN_V2)
 
@@ -39,7 +39,7 @@ class DropboxMedia(object):
         path = os.path.join(self.products_path, name)
         try:
             self._dropbox.files_create_folder(path)
-        except ApiError, e:
+        except ApiError as e:
             logger.error(e)
 
     def synchronize(self): # TODO: handle rate limit (503 errors)
@@ -47,7 +47,7 @@ class DropboxMedia(object):
         has_more = True
         while has_more:
             if not last_cursor:
-                delta = self._dropbox.files_list_folder(products_path, recursive=True, include_media_info=True)
+                delta = self._dropbox.files_list_folder(self.products_path, recursive=True)
             else:
                 delta = self._dropbox.files_list_folder_continue(last_cursor)
             has_more = delta.has_more
@@ -93,7 +93,7 @@ class DropboxMedia(object):
             tempfile_name = tempfile.name   # temp file is created and closed empty
         self._dropbox.files_download_to_file(tempfile_name, entry.path_display)
 
-        with open(tempfile_name) as f:
+        with open(tempfile_name, "rb") as f:
             self._storage_image_writer(self._relative_path(entry.path_display), f)
         os.unlink(tempfile_name)
 
@@ -123,5 +123,5 @@ class DropboxMedia(object):
             image_name = image.image.name
             image.delete()
             StorageWithOverwrite().delete(image_name)
-        except Image.DoesNotExist, e:
+        except Image.DoesNotExist as e:
             pass

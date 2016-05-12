@@ -6,7 +6,7 @@ from django.contrib.sites.models import Site
 
 _default_site_id = getattr(settings, 'SITE_ID', None)
 
-class DynamicSiteIDMiddleware(object):
+class DynamicSiteIDMiddleware:
     """Sets settings.SITE_ID based on request's domain"""
     def process_request(self, request):
         # Ignore port if it's 80 or 443
@@ -59,7 +59,7 @@ class DynamicSiteIDMiddleware(object):
 
 def make_tls_property(default=None):
     """Creates a class-wide instance property with a thread-specific value."""
-    class TLSProperty(object):
+    class TLSProperty:
         def __init__(self):
             from threading import local
             self.local = local()

@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 class BaseView(TemplateView):
     def __init__(self, *args, **kwargs):
-        super(BaseView, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.api = AncoraAPI()
 
     def get_general_context(self):
@@ -42,11 +42,11 @@ class BaseView(TemplateView):
     def get_context_data(self, **context):
         context.update(self.get_general_context())
         context.update(self.get_local_context())
-        return super(BaseView, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get(self, request, *args, **kwargs):
         try:
-            response = super(BaseView, self).get(request, *args, **kwargs)
+            response = super().get(request, *args, **kwargs)
         except APIError as e:
             logger.error(e, extra={'request': self.request})
             context = self.get_minimal_context()
@@ -161,13 +161,13 @@ class BaseView(TemplateView):
 
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
-        return super(BaseView, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
-class CSRFCookieMixin(object):
+class CSRFCookieMixin:
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
-        return super(CSRFCookieMixin, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class ErrorBase(BaseView):
@@ -177,7 +177,7 @@ class ErrorBase(BaseView):
         return "%d.html" % self.error_code
 
     def render_to_response(self, context):
-        response = super(ErrorBase, self).render_to_response(context)
+        response = super().render_to_response(context)
         response.status_code = self.error_code
         response.render()   # response is not yet rendered during middleware
         return response
@@ -202,14 +202,14 @@ class ErrorBase(BaseView):
         return [{'name': "Pagina necunoscuta"}]
 
 
-class BreadcrumbsMixin(object):
+class BreadcrumbsMixin:
     def get_context_data(self, **context):
         context.update({'breadcrumbs': self.get_breadcrumbs})
-        return super(BreadcrumbsMixin, self).get_context_data(**context)
+        return super().get_context_data(**context)
 
     def get_breadcrumbs(self):
-        if hasattr(super(BreadcrumbsMixin, self), 'get_breadcrumbs'):
-            breadcrumbs = super(BreadcrumbsMixin, self).get_breadcrumbs()
+        if hasattr(super(), 'get_breadcrumbs'):
+            breadcrumbs = super().get_breadcrumbs()
         else:
             breadcrumbs = getattr(self, 'breadcrumbs', [])
         if breadcrumbs and 'url' in breadcrumbs[-1]:
@@ -244,7 +244,7 @@ class BreadcrumbsMixin(object):
                                            'slug': slugify(category['name'])})
 
 
-class JSONResponseMixin(object):
+class JSONResponseMixin:
     """A mixin that can be used to render a JSON response."""
 
     def render_to_response(self, context, **response_kwargs):

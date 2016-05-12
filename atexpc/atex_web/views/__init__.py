@@ -1,11 +1,11 @@
 from django.contrib.sites.shortcuts import get_current_site
 from django.views.generic.base import TemplateView
 
-from base import BreadcrumbsMixin, ErrorBase
-from authentication import (LoginBase, RecoverPasswordView, RecoverPasswordDoneView,
+from .base import BreadcrumbsMixin, ErrorBase
+from .authentication import (LoginBase, RecoverPasswordView, RecoverPasswordDoneView,
                             ResetPasswordView, ResetPasswordDoneView)
-from products import (HomeView, MySearchView, ProductsView, ProductView, BrandsView)
-from shopping import CartView, OrderView, ConfirmView
+from .products import (HomeView, MySearchView, ProductsView, ProductView, BrandsView)
+from .shopping import CartView, OrderView, ConfirmView
 
 
 # *Base classes (e.g. HomeView must be last on inheritance list as

@@ -33,7 +33,7 @@ class LoginBase(CSRFCookieMixin, FormView, HybridGenericView):
     def dispatch(self, *args, **kwargs):
         self.login_type = self.request.POST.get('login_type')
         self.is_signup = self.login_type == 'new'
-        return super(LoginBase, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
     def get_form_class(self):
         return user_form_factory(self.is_signup, self.request.api)
@@ -41,7 +41,7 @@ class LoginBase(CSRFCookieMixin, FormView, HybridGenericView):
     def form_valid(self, form):
         login(self.request, form.get_user())
         logger.info('Login %s', self.request.user.email)
-        return super(LoginBase, self).form_valid(form)
+        return super().form_valid(form)
 
     def form_invalid(self, form):
         logger.info('Login invalid %s', self.login_type)
@@ -50,7 +50,7 @@ class LoginBase(CSRFCookieMixin, FormView, HybridGenericView):
             logger.info('Reset password for %s', email)
             return RecoverPasswordView.as_view()(self.request)
 
-        return super(LoginBase, self).form_invalid(form)
+        return super().form_invalid(form)
 
     def get_success_url(self):
         redirect_to = self.request.REQUEST.get(REDIRECT_FIELD_NAME, '')
@@ -59,7 +59,7 @@ class LoginBase(CSRFCookieMixin, FormView, HybridGenericView):
         return redirect_to
 
     def get_context_data(self, **kwargs):
-        context = super(LoginBase, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         signup_form = user_form_factory(is_signup=True, api=self.request.api)
         context['signup_form'] = signup_form(data=self.request.POST or None)
         if 'form' not in context:   # show full unbound form on first view
@@ -87,13 +87,13 @@ class RecoverPasswordView(Recover, BaseView):
     search_fields = ['email']
 
     def get_form_kwargs(self):
-        kwargs = super(RecoverPasswordView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs['data'] = self.request.POST.copy()
         kwargs['data']['username_or_email'] = kwargs['data'].get('username')
         return kwargs
 
     def get_context_data(self, **kwargs):
-        context = super(RecoverPasswordView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         
         context['reset_form'] = context['form']
 
@@ -111,7 +111,7 @@ class ResetPasswordView(Reset, BaseView):
     template_name = 'password/reset.html'
 
     def get_context_data(self, **kwargs):
-        context = super(ResetPasswordView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
         # TODO: move this patch to a base class
         # this is needed because TemplateView.get overrites ProcessFormView.get
@@ -121,7 +121,7 @@ class ResetPasswordView(Reset, BaseView):
         return context
 
     def form_valid(self, form):
-        valid = super(ResetPasswordView, self).form_valid(form)
+        valid = super().form_valid(form)
         user = authenticate(email=form.user.email, password=form.cleaned_data['password1'])
         if user is not None:
             login(self.request, user)
