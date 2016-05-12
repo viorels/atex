@@ -66,17 +66,25 @@ html, body { height: 100%;  }
     height: 95px; 
     }
 .wrapper {
-	border-top:5px solid #cecece;
-	/*background:url(../images/bg_dark.png) repeat;*/
+	/*border-top:5px solid #cecece;
+	background:url(../images/bg_dark.png) repeat;*/
 	/*background-color:#3d97cb;*/
+	border-top:5px solid #cecece;
+	background-color:#ff0000;
 }
 .page_wrapper {
 	
 	margin:0 auto;
-	background:url(../images/bg-page.png) repeat;
+	/*background:url(../images/bg-page.png) repeat;*/
 	padding:0 0 120px 0;
 	position:relative;
 }
+.promo {
+	width: 1140px;
+	padding: 0 0 0 0;
+    margin: auto;
+}
+
 .header {
 	position:relative;
 	height: 100px;
@@ -427,6 +435,10 @@ input.hint, textarea.hint {
 	width:1140px;
 	margin:auto;
 	padding-top:15px;
+	background:#fff;
+	border: 6px solid #fff;
+    border-radius: 6px;
+
 }
 .top-content {
 	width:100%;
