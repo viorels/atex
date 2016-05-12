@@ -237,6 +237,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
     def get_search_args(self):
         defaults = {'category_id': '',
                     'keywords': '',
+                    'base_category': '',
                     'current_page': 1,
                     'per_page': 20,
                     'price_min': '',
