@@ -76,7 +76,8 @@ class DropboxMedia:
         """Validate that the request is properly signed by Dropbox.
            (If not, this is a spoofed webhook.)"""
 
-        return signature == hmac.new(settings.DROPBOX_APP_SECRET, body, sha256).hexdigest()
+        key = bytes(settings.DROPBOX_APP_SECRET, 'ascii')
+        return signature == hmac.new(key, body, sha256).hexdigest()
 
     def get_account_id(self):
         return self._dropbox.users_get_current_account().account_id

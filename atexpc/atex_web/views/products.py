@@ -439,7 +439,7 @@ class DropboxWebHookView(View):
         return HttpResponse(request.GET.get('challenge'))
 
     def post(self, request):
-        notification = json.loads(request.body)
+        notification = json.loads(request.body.decode('utf-8'))
         signature = request.META.get('HTTP_X_DROPBOX_SIGNATURE')
 
         dropbox = DropboxMedia()
