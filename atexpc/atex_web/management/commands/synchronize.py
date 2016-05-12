@@ -184,7 +184,7 @@ class Command(BaseCommand):
             for product in products.values():
                 product_info = self._product_info(product)
                 # TODO: is float(price) > 0 ?
-                feed_line = '|'.join(self._clean_info(unicode(product_info.get(item, '')))
+                feed_line = '|'.join(self._clean_info(product_info.get(item, ''))
                                      for item in feed_line_items)
                 feed.write(feed_line)
                 feed.write('\n')
@@ -198,7 +198,8 @@ class Command(BaseCommand):
             for product in products.values():
                 product_info = self._product_info(product)
                 # TODO: is float(price) > 0 ?
-                feed_line = ';'.join('"%s"' % b64encode(self._clean_info(unicode(product_info.get(item, ''))))
+                feed_line = ';'.join('"%s"' % b64encode(self._clean_info(product_info.get(item, ''))
+                                                        .encode('utf-8')).decode('ascii')
                                      for item in feed_line_items)
                 feed.write(feed_line)
                 feed.write('\n')
@@ -270,6 +271,8 @@ class Command(BaseCommand):
     def _clean_info(self, field):
         if not field:
             return ""
+        if type(field) in (int, float):
+            field = str(field)
         return field.translate(dict.fromkeys(self.CLEAN_INFO_UNWANTED_CHARS))
 
     # Specifications

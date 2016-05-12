@@ -237,6 +237,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
     def get_search_args(self):
         defaults = {'category_id': '',
                     'keywords': '',
+                    'base_category': '',
                     'current_page': 1,
                     'per_page': 20,
                     'price_min': '',
@@ -439,7 +440,7 @@ class DropboxWebHookView(View):
         return HttpResponse(request.GET.get('challenge'))
 
     def post(self, request):
-        notification = json.loads(request.body)
+        notification = json.loads(request.body.decode('utf-8'))
         signature = request.META.get('HTTP_X_DROPBOX_SIGNATURE')
 
         dropbox = DropboxMedia()

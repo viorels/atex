@@ -1,6 +1,7 @@
 # sudo adduser atex
 # sudo apt-get update
-# sudo apt-get install redis-server postgresql libpq-dev python3-venv python3-dev libjpeg8-dev libapache2-mod-wsgi git libxapian-dev libxapian22v5 python3-xapian1.3
+# sudo apt-get install redis-server postgresql libpq-dev python3-venv python3-dev libjpeg8-dev libapache2-mod-wsgi-py3 git
+# optional xapian: libxapian-dev libxapian22v5 python3-xapian1.3
 
 # a2dismod python perl php5
 

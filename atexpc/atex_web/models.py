@@ -121,9 +121,13 @@ class BrandQuerySet(models.QuerySet):
                                                defaults={'name': name})
         return brand
 
+
 class Brand(models.Model):
     name = models.CharField(max_length=128)
     objects = BrandQuerySet.as_manager()
+
+    def __str__(self):
+        return self.name
 
 
 class Product(models.Model):

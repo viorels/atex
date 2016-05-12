@@ -3,6 +3,10 @@
 {% load static %}
 {% get_static_prefix as STATIC_PREFIX %}
 
+{% block css %}
+<link href="{{ STATIC_PREFIX }}css/styleblackfriday.css" type="text/css" rel="stylesheet" />
+{% endblock %}
+
 {% block title %}Black Friday{% endblock title %}
 {% block head %}
 	<meta name="description" content="Promotiile Saptamanii | ATEX Computer">
