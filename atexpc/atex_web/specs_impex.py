@@ -25,8 +25,8 @@ def import_category_specs(sheet):
     model_column = [i for i, name in columns.items() if name.lower() == MODEL_COLUMN.lower()]
     if model_column:
         model_column = model_column[0]
-        for row in xrange(1, sheet.nrows):
-            model = unicode(cell_value(sheet.cell(row, model_column)))
+        for row in range(1, sheet.nrows):
+            model = str(cell_value(sheet.cell(row, model_column)))
             if model:
                 model_specs = OrderedDict((name, cell_value(sheet.cell(row, i)))
                                           for i, name in columns.items()
