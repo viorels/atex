@@ -13,6 +13,7 @@
 
 {% block content_right %}
     {% cache 60 home %}
+                {% if view.get_banners %}
 			  <ul class="bxslider">
                 {% for banner in view.get_banners %}
                 <li {% if not forloop.first %}style="display:none"{% endif %}>
@@ -20,7 +21,7 @@
                 </li>
                 {% endfor %}
 			  </ul>
-
+                {% endif %}
               <div class="right_content">
                 	<div class="topuri">
                     	<div class="titlu_top">
