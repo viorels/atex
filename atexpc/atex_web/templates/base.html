@@ -24,6 +24,7 @@
 <script src="{{ STATIC_PREFIX }}script/all.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery.bxslider.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_PREFIX }}script/jquery.slides.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_PREFIX }}script/doom.js" type="text/javascript"></script>
 {% endcompress %}
 <title>{% block title %}{{ site_info.name }}{% endblock %}</title>
 {% block head %}{% endblock %}
@@ -141,9 +142,7 @@ if ($(this).scrollTop() > 1){
 
 			
         </div> <!-- header end -->
-            <div class="promo">
-			<a href="/promotii"><img src="{{ STATIC_PREFIX }}images/promotii/16ani.jpg" alt="16 ANI" title="16 ANI">
-			</div>              
+           
             <div class="content_wrapper clear">
             
             {% block content_top %}
