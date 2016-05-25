@@ -44,3 +44,9 @@ EMAIL_SUBJECT_PREFIX = '[Atex dev] '
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CACHES['default']['KEY_PREFIX'] = 'dev'
+
+HAYSTACK_CONNECTIONS['default'] = {
+        'ENGINE': 'xapian_backend.XapianEngine',
+        'PATH': path.join(PROJECT_ROOT, 'xapian_index'),
+        'INCLUDE_SPELLING': True,
+}
