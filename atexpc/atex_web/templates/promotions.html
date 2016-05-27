@@ -5,287 +5,25 @@
 
 {% block css %}
 <link href="{{ STATIC_PREFIX }}css/promotions.css" type="text/css" rel="stylesheet" />
+<link href="{{ STATIC_PREFIX }}css/normalize.css" type="text/css" rel="stylesheet" />
 {% endblock %}
 
-{% block title %}Promotiile Saptamanii | ATEX Computer{% endblock title %}
+{% block title %}Jocul DOOM cadou de la ASUS | ATEX Computer{% endblock title %}
 {% block head %}
-	<meta name="description" content="Promotiile Saptamanii | ATEX Computer">
-	<meta name="keywords" content="Promotiile Saptamanii ATEX"> 
 
-<style type="text/css">
-.auto-style1 {
-	text-align: center;
-}
-.auto-style2 {
-	font-size: large;
-}
-.auto-style3 {
-	font-size: medium;
-}
-.auto-style5 {
-	background-color: #fff;
-}
-.auto-style6 {
-	font-size: x-large;
-}
-div#menu1 {
-	width:250px;	
-	background:url('/static/images/menu-bg.jpg?7a073fb9024d') 0 0 repeat;
-	border-radius: 6px;     
-	-moz-border-radius: 6px;     
-	-webkit-border-radius: 6px;
-	behavior: url('/static/css/PIE.htc?08a02b6181dc');
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="ALEGEȚI-VĂ ARMELE. DEZLĂNȚUIȚI IADUL ÎN LUPTĂ! Primiți Jocul DOOM Cadou cu Plăcile de Bază și Monitoarele pentru Jocuri de la ASUS.">
+    <meta name="keywords" content="ASUS, DOOM">
+    <meta property="og:site_name" content="Jocul DOOM cadou de la ASUS">
+    <meta property="og:title" content="Jocul DOOM cadou de la ASUS">
+    <meta property="og:description" content="ALEGEȚI-VĂ ARMELE. DEZLĂNȚUIȚI IADUL ÎN LUPTĂ! Primiți Jocul DOOM Cadou cu Plăcile de Bază și Monitoarele pentru Jocuri de la ASUS.">
+    <link rel="shortcut icon" href="http://www.asus.com/media/img/favicon.ico">
 
-button:hover;
-background:url('/static/images/red-arrow.png?7a073fb9024d') 230px 17px no-repeat;
-z-index: 999;
-display:inline-block;
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="/static/Javascript/default.js"></script>
 
-float: left;
-
-
-    
-}
-
-
-
-ul.menu1 li.menu-item {
-	height:40px;
-	line-height:40px;
-	border-bottom:1px solid #cecece;
-	border-left:1px solid #cecece;
-	border-right:1px solid #cecece;
-	background: -moz-linear-gradient(top , #fcfcfc, #f7f7f7 50%, #f0f0f0 50%, #f0f0f0);
-	background: -ms-linear-gradient(top , #fcfcfc, #f7f7f7 50%, #f0f0f0 50%, #f0f0f0);
-	background: -o-linear-gradient(top , #fcfcfc, #f7f7f7 50%, #f0f0f0 50%, #f0f0f0);
-	background: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#f0f0f0), color-stop(0.5, #f7f7f7),  color-stop(0.5, #f0f0f0));
-	-pie-background: linear-gradient(#fcfcfc, #f7f7f7 50%, #f0f0f0 50%, #f0f0f0); 
-	-moz-border-radius: 0 0 6px 6px;
-	-webkit-border-radius: 0 0 6px 6px;
-	border-radius: 0 0 6px 6px;
-	behavior: url('/static/css/PIE.htc?08a02b6181dc');	
-	text-transform:capitalize;
-	font-size:13px;
-	display:block;
-	position:relative;
-
-}
-ul.menu1 li.menu-item.brand {	
-	background: -moz-linear-gradient(top , #d6585a, #cf4243 50%, #c62123 50%, #c62123);
-	background: -ms-linear-gradient(top , #d6585a, #cf4243 50%, #c62123 50%, #c62123);
-	background: -o-linear-gradient(top , #d6585a, #cf4243 50%, #c62123 50%, #c62123);
-	background: -webkit-gradient(linear, left top, left bottom, from(#d6585a), to(#c62123), color-stop(0.5, #cf4243),  color-stop(0.5, #c62123));
-	-pie-background: linear-gradient(#d6585a, #cf4243 50%, #c62123 50%, #c62123); 	
-	behavior: url('/static/css/PIE.htc?08a02b6181dc');	
-	position:relative;
-}
-ul.menu1 li.menu-item.brand a {color:#fff} ul.menu li.menu-item.brand a:hover {color:#393939}
-ul.menu li.menu-item.active, ul.menu1 li.menu-item:hover  {
-	background: #fff !important;		 
-	position:static !important;
-}
-ul.menu1 li.menu-item.first {
-	border-top:1px solid #cecece;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
-}
-ul.menu1 li.menu-item a.menu-link {
-	display:block;
-	line-height:40px;
-	background:url('/static/images/gray-arrow.png?7a073fb9024d') 230px 17px no-repeat;
-}
-ul.menu1 li.menu-item a.menu-link:hover, ul.menu li.menu-item.active a.menu-link {
-	background:url('/static/images/red-arrow.png?7a073fb9024d') 230px 17px no-repeat;
-}
-ul.menu_icon1 {
-margin-top:25px;
-margin-left:120px;}
-
-.atx-c {    
-	border-radius: 38px;
-    background: linear-gradient(to bottom, #FF4E4E 50%, #FF0003 50%) repeat scroll 0% 0% transparent;
-    color: #fff;
-    font-weight: bold;
-    font-size: 13px;
-    position: absolute;
-    font-color: #FFF;
-    line-height: 72px;
-    /* padding: 10px 0px 10px 0px; */
-    vertical-align: middle;
-    overflow: hidden;
-    cursor: pointer;
-    text-align: center;
-    display: inline-block;
-    width: 100%;
-    max-width: 75px;
-    border: 0px none;
-    box-sizing: border-box;
-    font-family: "Segoe UI","Helvetica","Arial";
-    text-transform: lowercase;
-    text-decoration: none;
-    margin-left: 110px;
-    margin-top: -17px;;
-}
-
-.adauga-cos {
-    height: 25px;
-    line-height: 25px;
-    color: #FFF;
-    font-size: 11px;
-    font-weight: bold;
-    width: 115px;
-    float: right;
-    display: block;
-    background: -moz-linear-gradient(center top , #D74949, #D02A2C 50%, #C62123 50%, #C62123) repeat scroll 0% 0% #C62123;
-    border-radius: 6px;
-    position: relative;
-}
-div#left_col1 {
-    width: 250px;
-    float: left;
-    padding-bottom: 15px;
-    position: relative;
- 
-}
-
-.rig { 
-
-float: right;
-display: block;
-    position: relative;
-}
-.pret_produss {
-  font-size: 17px;
-  font-weight: bold;
-  color: #c62123;
-  float: left;
-  line-height: 24px;
-}
-
-#footer {
-	
-	width:100%;
-}
-
-.listing_chestii {
-
-   float: left;
-   padding-top: 15px;
-   margin-left: 15px;
-   width: 888px;
-   z-index: 999;
-display: block;}
-@media only screen and (max-width: 1170px) {
-    #fadeshow1 {
-        display: none;
-		
-    }
-}
-@media only screen and (max-width: 1170px) {
-    #marginleft {
-      margin-left: -200px;
-	  float:left;
-    }
-}
-
-@media only screen and (max-width: 1170px) {
-    #fadeshow1 {
-        display: none;
-		
-    }
-}
-
-
-@media only screen and (max-width: 1300px) {
-div#fadeshow2 {
-        display: none;
-		
-    }
-}
-
-@media only screen and (max-device-width: 1000px) {
-		div#fadeshow2 {
-			width: 1px;
-			weight: 1px;
-		}
-display: none;
-		}
-	}
-
-.clear { 
-    clear:both; 
-}
-div#sticker {
-    	width:250px;	
-	background:url('/static/images/menu-bg.jpg?7a073fb9024d') 0 0 repeat;
-	border-radius: 6px;     
-	-moz-border-radius: 6px;     
-	-webkit-border-radius: 6px;
-	behavior: url('/static/css/PIE.htc?08a02b6181dc');
-
-button:hover;
-background:url('/static/images/red-arrow.png?7a073fb9024d') 230px 17px no-repeat;
-z-index: 999;
-
-
-float: left;
-display: block;
-
-}
-.stick {
-    position:fixed;
-    top:0px;
-	    	width:250px;	
-float: left;
-display: block;
-	z-index: 20;
-}
-
-.titlu {
-
-color:#fff;
-
-}
-
-
-a.titlu:hover {
-  color: #fff ;
-}
-
-</style>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $('.parent').click(function() {
-        $('.sub-nav').toggleClass('visible');
-    });
-});
-</script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	var s = $("#sticker");
-	var pos = s.position();	
-	var stickermax = $(document).outerHeight() - $("#footer").outerHeight() - s.outerHeight() - 450; //40 value is the total of the top and bottom margin
-	$(window).scroll(function() {
-		var windowpos = $(window).scrollTop();
-		if (windowpos >= pos.top && windowpos < stickermax) {
-			s.attr("style", ""); //kill absolute positioning
-			s.addClass("stick"); //stick it
-		} else if (windowpos >= stickermax) {
-			s.removeClass(); //un-stick
-			s.css({position: "absolute", top: stickermax + "px"}); //set sticker right above the footer
-			
-		} else {
-			s.removeClass(); //top of page
-		}
-	});
-	//alert(stickermax); //uncomment to show max sticker postition value on doc.ready
-});
-</script>
 {% endblock %}
 
 {% block content_top %}
@@ -295,2159 +33,578 @@ $(document).ready(function() {
 
 
 
+<div class="wrapper">
+    <div class="hero">
+        <h1 class="lang_h1">ALEGEȚI-VĂ ARMELE. DEZLĂNȚUIȚI IADUL ÎN LUPTĂ! </h1>
+        <h2 class="lang_h2">Primiți Jocul DOOM Cadou cu Plăcile de Bază și Monitoarele pentru Jocuri de la ASUS.</h2>
+        <div class="hero-img lang_hero_img"><img src="{{ STATIC_PREFIX }}images/doom/hero.jpg"></div>
+    </div>
+    <div class="content">
+        <div class="home-intro">
+            <h2 class="lang_home_intro_title">FITI GATA PENTRU O CAMPANIE NECRUTATOARE</h2>
+            <p class="lang_home_intro">Nu mai aveți timp să vă ascundeți pentru a vă regenera nivelul de viață în timp ce vă luptați cu hoardele de demoni dezlănțuiți din Iad. <br><br>Porniți-vă plăcile de bază și monitoarele pentru jocuri de la ASUS, selectați arma favorită dintr-o galerie de opțiuni futuriste deja devenite faimoase, și pregătiți-vă de o luptă crâncenă, până la moarte.<br><br>Pentru o perioadă limitată, primiți cadou atât jocul DOOM cât și oferta exclusivă Demon Multiplayer Pack.<!--0509--></p>
+            <img class="home-intro-img" src="{{ STATIC_PREFIX }}images/doom/home-intro.jpg">
+            <div class="demon"><!--0509-->
+                <div>
+                    <img src="{{ STATIC_PREFIX }}images/doom/demon-1.png">
+                    <h4 class="lang_demon_1a">SET ARMURA CU TEMATICA DEMONICA </h4>
+                    <p class="lang_demon_1b">Un set unic și customizabil cu trei variațiuni de finisaj</p>
+                </div>
+                <div>
+                    <img src="{{ STATIC_PREFIX }}images/doom/demon-2.png">
+                    <h4 class="lang_demon_2a">SASE MODELE DE VOPSELE METALICE </h4>
+                    <p class="lang_demon_2b">Culori ce pot fi aplicate armelor sau armurii </p>
+                </div>
+                <div>
+                    <img src="{{ STATIC_PREFIX }}images/doom/demon-3.png">
+                    <h4 class="lang_demon_3a">TREI MODELE CU LOGO-UL ID</h4>
+                    <p class="lang_demon_3b">Modele ce pot fi aplicate armelor și armurii </p>
+                </div>
+                <div>
+                    <img src="{{ STATIC_PREFIX }}images/doom/demon-4.png">
+                    <h4 class="lang_demon_4a">SASE MODULE DE RESURSE</h4>
+                    <p class="lang_demon_4b">Beneficiază instant de pachete de resurse consumabile în timpul meciurilor MP </p>
+                </div>
+            </div>
+        </div>
+        <div class="home-video">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/KSZ4tSoumNk?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+            <p class="lang_video_caption">Pentru mai multe detalii privind jocul, vizitați <a href="http://www.doom.com" target="_blank">www.doom.com</a></p>
+        </div>
+        <div class="home-content">
+            <h2 class="lang_home_title_mb">PLACI DE BAZA ASUS PENTRU JOCURI ELIGIBILE  </h2>
+            <img class="lineup-img" src="{{ STATIC_PREFIX }}images/doom/mb.jpg">
+            <div class="home-armory home-armory-mb clear">
+                <ul>
+                    <h3>Seria Z170 </h3>
+                    <li class="lang_Z170_1"><p>MAXIMUS VIII EXTREME</p></li>
+                    <li class="lang_Z170_2"><p>MAXIMUS VIII FORMULA</p></li>
+                    <li class="lang_Z170_3"><p>MAXIMUS VIII HERO ALPHA</p></li>
+                    <li class="lang_Z170_4"><p>MAXIMUS VIII HERO</p></li>
+                    <li class="lang_Z170_5"><p>MAXIMUS VIII RANGER</p></li>
+                    <li class="lang_Z170_6"><p>MAXIMUS VIII GENE</p></li>
+                    <li class="lang_Z170_7"><p>MAXIMUS VIII IMPACT</p></li>
+                    <li class="lang_Z170_8 conceal"><p>Z170 PRO GAMING</p></li>
+                    <li class="lang_Z170_9 conceal"><p>Z170I PRO GAMING</p></li>
+                    <li class="lang_Z170_10 conceal"><p>SABERTOOTH Z170 MARK 1</p></li>
+                    <li class="lang_Z170_11"><p>SABERTOOTH Z170 S</p></li>
+                    <li class="lang_Z170_12 conceal"><p>Z170-PREMIUM</p></li>
+                    <li class="lang_Z170_13 conceal"><p>Z170-DELUXE</p></li>
+                    <li class="lang_Z170_14 conceal"><p>Z170-PRO</p></li>
+                    <li class="lang_Z170_15 conceal"><p>Z170-A</p></li>
+                    <li class="lang_Z170_16 conceal"><p>Z170-E</p></li>
+                    <li class="lang_Z170_17 conceal"><p>Z170-K</p></li>
+                    <li class="lang_Z170_18"><p>Z170-P</p></li>
+                    <li class="lang_Z170_19 conceal"><p>Z170M-E D3</p></li>
+                    <li class="lang_Z170_20 conceal"><p>Z170-P D3</p></li>
+                    <li class="lang_Z170_21 conceal"><p>Z170M-PLUS</p></li>
+                </ul>
+                <ul>
+                    <h3 class="lang_X99 conceal">Seria X99</h3>
+                    <!--<li class="lang_X99_1 conceal"><a href="https://www.asus.com/Motherboards/ROG-RAMPAGE-V-EDITION-10/" target="_blank">Rampage V Edition 10</a></li>--><!--0509-->
+                    <li class="lang_X99_2 conceal"><p>RAMPAGE V EXTREME/U3.1</p></li>
+                    <li class="lang_X99_3 conceal"><p>SABERTOOTH X99</p></li>
+                    <li class="lang_X99_4 conceal"><p>STRIX X99 GAMING</p></li><!--0509-->
+                    <li class="lang_X99_5 conceal"><p>X99-DELUXE II</p></li>
+                    <li class="lang_X99_6 conceal"><p>X99-DELUXE/U3.1</p></li>
+                    <li class="lang_X99_7 conceal"><p>X99-PRO/USB 3.1</p></li>
+                    <li class="lang_X99_8 conceal"><p>X99-A II</p></li><!--0509-->
+                    <li class="lang_X99_9 conceal"><p>X99-A</p></li>
+                    <li class="lang_X99_10 conceal"><p>X99-A/USB 3.1</p></li>
+                    <li class="lang_X99_11 conceal"><p>X99-E</p></li><!--0509-->
+                </ul>
+                <ul>
+                    <h3 class="lang_B150 conceal">Seria B150</h3>
+                    <li class="lang_B150_1 conceal"><p>B150 PRO GAMING/AURA</p></li>
+                    <li class="lang_B150_2 conceal"><p>B150 PRO GAMING</p></li>
+                    <li class="lang_B150_3 conceal"><p>B150M PRO GAMING</p></li>
+                    <li class="lang_B150_4 conceal"><p>B150I PRO GAMING/WIFI/AURA</p></li>
+                    <li class="lang_B150_5 conceal"><p>B150I PRO GAMING/AURA</p></li>
+                </ul>
+                <ul>
+                    <h3 class="lang_H170 conceal">Seria H170</h3>
+                    <li class="lang_H170_1 conceal"><p>H170 PRO GAMING</p></li>
+                </ul>
+                <ul>
+                    <h3 class="lang_C232 conceal">Seria C232</h3>
+                    <li class="lang_C232_1 conceal"><p>E3 PRO GAMING V5</p></li>
+                </ul>
+                <ul>
+                    <h3 class="lang_Z97 conceal">Seria Z97</h3>
+                    <li class="lang_Z97_1 conceal"><p>Z97-PRO GAMER</p></li>
+                </ul>
+                <ul>
+                    <h3 class="lang_B85 conceal">Seria B85</h3>
+                    <li class="lang_B85_1 conceal"><p>B85-PRO GAMER</p></li>
+                </ul>
+            </div>
+            <h2 class="lang_home_title_monitor">MONITOARE ASUS PENTRU JOCURI ELIGIBILE </h2>
+            <div class="home-armory home-armory-monitor clear">
+                <ul>
+                    <img src="{{ STATIC_PREFIX }}images/doom/monitor-1.jpg">
+                    <h3>Seria PG</h3>
+                    <li><p>PG348Q</p></li>
+                    <li><p>PG27AQ</p></li>
+                    <li><p>PG279Q</p></li>
+                    <li><p>PG278Q</p></li>
+                </ul>
+                <ul>
+                    <img src="{{ STATIC_PREFIX }}images/doom/monitor-2.jpg">
+                    <h3>Seria MG</h3>
+                    <li><p>MG28UQ</p></li>
+                    <li><p>MG279Q</p></li>
+                    <li><p>MG278Q</p></li>
+                    <li><p>MG24UQ</p></li>
+                    <li><p>MG248Q</p></li>
+                </ul>
+                <ul>
+                    <img src="{{ STATIC_PREFIX }}images/doom/monitor-3.jpg">
+                    <h3>Seria VG</h3>
+                    <li><p>VG278HV</p></li>
+                    <li><p>VG248QE</p></li>
+                </ul>
+                <ul>
+                    <img src="{{ STATIC_PREFIX }}images/doom/monitor-4.jpg">
+                    <h3>Seria VX</h3>
+                    <li><p>VX278Q</p></li>
+                    <li><p>VX278H</p></li>
+                    <li><p>VX248H</p></li>
+                </ul>
+            </div>
+        </div>
 
-
-<div id="fadeshow1" >
-        <div id="sticker"><ul class="menu1">
-                    
-                	<li class="menu-item first">
-                     <a href="#Laptopuri">
-      <div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" > Laptopuri
-                        </div>
-                        </a>
-                    </li>
-
-					
-					<li class="menu-item">
-                    	<a href="#Monitoare"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        Monitoare
-                        </div></a>
-                    </li>
-                    
-					
-					<li class="menu-item">
-                    	<a href="#procesoare"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        Procesoare
-                        </div></a>
-                    </li>
-					
-					<li class="menu-item">
-                    	<a href="#Placibaza"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        Placi de baza
-                        </div></a>
-                    </li>
-					
-					
-					<li class="menu-item">
-                    	<a href="#PlaciVideo"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                       Placi Video
-                        </div></a>
-                    </li>	
-					
-					<li class="menu-item">
-                    	<a href="#ssd&hdd"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        SSD & HDD
-                        </div></a>
-                    </li>
-					
-				
-					
-					<li class="menu-item">
-                    	<a href="#SurseDesktop"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                       Surse Desktop
-                        </div></a>
-                    </li>	
-					
-					<li class="menu-item">
-                    	<a href="#mousi"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                       Mouse & Tastaturi
-                        </div></a>
-                    </li>	
-					
-				
-					
-						<li class="menu-item">
-                    	<a href="#memoriiusb"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-					Memorii USB & Rack
-					</div></a>
-                    </li>	
-					
-					<li class="menu-item">
-                    	<a href="#SurseDesktop"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                       Surse Desktop
-                        </div></a>
-                    </li>	
-					
-					
-					
-					<li class="menu-item">
-                    	<a href="#Routerewireless"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-                        Routere
-                        </div></a>
-                    </li>
-                    <li class="menu-item">
-                    	<a href="#sistemoperare"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon">
-                Sistem de operare & Antivirus
-                  </div></a>
-                    </li>
-					
-					<li class="menu-item">
-                    	<a href="#multi"><div class="menu_icon1"><img src="/static/images/red-arrow-menu.png?7a073fb9024d"  alt="icon" >
-					Multifunctionale & Cartuse
-					</div></a>
-                    </li>	
-                    
-                </ul></div>
-	
     </div>
 
-<!--  <div>
-<div id="fadeshow2" >
-
-<img src="{{ STATIC_PREFIX }}images/promotii/left.png"  width:343px;  style="position: absolute;left:-339px; top: 300px;z-index: 10;" />
-
-
-
-<img src="{{ STATIC_PREFIX }}images/promotii/right.png" width:343px;  style="position: absolute;right:-349px; top: 300px;z-index: 10;" />
-
-
 </div>
 
-</div> -->
-
-
-<div> 
-
-
-<!-- <img src="{{ STATIC_PREFIX }}images/promotii/reduceri.jpg"  style="position: absolute;right: 20px; top: 190px;z-index: 10;background-attachment: fixed;" /> -->
+<div id="marginleft" style="float:right; width:100%; height:100%; padding-bottom:40px;">
 
 
 
-</div>
-
-<div style="float:right; width:890px; "></script>
 
 <div id="marginleft" class="listing_chestii">
+              
 
-                   <div style="font-size: 250%; color:#fff;" id="Laptopuri"><b><a class="titlu" href="/produse/425-laptop" target="_blank" >Laptopuri & Unitati centrale</a></b></div><br>                      
-
-						
-				<div class="product_promo">		
-<div class="product_holder ">
-                            <a href="/produs/85826-laptop-lenovo-80ew05mhri" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/88/a0/88a0ed1f91cdfc5675794208c5cac3f8.jpg" alt="Laptop Lenovo B50-80 cu procesor Intel Pentium Dual Core" title="Laptop Lenovo B50-80 cu procesor Intel Pentium Dual Core" name="Laptop Lenovo B50-80 cu procesor Intel Pentium Dual Core">
-										
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/85826-laptop-lenovo-80ew05mhri">Laptop Lenovo B50-80 cu procesor Intel Pentium Dual Core</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
                         
-                            <span class="pret_produss">999 lei</span>
-                            
-                            <span class="pret_vechi">1142,15 lei</span>
-                            
-                        
-                    </div>
-                            <a href=""><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>
-
-				</div>
-             </div></div>
-
 			
 
 						<div class="product_promo">		
 					
-<div class="product_holder ">
-                            <a href="/produs/66630-laptop-lenovo-b50-70-cu-procesor-intel-core-i5" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/75/42/7542ced3faaa1fced743ce1597f634d6.jpg" alt="Laptop Lenovo B50-70 cu procesor Intel Core i5" title="Laptop Lenovo B50-70 cu procesor Intel Core i5" name="Laptop Lenovo B50-70 cu procesor Intel Core i5"><img src="{{ STATIC_PREFIX }}images/promotii/15discount71.png" style="position: absolute;left:137px; width:71px; height:71px; top: 3px;z-index: 10;" />
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/66630-laptop-lenovo-b50-70-cu-procesor-intel-core-i5">Laptop Lenovo B50-70 cu procesor Intel Core i5</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">2049,99 lei</span>
-                        
-                        <span class="pret_vechi">2524,17 lei</span>
-                        
-                    </div>
-                    
-                            <a href=""><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>
-
-                    
-				</div>
-                       
-                        </div> </div>
-						
-						<div class="product_promo">	
-
-			<div class="product_holder ">
-                            <a href="/produs/74558-laptop-asus-x555lb-cu-procesor-intel-core-i5" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/c4/e1/c4e18809788b2b267ae0fa83fb788563.jpg" alt="Laptop Asus X555LB cu procesor Intel Core i5" title="Laptop Asus X555LB cu procesor Intel Core i5" name="Laptop Asus X555LB cu procesor Intel Core i5"><img src="{{ STATIC_PREFIX }}images/promotii/10discount71.png" style="position: absolute;left:137px; width:71px; height:71px; top: 3px;z-index: 10;" />
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/74558-laptop-asus-x555lb-cu-procesor-intel-core-i5">Laptop Asus X555LB cu procesor Intel Core i5</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">2197 lei</span>
-						<span class="pret_vechi">2425,54 lei</span>
-                        
-                    </div>
-                    
-                            <a href=""><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>
-
-                    
-				</div>
-                                                 
-                        
-                        </div>
-</div>
-
-		<div class="product_promo">	
-<div class="product_holder ">
-                            <a href="/produs/74715-laptop-asus-x555lb-xx026d-cu-procesor-intel-core-i7" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/a5/62/a56240ae40ac994119847f0e65770169.jpg" alt="Laptop Asus X555LB-XX026D cu procesor Intel Core i7" title="Laptop Asus X555LB-XX026D cu procesor Intel Core i7" name="Laptop Asus X555LB-XX026D cu procesor Intel Core i7">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/74715-laptop-asus-x555lb-xx026d-cu-procesor-intel-core-i7">Laptop Asus X555LB-XX026D cu procesor Intel Core i7</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">2489 lei</span>
-						<span class="pret_vechi">2590,36 lei</span>
-                        
-                    </div>
-                    
-                            <a href=""><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>
-                    
-				</div>
-                                                  
-                           
-                        </div>
-							</div>
-						
-			
-    					</div>
-					               <div id="marginleft" class="listing_chestii"> 
-  
-
-					
-						
-	
-						
-																							<div class="product_promo">		
-
-						<div class="product_holder ">
-                            <a href="/produs/76619-laptop-lenovo-thinkpad-edge-e550-cu-procesor-intel-core-i5" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/cc/e0/cce0b591ff006feed34134b896c500c2.jpg" alt="Laptop Lenovo ThinkPad Edge E550 cu procesor Intel Core i5" title="Laptop Lenovo ThinkPad Edge E550 cu procesor Intel Core i5" name="Laptop Lenovo ThinkPad Edge E550 cu procesor Intel Core i5"><img src="{{ STATIC_PREFIX }}images/promotii/18discount71.png" style="position: absolute;left:137px; width:71px; height:71px; top: 3px;z-index: 10;" />
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/76619-laptop-lenovo-thinkpad-edge-e550-cu-procesor-intel-core-i5">Laptop Lenovo ThinkPad Edge E550 cu procesor Intel Core i5</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">2799,99 lei</span>
-                                                <span class="pret_vechi">3.665,57 lei</span>
-
-                    </div>
-                    
-                            <a href=""><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a> 
-                    
-				</div>
-                                                  
-                      
-                        </div></div>
-						
-							<div class="product_promo">	
-					<div class="product_holder ">
-                            <a href="/produs/69983-laptop-lenovo-thinkpad-l540-cu-procesor-intel-core-i5" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/38/ed/38edb98eb429dce448ed8402d4c010ef.jpg" alt="Laptop Lenovo ThinkPad L540 cu procesor Intel Core i5" title="Laptop Lenovo ThinkPad L540 cu procesor Intel Core i5" name="Laptop Lenovo ThinkPad L540 cu procesor Intel Core i5">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/69983-laptop-lenovo-thinkpad-l540-cu-procesor-intel-core-i5">Laptop Lenovo ThinkPad L540 cu procesor Intel Core i5</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">4089 lei</span>
-                        
-                    </div>
-                    
-                            <a href=""><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a> 
-                    
-				</div>
-                                                  
-                      
-                        </div> </div>
-						
-						
-						
-						
-																	<div class="product_promo">		
 
 <div class="product_holder ">
-                            <a href="/produs/68303-laptop-toshiba-z30-b-119-cu-procesor-intel-core-i5" class="product_picture_holder">
+                            <a href="/produs/75824-placa-de-baza-asus-maximus-viii-gene" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
-                                        <img class="center" src="/media/cache/8f/0f/8f0fdb81e16dbe3eadc96a50201f110b.jpg" alt="Laptop Toshiba Z30-B-119 cu procesor Intel Core i5" title="Laptop Toshiba Z30-B-119 cu procesor Intel Core i5" name="Laptop Toshiba Z30-B-119 cu procesor Intel Core i5">
+                                        <img class="center" src="/media/cache/2e/f0/2ef05a948930a9cba130990316c7a29e.jpg" alt="Placa de baza ASUS MAXIMUS VIII GENE" title="Placa de baza ASUS MAXIMUS VIII GENE" name="Placa de baza ASUS MAXIMUS VIII GENE">
                                     </div>
                                 </div>
                             </a>
-                            <h2><a href="/produs/68303-laptop-toshiba-z30-b-119-cu-procesor-intel-core-i5">Laptop Toshiba Z30-B-119 cu procesor Intel Core i5</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">5293,18 lei</span>
-                        <span class="pret_vechi"></span>
-                    </div>
-                    
-             <a href="/produs/68303-laptop-toshiba-z30-b-119-cu-procesor-intel-core-i5" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-
-                    
-				</div>
-                                                  
-                        
-                        </div>                   </div>
-
-						
-						
-				<div class="product_promo">		
-	
-	<div class="product_holder ">
-                            <a href="/produs/76786-ultrabook-lenovo-x1-carbon-3-cu-procesor-intel-core-i7" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/4a/0f/4a0f6d063cff1fd4d3a9cdf25dae2983.jpg" alt="Ultrabook Lenovo X1 Carbon 3 cu procesor Intel Core i7" title="Ultrabook Lenovo X1 Carbon 3 cu procesor Intel Core i7" name="Ultrabook Lenovo X1 Carbon 3 cu procesor Intel Core i7">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/76786-ultrabook-lenovo-x1-carbon-3-cu-procesor-intel-core-i7">Ultrabook Lenovo X1 Carbon 3 cu procesor Intel Core i7</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">8599 lei</span>
-                        <span class="pret_vechi"></span>
-                    </div>
-                    
-                   <a href="/produs/76786-ultrabook-lenovo-x1-carbon-3-cu-procesor-intel-core-i7" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-
-                    
-				</div>
-                           
-                        </div>                        </div>	
-
-</div>
-					              
-     <div id="marginleft" class="listing_chestii"> 
-		<div class="product_promo">	
-		<div class="product_holder ">
-                            <a href="/produs/74993-unitate-centrala-lenovo-thinkcentre-e50-00-mini-tower" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/e9/55/e95565d8257e4457be96bb08b9b7abd6.jpg" alt="Unitate Centrala Lenovo Thinkcentre E50-00 Mini-Tower" title="Unitate Centrala Lenovo Thinkcentre E50-00 Mini-Tower" name="Unitate Centrala Lenovo Thinkcentre E50-00 Mini-Tower"><img src="{{ STATIC_PREFIX }}images/promotii/28discount71.png" style="position: absolute;left:137px; width:71px; height:71px; top: 3px;z-index: 10;" />
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/74993-unitate-centrala-lenovo-thinkcentre-e50-00-mini-tower">Unitate Centrala Lenovo Thinkcentre E50-00 Mini-Tower</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">999 lei</span>
-                        
-                        <span class="pret_vechi">1400,89 lei</span>
-                        
-                    </div>
- <a href="/produs/74993-unitate-centrala-lenovo-thinkcentre-e50-00-mini-tower" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                                                  
-                     
-                        </div>
-						
-        </div>
-		
-				<div class="product_promo">	
-
-		<div class="product_holder ">
-                            <a href="/produs/58072-unitate-centrala-apple-imac" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/04/29/04297f529eaf62f6360b34c3e5c0d3b9.jpg" alt="Unitate Centrala Apple iMAC" title="Unitate Centrala Apple iMAC" name="Unitate Centrala Apple iMAC">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/58072-unitate-centrala-apple-imac">Unitate Centrala Apple iMAC</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">7166,76 lei</span>
-                        
-                        <span class="pret_vechi">7826,77 lei</span>
-                        
-                    </div>
-                    
-       <a href="/produs/58072-unitate-centrala-apple-imac" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                                                  
-                       </div>
-					        </div>
-	
-						
-	 </div>
-				   
-	<div id="marginleft" class="listing_chestii">				
-                        
-  <p> <br><div style="font-size: 250%;"><b><a class="titlu" href="/produse/437-monitoare" target="_blank" name="Monitoare">Monitoare</a></b></div>
-   <br></p>
-
-
-
-						
-						
-		<div class="product_promo">				
-
-<div class="product_holder ">
-                            <a href="/produs/63558-monitor-led-philips-223v5lsb-215-inch-negru" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/06/cc/06ccc150f2e49074da9122582c52eb60.jpg" alt="Monitor LED Philips 223V5LSB, 21.5 inch, Negru" title="Monitor LED Philips 223V5LSB, 21.5 inch, Negru" name="Monitor LED Philips 223V5LSB, 21.5 inch, Negru">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/63558-monitor-led-philips-223v5lsb-215-inch-negru">Monitor LED Philips 223V5LSB, 21.5 inch, Negru</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">469 lei</span>
-                                                <span class="pret_vechi"></span>
-
-                    </div>
-                    
-<a href="/produs/63558-monitor-led-philips-223v5lsb-215-inch-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-                    
-				</div>
-                                                  
-                    
-                        </div></div>
-						
-						
-						
-		<div class="product_promo">				
-<div class="product_holder ">
-                            <a href="/produs/54352-monitor-led-dell-s2240l-215-inch-negru" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/d8/a1/d8a19375b6f97f3cc3383589516eea69.jpg" alt="Monitor LED Dell S2240L, 21.5 inch, Negru" title="Monitor LED Dell S2240L, 21.5 inch, Negru" name="Monitor LED Dell S2240L, 21.5 inch, Negru">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/54352-monitor-led-dell-s2240l-215-inch-negru">Monitor LED Dell S2240L, 21.5 inch, Negru</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">699 lei</span><br><br>
-                        <span class="pret_vechi"></span>
-                    </div>
-                    
-                     <a href="/produs/54352-monitor-led-dell-s2240l-215-inch-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-
-                    
-				</div>
-                                                  
-                        
-                        </div>  </div>
-
-						
-						<div class="product_promo">
-						
-<div class="product_holder ">
-                            <a href="/produs/58701-monitor-led-dell-p2414h-238-inch-negru" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/ae/fd/aefdd677ecfd4ee96994aa1734dfb090.jpg" alt="Monitor LED Dell P2414H, 23.8 inch, Negru" title="Monitor LED Dell P2414H, 23.8 inch, Negru" name="Monitor LED Dell P2414H, 23.8 inch, Negru">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/58701-monitor-led-dell-p2414h-238-inch-negru">Monitor LED Dell P2414H, 23.8 inch, Negru</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">949 lei</span>
-                        
-                        <span class="pret_vechi">1086,5 lei</span>
-                        
-                    </div>
-                    
-                     <a href="/produs/58701-monitor-led-dell-p2414h-238-inch-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-
-                    
-				</div>
-                                                  
-                        
-                        </div> </div>
-						
-							<div class="product_promo">
-						<div class="product_holder ">
-                            <a href="/produs/71316-monitor-led-dell-u2715h-27-inch-negru" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/7e/90/7e901476c933b032c800c1d2b46d8dc2.jpg" alt="Monitor Led DELL U2715H, 27 inch, Negru" title="Monitor Led DELL U2715H, 27 inch, Negru" name="Monitor Led DELL U2715H, 27 inch, Negru">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/71316-monitor-led-dell-u2715h-27-inch-negru">Monitor Led DELL U2715H, 27 inch, Negru</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">2099,99 lei</span>
-                        
-                        <span class="pret_vechi">2362,21 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/71316-monitor-led-dell-u2715h-27-inch-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                       
-				</div>
-                                                  
-                    
-                        </div>  </div>
-						
-						
-									
-						
-						
-
-							</div>
-
-
-
-	
-     <div id="marginleft" class="listing_chestii">
- 
-                           <br><div style="font-size: 250%; width:100%;"><b><a class="titlu" href="/produse/423-procesoare" target="_blank" name="procesoare">Procesoare</b></div></a><br>	
-
-						   <div class="product_promo">
-						<div class="product_holder ">
-                            <a href="/produs/63537-procesor-intel-celeron-dual-core-g1840-28-ghz-socket-1150" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/3e/f1/3ef1f69f5fc9dd46e7fc0a4ce1216392.jpg" alt="Procesor Intel Celeron Dual Core G1840, 2.8 GHz, socket 1150" title="Procesor Intel Celeron Dual Core G1840, 2.8 GHz, socket 1150" name="Procesor Intel Celeron Dual Core G1840, 2.8 GHz, socket 1150">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/63537-procesor-intel-celeron-dual-core-g1840-28-ghz-socket-1150">Procesor Intel Celeron Dual Core G1840, 2.8 GHz, socket 1150</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">183,05 lei</span>
-                        
-                    </div>
-                    
-                     <a href="/produs/63537-procesor-intel-celeron-dual-core-g1840-28-ghz-socket-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-                    
-				</div>
-                                                  
-                             </div>
-                        </div>
-						
-					<div class="product_promo">
-<div class="product_holder ">
-                            <a href="/produs/68391-procesor-intel-core-i3-4170-37-ghz-socket-1150" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/a6/8b/a68b0f276fddee03dbc308e04c260925.jpg" alt="Procesor Intel Core i3 4170, 3.7 GHz, socket 1150" title="Procesor Intel Core i3 4170, 3.7 GHz, socket 1150" name="Procesor Intel Core i3 4170, 3.7 GHz, socket 1150">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/68391-procesor-intel-core-i3-4170-37-ghz-socket-1150">Procesor Intel Core i3 4170, 3.7 GHz, socket 1150</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">539 lei</span>
-                        
-                        <span class="pret_vechi">575,37 lei</span>
-                        
-                    </div>
-                    
-                     <a href="/produs/68391-procesor-intel-core-i3-4170-37-ghz-socket-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-
-                    
-				</div>
-                         
-                        </div>  </div>
-						
-					<div class="product_promo">	
-<div class="product_holder ">
-                            <a href="/produs/63618-procesor-intel-core-i5-4590-33-ghz-socket-1150" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/10/57/10578712019d913a937f7a91c89d34e2.jpg" alt="Procesor Intel Core i5 4590, 3.3 GHz, socket 1150" title="Procesor Intel Core i5 4590, 3.3 GHz, socket 1150" name="Procesor Intel Core i5 4590, 3.3 GHz, socket 1150">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/63618-procesor-intel-core-i5-4590-33-ghz-socket-1150">Procesor Intel Core i5 4590, 3.3 GHz, socket 1150</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">999,99 lei</span>
-                        
-                        <span class="pret_vechi">1050,7 lei</span>
-                        
-                    </div>
-        <a href="/produs/63618-procesor-intel-core-i5-4590-33-ghz-socket-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                                                  
-                         
-                        </div>  </div>
-						
-				
-<div class="product_promo">
-<div class="product_holder ">
-                            <a href="/produs/74617-procesor-intel-core-i7-skylake-6700k-4-ghz-socket-1151" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/7d/93/7d930d80daf443e9cb356699fde0e369.jpg" alt="Procesor Intel Core i7 Skylake 6700K, 4 GHz, socket 1151" title="Procesor Intel Core i7 Skylake 6700K, 4 GHz, socket 1151" name="Procesor Intel Core i7 Skylake 6700K, 4 GHz, socket 1151">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/74617-procesor-intel-core-i7-skylake-6700k-4-ghz-socket-1151">Procesor Intel Core i7 Skylake 6700K, 4 GHz, socket 1151</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">1749,99 lei</span>
-                        
-                        <span class="pret_vechi">1840,64 lei</span>
-                        
-                    </div>
-                    
-               <a href="/produs/74617-procesor-intel-core-i7-skylake-6700k-4-ghz-socket-1151" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                                                  
-                         
-                        </div> </div>
-
-
-						
-						
-						
-						
-						
-						   </div>
-						   
-
-     	 <div id="marginleft" class="listing_chestii">				
-                        
-  <p> <br><div style="font-size: 250%;"><b><a class="titlu" href="/produse/422-placi-de-baza" target="_blank" name="Placibaza">Placi de Baza</a></b></div>
-   <br></p>
-			
-
-	<div class="product_promo">		
-		<div class="product_holder ">
-                            <a href="/produs/64065-placa-de-baza-asus-h81m-k-socket-lga-1150" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/a2/7d/a27d4ae3282009534aa13ccd59d8528e.jpg" alt="Placa de baza Asus H81M-K, socket LGA 1150" title="Placa de baza Asus H81M-K, socket LGA 1150" name="Placa de baza Asus H81M-K, socket LGA 1150">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/64065-placa-de-baza-asus-h81m-k-socket-lga-1150">Placa de baza Asus H81M-K, socket LGA 1150</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">204,42 lei</span>
-                        
-                    </div>
-                    
-            <a href="/produs/64065-placa-de-baza-asus-h81m-k-socket-lga-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                    
-                        </div> </div>
-
-						
-
-<div class="product_promo">
- <div class="product_holder ">
-                            <a href="/produs/70591-placa-de-baza-asrock-h61m-vg4-socket-1155" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/73/d0/73d0354c076043ca9825dce565de5d8a.jpg" alt="Placa de baza Asrock H61M-VG4, socket 1155" title="Placa de baza Asrock H61M-VG4, socket 1155" name="Placa de baza Asrock H61M-VG4, socket 1155">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/70591-placa-de-baza-asrock-h61m-vg4-socket-1155">Placa de baza Asrock H61M-VG4, socket 1155</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">220,3 lei</span>
-                        
-                    </div>
-                    
-            <a href="/produs/70591-placa-de-baza-asrock-h61m-vg4-socket-1155" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                                                  
-                    
-                        </div>
-						</div>
-						
-
-<div class="product_promo">
-<div class="product_holder ">
-                            <a href="/produs/63661-placa-de-baza-asus-z97-k-socket-1150" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/44/99/44998164fc5f0f27f60d08df1ffa34d5.jpg" alt="Placa de baza Asus Z97-K, socket 1150" title="Placa de baza Asus Z97-K, socket 1150" name="Placa de baza Asus Z97-K, socket 1150">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/63661-placa-de-baza-asus-z97-k-socket-1150">Placa de baza Asus Z97-K, socket 1150</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">569 lei</span>
-                        
-                    </div>
-                    
-            <a href="/produs/63661-placa-de-baza-asus-z97-k-socket-1150" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                                                  
-                        
-                        </div>
-						
-				
-</div>
-
-						
-
-
-</div>
-	 
-	 <div id="marginleft" class="listing_chestii">				
-                        
-  <p> <br><div style="font-size: 250%;"><b><a class="titlu" href="/produse/458-placi-video" target="_blank" name="PlaciVideo">Placi Video</a></b></div>
-   <br></p>
-			
-<div class="product_promo">
-
-<div class="product_holder ">
-                            <a href="/produs/70627-placa-video-gainward-geforce-210-1-gb-gddr3-64-biti" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/92/4e/924e3846e6a81c938f2d4e49b4287130.jpg" alt="Placa video Gainward GeForce 210, 1 GB GDDR3, 64 biti" title="Placa video Gainward GeForce 210, 1 GB GDDR3, 64 biti" name="Placa video Gainward GeForce 210, 1 GB GDDR3, 64 biti">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/70627-placa-video-gainward-geforce-210-1-gb-gddr3-64-biti">Placa video Gainward GeForce 210, 1 GB GDDR3, 64 biti</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">149 lei</span>
-                        
-                    </div>
-                    
-          <a href="/produs/70627-placa-video-gainward-geforce-210-1-gb-gddr3-64-biti" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                     
-                        </div>                    </div>
-
-			
-			
-			
-<div class="product_promo">
-<div class="product_holder ">
-                            <a href="/produs/61413-placa-video-gigabyte-geforce-gtx-750-1-gb-gddr5-128-biti" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/68/02/6802befef777cb955512c43ca71a6abd.jpg" alt="Placa video Gigabyte GeForce GTX 750, 1 GB GDDR5, 128 biti" title="Placa video Gigabyte GeForce GTX 750, 1 GB GDDR5, 128 biti" name="Placa video Gigabyte GeForce GTX 750, 1 GB GDDR5, 128 biti">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/61413-placa-video-gigabyte-geforce-gtx-750-1-gb-gddr5-128-biti">Placa video Gigabyte GeForce GTX 750, 1 GB GDDR5, 128 biti</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">499 lei</span>
-                        
-                        <span class="pret_vechi">601,33 lei</span>
-                        
-                    </div>
-                    
-          <a href="/produs/61413-placa-video-gigabyte-geforce-gtx-750-1-gb-gddr5-128-biti" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                                                  
-                  
-                        </div> </div>
-						
-						<div class="product_promo">
-<div class="product_holder ">
-                           
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/06/3f/063f7797a1495ff2efa18072976300c5.jpg" alt="Placa video GIgabyte GeForce GTX 750 Ti, 2 GB GDDR5, 128  biti" title="Placa video GIgabyte GeForce GTX 750 Ti, 2 GB GDDR5, 128  biti" name="Placa video GIgabyte GeForce GTX 750 Ti, 2 GB GDDR5, 128  biti"><img src="{{ STATIC_PREFIX }}images/promotii/stocepuizat.png" style="position: absolute;left:0px; width:223px; height:192px; top: 3px;z-index: 10;" />
-                                    </div>
-                                </div>
-                           
-                            <h2>Placa video GIgabyte GeForce GTX 750 Ti, 2 GB GDDR5, 128  biti</h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">599 lei</span>
-                        
-                    </div>
-                    
-                      <a  class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                                                  
-                       
-                        </div>
-						</div>
-						
-						
-
-
-						
-
-						
-
-												
-	</div>
-	 
-	 
-	 
-	 
-	
-	
-		     <div id="marginleft" class="listing_chestii">
- 
-                           <br><div style="font-size: 250%; width:100%;"><b><a class="titlu" href="/produse/461-hard-disk-intern" target="_blank" name="ssd&hdd">SSD & HDD</b></div></a><br>	
-
-<div class="product_promo">	
-				<div class="product_holder ">
-                            <a href="/produs/64785-ssd-kingston-hyperx-fury-120-gb-sata-3-25-inch" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/89/ed/89ed0f1f8e93894f15b6fcf0f5f9a4c6.jpg" alt="SSD Kingston HyperX Fury, 120 GB, SATA 3, 2.5 inch" title="SSD Kingston HyperX Fury, 120 GB, SATA 3, 2.5 inch" name="SSD Kingston HyperX Fury, 120 GB, SATA 3, 2.5 inch">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/64785-ssd-kingston-hyperx-fury-120-gb-sata-3-25-inch">SSD Kingston HyperX Fury, 120 GB, SATA 3, 2.5 inch</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">244,99 lei</span>
-                        
-                    </div>
-                    
-              <a href="/produs/64785-ssd-kingston-hyperx-fury-120-gb-sata-3-25-inch" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                        
-                        </div>    </div>
-
-						
-						   
-						   
-						   
-					<div class="product_promo">	
-<div class="product_holder ">
-                            <a href="/produs/67130-ssd-samsung-850-evo-250-gb-sata-3-25-inch" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/82/13/8213e307b79359fa2ca09a89de3eb7f3.jpg" alt="SSD Samsung 850 EVO, 250 GB, SATA 3, 2.5 inch" title="SSD Samsung 850 EVO, 250 GB, SATA 3, 2.5 inch" name="SSD Samsung 850 EVO, 250 GB, SATA 3, 2.5 inch">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/67130-ssd-samsung-850-evo-250-gb-sata-3-25-inch">SSD Samsung 850 EVO, 250 GB, SATA 3, 2.5 inch</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">439,99 lei</span>
-                        
-                        <span class="pret_vechi">470,27 lei</span>
-                        
-                    </div>
-                    
+                            <h2><a href="/produs/75824-placa-de-baza-asus-maximus-viii-gene">Placa de baza Asus MAXIMUS-VIII-GENE, socket 1151</a></h2>
                 
-                      <a href="/produs/67130-ssd-samsung-850-evo-250-gb-sata-3-25-inch" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                                                  
-                           
-                        </div>  </div>
-						
-
-						
-
-						
-						<div class="product_promo">
-<div class="product_holder ">
-                            <a href="/produs/76998-hard-disk-intern-seagate-st1000vx001" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/f6/4a/f64a1b90f0b0781eee280ae56dec6a06.jpg" alt="Hard disk intern SEAGATE ST1000VX001" title="Hard disk intern SEAGATE ST1000VX001" name="Hard disk intern SEAGATE ST1000VX001">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/76998-hard-disk-intern-seagate-st1000vx001">Hard disk intern SEAGATE ST1000VX001</a></h2>
-			    
                               <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">264,99 lei</span>
+                
+                In stoc furnizor
+                  </span>
+                <div class="price-add-row">
+                    <div class="product_price">
+                        
+                            <span class="pret_produs">991,5 lei</span>
+                            
                         
                     </div>
                     
- <a href="/produs/76998-hard-disk-intern-seagate-st1000vx001" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                     
-				</div>
-                        
-                        </div>  </div>
-						
-					<div class="product_promo">	
+                       <a href="/produs/75824-placa-de-baza-asus-maximus-viii-gene"><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>                    
+                </div>
+                                                  
+                            <!--
+                <ul class="info_detalii">
+                                <li><span>Garantie:  luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+                -->  
+                        </div>
+                        </div>
+
+            
+
+                        <div class="product_promo">     
+                    
 <div class="product_holder ">
-                            <a href="/produs/43180-hdd-seagate-barracuda-2000-gb-35-7200-rpm" class="product_picture_holder">
+                            <a href="/produs/81102-placa-de-baza-asus-maximus-viii-ranger" class="product_picture_holder">
                                 <div class="middle size205x175">
                                     <div class="img-holder">
-                                        <img class="center" src="/media/cache/b1/5c/b15cd5a89d8e5ed5cde57b6fd3edf093.jpg" alt="HDD Seagate Barracuda 2000 GB, 3.5&quot;, 7200 RPM" title="HDD Seagate Barracuda 2000 GB, 3.5&quot;, 7200 RPM" name="HDD Seagate Barracuda 2000 GB, 3.5&quot;, 7200 RPM">
+                                        <img class="center" src="/media/cache/91/67/91677b4732eff1c8889f138d52dddec3.jpg" alt="Placa de baza ASUS MAXIMUS VIII RANGER" title="Placa de baza ASUS MAXIMUS VIII RANGER" name="Placa de baza ASUS MAXIMUS VIII RANGER">
                                     </div>
                                 </div>
                             </a>
-                            <h2><a href="/produs/43180-hdd-seagate-barracuda-2000-gb-35-7200-rpm">HDD Seagate Barracuda 2000 GB, 3.5", 7200 RPM</a></h2>
-			    
+                            <h2><a href="/produs/81102-placa-de-baza-asus-maximus-viii-ranger">Placa de baza Asus MAXIMUS-VIIIRANGER, socket 1151</a></h2>
+                
                               <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">364,99 lei</span>
+                
+                In stoc furnizor
+                  </span>
+                <div class="price-add-row">
+                    <div class="product_price">
+                        
+                            <span class="pret_produs">900,19 lei</span>
+                            
                         
                     </div>
                     
-                  <a href="/produs/43180-hdd-seagate-barracuda-2000-gb-35-7200-rpm" class="atx-c" style="display: block;"><span></span>vezi detalii</a>
-                    
-				</div>
+                       <a href="/produs/81102-placa-de-baza-asus-maximus-viii-ranger"><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>                     
+                </div>
                                                   
-                          
+                            <!--
+                <ul class="info_detalii">
+                                <li><span>Garantie:  luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+                -->  
                         </div> </div>
-						
-		
-						   
-						
+
+                        
+                        <div class="product_promo"> 
+
+            <div class="product_holder ">
+                            <a href="/produs/75840-placa-de-baza-asus-z170-p-d3" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/47/a2/47a2764f7518e1a589fc128677a13384.jpg" alt="Placa de baza ASUS Z170-P D3" title="Placa de baza ASUS Z170-P D3" name="Placa de baza ASUS Z170-P D3">
+                                    </div>
+                                </div>
+                            </a>
+
+                            <h2><a href="/produs/75840-placa-de-baza-asus-z170-p-d3">Placa de baza Asus Z170-P-D3, socket 1151</a></h2>
+                
+                              <span class="stoc stoc_ok">
+                
+                In stoc furnizor
+                  </span>
+                
+				<div class="price-add-row">
+					<div class="product_price">
+                        
+                            <span class="pret_produss">339 lei</span>
+                            
+                            <span class="pret_vechi">416,21 lei</span>
+
+                            
+                        
+                    </div>
+                    
+
+                       <a href="/produs/75840-placa-de-baza-asus-z170-p-d3"><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>                        
+                </div>
+                                                  
+
+                        </div>
+                                </div>
+
+        <div class="product_promo"> 
+<div class="product_holder ">
+                            <a href="/produs/75828-placa-de-baza-asus-z170-k" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/6b/38/6b380cd5e9b18e97a4d18773fd00f9ed.jpg" alt="Placa de baza ASUS Z170-K" title="Placa de baza ASUS Z170-K" name="Placa de baza ASUS Z170-K">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/75828-placa-de-baza-asus-z170-k">Placa de baza Asus Z170-K, socket 1151</a></h2>
+                
+                              <span class="stoc stoc_ok">
+                
+                In stoc furnizor
+                  </span>
+                <div class="price-add-row">
+                    <div class="product_price">
+                        
+                            <span class="pret_produs">586,67 lei</span>
+                            
+                            <span class="pret_vechi">629,84 lei</span>
+                            
+                        
+                    </div>
+                    
+                       <a href="/produs/75828-placa-de-baza-asus-z170-k"><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>                        
+                </div>
+                                                  
+                            <!--
+                <ul class="info_detalii">
+                                <li><span>Garantie:  luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+                -->  
+                        </div>
+                            </div>
+
+</div>
+
+
+                        
+<div id="marginleft" class="listing_chestii">
+
+<div class="product_promo"> 
+<div class="product_holder ">
+                            <a href="/produs/78818-placa-de-baza-asus-z170-p" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/c1/9a/c19a53998a27e75ac4cf09ddabdd06a6.jpg" alt="Placa de baza Asus Z170-P" title="Placa de baza Asus Z170-P" name="Placa de baza Asus Z170-P">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/78818-placa-de-baza-asus-z170-p">Placa de baza Asus Z170-P, socket 1151</a></h2>
+                
+                              <span class="stoc stoc_ok">
+                
+                In stoc furnizor
+                  </span>
+                <div class="price-add-row">
+                    <div class="product_price">
+                        
+                            <span class="pret_produs">572,1 lei</span>
+                            
+                        
+                    </div>
+                    
+                       <a href="/produs/78818-placa-de-baza-asus-z170-p"><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>                        
+                </div>
+                                                  
+                            <!--
+                <ul class="info_detalii">
+                                <li><span>Garantie:  luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+                -->  
+                        </div>
+        </div>
+
+<div class="product_promo"> 
+<div class="product_holder ">
+                            <a href="/produs/81069-placa-de-baza-asus-sabertooth-z170-mark-1" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/f0/15/f0159796628688da7d06bdb4abf746d8.jpg" alt="Placa de baza ASUS SABERTOOTH Z170 MARK 1" title="Placa de baza ASUS SABERTOOTH Z170 MARK 1" name="Placa de baza ASUS SABERTOOTH Z170 MARK 1">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/81069-placa-de-baza-asus-sabertooth-z170-mark-1">Placa de baza Asus SABERTOOTH Z170 MARK 1, socket 1151</a></h2>
+                
+                              <span class="stoc stoc_ok">
+                
+                In stoc furnizor
+                  </span>
+                <div class="price-add-row">
+                    <div class="product_price">
+                        
+                            <span class="pret_produs">1187,84 lei</span>
+                            
+                        
+                    </div>
+                    
+                       <a href="/produs/81069-placa-de-baza-asus-sabertooth-z170-mark-1"><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>                        
+                </div>
+                                                  
+                            <!--
+                <ul class="info_detalii">
+                                <li><span>Garantie:  luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+                -->  
+                        </div>
+
+</div>
+
+
+<div class="product_promo"> 
+<div class="product_holder ">
+                            <a href="/produs/70563-placa-de-baza-asus-rampage-v-eu31" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/77/b6/77b6ea5b5c30123b57a2b1e17b0fa03d.jpg" alt="Placa de baza ASUS RAMPAGE V E/U3.1" title="Placa de baza ASUS RAMPAGE V E/U3.1" name="Placa de baza ASUS RAMPAGE V E/U3.1">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/70563-placa-de-baza-asus-rampage-v-eu31">Placa de baza Asus RAMPAGE V EXTREME/U3.1, socket 2011-3</a></h2>
+                
+                              <span class="stoc stoc_ok">
+                
+                In stoc furnizor
+                  </span>
+                <div class="price-add-row">
+                    <div class="product_price">
+                        
+                            <span class="pret_produs">2281,87 lei</span>
+                            
+                        
+                    </div>
+                    
+                       <a href="/produs/70563-placa-de-baza-asus-rampage-v-eu31"><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>                        
+                </div>
+                                                  
+
+                        </div>
+</div>
+
+<div class="product_promo"> 
+<div class="product_holder ">
+                            <a href="/produs/75837-placa-de-baza-asus-sabertooth-x99" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/29/53/29538ab9356a8afb0d728007d33efc63.jpg" alt="Placa de baza ASUS SABERTOOTH X99" title="Placa de baza ASUS SABERTOOTH X99" name="Placa de baza ASUS SABERTOOTH X99">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/75837-placa-de-baza-asus-sabertooth-x99">Placa de baza Asus SABERTOOTH X99, socket 2011-3</a></h2>
+                
+                              <span class="stoc stoc_ok">
+                
+                In stoc furnizor
+                  </span>
+                <div class="price-add-row">
+                    <div class="product_price">
+                        
+                            <span class="pret_produs">1680,3 lei</span>
+                            
+                        
+                    </div>
+                    
+                       <a href="/produs/75837-placa-de-baza-asus-sabertooth-x99"><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>                        
+                </div>
+                                                  
+                            <!--
+                <ul class="info_detalii">
+                                <li><span>Garantie:  luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+                -->  
+                        </div>
+</div>
+            
+</div>
+
+                   
+
+<div id="marginleft" class="listing_chestii">
+
+
+<div class="product_promo">    
+<div class="product_holder ">
+                            <a href="/produs/70539-placa-de-baza-asus-x99-a" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/e3/28/e3284b1f8af5b7f650869d28a04ec5ad.jpg" alt="Placa de baza ASUS X99-A" title="Placa de baza ASUS X99-A" name="Placa de baza ASUS X99-A">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/70539-placa-de-baza-asus-x99-a">Placa de baza Asus X99-A, socket 2011-3</a></h2>
+                
+                              <span class="stoc stoc_ok">
+                
+                In stoc furnizor
+                  </span>
+                <div class="price-add-row">
+                    <div class="product_price">
+                        
+                            <span class="pret_produs">1181,51 lei</span>
+                            
+                        
+                    </div>
+                    
+                       <a href="/produs/70539-placa-de-baza-asus-x99-a"><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>                        
+                </div>
+                                                  
+                            <!--
+                <ul class="info_detalii">
+                                <li><span>Garantie:  luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+                -->  
+                        </div>
+                           
+</div>
+
+<div class="product_promo">    
+<div class="product_holder ">
+                            <a href="/produs/67006-placa-de-baza-asus-b85-pro-gamer" class="product_picture_holder">
+                                <div class="middle size205x175">
+                                    <div class="img-holder">
+                                        <img class="center" src="/media/cache/b2/74/b274db8602d47ce58e37e38c6a2c1d03.jpg" alt="Placa de baza Asus B85-PRO GAMER" title="Placa de baza Asus B85-PRO GAMER" name="Placa de baza Asus B85-PRO GAMER">
+                                    </div>
+                                </div>
+                            </a>
+                            <h2><a href="/produs/67006-placa-de-baza-asus-b85-pro-gamer">Placa de baza Asus B85-PRO GAMER, socket 1150</a></h2>
+                
+                              <span class="stoc stoc_ok">
+                
+                In stoc furnizor
+                  </span>
+                <div class="price-add-row">
+                    <div class="product_price">
+                        
+                            <span class="pret_produs">496,94 lei</span>
+                            
+                        
+                    </div>
+                    
+                       <a href="/produs/67006-placa-de-baza-asus-b85-pro-gamer"><img src="{{ STATIC_PREFIX }}images/promotii/detalii.jpg" style="position: absolute;width:110px; height:33px; margin-left:-5px; padding-top: 5px; z-index: 10;" /></a>                        
+                </div>
+                                                  
+                            <!--
+                <ul class="info_detalii">
+                                <li><span>Garantie:  luni</span></li>
+                                <li><span>Termen livrare: 24h de la comanda</span></li>
+                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
+                            </ul>  
+                -->  
+                        </div>
+                           
+</div>
+
+<div class="product_promo">    
+
+                           
+</div>
+
+<div class="product_promo">    
+
+                           
+</div>
+
+
+
+</div>
+</div>
+    
+
+   
+
+
 
   
-						   </div>
-	
 
-						   
-						   
 
-	
-	
-			<div id="marginleft" class="listing_chestii">				
-                        
-  <p> <br><div style="font-size: 250%;"><b><a class="titlu" href="/produse/465-surse-desktop-pc" target="_blank" name="SurseDesktop">Surse Desktop</a></b></div>
-   <br></p>
-   
-   <div class="product_promo">
-   
- <div class="product_holder ">
-                            <a href="/produs/41893-sursa-floston-fl450-450-w" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/97/2f/972f8ffebefe7cab7f03957e92580bf1.jpg" alt="Sursa Floston FL450, 450 W" title="Sursa Floston FL450, 450 W" name="Sursa Floston FL450, 450 W">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/41893-sursa-floston-fl450-450-w">Sursa Floston FL450, 450 W</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">62,72 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/41893-sursa-floston-fl450-450-w" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                         
-                        </div>
-   
-  </div>
-  <div class="product_promo">
-  				<div class="product_holder ">
-                            <a href="/produs/64140-sursa-sirtec-bronze-series-400-w" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/63/7d/637d5539248c25145bdc944819e4ea75.jpg" alt="Sursa Sirtec Bronze series, 400 W" title="Sursa Sirtec Bronze series, 400 W" name="Sursa Sirtec Bronze series, 400 W">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/64140-sursa-sirtec-bronze-series-400-w">Sursa Sirtec Bronze series, 400 W</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">167,62 lei</span>
-                        
-                    </div>
-                    
-   <a href="/produs/64140-sursa-sirtec-bronze-series-400-w" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                         
-                        </div>	   </div>	
 
-						
-						
-						
-						<div class="product_promo">
-<div class="product_holder ">
-                            <a href="/produs/76595-sursa-njoy-titan-500-500-w" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/8b/78/8b78af79645cec6ffa76c9452eef06a1.jpg" alt="Sursa Njoy Titan 500, 500 W" title="Sursa Njoy Titan 500, 500 W" name="Sursa Njoy Titan 500, 500 W">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/76595-sursa-njoy-titan-500-500-w">Sursa Njoy Titan 500, 500 W</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">174,31 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/76595-sursa-njoy-titan-500-500-w" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                      
-				</div>
-                                                  
-                         
-                        </div>
-  </div>
-						
-										<div class="product_promo">
-<div class="product_holder ">
-                            <a href="/produs/59332-sursa-sirtec-eco-ii-550-w" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/5f/83/5f83581431cc4b992dcd0610af3c5837.jpg" alt="Sursa Sirtec ECO II, 550 W" title="Sursa Sirtec ECO II, 550 W" name="Sursa Sirtec ECO II, 550 W">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/59332-sursa-sirtec-eco-ii-550-w">Sursa Sirtec ECO II, 550 W</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">227,05 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/59332-sursa-sirtec-eco-ii-550-w" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                      
-				</div>
-                                                  
-                           
-                        </div>
-						
 
-                        </div>
 
-						
-						
-		
-   
-   </div>
-   
-   <div id="marginleft" class="listing_chestii">				
-                        
 
-     <p> <br><div style="font-size: 250%;"><b><a class="titlu" href="" target="_blank" name="mousi">Mouse & Tastaturi</a></b></div>
-   <br></p>
+<div class="home-add"><!--0509-->
 
-   													<div class="product_promo">
-		<div class="product_holder ">
-                            <a href="/produs/33260-mouse-genius-netscroll-100x-usb-negru" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/f9/9d/f99d9f94a147b820b4c0345ca49fea4a.jpg" alt="Mouse  Genius NetScroll 100X, USB, negru" title="Mouse  Genius NetScroll 100X, USB, negru" name="Mouse  Genius NetScroll 100X, USB, negru">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/33260-mouse-genius-netscroll-100x-usb-negru">Mouse  Genius NetScroll 100X, USB, negru</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">19,42 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/33260-mouse-genius-netscroll-100x-usb-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                      
-				</div>
-                          
-                        </div>
-						
-													 </div>
-													 
-													 <div class="product_promo">
-	<div class="product_holder ">
-                            <a href="/produs/72707-mouse-delux-m391gxg07uf" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/fb/65/fb65467a177fb12b4653db7940ffa9b7.jpg" alt="Mouse DELUX M391GX+G07UF" title="Mouse DELUX M391GX+G07UF" name="Mouse DELUX M391GX+G07UF">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/72707-mouse-delux-m391gxg07uf">Mouse DELUX M391GX+G07UF</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">25,02 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/72707-mouse-delux-m391gxg07uf" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                        
-                        </div>
-													 </div>
-													 
-													  <div class="product_promo">
-	<div class="product_holder ">
-                            <a href="/produs/69457-mouse-gaming-newmen-e500-wireless-negru" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/9a/38/9a380b57ed8e05188af1ac232db39ae9.jpg" alt="Mouse Gaming Newmen  E500, wireless, Negru" title="Mouse Gaming Newmen  E500, wireless, Negru" name="Mouse Gaming Newmen  E500, wireless, Negru">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/69457-mouse-gaming-newmen-e500-wireless-negru">Mouse Gaming Newmen  E500, wireless, Negru</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">49 lei</span>
-                        
-                    </div>
-<a href="/produs/69457-mouse-gaming-newmen-e500-wireless-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                         
-                        </div>
-						
-						
-													 </div>
-													 
-													 <div class="product_promo">
-<div class="product_holder ">
-                            <a href="/produs/63591-mouse-cougar-200m-black-usb-negru" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/2e/a3/2ea3af45e4fa252505bf3e1822b1f63b.jpg" alt="Mouse  Cougar 200M Black, USB, Negru" title="Mouse  Cougar 200M Black, USB, Negru" name="Mouse  Cougar 200M Black, USB, Negru">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/63591-mouse-cougar-200m-black-usb-negru">Mouse  Cougar 200M Black, USB, Negru</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">59,99 lei</span>
-                        
-                        <span class="pret_vechi">84,57 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/63591-mouse-cougar-200m-black-usb-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                           
-                        </div>
-						
-													 </div>
-													 
-													 
-																		 <div class="product_promo">
-								 <div class="product_holder ">
-                            <a href="/produs/49314-tastatura-serioux-srxk-9400ps-ps2" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/4e/41/4e41570d6c5f31e44095723500abb965.jpg" alt="Tastatura Serioux SRXK-9400PS, PS2" title="Tastatura Serioux SRXK-9400PS, PS2" name="Tastatura Serioux SRXK-9400PS, PS2">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/49314-tastatura-serioux-srxk-9400ps-ps2">Tastatura Serioux SRXK-9400PS, PS2</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">17,05 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/49314-tastatura-serioux-srxk-9400ps-ps2" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                      
-				</div>
-                           
-                        </div>
-													                     </div>
-																		 
-																		  <div class="product_promo">
-																		 <div class="product_holder ">
-                            <a href="/produs/54819-tastatura-njoy-gmk310-usb" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/cd/40/cd4076c7e34aefaaa90d35f874175b73.jpg" alt="Tastatura Njoy GMK310, USB" title="Tastatura Njoy GMK310, USB" name="Tastatura Njoy GMK310, USB">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/54819-tastatura-njoy-gmk310-usb">Tastatura Njoy GMK310, USB</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">34,99 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/54819-tastatura-njoy-gmk310-usb" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                         
-                        </div>
-						    </div>
-						
-																		  
-																		  <div class="product_promo">
-								 <div class="product_holder ">
-                            <a href="/produs/68543-tastatura-somic-jizz-bloodsword-gx11-usb" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/1d/be/1dbe8e0ccd22400a6a6d7a3e6bf3ca82.jpg" alt="Tastatura Somic Jizz Bloodsword GX11, USB" title="Tastatura Somic Jizz Bloodsword GX11, USB" name="Tastatura Somic Jizz Bloodsword GX11, USB">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/68543-tastatura-somic-jizz-bloodsword-gx11-usb">Tastatura Somic Jizz Bloodsword GX11, USB</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">59 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/68543-tastatura-somic-jizz-bloodsword-gx11-usb" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                            
-                        </div>
-													                     </div>
-																		  <div class="product_promo">
-								 <div class="product_holder ">
-                            <a href="/produs/41259-tastatura-apple-mb110zb-usb" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/bb/ae/bbae29fbac34afb75845d37390534b45.jpg" alt="Tastatura Apple mb110z/b, USB" title="Tastatura Apple mb110z/b, USB" name="Tastatura Apple mb110z/b, USB">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/41259-tastatura-apple-mb110zb-usb">Tastatura Apple mb110z/b, USB</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">239,99 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/41259-tastatura-apple-mb110zb-usb" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                           
-                        </div>
-													                     </div>
-													 
-													
+            <p class="note lang_disclaimer">ASUS își rezervă dreptul de a modifica detaliile promoției fără o notificare prealabilă.</p>
+    <div class="copyright">
+        <img src="{{ STATIC_PREFIX }}images/doom/partners.png">
+        <p>©2016 Bethesda Softworks LLC, o Companie ZeniMax Media. Mărcile înregistrate aparțin proprietarilor respectivi. <br>Toate Drepturile Rezervate. Licență OEM inclusă în pachet oferită de Software Symbiosis Pte Ltd</p>
     </div>
-   
-<div id="marginleft" class="listing_chestii">				
-                        
-
-     <p> <br><div style="font-size: 250%;"><b><a class="titlu" href="" target="_blank" name="memoriiusb">Memorii USB & Rack</a></b></div>
-   <br></p>
-
-  <div class="product_promo">
-					<div class="product_holder ">
-                            <a href="/produs/70125-memorii-externe-sandisk-sdcz52-016g-b35" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/ed/42/ed42e900e1e4e13de56b1f322db27f9f.jpg" alt="Memorii externe SanDisk SDCZ52-016G-B35" title="Memorii externe SanDisk SDCZ52-016G-B35" name="Memorii externe SanDisk SDCZ52-016G-B35">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/70125-memorii-externe-sandisk-sdcz52-016g-b35">Memorii externe SanDisk SDCZ52-016G-B35</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">20,04 lei</span>
-                        
-                    </div>
-                    
-   <a href="/produs/70125-memorii-externe-sandisk-sdcz52-016g-b35" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                      
-                        </div>                        </div>
-																								  <div class="product_promo">
-
-						<div class="product_holder ">
-                            <a href="/produs/68284-memorie-usb-kingston-datatraveler-se9-g2-8-gb-usb-30" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/be/b2/beb2b93b54c9ccea782876c311f77e9c.jpg" alt="Memorie USB Kingston DataTraveler SE9 G2 , 8 GB, USB 3.0" title="Memorie USB Kingston DataTraveler SE9 G2 , 8 GB, USB 3.0" name="Memorie USB Kingston DataTraveler SE9 G2 , 8 GB, USB 3.0">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/68284-memorie-usb-kingston-datatraveler-se9-g2-8-gb-usb-30">Memorie USB Kingston DataTraveler SE9 G2 , 8 GB, USB 3.0</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">22,37 lei</span>
-                        
-                    </div>
-                    
-   <a href="/produs/68284-memorie-usb-kingston-datatraveler-se9-g2-8-gb-usb-30" class="atx-c" style="display: block;"><span></span>vezi detalii</a> 
-                    
-				</div>
-                        
-                        </div>
-						    </div> 
-						
-
-
-						
-
-																		  <div class="product_promo">
-																		  <div class="product_holder ">
-                            <a href="/produs/41907-card-de-memorie-kingston-micro-sd-32-gb" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/31/83/3183d13d65039158d13cf3230d0650a2.jpg" alt="Card de memorie Kingston, Micro SD,  32 GB" title="Card de memorie Kingston, Micro SD,  32 GB" name="Card de memorie Kingston, Micro SD,  32 GB">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/41907-card-de-memorie-kingston-micro-sd-32-gb">Card de memorie Kingston, Micro SD,  32 GB</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">37,14 lei</span>
-                        
-                    </div>
-                    
-   <a href="/produs/41907-card-de-memorie-kingston-micro-sd-32-gb" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                         
-                        </div>
-								                                          </div>
-																		  <div class="product_promo">
-																		  <div class="product_holder ">
-                            <a href="/produs/54238-memorie-usb-kingston-datatraveler-100-g3-32-gb-usb-30" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/60/51/605128d58d36c256533a9b119c7066bb.jpg" alt="Memorie USB Kingston DataTraveler 100 G3, 32 GB, USB 3.0" title="Memorie USB Kingston DataTraveler 100 G3, 32 GB, USB 3.0" name="Memorie USB Kingston DataTraveler 100 G3, 32 GB, USB 3.0">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/54238-memorie-usb-kingston-datatraveler-100-g3-32-gb-usb-30">Memorie USB Kingston DataTraveler 100 G3, 32 GB, USB 3.0</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">44,33 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/54238-memorie-usb-kingston-datatraveler-100-g3-32-gb-usb-30" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                          
-                        </div>
-								                                          </div>
-						
-						
-		
-   
-   </div>
-						
-						
-
-						
-	
-
-  
-   
-   
-
-
-						
-	
-	
-	
-	
-	
-	
-		<div id="marginleft" class="listing_chestii">				
-                        
-
-     <p> <br><div style="font-size: 250%;"><b><a class="titlu" href="/produse/489-routere-si-acces-point" target="_blank" name="Routerewireless">Routere wireless</a></b></div>
-   <br></p>
-	
-	   <div class="product_promo">
-<div class="product_holder ">
-                            <a href="/produs/39129-router-wireless-tp-link-tl-wr841n" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/42/81/428184958dde758a846d36617ccf7827.jpg" alt="Router Wireless TP-LINK TL-WR841N" title="Router Wireless TP-LINK TL-WR841N" name="Router Wireless TP-LINK TL-WR841N">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/39129-router-wireless-tp-link-tl-wr841n">Router Wireless TP-LINK TL-WR841N</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">75 lei</span>
-                        
-                    </div>
-                    
-           <a href="/produs/39129-router-wireless-tp-link-tl-wr841n" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                         
-                        </div></div>
-						
-							   <div class="product_promo">
-
-		<div class="product_holder ">
-                            <a href="/produs/32530-router-wireless-tp-link-tl-wr740n" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/9a/75/9a75ef705c205fdc27585654737db859.jpg" alt="Router Wireless TP-LINK TL-WR740N" title="Router Wireless TP-LINK TL-WR740N" name="Router Wireless TP-LINK TL-WR740N">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/32530-router-wireless-tp-link-tl-wr740n">Router Wireless TP-LINK TL-WR740N</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">66,71 lei</span>
-                        
-                    </div>
-                    
-              <a href="/produs/32530-router-wireless-tp-link-tl-wr740n" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                          
-                        </div>  </div>
-						
-						
-						
-							   <div class="product_promo">
-
-<div class="product_holder ">
-                            <a href="/produs/39133-router-wireless-tp-link-td-w8950nd" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/ec/d6/ecd6d085be1b8b532271cdcd4fa9d63c.jpg" alt="Router Wireless TP-LINK TD-W8950ND" title="Router Wireless TP-LINK TD-W8950ND" name="Router Wireless TP-LINK TD-W8950ND">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/39133-router-wireless-tp-link-td-w8950nd">Router Wireless TP-LINK TD-W8950ND</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">152,96 lei</span>
-                        
-                    </div>
-                    
-              <a href="/produs/39133-router-wireless-tp-link-td-w8950nd" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                      
-                        </div>  </div>
-						
-						   <div class="product_promo">
-						<div class="product_holder ">
-                            <a href="/produs/68112-router-wireless-tp-link-archer-c5" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/b3/de/b3de0367b8db479a311c0e81fb4a5230.jpg" alt="Router Wireless TP-LINK ARCHER C5" title="Router Wireless TP-LINK ARCHER C5" name="Router Wireless TP-LINK ARCHER C5">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/68112-router-wireless-tp-link-archer-c5">Router Wireless TP-LINK ARCHER C5</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">342,07 lei</span>
-                        
-  
-                        
-                    </div>
-                    
-<a href="/produs/68112-router-wireless-tp-link-archer-c5" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-                    
-				</div>
-                                                  
-                           
-                        </div></div>
-						
-						
-						
-	
-						
-						
-						
-		</div>				
-						
-			<div id="marginleft" class="listing_chestii">				
-                        
-
-     <p> <br><div style="font-size: 250%;"><b><a class="titlu" href="" target="_blank" name="sistemoperare">Sisteme de Operare & Antivirus</a></b></div>
-   <br></p>			
-						
-												   <div class="product_promo">
-
-		<div class="product_holder ">
-                            <a href="/produs/74528-microsoft-windows-10-pro-64-biti" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/9e/98/9e98e755b1860ad4d3ccadc5a3b75865.jpg" alt="Microsoft Windows 10 Pro  64 Biti" title="Microsoft Windows 10 Pro  64 Biti" name="Microsoft Windows 10 Pro  64 Biti">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/74528-microsoft-windows-10-pro-64-biti">Microsoft Windows 10 Pro  64 Biti</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">731,14 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/74528-microsoft-windows-10-pro-64-biti" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                      
-				</div>
-                                                  
-                           
-                        </div>                      </div>
-
-						
-												   <div class="product_promo">
-
-	<div class="product_holder ">
-                            <a href="/produs/57668-microsoft-windows-81-pro-64-biti" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/43/b0/43b0637f9768f574219687118110cdf4.jpg" alt="Microsoft Windows 8.1 Pro  64 Biti" title="Microsoft Windows 8.1 Pro  64 Biti" name="Microsoft Windows 8.1 Pro  64 Biti">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/57668-microsoft-windows-81-pro-64-biti">Microsoft Windows 8.1 Pro  64 Biti</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">731,89 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/57668-microsoft-windows-81-pro-64-biti" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                      
-				</div>
-                       
-                        </div>                     </div>
-
-						
-						<div class="product_promo">
-		<div class="product_holder ">
-                            <a href="/produs/76464-internet-security-kaspersky-2016-valabilitate-12-luni" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/fc/7f/fc7f29f0aa2efca6aeb0e2fa38811b3d.jpg" alt="Internet Security Kaspersky 2016  Valabilitate 12 Luni" title="Internet Security Kaspersky 2016  Valabilitate 12 Luni" name="Internet Security Kaspersky 2016  Valabilitate 12 Luni">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/76464-internet-security-kaspersky-2016-valabilitate-12-luni">Internet Security Kaspersky 2016  Valabilitate 12 Luni</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">79,99 lei</span>
-                        
-                        <span class="pret_vechi">151,09 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/76464-internet-security-kaspersky-2016-valabilitate-12-luni" class="atx-c" style="display: block;"><span></span>vezi detalii</a>                      
-				</div>
-                                                  
-                          
-                        </div>
-						</div>
-						
-						
-						
-						   <div class="product_promo">
-<div class="product_holder ">
-                            <a href="/produs/68660-internet-security-bitdefender-2015-valabilitate-12-luni" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/9e/b1/9eb1266a56de0d690fc04bb5c63ea57e.jpg" alt="Internet Security Bitdefender 2015  Valabilitate 12 Luni" title="Internet Security Bitdefender 2015  Valabilitate 12 Luni" name="Internet Security Bitdefender 2015  Valabilitate 12 Luni">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/68660-internet-security-bitdefender-2015-valabilitate-12-luni">Internet Security Bitdefender 2015  Valabilitate 12 Luni</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">93,53 lei</span>
-                        
-                    </div>
-                    
-  <a href="/produs/68660-internet-security-bitdefender-2015-valabilitate-12-luni" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                          
-                        </div>	</div>	
-
-				
-
-					
-
-
-
-						
-
-						
-						
-						
-   
-   
-   
-   </div>
-   
-   <div id="marginleft" class="listing_chestii">				
-                        
-
-     <p> <br><div style="font-size: 250%;"><b><a class="titlu" href="" target="_blank" name="multi">Multifunctionala & Cartuse</a></b></div>
-   <br></p>
-
-			
-	
-
-	
-
-						
-
-						<div class="product_promo">
-<div class="product_holder ">
-                            <a href="/produs/59313-imprimanta-laser-samsung-sl-m2022" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/65/b1/65b1d249e902c5f6f80ee292132e90d2.jpg" alt="Imprimanta laser * Samsung SL-M2022" title="Imprimanta laser * Samsung SL-M2022" name="Imprimanta laser * Samsung SL-M2022">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/59313-imprimanta-laser-samsung-sl-m2022">Imprimanta laser * Samsung SL-M2022</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">263 lei</span>
-                                                <span class="pret_vechi">415,86 lei</span>
-
-                    </div>
-                    
-                            
-  <a href="/produs/59313-imprimanta-laser-samsung-sl-m2022" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 24 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-						  </div>	
-
-	<div class="product_promo">						  
-<div class="product_holder ">
-                            <a href="/produs/33392-imprimanta-laser-hp-laserjet-pro-p1102" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/38/65/3865c62ed28395ed9f5debd49dd5f001.jpg" alt="Imprimanta laser * HP LaserJet Pro P1102" title="Imprimanta laser * HP LaserJet Pro P1102" name="Imprimanta laser * HP LaserJet Pro P1102">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/33392-imprimanta-laser-hp-laserjet-pro-p1102">Imprimanta laser * HP LaserJet Pro P1102</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">409,87 lei</span>
-                        
-                    </div>
-                    
-  <a href="/produs/33392-imprimanta-laser-hp-laserjet-pro-p1102" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                            <!--
-				<ul class="info_detalii">
-                                <li><span>Garantie: 12 luni</span></li>
-                                <li><span>Termen livrare: 24h de la comanda</span></li>
-                                <li><span><span class="red">*</span>Transport GRATUIT</span></li>
-                            </ul>  
-				-->  
-                        </div>
-						
-						
-</div>	
-
-											<div class="product_promo">						  
-
-<div class="product_holder ">
-                            <a href="/produs/48458-multifunctionala-laser-hp-m425dn" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/60/5f/605f8e9a0a84e67b8f9a7e887418a451.jpg" alt="Multifunctionala Laser * HP M425dn" title="Multifunctionala Laser * HP M425dn" name="Multifunctionala Laser * HP M425dn">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/48458-multifunctionala-laser-hp-m425dn">Multifunctionala Laser * HP M425dn</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">1749 lei</span>
-                        
-                    </div>
-                    
-      <a href="/produs/48458-multifunctionala-laser-hp-m425dn" class="atx-c" style="display: block;"><span></span>vezi detalii</a>  
-                    
-				</div>
-                                                  
-                      
-                        </div>                      </div>
-						
-							<div class="product_promo">						  
-
-<div class="product_holder ">
-                            <a href="/produs/66355-cartus-epson-c13t12914010-negru" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/0d/87/0d87defdf7355884053a736409a55530.jpg" alt="Cartus Epson C13T12914010, Negru" title="Cartus Epson C13T12914010, Negru" name="Cartus Epson C13T12914010, Negru">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/66355-cartus-epson-c13t12914010-negru">Cartus Epson C13T12914010, Negru</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">64.99 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/66355-cartus-epson-c13t12914010-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-                    
-				</div>
-                                                  
-                       
-                        </div>                        </div>
-						
-						
-	<div class="product_promo">						  
-	<div class="product_holder ">
-                            <a href="/produs/14042-toner-cartridge-hp-q2612a-negru" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/bc/65/bc65bc32f4f0aab97664bd0007ca1b7f.jpg" alt="Toner cartridge HP Q2612A, Negru" title="Toner cartridge HP Q2612A, Negru" name="Toner cartridge HP Q2612A, Negru">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/14042-toner-cartridge-hp-q2612a-negru">Toner cartridge HP Q2612A, Negru</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">289 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/14042-toner-cartridge-hp-q2612a-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-                    
-				</div>
-                       
-                        </div>
-						
-						
-</div>	
-
-	<div class="product_promo">						  
-	<div class="product_holder ">
-                            <a href="/produs/13702-toner-cartridge-samsung-clp-500d7k-negru" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/c7/99/c79932e6c7aeb73fd91cfc1ac76618f7.jpg" alt="Toner cartridge Samsung CLP-500D7K, Negru" title="Toner cartridge Samsung CLP-500D7K, Negru" name="Toner cartridge Samsung CLP-500D7K, Negru">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/13702-toner-cartridge-samsung-clp-500d7k-negru">Toner cartridge Samsung CLP-500D7K, Negru</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">399 lei</span>
-                        
-                        <span class="pret_vechi">569,95 lei</span>
-                        
-                    </div>
-                    
-<a href="/produs/13702-toner-cartridge-samsung-clp-500d7k-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-                    
-				</div>
-                                                  
-                       
-                        </div>
-</div>	
-
-	<div class="product_promo">						  
-	<div class="product_holder ">
-                            <a href="/produs/14685-toner-cartridge-samsung-scx-4216d3-negru" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/a3/f1/a3f119c8d887278939f1b4db34608590.jpg" alt="Toner cartridge Samsung SCX-4216D3, Negru" title="Toner cartridge Samsung SCX-4216D3, Negru" name="Toner cartridge Samsung SCX-4216D3, Negru">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/14685-toner-cartridge-samsung-scx-4216d3-negru">Toner cartridge Samsung SCX-4216D3, Negru</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">349 lei</span><br><br>
-                                        <span class="pret_vechi">375,58 lei</span>
-
-                    </div>
-                    
-<a href="/produs/14685-toner-cartridge-samsung-scx-4216d3-negru" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-                    
-				</div>
-                                                  
-                     
-                        </div>
-						
-						
-</div>	
-
-
-
-
-
-
-
-							<div class="product_promo">						  
-
-							
-						<div class="product_holder ">
-                            <a href="/produs/44990-cartuse-imprimante-hp-cf280x" class="product_picture_holder">
-                                <div class="middle size205x175">
-                                    <div class="img-holder">
-                                        <img class="center" src="/media/cache/a3/8d/a38de364ab85613b8ffe0f966dcb6657.jpg" alt="Cartuse imprimante HP CF280X" title="Cartuse imprimante HP CF280X" name="Cartuse imprimante HP CF280X">
-                                    </div>
-                                </div>
-                            </a>
-                            <h2><a href="/produs/44990-cartuse-imprimante-hp-cf280x">Cartuse imprimante HP CF280X</a></h2>
-			    
-                              <span class="stoc stoc_ok">
-			    
-				In stoc
-			      </span>
-				<div class="price-add-row">
-					<div class="product_price">
-                        <span class="pret_produss">699 lei</span>
-                                                <span class="pret_vechi">798,05 lei</span>
-
-                    </div>
-                    
-<a href="/produs/44990-cartuse-imprimante-hp-cf280x" class="atx-c" style="display: block;"><span></span>vezi detalii</a>   
-                    
-				</div>
-                                                  
-                       
-                        </div>                        </div>
-
-		
-
-						
-						
-						
-			</div>			
-						
-						
-						
-   
-   
-   
-   
-   
-   </div>
-	
-	
-    <div class="clear"></div>
-
-
-</br></br>
+    <div class="footer">
+        <p><img src="{{ STATIC_PREFIX }}images/doom/asus.png"> ©ASUSTeK Computer Inc. Toate Drepturile Rezervate.</p>
+    </div>
+</div>
 
 
 <div id="footer">
