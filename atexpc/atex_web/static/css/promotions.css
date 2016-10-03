@@ -204,6 +204,9 @@ html, body { height: 100%;}
     display: block;
     content: '';
 }
+.home-activare {
+	color: #ffa700;
+}
 .home-intro h2{
     padding-left: 30px;
     font-weight: normal;
@@ -700,6 +703,7 @@ position:relative;
     white-space: nowrap;
     vertical-align: middle;
 	margin-top:16px;
+	color: #000;
 }
 .wellcome {
 	width:155px;
@@ -779,7 +783,7 @@ ul.search_inputs input.search {
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);	
 	height:28px;
-	width: 179px;
+	width: 169px;
 	line-height:28px;
 	padding:0 5px;
 	position:relative;
@@ -2169,7 +2173,7 @@ ul.filtrare li span {
 .price-add-row {
 	width:100%;
 	float:left;
-	padding: 5px 15px 0;
+	padding: 5px 15px 0 20px;
 }
 .price-add-row .product_price {
 	width:85px !important;

@@ -8,6 +8,7 @@ venv
 .coverage
 atexpc/atex_web/media
 atexpc/atex_web/static/CACHE
+sitemap.xml
 backup
 tmp
 newsletter

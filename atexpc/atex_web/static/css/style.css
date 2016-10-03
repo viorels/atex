@@ -369,7 +369,7 @@ ul.search_inputs input.search {
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);	
 	height:28px;
-	width: 179px;
+	width: 169px;
 	line-height:28px;
 	padding:0 5px;
 	position:relative;
@@ -2409,9 +2409,9 @@ ul.new-spec-list li {padding:2px 5px;}
 }
 .text-box_furnizori {
 	position:absolute;
-	max-width: 275px;
+	max-width: 551px;
 	margin-left:300px;
-	margin-top:-85px;
+	margin-top:-100px;
 }
 .container {
 	width:278px;

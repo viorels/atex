@@ -178,22 +178,22 @@ if ($(this).scrollTop() > 1){
 					<div class="wrapper_certificari">
 							<div class="container">
 								<div id="slides">
-								<img src="{{ STATIC_PREFIX }}images/apple.jpg" alt="Apple Resseler Authorized" title="Apple Resseler Authorized">
-								<img src="{{ STATIC_PREFIX }}images/asus.jpg" alt="ASUS Gold Partner" title="ASUS Gold Partner">
-								<img src="{{ STATIC_PREFIX }}images/cisco.jpg" alt="Cisco Select Partner" title="Cisco Select Partner">
-								<img src="{{ STATIC_PREFIX }}images/dell.jpg" alt="Dell Partner Direct" title="Dell Partner Direct">
-								<img src="{{ STATIC_PREFIX }}images/epson.jpg" alt="Epson Reseller Authorised" title="Epson Reseller Authorised">
-								<img src="{{ STATIC_PREFIX }}images/gigabyte.jpg" alt="Gigabyte Authorized Partner" title="Gigabyte Authorized Partner">
-								<img src="{{ STATIC_PREFIX }}images/hp.jpg" alt="HP Partner" title="HP Partner">
-								<img src="{{ STATIC_PREFIX }}images/intel.jpg" alt="Intel Technology Provider Gold" title="Intel Technology Provider Gold">
-								<img src="{{ STATIC_PREFIX }}images/jabra.jpg" alt="Jabra Partner Registered" title="Jabra Partner Registered">
-								<img src="{{ STATIC_PREFIX }}images/juniper.jpg" alt="Juniper Select Partner" title="Juniper Select Partner">
-								<img src="{{ STATIC_PREFIX }}images/kaspersky.jpg" alt="Kaspersky Reseller Authorized" title="Kaspersky Reseller Authorized">
-								<img src="{{ STATIC_PREFIX }}images/lenovo.jpg" alt="Lenovo Silver Business Partner" title="Lenovo Silver Business Partner">
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/intel.jpg" alt="Intel Technology Provider Gold" title="Intel Technology Provider Gold"></a>
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/apple.jpg" alt="Apple Resseler Authorized" title="Apple Resseler Authorized"></a>
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/asus.jpg" alt="ASUS Gold Partner" title="ASUS Gold Partner"></a>
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/lenovo.jpg" alt="Lenovo Silver Business Partner" title="Lenovo Silver Business Partner"></a>
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/cisco.jpg" alt="Cisco Select Partner" title="Cisco Select Partner"></a>
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/dell.jpg" alt="Dell Partner Direct" title="Dell Partner Direct"></a>
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/epson.jpg" alt="Epson Reseller Authorised" title="Epson Reseller Authorised"></a>
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/gigabyte.jpg" alt="Gigabyte Authorized Partner" title="Gigabyte Authorized Partner"></a>
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/hp.jpg" alt="HP Partner" title="HP Partner"></a>
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/jabra.jpg" alt="Jabra Partner Registered" title="Jabra Partner Registered"></a>
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/juniper.jpg" alt="Juniper Select Partner" title="Juniper Select Partner"></a>
+								<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/kaspersky.jpg" alt="Kaspersky Reseller Authorized" title="Kaspersky Reseller Authorized"></a>
 								</div>
 							</div>
 							
-						<div class="text-box_furnizori_logo">
+					<!--	<div class="text-box_furnizori_logo">
 							<a href="{% url 'brands' %}"><img src="{{ STATIC_PREFIX }}images/logo-uri_producatori.jpg" alt="logo producatori" title="ATEX Computer reprezinta cele mai cunoscute branduri din industria tehnologica.
 Click pentru a vedea multitudinea de furnizori pe care ii reprezentam"></a>
 						</div>
@@ -201,6 +201,9 @@ Click pentru a vedea multitudinea de furnizori pe care ii reprezentam"></a>
 							<p style="text-align:justify"><strong>ATEX Computer</strong> reprezinta cele mai cunoscute branduri din industria tehnologica.
 Click pentru a vedea multitudinea de furnizori pe care ii reprezentam.</p>
 							<p style="text-align:right"><img src="{{ STATIC_PREFIX }}images/arrow-1.jpg" alt="Arrow" ></p>
+						</div>-->
+						<div class="text-box_furnizori">
+						<a href="https://www.google.ro/search?q=atex+computer&oq=atex+computer#lrd=0x47490e993951d947:0xfe812560836a0e78,1," target="_blank"><img src="{{ STATIC_PREFIX }}images/recenzii.jpg"></a>
 						</div>
 					</div>
                 </div>
@@ -268,5 +271,21 @@ Click pentru a vedea multitudinea de furnizori pe care ii reprezentam.</p>
     </div>
 </div>
 {% block body_extra %}{% endblock %}
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/577cb5afe1416e7e7c59e09d/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+<script type="text/javascript">
+!function(){var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src="//config1.veinteractive.com/tags/26D79105/E725/48B5/AFB4/54F26CD414BC/tag.js";var b=document.getElementsByTagName("head")[0];if(b)b.appendChild(a,b);else{var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)}}();
+</script>
 </body>
 </html>
