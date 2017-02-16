@@ -77,6 +77,11 @@ html, body { height: 100%;  }
 	padding:0 0 120px 0;
 	position:relative;
 }
+.promo {
+	width: 1140px;
+	padding: 0 0 0 0;
+    margin: auto;
+}
 .header {
 	position:relative;
 	height: 100px;
