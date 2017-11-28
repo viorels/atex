@@ -702,13 +702,13 @@ ul.menu li.menu-item a.menu-link:hover, ul.menu li.menu-item.active a.menu-link 
 .popup-holder {
 	position:absolute;
 	width:890px;
-	height:387px;
+	height:469px;
 	top:0px;
 	left:-9999px;
 }
 .popup {
 	width:850px;
-	height:348px;
+	height:430px;
 	float:right;
 	padding:0 20px 20px 20px;
 	border:1px solid #cecece;
