@@ -44,3 +44,4 @@ EMAIL_SUBJECT_PREFIX = '[Atex dev] '
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CACHES['default']['KEY_PREFIX'] = 'dev'
+#CACHES['default']['BACKEND'] = 'django.core.cache.backends.dummy.DummyCache'
