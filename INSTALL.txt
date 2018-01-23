@@ -36,3 +36,4 @@ $ python manage.py runserver	# run server
 
 $ celery -A atexpc worker -l info 	# run Celery
 
+

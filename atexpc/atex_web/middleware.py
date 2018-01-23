@@ -42,7 +42,9 @@ def get_menu(api):
                  '6': 'images/network-icon.png',
                  '7': 'images/cd-icon.png',
                  '8': 'images/phone-icon.png',
-                 '9': 'images/conectica-icon.png'}
+                 '9': 'images/conectica-icon.png',
+                 '99': 'images/camera-icon.png',
+                 '999': 'images/gopro-icon.png'}
         return icons.get(category['code'], '')
 
     def category_background_class(category):
