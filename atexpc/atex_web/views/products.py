@@ -189,7 +189,7 @@ class MySearchView(BreadcrumbsMixin, CSRFCookieMixin, SearchView):
             setattr(product, 'price', ancora_product.get('price'))
             setattr(product, 'old_price', ancora_product.get('old_price'))
             setattr(product, 'stock_info', ancora_product.get('stock_info'))
-            setattr(product, 'stock_available', ancora_product.get('stock_status') not in (Ancora.STOCK_UNAVAILABLE, Ancora.STOCK_UNKNOWN))
+            setattr(product, 'stock_available', ancora_product.get('stock_status') != Ancora.STOCK_UNAVAILABLE)
         return products
 
 
@@ -352,7 +352,7 @@ class ProductsView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
             product['name'] = product_obj.get_short_name()
             product['images'] = product_obj.images
             product['url'] = product_obj.get_absolute_url()
-            product['stock_available'] = product['stock_status'] not in (Ancora.STOCK_UNAVAILABLE, Ancora.STOCK_UNKNOWN)
+            product['stock_available'] = product['stock_status'] != Ancora.STOCK_UNAVAILABLE
 
         for idx, product in enumerate(products):
             if (idx+1) % PRODUCTS_PER_LINE == 0:
@@ -397,7 +397,7 @@ class ProductView(BreadcrumbsMixin, CSRFCookieMixin, TemplateView):
             product['short_name'] = product_orm.get_short_name()
             product['images'] = product_orm.images()
             product['spec_groups'] = product_orm.get_spec_groups()
-            product['stock_available'] = product['stock_status'] not in (Ancora.STOCK_UNAVAILABLE, Ancora.STOCK_UNKNOWN)
+            product['stock_available'] = product['stock_status'] != Ancora.STOCK_UNAVAILABLE
 
             html_template = product_orm.html_description()
             if html_template:
