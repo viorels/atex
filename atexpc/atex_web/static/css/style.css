@@ -1548,7 +1548,8 @@ background-color:#c62123;
 	padding:0 !important;
 }
 .specificatii-tehnice .title {
-	font-size:18px;
+	font-size:12px;
+	font-weight:bold;
 }
 .specificatii-tehnice li {
 	padding:5px 0;
