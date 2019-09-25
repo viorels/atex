@@ -9,7 +9,7 @@ from .views import (HomeView, MySearchView, ProductsView, ProductView, BrandsVie
                    ContactView, ConditionsView, ServiceView, WarrantyServiceView,
                    CartView, OrderView, ConfirmView, LoginView,
                    RecoverPassword, RecoverPasswordDone, ResetPassword, ResetPasswordDone)
-from .views.products import SearchAutoComplete, DropboxWebHookView
+from .views.products import SearchAutoComplete, DropboxWebHookView, clear_cache
 from .views.authentication import GetEmails
 from .views.shopping import GetCompanyInfo
 
@@ -51,6 +51,8 @@ urlpatterns = patterns('',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),
     # TODO: remove ledacy redirect sm.ashx to MEDIA_URL + SHOPMANIA_FEED_FILE
     url(r'^sm.ashx$', RedirectView.as_view(url='/media/shopmania.csv', permanent=True)),
+
+    url(r'^clear-cache', clear_cache),
 )
 
 if settings.DEBUG:

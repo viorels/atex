@@ -4,6 +4,7 @@ import json
 from django.template import Context, Template
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.conf import settings
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.utils.decorators import method_decorator
@@ -482,3 +483,11 @@ def _uri_with_args(base_uri, **new_args):
                             encoded_args,
                             parsed_uri.fragment))
     return final_uri
+
+# @never_cache
+def clear_cache(request):
+#    if not request.user.is_superuser:
+#        raise PermissionDenied
+    cache.clear()
+    return HttpResponse('Cache has been cleared')
+
