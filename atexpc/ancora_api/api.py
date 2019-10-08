@@ -164,6 +164,7 @@ class AncoraAdapter(BaseAdapter):
         return method
 
     def _args_for(self, method_name):
+        # NOT listed here is get_products at url /ancoraerp/jis_get_produse.serv
         args = {'categories': {'cod_formular': '617'},
                 'product': {'cod_formular': '738'},
                 'recommended': {'cod_formular': '740', 'start': '0'},
@@ -282,6 +283,7 @@ class Ancora:
 
     def _base_products_uri(self, category_id=None):
         if category_id:
+            # get products url from Ancora response, e.d. /ancoraerp/jis_get_produse.serv?cod_formular=618
             base_products_uri = self._get_category_meta(category_id, 'products_uri')
         else:
             any_products_uri = self.categories()[0]['products_uri']
