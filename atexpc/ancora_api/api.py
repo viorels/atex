@@ -1,3 +1,4 @@
+import math
 import os
 import re
 import time
@@ -382,6 +383,7 @@ class Ancora:
             old_price = product['zpret_site_old']
         else:
             old_price = None
+        rounded_price = math.ceil(product.get('zpret_site')) - 0.01
 
         category_code = product.get('zcod_grupa') or product.get('zcodp')
         is_available = bool(re.match(r"[0-9.]+$", category_code)) if category_code is not None else False
@@ -395,7 +397,7 @@ class Ancora:
                 'name': product['ztitlu'],
                 'description': product.get('zdescriere'),
                 'short_description': product.get('zdescriere_scurta', ''),
-                'price': product.get('zpret_site'),
+                'price': rounded_price,
                 'old_price': old_price,
                 'available': is_available,                      # belongs to visible category
                 'stock': local_stock,                           # 1/0 local stock, only on cod_formular=618
