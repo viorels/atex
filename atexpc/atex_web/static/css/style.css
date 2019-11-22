@@ -2385,7 +2385,7 @@ right: 0;
 .autocomplete-suggestion { padding: 10px 5px; font-size: 1.2em; white-space: nowrap; overflow: hidden; }
 .autocomplete-selected { background: #f0f0f0; }
 .autocomplete-suggestions strong { font-weight: normal; color: #3399ff; }
-ul.service-bg {background: url('/static/images/service-bg.png?a768d25285c0') 510px 30px no-repeat;}
+ul.service-bg {background: url('/static/images/service-bg.png?a768d25285c0') 410px 90px no-repeat;}
 
 .bx-wrapper {position: relative;margin: 0 auto; margin-top:-13px;padding:0;*zoom: 1;behavior: url('/static/css/PIE.htc');border-radius: 6px;-moz-border-radius: 6px;-webkit-border-radius: 6px; overflow:hidden; height:370px;width:875px;}
 .bx-wrapper img {max-width: 100%;display: block;}
