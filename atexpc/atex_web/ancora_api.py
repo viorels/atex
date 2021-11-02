@@ -146,7 +146,10 @@ class ProductsAPI(BaseAPI):
         return self._api.products_recommended(limit).get('products')
 
     def get_promotional(self, limit):
-        return self._api.products_promotional(limit).get('products')
+        try:
+            return self._api.products_promotional(limit).get('products')
+        except:
+            return []
 
     def get_brands(self):
         return self._api.brands()
