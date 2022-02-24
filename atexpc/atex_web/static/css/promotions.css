@@ -67,7 +67,7 @@ html, body { height: 100%;}
     height: 95px; 
     }
 .wrapper {
-	background: #ff0000;
+	background: #ff0000; 
 	border-top:5px solid #cecece;
 	/*background:url(../images/bg_dark.png) repeat;
 
@@ -79,10 +79,27 @@ html, body { height: 100%;}
 }
 .page_wrapper {
 	margin:0 auto;
-	background: #ff0000;
+	background: #fff;
 	padding:0 0 120px 0;
 	position:relative;
 	
+}
+.promo {
+	width: 1140px;
+	padding: 0 0 0 0;
+    margin: auto;
+}
+.youtube {
+	background:url(../images/promotii/youtube.jpg) no-repeat;
+	background-size: 900px 380px;
+	padding: 20px;
+	margin-left: 15px;
+}
+.garantie {
+	background:url(../images/promotii/garantie.jpg) no-repeat;
+	background-size: 900px 169px;
+	padding: 20px;
+	margin-left: 15px;
 }
 .header {
 	position:relative;
@@ -1110,7 +1127,7 @@ ul.filtrare li span {
 }
 .product_promo {
 	float:left;
-	background:url(../images/promotii/backpromotii.png) center no-repeat;
+/*	background:url(../images/promotii/backpromotii.png) center no-repeat; */
 	height: 308px;
 }
 .product_holder {
@@ -1238,7 +1255,7 @@ ul.filtrare li span {
 	padding: 5px 15px 0;
 }
 .price-add-row .product_price {
-	width:90px !important;
+	width:85px !important;
 }
 .add_cos_btn_small span {
 	height:25px;
@@ -2282,8 +2299,8 @@ ul.new-spec-list li {padding:2px 5px;}
 .text-box_furnizori {
 	position:absolute;
 	max-width: 275px;
-	margin-left:300px;
-	margin-top:-85px;
+	margin-left:150px;
+	margin-top:-100px;
 }
 .container {
 	width:278px;

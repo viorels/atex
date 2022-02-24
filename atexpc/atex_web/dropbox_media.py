@@ -124,5 +124,5 @@ class DropboxMedia:
             image_name = image.image.name
             image.delete()
             StorageWithOverwrite().delete(image_name)
-        except Image.DoesNotExist as e:
-            pass
+        except (Image.DoesNotExist, Image.MultipleObjectsReturned) as e:
+            logger.error(e)

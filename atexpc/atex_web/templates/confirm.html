@@ -44,7 +44,10 @@
 
 {% endblock %}
 
-{% block content_right %}           
+{% block content_right %} 
+{% if done %}
+<img src="//drs2.veinteractive.com/DataReceiverService.asmx/Pixel?journeycode=26D79105-E725-48B5-AFB4-54F26CD414BC" width="1" height="1"/>
+{% endif %}          
                 <div class="cos_content">                   
                     <div class="product-section">
                         <div class="tab_d_holder_right">

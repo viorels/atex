@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
+from atexpc.ancora_api.api import APIError
 from atexpc.atex_web.models import Product, Category, Brand
 from atexpc.atex_web.ancora_api import AncoraAPI
 from atexpc.atex_web.scrape import scrape_specs
@@ -121,8 +122,11 @@ class Command(BaseCommand):
                     if fast:
                         del p['description']
                     else:
-                        product_details = self.api.products.get_product(p['id'])
-                        p['description'] = product_details['description'] if product_details else ''
+                        try:
+                            product_details = self.api.products.get_product(p['id'])
+                            p['description'] = product_details['description'] if product_details else ''
+                        except APIError:
+                            p['description'] = ''
                 yield products_dict
                 start += per_page
 
@@ -207,9 +211,12 @@ class Command(BaseCommand):
     def _product_info(self, product):
         info = product.copy()
 
-        product_details = self.api.products.get_product(info['id'])
+        try:
+            product_details = self.api.products.get_product(info['id'])
+            info['description'] = product_details['description'] if product_details else ''
+        except APIError:
+            info['description'] = ''
 
-        info['description'] = product_details['description'] if product_details else ''
         info['category_path']  = self._get_category_path(product)
         info['url'] = self._product_url(product)
         info['image_url'] = self._image_url(product)

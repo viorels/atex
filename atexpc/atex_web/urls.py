@@ -9,7 +9,7 @@ from .views import (HomeView, MySearchView, ProductsView, ProductView, BrandsVie
                    ContactView, ConditionsView, ServiceView, WarrantyServiceView,
                    CartView, OrderView, ConfirmView, LoginView,
                    RecoverPassword, RecoverPasswordDone, ResetPassword, ResetPasswordDone)
-from .views.products import SearchAutoComplete, DropboxWebHookView
+from .views.products import SearchAutoComplete, DropboxWebHookView, clear_cache
 from .views.authentication import GetEmails
 from .views.shopping import GetCompanyInfo
 
@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^cauta/', MySearchView.as_view(), name='search'),
     url(r'^cauta_auto/', SearchAutoComplete.as_view()),
-    url(r'^produse/(?P<category_id>\d+)-(?P<slug>.*)$',
+    url(r'^produse/(?P<category_id>\d*)-?(?P<slug>.*)$',
         ProductsView.as_view(), name='category'),
     url(r'^produs/(?P<product_id>\d+)-(?P<slug>.*)$', ProductView.as_view(),
         name='product'),
@@ -35,7 +35,7 @@ urlpatterns = patterns('',
     url(r'^promotii/', PromotionsView.as_view(), name='promotions'),
     url(r'^gaming/', GamingView.as_view(), name='gaming'),
     url(r'^apple/', AppleView.as_view(), name='apple'),
-    # url(r'^Black-Friday/', BlackFridayView.as_view(), name='black-friday'),
+    url(r'^Black-Friday/', BlackFridayView.as_view(), name='black-friday'),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^login/emails/(?P<username>\w+)$', GetEmails.as_view()),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
@@ -51,6 +51,8 @@ urlpatterns = patterns('',
         lambda request: render(request, "PIE.htc", content_type="text/x-component")),
     # TODO: remove ledacy redirect sm.ashx to MEDIA_URL + SHOPMANIA_FEED_FILE
     url(r'^sm.ashx$', RedirectView.as_view(url='/media/shopmania.csv', permanent=True)),
+
+    url(r'^clear-cache', clear_cache),
 )
 
 if settings.DEBUG:

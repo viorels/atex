@@ -77,6 +77,11 @@ html, body { height: 100%;  }
 	padding:0 0 120px 0;
 	position:relative;
 }
+.promo {
+	width: 1140px;
+	padding: 0 0 0 0;
+    margin: auto;
+}
 .header {
 	position:relative;
 	height: 100px;
@@ -190,7 +195,7 @@ text-align: center;
     -pie-background: linear-gradient(#f0f0f0, #f0f0f0); 
     behavior: url(/static/css/PIE.htc);
 	display:block;
-background-color:#c62123; 
+background-color:#f0f0f0; 
 position:relative;
 }
 
@@ -369,7 +374,7 @@ ul.search_inputs input.search {
 	-webkit-border-radius: 6px;
 	behavior: url(/static/css/PIE.htc);	
 	height:28px;
-	width: 179px;
+	width: 169px;
 	line-height:28px;
 	padding:0 5px;
 	position:relative;
@@ -394,7 +399,7 @@ input.hint, textarea.hint {
 }
 
 .info_orar {
-	margin:71px 0 0 30px;
+	margin:71px 0 0 70px;
 	float:left;
 	position:absolute;
 	line-height:19px;
@@ -697,13 +702,13 @@ ul.menu li.menu-item a.menu-link:hover, ul.menu li.menu-item.active a.menu-link 
 .popup-holder {
 	position:absolute;
 	width:890px;
-	height:387px;
+	height:469px;
 	top:0px;
 	left:-9999px;
 }
 .popup {
 	width:850px;
-	height:348px;
+	height:430px;
 	float:right;
 	padding:0 20px 20px 20px;
 	border:1px solid #cecece;
@@ -1543,7 +1548,8 @@ background-color:#c62123;
 	padding:0 !important;
 }
 .specificatii-tehnice .title {
-	font-size:18px;
+	font-size:12px;
+	font-weight:bold;
 }
 .specificatii-tehnice li {
 	padding:5px 0;
@@ -2379,7 +2385,7 @@ right: 0;
 .autocomplete-suggestion { padding: 10px 5px; font-size: 1.2em; white-space: nowrap; overflow: hidden; }
 .autocomplete-selected { background: #f0f0f0; }
 .autocomplete-suggestions strong { font-weight: normal; color: #3399ff; }
-ul.service-bg {background: url('/static/images/service-bg.png?a768d25285c0') 510px 30px no-repeat;}
+ul.service-bg {background: url('/static/images/service-bg.png?a768d25285c0') 410px 90px no-repeat;}
 
 .bx-wrapper {position: relative;margin: 0 auto; margin-top:-13px;padding:0;*zoom: 1;behavior: url('/static/css/PIE.htc');border-radius: 6px;-moz-border-radius: 6px;-webkit-border-radius: 6px; overflow:hidden; height:370px;width:875px;}
 .bx-wrapper img {max-width: 100%;display: block;}
@@ -2409,9 +2415,9 @@ ul.new-spec-list li {padding:2px 5px;}
 }
 .text-box_furnizori {
 	position:absolute;
-	max-width: 275px;
+	max-width: 551px;
 	margin-left:300px;
-	margin-top:-85px;
+	margin-top:-100px;
 }
 .container {
 	width:278px;

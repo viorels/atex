@@ -3,9 +3,9 @@
 
 {% block title %}{{ product.name }} - {{ block.super }}{% endblock title %}
 {% block head %}
-	<meta name="description" content="{{ product.name }}">
+	<meta name="description" content="{{ product.description|safe }}">
 
-	<meta name="keywords" content="{{ product.name }}"> 
+	<meta name="keywords" content=""> 
 {% endblock %}
 {% block menu %}{% endblock %}
 {% block banner_left %}{% endblock %}
@@ -26,22 +26,22 @@
                         <div id="exposure">                            
                         </div>
                     </div>    
-                    <div class="product-right-sumar">
+                    <div class="product-right-sumar" itemscope itemtype="http://schema.org/Product">
                     	<div class="search-title">
-                            <h1>{{ product.name }}</h1>
+                            <h1 itemprop="name">{{ product.name }}</h1>
                         </div>
                         {% if product.short_description %}
                         <div class="underline-gray">
                         	<p>{{ product.short_description }}</p>
                         </div>
                         {% endif %}
-                        <div class="product-info">
+                        <div class="product-info" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                             {% if product.available %}
                         	<ul class="info-termeni">
                             	<li><strong>
 
 			        {% if "stoc" in product.stock_info %}
-                                  <span class="stoc_ok">
+                                  <span class="stoc_ok" itemprop="availability" href="http://schema.org/InStock">
 			        {% elif "comanda" in product.stock_info %}
                                   <span class="stoc_comanda">
 			        {% elif "nu este disponibil" in product.stock_info %}
@@ -50,21 +50,29 @@
                                   <span class="stock_ok">
 			        {% endif %}
 
-				  {{ product.stock_info }}
-				  </span></strong></li>
-					<li><strong>Garantie:</strong> {{ product.warranty }} luni</li>
-                               	<li><strong>Termen livrare:</strong> 24h de la comanda ferma</li>                             
-                               	<li><strong>Cod produs:</strong> {{ product.model}}</li>                             
+				    {{ product.stock_info }}
+				    </span></strong></li>
+                    <div itemprop="Warranty" itemscope itemtype="http://schema.org/WarrantyPromise">
+					<li><strong>Garantie:</strong> <span itemprop="durationOfWarranty">{{ product.warranty }}</span> luni</li>
+                    </div>
+                    {% if "stoc" in product.stock_info %}
+                               	<li><strong>Termen livrare:</strong> 1-3 zile de la comanda ferma</li>
+					{% else %}
+							<li><strong>Termen livrare:</strong> 3-5 zile de la comanda ferma</li>	
+                    {% endif %}                           
+                               	<li><strong>Cod produs:</strong><span itemprop="sku"> {{ product.model}}</span></li>                             
                             </ul>
                             <ul class="info-pret">
                                 {% if product.old_price %}
                             	<li>Pret nou: <span class="pret">{{ product.price }} Lei</span></li>
                                 <li><span class="pret_vechi">Pret vechi: {{ product.old_price }} Lei</span></li>
                                 {% elif product.price %}
+                                <meta itemprop="priceCurrency" content="RON" />
+                                <meta itemprop="price" content="0"/>
                             	<li>Pret: <span class="pret">{{ product.price }} Lei</span></li>
                                 {% endif %}
                                 {% if product.stock_available %}
-                                    <li><a href="#" class="add_cos_btn" data-product-id="{{ product.id }}"><span></span>Adauga in cos</a></li>
+                                <li><a href="#" class="add_cos_btn" data-product-id="{{ product.id }}"><span></span>Adauga in cos</a></li>
                                 {% endif %}
                             </ul>
                             {% else %}
@@ -82,7 +90,7 @@
                                 <span class="up_right"></span>
                             </div>
                             <div class="text">
-                            	<p>{{ product.description|safe }}</p>
+                            	<p itemprop="description">{{ product.description|safe }}</p>
                             </div> 
                         </div>
                         <div class="product-section">
@@ -96,7 +104,7 @@
                             <div class="panel">
                                 <ul id="images" class="alte-imagini">
                                     {% for image in product.images %}
-                                    <li><a href="{{ image|thumbnail:"450x450" }}"><img src="{{ image|thumbnail:"100x100" }}" alt="{{ product.name }}" title="{{ product.name }}" /></a></li>
+                                    <li><a itemprop="image" href="{{ image|thumbnail:"450x450" }}"><img src="{{ image|thumbnail:"100x100" }}" alt="{{ product.name }}" title="{{ product.name }}" /></a></li>
                                     {% endfor %}
                                 </ul>
                                 <div class="controls"><div id="controls"></div></div>
