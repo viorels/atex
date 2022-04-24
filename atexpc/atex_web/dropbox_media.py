@@ -20,6 +20,7 @@ logger = logging.getLogger(__name__)
 class DropboxMedia:
     products_path = "/Atex-media/products"
     products_path_re = r"/products/(?P<folder>[^/]+)/(?P<resource>[^/]+)(?P<other>/.*)?"
+    products_folder_re = r"/products/(?P<folder>[^/]+)"
     max_path_length = 128 # TODO: introspect model
 
     def __init__(self, *args, **kwargs):
@@ -81,6 +82,35 @@ class DropboxMedia:
 
     def get_account_id(self):
         return self._dropbox.users_get_current_account().account_id
+
+    def remove_unused_images(self): # TODO: handle rate limit (503 errors)
+        """Removes images from Dropbox for products that are no longer active"""
+
+        last_cursor = None
+        has_more = True
+        map_dropbox_to_product = Product.objects._build_folder_product_map()
+
+        while has_more:
+            if not last_cursor:
+                delta = self._dropbox.files_list_folder(self.products_path)
+            else:
+                delta = self._dropbox.files_list_folder_continue(last_cursor)
+            has_more = delta.has_more
+            for entry in delta.entries:
+                path = entry.path_display
+                path_match = re.search(self.products_folder_re, path, re.IGNORECASE)
+                if not path_match:
+                    continue
+                if len(path) > self.max_path_length:
+                    logger.error("Error: path too long (%d): %s", len(path), path)
+                    continue
+                if not isinstance(entry, FolderMetadata):
+                    continue
+                product_model = path_match.group('folder')
+                product_id = map_dropbox_to_product.get(product_model.lower())
+                print("{},{}".format(product_model, product_id))
+
+            last_cursor = delta.cursor
 
     ### private methods ###
 
