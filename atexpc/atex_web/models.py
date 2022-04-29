@@ -12,6 +12,7 @@ from django.core.mail import send_mail
 from django.db import models, connection
 from django.db.models.query import QuerySet
 from django.db.utils import DatabaseError
+from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.http import urlquote
 from django.utils.text import slugify
@@ -364,6 +365,15 @@ class Image(models.Model):
     def __str__(self):
         return self.image.name
 
+@receiver(models.signals.post_delete, sender=Image)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem
+    when corresponding `Image` object is deleted.
+    """
+    if instance.image:
+        if os.path.isfile(instance.image.path):
+            os.remove(instance.image.path)
 
 class Hit(models.Model):
     product = models.ForeignKey(Product)

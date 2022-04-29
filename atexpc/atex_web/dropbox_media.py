@@ -86,6 +86,18 @@ class DropboxMedia:
     def remove_unused_images(self): # TODO: handle rate limit (503 errors)
         """Removes images from Dropbox for products that are no longer active"""
 
+        # remove unassigned images
+        for img in Image.objects.filter(product=None):
+            img.delete()
+
+        trash_path = self.products_path + '.old'
+        try:
+            self._dropbox.files_create_folder(trash_path)
+        except ApiError as e:
+            logger.error(e)
+
+        # TODO: delete empty folders
+
         last_cursor = None
         has_more = True
         map_dropbox_to_product = Product.objects._build_folder_product_map()
@@ -108,7 +120,11 @@ class DropboxMedia:
                     continue
                 product_model = path_match.group('folder')
                 product_id = map_dropbox_to_product.get(product_model.lower())
-                print("{},{}".format(product_model, product_id))
+                if not product_id:
+                    new_path = os.path.join(trash_path, product_model)
+                    print(path, new_path)
+                    self._dropbox.files_move(path, new_path)
+                #print("{},{}".format(product_model, product_id))
 
             last_cursor = delta.cursor
 
