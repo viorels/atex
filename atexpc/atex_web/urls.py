@@ -1,8 +1,9 @@
-from django.conf.urls import patterns, url
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import url
 from django.shortcuts import render
 from django.views.generic import RedirectView
+import django.contrib.auth.views
 
 from .views import (HomeView, MySearchView, ProductsView, ProductView, BrandsView,
                    PromotionsView, GamingView, AppleView, BlackFridayView,
@@ -14,7 +15,7 @@ from .views.authentication import GetEmails
 from .views.shopping import GetCompanyInfo
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^cauta/', MySearchView.as_view(), name='search'),
     url(r'^cauta_auto/', SearchAutoComplete.as_view()),
@@ -38,7 +39,7 @@ urlpatterns = patterns('',
     url(r'^Black-Friday/', BlackFridayView.as_view(), name='black-friday'),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^login/emails/(?P<username>\w+)$', GetEmails.as_view()),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
+    url(r'^logout/$', django.contrib.auth.views.logout, {'next_page': '/'}, name='logout'),
 
     url(r'^recover/(?P<signature>.+)/$', RecoverPasswordDone.as_view(),
         name='password_reset_sent'),
@@ -53,7 +54,7 @@ urlpatterns = patterns('',
     url(r'^sm.ashx$', RedirectView.as_view(url='/media/shopmania.csv', permanent=True)),
 
     url(r'^clear-cache', clear_cache),
-)
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

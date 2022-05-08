@@ -1,5 +1,5 @@
-from django.conf.urls import patterns, include, url
 from django.conf import settings
+from django.conf.urls import include, url
 from django.http import HttpResponse
 
 from .atex_web.views import ErrorView
@@ -8,11 +8,11 @@ from .atex_web.views import ErrorView
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^', include('atexpc.atex_web.urls')),
     url(r'^', include('social.apps.django_app.urls', namespace='social')),
     url(r'^admin/', include(admin.site.urls)),
-)
+]
 
 handler404 = ErrorView.as_view(error_code=404)
 
