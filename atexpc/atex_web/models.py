@@ -35,7 +35,7 @@ def _category_specs_path(instance, filename):
 class Category(models.Model):
     name = models.CharField(max_length=64)
     code = models.CharField(max_length=8)
-    parent = models.ForeignKey('self', null=True)
+    parent = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
     specs_file = models.FileField(upload_to=_category_specs_path, null=True)
 
     class Meta:
@@ -147,8 +147,8 @@ class Product(models.Model):
     model = models.CharField(max_length=128, db_index=True)
     name = models.CharField(max_length=128)
     description = models.TextField(null=False, blank=True)
-    category = models.ForeignKey(Category, null=True)
-    brand = models.ForeignKey(Brand, null=True)
+    category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand, null=True, on_delete=models.CASCADE)
     price = models.FloatField(null=True)
     stock = models.SmallIntegerField(choices=STOCK_CHOICES, null=True)
     specs = models.ManyToManyField('Specification', through='ProductSpecification')
@@ -376,7 +376,7 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
             os.remove(instance.image.path)
 
 class Hit(models.Model):
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     count = models.IntegerField()
     date = models.DateField()
 
@@ -491,18 +491,18 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 # class Company(models.Model):
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL)
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
 class Cart(models.Model):
     session = models.ForeignKey(Session, db_index=True, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product, through='CartProducts')
 
 
 class CartProducts(models.Model):
-    cart = models.ForeignKey(Cart)
-    product = models.ForeignKey(Product)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     count = models.IntegerField(default=1)
 
 
@@ -662,7 +662,7 @@ class Dropbox(models.Model):
 
 class SpecificationGroup(models.Model):
     name = models.CharField(max_length=64)
-    category = models.ForeignKey(Category, null=True)
+    category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -670,8 +670,8 @@ class SpecificationGroup(models.Model):
 
 class Specification(models.Model):
     name = models.CharField(max_length=64)
-    group = models.ForeignKey(SpecificationGroup, null=True)
-    category = models.ForeignKey(Category, null=True)
+    group = models.ForeignKey(SpecificationGroup, null=True, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE)
 
     FORMAT_RE = r'(.*?)\s*\((.*)\)$'   # e.g. 'Memory ($ GB)'
     FORMAT_PLACEHOLDER = '$'
@@ -697,8 +697,8 @@ class Specification(models.Model):
 
 
 class ProductSpecification(models.Model):
-    product = models.ForeignKey(Product)
-    spec = models.ForeignKey(Specification)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    spec = models.ForeignKey(Specification, on_delete=models.CASCADE)
     value = models.TextField(blank=True)
 
 
