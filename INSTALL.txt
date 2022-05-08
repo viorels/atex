@@ -8,25 +8,49 @@
 # sudo su - postgres
 $ createuser -d atex
 atex@server$ createdb atex
+atex@server$ pg_restore -d atex ~/backup/atex.20220430.dump
 
 $ sudo su - atex
 $ git clone https://github.com/viorels/atex.git
 $ python3 -m venv venv
 $ . venv/bin/activate
 $ pip install -r atex/requirements/production.txt
-$ ln -s /usr/lib/python3/dist-packages/xapian venv/lib/python3.5/site-packages
+$ ln -s /usr/lib/python3/dist-packages/xapian venv/lib/python3.9/site-packages
 
 $ cat << _EOF_ > .env
 ANCORA_URI=http://ANCORA.SERVER:8765/ancoraerp/jis.serv?database=atex
-MEMCACHE_SERVERS=localhost
 DJANGO_SETTINGS_MODULE=atexpc.config.production
+DATABASE_URL=postgres://atex@localhost:5432/atex
+SECRET_KEY=
+DROPBOX_APP_KEY=
+DROPBOX_APP_SECRET=
+DROPBOX_ACCESS_TOKEN_V2=
+GOOGLE_OAUTH2_CLIENT_ID=
+GOOGLE_OAUTH2_CLIENT_SECRET=
+FACEBOOK_APP_ID=
+FACEBOOK_API_SECRET=
+SENTRY_DSN=
 _EOF_
 
 # echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
 
-# wget -O /etc/init.d/celeryd https://raw.github.com/celery/celery/3.1/extra/generic-init.d/celeryd
+# wget -O /etc/init.d/celeryd https://raw.githubusercontent.com/celery/celery/master/extra/generic-init.d/celeryd
 # chmod +x /etc/init.d/celeryd
-# ln -s atexpc/config/celeryd.default /etc/default/celeryd
+# cp ~atex/atex/atexpc/config/celeryd.default /etc/default/celeryd
+# update-rc.d celeryd defaults
+
+# wget -O /etc/systemd/system/celery.service https://raw.githubusercontent.com/celery/celery/master/extra/systemd/celery.service
+... change user/group in celery.service
+# ln -s ~atex/atex/atexpc/config/celeryd.default
+# systemctl daemon-reload
+# systemctl enable celery.service
+
+
+# MIGRATION
+
+restore db
+copy /media /cache
+
 
 # DEVELOPMENT
 
@@ -35,5 +59,4 @@ $ python manage.py migrate      # init/update database
 $ python manage.py runserver	# run server
 
 $ celery -A atexpc worker -l info 	# run Celery
-
 
