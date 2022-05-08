@@ -17,6 +17,7 @@ from django.utils import timezone
 from django.utils.http import urlquote
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 import pytz
 from memoize import memoize
 from sorl.thumbnail import ImageField
@@ -48,10 +49,9 @@ class Category(models.Model):
             category = category.parent
         return category
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('category', (), {'category_id': self.id,
-                                 'slug': slugify(self.name)})
+        return reverse('category', (), {'category_id': self.id,
+                                        'slug': slugify(self.name)})
 
     def __str__(self):
         return self.name
@@ -304,10 +304,9 @@ class Product(models.Model):
                 logger.error("failed to save spec %s for product %s: %s",
                     spec, self.model, e)
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('product', (), {'product_id': self.id,
-                                'slug': slugify(self.name)})
+        return reverse('product', (), {'product_id': self.id,
+                                       'slug': slugify(self.name)})
 
     def __str__(self):
         return self.model
