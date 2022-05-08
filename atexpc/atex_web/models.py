@@ -50,8 +50,8 @@ class Category(models.Model):
         return category
 
     def get_absolute_url(self):
-        return reverse('category', (), {'category_id': self.id,
-                                        'slug': slugify(self.name)})
+        return reverse('category', kwargs={'category_id': self.id,
+                                           'slug': slugify(self.name)})
 
     def __str__(self):
         return self.name
@@ -305,8 +305,8 @@ class Product(models.Model):
                     spec, self.model, e)
 
     def get_absolute_url(self):
-        return reverse('product', (), {'product_id': self.id,
-                                       'slug': slugify(self.name)})
+        return reverse('product', kwargs={'product_id': self.id,
+                                          'slug': slugify(self.name)})
 
     def __str__(self):
         return self.model
