@@ -10,8 +10,8 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^', include('atexpc.atex_web.urls')),
-    url(r'^', include('social.apps.django_app.urls', namespace='social')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^', include('social_django.urls', namespace='social')),
+    url(r'^admin/', admin.site.urls),
 ]
 
 handler404 = ErrorView.as_view(error_code=404)

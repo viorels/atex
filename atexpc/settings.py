@@ -42,51 +42,6 @@ SOCIAL_AUTH_USER_MODEL = 'atex_web.CustomUser'
 SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
 FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 
-SOCIAL_AUTH_PIPELINE = (
-    # Get the information we can about the user and return it in a simple
-    # format to create the user instance later. On some cases the details are
-    # already part of the auth response from the provider, but sometimes this
-    # could hit a provider API.
-    'social.pipeline.social_auth.social_details',
-
-    # Get the social uid from whichever service we're authing thru. The uid is
-    # the unique identifier of the given user in the provider.
-    'social.pipeline.social_auth.social_uid',
-
-    # Verifies that the current auth process is valid within the current
-    # project, this is where emails and domains whitelists are applied (if
-    # defined).
-    'social.pipeline.social_auth.auth_allowed',
-
-    # Checks if the current social-account is already associated in the site.
-    'social.pipeline.social_auth.social_user',
-
-    # Make up a username for this person, appends a random string at the end if
-    # there's any collision.
-    'social.pipeline.user.get_username',
-
-    # Send a validation email to the user to verify its email address.
-    # Disabled by default.
-    # 'social.pipeline.mail.mail_validation',
-
-    # Associates the current social details with another user account with
-    # a similar email address. Disabled by default.
-    'social.pipeline.social_auth.associate_by_email',
-
-    # Create a user account if we haven't found one yet.
-    'social.pipeline.user.create_user',
-
-    # Create the record that associated the social account with this user.
-    'social.pipeline.social_auth.associate_user',
-
-    # Populate the extra_data field in the social record with the values
-    # specified by settings (and the default ones like access_token, etc).
-    'social.pipeline.social_auth.load_extra_data',
-
-    # Update the user record with any changed info from the auth service.
-    'social.pipeline.user.user_details',
-)
-
 # https://docs.djangoproject.com/en/dev/releases/1.6/#default-session-serialization-switched-to-json
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
@@ -115,9 +70,9 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 AUTHENTICATION_BACKENDS = (
-    'social.backends.google.GoogleOAuth2',
-    'social.backends.yahoo.YahooOpenId',
-    'social.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.yahoo.YahooOpenId',
+    'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -125,6 +80,7 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/login'
 
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = environ.get('GOOGLE_OAUTH2_CLIENT_ID')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
 SOCIAL_AUTH_FACEBOOK_KEY = environ.get('FACEBOOK_APP_ID')
@@ -241,7 +197,7 @@ MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
     
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-    'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
     'atexpc.atex_web.middleware.AncoraMiddleware'
 )
 
@@ -267,7 +223,7 @@ INSTALLED_APPS = (
     'compressor',
     'sorl.thumbnail',
     'atexpc.atex_web.apps.AtexConfig',  # before social auth
-    'social.apps.django_app.default',
+    'social_django',
     'password_reset',
     'haystack',
     'memoize',
