@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('count', models.IntegerField(default=1)),
-                ('cart', models.ForeignKey(to='atex_web.Cart')),
+                ('cart', models.ForeignKey(to='atex_web.Cart', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -68,7 +68,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=64)),
                 ('code', models.CharField(max_length=8)),
                 ('specs_file', models.FileField(null=True, upload_to=atexpc.atex_web.models._category_specs_path)),
-                ('parent', models.ForeignKey(to='atex_web.Category', null=True)),
+                ('parent', models.ForeignKey(to='atex_web.Category', null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'Categories',
@@ -114,7 +114,7 @@ class Migration(migrations.Migration):
                 ('model', models.CharField(max_length=128, db_index=True)),
                 ('name', models.CharField(max_length=128)),
                 ('updated', models.DateTimeField(auto_now=True, auto_now_add=True)),
-                ('category', models.ForeignKey(to='atex_web.Category', null=True)),
+                ('category', models.ForeignKey(to='atex_web.Category', null=True, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -125,7 +125,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('value', models.TextField(blank=True)),
-                ('product', models.ForeignKey(to='atex_web.Product')),
+                ('product', models.ForeignKey(to='atex_web.Product', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -136,7 +136,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=64)),
-                ('category', models.ForeignKey(to='atex_web.Category', null=True)),
+                ('category', models.ForeignKey(to='atex_web.Category', null=True, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -147,7 +147,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=64)),
-                ('category', models.ForeignKey(to='atex_web.Category', null=True)),
+                ('category', models.ForeignKey(to='atex_web.Category', null=True, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -156,13 +156,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='specification',
             name='group',
-            field=models.ForeignKey(to='atex_web.SpecificationGroup', null=True),
+            field=models.ForeignKey(to='atex_web.SpecificationGroup', null=True, on_delete=django.db.models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='productspecification',
             name='spec',
-            field=models.ForeignKey(to='atex_web.Specification'),
+            field=models.ForeignKey(to='atex_web.Specification', on_delete=django.db.models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -174,13 +174,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='image',
             name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, to='atex_web.Product', null=True),
+            field=models.ForeignKey(to='atex_web.Product', null=True, on_delete=django.db.models.deletion.SET_NULL),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='hit',
             name='product',
-            field=models.ForeignKey(to='atex_web.Product'),
+            field=models.ForeignKey(to='atex_web.Product', on_delete=django.db.models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(
@@ -190,7 +190,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='cartproducts',
             name='product',
-            field=models.ForeignKey(to='atex_web.Product'),
+            field=models.ForeignKey(to='atex_web.Product', on_delete=django.db.models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -202,13 +202,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='cart',
             name='session',
-            field=models.ForeignKey(to='sessions.Session'),
+            field=models.ForeignKey(to='sessions.Session', on_delete=django.db.models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='cart',
             name='user',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True, on_delete=django.db.models.deletion.CASCADE),
             preserve_default=True,
         ),
     ]
