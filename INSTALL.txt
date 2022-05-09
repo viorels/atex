@@ -51,6 +51,11 @@ copy /media /cache
 manage.py migrate
 manage.py rebuild_index
 
+ssl cert!
+ln -s /home/atex/atex/atexpc/config/atex.conf /etc/apache2/sites-availale
+a2enmod wsgi rewrite expires
+a2ensite atex.conf
+user CRONTAB
 
 # DEVELOPMENT
 

@@ -18,6 +18,7 @@ CELERYD_OPTS="--time-limit=300 --concurrency=2"
 # %N will be replaced with the first part of the nodename.
 CELERYD_LOG_FILE="/var/log/celery/%N.log"
 CELERYD_PID_FILE="/var/run/celery/%N.pid"
+CELERYD_LOG_LEVEL=ERROR
 
 # Workers should run as an unprivileged user.
 #   You need to create this user manually (or you can choose
