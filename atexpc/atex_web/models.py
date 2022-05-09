@@ -266,7 +266,7 @@ class Product(models.Model):
                 if prod_spec.spec.group.name in spec_groups:
                     spec_groups[prod_spec.spec.group.name].append((prod_spec.spec.clean_name(),
                                                                    value))
-        for group, values in spec_groups.items():
+        for group, values in spec_groups.copy().items():
             if len(values) == 0:
                 del spec_groups[group]
         return spec_groups
