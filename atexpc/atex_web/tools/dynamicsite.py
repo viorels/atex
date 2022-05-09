@@ -7,8 +7,11 @@ from django.contrib.sites.models import Site
 _default_site_id = getattr(settings, 'SITE_ID', None)
 
 class DynamicSiteIDMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
     """Sets settings.SITE_ID based on request's domain"""
-    def process_request(self, request):
+    def __call__(self, request):
         # Ignore port if it's 80 or 443
         if ':' in request.get_host():
             domain, port = request.get_host().split(':')
@@ -56,6 +59,9 @@ class DynamicSiteIDMiddleware:
                 SITE_ID.value = _default_site_id
 
             cache.set(cache_key, SITE_ID.value, 5*60)
+
+        response = self.get_response(request)
+        return response
 
 def make_tls_property(default=None):
     """Creates a class-wide instance property with a thread-specific value."""
