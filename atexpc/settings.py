@@ -1,4 +1,5 @@
 import django.conf.global_settings as DEFAULT_SETTINGS
+from pathlib import Path
 from os import path, environ
 import sys
 
@@ -132,11 +133,8 @@ SOCIAL_AUTH_FACEBOOK_SECRET = environ.get('FACEBOOK_API_SECRET')
 HAYSTACK_DEFAULT_OPERATOR = 'AND'
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'haystack',
-        'INCLUDE_SPELLING': True,
-        'BATCH_SIZE': 1000,
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': Path(__file__).parent.parent / 'whoosh_index',
     },
 }
 

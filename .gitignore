@@ -13,3 +13,4 @@ backup
 tmp
 newsletter
 xapian_index
+whoosh_index

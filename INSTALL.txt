@@ -1,7 +1,6 @@
 # sudo adduser atex
 # sudo apt-get update
 # sudo apt-get install apache2 redis-server postgresql libpq-dev python3-venv python3-dev libjpeg62-turbo-dev libapache2-mod-wsgi-py3 build-essential git
-# optional xapian: libxapian-dev libxapian30 python3-xapian
 
 # a2dismod python perl php5
 
@@ -15,7 +14,6 @@ $ git clone https://github.com/viorels/atex.git
 $ python3 -m venv venv
 $ . venv/bin/activate
 $ pip install -r atex/requirements/production.txt
-$ ln -s /usr/lib/python3/dist-packages/xapian venv/lib/python3.9/site-packages
 
 $ cat << _EOF_ > .env
 ANCORA_URI=http://ANCORA.SERVER:8765/ancoraerp/jis.serv?database=atex
@@ -50,6 +48,8 @@ _EOF_
 
 restore db
 copy /media /cache
+manage.py migrate
+manage.py rebuild_index
 
 
 # DEVELOPMENT
