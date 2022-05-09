@@ -223,14 +223,14 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
                 'django.template.context_processors.request',
-                'social.apps.django_app.context_processors.login_redirect',
+                'social_django.context_processors.login_redirect',
                 'atexpc.atex_web.middleware.context_processor',
             ],
         },
     },
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

@@ -3,7 +3,7 @@ import json
 from operator import itemgetter
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.text import slugify
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView

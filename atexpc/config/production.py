@@ -13,7 +13,7 @@ ALLOWED_HOSTS = [
     '.atexsolutions.ro',
 ]
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE += (
     'atexpc.atex_web.tools.dynamicsite.DynamicSiteIDMiddleware',
 )
 

@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model, login, authenticate, REDIRECT_FIELD_NAME
 from django.contrib.auth.signals import user_logged_out
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.dispatch import receiver
 from django.views.generic import ListView
 from django.views.generic.edit import FormView

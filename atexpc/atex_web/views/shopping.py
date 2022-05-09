@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.http import HttpResponseRedirect, HttpResponseNotFound, JsonResponse
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth import login
 from django.views.generic import View
 from django.views.generic.edit import FormView
