@@ -3,7 +3,7 @@
 
 {% block title %}{{ product.name }} - {{ block.super }}{% endblock title %}
 {% block head %}
-	<meta name="description" content="{{ product.description|safe }}">
+	<meta name="description" content="{{ product.description|escape }}">
 
 	<meta name="keywords" content=""> 
 {% endblock %}
