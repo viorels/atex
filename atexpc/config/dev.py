@@ -22,7 +22,7 @@ DATABASES = {
     }
 }
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 #    'atexpc.atex_web.tools.dynamicsite.DynamicSiteIDMiddleware',
 )

@@ -17,7 +17,10 @@ urlpatterns = [
 handler404 = ErrorView.as_view(error_code=404)
 
 if settings.DEBUG:
+    import debug_toolbar
+
     urlpatterns += [
+        url(r'__debug__/', include(debug_toolbar.urls)),
         url(r'^404/$', handler404),
         url(r'^500/$', ErrorView.as_view(error_code=500)),
         url(r'^robots.txt$', lambda r: HttpResponse("User-agent: *\nDisallow: /",

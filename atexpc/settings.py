@@ -71,7 +71,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.yahoo.YahooOpenId',
+    #'social_core.backends.yahoo.YahooOpenId', # TODO: use YahooOAuth2
     'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )

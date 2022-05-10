@@ -17,7 +17,7 @@ from .utils import one_month_ago
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'code')
+    list_display = ('name', 'specs_file', 'code')
     readonly_fields = ('code', 'name')
     search_fields = ('name',)
     ordering = ('code',)
@@ -39,7 +39,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
     def get_actions(self, request):
         actions = super().get_actions(request)
-        del actions['delete_selected']
+        #del actions['delete_selected']
         return actions
 
     def has_delete_permission(self, request, obj=None): # note the obj=None
@@ -93,7 +93,7 @@ class ProductQuerySet(QuerySet):
     def _get_related_field(self, related_model):
         """ Search the field on the related model that is connecting back to this model."""
         related_fields = [f for f in related_model._meta.fields
-                          if f.rel and f.rel.to == self.model]
+                          if f.remote_field and f.remote_field.model == self.model]
         return related_fields[0]
 
 
@@ -103,7 +103,7 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_filter = (ImageCountListFilter,)
     readonly_fields = ('name', 'model',)
-    actions = ('action_create_dropbox_folder',)
+    actions = admin.ModelAdmin.actions + ['action_create_dropbox_folder']
 
     def action_create_dropbox_folder(self, request, queryset):
         dropbox = DropboxMedia()
