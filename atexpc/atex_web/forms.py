@@ -122,10 +122,12 @@ def user_form_factory(is_signup, api):
     class SignupForm(LoginForm):
         first_name = forms.CharField(
             label="Prenume",
+            required=False,
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "prenume"}))
         last_name = forms.CharField(
             label="Nume",
+            required=False,
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "nume de familie"}))
         terms = forms.BooleanField( # Am citit si sunt de acord cu Termenii & Conditii de utilizare

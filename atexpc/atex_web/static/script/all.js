@@ -406,10 +406,9 @@ function predict_login_form(email_exists, is_final) {
 
 function update_login_form(login_type) {
     var login_form = $("#loginform");
-
-    var all_fields = login_form.find('[class*="login_type"]').hide();
+    var all_fields = login_form.find('[class*="login_type"]').hide().find('input[type="text"]').prop('required',false);
     if (login_type) {
-        login_form.find('.login_type_' + login_type).show();
+        login_form.find('.login_type_' + login_type).show().find('input[type="text"]').prop('required',true);
     }
     else {
         login_form.find('.login_type_none').show();
