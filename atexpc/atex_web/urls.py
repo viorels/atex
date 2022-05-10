@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^Black-Friday/', BlackFridayView.as_view(), name='black-friday'),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^login/emails/(?P<username>\w+)$', GetEmails.as_view()),
-    url(r'^logout/$', django.contrib.auth.views.LogoutView, {'next_page': '/'}, name='logout'),
+    url(r'^logout/$', django.contrib.auth.views.LogoutView.as_view(next_page='/'), name='logout'),
 
     url(r'^recover/(?P<signature>.+)/$', RecoverPasswordDone.as_view(),
         name='password_reset_sent'),
