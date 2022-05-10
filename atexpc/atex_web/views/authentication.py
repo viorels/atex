@@ -53,8 +53,8 @@ class LoginBase(CSRFCookieMixin, FormView, HybridGenericView):
         return super().form_invalid(form)
 
     def get_success_url(self):
-        redirect_to = self.request.REQUEST.get(REDIRECT_FIELD_NAME, '')
-        if not is_safe_url(url=redirect_to, host=self.request.get_host()):
+        redirect_to = self.request.GET.get(REDIRECT_FIELD_NAME, '')
+        if not is_safe_url(url=redirect_to, allowed_hosts=self.request.get_host()):
             redirect_to = settings.LOGIN_REDIRECT_URL
         return redirect_to
 
