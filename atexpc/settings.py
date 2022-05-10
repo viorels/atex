@@ -89,8 +89,13 @@ SOCIAL_AUTH_FACEBOOK_SECRET = environ.get('FACEBOOK_API_SECRET')
 HAYSTACK_DEFAULT_OPERATOR = 'AND'
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': Path(__file__).parent.parent / 'whoosh_index',
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://localhost:8983/solr/atex',
+        'ADMIN_URL': 'http://localhost:8983/solr/admin/cores',
+        'TIMEOUT': 60 * 5,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+        'EXCLUDED_INDEXES': [],
     },
 }
 

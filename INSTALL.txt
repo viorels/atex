@@ -43,6 +43,12 @@ _EOF_
 # systemctl daemon-reload
 # systemctl enable celery.service
 
+* Solr
+https://stackoverflow.com/questions/61939043/django-haystack-and-solr-8-5-1
+ufw allow ssh
+ufw deny 8983
+ufw enable
+
 
 # MIGRATION
 
