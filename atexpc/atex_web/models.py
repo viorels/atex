@@ -111,7 +111,7 @@ class ProductManager(models.Manager):
 class StorageWithOverwrite(get_storage_class()):
     """Storage that unconditionally overwrites files"""
 
-    def get_available_name(self, name):
+    def get_available_name(self, name, max_length=None):
         self.delete(name)
         return name
 
