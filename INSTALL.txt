@@ -1,6 +1,7 @@
 # sudo adduser atex
 # sudo apt-get update
 # sudo apt-get install apache2 redis-server postgresql libpq-dev python3-venv python3-dev libjpeg62-turbo-dev libapache2-mod-wsgi-py3 build-essential git
+# sudo apt-get install certbot python3-certbot-apache
 
 # a2dismod python perl php5
 
@@ -57,11 +58,13 @@ copy /media /cache
 manage.py migrate
 manage.py rebuild_index
 
-ssl cert!
+ssl cert! https://simpledrupal.com/article/migrate-lets-encrypt-certificates-certbot-new-server
 ln -s /home/atex/atex/atexpc/config/atex.conf /etc/apache2/sites-availale
-a2enmod wsgi rewrite expires
+a2enmod wsgi rewrite expires ssl
 a2ensite atex.conf
-user CRONTAB
+
+# user CRONTAB
+0 3 * * * /home/atex/atex/sync_products.sh
 
 # DEVELOPMENT
 
