@@ -5,7 +5,7 @@ from optparse import make_option
 
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.text import slugify
 from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
@@ -46,23 +46,23 @@ class atomic_write:
 
 class Command(BaseCommand):
     help = "Synchronize Ancora products to local database AND (optionally) to Shopmania feed file"
-    option_list = BaseCommand.option_list + (
-        make_option('--to-shops',
+
+    def add_arguments(self, parser):
+        parser.add_argument('--to-shops',
             action='store_true',
             dest='shops',
             default=False,
-            help='Also generate Shopmania data feed'),
-        make_option('--from-pcgarage',
+            help='Also generate Shopmania data feed')
+        parser.add_argument('--from-pcgarage',
             action='store_true',
             dest='pcgarage',
             default=False,
-            help='Get product details from pcgarage'),
-        make_option('--fast',
+            help='Get product details from pcgarage')
+        parser.add_argument('--fast',
             action='store_true',
             dest='fast',
             default=False,
-            help='Do not get product details from Ancora'),
-        )
+            help='Do not get product details from Ancora')
 
     CLEAN_INFO_UNWANTED_CHARS = {
         '|': None,
