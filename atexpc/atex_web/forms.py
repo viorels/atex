@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 
+import re
 from django import forms
 from django.contrib.auth import forms as auth_forms, get_user_model
-from django.core.validators import validate_email
+from django.core.validators import validate_email, EMPTY_VALUES
 from django.forms.widgets import (TextInput, PasswordInput, HiddenInput, 
     CheckboxInput, RadioSelect, Select, Textarea)
+from django.utils.translation import ugettext_lazy as _
 from haystack.forms import FacetedSearchForm
 from haystack.inputs import AutoQuery, Exact
 from haystack.query import SQ
 # ROCNPField, ROPhoneNumberField, ROCIFField, ROIBANField, ROCountyField, ROCountySelect
 from localflavor.ro import forms as roforms
+from localflavor.generic.forms import IBANFormField
 
 from .models import Product
 
@@ -197,7 +200,7 @@ def order_form_factory(form_type, user, customers=[], addresses=[], delivery=Fal
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "nume de familie"}),
             initial=user.last_name)
-        phone = roforms.ROPhoneNumberField(
+        phone = ROPhoneNumberField(	# TODO: use https://github.com/stefanfoulis/django-phonenumber-field
             max_length=None, min_length=None,
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "telefon"}),
@@ -300,8 +303,9 @@ def order_form_factory(form_type, user, customers=[], addresses=[], delivery=Fal
         bank = forms.CharField(
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Banca"}))
-        bank_account = roforms.ROIBANField(
+        bank_account = IBANFormField(
             max_length=None, min_length=None,
+            include_countries=('RO',),
             widget=TextInput(attrs={"class": "input_cos",
                                     "placeholder": "Cont bana (IBAN)"}))
 
@@ -322,3 +326,59 @@ def order_form_factory(form_type, user, customers=[], addresses=[], delivery=Fal
                   'j': CompanyOrderForm,
                   'o': ONGOrderForm}
     return form_types.get(form_type, BaseOrderForm)
+
+
+phone_digits_re = re.compile(r'^[0-9\-\.\(\)\s]{3,20}$')
+
+class ROPhoneNumberField(forms.RegexField):
+    """
+    Romanian phone number field
+
+    .. versionchanged:: 1.1
+
+        | Made the field also accept national short phone numbers and 7-digit
+          regional phone numbers besides the regular ones.
+        | Official documentation (in English): http://www.ancom.org.ro/en/pnn_1300
+        | Official documentation (in Romanian): http://www.ancom.org.ro/pnn_1300
+
+    """
+    default_error_messages = {
+        'invalid_length':
+            _('Phone numbers may only have 7 or 10 digits, except the ' +
+              'national short numbers which have 3 to 6 digits'),
+        'invalid_long_format':
+            _('Normal phone numbers (7 or 10 digits) must begin with "0"'),
+        'invalid_short_format':
+            _('National short numbers (3 to 6 digits) must begin with "1"'),
+    }
+
+    def __init__(self, max_length=20, min_length=3, *args, **kwargs):
+        super(ROPhoneNumberField, self).__init__(phone_digits_re,
+                                                 max_length=max_length, min_length=min_length, *args, **kwargs)
+
+    def clean(self, value):
+        """
+        Strips braces, dashes, dots and spaces. Checks the final length.
+
+        Args:
+            value: the phone number
+        """
+        value = super(ROPhoneNumberField, self).clean(value)
+        if value in EMPTY_VALUES:
+            return ''
+
+        value = re.sub('[()-. ]', '', value)
+        length = len(value)
+
+        if length in (3, 4, 5, 6, 7, 10):
+            if (length == 7 or length == 10) and value[0] != '0':
+                raise ValidationError(
+                    self.error_messages['invalid_long_format'])
+            elif (3 <= length <= 6) and value[0] != '1':
+                raise ValidationError(
+                    self.error_messages['invalid_short_format'])
+        else:
+            raise ValidationError(self.error_messages['invalid_length'])
+
+        return value
+

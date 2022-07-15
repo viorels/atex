@@ -56,7 +56,7 @@ class CartView(BreadcrumbsMixin, CSRFCookieMixin, HybridGenericView):
     def _create_cart(self):
         # TODO: are cookies enabled ?
         ancora_user_id = guest_id = 0
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             ancora_user_id = self.request.user.get_ancora_id(self.request.api)
         cart = CartFactory(api=self.request.api).create(ancora_user_id)
         self.request.session['cart_id'] = cart.id()
